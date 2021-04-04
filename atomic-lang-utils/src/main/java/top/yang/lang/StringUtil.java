@@ -1,4 +1,4 @@
-package top.yang.text;
+package top.yang.lang;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -370,4 +370,6 @@ public class StringUtil extends StringUtils {
     public static String nullToDefault(String str, String defaultStr) {
         return (str == null) ? defaultStr : str.toString();
     }
+
+
 }

@@ -1,4 +1,4 @@
-package top.yang.text;
+package top.yang.lang;
 
 import org.apache.commons.lang3.CharSetUtils;
 
