@@ -1,8 +1,8 @@
 package top.yang.lang;
 
-import cn.hutool.core.lang.hash.CityHash;
-import cn.hutool.core.lang.hash.MurmurHash;
-import cn.hutool.core.lang.hash.Number128;
+import top.yang.lang.hash.CityHash;
+import top.yang.lang.hash.MurmurHash;
+import top.yang.lang.hash.Number128;
 
 /**
  * Hash算法大全<br>
