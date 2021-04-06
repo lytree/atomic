@@ -28,4 +28,10 @@ atomic-beanutils-utils/.idea
 atomic-text-utils/.idea
 atomic-parent/.idea
 atomic-codec-utils/.idea
-
+atomic-lang-utils/target
+atomic-io-utils/target
+atomic-beanutils-utils/target
+atomic-text-utils/target
+atomic-parent/target
+atomic-codec-utils/target
+/target

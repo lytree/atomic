@@ -1,0 +1,76 @@
+management:
+  health:
+    mail:
+      enabled: false
+  server:
+    servlet:
+      context-path: /actuator
+mybatis:
+  mapper-locations: classpath:/mybatis-mapper/*Mapper.xml
+server:
+  port: 10000
+  servlet:
+    context-path: /atomic-job-admin
+spring:
+  application:
+    name: atomic-job-admin
+  cloud:
+    nacos:
+      config:
+        server-addr: 1.15.132.21
+      discovery:
+        server-addr: 1.15.132.21
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true
+      connection-test-query: SELECT 1
+      connection-timeout: 10000
+      idle-timeout: 30000
+      max-lifetime: 900000
+      maximum-pool-size: 30
+      minimum-idle: 10
+      pool-name: HikariCP
+      validation-timeout: 1000
+    password: yzh19981204mysql
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://rm-bp10e4nv292738qp6xm.mysql.rds.aliyuncs.com:3306/xxl_job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    username: prideyang
+  freemarker:
+    charset: UTF-8
+    request-context-attribute: request
+    settings:
+      number_format: 0.##########
+    suffix: .ftl
+    templateLoaderPath: classpath:/templates/
+  mail:
+    from: xxx@qq.com
+    host: smtp.qq.com
+    password: xxx
+    port: 25
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          starttls:
+            enable: true
+            required: true
+    username: xxx@qq.com
+  mvc:
+    servlet:
+      load-on-startup: 0
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/static/
+xxl:
+  job:
+    accessToken: ''
+    i18n: zh_CN
+    logretentiondays: 5
+    triggerpool:
+      fast:
+        max: 200
+      slow:
+        max: 100
