@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>top.yang</groupId>
-    <artifactId>atomic-net-utils</artifactId>
+    <artifactId>atomic-net</artifactId>
     <version>1.0-SNAPSHOT</version>
     <parent>
         <groupId>top.yang</groupId>
@@ -23,12 +23,12 @@
         </dependency>
         <dependency>
             <groupId>top.yang</groupId>
-            <artifactId>atomic-json-utils</artifactId>
+            <artifactId>atomic-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>top.yang</groupId>
-            <artifactId>atomic-io-utils</artifactId>
+            <artifactId>atomic-io</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

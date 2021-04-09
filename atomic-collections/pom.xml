@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>top.yang</groupId>
-    <artifactId>atomic-collections-utils</artifactId>
+    <artifactId>atomic-collections</artifactId>
     <version>1.0-SNAPSHOT</version>
     <parent>
         <artifactId>atomic-parent</artifactId>
