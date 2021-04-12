@@ -1,9 +1,6 @@
 package top.yang;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.DynaProperty;
+import org.apache.commons.beanutils.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -13,8 +10,43 @@ import java.util.Map;
 
 public class BeanUtilBean extends BeanUtilsBean {
     private final Log log = LogFactory.getLog(BeanUtil.class);
+// ------------------------------------------------------ Private Class Variables
 
-    public void copyPropertyIgnoreNull(Object dest, Object orig)
+    /**
+     * Contains <code>BeanUtilsBean</code> instances indexed by context classloader.
+     */
+    private static final ContextClassLoaderLocal<BeanUtilBean>
+            BEANS_BY_CLASSLOADER = new ContextClassLoaderLocal<BeanUtilBean>() {
+        // Creates the default instance used when the context classloader is unavailable
+        @Override
+        protected BeanUtilBean initialValue() {
+            return new BeanUtilBean();
+        }
+    };
+
+    /**
+     * Gets the instance which provides the functionality for {@link BeanUtils}.
+     * This is a pseudo-singleton - an single instance is provided per (thread) context classloader.
+     * This mechanism provides isolation for web apps deployed in the same container.
+     *
+     * @return The (pseudo-singleton) BeanUtils bean instance
+     */
+    public static BeanUtilBean getInstance() {
+        return BEANS_BY_CLASSLOADER.get();
+    }
+
+    /**
+     * Sets the instance which provides the functionality for {@link BeanUtils}.
+     * This is a pseudo-singleton - an single instance is provided per (thread) context classloader.
+     * This mechanism provides isolation for web apps deployed in the same container.
+     *
+     * @param newInstance The (pseudo-singleton) BeanUtils bean instance
+     */
+    public static void setInstance(BeanUtilBean newInstance) {
+        BEANS_BY_CLASSLOADER.set(newInstance);
+    }
+
+    public void copyPropertiesIgnoreNull(Object dest, Object orig)
             throws IllegalAccessException, InvocationTargetException {
 
         // Validate existence of the specified beans
@@ -67,7 +99,9 @@ public class BeanUtilBean extends BeanUtilsBean {
                     try {
                         Object value =
                                 getPropertyUtils().getSimpleProperty(orig, name);
-                        copyProperty(dest, name, value);
+                        if (value != null) {
+                            copyProperty(dest, name, value);
+                        }
                     } catch (NoSuchMethodException e) {
                         // Should not happen
                     }
