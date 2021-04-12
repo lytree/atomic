@@ -1,10 +1,12 @@
 package top.yang.net.enums;
 
+import okhttp3.MediaType;
+
 /**
  * @author lenovo
  */
 
-public enum MediaTypes {
+public enum ContentTypes {
     //MediaTypes类型
     JSON("application/json; charset=utf-8"),
     IMG("application/x-img"),
@@ -20,18 +22,18 @@ public enum MediaTypes {
     TXT("text/plain"),
     XLS("application/x-xls"),
     ZIP("application/zip"),
+    APK("application/vnd.android.package-archive"),
     STREAM("application/octet-stream"),
     FORM("application/x-www-form-urlencoded"),
     UPLOAD("multipart/form-data"),
     HTML("text/html");
     private final String mediaType;
 
-    public String getMediaType() {
-        return mediaType;
+    public MediaType getMediaType() {
+        return MediaType.parse(mediaType);
     }
 
-    MediaTypes(String mediaType) {
-
+    ContentTypes(String mediaType) {
         this.mediaType = mediaType;
     }
 }
