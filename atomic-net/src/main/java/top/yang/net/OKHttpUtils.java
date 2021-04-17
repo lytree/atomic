@@ -9,6 +9,7 @@ import top.yang.net.request.HttpRequestCacheControl;
 import top.yang.net.request.HttpRequestHeader;
 import top.yang.net.request.HttpRequestUrl;
 
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
@@ -25,22 +26,5 @@ public class OKHttpUtils {
                         readTimeout(5, TimeUnit.SECONDS).
                         writeTimeout(5, TimeUnit.SECONDS).
                         build();
-    }
-
-    public static void main(String[] args) {
-        HashMap<String, Object> hashMap = new HashMap<>();
-        Headers header = HttpRequestHeader.header(hashMap);
-        Request build = new Request.Builder().url(Objects.requireNonNull(HttpRequestUrl.createUrl("https://www.mzitu.com"))).headers(header).cacheControl(HttpRequestCacheControl.noCache()).get().build();
-        try {
-            Response execute = okHttpClient.newCall(build).execute();
-            boolean successful = execute.isSuccessful();
-            if (successful == true){
-                String bytes = execute.body().string();
-                System.out.println(bytes);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

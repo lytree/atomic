@@ -116,7 +116,9 @@ public class HttpsUtils {
     }
 
     private static TrustManager[] prepareTrustManager(InputStream... certificates) {
-        if (certificates == null || certificates.length <= 0) return null;
+        if (certificates == null || certificates.length <= 0) {
+            return null;
+        }
         try {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
             // 创建一个默认类型的KeyStore，存储我们信任的证书
