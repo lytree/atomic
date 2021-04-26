@@ -1,6 +1,6 @@
 package top.yang.web.request;
 
-public class PageRequest implements Request {
+public class PageRequest extends Request {
     private Long page;
 
     private Long pageSize;

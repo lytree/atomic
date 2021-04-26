@@ -1,5 +1,9 @@
 package top.yang.web.enums;
 
+/**
+ * @author Y
+ */
+
 public enum CommonCode implements ResultCode {
     INVALID_PARAM(false, 10003, "非法参数！"),
     SUCCESS(true, 10000, "操作成功！"),
