@@ -22,16 +22,9 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 .idea
-atomic-lang-utils/.idea
-atomic-io-utils/.idea
-atomic-beanutils-utils/.idea
-atomic-text-utils/.idea
-atomic-parent/.idea
-atomic-codec-utils/.idea
-atomic-lang-utils/target
-atomic-io-utils/target
-atomic-beanutils-utils/target
-atomic-text-utils/target
-atomic-parent/target
-atomic-codec-utils/target
-/target
+!/atomic-net/target/
+!/atomic-encryption/target/
+!/atomic-datastructure/target/
+!/atomic-web/target/
+!/atomic-core/target/
+!/atomic-parent/target/
