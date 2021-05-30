@@ -28,3 +28,9 @@ hs_err_pid*
 !/atomic-web/target/
 !/atomic-core/target/
 !/atomic-parent/target/
+!/atomic-parent/.idea/
+!/atomic-net/.idea/
+!/atomic-encryption/.idea/
+!/atomic-datastructure/.idea/
+!/atomic-web/.idea/
+!/atomic-core/.idea/
