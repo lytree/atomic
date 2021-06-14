@@ -15,9 +15,9 @@ public class ResponseResult implements Response {
     String message;
 
     public ResponseResult(ResultCode resultCode) {
-        this.success = resultCode.success();
-        this.code = resultCode.code();
-        this.message = resultCode.message();
+        this.success = resultCode.isSuccess();
+        this.code = resultCode.getCode();
+        this.message = resultCode.getMessage();
     }
 
     public static ResponseResult SUCCESS() {

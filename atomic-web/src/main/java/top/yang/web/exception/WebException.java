@@ -2,12 +2,12 @@ package top.yang.web.exception;
 
 import top.yang.web.enums.ResultCode;
 
-public class CustomException extends RuntimeException {
+public class WebException extends RuntimeException {
 
     //错误代码
     ResultCode resultCode;
 
-    public CustomException(ResultCode resultCode) {
+    public WebException(ResultCode resultCode) {
         this.resultCode = resultCode;
     }
 

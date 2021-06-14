@@ -125,6 +125,7 @@ top\yang\time\TimeZones.class
 top\yang\collections\iterators\ListIteratorWrapper.class
 top\yang\time\DurationFormatUtils$Token.class
 top\yang\math\HexUtil.class
+top\yang\exception\AtomicException.class
 top\yang\time\StopWatch$SplitState.class
 top\yang\string\StringUtils.class
 top\yang\time\FastDateParser$PatternStrategy.class

@@ -7,6 +7,7 @@ public enum CommonCode implements ResultCode {
     UNAUTHENTICATED(false, 10001, "此操作需要登陆系统！"),
     UNAUTHORISE(false, 10002, "权限不足，无权操作！"),
     SERVER_ERROR(false, 99999, "抱歉，系统繁忙，请稍后重试！");
+
     //    private static ImmutableMap<Integer, CommonCode> codes ;
     //操作是否成功
     boolean success;
@@ -21,21 +22,20 @@ public enum CommonCode implements ResultCode {
         this.message = message;
     }
 
+
     @Override
-    public boolean success() {
+    public boolean isSuccess() {
         return success;
     }
 
     @Override
-    public int code() {
+    public int getCode() {
         return code;
     }
 
     @Override
-    public String message() {
+    public String getMessage() {
         return message;
     }
-
-
 }
 

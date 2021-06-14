@@ -1,4 +1,4 @@
-package top.yang.web.factory;
+package top.yang.spring.factory;
 
 import java.util.HashMap;
 import java.util.Map;

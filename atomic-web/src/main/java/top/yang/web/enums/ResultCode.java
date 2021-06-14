@@ -1,13 +1,10 @@
 package top.yang.web.enums;
 
 public interface ResultCode {
-    //操作是否成功,true为成功，false操作失败
-    boolean success();
+    boolean isSuccess();
 
-    //操作代码
-    int code();
+    int getCode();
 
-    //提示信息
-    String message();
+    String getMessage();
 
 }
