@@ -6,5 +6,6 @@ package top.yang.exception;
 public class JSONException extends AtomicException {
 
     public JSONException(String s, String s1) {
+        super(s,s1);
     }
 }
