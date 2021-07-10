@@ -2,13 +2,12 @@ package top.yang.net.request;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import top.yang.json.JSONUtil;
+
 import top.yang.net.enums.ContentTypes;
 
 import java.io.File;
 import java.util.Map;
+import top.yang.net.utils.JSONUtil;
 
 public class HttpRequestBody {
     private final static Logger logger = LoggerFactory.getLogger(HttpRequestBody.class);
