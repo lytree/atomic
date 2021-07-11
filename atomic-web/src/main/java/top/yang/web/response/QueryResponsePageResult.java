@@ -1,7 +1,5 @@
 package top.yang.web.response;
 
-import top.yang.web.enums.ResultCode;
-
 public class QueryResponsePageResult<T> extends ResponseResult {
     private PageResult<T> pageResult;
 

@@ -4,20 +4,24 @@ package top.yang.exception;
  * @author PrideYang
  */
 public class AtomicException extends RuntimeException {
-    protected String code;
 
-    protected String message;
+  protected Boolean success;
+  protected String code;
 
-    public AtomicException() {
-    }
+  protected String message;
 
-    public AtomicException(String code, String msg) {
-        this.code = code;
-        this.message = msg;
-    }
+  public AtomicException() {
+  }
 
-    public AtomicException(ExceptionCode code) {
-        this.code = code.getCode();
-        this.message = code.getMessage();
-    }
+  public AtomicException(Boolean success, String code, String msg) {
+    this.success = success;
+    this.code = code;
+    this.message = msg;
+  }
+
+  public AtomicException(ResultCode code) {
+    this.success = code.isSuccess();
+    this.code = code.getCode();
+    this.message = code.getMessage();
+  }
 }

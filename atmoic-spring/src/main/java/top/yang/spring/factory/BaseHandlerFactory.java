@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author PrideYang
+ */
 public abstract class BaseHandlerFactory<T> {
 
     private Map<String, T> handlers = new HashMap<>();
