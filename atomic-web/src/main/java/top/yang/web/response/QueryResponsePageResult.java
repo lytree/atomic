@@ -1,5 +1,7 @@
 package top.yang.web.response;
 
+import top.yang.web.response.base.PageResult;
+
 public class QueryResponsePageResult<T> extends ResponseResult {
     private PageResult<T> pageResult;
 
