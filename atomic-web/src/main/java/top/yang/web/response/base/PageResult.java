@@ -1,6 +1,6 @@
 package top.yang.web.response.base;
 
-import top.yang.admin.pojo.vo.base.Result;
+
 
 import java.util.List;
 
