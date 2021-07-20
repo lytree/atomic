@@ -4,10 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import top.yang.entity.BaseBean;
+import top.yang.pojo.BaseBean;
 import top.yang.manager.repository.BaseRepository;
 
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;

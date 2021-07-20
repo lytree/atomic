@@ -1,4 +1,4 @@
-package top.yang.web.request;
+package top.yang.web.query;
 
 import java.io.Serializable;
 
