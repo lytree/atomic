@@ -1,12 +1,13 @@
 package top.yang.net.cookie.store;
 
+import java.util.concurrent.ConcurrentHashMap;
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 
 import java.util.*;
 
 public class MemoryCookieStore implements CookieStore {
-    private final Map<String, List<Cookie>> memoryCookies = new HashMap<>();
+    private final Map<String, List<Cookie>> memoryCookies = new ConcurrentHashMap<>();
 
     @Override
     public synchronized void saveCookie(HttpUrl url, List<Cookie> cookies) {

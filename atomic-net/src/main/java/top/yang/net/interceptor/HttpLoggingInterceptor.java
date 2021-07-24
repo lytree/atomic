@@ -1,17 +1,18 @@
 package top.yang.net.interceptor;
 
+import java.io.InputStream;
 import okhttp3.*;
 import okhttp3.internal.http.HttpHeaders;
 import okio.Buffer;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.yang.io.IOUtil;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
+import top.yang.io.IOUtils;
 
 public class HttpLoggingInterceptor implements Interceptor {
     private final static Logger logger = LoggerFactory.getLogger(HttpLoggingInterceptor.class);
@@ -149,7 +150,7 @@ public class HttpLoggingInterceptor implements Interceptor {
                     if (responseBody == null) return response;
 
                     if (isPlaintext(responseBody.contentType())) {
-                        byte[] bytes = IOUtil.toByteArray(responseBody.byteStream());
+                        byte[] bytes = responseBody.bytes();
                         MediaType contentType = responseBody.contentType();
                         String body = new String(bytes, getCharset(contentType));
                         logger.info("\tbody:" + body);

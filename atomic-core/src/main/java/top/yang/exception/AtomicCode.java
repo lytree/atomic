@@ -6,23 +6,16 @@ package top.yang.exception;
  * @author PrideYang
  */
 public enum AtomicCode implements ResultCode {
-  SUCCESS(true, "0000", "操作成功！"),
-  FAIL(false, "9999", "操作失败！"),
+  SUCCESS("0000", "操作成功！"),
+  FAIL("9999", "操作失败！"),
   ;
 
-  private final Boolean success;
   private final String code;
   private final String message;
 
-  AtomicCode(Boolean success, String code, String message) {
-    this.success = success;
+  AtomicCode(String code, String message) {
     this.code = code;
     this.message = message;
-  }
-
-  @Override
-  public Boolean isSuccess() {
-    return success;
   }
 
   @Override

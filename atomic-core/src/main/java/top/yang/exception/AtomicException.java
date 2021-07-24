@@ -5,7 +5,6 @@ package top.yang.exception;
  */
 public class AtomicException extends RuntimeException {
 
-  protected Boolean success;
   protected String code;
 
   protected String message;
@@ -13,14 +12,12 @@ public class AtomicException extends RuntimeException {
   public AtomicException() {
   }
 
-  public AtomicException(Boolean success, String code, String msg) {
-    this.success = success;
+  public AtomicException(String code, String msg) {
     this.code = code;
     this.message = msg;
   }
 
   public AtomicException(ResultCode code) {
-    this.success = code.isSuccess();
     this.code = code.getCode();
     this.message = code.getMessage();
   }
