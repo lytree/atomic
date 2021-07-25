@@ -22,10 +22,12 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Predicate;
 
 
@@ -355,4 +357,194 @@ public class ListUtils {
             return list.isEmpty();
         }
     }
+    /**
+     * 新建一个ArrayList
+     *
+     * @param <T>    集合元素类型
+     * @param values 数组
+     * @return ArrayList对象
+     */
+    @SafeVarargs
+    public static <T> ArrayList<T> toList(T... values) {
+        return (ArrayList<T>) list(false, values);
+    }
+
+    /**
+     * 数组转为一个不可变List<br>
+     * 类似于Java9中的List.of
+     *
+     * @param ts  对象
+     * @param <T> 对象类型
+     * @return 不可修改List
+     * @since 5.4.3
+     */
+    @SafeVarargs
+    public static <T> List<T> of(T... ts) {
+        if (ArrayUtils.isEmpty(ts)) {
+            return Collections.emptyList();
+        }
+        return Collections.unmodifiableList(toList(ts));
+    }
+
+    /**
+     * 新建一个CopyOnWriteArrayList
+     *
+     * @param <T>        集合元素类型
+     * @param collection 集合
+     * @return {@link CopyOnWriteArrayList}
+     */
+    public static <T> CopyOnWriteArrayList<T> toCopyOnWriteArrayList(Collection<T> collection) {
+        return (null == collection) ? (new CopyOnWriteArrayList<>()) : (new CopyOnWriteArrayList<>(collection));
+    }
+
+    /**
+     * 新建一个ArrayList
+     *
+     * @param <T>        集合元素类型
+     * @param collection 集合
+     * @return ArrayList对象
+     */
+    public static <T> ArrayList<T> toList(Collection<T> collection) {
+        return (ArrayList<T>) list(false, collection);
+    }
+
+    /**
+     * 新建一个ArrayList<br>
+     * 提供的参数为null时返回空{@link ArrayList}
+     *
+     * @param <T>      集合元素类型
+     * @param iterable {@link Iterable}
+     * @return ArrayList对象
+     * @since 3.1.0
+     */
+    public static <T> ArrayList<T> toList(Iterable<T> iterable) {
+        return (ArrayList<T>) list(false, iterable);
+    }
+
+    /**
+     * 新建一个ArrayList<br>
+     * 提供的参数为null时返回空{@link ArrayList}
+     *
+     * @param <T>      集合元素类型
+     * @param iterator {@link Iterator}
+     * @return ArrayList对象
+     * @since 3.0.8
+     */
+    public static <T> ArrayList<T> toList(Iterator<T> iterator) {
+        return (ArrayList<T>) list(false, iterator);
+    }
+
+    /**
+     * 新建一个ArrayList<br>
+     * 提供的参数为null时返回空{@link ArrayList}
+     *
+     * @param <T>         集合元素类型
+     * @param enumeration {@link Enumeration}
+     * @return ArrayList对象
+     * @since 3.0.8
+     */
+    public static <T> ArrayList<T> toList(Enumeration<T> enumeration) {
+        return (ArrayList<T>) list(false, enumeration);
+    }
+    /**
+     * 新建一个空List
+     *
+     * @param <T>      集合元素类型
+
+     * @return List对象
+     * @since 4.1.2
+     */
+    public static <T> List<T> list() {
+        return new ArrayList<>();
+    }
+    /**
+     * 新建一个List
+     *
+     * @param <T>      集合元素类型
+
+     * @param values   数组
+     * @return List对象
+     * @since 4.1.2
+     */
+    @SafeVarargs
+    public static <T> List<T> list(T... values) {
+        if (ArrayUtils.isEmpty(values)) {
+            return list();
+        }
+        final List<T> arrayList =  new ArrayList<>(values.length);
+        Collections.addAll(arrayList, values);
+        return arrayList;
+    }
+
+    /**
+     * 新建一个List
+     *
+     * @param <T>        集合元素类型
+     * @param collection 集合
+     * @return List对象
+     * @since 4.1.2
+     */
+    public static <T> List<T> list( Collection<T> collection) {
+        if (null == collection) {
+            return list();
+        }
+        return  new ArrayList<>(collection);
+    }
+
+    /**
+     * 新建一个List<br>
+     * 提供的参数为null时返回空{@link ArrayList}
+     *
+     * @param <T>      集合元素类型
+
+     * @param iterable {@link Iterable}
+     * @return List对象
+     * @since 4.1.2
+     */
+    public static <T> List<T> list(Iterable<T> iterable) {
+        if (null == iterable) {
+            return list();
+        }
+        return list( iterable.iterator());
+    }
+
+    /**
+     * 新建一个ArrayList<br>
+     * 提供的参数为null时返回空{@link ArrayList}
+     *
+     * @param <T>      集合元素类型
+
+     * @param iter     {@link Iterator}
+     * @return ArrayList对象
+     * @since 4.1.2
+     */
+    public static <T> List<T> list( Iterator<T> iter) {
+        final List<T> list = list();
+        if (null != iter) {
+            while (iter.hasNext()) {
+                list.add(iter.next());
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 新建一个List<br>
+     * 提供的参数为null时返回空{@link ArrayList}
+     *
+     * @param <T>        集合元素类型
+     * @param enumration {@link Enumeration}
+     * @return ArrayList对象
+     * @since 3.0.8
+     */
+    public static <T> List<T> list(Enumeration<T> enumration) {
+        final List<T> list = list();
+        if (null != enumration) {
+            while (enumration.hasMoreElements()) {
+                list.add(enumration.nextElement());
+            }
+        }
+        return list;
+    }
+
 }
