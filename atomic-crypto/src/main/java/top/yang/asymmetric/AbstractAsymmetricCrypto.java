@@ -7,9 +7,11 @@ import java.nio.charset.Charset;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import top.yang.SecureUtil;
+import top.yang.codec.BCD;
+import top.yang.codec.Base64;
 import top.yang.io.IOUtils;
 import top.yang.math.HexUtil;
-import top.yang.string.Charsets;
+import top.yang.string.CharsetsUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -102,7 +104,7 @@ public abstract class AbstractAsymmetricCrypto<T extends AbstractAsymmetricCrypt
    * @return 加密后的bytes
    */
   public byte[] encrypt(String data, KeyType keyType) {
-    return encrypt(StringUtils.toBytes(data, Charsets.toCharset("UTF-8")), keyType);
+    return encrypt(StringUtils.toBytes(data, CharsetsUtils.toCharset("UTF-8")), keyType);
   }
 
   /**
@@ -175,7 +177,7 @@ public abstract class AbstractAsymmetricCrypto<T extends AbstractAsymmetricCrypt
    * @return Hex字符串
    * @since 4.0.1
    */
-  public String encryptHex(InputStream data, KeyType keyType) {
+  public String encryptHex(InputStream data, KeyType keyType) throws IOException {
     return HexUtil.encodeHexStr(encrypt(data, keyType));
   }
 
@@ -187,7 +189,7 @@ public abstract class AbstractAsymmetricCrypto<T extends AbstractAsymmetricCrypt
    * @return Base64字符串
    * @since 4.0.1
    */
-  public String encryptBase64(InputStream data, KeyType keyType) {
+  public String encryptBase64(InputStream data, KeyType keyType) throws IOException {
     return Base64.encode(encrypt(data, keyType));
   }
 
@@ -200,7 +202,7 @@ public abstract class AbstractAsymmetricCrypto<T extends AbstractAsymmetricCrypt
    * @since 4.1.0
    */
   public String encryptBcd(String data, KeyType keyType) {
-    return encryptBcd(data, keyType, Charsets.toCharset("UTF-8"));
+    return encryptBcd(data, keyType, CharsetsUtils.toCharset("UTF-8"));
   }
 
   /**
@@ -273,7 +275,7 @@ public abstract class AbstractAsymmetricCrypto<T extends AbstractAsymmetricCrypt
    * @since 4.5.2
    */
   public String decryptStr(String data, KeyType keyType) {
-    return decryptStr(data, keyType, Charsets.toCharset("UTF-8"));
+    return decryptStr(data, keyType, CharsetsUtils.toCharset("UTF-8"));
   }
 
   /**
@@ -285,7 +287,7 @@ public abstract class AbstractAsymmetricCrypto<T extends AbstractAsymmetricCrypt
    * @since 4.1.0
    */
   public byte[] decryptFromBcd(String data, KeyType keyType) {
-    return decryptFromBcd(data, keyType, Charsets.toCharset("UTF-8"));
+    return decryptFromBcd(data, keyType, CharsetsUtils.toCharset("UTF-8"));
   }
 
   /**
@@ -298,7 +300,10 @@ public abstract class AbstractAsymmetricCrypto<T extends AbstractAsymmetricCrypt
    * @since 4.1.0
    */
   public byte[] decryptFromBcd(String data, KeyType keyType, Charset charset) {
-    Assert.notNull(data, "Bcd string must be not null!");
+
+    if (StringUtils.isBlank(data)) {
+      throw new IllegalArgumentException("Bcd string must be not null!");
+    }
     final byte[] dataBytes = BCD.ascToBcd(StringUtils.toBytes(data, charset));
     return decrypt(dataBytes, keyType);
   }
@@ -325,6 +330,6 @@ public abstract class AbstractAsymmetricCrypto<T extends AbstractAsymmetricCrypt
    * @since 4.5.2
    */
   public String decryptStrFromBcd(String data, KeyType keyType) {
-    return decryptStrFromBcd(data, keyType, Charsets.toCharset("UTF-8"));
+    return decryptStrFromBcd(data, keyType, CharsetsUtils.toCharset("UTF-8"));
   }
 }

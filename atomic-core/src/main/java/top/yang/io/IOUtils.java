@@ -23,7 +23,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Objects;
 import top.yang.io.Output.NullOutputStream;
-import top.yang.string.Charsets;
+import top.yang.string.CharsetsUtils;
 
 /**
  * @author PrideYang
@@ -312,7 +312,7 @@ public class IOUtils {
       final Charset outputCharset)
       throws IOException {
     final OutputStreamWriter writer = new OutputStreamWriter(output,
-        Charsets.toCharset(outputCharset));
+        CharsetsUtils.toCharset(outputCharset));
     copy(reader, writer);
     // XXX Unless anyone is planning on rewriting OutputStreamWriter,
     // we have to flush here.
@@ -342,7 +342,7 @@ public class IOUtils {
   public static void copy(final Reader reader, final OutputStream output,
       final String outputCharsetName)
       throws IOException {
-    copy(reader, output, Charsets.toCharset(outputCharsetName));
+    copy(reader, output, CharsetsUtils.toCharset(outputCharsetName));
   }
 
   /**

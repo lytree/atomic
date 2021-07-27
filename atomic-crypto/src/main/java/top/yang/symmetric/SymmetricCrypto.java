@@ -22,11 +22,12 @@ import top.yang.CryptoException;
 import top.yang.KeyUtil;
 import top.yang.Padding;
 import top.yang.SecureUtil;
+import top.yang.codec.Base64;
 import top.yang.collections.ArrayUtils;
 import top.yang.io.IOUtils;
 import top.yang.math.HexUtil;
 import top.yang.math.RandomUtils;
-import top.yang.string.Charsets;
+import top.yang.string.CharsetsUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -144,7 +145,9 @@ public class SymmetricCrypto implements Serializable {
    * @return SymmetricCrypto的子对象，即子对象自身
    */
   public SymmetricCrypto init(String algorithm, SecretKey key) {
-    Assert.notBlank(algorithm, "'algorithm' must be not blank !");
+    if (StringUtils.isBlank(algorithm)){
+      throw new IllegalArgumentException("'algorithm' must be not blank !");
+    }
     this.secretKey = key;
 
     // 对于PBE算法使用随机数加盐
@@ -247,46 +250,46 @@ public class SymmetricCrypto implements Serializable {
     }
   }
 
-  /**
-   * 加密，针对大数据量，可选结束后是否关闭流
-   *
-   * @param data    被加密的字符串
-   * @param out     输出流，可以是文件或网络位置
-   * @param isClose 是否关闭流
-   * @throws IOException IO异常
-   * @since 5.6.3
-   */
-  public void encrypt(InputStream data, OutputStream out, boolean isClose) throws IOException {
-    lock.lock();
-    CipherOutputStream cipherOutputStream = null;
-    try {
-      final Cipher cipher = initCipher(Cipher.ENCRYPT_MODE);
-      cipherOutputStream = new CipherOutputStream(out, cipher);
-      long length = IOUtils.copy(data, cipherOutputStream);
-      if (this.isZeroPadding) {
-        final int blockSize = cipher.getBlockSize();
-        if (blockSize > 0) {
-          // 按照块拆分后的数据中多余的数据
-          final int remainLength = (int) (length % blockSize);
-          if (remainLength > 0) {
-            // 补充0
-            cipherOutputStream.write(new byte[blockSize - remainLength]);
-            cipherOutputStream.flush();
-          }
-        }
-      }
-    } catch (IOException e) {
-      throw e;
-    } catch (Exception e) {
-      throw new CryptoException(e);
-    } finally {
-      lock.unlock();
-      if (isClose) {
-        IOUtils.close(data);
-        IOUtils.close(cipherOutputStream);
-      }
-    }
-  }
+//  /**
+//   * 加密，针对大数据量，可选结束后是否关闭流
+//   *
+//   * @param data    被加密的字符串
+//   * @param out     输出流，可以是文件或网络位置
+//   * @param isClose 是否关闭流
+//   * @throws IOException IO异常
+//   * @since 5.6.3
+//   */
+//  public void encrypt(InputStream data, OutputStream out, boolean isClose) throws IOException {
+//    lock.lock();
+//    CipherOutputStream cipherOutputStream = null;
+//    try {
+//      final Cipher cipher = initCipher(Cipher.ENCRYPT_MODE);
+//      cipherOutputStream = new CipherOutputStream(out, cipher);
+//      long length = IOUtils.copy(data, cipherOutputStream);
+//      if (this.isZeroPadding) {
+//        final int blockSize = cipher.getBlockSize();
+//        if (blockSize > 0) {
+//          // 按照块拆分后的数据中多余的数据
+//          final int remainLength = (int) (length % blockSize);
+//          if (remainLength > 0) {
+//            // 补充0
+//            cipherOutputStream.write(new byte[blockSize - remainLength]);
+//            cipherOutputStream.flush();
+//          }
+//        }
+//      }
+//    } catch (IOException e) {
+//      throw e;
+//    } catch (Exception e) {
+//      throw new CryptoException(e);
+//    } finally {
+//      lock.unlock();
+//      if (isClose) {
+//        IOUtils.close(data);
+//        IOUtils.close(cipherOutputStream);
+//      }
+//    }
+//  }
 
   /**
    * 加密
@@ -385,7 +388,7 @@ public class SymmetricCrypto implements Serializable {
    * @return 加密后的bytes
    */
   public byte[] encrypt(String data) {
-    return encrypt(StringUtils.getBytes(data, Charsets.toCharset("UTF-8")));
+    return encrypt(StringUtils.getBytes(data, CharsetsUtils.toCharset("UTF-8")));
   }
 
   /**
@@ -407,37 +410,37 @@ public class SymmetricCrypto implements Serializable {
   public String encryptBase64(String data) {
     return Base64.encode(encrypt(data));
   }
+//
+//  /**
+//   * 加密，加密后关闭流
+//   *
+//   * @param data 被加密的字符串
+//   * @return 加密后的bytes
+//   * @throws IOException IO异常
+//   */
+//  public byte[] encrypt(InputStream data) throws IOException {
+//    return encrypt(IOUtils.readBytes(data));
+//  }
 
-  /**
-   * 加密，加密后关闭流
-   *
-   * @param data 被加密的字符串
-   * @return 加密后的bytes
-   * @throws IOException IO异常
-   */
-  public byte[] encrypt(InputStream data) throws IOException {
-    return encrypt(IOUtils.readBytes(data));
-  }
-
-  /**
-   * 加密
-   *
-   * @param data 被加密的字符串
-   * @return 加密后的Hex
-   */
-  public String encryptHex(InputStream data) {
-    return HexUtil.encodeHexStr(encrypt(data));
-  }
-
-  /**
-   * 加密
-   *
-   * @param data 被加密的字符串
-   * @return 加密后的Base64
-   */
-  public String encryptBase64(InputStream data) {
-    return Base64.encode(encrypt(data));
-  }
+//  /**
+//   * 加密
+//   *
+//   * @param data 被加密的字符串
+//   * @return 加密后的Hex
+//   */
+//  public String encryptHex(InputStream data) {
+//    return HexUtil.encodeHexStr(encrypt(data));
+//  }
+//
+//  /**
+//   * 加密
+//   *
+//   * @param data 被加密的字符串
+//   * @return 加密后的Base64
+//   */
+//  public String encryptBase64(InputStream data) {
+//    return Base64.encode(encrypt(data));
+//  }
 
   // --------------------------------------------------------------------------------- Decrypt
 
@@ -465,43 +468,43 @@ public class SymmetricCrypto implements Serializable {
     return removePadding(decryptData, blockSize);
   }
 
-  /**
-   * 解密，针对大数据量，结束后不关闭流
-   *
-   * @param data    加密的字符串
-   * @param out     输出流，可以是文件或网络位置
-   * @param isClose 是否关闭流，包括输入和输出流
-   * @throws IOException IO异常
-   * @since 5.6.3
-   */
-  public void decrypt(InputStream data, OutputStream out, boolean isClose) throws IOException {
-    lock.lock();
-    CipherInputStream cipherInputStream = null;
-    try {
-      final Cipher cipher = initCipher(Cipher.DECRYPT_MODE);
-      cipherInputStream = new CipherInputStream(data, cipher);
-      if (this.isZeroPadding) {
-        final int blockSize = cipher.getBlockSize();
-        if (blockSize > 0) {
-          copyForZeroPadding(cipherInputStream, out, blockSize);
-          return;
-        }
-      }
-      IOUtils.copy(cipherInputStream, out);
-    } catch (IOException e) {
-      throw new IOException(e);
-    } catch (IOException e) {
-      throw e;
-    } catch (Exception e) {
-      throw new CryptoException(e);
-    } finally {
-      lock.unlock();
-      if (isClose) {
-        IOUtils.close(data);
-        IOUtils.close(cipherInputStream);
-      }
-    }
-  }
+//  /**
+//   * 解密，针对大数据量，结束后不关闭流
+//   *
+//   * @param data    加密的字符串
+//   * @param out     输出流，可以是文件或网络位置
+//   * @param isClose 是否关闭流，包括输入和输出流
+//   * @throws IOException IO异常
+//   * @since 5.6.3
+//   */
+//  public void decrypt(InputStream data, OutputStream out, boolean isClose) throws IOException {
+//    lock.lock();
+//    CipherInputStream cipherInputStream = null;
+//    try {
+//      final Cipher cipher = initCipher(Cipher.DECRYPT_MODE);
+//      cipherInputStream = new CipherInputStream(data, cipher);
+//      if (this.isZeroPadding) {
+//        final int blockSize = cipher.getBlockSize();
+//        if (blockSize > 0) {
+//          copyForZeroPadding(cipherInputStream, out, blockSize);
+//          return;
+//        }
+//      }
+//      IOUtils.copy(cipherInputStream, out);
+//    } catch (IOException e) {
+//      throw new IOException(e);
+//    } catch (IOException e) {
+//      throw e;
+//    } catch (Exception e) {
+//      throw new CryptoException(e);
+//    } finally {
+//      lock.unlock();
+//      if (isClose) {
+//        IOUtils.close(data);
+//        IOUtils.close(cipherInputStream);
+//      }
+//    }
+//  }
 
   /**
    * 解密为字符串
@@ -511,7 +514,7 @@ public class SymmetricCrypto implements Serializable {
    * @return 解密后的String
    */
   public String decryptStr(byte[] bytes, Charset charset) {
-    return StringUtils.getBytes(decrypt(bytes), charset);
+    return StringUtils.toEncodedString(decrypt(bytes), charset);
   }
 
   /**
@@ -521,7 +524,7 @@ public class SymmetricCrypto implements Serializable {
    * @return 解密后的String
    */
   public String decryptStr(byte[] bytes) {
-    return decryptStr(bytes, Charsets.toCharset("UTF-8"));
+    return decryptStr(bytes, CharsetsUtils.toCharset("UTF-8"));
   }
 
   /**
@@ -542,7 +545,7 @@ public class SymmetricCrypto implements Serializable {
    * @return 解密后的String
    */
   public String decryptStr(String data, Charset charset) {
-    return StringUtils.getBytes(decrypt(data), charset);
+    return StringUtils.toEncodedString(decrypt(data), charset);
   }
 
   /**
@@ -552,40 +555,40 @@ public class SymmetricCrypto implements Serializable {
    * @return 解密后的String
    */
   public String decryptStr(String data) {
-    return decryptStr(data, Charsets.toCharset("UTF-8"));
+    return decryptStr(data, CharsetsUtils.toCharset("UTF-8"));
   }
 
-  /**
-   * 解密，会关闭流
-   *
-   * @param data 被解密的bytes
-   * @return 解密后的bytes
-   * @throws IOException IO异常
-   */
-  public byte[] decrypt(InputStream data) throws IOException {
-    return decrypt(IOUtils.readBytes(data));
-  }
+//  /**
+//   * 解密，会关闭流
+//   *
+//   * @param data 被解密的bytes
+//   * @return 解密后的bytes
+//   * @throws IOException IO异常
+//   */
+//  public byte[] decrypt(InputStream data) throws IOException {
+//    return decrypt(IOUtils.readBytes(data));
+//  }
 
-  /**
-   * 解密，不会关闭流
-   *
-   * @param data    被解密的InputStream
-   * @param charset 解密后的charset
-   * @return 解密后的String
-   */
-  public String decryptStr(InputStream data, Charset charset) {
-    return StringUtils.getBytes(decrypt(data), charset);
-  }
+//  /**
+//   * 解密，不会关闭流
+//   *
+//   * @param data    被解密的InputStream
+//   * @param charset 解密后的charset
+//   * @return 解密后的String
+//   */
+//  public String decryptStr(InputStream data, Charset charset) {
+//    return StringUtils.getBytes(decrypt(data), charset);
+//  }
 
-  /**
-   * 解密
-   *
-   * @param data 被解密的InputStream
-   * @return 解密后的String
-   */
-  public String decryptStr(InputStream data) {
-    return decryptStr(data, Charsets.toCharset("UTF-8"));
-  }
+//  /**
+//   * 解密
+//   *
+//   * @param data 被解密的InputStream
+//   * @return 解密后的String
+//   */
+//  public String decryptStr(InputStream data) {
+//    return decryptStr(data, CharsetsUtils.toCharset("UTF-8"));
+//  }
 
   // --------------------------------------------------------------------------------- Getters
 

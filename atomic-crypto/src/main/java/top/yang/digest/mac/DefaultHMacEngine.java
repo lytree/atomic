@@ -7,6 +7,8 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
+import top.yang.CryptoException;
+import top.yang.SecureUtil;
 
 /**
  * 默认的HMAC算法实现引擎，使用{@link Mac} 实现摘要<br>

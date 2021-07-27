@@ -5,7 +5,6 @@ import javax.crypto.spec.IvParameterSpec;
 import top.yang.Mode;
 import top.yang.Padding;
 import top.yang.SecureUtil;
-import top.yang.string.StringUtils;
 
 
 /**
@@ -148,7 +147,7 @@ public class DESede extends SymmetricCrypto {
    * @param iv      加盐
    */
   public DESede(String mode, String padding, SecretKey key, IvParameterSpec iv) {
-    super(StringUtils.format("{}/{}/{}", SymmetricAlgorithm.DESede.getValue(), mode, padding), key, iv);
+    super(SymmetricAlgorithm.DESede.getValue() + "/" + mode + "/" + padding, key, iv);
   }
   // ------------------------------------------------------------------------- Constructor end
 }

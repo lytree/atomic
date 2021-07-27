@@ -5,6 +5,8 @@ package top.yang.symmetric;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.PBEKeySpec;
+import top.yang.KeyUtil;
+import top.yang.math.HexUtil;
 
 /**
  * PBKDF2应用一个伪随机函数以导出密钥，PBKDF2简单而言就是将salted hash进行多次重复计算。

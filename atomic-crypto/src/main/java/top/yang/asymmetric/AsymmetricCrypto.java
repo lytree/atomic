@@ -14,6 +14,7 @@ import javax.crypto.IllegalBlockSizeException;
 import top.yang.CryptoException;
 import top.yang.KeyUtil;
 import top.yang.SecureUtil;
+import top.yang.codec.Base64;
 import top.yang.symmetric.SymmetricAlgorithm;
 
 /**

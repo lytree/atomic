@@ -2,14 +2,16 @@ package top.yang.symmetric;
 
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
 import top.yang.CryptoException;
 import top.yang.SecureUtil;
+import top.yang.codec.Base64;
 import top.yang.math.HexUtil;
-import top.yang.string.Charsets;
+import top.yang.string.CharsetsUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -40,7 +42,7 @@ public class RC4 implements Serializable {
    * @param key 密钥
    * @throws CryptoException key长度小于5或者大于255抛出此异常
    */
-  public RC4(String key) throws CryptoException {
+  public RC4(String key) throws CryptoException, UnsupportedEncodingException {
     setKey(key);
   }
 
@@ -64,7 +66,7 @@ public class RC4 implements Serializable {
    * @throws CryptoException key长度小于5或者大于255抛出此异常
    */
   public byte[] encrypt(String message) throws CryptoException {
-    return encrypt(message, Charsets.toCharset("UTF-8"));
+    return encrypt(message, CharsetsUtils.toCharset("UTF-8"));
   }
 
   /**
@@ -145,7 +147,7 @@ public class RC4 implements Serializable {
    * @throws CryptoException key长度小于5或者大于255抛出此异常
    */
   public String decrypt(byte[] message, Charset charset) throws CryptoException {
-    return StrUtil.str(crypt(message), charset);
+    return StringUtils.toEncodedString(crypt(message), charset);
   }
 
   /**
@@ -156,7 +158,7 @@ public class RC4 implements Serializable {
    * @throws CryptoException key长度小于5或者大于255抛出此异常
    */
   public String decrypt(byte[] message) throws CryptoException {
-    return decrypt(message, Charsets.toCharset("UTF-8"));
+    return decrypt(message, CharsetsUtils.toCharset("UTF-8"));
   }
 
   /**
@@ -179,7 +181,7 @@ public class RC4 implements Serializable {
    * @since 5.4.4
    */
   public String decrypt(String message, Charset charset) {
-    return StringUtils.toEncodedString(decrypt(message), charset);
+    return StringUtils.toString(decrypt(message), charset);
   }
 
 
@@ -217,10 +219,10 @@ public class RC4 implements Serializable {
    * @param key 密钥
    * @throws CryptoException key长度小于5或者大于255抛出此异常
    */
-  public void setKey(String key) throws CryptoException {
+  public void setKey(String key) throws CryptoException, UnsupportedEncodingException {
     final int length = key.length();
     if (length < KEY_MIN_LENGTH || length >= SBOX_LENGTH) {
-      throw new CryptoException("Key length has to be between {} and {}", KEY_MIN_LENGTH, (SBOX_LENGTH - 1));
+      throw new CryptoException("Key length has to be between " + KEY_MIN_LENGTH + "and " + (SBOX_LENGTH - 1));
     }
 
     final WriteLock writeLock = this.lock.writeLock();
