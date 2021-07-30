@@ -1126,6 +1126,7 @@ public class MapUtils {
      * @since 3.2
      */
     public static boolean isEmpty(final Map<?, ?> map) {
+        
         return map == null || map.isEmpty();
     }
 
