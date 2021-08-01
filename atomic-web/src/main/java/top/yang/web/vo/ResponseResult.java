@@ -9,6 +9,7 @@ import top.yang.exception.ResultCode;
  */
 public class ResponseResult<T> implements Response {
 
+  String requestId;
   //
   /**
    * 操作代码
@@ -25,31 +26,33 @@ public class ResponseResult<T> implements Response {
    */
   private T data;
 
-  public ResponseResult(ResultCode resultCode) {
+  public ResponseResult(ResultCode resultCode, String requestId) {
     this.code = resultCode.getCode();
     this.message = resultCode.getMessage();
+    this.requestId = requestId;
   }
 
-  public ResponseResult(ResultCode resultCode, T data) {
+  public ResponseResult(ResultCode resultCode, T data, String requestId) {
     this.code = resultCode.getCode();
     this.message = resultCode.getMessage();
     this.data = data;
+    this.requestId = requestId;
   }
 
-  public static ResponseResult<Void> success() {
-    return new ResponseResult(AtomicCode.SUCCESS);
+  public static ResponseResult<Void> success(String requestId) {
+    return new ResponseResult(AtomicCode.SUCCESS, requestId);
   }
 
-  public static <T> ResponseResult<T> success(T data) {
-    return new ResponseResult<>(AtomicCode.SUCCESS, data);
+  public static <T> ResponseResult<T> success(T data, String requestId) {
+    return new ResponseResult<>(AtomicCode.SUCCESS, data, requestId);
   }
 
-  public static ResponseResult<Void> fail() {
-    return new ResponseResult<Void>(AtomicCode.FAIL);
+  public static ResponseResult<Void> fail(String requestId) {
+    return new ResponseResult<Void>(AtomicCode.FAIL, requestId);
   }
 
-  public static ResponseResult<ResultCode> fail(ResultCode resultCode) {
-    return new ResponseResult<ResultCode>(resultCode);
+  public static ResponseResult<ResultCode> fail(ResultCode resultCode, String requestId) {
+    return new ResponseResult<ResultCode>(resultCode, requestId);
   }
 
   public String getCode() {
@@ -74,5 +77,13 @@ public class ResponseResult<T> implements Response {
 
   public void setData(T data) {
     this.data = data;
+  }
+
+  public String getRequestId() {
+    return requestId;
+  }
+
+  public void setRequestId(String requestId) {
+    this.requestId = requestId;
   }
 }
