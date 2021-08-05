@@ -6,7 +6,8 @@ import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import top.yang.net.HttpUtils;
+import top.yang.net.HttpManager;
+import top.yang.net.build.base.OkHttpRequestBuilderHasParam;
 import top.yang.net.callback.CustomCallback;
 import top.yang.net.response.IResponseHandler;
 
@@ -17,8 +18,8 @@ public class PostBuilder extends OkHttpRequestBuilderHasParam<PostBuilder> {
 
   private String jsonParams = "";
 
-  public PostBuilder(HttpUtils httpUtils) {
-    super(httpUtils);
+  public PostBuilder(HttpManager httpManager) {
+    super(httpManager);
   }
 
   /**
@@ -57,7 +58,7 @@ public class PostBuilder extends OkHttpRequestBuilderHasParam<PostBuilder> {
 
     Request request = builder.build();
 
-    httpUtils.create().
+    httpManager.getOkHttpClient().
         newCall(request).
         enqueue(new CustomCallback(responseHandler));
   }

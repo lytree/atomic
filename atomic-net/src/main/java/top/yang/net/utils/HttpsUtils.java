@@ -1,4 +1,4 @@
-package top.yang.net;
+package top.yang.net.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,7 +64,7 @@ public class HttpsUtils {
     return getSslSocketFactoryBase(trustManager, bksFile, password);
   }
 
-  private static SSLParams getSslSocketFactoryBase(X509TrustManager trustManager, InputStream bksFile, String password, InputStream... certificates) {
+  public static SSLParams getSslSocketFactoryBase(X509TrustManager trustManager, InputStream bksFile, String password, InputStream... certificates) {
     SSLParams sslParams = new SSLParams();
     try {
       KeyManager[] keyManagers = prepareKeyManager(bksFile, password);

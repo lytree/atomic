@@ -13,8 +13,9 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import top.yang.net.HttpUtils;
+import top.yang.net.HttpManager;
 import top.yang.net.body.ProgressRequestBody;
+import top.yang.net.build.base.OkHttpRequestBuilderHasParam;
 import top.yang.net.callback.CustomCallback;
 import top.yang.net.response.IResponseHandler;
 
@@ -26,8 +27,8 @@ public class UploadBuilder extends OkHttpRequestBuilderHasParam<UploadBuilder> {
   private Map<String, File> files;
   private List<MultipartBody.Part> extraParts;
 
-  public UploadBuilder(HttpUtils httpUtils) {
-    super(httpUtils);
+  public UploadBuilder(HttpManager httpManager) {
+    super(httpManager);
   }
 
   /**
@@ -68,7 +69,7 @@ public class UploadBuilder extends OkHttpRequestBuilderHasParam<UploadBuilder> {
     if (this.extraParts == null) {
       this.extraParts = new ArrayList<MultipartBody.Part>();
     }
-    RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), fileContent);
+    RequestBody fileBody = RequestBody.create(fileContent, MediaType.parse("application/octet-stream"));
     this.extraParts.add(MultipartBody.Part.create(Headers.of("Content-Disposition",
         "form-data; name=\"" + key + "\"; filename=\"" + fileName + "\""),
         fileBody));
@@ -98,7 +99,7 @@ public class UploadBuilder extends OkHttpRequestBuilderHasParam<UploadBuilder> {
 
     Request request = builder.build();
 
-    httpUtils.create().
+    httpManager.getOkHttpClient().
         newCall(request).
         enqueue(new CustomCallback(responseHandler));
   }

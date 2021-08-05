@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.OkHttpClient.Builder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.yang.net.HttpsUtils.SSLParams;
+import top.yang.net.utils.HttpsUtils.SSLParams;
 import top.yang.net.build.DeleteBuilder;
 import top.yang.net.build.DownloadBuilder;
 import top.yang.net.build.GetBuilder;
@@ -22,15 +22,15 @@ import top.yang.net.build.UploadBuilder;
 import top.yang.net.interceptor.HttpLoggingInterceptor;
 import top.yang.net.interceptor.HttpLoggingInterceptor.Level;
 
-public class HttpUtils {
+public class HttpManager {
 
-  private final static Logger logger = LoggerFactory.getLogger(HttpUtils.class);
-  private static OkHttpClient okHttpClient;
+  private final static Logger logger = LoggerFactory.getLogger(HttpManager.class);
+  private final OkHttpClient okHttpClient;
 
   /**
    * construct
    */
-  protected HttpUtils(SSLParams sslParams) {
+  protected HttpManager(SSLParams sslParams) {
     Builder builder = new OkHttpClient().newBuilder().addNetworkInterceptor(new HttpLoggingInterceptor(Level.BODY))
         .retryOnConnectionFailure(false).connectionPool(new ConnectionPool(50, 5, TimeUnit.MINUTES)).
             connectTimeout(5, TimeUnit.SECONDS).
@@ -44,7 +44,7 @@ public class HttpUtils {
   }
 
 
-  protected HttpUtils() {
+  private HttpManager() {
     Builder builder = new OkHttpClient().newBuilder().addNetworkInterceptor(new HttpLoggingInterceptor(Level.BODY))
         .retryOnConnectionFailure(false).connectionPool(new ConnectionPool(50, 5, TimeUnit.MINUTES)).
             connectTimeout(5, TimeUnit.SECONDS).
@@ -55,11 +55,11 @@ public class HttpUtils {
   }
 
 
-  protected HttpUtils(OkHttpClient okHttpClient) {
-    HttpUtils.okHttpClient = okHttpClient;
+  private HttpManager(OkHttpClient okHttpClient) {
+    this.okHttpClient = okHttpClient;
   }
 
-  protected HttpUtils(HostnameVerifier hostnameVerifier) {
+  private HttpManager(HostnameVerifier hostnameVerifier) {
     Builder builder = new OkHttpClient().newBuilder().addNetworkInterceptor(new HttpLoggingInterceptor(Level.BODY))
         .retryOnConnectionFailure(false).connectionPool(new ConnectionPool(50, 5, TimeUnit.MINUTES)).
             connectTimeout(5, TimeUnit.SECONDS).
@@ -72,7 +72,7 @@ public class HttpUtils {
         build();
   }
 
-  public HttpUtils(HostnameVerifier hostnameVerifier, SSLParams sslParams) {
+  private HttpManager(HostnameVerifier hostnameVerifier, SSLParams sslParams) {
     Builder builder = new OkHttpClient().newBuilder().addNetworkInterceptor(new HttpLoggingInterceptor(Level.BODY))
         .retryOnConnectionFailure(false).connectionPool(new ConnectionPool(50, 5, TimeUnit.MINUTES)).
             connectTimeout(5, TimeUnit.SECONDS).
@@ -86,10 +86,6 @@ public class HttpUtils {
     }
     okHttpClient = builder.
         build();
-  }
-
-  public OkHttpClient create() {
-    return okHttpClient;
   }
 
   public GetBuilder get() {
@@ -119,14 +115,19 @@ public class HttpUtils {
   public DownloadBuilder download() {
     return new DownloadBuilder(this);
   }
-
+  public  OkHttpClient getOkHttpClient(){
+    return this.okHttpClient;
+  }
   /**
-   * do cacel by tag
+   * 根据tag 取消请求
    *
    * @param tag tag
    */
   public void cancel(Object tag) {
-    Dispatcher dispatcher = okHttpClient.dispatcher();
+    if (this.okHttpClient == null) {
+      return;
+    }
+    Dispatcher dispatcher = this.okHttpClient.dispatcher();
     for (Call call : dispatcher.queuedCalls()) {
       if (tag.equals(call.request().tag())) {
         call.cancel();
@@ -139,29 +140,41 @@ public class HttpUtils {
     }
   }
 
-  public static HttpUtils createFactory() {
-    return new HttpUtils();
+  /**
+   * 取消所有请求请求
+   */
+  public void cancelAll() {
+    if (this.okHttpClient == null) {
+      return;
+    }
+    Dispatcher dispatcher = this.okHttpClient.dispatcher();
+
+    for (Call call : dispatcher.queuedCalls()) {
+      call.cancel();
+    }
+    for (Call call : dispatcher.runningCalls()) {
+      call.cancel();
+    }
   }
 
-  public static HttpUtils createFactory(OkHttpClient okHttpClient) {
-    return new HttpUtils(okHttpClient);
+  public static HttpManager httpFactory() {
+    return new HttpManager();
   }
 
-  public static HttpUtils createFactory(SSLParams sslParams) {
-    return new HttpUtils(sslParams);
+  public static HttpManager httpFactory(OkHttpClient okHttpClient) {
+    return new HttpManager(okHttpClient);
   }
 
-  public static HttpUtils createFactory(HostnameVerifier hostnameVerifier) {
-    return new HttpUtils(hostnameVerifier);
+  public static HttpManager httpFactory(SSLParams sslParams) {
+    return new HttpManager(sslParams);
   }
 
-  public static HttpUtils createFactory(SSLParams sslParams, HostnameVerifier hostnameVerifier) {
-    return new HttpUtils(hostnameVerifier, sslParams);
+  public static HttpManager httpFactory(HostnameVerifier hostnameVerifier) {
+    return new HttpManager(hostnameVerifier);
   }
 
-  public static void main(String[] args) {
-    HttpUtils httpUtils = HttpUtils.createFactory();
-    OkHttpClient okHttpClient = httpUtils.create();
-    OkHttpClient okHttpClient1 = httpUtils.create();
+  public static HttpManager httpFactory(SSLParams sslParams, HostnameVerifier hostnameVerifier) {
+    return new HttpManager(hostnameVerifier, sslParams);
   }
+
 }

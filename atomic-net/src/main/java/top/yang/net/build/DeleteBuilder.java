@@ -2,7 +2,8 @@ package top.yang.net.build;
 
 
 import okhttp3.Request;
-import top.yang.net.HttpUtils;
+import top.yang.net.HttpManager;
+import top.yang.net.build.base.OkHttpRequestBuilder;
 import top.yang.net.callback.CustomCallback;
 import top.yang.net.response.IResponseHandler;
 
@@ -12,8 +13,8 @@ import top.yang.net.response.IResponseHandler;
 
 public class DeleteBuilder extends OkHttpRequestBuilder<DeleteBuilder> {
 
-  public DeleteBuilder(HttpUtils httpUtils) {
-    super(httpUtils);
+  public DeleteBuilder(HttpManager httpManager) {
+    super(httpManager);
   }
 
   @Override
@@ -32,7 +33,7 @@ public class DeleteBuilder extends OkHttpRequestBuilder<DeleteBuilder> {
 
     Request request = builder.build();
 
-    httpUtils.create()
+    httpManager.getOkHttpClient()
         .newCall(request)
         .enqueue(new CustomCallback(responseHandler));
   }

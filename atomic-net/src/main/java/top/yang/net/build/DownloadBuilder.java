@@ -12,7 +12,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.yang.net.HttpUtils;
+import top.yang.net.HttpManager;
 import top.yang.net.body.ProgressResponseBody;
 import top.yang.net.callback.DownloadCallback;
 import top.yang.net.response.DownloadResponseHandler;
@@ -23,7 +23,7 @@ import top.yang.net.response.DownloadResponseHandler;
 public class DownloadBuilder {
 
   private final static Logger logger = LoggerFactory.getLogger(DownloadBuilder.class);
-  private final HttpUtils httpUtils;
+  private final HttpManager httpManager;
 
   private String url = "";
   private Object tag;
@@ -35,8 +35,8 @@ public class DownloadBuilder {
 
   private Long completeBytes = 0L;    //已经完成的字节数 用于断点续传
 
-  public DownloadBuilder(HttpUtils httpUtils) {
-    this.httpUtils = httpUtils;
+  public DownloadBuilder(HttpManager httpManager) {
+    this.httpManager = httpManager;
   }
 
   public DownloadBuilder url(String url) {
@@ -161,7 +161,7 @@ public class DownloadBuilder {
 
     Request request = builder.build();
 
-    Call call = httpUtils.create().newBuilder()
+    Call call = httpManager.getOkHttpClient().newBuilder()
         .addNetworkInterceptor(new Interceptor() {      //设置拦截器
           @Override
           public Response intercept(Chain chain) throws IOException {

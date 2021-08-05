@@ -4,7 +4,8 @@ package top.yang.net.build;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import top.yang.net.HttpUtils;
+import top.yang.net.HttpManager;
+import top.yang.net.build.base.OkHttpRequestBuilder;
 import top.yang.net.callback.CustomCallback;
 import top.yang.net.response.IResponseHandler;
 
@@ -13,8 +14,8 @@ import top.yang.net.response.IResponseHandler;
  */
 public class PatchBuilder extends OkHttpRequestBuilder<PatchBuilder> {
 
-  public PatchBuilder(HttpUtils httpUtils) {
-    super(httpUtils);
+  public PatchBuilder(HttpManager httpManager) {
+    super(httpManager);
   }
 
   @Override
@@ -33,7 +34,7 @@ public class PatchBuilder extends OkHttpRequestBuilder<PatchBuilder> {
     builder.patch(RequestBody.create(MediaType.parse("text/plain;charset=utf-8"), ""));
     Request request = builder.build();
 
-    httpUtils.create().
+    httpManager.getOkHttpClient().
         newCall(request).
         enqueue(new CustomCallback(responseHandler));
   }

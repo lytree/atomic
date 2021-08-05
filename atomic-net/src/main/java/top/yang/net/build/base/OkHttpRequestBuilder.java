@@ -1,11 +1,11 @@
-package top.yang.net.build;
+package top.yang.net.build.base;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import okhttp3.Headers;
 import okhttp3.Request;
-import top.yang.net.HttpUtils;
+import top.yang.net.HttpManager;
 import top.yang.net.response.IResponseHandler;
 
 /**
@@ -26,17 +26,17 @@ public abstract class OkHttpRequestBuilder<T extends OkHttpRequestBuilder> {
     }
   };
 
-  protected HttpUtils httpUtils;
+  protected HttpManager httpManager;
 
   /**
    * 异步执行
    *
    * @param responseHandler 自定义回调
    */
-  abstract void enqueue(final IResponseHandler responseHandler);
+  protected abstract void enqueue(final IResponseHandler responseHandler);
 
-  public OkHttpRequestBuilder(HttpUtils httpUtils) {
-    this.httpUtils = httpUtils;
+  public OkHttpRequestBuilder(HttpManager httpManager) {
+    this.httpManager = httpManager;
   }
 
   /**
