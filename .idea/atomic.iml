@@ -12,6 +12,9 @@
       <excludeFolder url="file://$MODULE_DIR$/atomic-core/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/atomic-net/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/atomic-web/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/atmoic-spring/target" />
+      <excludeFolder url="file://$MODULE_DIR$/atomic-crypto/target" />
+      <excludeFolder url="file://$MODULE_DIR$/atomic-web/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

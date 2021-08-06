@@ -9,6 +9,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.yang.net.response.DownloadResponseHandler;
@@ -28,12 +29,12 @@ public class DownloadCallback implements Callback {
   }
 
   @Override
-  public void onFailure(Call call, final IOException e) {
+  public void onFailure(@NotNull Call call, final IOException e) {
     downloadResponseHandler.onFailure(call, e.getMessage());
   }
 
   @Override
-  public void onResponse(Call call, final Response response) throws IOException {
+  public void onResponse(@NotNull Call call, final Response response) throws IOException {
     ResponseBody body = response.body();
     if (response.isSuccessful()) {
       //开始
