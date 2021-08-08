@@ -40,3 +40,8 @@ atomic-parent/target/*
 atomic-web/target/*
 atomic-redis/target/*
 atomic-utils/target/*
+atomic-webmagic/.idea/
+
+atomic-crypto/.idea/
+
+atomic-crypto/target/*
