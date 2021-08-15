@@ -11,6 +11,7 @@ import java.util.Map;
 import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import top.yang.net.HttpManager;
@@ -27,8 +28,8 @@ public class UploadBuilder extends OkHttpRequestBuilderHasParam<UploadBuilder> {
   private Map<String, File> files;
   private List<MultipartBody.Part> extraParts;
 
-  public UploadBuilder(HttpManager httpManager) {
-    super(httpManager);
+  public UploadBuilder(OkHttpClient okHttpClient) {
+    super(okHttpClient);
   }
 
   /**
@@ -99,7 +100,7 @@ public class UploadBuilder extends OkHttpRequestBuilderHasParam<UploadBuilder> {
 
     Request request = builder.build();
 
-    httpManager.getOkHttpClient().
+    okHttpClient.
         newCall(request).
         enqueue(new CustomCallback(responseHandler));
   }

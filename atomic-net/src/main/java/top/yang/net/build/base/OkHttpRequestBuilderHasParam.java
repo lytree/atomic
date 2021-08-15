@@ -2,7 +2,7 @@ package top.yang.net.build.base;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import top.yang.net.HttpManager;
+import okhttp3.OkHttpClient;
 
 /**
  * 带有param的base request body Created by tsy on 2016/12/6.
@@ -12,8 +12,8 @@ public abstract class OkHttpRequestBuilderHasParam<T extends OkHttpRequestBuilde
 
   protected Map<String, String> params;
 
-  public OkHttpRequestBuilderHasParam(HttpManager httpManager) {
-    super(httpManager);
+  public OkHttpRequestBuilderHasParam(OkHttpClient okHttpClient) {
+    super(okHttpClient);
   }
 
   /**

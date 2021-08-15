@@ -1,8 +1,8 @@
 package top.yang.net.build;
 
 import java.util.Map;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import top.yang.net.HttpManager;
 import top.yang.net.build.base.OkHttpRequestBuilderHasParam;
 import top.yang.net.callback.CustomCallback;
 import top.yang.net.response.IResponseHandler;
@@ -12,8 +12,8 @@ import top.yang.net.response.IResponseHandler;
  */
 public class GetBuilder extends OkHttpRequestBuilderHasParam<GetBuilder> {
 
-  public GetBuilder(HttpManager httpManager) {
-    super(httpManager);
+  public GetBuilder(OkHttpClient okHttpClient) {
+    super(okHttpClient);
   }
 
   @Override
@@ -36,7 +36,7 @@ public class GetBuilder extends OkHttpRequestBuilderHasParam<GetBuilder> {
 
     Request request = builder.build();
 
-    httpManager.getOkHttpClient().
+    okHttpClient.
         newCall(request).
         enqueue(new CustomCallback(responseHandler));
   }

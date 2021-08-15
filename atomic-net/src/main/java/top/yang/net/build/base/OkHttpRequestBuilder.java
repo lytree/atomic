@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import okhttp3.Headers;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import top.yang.net.HttpManager;
 import top.yang.net.response.IResponseHandler;
 
 /**
@@ -26,7 +26,7 @@ public abstract class OkHttpRequestBuilder<T extends OkHttpRequestBuilder> {
     }
   };
 
-  protected HttpManager httpManager;
+  protected OkHttpClient okHttpClient;
 
   /**
    * 异步执行
@@ -35,8 +35,8 @@ public abstract class OkHttpRequestBuilder<T extends OkHttpRequestBuilder> {
    */
   protected abstract void enqueue(final IResponseHandler responseHandler);
 
-  public OkHttpRequestBuilder(HttpManager httpManager) {
-    this.httpManager = httpManager;
+  public OkHttpRequestBuilder(OkHttpClient okHttpClient) {
+    this.okHttpClient = okHttpClient;
   }
 
   /**

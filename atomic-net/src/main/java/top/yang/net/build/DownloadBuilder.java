@@ -7,12 +7,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Headers;
-import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.yang.net.HttpManager;
 import top.yang.net.body.ProgressResponseBody;
 import top.yang.net.callback.DownloadCallback;
 import top.yang.net.response.DownloadResponseHandler;
@@ -23,7 +22,7 @@ import top.yang.net.response.DownloadResponseHandler;
 public class DownloadBuilder {
 
   private final static Logger logger = LoggerFactory.getLogger(DownloadBuilder.class);
-  private final HttpManager httpManager;
+  private final OkHttpClient okHttpClient;
 
   private String url = "";
   private Object tag;
@@ -35,8 +34,8 @@ public class DownloadBuilder {
 
   private Long completeBytes = 0L;    //已经完成的字节数 用于断点续传
 
-  public DownloadBuilder(HttpManager httpManager) {
-    this.httpManager = httpManager;
+  public DownloadBuilder(OkHttpClient okHttpClient) {
+    this.okHttpClient = okHttpClient;
   }
 
   public DownloadBuilder url(String url) {
@@ -161,15 +160,13 @@ public class DownloadBuilder {
 
     Request request = builder.build();
 
-    Call call = httpManager.getOkHttpClient().newBuilder()
-        .addNetworkInterceptor(new Interceptor() {      //设置拦截器
-          @Override
-          public Response intercept(Chain chain) throws IOException {
-            Response originalResponse = chain.proceed(chain.request());
-            return originalResponse.newBuilder()
-                .body(new ProgressResponseBody(originalResponse.body(), downloadResponseHandler))
-                .build();
-          }
+    //设置拦截器
+    Call call = okHttpClient.newBuilder()
+        .addNetworkInterceptor(chain -> {
+          Response originalResponse = chain.proceed(chain.request());
+          return originalResponse.newBuilder()
+              .body(new ProgressResponseBody(originalResponse.body(), downloadResponseHandler))
+              .build();
         })
         .build()
         .newCall(request);

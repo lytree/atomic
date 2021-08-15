@@ -2,9 +2,9 @@ package top.yang.net.build;
 
 
 import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import top.yang.net.HttpManager;
 import top.yang.net.build.base.OkHttpRequestBuilder;
 import top.yang.net.callback.CustomCallback;
 import top.yang.net.response.IResponseHandler;
@@ -14,8 +14,8 @@ import top.yang.net.response.IResponseHandler;
  */
 public class PutBuilder extends OkHttpRequestBuilder<PutBuilder> {
 
-  public PutBuilder(HttpManager httpManager) {
-    super(httpManager);
+  public PutBuilder(OkHttpClient okHttpClient) {
+    super(okHttpClient);
   }
 
   @Override
@@ -31,11 +31,11 @@ public class PutBuilder extends OkHttpRequestBuilder<PutBuilder> {
       builder.tag(tag);
     }
 
-    builder.put(RequestBody.create(MediaType.parse("text/plain;charset=utf-8"), ""));
+    builder.put(RequestBody.create("", MediaType.parse("text/plain;charset=utf-8")));
 
     Request request = builder.build();
 
-    httpManager.getOkHttpClient().
+    okHttpClient.
         newCall(request).
         enqueue(new CustomCallback(responseHandler));
   }
