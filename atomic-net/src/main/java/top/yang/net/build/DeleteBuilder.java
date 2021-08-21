@@ -1,16 +1,9 @@
 package top.yang.net.build;
 
-
+import java.io.IOException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import top.yang.net.HttpManager;
 import top.yang.net.build.base.OkHttpRequestBuilder;
-import top.yang.net.callback.CustomCallback;
-import top.yang.net.response.IResponseHandler;
-
-/**
- * delete builder Created by tsy on 2016/12/6.
- */
 
 public class DeleteBuilder extends OkHttpRequestBuilder<DeleteBuilder> {
 
@@ -19,7 +12,7 @@ public class DeleteBuilder extends OkHttpRequestBuilder<DeleteBuilder> {
   }
 
   @Override
-  public void enqueue(final IResponseHandler responseHandler) {
+  public okhttp3.Response execute() {
 
     if (url == null || url.length() == 0) {
       throw new IllegalArgumentException("url can not be null !");
@@ -34,9 +27,13 @@ public class DeleteBuilder extends OkHttpRequestBuilder<DeleteBuilder> {
 
     Request request = builder.build();
 
-    okHttpClient
-        .newCall(request)
-        .enqueue(new CustomCallback(responseHandler));
+    try {
+      return okHttpClient
+          .newCall(request)
+          .execute();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 }
-

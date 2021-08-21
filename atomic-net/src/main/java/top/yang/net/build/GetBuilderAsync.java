@@ -1,19 +1,23 @@
 package top.yang.net.build;
 
-import java.io.IOException;
 import java.util.Map;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import top.yang.net.build.base.OkHttpRequestBuilderHasParam;
+import top.yang.net.build.base.AsyncOkHttpRequestBuilderHasParam;
+import top.yang.net.callback.CustomCallback;
+import top.yang.net.response.IResponseHandler;
 
-public class GetBuilder extends OkHttpRequestBuilderHasParam<GetBuilder> {
+/**
+ * Get Builder Created by tsy on 16/9/18.
+ */
+public class GetBuilderAsync extends AsyncOkHttpRequestBuilderHasParam<GetBuilderAsync> {
 
-  public GetBuilder(OkHttpClient okHttpClient) {
+  public GetBuilderAsync(OkHttpClient okHttpClient) {
     super(okHttpClient);
   }
 
   @Override
-  public okhttp3.Response execute() {
+  public void enqueue(final IResponseHandler responseHandler) {
 
     if (url == null || url.length() == 0) {
       throw new IllegalArgumentException("url can not be null !");
@@ -32,14 +36,9 @@ public class GetBuilder extends OkHttpRequestBuilderHasParam<GetBuilder> {
 
     Request request = builder.build();
 
-    try {
-      return okHttpClient.
-          newCall(request).execute();
-    } catch (IOException e) {
-
-      e.printStackTrace();
-    }
-    return null;
+    okHttpClient.
+        newCall(request).
+        enqueue(new CustomCallback(responseHandler));
   }
 
   //append params to url

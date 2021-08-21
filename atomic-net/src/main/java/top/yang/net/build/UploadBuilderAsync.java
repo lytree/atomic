@@ -14,21 +14,20 @@ import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import top.yang.net.HttpManager;
 import top.yang.net.body.ProgressRequestBody;
-import top.yang.net.build.base.OkHttpRequestBuilderHasParam;
+import top.yang.net.build.base.AsyncOkHttpRequestBuilderHasParam;
 import top.yang.net.callback.CustomCallback;
 import top.yang.net.response.IResponseHandler;
 
 /**
  * upload builder Created by tsy on 16/9/18.
  */
-public class UploadBuilder extends OkHttpRequestBuilderHasParam<UploadBuilder> {
+public class UploadBuilderAsync extends AsyncOkHttpRequestBuilderHasParam<UploadBuilderAsync> {
 
   private Map<String, File> files;
   private List<MultipartBody.Part> extraParts;
 
-  public UploadBuilder(OkHttpClient okHttpClient) {
+  public UploadBuilderAsync(OkHttpClient okHttpClient) {
     super(okHttpClient);
   }
 
@@ -38,7 +37,7 @@ public class UploadBuilder extends OkHttpRequestBuilderHasParam<UploadBuilder> {
    * @param files files
    * @return
    */
-  public UploadBuilder files(Map<String, File> files) {
+  public UploadBuilderAsync files(Map<String, File> files) {
     this.files = files;
     return this;
   }
@@ -50,7 +49,7 @@ public class UploadBuilder extends OkHttpRequestBuilderHasParam<UploadBuilder> {
    * @param file file
    * @return
    */
-  public UploadBuilder addFile(String key, File file) {
+  public UploadBuilderAsync addFile(String key, File file) {
     if (this.files == null) {
       files = new LinkedHashMap<>();
     }
@@ -66,7 +65,7 @@ public class UploadBuilder extends OkHttpRequestBuilderHasParam<UploadBuilder> {
    * @param fileContent byte[] file content
    * @return
    */
-  public UploadBuilder addFile(String key, String fileName, byte[] fileContent) {
+  public UploadBuilderAsync addFile(String key, String fileName, byte[] fileContent) {
     if (this.extraParts == null) {
       this.extraParts = new ArrayList<MultipartBody.Part>();
     }

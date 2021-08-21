@@ -6,12 +6,13 @@ import java.util.Map;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import top.yang.net.response.IResponseHandler;
 
-public abstract class OkHttpRequestBuilder<T extends OkHttpRequestBuilder> {
+/**
+ * 不带param的base request body Created by tsy on 16/9/14.
+ */
+public abstract class AsyncOkHttpRequestBuilder<T extends AsyncOkHttpRequestBuilder> {
 
-  protected final Logger logger = LoggerFactory.getLogger(getClass());
   protected String url;
   protected Object tag;
   protected Map<String, String> headers = new HashMap<String, String>() {
@@ -28,11 +29,13 @@ public abstract class OkHttpRequestBuilder<T extends OkHttpRequestBuilder> {
   protected OkHttpClient okHttpClient;
 
   /**
-   * 同步执行
+   * 异步执行
+   *
+   * @param responseHandler 自定义回调
    */
-  protected abstract okhttp3.Response execute();
+  protected abstract void enqueue(final IResponseHandler responseHandler);
 
-  public OkHttpRequestBuilder(OkHttpClient okHttpClient) {
+  public AsyncOkHttpRequestBuilder(OkHttpClient okHttpClient) {
     this.okHttpClient = okHttpClient;
   }
 
