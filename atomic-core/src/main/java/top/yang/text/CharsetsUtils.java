@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package top.yang.string;
+package top.yang.text;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

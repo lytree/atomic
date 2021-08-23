@@ -1,4 +1,4 @@
-package top.yang.web.vo;
+package top.yang.web.domain.vo;
 
 
 import top.yang.exception.AtomicCode;

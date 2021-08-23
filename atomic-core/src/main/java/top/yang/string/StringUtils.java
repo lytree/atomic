@@ -38,6 +38,7 @@ import top.yang.collections.ArrayUtils;
 import top.yang.function.Suppliers;
 import top.yang.function.ToBooleanBiFunction;
 import top.yang.reflect.ObjectUtils;
+import top.yang.text.CharsetsUtils;
 import top.yang.time.LocaleUtils;
 
 
@@ -2055,9 +2056,11 @@ public class StringUtils {
   public static byte[] getBytes(final String string, final String charset) throws UnsupportedEncodingException {
     return string == null ? ArrayUtils.EMPTY_BYTE_ARRAY : string.getBytes(CharsetsUtils.toCharsetName(charset));
   }
+
   public static byte[] getBytes(final String string) throws UnsupportedEncodingException {
     return string == null ? ArrayUtils.EMPTY_BYTE_ARRAY : string.getBytes(CharsetsUtils.CHARSET_DEFAULT);
   }
+
   /**
    * <p>Compares all Strings in an array and returns the initial sequence of
    * characters that is common to all of them.</p>
@@ -7979,9 +7982,11 @@ public class StringUtils {
   public static String toEncodedString(final byte[] bytes, final Charset charset) {
     return new String(bytes, CharsetsUtils.toCharset(charset));
   }
+
   public static String toEncodedString(final byte[] bytes, final String charset) throws UnsupportedEncodingException {
     return new String(bytes, CharsetsUtils.toCharsetName(charset));
   }
+
   /**
    * Converts the given source String as a lower-case using the {@link Locale#ROOT} locale in a null-safe manner.
    *
@@ -8541,6 +8546,7 @@ public class StringUtils {
     }
     return builder.toString();
   }
+
   /**
    * Calls {@link String#getBytes(Charset)}
    *
@@ -9060,4 +9066,23 @@ public class StringUtils {
 
     return obj.toString();
   }
+
+  /**
+   * 是否包含字符串
+   *
+   * @param str  验证字符串
+   * @param strs 字符串组
+   * @return 包含返回true
+   */
+  public static boolean inStringIgnoreCase(String str, String... strs) {
+    if (str != null && strs != null) {
+      for (String s : strs) {
+        if (str.equalsIgnoreCase(trim(s))) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
 }

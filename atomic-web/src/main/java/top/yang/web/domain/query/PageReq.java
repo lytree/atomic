@@ -1,4 +1,4 @@
-package top.yang.web.query;
+package top.yang.web.domain.query;
 
 
 /**

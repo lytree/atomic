@@ -1,4 +1,4 @@
-package top.yang.web.vo;
+package top.yang.web.domain.vo;
 
 
 import java.io.Serializable;

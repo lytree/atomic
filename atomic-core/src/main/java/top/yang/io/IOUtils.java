@@ -23,7 +23,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Objects;
 import top.yang.io.Output.NullOutputStream;
-import top.yang.string.CharsetsUtils;
+import top.yang.text.CharsetsUtils;
 
 /**
  * @author PrideYang
