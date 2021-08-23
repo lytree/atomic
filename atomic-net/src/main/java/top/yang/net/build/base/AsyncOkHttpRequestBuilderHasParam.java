@@ -4,11 +4,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import okhttp3.OkHttpClient;
 
-public abstract class OkHttpRequestBuilderHasParam<T extends OkHttpRequestBuilderHasParam> extends OkHttpRequestBuilder<T> {
+/**
+ * 带有param的base request body Created by tsy on 2016/12/6.
+ */
+
+public abstract class AsyncOkHttpRequestBuilderHasParam<T extends AsyncOkHttpRequestBuilderHasParam> extends AsyncOkHttpRequestBuilder<T> {
 
   protected Map<String, String> params;
 
-  public OkHttpRequestBuilderHasParam(OkHttpClient okHttpClient) {
+  public AsyncOkHttpRequestBuilderHasParam(OkHttpClient okHttpClient) {
     super(okHttpClient);
   }
 

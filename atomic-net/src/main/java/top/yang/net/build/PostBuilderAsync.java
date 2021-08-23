@@ -1,19 +1,24 @@
 package top.yang.net.build;
 
-import java.io.IOException;
+
 import java.util.Map;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import top.yang.net.build.base.OkHttpRequestBuilderHasParam;
+import top.yang.net.build.base.AsyncOkHttpRequestBuilderHasParam;
+import top.yang.net.callback.CustomCallback;
+import top.yang.net.response.IResponseHandler;
 
-public class PostBuilder extends OkHttpRequestBuilderHasParam<PostBuilder> {
+/**
+ * post builder Created by tsy on 16/9/18.
+ */
+public class PostBuilderAsync extends AsyncOkHttpRequestBuilderHasParam<PostBuilderAsync> {
 
   private String jsonParams = "";
 
-  public PostBuilder(OkHttpClient okHttpClient) {
+  public PostBuilderAsync(OkHttpClient okHttpClient) {
     super(okHttpClient);
   }
 
@@ -23,13 +28,13 @@ public class PostBuilder extends OkHttpRequestBuilderHasParam<PostBuilder> {
    * @param json
    * @return
    */
-  public PostBuilder jsonParams(String json) {
+  public PostBuilderAsync jsonParams(String json) {
     this.jsonParams = json;
     return this;
   }
 
   @Override
-  public okhttp3.Response execute() {
+  public void enqueue(IResponseHandler responseHandler) {
     if (url == null || url.length() == 0) {
       throw new IllegalArgumentException("url can not be null !");
     }
@@ -53,13 +58,9 @@ public class PostBuilder extends OkHttpRequestBuilderHasParam<PostBuilder> {
 
     Request request = builder.build();
 
-    try {
-      return okHttpClient.
-          newCall(request).execute();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return null;
+    okHttpClient.
+        newCall(request).
+        enqueue(new CustomCallback(responseHandler));
   }
 
   //append params to form builder

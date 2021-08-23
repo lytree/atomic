@@ -1,20 +1,25 @@
 package top.yang.net.build;
 
-import java.io.IOException;
+
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import top.yang.net.build.base.OkHttpRequestBuilder;
+import top.yang.net.build.base.AsyncOkHttpRequestBuilder;
+import top.yang.net.callback.CustomCallback;
+import top.yang.net.response.IResponseHandler;
 
-public class PatchBuilder extends OkHttpRequestBuilder<PatchBuilder> {
+/**
+ * patch builder Created by tsy on 16/12/06.
+ */
+public class PatchBuilderAsync extends AsyncOkHttpRequestBuilder<PatchBuilderAsync> {
 
-  public PatchBuilder(OkHttpClient okHttpClient) {
+  public PatchBuilderAsync(OkHttpClient okHttpClient) {
     super(okHttpClient);
   }
 
   @Override
-  public okhttp3.Response execute() {
+  public void enqueue(final IResponseHandler responseHandler) {
     if (url == null || url.length() == 0) {
       throw new IllegalArgumentException("url can not be null !");
     }
@@ -29,11 +34,8 @@ public class PatchBuilder extends OkHttpRequestBuilder<PatchBuilder> {
     builder.patch(RequestBody.create("", MediaType.parse("text/plain;charset=utf-8")));
     Request request = builder.build();
 
-    try {
-      return okHttpClient.newCall(request).execute();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return null;
+    okHttpClient.
+        newCall(request).
+        enqueue(new CustomCallback(responseHandler));
   }
 }
