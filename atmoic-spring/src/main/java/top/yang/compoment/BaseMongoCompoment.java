@@ -40,16 +40,13 @@ public class BaseMongoCompoment<R extends BaseMongoRepository, T extends BaseBea
 
   @Transactional(rollbackFor = Exception.class)
   public T save(T t) {
-    if (Objects.isNull(t.getDtCreate())) {
-      t.setDtCreate(LocalDateTime.now());
-    }
     return (T) repository.save(t);
   }
 
   @Transactional(rollbackFor = Exception.class)
   public List<T> save(List<T> t) {
     List<T> collect = t.stream().map(t1 -> {
-      t1.setDtCreate(LocalDateTime.now());
+      t1.setCreateTime(LocalDateTime.now());
       return t1;
     }).collect(Collectors.toList());
     return (List<T>) repository.saveAll(collect);
@@ -57,14 +54,14 @@ public class BaseMongoCompoment<R extends BaseMongoRepository, T extends BaseBea
 
   @Transactional(rollbackFor = Exception.class)
   public T update(T t) {
-    t.setDtUpdate(LocalDateTime.now());
+    t.setUpdateTime(LocalDateTime.now());
     return (T) repository.save(t);
   }
 
   @Transactional(rollbackFor = Exception.class)
   public List<T> update(List<T> t) {
     List<T> collect = t.stream().map(t1 -> {
-      t1.setDtUpdate(LocalDateTime.now());
+      t1.setUpdateTime(LocalDateTime.now());
       return t1;
     }).collect(Collectors.toList());
     return (List<T>) repository.saveAll(collect);

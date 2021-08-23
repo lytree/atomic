@@ -27,29 +27,29 @@ public class BaseBean implements Serializable {
    *
    */
   @CreatedDate
-  @Column(name = "dt_create")
-  private LocalDateTime dtCreate;
+  @Column(name = "create_time")
+  private LocalDateTime createTime;
 
   /**
    *
    */
   @LastModifiedDate
-  @Column(name = "dt_update")
-  private LocalDateTime dtUpdate;
+  @Column(name = "update_time")
+  private LocalDateTime updateTime;
 
-  public LocalDateTime getDtCreate() {
-    return dtCreate;
+  public LocalDateTime getCreateTime() {
+    return createTime;
   }
 
-  public void setDtCreate(LocalDateTime dtCreate) {
-    this.dtCreate = dtCreate;
+  public void setCreateTime(LocalDateTime createTime) {
+    this.createTime = createTime;
   }
 
-  public LocalDateTime getDtUpdate() {
-    return dtUpdate;
+  public LocalDateTime getUpdateTime() {
+    return updateTime;
   }
 
-  public void setDtUpdate(LocalDateTime dtUpdate) {
-    this.dtUpdate = dtUpdate;
+  public void setUpdateTime(LocalDateTime updateTime) {
+    this.updateTime = updateTime;
   }
 }
