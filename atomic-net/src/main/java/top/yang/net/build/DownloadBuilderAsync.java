@@ -19,9 +19,9 @@ import top.yang.net.response.DownloadResponseHandler;
 /**
  * download builder Created by tsy on 16/9/18.
  */
-public class DownloadBuilder {
+public class DownloadBuilderAsync {
 
-  private final static Logger logger = LoggerFactory.getLogger(DownloadBuilder.class);
+  private final static Logger logger = LoggerFactory.getLogger(DownloadBuilderAsync.class);
   private final OkHttpClient okHttpClient;
 
   private String url = "";
@@ -34,11 +34,11 @@ public class DownloadBuilder {
 
   private Long completeBytes = 0L;    //已经完成的字节数 用于断点续传
 
-  public DownloadBuilder(OkHttpClient okHttpClient) {
+  public DownloadBuilderAsync(OkHttpClient okHttpClient) {
     this.okHttpClient = okHttpClient;
   }
 
-  public DownloadBuilder url(String url) {
+  public DownloadBuilderAsync url(String url) {
     this.url = url;
     return this;
   }
@@ -49,7 +49,7 @@ public class DownloadBuilder {
    * @param fileDir file directory
    * @return
    */
-  public DownloadBuilder fileDir(String fileDir) {
+  public DownloadBuilderAsync fileDir(String fileDir) {
     this.fileDir = fileDir;
     return this;
   }
@@ -60,7 +60,7 @@ public class DownloadBuilder {
    * @param fileName file name
    * @return
    */
-  public DownloadBuilder fileName(String fileName) {
+  public DownloadBuilderAsync fileName(String fileName) {
     this.fileName = fileName;
     return this;
   }
@@ -71,7 +71,7 @@ public class DownloadBuilder {
    * @param filePath file path
    * @return
    */
-  public DownloadBuilder filePath(String filePath) {
+  public DownloadBuilderAsync filePath(String filePath) {
     this.filePath = filePath;
     return this;
   }
@@ -82,7 +82,7 @@ public class DownloadBuilder {
    * @param tag tag
    * @return
    */
-  public DownloadBuilder tag(Object tag) {
+  public DownloadBuilderAsync tag(Object tag) {
     this.tag = tag;
     return this;
   }
@@ -93,7 +93,7 @@ public class DownloadBuilder {
    * @param headers headers
    * @return
    */
-  public DownloadBuilder headers(Map<String, String> headers) {
+  public DownloadBuilderAsync headers(Map<String, String> headers) {
     this.header = headers;
     return this;
   }
@@ -105,7 +105,7 @@ public class DownloadBuilder {
    * @param val header val
    * @return
    */
-  public DownloadBuilder addHeader(String key, String val) {
+  public DownloadBuilderAsync addHeader(String key, String val) {
     if (this.header == null) {
       header = new LinkedHashMap<>();
     }
@@ -119,7 +119,7 @@ public class DownloadBuilder {
    * @param completeBytes 已经完成的字节数
    * @return
    */
-  public DownloadBuilder setCompleteBytes(Long completeBytes) {
+  public DownloadBuilderAsync setCompleteBytes(Long completeBytes) {
     if (completeBytes > 0L) {
       this.completeBytes = completeBytes;
       addHeader("RANGE", "bytes=" + completeBytes + "-");     //添加断点续传header

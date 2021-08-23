@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.yang.net.build.DeleteBuilder;
 import top.yang.net.build.DeleteBuilderAsync;
-import top.yang.net.build.DownloadBuilder;
+import top.yang.net.build.DownloadBuilderAsync;
 import top.yang.net.build.GetBuilder;
 import top.yang.net.build.GetBuilderAsync;
 import top.yang.net.build.PatchBuilder;
@@ -78,8 +78,8 @@ public class HttpManager {
     return new UploadBuilderAsync(this.okHttpClient);
   }
 
-  public DownloadBuilder asyncDownload() {
-    return new DownloadBuilder(this.okHttpClient);
+  public DownloadBuilderAsync asyncDownload() {
+    return new DownloadBuilderAsync(this.okHttpClient);
   }
 
   /**
