@@ -4,7 +4,7 @@ package top.yang.web.annotation;
 import top.yang.web.enums.BusinessType;
 import top.yang.web.enums.OperatorType;
 
-public @interface Log {
+public @interface ControllerLog {
 
   /**
    * 模块

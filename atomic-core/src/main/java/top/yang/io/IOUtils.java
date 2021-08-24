@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,15 +15,20 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Objects;
+import top.yang.collections.ArrayUtils;
 import top.yang.io.Output.NullOutputStream;
+import top.yang.string.StringUtils;
 import top.yang.text.CharsetsUtils;
 
 /**
@@ -30,6 +36,16 @@ import top.yang.text.CharsetsUtils;
  */
 public class IOUtils {
 
+  /**
+   * The default buffer size to use for the skip() methods.
+   */
+  private static final int SKIP_BUFFER_SIZE = 2048;
+
+  /**
+   * The current set global allocation limit override, -1 means limits are applied per record type.
+   */
+  private static int BYTE_ARRAY_MAX_OVERRIDE = -1;
+  public static String FILENAME_PATTERN = "[a-zA-Z0-9_\\-\\|\\.\\u4e00-\\u9fa5]+";
   /**
    * CR char.
    *
@@ -1009,5 +1025,147 @@ public class IOUtils {
     out.flush();
     out.close();
 
+  }
+  /**
+   * 输出指定文件的byte数组
+   *
+   * @param filePath 文件路径
+   * @param os       输出流
+   * @return
+   */
+  public static void writeBytes(String filePath, OutputStream os) throws IOException {
+    FileInputStream fis = null;
+    try {
+      File file = new File(filePath);
+      if (!file.exists()) {
+        throw new FileNotFoundException(filePath);
+      }
+      fis = new FileInputStream(file);
+      byte[] b = new byte[1024];
+      int length;
+      while ((length = fis.read(b)) > 0) {
+        os.write(b, 0, length);
+      }
+    } catch (IOException e) {
+      throw e;
+    } finally {
+      if (os != null) {
+        try {
+          os.close();
+        } catch (IOException e1) {
+          e1.printStackTrace();
+        }
+      }
+      if (fis != null) {
+        try {
+          fis.close();
+        } catch (IOException e1) {
+          e1.printStackTrace();
+        }
+      }
+    }
+  }
+
+  /**
+   * 删除文件
+   *
+   * @param filePath 文件
+   * @return
+   */
+  public static boolean deleteFile(String filePath) {
+    boolean flag = false;
+    File file = new File(filePath);
+    // 路径为文件且不为空则进行删除
+    if (file.isFile() && file.exists()) {
+      file.delete();
+      flag = true;
+    }
+    return flag;
+  }
+
+  /**
+   * 文件名称验证
+   *
+   * @param filename 文件名称
+   * @return true 正常 false 非法
+   */
+  public static boolean isValidFilename(String filename) {
+    return filename.matches(FILENAME_PATTERN);
+  }
+
+  /**
+   * 检查文件是否可下载
+   *
+   * @param resource 需要下载的文件
+   * @return true 正常 false 非法
+   */
+  public static boolean checkAllowDownload(String resource) {
+    // 禁止目录上跳级别
+    if (StringUtils.contains(resource, "..")) {
+      return false;
+    }
+
+    // 检查允许下载的文件规则
+    if (ArrayUtils.contains(MimeTypeUtils.DEFAULT_ALLOWED_EXTENSION, FileUtils.getFileType(resource))) {
+      return true;
+    }
+
+    // 不在允许下载的文件规则
+    return false;
+  }
+
+  /**
+   * 返回文件名
+   *
+   * @param filePath 文件
+   * @return 文件名
+   */
+  public static String getName(String filePath) {
+    if (null == filePath) {
+      return null;
+    }
+    int len = filePath.length();
+    if (0 == len) {
+      return filePath;
+    }
+    if (isFileSeparator(filePath.charAt(len - 1))) {
+      // 以分隔符结尾的去掉结尾分隔符
+      len--;
+    }
+
+    int begin = 0;
+    char c;
+    for (int i = len - 1; i > -1; i--) {
+      c = filePath.charAt(i);
+      if (isFileSeparator(c)) {
+        // 查找最后一个路径分隔符（/或者\）
+        begin = i + 1;
+        break;
+      }
+    }
+
+    return filePath.substring(begin, len);
+  }
+
+  /**
+   * 是否为Windows或者Linux（Unix）文件分隔符<br> Windows平台下分隔符为\，Linux（Unix）为/
+   *
+   * @param c 字符
+   * @return 是否为Windows或者Linux（Unix）文件分隔符
+   */
+  public static boolean isFileSeparator(char c) {
+    return DIR_SEPARATOR_UNIX == c || DIR_SEPARATOR_WINDOWS == c;
+  }
+
+
+  /**
+   * 百分号编码工具方法
+   *
+   * @param s 需要百分号编码的字符串
+   * @return 百分号编码后的字符串
+   */
+  public static String percentEncode(String s) throws UnsupportedEncodingException {
+    String encode = URLEncoder.encode(s, StandardCharsets.UTF_8.toString());
+    return encode.replaceAll("\\+", "%20");
   }
 }

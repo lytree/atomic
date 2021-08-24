@@ -22,7 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import top.yang.json.JSONUtil;
 import top.yang.string.StringUtils;
-import top.yang.web.annotation.Log;
+import top.yang.web.annotation.ControllerLog;
 import top.yang.web.domain.dto.SysLog;
 import top.yang.web.enums.BusinessStatus;
 import top.yang.web.utils.IPUtils;
@@ -36,7 +36,7 @@ public class LogAspect {
   private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
 
   // 配置织入点
-  @Pointcut("@annotation(top.yang.web.annotation.Log)")
+  @Pointcut("@annotation(top.yang.web.annotation.ControllerLog)")
   public void logPointCut() {
   }
 
@@ -64,7 +64,7 @@ public class LogAspect {
   protected void handleLog(final JoinPoint joinPoint, final Exception e, Object jsonResult) {
     try {
       // 获得注解
-      Log controllerLog = getAnnotationLog(joinPoint);
+      ControllerLog controllerLog = getAnnotationLog(joinPoint);
       if (controllerLog == null) {
         return;
       }
@@ -107,19 +107,19 @@ public class LogAspect {
   /**
    * 获取注解中对方法的描述信息 用于Controller层注解
    *
-   * @param log    日志
+   * @param controllerLog    日志
    * @param sysLog 操作日志
    * @throws Exception
    */
-  public void getControllerMethodDescription(JoinPoint joinPoint, Log log, SysLog sysLog) throws Exception {
+  public void getControllerMethodDescription(JoinPoint joinPoint, ControllerLog controllerLog, SysLog sysLog) throws Exception {
     // 设置action动作
-    sysLog.setBusinessType(log.businessType().ordinal());
+    sysLog.setBusinessType(controllerLog.businessType().ordinal());
     // 设置标题
-    sysLog.setTitle(log.title());
+    sysLog.setTitle(controllerLog.title());
     // 设置操作人类别
-    sysLog.setOperatorType(log.operatorType().ordinal());
+    sysLog.setOperatorType(controllerLog.operatorType().ordinal());
     // 是否需要保存request，参数和值
-    if (log.isSaveRequestData()) {
+    if (controllerLog.isSaveRequestData()) {
       // 获取参数的信息，传入到数据库中。
       setRequestValue(joinPoint, sysLog);
     }
@@ -142,13 +142,13 @@ public class LogAspect {
   /**
    * 是否存在注解，如果存在就获取
    */
-  private Log getAnnotationLog(JoinPoint joinPoint) throws Exception {
+  private ControllerLog getAnnotationLog(JoinPoint joinPoint) throws Exception {
     Signature signature = joinPoint.getSignature();
     MethodSignature methodSignature = (MethodSignature) signature;
     Method method = methodSignature.getMethod();
 
     if (method != null) {
-      return method.getAnnotation(Log.class);
+      return method.getAnnotation(ControllerLog.class);
     }
     return null;
   }
