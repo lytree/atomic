@@ -1,6 +1,5 @@
 package top.yang.manager;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -18,6 +17,7 @@ import top.yang.repository.BaseMongoRepository;
  * @author PrideYang
  */
 public class BaseMongoManager<R extends BaseMongoRepository, T extends BaseBean, ID> {
+
   @Autowired
   protected R repository;
 
@@ -34,7 +34,6 @@ public class BaseMongoManager<R extends BaseMongoRepository, T extends BaseBean,
   }
 
   public List<T> findAllByIds(Set<ID> ids) {
-
     Iterable<T> all = repository.findAllById(ids);
     return StreamSupport.stream(all.spliterator(), false).collect(Collectors.toList());
   }
@@ -46,26 +45,17 @@ public class BaseMongoManager<R extends BaseMongoRepository, T extends BaseBean,
 
   @Transactional(rollbackFor = Exception.class)
   public List<T> save(List<T> t) {
-    List<T> collect = t.stream().map(t1 -> {
-      t1.setCreateTime(LocalDateTime.now());
-      return t1;
-    }).collect(Collectors.toList());
-    return (List<T>) repository.saveAll(collect);
+    return (List<T>) repository.saveAll(t);
   }
 
   @Transactional(rollbackFor = Exception.class)
   public T update(T t) {
-    t.setUpdateTime(LocalDateTime.now());
     return (T) repository.save(t);
   }
 
   @Transactional(rollbackFor = Exception.class)
   public List<T> update(List<T> t) {
-    List<T> collect = t.stream().map(t1 -> {
-      t1.setUpdateTime(LocalDateTime.now());
-      return t1;
-    }).collect(Collectors.toList());
-    return (List<T>) repository.saveAll(collect);
+    return (List<T>) repository.saveAll(t);
   }
 
   @Transactional(rollbackFor = Exception.class)
