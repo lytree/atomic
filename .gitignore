@@ -22,7 +22,7 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 .idea/*
-atmoic-spring/.idea/*
+atomic-spring/.idea/*
 atomic-core/.idea/*
 atomic-datastructure/.idea/*
 atomic-encryption/.idea/*
@@ -31,7 +31,7 @@ atomic-parent/.idea/*
 atomic-web/.idea/*
 atomic-redis/.idea/*
 atomic-utils/.idea/*
-atmoic-spring/target/*
+atomic-spring/target/*
 atomic-core/target/*
 atomic-datastructure/target/*
 atomic-encryption/target/*
@@ -45,3 +45,5 @@ atomic-webmagic/.idea/
 atomic-crypto/.idea/
 
 atomic-crypto/target/*
+/atomic-spring/.idea/
+/atomic-spring/target/

@@ -1,5 +1,6 @@
 top\yang\pojo\BaseBean.class
 top\yang\manager\BaseMongoManager.class
+top\yang\pojo\BaseEntity.class
 top\yang\spring\factory\BaseHandlerFactory.class
 top\yang\spring\jpa\SpringPhysicalNamingStrategy.class
 top\yang\utils\SpringUtils.class
