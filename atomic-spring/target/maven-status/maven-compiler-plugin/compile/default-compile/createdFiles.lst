@@ -1,0 +1,12 @@
+top\yang\pojo\BaseBean.class
+top\yang\manager\BaseMongoManager.class
+top\yang\spring\factory\BaseHandlerFactory.class
+top\yang\spring\jpa\SpringPhysicalNamingStrategy.class
+top\yang\utils\SpringUtils.class
+top\yang\constants\Globals.class
+top\yang\pojo\Page.class
+top\yang\manager\BaseJpaManager.class
+top\yang\repository\BaseMongoRepository.class
+top\yang\spring\jpa\BasePhysicalNamingStrategy.class
+top\yang\utils\PageUtils.class
+top\yang\repository\BaseJpaRepository.class

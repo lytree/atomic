@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 public class JSONUtil {
     private final static Logger logger = LoggerFactory.getLogger(JSONUtil.class);
 
-    private static final ObjectMapper MAPPER;
+    protected static final ObjectMapper MAPPER;
     // 日起格式化
     private static final String STANDARD_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
