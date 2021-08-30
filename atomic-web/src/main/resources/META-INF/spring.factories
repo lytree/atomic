@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  top.yang.web.aspect.GlobalExceptionHandler,\
+  top.yang.web.aspect.GlobalResponseHandler,\
+  top.yang.web.aspect.ControllerLogAspect

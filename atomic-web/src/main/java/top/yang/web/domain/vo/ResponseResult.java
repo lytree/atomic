@@ -1,7 +1,7 @@
 package top.yang.web.domain.vo;
 
 
-import top.yang.exception.AtomicCode;
+import top.yang.exception.CommonCode;
 import top.yang.exception.ResultCode;
 
 /**
@@ -9,81 +9,81 @@ import top.yang.exception.ResultCode;
  */
 public class ResponseResult<T> implements Response {
 
-  String requestId;
-  //
-  /**
-   * 操作代码
-   */
-  private String code = SUCCESS_CODE;
+    String requestId;
+    //
+    /**
+     * 操作代码
+     */
+    private String code = SUCCESS_CODE;
 
-  //
-  /**
-   * 提示信息
-   */
-  private String message;
-  /**
-   * 数据
-   */
-  private T data;
+    //
+    /**
+     * 提示信息
+     */
+    private String message;
+    /**
+     * 数据
+     */
+    private T data;
 
-  public ResponseResult(ResultCode resultCode, String requestId) {
-    this.code = resultCode.getCode();
-    this.message = resultCode.getMessage();
-    this.requestId = requestId;
-  }
+    public ResponseResult(ResultCode resultCode, String requestId) {
+        this.code = resultCode.getCode();
+        this.message = resultCode.getMessage();
+        this.requestId = requestId;
+    }
 
-  public ResponseResult(ResultCode resultCode, T data, String requestId) {
-    this.code = resultCode.getCode();
-    this.message = resultCode.getMessage();
-    this.data = data;
-    this.requestId = requestId;
-  }
+    public ResponseResult(ResultCode resultCode, T data, String requestId) {
+        this.code = resultCode.getCode();
+        this.message = resultCode.getMessage();
+        this.data = data;
+        this.requestId = requestId;
+    }
 
-  public static ResponseResult<Void> success(String requestId) {
-    return new ResponseResult(AtomicCode.SUCCESS, requestId);
-  }
+    public static ResponseResult<Void> success(String requestId) {
+        return new ResponseResult(CommonCode.SUCCESS, requestId);
+    }
 
-  public static <T> ResponseResult<T> success(T data, String requestId) {
-    return new ResponseResult<>(AtomicCode.SUCCESS, data, requestId);
-  }
+    public static <T> ResponseResult<T> success(T data, String requestId) {
+        return new ResponseResult<>(CommonCode.SUCCESS, data, requestId);
+    }
 
-  public static ResponseResult<Void> fail(String requestId) {
-    return new ResponseResult<Void>(AtomicCode.FAIL, requestId);
-  }
+    public static ResponseResult<Void> fail(String requestId) {
+        return new ResponseResult<Void>(CommonCode.FAIL, requestId);
+    }
 
-  public static ResponseResult<ResultCode> fail(ResultCode resultCode, String requestId) {
-    return new ResponseResult<ResultCode>(resultCode, requestId);
-  }
+    public static ResponseResult<ResultCode> fail(ResultCode resultCode, String requestId) {
+        return new ResponseResult<ResultCode>(resultCode, requestId);
+    }
 
-  public String getCode() {
-    return code;
-  }
+    public String getCode() {
+        return code;
+    }
 
-  public void setCode(String code) {
-    this.code = code;
-  }
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-  public String getMessage() {
-    return message;
-  }
+    public String getMessage() {
+        return message;
+    }
 
-  public void setMessage(String message) {
-    this.message = message;
-  }
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-  public T getData() {
-    return data;
-  }
+    public T getData() {
+        return data;
+    }
 
-  public void setData(T data) {
-    this.data = data;
-  }
+    public void setData(T data) {
+        this.data = data;
+    }
 
-  public String getRequestId() {
-    return requestId;
-  }
+    public String getRequestId() {
+        return requestId;
+    }
 
-  public void setRequestId(String requestId) {
-    this.requestId = requestId;
-  }
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
 }

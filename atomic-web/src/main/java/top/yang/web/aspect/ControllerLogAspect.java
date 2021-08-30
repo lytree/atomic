@@ -31,9 +31,9 @@ import top.yang.web.utils.ServletUtils;
 
 @Aspect
 @Component
-public class LogAspect {
+public class ControllerLogAspect {
 
-  private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
+  private static final Logger log = LoggerFactory.getLogger(ControllerLogAspect.class);
 
   // 配置织入点
   @Pointcut("@annotation(top.yang.web.annotation.ControllerLog)")

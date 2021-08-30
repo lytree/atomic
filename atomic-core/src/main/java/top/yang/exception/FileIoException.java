@@ -1,5 +1,5 @@
 package top.yang.exception;
 
-public class FileIoException extends AtomicException {
+public class FileIoException extends RuntimeException {
 
 }
