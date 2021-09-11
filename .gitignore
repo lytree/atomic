@@ -47,3 +47,6 @@ atomic-crypto/.idea/
 atomic-crypto/target/*
 /atomic-spring/.idea/
 /atomic-spring/target/
+/atomic-webmagic/.idea/
+
+atomic-redis/.idea/
