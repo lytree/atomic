@@ -26,6 +26,11 @@ public class RedisKey {
   public void set(String key, String value, long time) {
     stringRedisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
   }
+
+  public String get(String key, String value) {
+   return stringRedisTemplate.opsForValue().get(key);
+  }
+
   // 自增、自减方式实现计数
 
   /**

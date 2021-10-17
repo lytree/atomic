@@ -1,5 +1,6 @@
 package top.yang.redis.string;
 
+import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -7,16 +8,38 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RedisList {
+
   @Autowired
   private StringRedisTemplate stringRedisTemplate;
+
   /**
    * 在列表的最左边塞入一个value
    *
    * @param key
    * @param value
    */
-  public void lpush(String key, String value) {
+  public void lPush(String key, String value) {
     stringRedisTemplate.opsForList().leftPush(key, value);
+  }
+
+  public void rPush(String key, String value) {
+    stringRedisTemplate.opsForList().rightPush(key, value);
+  }
+
+  public void lPushAll(String key, Collection<String> values) {
+    stringRedisTemplate.opsForList().leftPushAll(key, values);
+  }
+
+  public void rPushAll(String key, Collection<String> values) {
+    stringRedisTemplate.opsForList().rightPushAll(key, values);
+  }
+
+  public void lPushIfPresent(String key, String value) {
+    stringRedisTemplate.opsForList().leftPushIfPresent(key, value);
+  }
+
+  public void rPushIfPresent(String key, String value) {
+    stringRedisTemplate.opsForList().rightPushIfPresent(key, value);
   }
 
   /**
