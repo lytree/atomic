@@ -1,9 +1,11 @@
 package top.yang.manager;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -68,6 +70,11 @@ public class BaseMongoManager<R extends BaseMongoRepository, T extends BaseBean,
     if (optional.isPresent()) {
       repository.deleteById(id);
     }
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  public void deleteByIds(Collection<ID> ids) {
+    ids.forEach(id -> repository.deleteById(id));
   }
 
 }

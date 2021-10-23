@@ -6,10 +6,6 @@
 
   <dependencies>
     <dependency>
-      <artifactId>spring-boot-starter-logging</artifactId>
-      <groupId>org.springframework.boot</groupId>
-    </dependency>
-    <dependency>
       <artifactId>atomic-core</artifactId>
       <groupId>top.yang</groupId>
       <version>1.0-SNAPSHOT</version>
@@ -20,7 +16,6 @@
     </dependency>
 
   </dependencies>
-  <groupId>top.yang</groupId>
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>atomic-parent</artifactId>

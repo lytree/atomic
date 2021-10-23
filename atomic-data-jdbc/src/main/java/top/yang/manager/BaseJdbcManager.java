@@ -1,5 +1,7 @@
 package top.yang.manager;
 
+import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -10,90 +12,86 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Streamable;
 import org.springframework.transaction.annotation.Transactional;
+import top.yang.compoment.BaseJdbcComponent;
 import top.yang.pojo.BaseBean;
 import top.yang.repository.BaseJdbcRepository;
 
 /**
  * @author PrideYang
  */
-public class BaseJdbcManager<R extends BaseJdbcRepository, T extends BaseBean, ID> {
+public class BaseJdbcManager<R extends BaseJdbcComponent, T extends BaseBean, ID extends Serializable> {
 
   @Autowired
-  protected R repository;
+  protected R component;
+
 
   public T findById(ID id) {
-    return (T) repository.findById(id).get();
+    return (T) component.findById(id);
   }
 
   public List<T> findAll() {
 
-    Iterable<T> all = repository.findAll();
+    Iterable<T> all = component.findAll();
     return Streamable.of(all).stream() //
         .collect(Collectors.toList());
   }
 
   public List<T> findAll(Sort sort) {
-    Iterable<T> all = repository.findAll(sort);
+    Iterable<T> all = component.findAll(sort);
     return Streamable.of(all).stream() //
         .collect(Collectors.toList());
   }
 
   public Page<T> findAllPage(Pageable pageable) {
-    return (Page<T>) repository.findAll(pageable);
+    return (Page<T>) component.findAllPage(pageable);
   }
 
   public List<T> findAllByIds(Set<ID> ids) {
-    Iterable<T> all = repository.findAllById(ids);
+    Iterable<T> all = component.findAllByIds(ids);
     return Streamable.of(all).stream() //
         .collect(Collectors.toList());
   }
 
   public boolean existsById(ID id) {
-    return repository.existsById(id);
+    return component.existsById(id);
   }
 
   public long count() {
-    return repository.count();
+    return component.count();
   }
 
-  @Transactional(rollbackFor = Exception.class)
   public T save(T t) {
-    return (T) repository.save(t);
+    return (T) component.save(t);
   }
 
-  @Transactional(rollbackFor = Exception.class)
   public List<T> save(List<T> t) {
-    return (List<T>) repository.saveAll(t);
+    return (List<T>) component.save(t);
   }
 
-  @Transactional(rollbackFor = Exception.class)
   public T update(T t) {
-    return (T) repository.save(t);
+    return (T) component.save(t);
   }
 
-  @Transactional(rollbackFor = Exception.class)
+
   public List<T> update(List<T> t) {
-    return (List<T>) repository.saveAll(t);
+    return (List<T>) component.save(t);
   }
 
-  @Transactional(rollbackFor = Exception.class)
+
   public void delete(T instance) {
-    repository.delete(instance);
+    component.delete(instance);
   }
 
-  @Transactional(rollbackFor = Exception.class)
   public void deleteById(ID id) {
-    repository.deleteById(id);
+    component.deleteById(id);
   }
 
-  @Transactional(rollbackFor = Exception.class)
-  public void deleteAllById(Iterable<ID> ids) {
-    ids.forEach(id -> repository.deleteById(id));
+  public void deleteByIds(Collection<ID> ids) {
+    ids.forEach(id -> component.deleteById(id));
   }
 
 
-  @Transactional(rollbackFor = Exception.class)
   public void deleteAll() {
-    repository.deleteAll();
+    component.deleteAll();
   }
 }

@@ -9,12 +9,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.10</version>
+        <version>2.4.11</version>
     </parent>
     <properties>
         <skipTests>true</skipTests>
         <mysql-connector-java.version>8.0.25</mysql-connector-java.version>
-        <rocketmq.version>2.2.0</rocketmq.version>
+        <rocketmq.version>2.2.1</rocketmq.version>
         <mybatis.version>2.2.0</mybatis.version>
         <elasticsearch.version>7.14.0</elasticsearch.version>
         <knife4j.version>3.0.2</knife4j.version>
@@ -63,9 +63,21 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>2021.1</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.alibaba.nacos</groupId>
+                        <artifactId>nacos-client</artifactId>
+                    </exclusion></exclusions>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/com.alibaba.nacos/nacos-client -->
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>1.4.2</version>
+            </dependency>
+
             <dependency>
                 <groupId>net.logstash.logback</groupId>
                 <artifactId>logstash-logback-encoder</artifactId>
