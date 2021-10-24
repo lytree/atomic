@@ -37,7 +37,10 @@ public class LocalDateTimeUtils {
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateFormatter);
     return dateTimeFormatter.format(now);
   }
-
+  public static String getLocalDateTime(DateTimeFormatter dateTimeFormatter) {
+    LocalDateTime now = LocalDateTime.now();
+    return dateTimeFormatter.format(now);
+  }
   /**
    * {@link Instant}转{@link LocalDateTime}，使用默认时区
    *

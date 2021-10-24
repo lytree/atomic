@@ -38,4 +38,9 @@ public class LocalDateUtils {
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateFormatter);
     return dateTimeFormatter.format(now);
   }
+
+  public static String getLocalDate(DateTimeFormatter dateFormatter) {
+    LocalDate now = LocalDate.now();
+    return dateFormatter.format(now);
+  }
 }
