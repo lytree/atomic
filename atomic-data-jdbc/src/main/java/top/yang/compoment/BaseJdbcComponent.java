@@ -13,9 +13,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Streamable;
 import org.springframework.transaction.annotation.Transactional;
+import top.yang.pojo.BaseBean;
 import top.yang.repository.BaseJdbcRepository;
 
-public class BaseJdbcComponent<R extends BaseJdbcRepository, T> {
+public class BaseJdbcComponent<R extends BaseJdbcRepository, T extends BaseBean, ID extends Serializable> {
 
   @Autowired
   protected R repository;
@@ -30,7 +31,7 @@ public class BaseJdbcComponent<R extends BaseJdbcRepository, T> {
     }
   }
 
-  public T findById(Serializable id) {
+  public T findById(ID id) {
     return (T) repository.findById(id).get();
   }
 
@@ -57,7 +58,7 @@ public class BaseJdbcComponent<R extends BaseJdbcRepository, T> {
         .collect(Collectors.toList());
   }
 
-  public boolean existsById(Serializable id) {
+  public boolean existsById(ID id) {
     return repository.existsById(id);
   }
 
