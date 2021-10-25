@@ -39,7 +39,7 @@
     <elasticjob.version>3.0.1</elasticjob.version>
     <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
     <!--    <dubbo.version>3.0.3</dubbo.version>-->
-    <dubbo.version>2.7.12</dubbo.version>
+    <dubbo.version>2.7.13</dubbo.version>
     <lombok.version>1.18.20</lombok.version>
     <guava.version>30.1.1-jre</guava.version>
     <redisson.version>3.15.6</redisson.version>
