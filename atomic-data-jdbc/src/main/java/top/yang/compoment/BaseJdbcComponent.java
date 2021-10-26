@@ -52,7 +52,7 @@ public class BaseJdbcComponent<R extends BaseJdbcRepository, T extends BaseBean,
     return (Page<T>) repository.findAll(pageable);
   }
 
-  public List<T> findAllByIds(Set<Serializable> ids) {
+  public List<T> findAllByIds(Collection<Serializable> ids) {
     Iterable<T> all = repository.findAllById(ids);
     return Streamable.of(all).stream() //
         .collect(Collectors.toList());
