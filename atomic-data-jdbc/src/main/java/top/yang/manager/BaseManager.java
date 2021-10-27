@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import top.yang.pojo.BaseBean;
+import top.yang.domain.pojo.BaseBean;
 
 public interface BaseManager<T extends BaseBean, ID extends Serializable> {
 

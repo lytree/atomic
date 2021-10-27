@@ -1,18 +1,18 @@
-package top.yang.pojo;
+package top.yang.domain.dto;
 
 
 import java.util.List;
 
-public class Page<T> {
+public class PageResult<T> {
 
-  public Page(Integer totalPage, Long totalElement, List<T> content, Integer currentPage) {
+  public PageResult(Integer totalPage, Long totalElement, List<T> content, Integer currentPage) {
     this.totalPage = totalPage;
     this.totalElement = totalElement;
     this.content = content;
     this.currentPage = currentPage;
   }
 
-  public Page() {
+  public PageResult() {
   }
 
   /**

@@ -1,4 +1,4 @@
-package top.yang.pojo;
+package top.yang.domain.pojo;
 
 import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;

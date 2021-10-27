@@ -3,7 +3,7 @@ package top.yang.repository;
 import java.io.Serializable;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import top.yang.pojo.BaseBean;
+import top.yang.domain.pojo.BaseBean;
 
 /**
  * @author Y

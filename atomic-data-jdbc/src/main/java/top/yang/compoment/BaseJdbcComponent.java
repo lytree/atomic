@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Streamable;
 import org.springframework.transaction.annotation.Transactional;
-import top.yang.pojo.BaseBean;
+import top.yang.domain.pojo.BaseBean;
 import top.yang.repository.BaseJdbcRepository;
 
 public class BaseJdbcComponent<R extends BaseJdbcRepository, T extends BaseBean, ID extends Serializable> {

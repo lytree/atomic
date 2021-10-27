@@ -1,4 +1,4 @@
-package top.yang.pojo;
+package top.yang.domain.pojo;
 
 import java.io.Serializable;
 

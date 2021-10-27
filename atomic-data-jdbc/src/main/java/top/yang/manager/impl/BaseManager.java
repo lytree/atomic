@@ -12,7 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Streamable;
 import org.springframework.transaction.annotation.Transactional;
 import top.yang.compoment.BaseJdbcComponent;
-import top.yang.pojo.BaseBean;
+import top.yang.domain.pojo.BaseBean;
 
 public abstract class BaseManager<C extends BaseJdbcComponent, T extends BaseBean, ID extends Serializable> {
 
