@@ -1,10 +1,6 @@
-package top.yang.web.domain.query;
+package top.yang.domain.query;
 
-
-/**
- * @author Pride_Yang
- */
-public class PageReq extends BaseReq {
+public abstract class PageQuery extends BaseQuery {
 
   private Integer page = 1;
   private Integer pageSize = 10;

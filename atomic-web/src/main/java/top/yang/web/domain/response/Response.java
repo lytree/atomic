@@ -1,4 +1,4 @@
-package top.yang.web.domain.vo;
+package top.yang.web.domain.response;
 
 
 import java.io.Serializable;

@@ -10,37 +10,37 @@ import top.yang.domain.pojo.BaseBean;
 
 public interface BaseManager<T extends BaseBean, ID extends Serializable> {
 
-  public T findById(ID id);
+  T findById(ID id);
 
-  public List<T> findAll();
+  List<T> findAll();
 
-  public List<T> findAll(Sort sort);
+  List<T> findAll(Sort sort);
 
-  public Page<T> findAllPage(Pageable pageable);
+  Page<T> findAllPage(Pageable pageable);
 
-  public List<T> findAllByIds(Collection<Serializable> ids);
+  List<T> findAllByIds(Collection<ID> ids);
 
-  public boolean existsById(ID id);
+  boolean existsById(ID id);
 
-  public long count();
+  long count();
 
-  public T save(T t);
+  T save(T t);
 
-  public List<T> save(List<T> t);
+  List<T> save(List<T> t);
 
-  public T update(T t);
+  T update(T t);
 
-  public List<T> update(List<T> t);
+  List<T> update(List<T> t);
 
-  public void delete(T instance);
-
-
-  public void deleteById(Serializable id);
+  void delete(T instance);
 
 
-  public void deleteByIds(Collection<Serializable> ids);
+  void deleteById(ID id);
 
 
-  public void deleteAll();
+  void deleteByIds(Collection<ID> ids);
+
+
+  void deleteAll();
 
 }

@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import top.yang.constants.Globals;
-import top.yang.exception.CommonCode;
 import top.yang.io.FileWapper;
-import top.yang.web.domain.vo.ResponseResult;
+import top.yang.web.domain.response.ResponseResult;
+import top.yang.web.exception.CommonCode;
 
 /**
  * @date 2021/8/30 11:28

@@ -1,4 +1,4 @@
-package top.yang.exception;
+package top.yang.web.exception;
 
 /**
  * @author PrideYang

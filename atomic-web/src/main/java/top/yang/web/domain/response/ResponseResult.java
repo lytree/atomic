@@ -1,8 +1,8 @@
-package top.yang.web.domain.vo;
+package top.yang.web.domain.response;
 
 
-import top.yang.exception.CommonCode;
-import top.yang.exception.ResultCode;
+import top.yang.web.exception.CommonCode;
+import top.yang.web.exception.ResultCode;
 
 /**
  * @author PrideYang

@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  top.yang.utils.SpringUtils
+  top.yang.spring.utils.SpringUtils

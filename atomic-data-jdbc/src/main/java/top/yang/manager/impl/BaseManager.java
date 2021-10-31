@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.util.Streamable;
 import org.springframework.transaction.annotation.Transactional;
-import top.yang.compoment.BaseJdbcComponent;
+import top.yang.component.BaseJdbcComponent;
 import top.yang.domain.pojo.BaseBean;
 
 public abstract class BaseManager<C extends BaseJdbcComponent, T extends BaseBean, ID extends Serializable> {
@@ -37,7 +37,7 @@ public abstract class BaseManager<C extends BaseJdbcComponent, T extends BaseBea
     return (Page<T>) compoment.findAllPage(pageable);
   }
 
-  public List<T> findAllByIds(Collection<Serializable> ids) {
+  public List<T> findAllByIds(Collection<ID> ids) {
     return compoment.findAllByIds(ids);
 
   }
@@ -59,7 +59,7 @@ public abstract class BaseManager<C extends BaseJdbcComponent, T extends BaseBea
   }
 
   public T update(T t) {
-    return (T) compoment.save(t);
+    return (T) compoment.update(t);
   }
 
 
@@ -72,12 +72,12 @@ public abstract class BaseManager<C extends BaseJdbcComponent, T extends BaseBea
   }
 
 
-  public void deleteById(Serializable id) {
+  public void deleteById(ID id) {
     compoment.deleteById(id);
   }
 
 
-  public void deleteByIds(Collection<Serializable> ids) {
+  public void deleteByIds(Collection<ID> ids) {
     compoment.deleteByIds(ids);
   }
 
