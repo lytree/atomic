@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public abstract class BaseHandlerFactory<T> {
 
-    private Map<String, T> handlers = new HashMap<>();
+    private final Map<String, T> handlers = new HashMap<>();
 
     public void register(String key, T handler) {
         handlers.put(key, handler);

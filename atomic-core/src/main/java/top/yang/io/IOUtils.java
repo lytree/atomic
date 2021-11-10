@@ -29,7 +29,7 @@ import java.util.Objects;
 import top.yang.collections.ArrayUtils;
 import top.yang.io.Output.NullOutputStream;
 import top.yang.string.StringUtils;
-import top.yang.text.CharsetsUtils;
+import top.yang.string.CharsetsUtils;
 
 /**
  * @author PrideYang
