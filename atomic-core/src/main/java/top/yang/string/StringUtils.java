@@ -38,8 +38,6 @@ import top.yang.collections.ArrayUtils;
 import top.yang.function.Suppliers;
 import top.yang.function.ToBooleanBiFunction;
 import top.yang.reflect.ObjectUtils;
-import top.yang.text.CharsetsUtils;
-import top.yang.text.StringFormatter;
 import top.yang.time.LocaleUtils;
 
 
@@ -137,18 +135,18 @@ public class StringUtils {
   /**
    * ISO-8859-1
    */
-  public static final String ISO_8859_1 = "ISO-8859-1";
+  public static final String ISO_8859_1 = CharsetsUtils.ISO_8859_1;
   /**
    * UTF-8
    */
-  public static final String UTF_8 = "UTF-8";
+  public static final String UTF_8 = CharsetsUtils.UTF_8;
 
 
   public static final String DEFAULT_ENCODING = UTF_8;
   /**
    * GBK
    */
-  public static final String GBK = "GBK";
+  public static final String GBK = CharsetsUtils.GBK;
   /**
    * 字符串常量：制表符 {@code "\t"}
    */
@@ -1488,7 +1486,6 @@ public class StringUtils {
   }
 
   /**
-   *
    * @param name 小驼峰命名法
    * @return 下划线格式
    */

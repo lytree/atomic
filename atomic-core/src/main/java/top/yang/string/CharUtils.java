@@ -75,29 +75,6 @@ public class CharUtils {
     public CharUtils() {
     }
 
-    /**
-     * <p>Converts the String to a Character using the first character, returning
-     * null for empty Strings.</p>
-     *
-     * <p>For ASCII 7 bit characters, this uses a cache that will return the
-     * same Character object each time.</p>
-     *
-     * <pre>
-     *   CharUtils.toCharacterObject(null) = null
-     *   CharUtils.toCharacterObject("")   = null
-     *   CharUtils.toCharacterObject("A")  = 'A'
-     *   CharUtils.toCharacterObject("BA") = 'B'
-     * </pre>
-     *
-     * @param str  the character to convert
-     * @return the Character value of the first letter of the String
-     */
-    public static Character toCharacterObject(final String str) {
-        if (StringUtils.isEmpty(str)) {
-            return null;
-        }
-        return Character.valueOf(str.charAt(0));
-    }
 
     //-----------------------------------------------------------------------
     /**
@@ -115,8 +92,7 @@ public class CharUtils {
      */
     public static char toChar(final Character ch) {
         Validate.notNull(ch, "ch");
-
-        return ch.charValue();
+        return ch;
     }
 
     /**
@@ -292,7 +268,7 @@ public class CharUtils {
         if (ch < 128) {
             return CHAR_STRING_ARRAY[ch];
         }
-        return new String(new char[] {ch});
+        return String.valueOf(ch);
     }
 
     /**

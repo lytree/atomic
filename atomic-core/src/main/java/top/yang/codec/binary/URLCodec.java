@@ -11,7 +11,7 @@ import top.yang.codec.StringDecoder;
 import top.yang.codec.StringEncoder;
 import top.yang.exception.DecoderException;
 import top.yang.exception.EncoderException;
-import top.yang.text.CharsetsUtils;
+import top.yang.string.CharsetsUtils;
 import top.yang.string.StringUtils;
 
 public class URLCodec implements BinaryEncoder, BinaryDecoder, StringEncoder, StringDecoder {

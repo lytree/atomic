@@ -1,23 +1,27 @@
 package top.yang.spring.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SpringUtils implements BeanFactoryPostProcessor {
+public class SpringUtils implements ApplicationContextAware {
 
-  /**
-   * Spring应用上下文环境
-   */
-  private static ConfigurableListableBeanFactory beanFactory;
+  private final static Logger logger = LoggerFactory.getLogger(SpringUtils.class);
+  private static ApplicationContext applicationContext;
 
-  @Override
-  public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-    SpringUtils.beanFactory = beanFactory;
+  //获取applicationContext
+  public static ApplicationContext getApplicationContext() {
+    return applicationContext;
   }
 
   /**
@@ -29,7 +33,7 @@ public class SpringUtils implements BeanFactoryPostProcessor {
    */
   @SuppressWarnings("unchecked")
   public static <T> T getBean(String name) throws BeansException {
-    return (T) beanFactory.getBean(name);
+    return (T) getApplicationContext().getBean(name);
   }
 
   /**
@@ -40,8 +44,12 @@ public class SpringUtils implements BeanFactoryPostProcessor {
    * @throws org.springframework.beans.BeansException
    */
   public static <T> T getBean(Class<T> clz) throws BeansException {
-    T result = (T) beanFactory.getBean(clz);
-    return result;
+    return (T) getApplicationContext().getBean(clz);
+  }
+
+  //通过name,以及Clazz返回指定的Bean
+  public static <T> T getBean(String name, Class<T> clazz) {
+    return (T) getApplicationContext().getBean(name, clazz);
   }
 
   /**
@@ -51,7 +59,7 @@ public class SpringUtils implements BeanFactoryPostProcessor {
    * @return boolean
    */
   public static boolean containsBean(String name) {
-    return beanFactory.containsBean(name);
+    return getApplicationContext().containsBean(name);
   }
 
   /**
@@ -62,7 +70,7 @@ public class SpringUtils implements BeanFactoryPostProcessor {
    * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
    */
   public static boolean isSingleton(String name) throws NoSuchBeanDefinitionException {
-    return beanFactory.isSingleton(name);
+    return getApplicationContext().isSingleton(name);
   }
 
   /**
@@ -71,7 +79,7 @@ public class SpringUtils implements BeanFactoryPostProcessor {
    * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
    */
   public static Class<?> getType(String name) throws NoSuchBeanDefinitionException {
-    return beanFactory.getType(name);
+    return getApplicationContext().getType(name);
   }
 
   /**
@@ -82,7 +90,7 @@ public class SpringUtils implements BeanFactoryPostProcessor {
    * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
    */
   public static String[] getAliases(String name) throws NoSuchBeanDefinitionException {
-    return beanFactory.getAliases(name);
+    return getApplicationContext().getAliases(name);
   }
 
   /**
@@ -94,5 +102,15 @@ public class SpringUtils implements BeanFactoryPostProcessor {
   @SuppressWarnings("unchecked")
   public static <T> T getAopProxy(T invoker) {
     return (T) AopContext.currentProxy();
+  }
+
+  @Override
+  public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    if (SpringUtils.applicationContext == null) {
+      SpringUtils.applicationContext = applicationContext;
+    }
+    logger.info(
+        "========ApplicationContext配置成功,在普通类可以通过调用SpringUtils.getAppContext()获取applicationContext对象,applicationContext="
+            + SpringUtils.applicationContext + "========");
   }
 }

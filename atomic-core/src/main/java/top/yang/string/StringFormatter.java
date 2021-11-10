@@ -1,8 +1,7 @@
-package top.yang.text;
+package top.yang.string;
 
 import java.util.Arrays;
 import top.yang.collections.CollectionUtils;
-import top.yang.string.StringUtils;
 
 public class StringFormatter {
 

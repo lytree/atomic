@@ -4,7 +4,6 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>top.yang</groupId>
   <artifactId>atomic-web</artifactId>
   <version>1.0-SNAPSHOT</version>
   <parent>
@@ -53,16 +52,13 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>io.projectreactor</groupId>
-      <artifactId>reactor-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-security</artifactId>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>1.9.7</version>
     </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
-      <artifactId>aspectjrt</artifactId>
+      <artifactId>aspectjweaver</artifactId>
       <version>1.9.7</version>
     </dependency>
   </dependencies>
