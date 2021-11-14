@@ -87,25 +87,6 @@ public class IOUtils {
    */
   public static final int EOF = -1;
 
-  /**
-   * LF char.
-   *
-   * @since 2.9.0
-   */
-  public static final int LF = '\n';
-  /**
-   * The Unix line separator string.
-   *
-   * @see StandardLineSeparator#LF
-   */
-  public static final String LINE_SEPARATOR_UNIX = StandardLineSeparator.LF.getString();
-
-  /**
-   * The Windows line separator string.
-   *
-   * @see StandardLineSeparator#CRLF
-   */
-  public static final String LINE_SEPARATOR_WINDOWS = StandardLineSeparator.CRLF.getString();
 
   /**
    * Internal byte array buffer.

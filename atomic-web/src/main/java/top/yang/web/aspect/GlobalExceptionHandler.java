@@ -1,18 +1,22 @@
 package top.yang.web.aspect;
 
 import com.google.common.collect.ImmutableMap;
+import java.net.BindException;
 import javax.validation.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import top.yang.constants.Globals;
+import top.yang.spring.constants.Globals;
+import top.yang.spring.exception.ResultCode;
+import top.yang.spring.exception.SystemException;
 import top.yang.web.domain.response.ResponseResult;
 import top.yang.web.exception.BusinessException;
 import top.yang.web.exception.CommonCode;
-import top.yang.web.exception.ResultCode;
+
 
 /**
  * @date 2021/8/30 10:16
@@ -26,21 +30,43 @@ public class GlobalExceptionHandler {
   protected static ImmutableMap.Builder<Class<? extends Throwable>, ResultCode> builder = ImmutableMap.builder();
 
   //捕获CustomException此类异常
-  @ExceptionHandler(BusinessException.class)
+  @ExceptionHandler({BusinessException.class, SystemException.class})
   @ResponseBody
   public ResponseResult customException(BusinessException businessException) {
     String requestId = MDC.get(Globals.REQUEST_ID);
     businessException.printStackTrace();
     //记录日志
-    logger.error("catch exception:{}", businessException.getMessage());
-    ResultCode resultCode = businessException.getResultCode();
+    logger.error("catch exception:{}", businessException.toString());
+    ResultCode resultCode = businessException.getResult();
     return new ResponseResult(resultCode, requestId);
   }
 
   //捕获ValidationException此类异常
-  @ExceptionHandler(ValidationException.class)
+  @ExceptionHandler(MethodArgumentNotValidException.class)
   @ResponseBody
-  public ResponseResult validationException(ValidationException validationException) {
+  public ResponseResult validationException(MethodArgumentNotValidException methodArgumentNotValidException) {
+    String requestId = MDC.get(Globals.REQUEST_ID);
+    methodArgumentNotValidException.printStackTrace();
+    //记录日志
+    logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
+    return new ResponseResult(CommonCode.INVALID_PARAM, requestId);
+  }
+
+  //捕获ValidationException此类异常
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  @ResponseBody
+  public ResponseResult bindException(BindException methodArgumentNotValidException) {
+    String requestId = MDC.get(Globals.REQUEST_ID);
+    methodArgumentNotValidException.printStackTrace();
+    //记录日志
+    logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
+    return new ResponseResult(CommonCode.INVALID_PARAM, requestId);
+  }
+
+  //捕获ValidationException此类异常
+  @ExceptionHandler(SystemException.class)
+  @ResponseBody
+  public ResponseResult systemException(ValidationException validationException) {
     String requestId = MDC.get(Globals.REQUEST_ID);
     validationException.printStackTrace();
     //记录日志

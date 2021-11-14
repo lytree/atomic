@@ -1,4 +1,4 @@
-package top.yang.dto;
+package top.yang.spring.dto;
 
 import java.io.Serializable;
 

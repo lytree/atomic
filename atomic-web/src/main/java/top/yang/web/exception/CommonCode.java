@@ -1,5 +1,7 @@
 package top.yang.web.exception;
 
+import top.yang.spring.exception.ResultCode;
+
 /**
  * 抛出异常
  *

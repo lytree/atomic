@@ -25,11 +25,6 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-context-support</artifactId>
     </dependency>
-    <dependency>
-      <groupId>top.yang</groupId>
-      <artifactId>atomic-core</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
   </dependencies>
 
 </project>

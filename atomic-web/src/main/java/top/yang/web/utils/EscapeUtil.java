@@ -1,6 +1,7 @@
 package top.yang.web.utils;
 
-import top.yang.string.StringUtils;
+
+import org.springframework.util.StringUtils;
 
 public class EscapeUtil {
 
@@ -60,7 +61,7 @@ public class EscapeUtil {
   private static String encode(String text) {
     int len;
     if ((text == null) || ((len = text.length()) == 0)) {
-      return StringUtils.EMPTY;
+      return "";
     }
     StringBuilder buffer = new StringBuilder(len + (len >> 2));
     char c;

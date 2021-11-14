@@ -1,5 +1,6 @@
 package top.yang.web.aspect;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
@@ -20,13 +21,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
-import top.yang.json.JSONUtil;
-import top.yang.string.StringUtils;
 import top.yang.web.annotation.ControllerLog;
 import top.yang.web.domain.dto.SysLog;
 import top.yang.web.enums.BusinessStatus;
 import top.yang.web.utils.IPUtils;
-import top.yang.web.utils.SecurityUtils;
 import top.yang.web.utils.ServletUtils;
 
 @Aspect
@@ -34,6 +32,7 @@ import top.yang.web.utils.ServletUtils;
 public class ControllerLogAspect {
 
   private static final Logger log = LoggerFactory.getLogger(ControllerLogAspect.class);
+  private static final ObjectMapper objectMapper = new ObjectMapper();
 
   // 配置织入点
   @Pointcut("@annotation(top.yang.web.annotation.ControllerLog)")
@@ -76,17 +75,13 @@ public class ControllerLogAspect {
       String ip = IPUtils.getIpAddr(ServletUtils.getRequest());
       log.setOperIp(ip);
       // 返回参数
-      log.setJsonResult(JSONUtil.toJSONString(jsonResult));
+
+      log.setJsonResult(objectMapper.writeValueAsString(jsonResult));
 
       log.setOperUrl(ServletUtils.getRequest().getRequestURI());
-      String username = SecurityUtils.getUsername();
-      if (StringUtils.isNotBlank(username)) {
-        log.setOperName(username);
-      }
-
       if (e != null) {
         log.setStatus(BusinessStatus.FAIL.ordinal());
-        log.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
+        log.setErrorMsg(e.getMessage());
       }
       // 设置方法名称
       String className = joinPoint.getTarget().getClass().getName();
@@ -107,8 +102,8 @@ public class ControllerLogAspect {
   /**
    * 获取注解中对方法的描述信息 用于Controller层注解
    *
-   * @param controllerLog    日志
-   * @param sysLog 操作日志
+   * @param controllerLog 日志
+   * @param sysLog        操作日志
    * @throws Exception
    */
   public void getControllerMethodDescription(JoinPoint joinPoint, ControllerLog controllerLog, SysLog sysLog) throws Exception {
@@ -135,7 +130,7 @@ public class ControllerLogAspect {
     String requestMethod = operLog.getRequestMethod();
     if (HttpMethod.PUT.name().equals(requestMethod) || HttpMethod.POST.name().equals(requestMethod)) {
       String params = argsArrayToString(joinPoint.getArgs());
-      operLog.setOperParam(StringUtils.substring(params, 0, 2000));
+      operLog.setOperParam(params);
     }
   }
 
@@ -157,19 +152,22 @@ public class ControllerLogAspect {
    * 参数拼装
    */
   private String argsArrayToString(Object[] paramsArray) {
-    String params = "";
+    StringBuilder params = new StringBuilder();
     if (paramsArray != null && paramsArray.length > 0) {
       for (int i = 0; i < paramsArray.length; i++) {
-        if (Objects.isNull(paramsArray[i]) && !isFilterObject(paramsArray[i])) {
-          try {
-            Object jsonObj = JSONUtil.toJSONString(paramsArray[i]);
-            params += jsonObj.toString() + " ";
-          } catch (Exception e) {
+        if (Objects.isNull(paramsArray[i])) {
+          assert paramsArray[i] != null;
+          if (!isFilterObject(paramsArray[i])) {
+            try {
+              Object jsonObj = objectMapper.writeValueAsString(paramsArray[i]);
+              params.append(jsonObj.toString()).append(" ");
+            } catch (Exception ignored) {
+            }
           }
         }
       }
     }
-    return params.trim();
+    return params.toString().trim();
   }
 
   /**

@@ -4,18 +4,18 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import top.yang.string.StringUtils;
-import top.yang.text.CharsetsUtils;
-import top.yang.text.Convert;
 
 public class ServletUtils {
 
@@ -23,28 +23,30 @@ public class ServletUtils {
    * 获取String参数
    */
   public static String getParameter(String name) {
-    return getRequest().getParameter(name);
+    return Objects.requireNonNull(getRequest()).getParameter(name);
   }
 
   /**
    * 获取String参数
    */
   public static String getParameter(String name, String defaultValue) {
-    return Convert.toStr(getRequest().getParameter(name), defaultValue);
+    return Objects.requireNonNull(getRequest()).getParameter(name);
   }
 
   /**
    * 获取Integer参数
    */
   public static Integer getParameterToInt(String name) {
-    return Convert.toInt(getRequest().getParameter(name));
+    return Integer.parseInt(Objects.requireNonNull(getRequest()).getParameter(name));
   }
 
   /**
    * 获取Integer参数
+   *
+   * @return
    */
-  public static Integer getParameterToInt(String name, Integer defaultValue) {
-    return Convert.toInt(getRequest().getParameter(name), defaultValue);
+  public static String getParameterToInt(String name, Integer defaultValue) {
+    return getRequest().getParameter(name);
   }
 
   /**
@@ -124,22 +126,22 @@ public class ServletUtils {
    */
   public static boolean isAjaxRequest(HttpServletRequest request) {
     String accept = request.getHeader("accept");
-    if (accept != null && accept.indexOf("application/json") != -1) {
+    if (accept != null && accept.contains("application/json")) {
       return true;
     }
 
     String xRequestedWith = request.getHeader("X-Requested-With");
-    if (xRequestedWith != null && xRequestedWith.indexOf("XMLHttpRequest") != -1) {
+    if (xRequestedWith != null && xRequestedWith.contains("XMLHttpRequest")) {
       return true;
     }
 
     String uri = request.getRequestURI();
-    if (StringUtils.inStringIgnoreCase(uri, ".json", ".xml")) {
+    if (StringUtils.endsWithIgnoreCase(uri, ".json") || StringUtils.endsWithIgnoreCase(uri, ".xml")) {
       return true;
     }
 
     String ajax = request.getParameter("__ajax");
-    if (StringUtils.inStringIgnoreCase(ajax, "json", "xml")) {
+    if (StringUtils.endsWithIgnoreCase(ajax, "json") || StringUtils.endsWithIgnoreCase(uri, "xml")) {
       return true;
     }
     return false;
@@ -152,11 +154,7 @@ public class ServletUtils {
    * @return 编码后的内容
    */
   public static String urlEncode(String str) {
-    try {
-      return URLEncoder.encode(str, CharsetsUtils.UTF_8);
-    } catch (UnsupportedEncodingException e) {
-      return "";
-    }
+    return URLEncoder.encode(str, StandardCharsets.UTF_8);
   }
 
   /**
@@ -166,10 +164,6 @@ public class ServletUtils {
    * @return 解码后的内容
    */
   public static String urlDecode(String str) {
-    try {
-      return URLDecoder.decode(str, CharsetsUtils.UTF_8);
-    } catch (UnsupportedEncodingException e) {
-      return "";
-    }
+    return URLDecoder.decode(str, StandardCharsets.UTF_8);
   }
 }

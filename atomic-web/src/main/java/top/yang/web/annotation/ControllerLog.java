@@ -1,28 +1,36 @@
 package top.yang.web.annotation;
 
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import top.yang.web.enums.BusinessType;
 import top.yang.web.enums.OperatorType;
 
+@Target({ElementType.PARAMETER, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface ControllerLog {
 
   /**
    * 模块
    */
-  public String title() default "";
+  String title() default "";
 
   /**
    * 功能
    */
-  public BusinessType businessType() default BusinessType.OTHER;
+  BusinessType businessType() default BusinessType.OTHER;
 
   /**
    * 操作人类别
    */
-  public OperatorType operatorType() default OperatorType.MANAGE;
+  OperatorType operatorType() default OperatorType.MANAGE;
 
   /**
    * 是否保存请求的参数
    */
-  public boolean isSaveRequestData() default true;
+  boolean isSaveRequestData() default true;
 }

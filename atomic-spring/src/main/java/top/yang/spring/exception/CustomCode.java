@@ -1,4 +1,4 @@
-package top.yang.web.exception;
+package top.yang.spring.exception;
 
 
 /**
@@ -9,7 +9,7 @@ public class CustomCode implements ResultCode {
   String code;
   String message;
 
-  CustomCode(String code, String message) {
+  public CustomCode(String code, String message) {
     this.code = code;
     this.message = message;
   }

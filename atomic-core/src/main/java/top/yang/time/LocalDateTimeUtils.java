@@ -1,6 +1,7 @@
 package top.yang.time;
 
 
+import top.yang.common.Validate;
 import top.yang.reflect.ObjectUtils;
 import top.yang.regex.RegExUtils;
 import top.yang.string.StringUtils;
@@ -37,10 +38,18 @@ public class LocalDateTimeUtils {
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateFormatter);
     return dateTimeFormatter.format(now);
   }
+
   public static String getLocalDateTime(DateTimeFormatter dateTimeFormatter) {
     LocalDateTime now = LocalDateTime.now();
     return dateTimeFormatter.format(now);
   }
+
+  public static Date LocalDateToDate(LocalDateTime localDateTime) {
+    ZoneId zone = ZoneId.systemDefault();
+    Instant instant = localDateTime.atZone(zone).toInstant();
+    return Date.from(instant);
+  }
+
   /**
    * {@link Instant}转{@link LocalDateTime}，使用默认时区
    *
@@ -282,7 +291,7 @@ public class LocalDateTimeUtils {
    * @return {@link LocalDate}
    * @since 5.3.10
    */
-  public static LocalDate parseDate(CharSequence text) {
+  public static LocalDate parseDate(String text) {
     return parseDate(text, (DateTimeFormatter) null);
   }
 
@@ -294,7 +303,7 @@ public class LocalDateTimeUtils {
    * @return {@link LocalDate}
    * @since 5.3.10
    */
-  public static LocalDate parseDate(CharSequence text, DateTimeFormatter formatter) {
+  public static LocalDate parseDate(String text, DateTimeFormatter formatter) {
     if (null == text) {
       return null;
     }
@@ -312,7 +321,7 @@ public class LocalDateTimeUtils {
    * @param format 日期格式，类似于yyyy-MM-dd
    * @return {@link LocalDateTime}
    */
-  public static LocalDate parseDate(CharSequence text, String format) {
+  public static LocalDate parseDate(String text, String format) {
     if (null == text) {
       return null;
     }
@@ -483,4 +492,11 @@ public class LocalDateTimeUtils {
   public static long toEpochMilli(TemporalAccessor temporalAccessor) {
     return TemporalAccessorUtil.toEpochMilli(temporalAccessor);
   }
+
+
+  private static void validateDateNotNull(final LocalDateTime localDateTime) {
+    Validate.notNull(localDateTime, "localDateTime");
+  }
+
+
 }

@@ -24,9 +24,11 @@ import top.yang.string.StringUtils;
  */
 public class UrlUtils {
 
+  private static final Logger log = LoggerFactory.getLogger(UrlUtils.class);
   private static final String PATH_DELIMITER = "/";
   private static final String ENCODE_DELIMITER = "%2F";
-  private static final Logger log = LoggerFactory.getLogger(UrlUtils.class);
+
+  private static final Pattern patternForProtocal = Pattern.compile("[\\w]+://");
 
   /**
    * canonicalizeUrl
@@ -58,17 +60,7 @@ public class UrlUtils {
     }
   }
 
-  /**
-   * @param url url
-   * @return new url
-   * @deprecated
-   */
-  public static String encodeIllegalCharacterInUrl(String url) {
-    return url.replace(" ", "%20");
-  }
-
   public static String fixIllegalCharacterInUrl(String url) {
-    //TODO more charator support
     return url.replace(" ", "%20").replaceAll("#+", "#");
   }
 
@@ -81,7 +73,6 @@ public class UrlUtils {
     return host;
   }
 
-  private static Pattern patternForProtocal = Pattern.compile("[\\w]+://");
 
   public static String removeProtocol(String url) {
     return patternForProtocal.matcher(url).replaceAll("");
