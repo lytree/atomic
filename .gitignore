@@ -50,3 +50,5 @@ atomic-crypto/target/*
 /atomic-webmagic/.idea/
 
 atomic-redis/.idea/
+
+atomic-email/.idea/
