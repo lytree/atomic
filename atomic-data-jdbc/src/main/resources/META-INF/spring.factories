@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  top.yang.configuration.SnowFlakeBeanConfiguration
+  top.yang.configuration.SnowFlakeBeanConfiguration,\
+  top.yang.configuration.NamingStrategyConfiguration

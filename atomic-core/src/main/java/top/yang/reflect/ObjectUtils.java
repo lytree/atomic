@@ -40,7 +40,7 @@ import top.yang.math.NumberUtils;
  *
  * <p>Thanks to Alex Ruiz for contributing several enhancements to this class!
  */
-public abstract class ObjectUtils {
+public class ObjectUtils {
 
     private static final int INITIAL_HASH = 7;
     private static final int MULTIPLIER = 31;
@@ -55,8 +55,7 @@ public abstract class ObjectUtils {
 
 
     /**
-     * Return whether the given throwable is a checked exception:
-     * that is, neither a RuntimeException nor an Error.
+     * Return whether the given throwable is a checked exception: that is, neither a RuntimeException nor an Error.
      *
      * @param ex the throwable to check
      * @return whether the throwable is a checked exception
@@ -68,8 +67,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Check whether the given exception is compatible with the specified
-     * exception types, as declared in a throws clause.
+     * Check whether the given exception is compatible with the specified exception types, as declared in a throws clause.
      *
      * @param ex                 the exception to check
      * @param declaredExceptions the exception types declared in the throws clause
@@ -90,8 +88,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Determine whether the given object is an array:
-     * either an Object array or a primitive array.
+     * Determine whether the given object is an array: either an Object array or a primitive array.
      *
      * @param obj the object to check
      */
@@ -138,8 +135,7 @@ public abstract class ObjectUtils {
     /**
      * Check whether the given array contains the given element.
      *
-     * @param array   the array to check (may be {@code null},
-     *                in which case the return value will always be {@code false})
+     * @param array   the array to check (may be {@code null}, in which case the return value will always be {@code false})
      * @param element the element to check for
      * @return whether the element has been found in the given array
      */
@@ -156,8 +152,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Check whether the given array of enum constants contains a constant with the given name,
-     * ignoring case when determining a match.
+     * Check whether the given array of enum constants contains a constant with the given name, ignoring case when determining a match.
      *
      * @param enumValues the enum values to check, typically obtained via {@code MyEnum.values()}
      * @param constant   the constant name to find (must not be null or empty string)
@@ -191,8 +186,8 @@ public abstract class ObjectUtils {
      * @param <E>        the concrete Enum type
      * @param enumValues the array of all Enum constants in question, usually per {@code Enum.values()}
      * @param constant   the constant to get the enum value of
-     * @throws IllegalArgumentException if the given constant is not found in the given array
-     *                                  of enum values. Use {@link #containsConstant(Enum[], String)} as a guard to avoid this exception.
+     * @throws IllegalArgumentException if the given constant is not found in the given array of enum values. Use {@link #containsConstant(Enum[], String)} as a guard to avoid this
+     *                                  exception.
      */
     public static <E extends Enum<?>> E caseInsensitiveValueOf(E[] enumValues, String constant) {
         for (E candidate : enumValues) {
@@ -205,8 +200,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Append the given object to the given array, returning a new array
-     * consisting of the input array contents plus the given object.
+     * Append the given object to the given array, returning a new array consisting of the input array contents plus the given object.
      *
      * @param array the array to append to (can be {@code null})
      * @param obj   the object to append
@@ -230,8 +224,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Convert the given array (which may be a primitive array) to an
-     * object array (if necessary of primitive wrapper objects).
+     * Convert the given array (which may be a primitive array) to an object array (if necessary of primitive wrapper objects).
      * <p>A {@code null} source value will be converted to an
      * empty Object array.
      *
@@ -261,14 +254,12 @@ public abstract class ObjectUtils {
         return newArray;
     }
 
-
     //---------------------------------------------------------------------
     // Convenience methods for content-based equality/hash-code handling
     //---------------------------------------------------------------------
 
     /**
-     * Determine if the given objects are equal, returning {@code true} if
-     * both are {@code null} or {@code false} if only one is {@code null}.
+     * Determine if the given objects are equal, returning {@code true} if both are {@code null} or {@code false} if only one is {@code null}.
      * <p>Compares arrays with {@code Arrays.equals}, performing an equality
      * check based on the array elements rather than the array reference.
      *
@@ -295,8 +286,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Compare the given arrays with {@code Arrays.equals}, performing an equality
-     * check based on the array elements rather than the array reference.
+     * Compare the given arrays with {@code Arrays.equals}, performing an equality check based on the array elements rather than the array reference.
      *
      * @param o1 first array to compare
      * @param o2 second array to compare
@@ -336,11 +326,8 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Return as hash code for the given object; typically the value of
-     * {@code Object#hashCode()}}. If the object is an array,
-     * this method will delegate to any of the {@code nullSafeHashCode}
-     * methods for arrays in this class. If the object is {@code null},
-     * this method returns 0.
+     * Return as hash code for the given object; typically the value of {@code Object#hashCode()}}. If the object is an array, this method will delegate to any of the {@code
+     * nullSafeHashCode} methods for arrays in this class. If the object is {@code null}, this method returns 0.
      *
      * @see Object#hashCode()
      * @see #nullSafeHashCode(Object[])
@@ -390,8 +377,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Return a hash code based on the contents of the specified array.
-     * If {@code array} is {@code null}, this method returns 0.
+     * Return a hash code based on the contents of the specified array. If {@code array} is {@code null}, this method returns 0.
      */
     public static int nullSafeHashCode(Object[] array) {
         if (array == null) {
@@ -405,8 +391,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Return a hash code based on the contents of the specified array.
-     * If {@code array} is {@code null}, this method returns 0.
+     * Return a hash code based on the contents of the specified array. If {@code array} is {@code null}, this method returns 0.
      */
     public static int nullSafeHashCode(boolean[] array) {
         if (array == null) {
@@ -420,8 +405,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Return a hash code based on the contents of the specified array.
-     * If {@code array} is {@code null}, this method returns 0.
+     * Return a hash code based on the contents of the specified array. If {@code array} is {@code null}, this method returns 0.
      */
     public static int nullSafeHashCode(byte[] array) {
         if (array == null) {
@@ -435,8 +419,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Return a hash code based on the contents of the specified array.
-     * If {@code array} is {@code null}, this method returns 0.
+     * Return a hash code based on the contents of the specified array. If {@code array} is {@code null}, this method returns 0.
      */
     public static int nullSafeHashCode(char[] array) {
         if (array == null) {
@@ -450,8 +433,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Return a hash code based on the contents of the specified array.
-     * If {@code array} is {@code null}, this method returns 0.
+     * Return a hash code based on the contents of the specified array. If {@code array} is {@code null}, this method returns 0.
      */
     public static int nullSafeHashCode(double[] array) {
         if (array == null) {
@@ -465,8 +447,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Return a hash code based on the contents of the specified array.
-     * If {@code array} is {@code null}, this method returns 0.
+     * Return a hash code based on the contents of the specified array. If {@code array} is {@code null}, this method returns 0.
      */
     public static int nullSafeHashCode(float[] array) {
         if (array == null) {
@@ -480,8 +461,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Return a hash code based on the contents of the specified array.
-     * If {@code array} is {@code null}, this method returns 0.
+     * Return a hash code based on the contents of the specified array. If {@code array} is {@code null}, this method returns 0.
      */
     public static int nullSafeHashCode(int[] array) {
         if (array == null) {
@@ -495,8 +475,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Return a hash code based on the contents of the specified array.
-     * If {@code array} is {@code null}, this method returns 0.
+     * Return a hash code based on the contents of the specified array. If {@code array} is {@code null}, this method returns 0.
      */
     public static int nullSafeHashCode(long[] array) {
         if (array == null) {
@@ -510,8 +489,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Return a hash code based on the contents of the specified array.
-     * If {@code array} is {@code null}, this method returns 0.
+     * Return a hash code based on the contents of the specified array. If {@code array} is {@code null}, this method returns 0.
      */
     public static int nullSafeHashCode(short[] array) {
         if (array == null) {
@@ -532,8 +510,7 @@ public abstract class ObjectUtils {
      * Return a String representation of an object's overall identity.
      *
      * @param obj the object (may be {@code null})
-     * @return the object's identity as String representation,
-     * or an empty String if the object was {@code null}
+     * @return the object's identity as String representation, or an empty String if the object was {@code null}
      */
     public static String identityToString(Object obj) {
         if (obj == null) {
@@ -553,8 +530,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * Return a content-based String representation if {@code obj} is
-     * not {@code null}; otherwise returns an empty String.
+     * Return a content-based String representation if {@code obj} is not {@code null}; otherwise returns an empty String.
      * <p>Differs from {@link #nullSafeToString(Object)} in that it returns
      * an empty String rather than "null" for a {@code null} value.
      *
@@ -629,9 +605,8 @@ public abstract class ObjectUtils {
     /**
      * Return a String representation of the contents of the specified array.
      * <p>The String representation consists of a list of the array's elements,
-     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated
-     * by the characters {@code ", "} (a comma followed by a space).
-     * Returns a {@code "null"} String if {@code array} is {@code null}.
+     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated by the characters {@code ", "} (a comma followed by a space). Returns a {@code "null"} String if
+     * {@code array} is {@code null}.
      *
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
@@ -654,9 +629,8 @@ public abstract class ObjectUtils {
     /**
      * Return a String representation of the contents of the specified array.
      * <p>The String representation consists of a list of the array's elements,
-     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated
-     * by the characters {@code ", "} (a comma followed by a space).
-     * Returns a {@code "null"} String if {@code array} is {@code null}.
+     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated by the characters {@code ", "} (a comma followed by a space). Returns a {@code "null"} String if
+     * {@code array} is {@code null}.
      *
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
@@ -679,9 +653,8 @@ public abstract class ObjectUtils {
     /**
      * Return a String representation of the contents of the specified array.
      * <p>The String representation consists of a list of the array's elements,
-     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated
-     * by the characters {@code ", "} (a comma followed by a space).
-     * Returns a {@code "null"} String if {@code array} is {@code null}.
+     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated by the characters {@code ", "} (a comma followed by a space). Returns a {@code "null"} String if
+     * {@code array} is {@code null}.
      *
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
@@ -704,9 +677,8 @@ public abstract class ObjectUtils {
     /**
      * Return a String representation of the contents of the specified array.
      * <p>The String representation consists of a list of the array's elements,
-     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated
-     * by the characters {@code ", "} (a comma followed by a space).
-     * Returns a {@code "null"} String if {@code array} is {@code null}.
+     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated by the characters {@code ", "} (a comma followed by a space). Returns a {@code "null"} String if
+     * {@code array} is {@code null}.
      *
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
@@ -729,9 +701,8 @@ public abstract class ObjectUtils {
     /**
      * Return a String representation of the contents of the specified array.
      * <p>The String representation consists of a list of the array's elements,
-     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated
-     * by the characters {@code ", "} (a comma followed by a space).
-     * Returns a {@code "null"} String if {@code array} is {@code null}.
+     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated by the characters {@code ", "} (a comma followed by a space). Returns a {@code "null"} String if
+     * {@code array} is {@code null}.
      *
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
@@ -754,9 +725,8 @@ public abstract class ObjectUtils {
     /**
      * Return a String representation of the contents of the specified array.
      * <p>The String representation consists of a list of the array's elements,
-     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated
-     * by the characters {@code ", "} (a comma followed by a space).
-     * Returns a {@code "null"} String if {@code array} is {@code null}.
+     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated by the characters {@code ", "} (a comma followed by a space). Returns a {@code "null"} String if
+     * {@code array} is {@code null}.
      *
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
@@ -779,9 +749,8 @@ public abstract class ObjectUtils {
     /**
      * Return a String representation of the contents of the specified array.
      * <p>The String representation consists of a list of the array's elements,
-     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated
-     * by the characters {@code ", "} (a comma followed by a space).
-     * Returns a {@code "null"} String if {@code array} is {@code null}.
+     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated by the characters {@code ", "} (a comma followed by a space). Returns a {@code "null"} String if
+     * {@code array} is {@code null}.
      *
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
@@ -804,9 +773,8 @@ public abstract class ObjectUtils {
     /**
      * Return a String representation of the contents of the specified array.
      * <p>The String representation consists of a list of the array's elements,
-     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated
-     * by the characters {@code ", "} (a comma followed by a space).
-     * Returns a {@code "null"} String if {@code array} is {@code null}.
+     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated by the characters {@code ", "} (a comma followed by a space). Returns a {@code "null"} String if
+     * {@code array} is {@code null}.
      *
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
@@ -829,9 +797,8 @@ public abstract class ObjectUtils {
     /**
      * Return a String representation of the contents of the specified array.
      * <p>The String representation consists of a list of the array's elements,
-     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated
-     * by the characters {@code ", "} (a comma followed by a space).
-     * Returns a {@code "null"} String if {@code array} is {@code null}.
+     * enclosed in curly braces ({@code "{}"}). Adjacent elements are separated by the characters {@code ", "} (a comma followed by a space). Returns a {@code "null"} String if
+     * {@code array} is {@code null}.
      *
      * @param array the array to build a String representation for
      * @return a String representation of {@code array}
@@ -855,10 +822,8 @@ public abstract class ObjectUtils {
      * Checks if all values in the array are not {@code nulls}.
      *
      * <p>
-     * If any value is {@code null} or the array is {@code null} then
-     * {@code false} is returned. If all elements in array are not
-     * {@code null} or the array is empty (contains no elements) {@code true}
-     * is returned.
+     * If any value is {@code null} or the array is {@code null} then {@code false} is returned. If all elements in array are not {@code null} or the array is empty (contains no
+     * elements) {@code true} is returned.
      * </p>
      *
      * <pre>
@@ -872,8 +837,8 @@ public abstract class ObjectUtils {
      * </pre>
      *
      * @param values the values to test, may be {@code null} or empty
-     * @return {@code false} if there is at least one {@code null} value in the array or the array is {@code null},
-     * {@code true} if all values in the array are not {@code null}s or array contains no elements.
+     * @return {@code false} if there is at least one {@code null} value in the array or the array is {@code null}, {@code true} if all values in the array are not {@code null}s or
+     * array contains no elements.
      * @since 3.5
      */
     public static boolean allNotNull(final Object... values) {
@@ -894,8 +859,7 @@ public abstract class ObjectUtils {
      * Checks if all values in the given array are {@code null}.
      *
      * <p>
-     * If all the values are {@code null} or the array is {@code null}
-     * or empty, then {@code true} is returned, otherwise {@code false} is returned.
+     * If all the values are {@code null} or the array is {@code null} or empty, then {@code true} is returned, otherwise {@code false} is returned.
      * </p>
      *
      * <pre>
@@ -908,8 +872,7 @@ public abstract class ObjectUtils {
      * </pre>
      *
      * @param values the values to test, may be {@code null} or empty
-     * @return {@code true} if all values in the array are {@code null}s,
-     * {@code false} if there is at least one non-null value in the array.
+     * @return {@code true} if all values in the array are {@code null}s, {@code false} if there is at least one non-null value in the array.
      * @since 3.11
      */
     public static boolean allNull(final Object... values) {
@@ -920,8 +883,7 @@ public abstract class ObjectUtils {
      * Checks if any value in the given array is not {@code null}.
      *
      * <p>
-     * If all the values are {@code null} or the array is {@code null}
-     * or empty then {@code false} is returned. Otherwise {@code true} is returned.
+     * If all the values are {@code null} or the array is {@code null} or empty then {@code false} is returned. Otherwise {@code true} is returned.
      * </p>
      *
      * <pre>
@@ -934,9 +896,8 @@ public abstract class ObjectUtils {
      * </pre>
      *
      * @param values the values to test, may be {@code null} or empty
-     * @return {@code true} if there is at least one non-null value in the array,
-     * {@code false} if all values in the array are {@code null}s.
-     * If the array is {@code null} or empty {@code false} is also returned.
+     * @return {@code true} if there is at least one non-null value in the array, {@code false} if all values in the array are {@code null}s. If the array is {@code null} or empty
+     * {@code false} is also returned.
      * @since 3.5
      */
     public static boolean anyNotNull(final Object... values) {
@@ -947,8 +908,7 @@ public abstract class ObjectUtils {
      * Checks if any value in the given array is {@code null}.
      *
      * <p>
-     * If any of the values are {@code null} or the array is {@code null},
-     * then {@code true} is returned, otherwise {@code false} is returned.
+     * If any of the values are {@code null} or the array is {@code null}, then {@code true} is returned, otherwise {@code false} is returned.
      * </p>
      *
      * <pre>
@@ -962,9 +922,8 @@ public abstract class ObjectUtils {
      * </pre>
      *
      * @param values the values to test, may be {@code null} or empty
-     * @return {@code true} if there is at least one {@code null} value in the array,
-     * {@code false} if all the values are non-null.
-     * If the array is {@code null} or empty, {@code true} is also returned.
+     * @return {@code true} if there is at least one {@code null} value in the array, {@code false} if all the values are non-null. If the array is {@code null} or empty, {@code
+     * true} is also returned.
      * @since 3.11
      */
     public static boolean anyNull(final Object... values) {
@@ -973,8 +932,7 @@ public abstract class ObjectUtils {
 
     /**
      * <p>Returns the first value in the array which is not {@code null}.
-     * If all the values are {@code null} or the array is {@code null}
-     * or empty then {@code null} is returned.</p>
+     * If all the values are {@code null} or the array is {@code null} or empty then {@code null} is returned.</p>
      *
      * <pre>
      * ObjectUtils.firstNonNull(null, null)      = null
@@ -989,8 +947,7 @@ public abstract class ObjectUtils {
      *
      * @param <T>    the component type of the array
      * @param values the values to test, may be {@code null} or empty
-     * @return the first value from {@code values} which is not {@code null},
-     * or {@code null} if there are no non-null values
+     * @return the first value from {@code values} which is not {@code null}, or {@code null} if there are no non-null values
      * @since 3.0
      */
     @SafeVarargs
@@ -1007,11 +964,8 @@ public abstract class ObjectUtils {
 
     /**
      * <p>Executes the given suppliers in order and returns the first return
-     * value where a value other than {@code null} is returned.
-     * Once a non-{@code null} value is obtained, all following suppliers are
-     * not executed anymore.
-     * If all the return values are {@code null} or no suppliers are provided
-     * then {@code null} is returned.</p>
+     * value where a value other than {@code null} is returned. Once a non-{@code null} value is obtained, all following suppliers are not executed anymore. If all the return
+     * values are {@code null} or no suppliers are provided then {@code null} is returned.</p>
      *
      * <pre>
      * ObjectUtils.firstNonNullLazy(null, () -&gt; null) = null
@@ -1022,11 +976,8 @@ public abstract class ObjectUtils {
      * </pre>
      *
      * @param <T>       the type of the return values
-     * @param suppliers the suppliers returning the values to test.
-     *                  {@code null} values are ignored.
-     *                  Suppliers may return {@code null} or a value of type @{code T}
-     * @return the first return value from {@code suppliers} which is not {@code null},
-     * or {@code null} if there are no non-null values
+     * @param suppliers the suppliers returning the values to test. {@code null} values are ignored. Suppliers may return {@code null} or a value of type @{code T}
+     * @return the first return value from {@code suppliers} which is not {@code null}, or {@code null} if there are no non-null values
      * @since 3.10
      */
     @SafeVarargs
@@ -1046,8 +997,7 @@ public abstract class ObjectUtils {
 
     /**
      * <p>
-     * Returns the given {@code object} is it is non-null, otherwise returns the Supplier's {@link Supplier#get()}
-     * value.
+     * Returns the given {@code object} is it is non-null, otherwise returns the Supplier's {@link Supplier#get()} value.
      * </p>
      *
      * <p>
@@ -1074,8 +1024,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * 比较两个对象是否相等，此方法是 {@link #equal(Object, Object)}的别名方法。<br>
-     * 相同的条件有两个，满足其一即可：<br>
+     * 比较两个对象是否相等，此方法是 {@link #equal(Object, Object)}的别名方法。<br> 相同的条件有两个，满足其一即可：<br>
      * <ol>
      * <li>obj1 == null &amp;&amp; obj2 == null</li>
      * <li>obj1.equals(obj2)</li>
@@ -1093,8 +1042,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * 比较两个对象是否相等。<br>
-     * 相同的条件有两个，满足其一即可：<br>
+     * 比较两个对象是否相等。<br> 相同的条件有两个，满足其一即可：<br>
      * <ol>
      * <li>obj1 == null &amp;&amp; obj2 == null</li>
      * <li>obj1.equals(obj2)</li>
@@ -1126,8 +1074,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * 计算对象长度，如果是字符串调用其length函数，集合类调用其size函数，数组调用其length属性，其他可遍历对象遍历计算长度<br>
-     * 支持的类型包括：
+     * 计算对象长度，如果是字符串调用其length函数，集合类调用其size函数，数组调用其length属性，其他可遍历对象遍历计算长度<br> 支持的类型包括：
      * <ul>
      * <li>CharSequence</li>
      * <li>Map</li>
@@ -1179,8 +1126,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * 对象中是否包含元素<br>
-     * 支持的对象类型包括：
+     * 对象中是否包含元素<br> 支持的对象类型包括：
      * <ul>
      * <li>String</li>
      * <li>Collection</li>
@@ -1244,8 +1190,7 @@ public abstract class ObjectUtils {
     }
 
     /**
-     * 检查对象是否为null<br>
-     * 判断标准为：
+     * 检查对象是否为null<br> 判断标准为：
      *
      * <pre>
      * 1. == null

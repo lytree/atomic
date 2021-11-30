@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   top.yang.web.aspect.GlobalResponseHandler,\
-  top.yang.web.aspect.ControllerLogAspect
+  top.yang.web.aspect.ControllerLogAspect,\
+  top.yang.web.configuration.DateConverterConfig

@@ -32,15 +32,4 @@ public interface BaseManager<T extends BaseBean, ID extends Serializable> {
 
   List<T> update(List<T> t);
 
-  void delete(T instance);
-
-
-  void deleteById(ID id);
-
-
-  void deleteByIds(Collection<ID> ids);
-
-
-  void deleteAll();
-
 }
