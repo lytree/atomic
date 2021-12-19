@@ -20,12 +20,12 @@ package top.yang.time;
 
 import top.yang.Range;
 import top.yang.math.NumberUtils;
-import top.yang.reflect.ObjectUtils;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import top.yang.reflect.ObjectUtils;
 
 
 /**
@@ -44,8 +44,7 @@ public class DurationUtils {
     /**
      * Gets the nanosecond part of a Duration converted to milliseconds.
      * <p>
-     * Handy when calling an API that takes a long of milliseconds and an int of nanoseconds. For example,
-     * {@link Object#wait(long, int)} and {@link Thread#sleep(long, int)}.
+     * Handy when calling an API that takes a long of milliseconds and an int of nanoseconds. For example, {@link Object#wait(long, int)} and {@link Thread#sleep(long, int)}.
      * </p>
      * <p>
      * Note that is this different from {@link Duration#getNano()} because a duration are seconds and nanoseconds.

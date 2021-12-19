@@ -16,7 +16,7 @@
  */
 package top.yang;
 
-import top.yang.common.Validate;
+import top.yang.validator.Validate;
 
 import java.io.Serializable;
 import java.util.Comparator;

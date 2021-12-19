@@ -16,7 +16,7 @@
  */
 package top.yang.time;
 
-import top.yang.common.Validate;
+import top.yang.validator.Validate;
 import top.yang.string.StringUtils;
 
 import java.util.ArrayList;

@@ -4,4 +4,4 @@ top\yang\spring\dto\BaseDto.class
 top\yang\spring\utils\SpringUtils.class
 top\yang\spring\exception\SystemException.class
 top\yang\spring\exception\CustomCode.class
-top\yang\spring\constants\Globals.class
+top\yang\spring\constants\GlobalsConstants.class

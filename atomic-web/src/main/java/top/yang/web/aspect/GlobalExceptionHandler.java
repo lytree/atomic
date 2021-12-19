@@ -10,94 +10,95 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import top.yang.spring.constants.Globals;
+import top.yang.spring.constants.GlobalsConstants;
 import top.yang.spring.exception.ResultCode;
 import top.yang.spring.exception.SystemException;
-import top.yang.web.domain.response.ResponseResult;
+import top.yang.web.response.ResponseResult;
 import top.yang.web.exception.BusinessException;
 import top.yang.web.exception.CommonCode;
 
 
 /**
+ * @author pride
  * @date 2021/8/30 10:16
  */
 public class GlobalExceptionHandler {
 
-  private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-  //定义map，配置异常类型所对应的错误代码
-  private static ImmutableMap<Class<? extends Throwable>, ResultCode> EXCEPTIONS;
-  //定义map的builder对象，去构建ImmutableMap
-  protected static ImmutableMap.Builder<Class<? extends Throwable>, ResultCode> builder = ImmutableMap.builder();
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    //定义map，配置异常类型所对应的错误代码
+    protected static ImmutableMap<Class<? extends Throwable>, ResultCode> EXCEPTIONS;
+    //定义map的builder对象，去构建ImmutableMap
+    protected static ImmutableMap.Builder<Class<? extends Throwable>, ResultCode> builder = ImmutableMap.builder();
 
-  //捕获CustomException此类异常
-  @ExceptionHandler({BusinessException.class, SystemException.class})
-  @ResponseBody
-  public ResponseResult customException(BusinessException businessException) {
-    String requestId = MDC.get(Globals.REQUEST_ID);
-    businessException.printStackTrace();
-    //记录日志
-    logger.error("catch exception:{}", businessException.toString());
-    ResultCode resultCode = businessException.getResult();
-    return new ResponseResult(resultCode, requestId);
-  }
-
-  //捕获ValidationException此类异常
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  @ResponseBody
-  public ResponseResult validationException(MethodArgumentNotValidException methodArgumentNotValidException) {
-    String requestId = MDC.get(Globals.REQUEST_ID);
-    methodArgumentNotValidException.printStackTrace();
-    //记录日志
-    logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
-    return new ResponseResult(CommonCode.INVALID_PARAM, requestId);
-  }
-
-  //捕获ValidationException此类异常
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  @ResponseBody
-  public ResponseResult bindException(BindException methodArgumentNotValidException) {
-    String requestId = MDC.get(Globals.REQUEST_ID);
-    methodArgumentNotValidException.printStackTrace();
-    //记录日志
-    logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
-    return new ResponseResult(CommonCode.INVALID_PARAM, requestId);
-  }
-
-  //捕获ValidationException此类异常
-  @ExceptionHandler(SystemException.class)
-  @ResponseBody
-  public ResponseResult systemException(ValidationException validationException) {
-    String requestId = MDC.get(Globals.REQUEST_ID);
-    validationException.printStackTrace();
-    //记录日志
-    logger.error("catch exception:{}", validationException.getMessage());
-    return new ResponseResult(CommonCode.INVALID_PARAM, requestId);
-  }
-
-  //捕获Exception此类异常
-  @ExceptionHandler(Exception.class)
-  @ResponseBody
-  public ResponseResult exception(Exception exception) {
-    String requestId = MDC.get(Globals.REQUEST_ID);
-    exception.printStackTrace();
-    //记录日志
-    logger.error("catch exception:{}", exception.getMessage());
-    if (EXCEPTIONS == null) {
-      EXCEPTIONS = builder.build();//EXCEPTIONS构建成功
+    //捕获CustomException此类异常
+    @ExceptionHandler({BusinessException.class, SystemException.class})
+    @ResponseBody
+    public ResponseResult customException(BusinessException businessException) {
+        String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
+        businessException.printStackTrace();
+        //记录日志
+        logger.error("catch exception:{}", businessException.toString());
+        ResultCode resultCode = businessException.getResult();
+        return new ResponseResult(resultCode, requestId);
     }
-    //从EXCEPTIONS中找异常类型所对应的错误代码，如果找到了将错误代码响应给用户，如果找不到给用户响应99999异常
-    ResultCode resultCode = EXCEPTIONS.get(exception.getClass());
-    if (resultCode != null) {
-      return new ResponseResult(resultCode, requestId);
-    } else {
-      //返回9999异常
-      return new ResponseResult(CommonCode.FAIL, requestId);
+
+    //捕获ValidationException此类异常
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    public ResponseResult validationException(MethodArgumentNotValidException methodArgumentNotValidException) {
+        String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
+        methodArgumentNotValidException.printStackTrace();
+        //记录日志
+        logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
+        return new ResponseResult(CommonCode.INVALID_PARAM, requestId);
     }
-  }
+
+    //捕获ValidationException此类异常
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
+    public ResponseResult bindException(BindException methodArgumentNotValidException) {
+        String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
+        methodArgumentNotValidException.printStackTrace();
+        //记录日志
+        logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
+        return new ResponseResult(CommonCode.INVALID_PARAM, requestId);
+    }
+
+    //捕获ValidationException此类异常
+    @ExceptionHandler(SystemException.class)
+    @ResponseBody
+    public ResponseResult systemException(ValidationException validationException) {
+        String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
+        validationException.printStackTrace();
+        //记录日志
+        logger.error("catch exception:{}", validationException.getMessage());
+        return new ResponseResult(CommonCode.INVALID_PARAM, requestId);
+    }
+
+    //捕获Exception此类异常
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public ResponseResult exception(Exception exception) {
+        String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
+        exception.printStackTrace();
+        //记录日志
+        logger.error("catch exception:{}", exception.getMessage());
+        if (EXCEPTIONS == null) {
+            EXCEPTIONS = builder.build();//EXCEPTIONS构建成功
+        }
+        //从EXCEPTIONS中找异常类型所对应的错误代码，如果找到了将错误代码响应给用户，如果找不到给用户响应99999异常
+        ResultCode resultCode = EXCEPTIONS.get(exception.getClass());
+        if (resultCode != null) {
+            return new ResponseResult(resultCode, requestId);
+        } else {
+            //返回9999异常
+            return new ResponseResult(CommonCode.FAIL, requestId);
+        }
+    }
 
 
-  static {
-    //定义异常类型所对应的错误代码
-    builder.put(HttpMessageNotReadableException.class, CommonCode.SERVER_ERROR);
-  }
+    static {
+        //定义异常类型所对应的错误代码
+        builder.put(HttpMessageNotReadableException.class, CommonCode.SERVER_ERROR);
+    }
 }

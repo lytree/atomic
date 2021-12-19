@@ -64,6 +64,6 @@ public class EnvironmentUtils implements EnvironmentAware {
 
   @Override
   public void setEnvironment(Environment environment) {
-    this.environment = environment;
+    EnvironmentUtils.environment = environment;
   }
 }

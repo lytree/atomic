@@ -37,13 +37,11 @@
     <commons-compress.version>1.20</commons-compress.version>
     <commons-configuration2.version>2.7</commons-configuration2.version>
     <elasticjob.version>3.0.1</elasticjob.version>
-    <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
     <!--        <dubbo.version>3.0.4</dubbo.version>-->
     <dubbo.version>2.7.14</dubbo.version>
     <lombok.version>1.18.20</lombok.version>
     <guava.version>30.1.1-jre</guava.version>
     <redisson.version>3.15.6</redisson.version>
-    <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
@@ -60,7 +58,7 @@
       <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-bom</artifactId>
-        <version>2021.0.5</version>
+        <version>2021.1.0</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -85,27 +83,6 @@
         <artifactId>dubbo</artifactId>
         <version>${dubbo.version}</version>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/io.protostuff/protostuff-core -->
-      <dependency>
-        <groupId>io.protostuff</groupId>
-        <artifactId>protostuff-core</artifactId>
-        <version>1.7.4</version>
-        <scope>test</scope>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/io.protostuff/protostuff-runtime -->
-      <dependency>
-        <groupId>io.protostuff</groupId>
-        <artifactId>protostuff-runtime</artifactId>
-        <version>1.7.4</version>
-      </dependency>
-
-      <!-- https://mvnrepository.com/artifact/io.grpc/grpc-all -->
-      <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>grpc-all</artifactId>
-        <version>1.41.0</version>
-      </dependency>
-
       <dependency>
         <groupId>net.logstash.logback</groupId>
         <artifactId>logstash-logback-encoder</artifactId>
@@ -191,12 +168,6 @@
         <artifactId>redisson</artifactId>
         <version>${redisson.version}</version>
       </dependency>
-
-      <dependency>
-        <groupId>org.redisson</groupId>
-        <artifactId>redisson-spring-data-24</artifactId>
-        <version>${redisson.version}</version>
-      </dependency>
       <dependency>
         <groupId>org.apache.shardingsphere.elasticjob</groupId>
         <artifactId>elasticjob-lite-core</artifactId>
@@ -204,6 +175,26 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.2.7</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-to-slf4j</artifactId>
+      <version>2.14.1</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+      <version>1.7.32</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
   <build>
     <pluginManagement>
       <plugins>

@@ -17,7 +17,7 @@
 package top.yang.math;
 
 
-import top.yang.common.Validate;
+import top.yang.validator.Validate;
 
 /**
  * <p>Provides IEEE-754r variants of NumberUtils methods. </p>

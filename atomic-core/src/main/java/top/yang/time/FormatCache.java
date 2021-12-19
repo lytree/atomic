@@ -18,7 +18,7 @@ package top.yang.time;
 
 
 
-import top.yang.common.Validate;
+import top.yang.validator.Validate;
 
 import java.text.DateFormat;
 import java.text.Format;

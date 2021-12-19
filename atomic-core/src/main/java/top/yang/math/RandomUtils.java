@@ -16,7 +16,7 @@
  */
 package top.yang.math;
 
-import top.yang.common.Validate;
+import top.yang.validator.Validate;
 import top.yang.string.StringUtils;
 
 import java.security.SecureRandom;
