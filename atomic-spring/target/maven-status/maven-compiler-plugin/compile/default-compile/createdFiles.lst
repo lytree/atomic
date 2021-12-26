@@ -2,6 +2,9 @@ top\yang\spring\factory\BaseHandlerFactory.class
 top\yang\spring\exception\ResultCode.class
 top\yang\spring\dto\BaseDto.class
 top\yang\spring\utils\SpringUtils.class
+top\yang\spring\exception\PojoInstanceFailException.class
+top\yang\spring\utils\EnvironmentUtils.class
 top\yang\spring\exception\SystemException.class
 top\yang\spring\exception\CustomCode.class
 top\yang\spring\constants\GlobalsConstants.class
+top\yang\spring\exception\GlobalError.class

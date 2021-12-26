@@ -3,7 +3,7 @@ package top.yang.repository;
 import java.io.Serializable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import top.yang.pojo.BaseBean;
+import top.yang.domain.pojo.BaseBean;
 
 /**
  * @author Y

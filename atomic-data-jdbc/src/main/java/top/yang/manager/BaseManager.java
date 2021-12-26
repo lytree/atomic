@@ -7,29 +7,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import top.yang.domain.pojo.BaseBean;
+import top.yang.spring.dto.BaseDto;
 
-public interface BaseManager<T extends BaseBean, ID extends Serializable> {
+public interface BaseManager<T extends BaseDto, ID extends Serializable> {
 
-  T findById(ID id);
+    T findById(ID id);
 
-  List<T> findAll();
+    List<T> findAll();
 
-  List<T> findAll(Sort sort);
+    List<T> findAllByIds(Collection<ID> ids);
 
-  Page<T> findAllPage(Pageable pageable);
+    boolean existsById(ID id);
 
-  List<T> findAllByIds(Collection<ID> ids);
+    long count();
 
-  boolean existsById(ID id);
+    T save(T t);
 
-  long count();
+    List<T> save(List<T> t);
 
-  T save(T t);
-
-  List<T> save(List<T> t);
-
-  T update(T t);
-
-  List<T> update(List<T> t);
 
 }

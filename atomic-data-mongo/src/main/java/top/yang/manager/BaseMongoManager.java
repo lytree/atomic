@@ -12,7 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
-import top.yang.pojo.BaseBean;
+import top.yang.domain.pojo.BaseBean;
 import top.yang.repository.BaseMongoRepository;
 
 /**

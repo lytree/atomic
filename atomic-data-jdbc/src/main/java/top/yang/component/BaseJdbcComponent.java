@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,83 +13,74 @@ import org.springframework.transaction.annotation.Transactional;
 import top.yang.domain.pojo.BaseBean;
 import top.yang.repository.BaseJdbcRepository;
 
-public abstract class BaseJdbcComponent<R extends BaseJdbcRepository, T extends BaseBean, ID extends Serializable> {
+public class BaseJdbcComponent<R extends BaseJdbcRepository, T extends BaseBean, ID extends Serializable> {
 
-  protected abstract R getRepository();
+    @Autowired
+    protected R repository;
 
-  public T findById(ID id) {
-    return (T) getRepository().findById(id).get();
-  }
+    public T findById(ID id) {
+        return (T) repository.findById(id).get();
+    }
 
-  public List<T> findAll() {
+    public List<T> findAll() {
 
-    Iterable<T> all = getRepository().findAll();
-    return Streamable.of(all).stream() //
-        .collect(Collectors.toList());
-  }
+        Iterable<T> all = repository.findAll();
+        return Streamable.of(all).stream() //
+                .collect(Collectors.toList());
+    }
 
-  public List<T> findAll(Sort sort) {
-    Iterable<T> all = getRepository().findAll(sort);
-    return Streamable.of(all).stream() //
-        .collect(Collectors.toList());
-  }
+    public List<T> findAll(Sort sort) {
+        Iterable<T> all = repository.findAll(sort);
+        return Streamable.of(all).stream() //
+                .collect(Collectors.toList());
+    }
 
-  public Page<T> findAllPage(Pageable pageable) {
-    return (Page<T>) getRepository().findAll(pageable);
-  }
+    public Page<T> findAllPage(Pageable pageable) {
+        return (Page<T>) repository.findAll(pageable);
+    }
 
-  public List<T> findAllByIds(Collection<Serializable> ids) {
-    Iterable<T> all = getRepository().findAllById(ids);
-    return Streamable.of(all).stream() //
-        .collect(Collectors.toList());
-  }
+    public List<T> findAllByIds(Collection<Serializable> ids) {
+        Iterable<T> all = repository.findAllById(ids);
+        return Streamable.of(all).stream() //
+                .collect(Collectors.toList());
+    }
 
-  public boolean existsById(ID id) {
-    return getRepository().existsById(id);
-  }
+    public boolean existsById(ID id) {
+        return repository.existsById(id);
+    }
 
-  public long count() {
-    return getRepository().count();
-  }
+    public long count() {
+        return repository.count();
+    }
 
-  @Transactional(rollbackFor = Exception.class)
-  public T save(T t) {
-    return (T) getRepository().save(t);
-  }
+    @Transactional(rollbackFor = Exception.class)
+    public T save(T t) {
+        return (T) repository.save(t);
+    }
 
-  @Transactional(rollbackFor = Exception.class)
-  public List<T> save(List<T> t) {
-    return (List<T>) getRepository().saveAll(t);
-  }
+    @Transactional(rollbackFor = Exception.class)
+    public List<T> save(List<T> t) {
+        return (List<T>) repository.saveAll(t);
+    }
 
-  @Transactional(rollbackFor = Exception.class)
-  public T update(T t) {
-    return (T) getRepository().save(t);
-  }
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(T instance) {
+        repository.delete(instance);
+    }
 
-  @Transactional(rollbackFor = Exception.class)
-  public List<T> update(List<T> t) {
-    return (List<T>) getRepository().saveAll(t);
-  }
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteById(ID id) {
+        repository.deleteById(id);
+    }
 
-  @Transactional(rollbackFor = Exception.class)
-  public void delete(T instance) {
-    getRepository().delete(instance);
-  }
-
-  @Transactional(rollbackFor = Exception.class)
-  public void deleteById(ID id) {
-    getRepository().deleteById(id);
-  }
-
-  @Transactional(rollbackFor = Exception.class)
-  public void deleteByIds(Collection<ID> ids) {
-    ids.forEach(id -> getRepository().deleteById(id));
-  }
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByIds(Collection<ID> ids) {
+        ids.forEach(id -> repository.deleteById(id));
+    }
 
 
-  @Transactional(rollbackFor = Exception.class)
-  public void deleteAll() {
-    getRepository().deleteAll();
-  }
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteAll() {
+        repository.deleteAll();
+    }
 }

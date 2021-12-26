@@ -54,7 +54,7 @@ public class GlobalExceptionHandler {
     }
 
     //捕获ValidationException此类异常
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(BindException.class)
     @ResponseBody
     public ResponseResult bindException(BindException methodArgumentNotValidException) {
         String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
