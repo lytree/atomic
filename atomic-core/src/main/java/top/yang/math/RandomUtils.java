@@ -31,12 +31,12 @@ import java.util.concurrent.ThreadLocalRandom;
  * <p>Please note that the Apache Commons project provides a component
  * dedicated to pseudo-random number generation, namely
  * <a href="https://commons.apache.org/rng">Commons RNG</a>, that may be
- * a better choice for applications with more stringent requirements
- * (performance and/or correctness).</p>
+ * a better choice for applications with more stringent requirements (performance and/or correctness).</p>
  *
  * @since 3.3
  */
-public class RandomUtils {
+public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
+
     /**
      * 用于随机选的数字
      */
@@ -98,8 +98,7 @@ public class RandomUtils {
      * @param startInclusive the smallest value that can be returned, must be non-negative
      * @param endExclusive   the upper bound (not included)
      * @return the random double
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if
-     *                                  {@code startInclusive} is negative
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative
      */
     public static double nextDouble(final double startInclusive, final double endExclusive) {
         Validate.isTrue(endExclusive >= startInclusive,
@@ -132,8 +131,7 @@ public class RandomUtils {
      * @param startInclusive the smallest value that can be returned, must be non-negative
      * @param endExclusive   the upper bound (not included)
      * @return the random float
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if
-     *                                  {@code startInclusive} is negative
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative
      */
     public static float nextFloat(final float startInclusive, final float endExclusive) {
         Validate.isTrue(endExclusive >= startInclusive,
@@ -166,8 +164,7 @@ public class RandomUtils {
      * @param startInclusive the smallest value that can be returned, must be non-negative
      * @param endExclusive   the upper bound (not included)
      * @return the random integer
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if
-     *                                  {@code startInclusive} is negative
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative
      */
     public static int nextInt(final int startInclusive, final int endExclusive) {
         Validate.isTrue(endExclusive >= startInclusive,
@@ -193,12 +190,10 @@ public class RandomUtils {
     }
 
     /**
-     * Generates a {@code long} value between 0 (inclusive) and the specified
-     * value (exclusive).
+     * Generates a {@code long} value between 0 (inclusive) and the specified value (exclusive).
      *
      * @param n Bound on the random number to be returned.  Must be positive.
-     * @return a random {@code long} value between 0 (inclusive) and {@code n}
-     * (exclusive).
+     * @return a random {@code long} value between 0 (inclusive) and {@code n} (exclusive).
      */
     private static long nextLong(final long n) {
         // Extracted from o.a.c.rng.core.BaseProvider.nextLong(long)
@@ -220,8 +215,7 @@ public class RandomUtils {
      * @param startInclusive the smallest value that can be returned, must be non-negative
      * @param endExclusive   the upper bound (not included)
      * @return the random long
-     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if
-     *                                  {@code startInclusive} is negative
+     * @throws IllegalArgumentException if {@code startInclusive > endExclusive} or if {@code startInclusive} is negative
      */
     public static long nextLong(final long startInclusive, final long endExclusive) {
         Validate.isTrue(endExclusive >= startInclusive,
@@ -251,8 +245,7 @@ public class RandomUtils {
     }
 
     /**
-     * 获取SHA1PRNG的{@link SecureRandom}，类提供加密的强随机数生成器 (RNG)<br>
-     * 注意：此方法获取的是伪随机序列发生器PRNG（pseudo-random number generator）
+     * 获取SHA1PRNG的{@link SecureRandom}，类提供加密的强随机数生成器 (RNG)<br> 注意：此方法获取的是伪随机序列发生器PRNG（pseudo-random number generator）
      *
      * <p>
      * 相关说明见：https://stackoverflow.com/questions/137212/how-to-solve-slow-java-securerandom
@@ -265,8 +258,7 @@ public class RandomUtils {
     }
 
     /**
-     * 获取SHA1PRNG的{@link SecureRandom}，类提供加密的强随机数生成器 (RNG)<br>
-     * 注意：此方法获取的是伪随机序列发生器PRNG（pseudo-random number generator）
+     * 获取SHA1PRNG的{@link SecureRandom}，类提供加密的强随机数生成器 (RNG)<br> 注意：此方法获取的是伪随机序列发生器PRNG（pseudo-random number generator）
      *
      * <p>
      * 相关说明见：https://stackoverflow.com/questions/137212/how-to-solve-slow-java-securerandom
@@ -466,10 +458,8 @@ public class RandomUtils {
      * characters as indicated by the arguments.</p>
      *
      * @param count   the length of random string to create
-     * @param letters if {@code true}, generated string may include
-     *                alphabetic characters
-     * @param numbers if {@code true}, generated string may include
-     *                numeric characters
+     * @param letters if {@code true}, generated string may include alphabetic characters
+     * @param numbers if {@code true}, generated string may include numeric characters
      * @return the random string
      */
     public static String random(final int count, final boolean letters, final boolean numbers) {
@@ -483,8 +473,7 @@ public class RandomUtils {
      * <p>Characters will be chosen from the set of characters specified.</p>
      *
      * @param count the length of random string to create
-     * @param chars the character array containing the set of characters to use,
-     *              may be null
+     * @param chars the character array containing the set of characters to use, may be null
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      */
@@ -505,10 +494,8 @@ public class RandomUtils {
      * @param count   the length of random string to create
      * @param start   the position in set of chars to start at
      * @param end     the position in set of chars to end before
-     * @param letters if {@code true}, generated string may include
-     *                alphabetic characters
-     * @param numbers if {@code true}, generated string may include
-     *                numeric characters
+     * @param letters if {@code true}, generated string may include alphabetic characters
+     * @param numbers if {@code true}, generated string may include numeric characters
      * @return the random string
      */
     public static String random(final int count, final int start, final int end, final boolean letters, final boolean numbers) {
@@ -520,22 +507,17 @@ public class RandomUtils {
      * default source of randomness.</p>
      *
      * <p>This method has exactly the same semantics as
-     * {@link #random(int, int, int, boolean, boolean, char[], Random)}, but
-     * instead of using an externally supplied source of randomness, it uses
-     * the internal static {@link Random} instance.</p>
+     * {@link #random(int, int, int, boolean, boolean, char[], Random)}, but instead of using an externally supplied source of randomness, it uses the internal static {@link
+     * Random} instance.</p>
      *
      * @param count   the length of random string to create
      * @param start   the position in set of chars to start at
      * @param end     the position in set of chars to end before
-     * @param letters if {@code true}, generated string may include
-     *                alphabetic characters
-     * @param numbers if {@code true}, generated string may include
-     *                numeric characters
-     * @param chars   the set of chars to choose randoms from.
-     *                If {@code null}, then it will use the set of all chars.
+     * @param letters if {@code true}, generated string may include alphabetic characters
+     * @param numbers if {@code true}, generated string may include numeric characters
+     * @param chars   the set of chars to choose randoms from. If {@code null}, then it will use the set of all chars.
      * @return the random string
-     * @throws ArrayIndexOutOfBoundsException if there are not
-     *                                        {@code (end - start) + 1} characters in the set array.
+     * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
      */
     public static String random(final int count, final int start, final int end, final boolean letters, final boolean numbers, final char... chars) {
         return random(count, start, end, letters, numbers, chars, random());
@@ -546,38 +528,30 @@ public class RandomUtils {
      * supplied source of randomness.</p>
      *
      * <p>If start and end are both {@code 0}, start and end are set
-     * to {@code ' '} and {@code 'z'}, the ASCII printable
-     * characters, will be used, unless letters and numbers are both
-     * {@code false}, in which case, start and end are set to
+     * to {@code ' '} and {@code 'z'}, the ASCII printable characters, will be used, unless letters and numbers are both {@code false}, in which case, start and end are set to
      * {@code 0} and {@link Character#MAX_CODE_POINT}.
      *
      * <p>If set is not {@code null}, characters between start and
      * end are chosen.</p>
      *
      * <p>This method accepts a user-supplied {@link Random}
-     * instance to use as a source of randomness. By seeding a single
-     * {@link Random} instance with a fixed seed and using it for each call,
-     * the same random sequence of strings can be generated repeatedly
-     * and predictably.</p>
+     * instance to use as a source of randomness. By seeding a single {@link Random} instance with a fixed seed and using it for each call, the same random sequence of strings can
+     * be generated repeatedly and predictably.</p>
      *
      * @param count   the length of random string to create
      * @param start   the position in set of chars to start at (inclusive)
      * @param end     the position in set of chars to end before (exclusive)
-     * @param letters if {@code true}, generated string may include
-     *                alphabetic characters
-     * @param numbers if {@code true}, generated string may include
-     *                numeric characters
-     * @param chars   the set of chars to choose randoms from, must not be empty.
-     *                If {@code null}, then it will use the set of all chars.
+     * @param letters if {@code true}, generated string may include alphabetic characters
+     * @param numbers if {@code true}, generated string may include numeric characters
+     * @param chars   the set of chars to choose randoms from, must not be empty. If {@code null}, then it will use the set of all chars.
      * @param random  a source of randomness.
      * @return the random string
-     * @throws ArrayIndexOutOfBoundsException if there are not
-     *                                        {@code (end - start) + 1} characters in the set array.
+     * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
      * @throws IllegalArgumentException       if {@code count} &lt; 0 or the provided chars array is empty.
      * @since 2.0
      */
     public static String random(int count, int start, int end, final boolean letters, final boolean numbers,
-                                final char[] chars, final Random random) {
+            final char[] chars, final Random random) {
         if (count == 0) {
             return StringUtils.EMPTY;
         }
@@ -657,12 +631,10 @@ public class RandomUtils {
      * specified.</p>
      *
      * <p>Characters will be chosen from the set of characters
-     * specified by the string, must not be empty.
-     * If null, the set of all characters is used.</p>
+     * specified by the string, must not be empty. If null, the set of all characters is used.</p>
      *
      * @param count the length of random string to create
-     * @param chars the String containing the set of characters to use,
-     *              may be null, but must not be empty
+     * @param chars the String containing the set of characters to use, may be null, but must not be empty
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0 or the string is empty.
      */
@@ -766,8 +738,7 @@ public class RandomUtils {
      * <p>Creates a random string whose length is the number of characters specified.</p>
      *
      * <p>Characters will be chosen from the set of characters which match the POSIX [:graph:]
-     * regular expression character class. This class contains all visible ASCII characters
-     * (i.e. anything except spaces and control characters).</p>
+     * regular expression character class. This class contains all visible ASCII characters (i.e. anything except spaces and control characters).</p>
      *
      * @param count the length of random string to create
      * @return the random string
@@ -825,8 +796,7 @@ public class RandomUtils {
      * <p>Creates a random string whose length is the number of characters specified.</p>
      *
      * <p>Characters will be chosen from the set of characters which match the POSIX [:print:]
-     * regular expression character class. This class includes all visible ASCII characters and spaces
-     * (i.e. anything except control characters).</p>
+     * regular expression character class. This class includes all visible ASCII characters and spaces (i.e. anything except control characters).</p>
      *
      * @param count the length of random string to create
      * @return the random string
@@ -854,14 +824,11 @@ public class RandomUtils {
 
     /**
      * <p>
-     * {@code RandomUtils} instances should NOT be constructed in standard
-     * programming. Instead, the class should be used as
-     * {@code RandomUtils.nextBytes(5);}.
+     * {@code RandomUtils} instances should NOT be constructed in standard programming. Instead, the class should be used as {@code RandomUtils.nextBytes(5);}.
      * </p>
      *
      * <p>
-     * This constructor is public to permit tools that require a JavaBean
-     * instance to operate.
+     * This constructor is public to permit tools that require a JavaBean instance to operate.
      * </p>
      */
     public RandomUtils() {

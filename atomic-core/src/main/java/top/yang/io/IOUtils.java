@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.Closeable;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,17 +18,29 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.net.HttpURLConnection;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
+import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.Selector;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
+import java.util.function.Consumer;
+import org.checkerframework.checker.units.qual.C;
 import top.yang.collections.ArrayUtils;
-import top.yang.io.Output.NullOutputStream;
+import top.yang.io.function.IOConsumer;
+import top.yang.io.output.NullOutputStream;
+import top.yang.io.output.StringBuilderWriter;
 import top.yang.string.StringUtils;
 import top.yang.string.CharsetsUtils;
 
@@ -45,6 +58,8 @@ public class IOUtils {
      * The current set global allocation limit override, -1 means limits are applied per record type.
      */
     private static int BYTE_ARRAY_MAX_OVERRIDE = -1;
+
+
     public static String FILENAME_PATTERN = "[a-zA-Z0-9_\\-\\|\\.\\u4e00-\\u9fa5]+";
     /**
      * CR char.
@@ -286,6 +301,7 @@ public class IOUtils {
         return copyLarge(input, NullOutputStream.INSTANCE, getByteArray());
     }
 
+
     /**
      * Copies chars from a {@code Reader} to bytes on an {@code OutputStream} using the specified character encoding, and calling flush.
      * <p>
@@ -340,6 +356,32 @@ public class IOUtils {
             final String outputCharsetName)
             throws IOException {
         copy(reader, output, CharsetsUtils.toCharset(outputCharsetName));
+    }
+
+    /**
+     * Copies bytes from an {@code InputStream} to an {@code OutputStream}.
+     * <p>
+     * This method buffers the input internally, so there is no need to use a {@code BufferedInputStream}.
+     * </p>
+     * <p>
+     * Large streams (over 2GB) will return a bytes copied value of {@code -1} after the copy has completed since the correct number of bytes cannot be returned as an int. For
+     * large streams use the {@code copyLarge(InputStream, OutputStream)} method.
+     * </p>
+     *
+     * @param inputStream  the {@code InputStream} to read.
+     * @param outputStream the {@code OutputStream} to write.
+     * @return the number of bytes copied, or -1 if greater than {@link Integer#MAX_VALUE}.
+     * @throws NullPointerException if the InputStream is {@code null}.
+     * @throws NullPointerException if the OutputStream is {@code null}.
+     * @throws IOException          if an I/O error occurs.
+     * @since 1.1
+     */
+    public static int copy(final InputStream inputStream, final OutputStream outputStream) throws IOException {
+        final long count = copyLarge(inputStream, outputStream);
+        if (count > Integer.MAX_VALUE) {
+            return EOF;
+        }
+        return (int) count;
     }
 
     /**
@@ -432,6 +474,103 @@ public class IOUtils {
             return copyLarge(inputStream, outputStream);
         }
     }
+
+
+    /**
+     * Copies bytes from an {@code InputStream} to chars on a {@code Writer} using the specified character encoding.
+     * <p>
+     * This method buffers the input internally, so there is no need to use a {@code BufferedInputStream}.
+     * </p>
+     * <p>
+     * This method uses {@link InputStreamReader}.
+     * </p>
+     *
+     * @param input        the {@code InputStream} to read from
+     * @param writer       the {@code Writer} to write to
+     * @param inputCharset the charset to use for the input stream, null means platform default
+     * @throws NullPointerException if the input or output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.3
+     */
+    public static void copy(final InputStream input, final Writer writer, final Charset inputCharset)
+            throws IOException {
+        final InputStreamReader reader = new InputStreamReader(input, CharsetsUtils.toCharset(inputCharset));
+        copy(reader, writer);
+    }
+
+    /**
+     * Copies bytes from an {@code InputStream} to chars on a {@code Writer} using the specified character encoding.
+     * <p>
+     * This method buffers the input internally, so there is no need to use a {@code BufferedInputStream}.
+     * </p>
+     * <p>
+     * Character encoding names can be found at
+     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * </p>
+     * <p>
+     * This method uses {@link InputStreamReader}.
+     * </p>
+     *
+     * @param input            the {@code InputStream} to read from
+     * @param writer           the {@code Writer} to write to
+     * @param inputCharsetName the name of the requested charset for the InputStream, null means platform default
+     * @throws NullPointerException                         if the input or output is null
+     * @throws IOException                                  if an I/O error occurs
+     * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
+     * @since 1.1
+     */
+    public static void copy(final InputStream input, final Writer writer, final String inputCharsetName)
+            throws IOException {
+        copy(input, writer, CharsetsUtils.toCharset(inputCharsetName));
+    }
+
+
+    /**
+     * Copies chars from a {@code Reader} to a {@code Appendable}.
+     * <p>
+     * This method buffers the input internally, so there is no need to use a {@code BufferedReader}.
+     * </p>
+     * <p>
+     * Large streams (over 2GB) will return a chars copied value of {@code -1} after the copy has completed since the correct number of chars cannot be returned as an int. For
+     * large streams use the {@code copyLarge(Reader, Writer)} method.
+     * </p>
+     *
+     * @param reader the {@code Reader} to read from
+     * @param output the {@code Appendable} to write to
+     * @return the number of characters copied, or -1 if &gt; Integer.MAX_VALUE
+     * @throws NullPointerException if the input or output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.7
+     */
+    public static long copy(final Reader reader, final Appendable output) throws IOException {
+        return copy(reader, output, CharBuffer.allocate(DEFAULT_BUFFER_SIZE));
+    }
+
+    /**
+     * Copies chars from a {@code Reader} to an {@code Appendable}.
+     * <p>
+     * This method uses the provided buffer, so there is no need to use a {@code BufferedReader}.
+     * </p>
+     *
+     * @param reader the {@code Reader} to read from
+     * @param output the {@code Appendable} to write to
+     * @param buffer the buffer to be used for the copy
+     * @return the number of characters copied
+     * @throws NullPointerException if the input or output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.7
+     */
+    public static long copy(final Reader reader, final Appendable output, final CharBuffer buffer) throws IOException {
+        long count = 0;
+        int n;
+        while (EOF != (n = reader.read(buffer))) {
+            buffer.flip();
+            output.append(buffer, 0, n);
+            count += n;
+        }
+        return count;
+    }
+
 
     /**
      * Copies bytes from a large (over 2GB) {@code InputStream} to an {@code OutputStream}.
@@ -728,6 +867,850 @@ public class IOUtils {
     }
 
     /**
+     * Closes the given {@link Closeable} as a null-safe operation.
+     *
+     * @param closeable The resource to close, may be null.
+     * @throws IOException if an I/O error occurs.
+     * @since 2.7
+     */
+    public static void close(final Closeable closeable) throws IOException {
+        if (closeable != null) {
+            closeable.close();
+        }
+    }
+
+    /**
+     * Closes the given {@link Closeable}s as null-safe operations.
+     *
+     * @param closeables The resource(s) to close, may be null.
+     * @throws IOException if an I/O error occurs.
+     * @since 2.8.0
+     */
+    public static void close(final Closeable... closeables) throws IOException {
+        IOConsumer.forEach(closeables, IOUtils::close);
+    }
+
+    /**
+     * Closes the given {@link Closeable} as a null-safe operation.
+     *
+     * @param closeable The resource to close, may be null.
+     * @param consumer  Consume the IOException thrown by {@link Closeable#close()}.
+     * @throws IOException if an I/O error occurs.
+     * @since 2.7
+     */
+    public static void close(final Closeable closeable, final IOConsumer<IOException> consumer) throws IOException {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (final IOException e) {
+                if (consumer != null) {
+                    consumer.accept(e);
+                }
+            }
+        }
+    }
+
+    /**
+     * Closes a URLConnection.
+     *
+     * @param conn the connection to close.
+     * @since 2.4
+     */
+    public static void close(final URLConnection conn) {
+        if (conn instanceof HttpURLConnection) {
+            ((HttpURLConnection) conn).disconnect();
+        }
+    }
+
+    /**
+     * Closes a {@code Closeable} unconditionally.
+     *
+     * <p>
+     * Equivalent to {@link Closeable#close()}, except any exceptions will be ignored. This is typically used in finally blocks.
+     * <p>
+     * Example code:
+     * </p>
+     * <pre>
+     * Closeable closeable = null;
+     * try {
+     *     closeable = new FileReader(&quot;foo.txt&quot;);
+     *     // process closeable
+     *     closeable.close();
+     * } catch (Exception e) {
+     *     // error handling
+     * } finally {
+     *     IOUtils.closeQuietly(closeable);
+     * }
+     * </pre>
+     * <p>
+     * Closing all streams:
+     * </p>
+     * <pre>
+     * try {
+     *     return IOUtils.copy(inputStream, outputStream);
+     * } finally {
+     *     IOUtils.closeQuietly(inputStream);
+     *     IOUtils.closeQuietly(outputStream);
+     * }
+     * </pre>
+     * <p>
+     * Also consider using a try-with-resources statement where appropriate.
+     * </p>
+     *
+     * @param closeable the objects to close, may be null or already closed
+     * @see Throwable#addSuppressed(java.lang.Throwable)
+     * @since 2.0
+     */
+    public static void closeQuietly(final Closeable closeable) {
+        closeQuietly(closeable, null);
+    }
+
+    /**
+     * Closes a {@code Closeable} unconditionally.
+     * <p>
+     * Equivalent to {@link Closeable#close()}, except any exceptions will be ignored.
+     * <p>
+     * This is typically used in finally blocks to ensure that the closeable is closed even if an Exception was thrown before the normal close statement was reached.
+     * <br>
+     * <b>It should not be used to replace the close statement(s)
+     * which should be present for the non-exceptional case.</b>
+     * <br>
+     * It is only intended to simplify tidying up where normal processing has already failed and reporting close failure as well is not necessary or useful.
+     * <p>
+     * Example code:
+     * </p>
+     * <pre>
+     * Closeable closeable = null;
+     * try {
+     *     closeable = new FileReader(&quot;foo.txt&quot;);
+     *     // processing using the closeable; may throw an Exception
+     *     closeable.close(); // Normal close - exceptions not ignored
+     * } catch (Exception e) {
+     *     // error handling
+     * } finally {
+     *     <b>IOUtils.closeQuietly(closeable); // In case normal close was skipped due to Exception</b>
+     * }
+     * </pre>
+     * <p>
+     * Closing all streams:
+     * <br>
+     * <pre>
+     * try {
+     *     return IOUtils.copy(inputStream, outputStream);
+     * } finally {
+     *     IOUtils.closeQuietly(inputStream, outputStream);
+     * }
+     * </pre>
+     * <p>
+     * Also consider using a try-with-resources statement where appropriate.
+     * </p>
+     *
+     * @param closeables the objects to close, may be null or already closed
+     * @see #closeQuietly(Closeable)
+     * @see Throwable#addSuppressed(java.lang.Throwable)
+     * @since 2.5
+     */
+    public static void closeQuietly(final Closeable... closeables) {
+        if (closeables != null) {
+            Arrays.stream(closeables).forEach(IOUtils::closeQuietly);
+        }
+    }
+
+    /**
+     * Closes the given {@link Closeable} as a null-safe operation while consuming IOException by the given {@code consumer}.
+     *
+     * @param closeable The resource to close, may be null.
+     * @param consumer  Consumes the IOException thrown by {@link Closeable#close()}.
+     * @since 2.7
+     */
+    public static void closeQuietly(final Closeable closeable, final Consumer<IOException> consumer) {
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (final IOException e) {
+                if (consumer != null) {
+                    consumer.accept(e);
+                }
+            }
+        }
+    }
+
+    /**
+     * Closes an {@code InputStream} unconditionally.
+     * <p>
+     * Equivalent to {@link InputStream#close()}, except any exceptions will be ignored. This is typically used in finally blocks.
+     * </p>
+     * <p>
+     * Example code:
+     * </p>
+     * <pre>
+     *   byte[] data = new byte[1024];
+     *   InputStream in = null;
+     *   try {
+     *       in = new FileInputStream("foo.txt");
+     *       in.read(data);
+     *       in.close(); //close errors are handled
+     *   } catch (Exception e) {
+     *       // error handling
+     *   } finally {
+     *       IOUtils.closeQuietly(in);
+     *   }
+     * </pre>
+     * <p>
+     * Also consider using a try-with-resources statement where appropriate.
+     * </p>
+     *
+     * @param input the InputStream to close, may be null or already closed
+     * @see Throwable#addSuppressed(java.lang.Throwable)
+     */
+    public static void closeQuietly(final InputStream input) {
+        closeQuietly((Closeable) input);
+    }
+
+    /**
+     * Closes an {@code OutputStream} unconditionally.
+     * <p>
+     * Equivalent to {@link OutputStream#close()}, except any exceptions will be ignored. This is typically used in finally blocks.
+     * </p>
+     * <p>
+     * Example code:
+     * </p>
+     * <pre>
+     * byte[] data = "Hello, World".getBytes();
+     *
+     * OutputStream out = null;
+     * try {
+     *     out = new FileOutputStream("foo.txt");
+     *     out.write(data);
+     *     out.close(); //close errors are handled
+     * } catch (IOException e) {
+     *     // error handling
+     * } finally {
+     *     IOUtils.closeQuietly(out);
+     * }
+     * </pre>
+     * <p>
+     * Also consider using a try-with-resources statement where appropriate.
+     * </p>
+     *
+     * @param output the OutputStream to close, may be null or already closed
+     * @see Throwable#addSuppressed(java.lang.Throwable)
+     */
+    public static void closeQuietly(final OutputStream output) {
+        closeQuietly((Closeable) output);
+    }
+
+    /**
+     * Closes an {@code Reader} unconditionally.
+     * <p>
+     * Equivalent to {@link Reader#close()}, except any exceptions will be ignored. This is typically used in finally blocks.
+     * </p>
+     * <p>
+     * Example code:
+     * </p>
+     * <pre>
+     *   char[] data = new char[1024];
+     *   Reader in = null;
+     *   try {
+     *       in = new FileReader("foo.txt");
+     *       in.read(data);
+     *       in.close(); //close errors are handled
+     *   } catch (Exception e) {
+     *       // error handling
+     *   } finally {
+     *       IOUtils.closeQuietly(in);
+     *   }
+     * </pre>
+     * <p>
+     * Also consider using a try-with-resources statement where appropriate.
+     * </p>
+     *
+     * @param reader the Reader to close, may be null or already closed
+     * @see Throwable#addSuppressed(java.lang.Throwable)
+     */
+    public static void closeQuietly(final Reader reader) {
+        closeQuietly((Closeable) reader);
+    }
+
+    /**
+     * Closes a {@code Selector} unconditionally.
+     * <p>
+     * Equivalent to {@link Selector#close()}, except any exceptions will be ignored. This is typically used in finally blocks.
+     * </p>
+     * <p>
+     * Example code:
+     * </p>
+     * <pre>
+     *   Selector selector = null;
+     *   try {
+     *       selector = Selector.open();
+     *       // process socket
+     *
+     *   } catch (Exception e) {
+     *       // error handling
+     *   } finally {
+     *       IOUtils.closeQuietly(selector);
+     *   }
+     * </pre>
+     * <p>
+     * Also consider using a try-with-resources statement where appropriate.
+     * </p>
+     *
+     * @param selector the Selector to close, may be null or already closed
+     * @see Throwable#addSuppressed(java.lang.Throwable)
+     * @since 2.2
+     */
+    public static void closeQuietly(final Selector selector) {
+        closeQuietly((Closeable) selector);
+    }
+
+    /**
+     * Closes a {@code ServerSocket} unconditionally.
+     * <p>
+     * Equivalent to {@link ServerSocket#close()}, except any exceptions will be ignored. This is typically used in finally blocks.
+     * </p>
+     * <p>
+     * Example code:
+     * </p>
+     * <pre>
+     *   ServerSocket socket = null;
+     *   try {
+     *       socket = new ServerSocket();
+     *       // process socket
+     *       socket.close();
+     *   } catch (Exception e) {
+     *       // error handling
+     *   } finally {
+     *       IOUtils.closeQuietly(socket);
+     *   }
+     * </pre>
+     * <p>
+     * Also consider using a try-with-resources statement where appropriate.
+     * </p>
+     *
+     * @param serverSocket the ServerSocket to close, may be null or already closed
+     * @see Throwable#addSuppressed(java.lang.Throwable)
+     * @since 2.2
+     */
+    public static void closeQuietly(final ServerSocket serverSocket) {
+        closeQuietly((Closeable) serverSocket);
+    }
+
+    /**
+     * Closes a {@code Socket} unconditionally.
+     * <p>
+     * Equivalent to {@link Socket#close()}, except any exceptions will be ignored. This is typically used in finally blocks.
+     * </p>
+     * <p>
+     * Example code:
+     * </p>
+     * <pre>
+     *   Socket socket = null;
+     *   try {
+     *       socket = new Socket("http://www.foo.com/", 80);
+     *       // process socket
+     *       socket.close();
+     *   } catch (Exception e) {
+     *       // error handling
+     *   } finally {
+     *       IOUtils.closeQuietly(socket);
+     *   }
+     * </pre>
+     * <p>
+     * Also consider using a try-with-resources statement where appropriate.
+     * </p>
+     *
+     * @param socket the Socket to close, may be null or already closed
+     * @see Throwable#addSuppressed(java.lang.Throwable)
+     * @since 2.0
+     */
+    public static void closeQuietly(final Socket socket) {
+        closeQuietly((Closeable) socket);
+    }
+
+    /**
+     * Closes an {@code Writer} unconditionally.
+     * <p>
+     * Equivalent to {@link Writer#close()}, except any exceptions will be ignored. This is typically used in finally blocks.
+     * </p>
+     * <p>
+     * Example code:
+     * </p>
+     * <pre>
+     *   Writer out = null;
+     *   try {
+     *       out = new StringWriter();
+     *       out.write("Hello World");
+     *       out.close(); //close errors are handled
+     *   } catch (Exception e) {
+     *       // error handling
+     *   } finally {
+     *       IOUtils.closeQuietly(out);
+     *   }
+     * </pre>
+     * <p>
+     * Also consider using a try-with-resources statement where appropriate.
+     * </p>
+     *
+     * @param writer the Writer to close, may be null or already closed
+     * @see Throwable#addSuppressed(java.lang.Throwable)
+     */
+    public static void closeQuietly(final Writer writer) {
+        closeQuietly((Closeable) writer);
+    }
+
+    /**
+     * Returns an Iterator for the lines in an {@code InputStream}, using the character encoding specified (or default encoding if null).
+     * <p>
+     * {@code LineIterator} holds a reference to the open {@code InputStream} specified here. When you have finished with the iterator you should close the stream to free internal
+     * resources. This can be done by using a try-with-resources block, closing the stream directly, or by calling {@link LineIterator#close()}.
+     * </p>
+     * <p>
+     * The recommended usage pattern is:
+     * </p>
+     * <pre>
+     * try {
+     *   LineIterator it = IOUtils.lineIterator(stream, charset);
+     *   while (it.hasNext()) {
+     *     String line = it.nextLine();
+     *     /// do something with line
+     *   }
+     * } finally {
+     *   IOUtils.closeQuietly(stream);
+     * }
+     * </pre>
+     *
+     * @param input   the {@code InputStream} to read from, not null
+     * @param charset the charset to use, null means platform default
+     * @return an Iterator of the lines in the reader, never null
+     * @throws IllegalArgumentException if the input is null
+     * @since 2.3
+     */
+    public static LineIterator lineIterator(final InputStream input, final Charset charset) {
+        return new LineIterator(new InputStreamReader(input, CharsetsUtils.toCharset(charset)));
+    }
+
+    /**
+     * Returns an Iterator for the lines in an {@code InputStream}, using the character encoding specified (or default encoding if null).
+     * <p>
+     * {@code LineIterator} holds a reference to the open {@code InputStream} specified here. When you have finished with the iterator you should close the stream to free internal
+     * resources. This can be done by using a try-with-resources block, closing the stream directly, or by calling {@link LineIterator#close()}.
+     * </p>
+     * <p>
+     * The recommended usage pattern is:
+     * </p>
+     * <pre>
+     * try {
+     *   LineIterator it = IOUtils.lineIterator(stream, "UTF-8");
+     *   while (it.hasNext()) {
+     *     String line = it.nextLine();
+     *     /// do something with line
+     *   }
+     * } finally {
+     *   IOUtils.closeQuietly(stream);
+     * }
+     * </pre>
+     *
+     * @param input       the {@code InputStream} to read from, not null
+     * @param charsetName the encoding to use, null means platform default
+     * @return an Iterator of the lines in the reader, never null
+     * @throws IllegalArgumentException                     if the input is null
+     * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
+     * @since 1.2
+     */
+    public static LineIterator lineIterator(final InputStream input, final String charsetName) {
+        return lineIterator(input, CharsetsUtils.toCharset(charsetName));
+    }
+
+    /**
+     * Returns an Iterator for the lines in a {@code Reader}.
+     * <p>
+     * {@code LineIterator} holds a reference to the open {@code Reader} specified here. When you have finished with the iterator you should close the reader to free internal
+     * resources. This can be done by using a try-with-resources block, closing the reader directly, or by calling {@link LineIterator#close()}.
+     * </p>
+     * <p>
+     * The recommended usage pattern is:
+     * </p>
+     * <pre>
+     * try {
+     *   LineIterator it = IOUtils.lineIterator(reader);
+     *   while (it.hasNext()) {
+     *     String line = it.nextLine();
+     *     /// do something with line
+     *   }
+     * } finally {
+     *   IOUtils.closeQuietly(reader);
+     * }
+     * </pre>
+     *
+     * @param reader the {@code Reader} to read from, not null
+     * @return an Iterator of the lines in the reader, never null
+     * @throws IllegalArgumentException if the reader is null
+     * @since 1.2
+     */
+    public static LineIterator lineIterator(final Reader reader) {
+        return new LineIterator(reader);
+    }
+
+    /**
+     * Writes bytes from a {@code byte[]} to an {@code OutputStream}.
+     *
+     * @param data   the byte array to write, do not modify during output, null ignored
+     * @param output the {@code OutputStream} to write to
+     * @throws NullPointerException if output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 1.1
+     */
+    public static void write(final byte[] data, final OutputStream output)
+            throws IOException {
+        if (data != null) {
+            output.write(data);
+        }
+    }
+
+
+    /**
+     * Writes bytes from a {@code byte[]} to chars on a {@code Writer} using the specified character encoding.
+     * <p>
+     * This method uses {@link String#String(byte[], String)}.
+     * </p>
+     *
+     * @param data    the byte array to write, do not modify during output, null ignored
+     * @param writer  the {@code Writer} to write to
+     * @param charset the charset to use, null means platform default
+     * @throws NullPointerException if output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.3
+     */
+    public static void write(final byte[] data, final Writer writer, final Charset charset) throws IOException {
+        if (data != null) {
+            writer.write(new String(data, CharsetsUtils.toCharset(charset)));
+        }
+    }
+
+    /**
+     * Writes bytes from a {@code byte[]} to chars on a {@code Writer} using the specified character encoding.
+     * <p>
+     * Character encoding names can be found at
+     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * </p>
+     * <p>
+     * This method uses {@link String#String(byte[], String)}.
+     * </p>
+     *
+     * @param data        the byte array to write, do not modify during output, null ignored
+     * @param writer      the {@code Writer} to write to
+     * @param charsetName the name of the requested charset, null means platform default
+     * @throws NullPointerException                         if output is null
+     * @throws IOException                                  if an I/O error occurs
+     * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
+     * @since 1.1
+     */
+    public static void write(final byte[] data, final Writer writer, final String charsetName) throws IOException {
+        write(data, writer, CharsetsUtils.toCharset(charsetName));
+    }
+
+    /**
+     * Writes chars from a {@code char[]} to bytes on an {@code OutputStream} using the specified character encoding.
+     * <p>
+     * This method uses {@link String#String(char[])} and {@link String#getBytes(String)}.
+     * </p>
+     *
+     * @param data    the char array to write, do not modify during output, null ignored
+     * @param output  the {@code OutputStream} to write to
+     * @param charset the charset to use, null means platform default
+     * @throws NullPointerException if output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.3
+     */
+    public static void write(final char[] data, final OutputStream output, final Charset charset) throws IOException {
+        if (data != null) {
+            output.write(new String(data).getBytes(CharsetsUtils.toCharset(charset)));
+        }
+    }
+
+    /**
+     * Writes chars from a {@code char[]} to bytes on an {@code OutputStream} using the specified character encoding.
+     * <p>
+     * Character encoding names can be found at
+     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * </p>
+     * <p>
+     * This method uses {@link String#String(char[])} and {@link String#getBytes(String)}.
+     * </p>
+     *
+     * @param data        the char array to write, do not modify during output, null ignored
+     * @param output      the {@code OutputStream} to write to
+     * @param charsetName the name of the requested charset, null means platform default
+     * @throws NullPointerException                         if output is null
+     * @throws IOException                                  if an I/O error occurs
+     * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
+     * @since 1.1
+     */
+    public static void write(final char[] data, final OutputStream output, final String charsetName)
+            throws IOException {
+        write(data, output, CharsetsUtils.toCharset(charsetName));
+    }
+
+    /**
+     * Writes chars from a {@code char[]} to a {@code Writer}
+     *
+     * @param data   the char array to write, do not modify during output, null ignored
+     * @param writer the {@code Writer} to write to
+     * @throws NullPointerException if output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 1.1
+     */
+    public static void write(final char[] data, final Writer writer) throws IOException {
+        if (data != null) {
+            writer.write(data);
+        }
+    }
+
+
+    /**
+     * Writes chars from a {@code CharSequence} to bytes on an {@code OutputStream} using the specified character encoding.
+     * <p>
+     * This method uses {@link String#getBytes(String)}.
+     * </p>
+     *
+     * @param data    the {@code CharSequence} to write, null ignored
+     * @param output  the {@code OutputStream} to write to
+     * @param charset the charset to use, null means platform default
+     * @throws NullPointerException if output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.3
+     */
+    public static void write(final CharSequence data, final OutputStream output, final Charset charset)
+            throws IOException {
+        if (data != null) {
+            write(data.toString(), output, charset);
+        }
+    }
+
+    /**
+     * Writes chars from a {@code CharSequence} to bytes on an {@code OutputStream} using the specified character encoding.
+     * <p>
+     * Character encoding names can be found at
+     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * </p>
+     * <p>
+     * This method uses {@link String#getBytes(String)}.
+     * </p>
+     *
+     * @param data        the {@code CharSequence} to write, null ignored
+     * @param output      the {@code OutputStream} to write to
+     * @param charsetName the name of the requested charset, null means platform default
+     * @throws NullPointerException                         if output is null
+     * @throws IOException                                  if an I/O error occurs
+     * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
+     * @since 2.0
+     */
+    public static void write(final CharSequence data, final OutputStream output, final String charsetName)
+            throws IOException {
+        write(data, output, CharsetsUtils.toCharset(charsetName));
+    }
+
+    /**
+     * Writes chars from a {@code CharSequence} to a {@code Writer}.
+     *
+     * @param data   the {@code CharSequence} to write, null ignored
+     * @param writer the {@code Writer} to write to
+     * @throws NullPointerException if output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.0
+     */
+    public static void write(final CharSequence data, final Writer writer) throws IOException {
+        if (data != null) {
+            write(data.toString(), writer);
+        }
+    }
+
+
+    /**
+     * Writes chars from a {@code String} to bytes on an {@code OutputStream} using the specified character encoding.
+     * <p>
+     * This method uses {@link String#getBytes(String)}.
+     * </p>
+     *
+     * @param data    the {@code String} to write, null ignored
+     * @param output  the {@code OutputStream} to write to
+     * @param charset the charset to use, null means platform default
+     * @throws NullPointerException if output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.3
+     */
+    public static void write(final String data, final OutputStream output, final Charset charset) throws IOException {
+        if (data != null) {
+            output.write(data.getBytes(CharsetsUtils.toCharset(charset)));
+        }
+    }
+
+    /**
+     * Writes chars from a {@code String} to bytes on an {@code OutputStream} using the specified character encoding.
+     * <p>
+     * Character encoding names can be found at
+     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * </p>
+     * <p>
+     * This method uses {@link String#getBytes(String)}.
+     * </p>
+     *
+     * @param data        the {@code String} to write, null ignored
+     * @param output      the {@code OutputStream} to write to
+     * @param charsetName the name of the requested charset, null means platform default
+     * @throws NullPointerException                         if output is null
+     * @throws IOException                                  if an I/O error occurs
+     * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
+     * @since 1.1
+     */
+    public static void write(final String data, final OutputStream output, final String charsetName)
+            throws IOException {
+        write(data, output, CharsetsUtils.toCharset(charsetName));
+    }
+
+    /**
+     * Writes chars from a {@code String} to a {@code Writer}.
+     *
+     * @param data   the {@code String} to write, null ignored
+     * @param writer the {@code Writer} to write to
+     * @throws NullPointerException if output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 1.1
+     */
+    public static void write(final String data, final Writer writer) throws IOException {
+        if (data != null) {
+            writer.write(data);
+        }
+    }
+
+
+    /**
+     * Writes bytes from a {@code byte[]} to an {@code OutputStream} using chunked writes. This is intended for writing very large byte arrays which might otherwise cause excessive
+     * memory usage if the native code has to allocate a copy.
+     *
+     * @param data   the byte array to write, do not modify during output, null ignored
+     * @param output the {@code OutputStream} to write to
+     * @throws NullPointerException if output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.5
+     */
+    public static void writeChunked(final byte[] data, final OutputStream output)
+            throws IOException {
+        if (data != null) {
+            int bytes = data.length;
+            int offset = 0;
+            while (bytes > 0) {
+                final int chunk = Math.min(bytes, DEFAULT_BUFFER_SIZE);
+                output.write(data, offset, chunk);
+                bytes -= chunk;
+                offset += chunk;
+            }
+        }
+    }
+
+    /**
+     * Writes chars from a {@code char[]} to a {@code Writer} using chunked writes. This is intended for writing very large byte arrays which might otherwise cause excessive memory
+     * usage if the native code has to allocate a copy.
+     *
+     * @param data   the char array to write, do not modify during output, null ignored
+     * @param writer the {@code Writer} to write to
+     * @throws NullPointerException if output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.5
+     */
+    public static void writeChunked(final char[] data, final Writer writer) throws IOException {
+        if (data != null) {
+            int bytes = data.length;
+            int offset = 0;
+            while (bytes > 0) {
+                final int chunk = Math.min(bytes, DEFAULT_BUFFER_SIZE);
+                writer.write(data, offset, chunk);
+                bytes -= chunk;
+                offset += chunk;
+            }
+        }
+    }
+
+    /**
+     * Writes the {@code toString()} value of each item in a collection to an {@code OutputStream} line by line, using the specified character encoding and the specified line
+     * ending.
+     *
+     * @param lines      the lines to write, null entries produce blank lines
+     * @param lineEnding the line separator to use, null is system default
+     * @param output     the {@code OutputStream} to write to, not null, not closed
+     * @param charset    the charset to use, null means platform default
+     * @throws NullPointerException if the output is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.3
+     */
+    public static void writeLines(final Collection<?> lines, String lineEnding, final OutputStream output,
+            final Charset charset) throws IOException {
+        if (lines == null) {
+            return;
+        }
+        if (lineEnding == null) {
+            lineEnding = System.lineSeparator();
+        }
+        final Charset cs = CharsetsUtils.toCharset(charset);
+        for (final Object line : lines) {
+            if (line != null) {
+                output.write(line.toString().getBytes(cs));
+            }
+            output.write(lineEnding.getBytes(cs));
+        }
+    }
+
+    /**
+     * Writes the {@code toString()} value of each item in a collection to an {@code OutputStream} line by line, using the specified character encoding and the specified line
+     * ending.
+     * <p>
+     * Character encoding names can be found at
+     * <a href="http://www.iana.org/assignments/character-sets">IANA</a>.
+     * </p>
+     *
+     * @param lines       the lines to write, null entries produce blank lines
+     * @param lineEnding  the line separator to use, null is system default
+     * @param output      the {@code OutputStream} to write to, not null, not closed
+     * @param charsetName the name of the requested charset, null means platform default
+     * @throws NullPointerException                         if the output is null
+     * @throws IOException                                  if an I/O error occurs
+     * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
+     * @since 1.1
+     */
+    public static void writeLines(final Collection<?> lines, final String lineEnding,
+            final OutputStream output, final String charsetName) throws IOException {
+        writeLines(lines, lineEnding, output, CharsetsUtils.toCharset(charsetName));
+    }
+
+    /**
+     * Writes the {@code toString()} value of each item in a collection to a {@code Writer} line by line, using the specified line ending.
+     *
+     * @param lines      the lines to write, null entries produce blank lines
+     * @param lineEnding the line separator to use, null is system default
+     * @param writer     the {@code Writer} to write to, not null, not closed
+     * @throws NullPointerException if the input is null
+     * @throws IOException          if an I/O error occurs
+     * @since 1.1
+     */
+    public static void writeLines(final Collection<?> lines, String lineEnding,
+            final Writer writer) throws IOException {
+        if (lines == null) {
+            return;
+        }
+        if (lineEnding == null) {
+            lineEnding = System.lineSeparator();
+        }
+        for (final Object line : lines) {
+            if (line != null) {
+                writer.write(line.toString());
+            }
+            writer.write(lineEnding);
+        }
+    }
+
+
+    /**
      * Skips the requested number of bytes or fail if there are not enough left.
      * <p>
      * This allows for the possibility that {@link InputStream#skip(long)} may not skip as many bytes as requested (most likely because of reaching EOF).
@@ -905,167 +1888,6 @@ public class IOUtils {
     }
 
     /**
-     * @param path 读取文件路径
-     * @return 文件的字节流
-     */
-    public static byte[] file2byte(String path) throws IOException {
-        FileInputStream in = new FileInputStream(new File(path));
-        byte[] data = new byte[in.available()];
-        in.read(data);
-        in.close();
-        return data;
-    }
-
-    /**
-     * @param path 文件路径
-     * @param data 文件数据
-     * @throws IOException
-     */
-    public static void byte2file(String path, byte[] data) throws IOException {
-        FileOutputStream outputStream = new FileOutputStream(new File(path));
-        outputStream.write(data);
-        outputStream.close();
-    }
-
-    //按行读取文件成list
-
-    /**
-     * @param path    读取文件路径
-     * @param encoder 文件编码
-     * @return 数据list
-     */
-
-    public static ArrayList<String> file2list(String path, String encoder) throws IOException {
-        ArrayList<String> alline = new ArrayList<String>();
-        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(path), encoder));
-        String str = new String();
-        while ((str = in.readLine()) != null) {
-            alline.add(str);
-        }
-        in.close();
-        return alline;
-    }
-
-    //输出list到文件
-    public static void list2file(String path, ArrayList<String> data, String encoder)
-            throws IOException {
-        BufferedWriter out = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(path), encoder));
-        for (String str : data) {
-            out.write(str);
-            out.newLine();
-        }
-        out.flush();
-        out.close();
-    }
-
-
-    /**
-     * //从标准输入中读入
-     *
-     * @return 返回输入内容
-     * @throws IOException
-     */
-    public static String system2str() throws IOException {
-        BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-        return stdin.readLine();
-    }
-
-
-    /**
-     * 读取文件成字符串
-     *
-     * @param path    文件路径
-     * @param encoder 编码
-     * @return 读取文件
-     * @throws IOException
-     */
-    public static String file2str(String path, String encoder) throws IOException {
-        StringBuilder sb = new StringBuilder();
-
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(new FileInputStream(path), encoder));
-        String str = new String();
-        while ((str = in.readLine()) != null) {
-            sb.append(str);
-        }
-        in.close();
-        return sb.toString();
-    }
-
-    /**
-     * @param path    文件路径
-     * @param data    输出数据
-     * @param encoder 输出编码
-     * @throws IOException
-     */
-    public static void str2file(String path, String data, String encoder) throws IOException {
-        BufferedWriter out = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(path), encoder));
-        out.write(data);
-        out.flush();
-        out.close();
-
-    }
-
-    /**
-     * 输出指定文件的byte数组
-     *
-     * @param filePath 文件路径
-     * @param os       输出流
-     * @return
-     */
-    public static void writeBytes(String filePath, OutputStream os) throws IOException {
-        FileInputStream fis = null;
-        try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                throw new FileNotFoundException(filePath);
-            }
-            fis = new FileInputStream(file);
-            byte[] b = new byte[1024];
-            int length;
-            while ((length = fis.read(b)) > 0) {
-                os.write(b, 0, length);
-            }
-        } catch (IOException e) {
-            throw e;
-        } finally {
-            if (os != null) {
-                try {
-                    os.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        }
-    }
-
-    /**
-     * 删除文件
-     *
-     * @param filePath 文件
-     * @return
-     */
-    public static boolean deleteFile(String filePath) {
-        boolean flag = false;
-        File file = new File(filePath);
-        // 路径为文件且不为空则进行删除
-        if (file.isFile() && file.exists()) {
-            file.delete();
-            flag = true;
-        }
-        return flag;
-    }
-
-    /**
      * 文件名称验证
      *
      * @param filename 文件名称
@@ -1149,5 +1971,26 @@ public class IOUtils {
     public static String percentEncode(String s) throws UnsupportedEncodingException {
         String encode = URLEncoder.encode(s, StandardCharsets.UTF_8.toString());
         return encode.replaceAll("\\+", "%20");
+    }
+
+
+    /**
+     * Gets the contents of an {@code InputStream} as a String using the specified character encoding.
+     * <p>
+     * This method buffers the input internally, so there is no need to use a {@code BufferedInputStream}.
+     * </p>
+     *
+     * @param input   the {@code InputStream} to read from
+     * @param charset the charset to use, null means platform default
+     * @return the requested String
+     * @throws NullPointerException if the input is null
+     * @throws IOException          if an I/O error occurs
+     * @since 2.3
+     */
+    public static String toString(final InputStream input, final Charset charset) throws IOException {
+        try (final StringBuilderWriter sw = new StringBuilderWriter()) {
+            copy(input, sw, charset);
+            return sw.toString();
+        }
     }
 }

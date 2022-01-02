@@ -19,20 +19,17 @@ public enum IOCase {
     INSENSITIVE("Insensitive", false),
 
     /**
-     * The constant for case sensitivity determined by the current operating system.
-     * Windows is case-insensitive when comparing file names, Unix is case-sensitive.
+     * The constant for case sensitivity determined by the current operating system. Windows is case-insensitive when comparing file names, Unix is case-sensitive.
      * <p>
      * <strong>Note:</strong> This only caters for Windows and Unix. Other operating
-     * systems (e.g. OSX and OpenVMS) are treated as case sensitive if they use the
-     * Unix file separator and case-insensitive if they use the Windows file separator
-     * (see {@link java.io.File#separatorChar}).
+     * systems (e.g. OSX and OpenVMS) are treated as case sensitive if they use the Unix file separator and case-insensitive if they use the Windows file separator (see {@link
+     * java.io.File#separatorChar}).
      * </p>
      * <p>
-     * If you serialize this constant on Windows, and deserialize on Unix, or vice
-     * versa, then the value of the case-sensitivity flag will change.
+     * If you serialize this constant on Windows, and deserialize on Unix, or vice versa, then the value of the case-sensitivity flag will change.
      * </p>
      */
-    SYSTEM("System", !FileNameUtils.isSystemWindows());
+    SYSTEM("System", !FilenameUtils.isSystemWindows());
 
     /**
      * Tests for cases sensitivity in a null-safe manner.
@@ -45,19 +42,37 @@ public enum IOCase {
         return caseSensitivity != null && !caseSensitivity.isCaseSensitive();
     }
 
-    /** Serialization version. */
+    /**
+     * Serialization version.
+     */
     private static final long serialVersionUID = -6343169151696340687L;
 
-    /** The enumeration name. */
+    /**
+     * Returns the given value if not-null, the defaultValue if null.
+     *
+     * @param value        the value to test.
+     * @param defaultValue the default value.
+     * @return the given value if not-null, the defaultValue if null.
+     * @since 2.12.0
+     */
+    public static IOCase value(final IOCase value, final IOCase defaultValue) {
+        return value != null ? value : defaultValue;
+    }
+
+    /**
+     * The enumeration name.
+     */
     private final String name;
 
-    /** The sensitivity flag. */
+    /**
+     * The sensitivity flag.
+     */
     private final transient boolean sensitive;
 
     /**
      * Factory method to create an IOCase from a name.
      *
-     * @param name  the name to find
+     * @param name the name to find
      * @return the IOCase object
      * @throws IllegalArgumentException if the name is invalid
      */
@@ -73,8 +88,8 @@ public enum IOCase {
     /**
      * Constructs a new instance.
      *
-     * @param name  the name
-     * @param sensitive  the sensitivity
+     * @param name      the name
+     * @param sensitive the sensitivity
      */
     IOCase(final String name, final boolean sensitive) {
         this.name = name;
@@ -82,8 +97,7 @@ public enum IOCase {
     }
 
     /**
-     * Replaces the enumeration from the stream with a real one.
-     * This ensures that the correct flag is set for SYSTEM.
+     * Replaces the enumeration from the stream with a real one. This ensures that the correct flag is set for SYSTEM.
      *
      * @return the resolved object
      */
@@ -112,12 +126,11 @@ public enum IOCase {
     /**
      * Compares two strings using the case-sensitivity rule.
      * <p>
-     * This method mimics {@link String#compareTo} but takes case-sensitivity
-     * into account.
+     * This method mimics {@link String#compareTo} but takes case-sensitivity into account.
      * </p>
      *
-     * @param str1  the first string to compare, not null
-     * @param str2  the second string to compare, not null
+     * @param str1 the first string to compare, not null
+     * @param str2 the second string to compare, not null
      * @return true if equal using the case rules
      * @throws NullPointerException if either string is null
      */
@@ -130,12 +143,11 @@ public enum IOCase {
     /**
      * Compares two strings using the case-sensitivity rule.
      * <p>
-     * This method mimics {@link String#equals} but takes case-sensitivity
-     * into account.
+     * This method mimics {@link String#equals} but takes case-sensitivity into account.
      * </p>
      *
-     * @param str1  the first string to compare, not null
-     * @param str2  the second string to compare, not null
+     * @param str1 the first string to compare, not null
+     * @param str2 the second string to compare, not null
      * @return true if equal using the case rules
      * @throws NullPointerException if either string is null
      */
@@ -148,12 +160,11 @@ public enum IOCase {
     /**
      * Checks if one string starts with another using the case-sensitivity rule.
      * <p>
-     * This method mimics {@link String#startsWith(String)} but takes case-sensitivity
-     * into account.
+     * This method mimics {@link String#startsWith(String)} but takes case-sensitivity into account.
      * </p>
      *
-     * @param str  the string to check
-     * @param start  the start to compare against
+     * @param str   the string to check
+     * @param start the start to compare against
      * @return true if equal using the case rules, false if either input is null
      */
     public boolean checkStartsWith(final String str, final String start) {
@@ -163,12 +174,11 @@ public enum IOCase {
     /**
      * Checks if one string ends with another using the case-sensitivity rule.
      * <p>
-     * This method mimics {@link String#endsWith} but takes case-sensitivity
-     * into account.
+     * This method mimics {@link String#endsWith} but takes case-sensitivity into account.
      * </p>
      *
-     * @param str  the string to check
-     * @param end  the end to compare against
+     * @param str the string to check
+     * @param end the end to compare against
      * @return true if equal using the case rules, false if either input is null
      */
     public boolean checkEndsWith(final String str, final String end) {
@@ -180,18 +190,15 @@ public enum IOCase {
     }
 
     /**
-     * Checks if one string contains another starting at a specific index using the
-     * case-sensitivity rule.
+     * Checks if one string contains another starting at a specific index using the case-sensitivity rule.
      * <p>
-     * This method mimics parts of {@link String#indexOf(String, int)}
-     * but takes case-sensitivity into account.
+     * This method mimics parts of {@link String#indexOf(String, int)} but takes case-sensitivity into account.
      * </p>
      *
-     * @param str  the string to check, not null
-     * @param strStartIndex  the index to start at in str
-     * @param search  the start to search for, not null
-     * @return the first index of the search String,
-     *  -1 if no match or {@code null} string input
+     * @param str           the string to check, not null
+     * @param strStartIndex the index to start at in str
+     * @param search        the start to search for, not null
+     * @return the first index of the search String, -1 if no match or {@code null} string input
      * @throws NullPointerException if either string is null
      * @since 2.0
      */
@@ -210,13 +217,12 @@ public enum IOCase {
     /**
      * Checks if one string contains another at a specific index using the case-sensitivity rule.
      * <p>
-     * This method mimics parts of {@link String#regionMatches(boolean, int, String, int, int)}
-     * but takes case-sensitivity into account.
+     * This method mimics parts of {@link String#regionMatches(boolean, int, String, int, int)} but takes case-sensitivity into account.
      * </p>
      *
-     * @param str  the string to check, not null
-     * @param strStartIndex  the index to start at in str
-     * @param search  the start to search for, not null
+     * @param str           the string to check, not null
+     * @param strStartIndex the index to start at in str
+     * @param search        the start to search for, not null
      * @return true if equal using the case rules
      * @throws NullPointerException if either string is null
      */

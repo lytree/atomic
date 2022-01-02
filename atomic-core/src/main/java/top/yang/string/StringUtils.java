@@ -395,46 +395,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return StringFormatter.format(template, params);
     }
 
-
-    /**
-     * 编码字符串
-     *
-     * @param str 字符串
-     * @return 编码后的字节码
-     */
-    public static byte[] toBytes(String str) {
-        return toBytes(str, Charset.defaultCharset());
-    }
-
-    /**
-     * 编码字符串
-     *
-     * @param str     字符串
-     * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
-     * @return 编码后的字节码
-     */
-    public static byte[] toBytes(String str, String charset) {
-        return toBytes(str, org.apache.commons.lang3.StringUtils.isBlank(charset) ? Charset.defaultCharset() : Charset.forName(charset));
-    }
-
-    /**
-     * 编码字符串
-     *
-     * @param str     字符串
-     * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
-     * @return 编码后的字节码
-     */
-    public static byte[] toBytes(String str, Charset charset) {
-        if (str == null) {
-            return null;
-        }
-
-        if (null == charset) {
-            return str.toString().getBytes();
-        }
-        return str.toString().getBytes(charset);
-    }
-
     /**
      * Check that the given {@code CharSequence} is neither {@code null} nor of length 0.
      * <p>Note: this method returns {@code true} for a {@code CharSequence}
@@ -524,7 +484,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return byteBuffer
      */
     public static ByteBuffer byteBuffer(String str, Charset charset) {
-        return ByteBuffer.wrap(toBytes(str, charset));
+        return ByteBuffer.wrap(getBytes(str, charset));
     }
 
     // ------------------------------------------------------------------------ str

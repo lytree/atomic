@@ -27,6 +27,8 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import top.yang.reflect.ObjectUtils;
+import top.yang.string.Convert;
 import top.yang.tree.Tree;
 
 
@@ -51,8 +53,7 @@ public class MapUtils {
     private static final String INDENT_STRING = "    ";
 
     /**
-     * Applies the {@code getFunction} and returns its result if non-null, if null returns the result of applying the
-     * default function.
+     * Applies the {@code getFunction} and returns its result if non-null, if null returns the result of applying the default function.
      *
      * @param <K>             The key type.
      * @param <R>             The result type.
@@ -63,13 +64,12 @@ public class MapUtils {
      * @return The result of applying a function.
      */
     private static <K, R> R applyDefaultFunction(final Map<? super K, ?> map, final K key,
-                                                 final BiFunction<Map<? super K, ?>, K, R> getFunction, final Function<K, R> defaultFunction) {
+            final BiFunction<Map<? super K, ?>, K, R> getFunction, final Function<K, R> defaultFunction) {
         return applyDefaultFunction(map, key, getFunction, defaultFunction, null);
     }
 
     /**
-     * Applies the {@code getFunction} and returns its result if non-null, if null returns the result of applying the
-     * default function.
+     * Applies the {@code getFunction} and returns its result if non-null, if null returns the result of applying the default function.
      *
      * @param <K>             The key type.
      * @param <R>             The result type.
@@ -81,8 +81,8 @@ public class MapUtils {
      * @return The result of applying a function.
      */
     private static <K, R> R applyDefaultFunction(final Map<? super K, ?> map, final K key,
-                                                 final BiFunction<Map<? super K, ?>, K, R> getFunction, final Function<K, R> defaultFunction,
-                                                 final R defaultValue) {
+            final BiFunction<Map<? super K, ?>, K, R> getFunction, final Function<K, R> defaultFunction,
+            final R defaultValue) {
         R value = map != null && getFunction != null ? getFunction.apply(map, key) : null;
         if (value == null) {
             value = defaultFunction != null ? defaultFunction.apply(key) : null;
@@ -102,7 +102,7 @@ public class MapUtils {
      * @return The result of applying a function.
      */
     private static <K, R> R applyDefaultValue(final Map<? super K, ?> map, final K key,
-                                              final BiFunction<Map<? super K, ?>, K, R> getFunction, final R defaultValue) {
+            final BiFunction<Map<? super K, ?>, K, R> getFunction, final R defaultValue) {
         final R value = map != null && getFunction != null ? getFunction.apply(map, key) : null;
         return value == null ? defaultValue : value;
     }
@@ -123,10 +123,8 @@ public class MapUtils {
     /**
      * Gets a Boolean from a Map in a null-safe manner.
      * <p>
-     * If the value is a {@code Boolean} it is returned directly. If the value is a {@code String} and it
-     * equals 'true' ignoring case then {@code true} is returned, otherwise {@code false}. If the value is a
-     * {@code Number} an integer zero value returns {@code false} and non-zero returns {@code true}.
-     * Otherwise, {@code null} is returned.
+     * If the value is a {@code Boolean} it is returned directly. If the value is a {@code String} and it equals 'true' ignoring case then {@code true} is returned, otherwise
+     * {@code false}. If the value is a {@code Number} an integer zero value returns {@code false} and non-zero returns {@code true}. Otherwise, {@code null} is returned.
      *
      * @param <K> the key type
      * @param map the map to use
@@ -153,34 +151,30 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a boolean, using the default value if the
-     * conversion fails.
+     * Looks up the given key in the given map, converting the result into a boolean, using the default value if the conversion fails.
      *
      * @param <K>          the key type
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
-     * @return the value in the map as a boolean, or defaultValue if the original value is null, the map is null or the
-     * boolean conversion fails
+     * @return the value in the map as a boolean, or defaultValue if the original value is null, the map is null or the boolean conversion fails
      */
     public static <K> Boolean getBoolean(final Map<? super K, ?> map, final K key, final Boolean defaultValue) {
         return applyDefaultValue(map, key, MapUtils::getBoolean, defaultValue);
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a boolean, using the defaultFunction to
-     * produce the default value if the conversion fails.
+     * Looks up the given key in the given map, converting the result into a boolean, using the defaultFunction to produce the default value if the conversion fails.
      *
      * @param <K>             the key type
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
-     * @return the value in the map as a boolean, or defaultValue produced by the defaultFunction if the original value
-     * is null, the map is null or the boolean conversion fails
+     * @return the value in the map as a boolean, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the boolean conversion fails
      * @since 4.5
      */
     public static <K> Boolean getBoolean(final Map<? super K, ?> map, final K key,
-                                         final Function<K, Boolean> defaultFunction) {
+            final Function<K, Boolean> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getBoolean, defaultFunction);
     }
 
@@ -190,10 +184,8 @@ public class MapUtils {
     /**
      * Gets a boolean from a Map in a null-safe manner.
      * <p>
-     * If the value is a {@code Boolean} its value is returned. If the value is a {@code String} and it equals
-     * 'true' ignoring case then {@code true} is returned, otherwise {@code false}. If the value is a
-     * {@code Number} an integer zero value returns {@code false} and non-zero returns {@code true}.
-     * Otherwise, {@code false} is returned.
+     * If the value is a {@code Boolean} its value is returned. If the value is a {@code String} and it equals 'true' ignoring case then {@code true} is returned, otherwise {@code
+     * false}. If the value is a {@code Number} an integer zero value returns {@code false} and non-zero returns {@code true}. Otherwise, {@code false} is returned.
      * </p>
      *
      * @param <K> the key type
@@ -211,10 +203,8 @@ public class MapUtils {
     /**
      * Gets a boolean from a Map in a null-safe manner, using the default value if the conversion fails.
      * <p>
-     * If the value is a {@code Boolean} its value is returned. If the value is a {@code String} and it equals
-     * 'true' ignoring case then {@code true} is returned, otherwise {@code false}. If the value is a
-     * {@code Number} an integer zero value returns {@code false} and non-zero returns {@code true}.
-     * Otherwise, {@code defaultValue} is returned.
+     * If the value is a {@code Boolean} its value is returned. If the value is a {@code String} and it equals 'true' ignoring case then {@code true} is returned, otherwise {@code
+     * false}. If the value is a {@code Number} an integer zero value returns {@code false} and non-zero returns {@code true}. Otherwise, {@code defaultValue} is returned.
      * </p>
      *
      * @param <K>          the key type
@@ -228,25 +218,22 @@ public class MapUtils {
     }
 
     /**
-     * Gets a boolean from a Map in a null-safe manner, using the default value produced by the defaultFunction if the
-     * conversion fails.
+     * Gets a boolean from a Map in a null-safe manner, using the default value produced by the defaultFunction if the conversion fails.
      * <p>
-     * If the value is a {@code Boolean} its value is returned. If the value is a {@code String} and it equals
-     * 'true' ignoring case then {@code true} is returned, otherwise {@code false}. If the value is a
-     * {@code Number} an integer zero value returns {@code false} and non-zero returns {@code true}.
-     * Otherwise, defaultValue produced by the {@code defaultFunction} is returned.
+     * If the value is a {@code Boolean} its value is returned. If the value is a {@code String} and it equals 'true' ignoring case then {@code true} is returned, otherwise {@code
+     * false}. If the value is a {@code Number} an integer zero value returns {@code false} and non-zero returns {@code true}. Otherwise, defaultValue produced by the {@code
+     * defaultFunction} is returned.
      * </p>
      *
      * @param <K>             the key type
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
-     * @return the value in the Map as a Boolean, default value produced by the {@code defaultFunction} if null map
-     * input
+     * @return the value in the Map as a Boolean, default value produced by the {@code defaultFunction} if null map input
      * @since 4.5
      */
     public static <K> boolean getBooleanValue(final Map<? super K, ?> map, final K key,
-                                              final Function<K, Boolean> defaultFunction) {
+            final Function<K, Boolean> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getBoolean, defaultFunction, false).booleanValue();
     }
 
@@ -273,30 +260,26 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a byte, using the default value if the
-     * conversion fails.
+     * Looks up the given key in the given map, converting the result into a byte, using the default value if the conversion fails.
      *
      * @param <K>          the key type
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the
-     * number conversion fails
+     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Byte getByte(final Map<? super K, ?> map, final K key, final Byte defaultValue) {
         return applyDefaultValue(map, key, MapUtils::getByte, defaultValue);
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a byte, using the defaultFunction to produce
-     * the default value if the conversion fails.
+     * Looks up the given key in the given map, converting the result into a byte, using the defaultFunction to produce the default value if the conversion fails.
      *
      * @param <K>             the key type
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value
-     * is null, the map is null or the number conversion fails
+     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      * @since 4.5
      */
     public static <K> Byte getByte(final Map<? super K, ?> map, final K key, final Function<K, Byte> defaultFunction) {
@@ -335,8 +318,7 @@ public class MapUtils {
     }
 
     /**
-     * Gets a byte from a Map in a null-safe manner, using the default value produced by the defaultFunction if the
-     * conversion fails.
+     * Gets a byte from a Map in a null-safe manner, using the default value produced by the defaultFunction if the conversion fails.
      * <p>
      * The byte is obtained from the results of {@link #getNumber(Map, Object)}.
      * </p>
@@ -345,12 +327,11 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
-     * @return the value in the Map as a byte, default value produced by the {@code defaultFunction} if null map
-     * input
+     * @return the value in the Map as a byte, default value produced by the {@code defaultFunction} if null map input
      * @since 4.5
      */
     public static <K> byte getByteValue(final Map<? super K, ?> map, final K key,
-                                        final Function<K, Byte> defaultFunction) {
+            final Function<K, Byte> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getByte, defaultFunction, (byte) 0).byteValue();
     }
 
@@ -377,34 +358,30 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a double, using the default value if the
-     * conversion fails.
+     * Looks up the given key in the given map, converting the result into a double, using the default value if the conversion fails.
      *
      * @param <K>          the key type
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the
-     * number conversion fails
+     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Double getDouble(final Map<? super K, ?> map, final K key, final Double defaultValue) {
         return applyDefaultValue(map, key, MapUtils::getDouble, defaultValue);
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a double, using the defaultFunction to
-     * produce the default value if the conversion fails.
+     * Looks up the given key in the given map, converting the result into a double, using the defaultFunction to produce the default value if the conversion fails.
      *
      * @param <K>             the key type
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value
-     * is null, the map is null or the number conversion fails
+     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      * @since 4.5
      */
     public static <K> Double getDouble(final Map<? super K, ?> map, final K key,
-                                       final Function<K, Double> defaultFunction) {
+            final Function<K, Double> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getDouble, defaultFunction);
     }
 
@@ -440,8 +417,7 @@ public class MapUtils {
     }
 
     /**
-     * Gets a double from a Map in a null-safe manner, using the default value produced by the defaultFunction if the
-     * conversion fails.
+     * Gets a double from a Map in a null-safe manner, using the default value produced by the defaultFunction if the conversion fails.
      * <p>
      * The double is obtained from the results of {@link #getNumber(Map, Object)}.
      * </p>
@@ -450,12 +426,11 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
-     * @return the value in the Map as a double, default value produced by the {@code defaultFunction} if null map
-     * input
+     * @return the value in the Map as a double, default value produced by the {@code defaultFunction} if null map input
      * @since 4.5
      */
     public static <K> double getDoubleValue(final Map<? super K, ?> map, final K key,
-                                            final Function<K, Double> defaultFunction) {
+            final Function<K, Double> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getDouble, defaultFunction, 0d).doubleValue();
     }
 
@@ -482,34 +457,30 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a float, using the default value if the
-     * conversion fails.
+     * Looks up the given key in the given map, converting the result into a float, using the default value if the conversion fails.
      *
      * @param <K>          the key type
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the
-     * number conversion fails
+     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Float getFloat(final Map<? super K, ?> map, final K key, final Float defaultValue) {
         return applyDefaultValue(map, key, MapUtils::getFloat, defaultValue);
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a float, using the defaultFunction to produce
-     * the default value if the conversion fails.
+     * Looks up the given key in the given map, converting the result into a float, using the defaultFunction to produce the default value if the conversion fails.
      *
      * @param <K>             the key type
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value
-     * is null, the map is null or the number conversion fails
+     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      * @since 4.5
      */
     public static <K> Float getFloat(final Map<? super K, ?> map, final K key,
-                                     final Function<K, Float> defaultFunction) {
+            final Function<K, Float> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getFloat, defaultFunction);
     }
 
@@ -545,8 +516,7 @@ public class MapUtils {
     }
 
     /**
-     * Gets a float from a Map in a null-safe manner, using the default value produced by the defaultFunction if the
-     * conversion fails.
+     * Gets a float from a Map in a null-safe manner, using the default value produced by the defaultFunction if the conversion fails.
      * <p>
      * The float is obtained from the results of {@link #getNumber(Map, Object)}.
      * </p>
@@ -555,12 +525,11 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
-     * @return the value in the Map as a float, default value produced by the {@code defaultFunction} if null map
-     * input
+     * @return the value in the Map as a float, default value produced by the {@code defaultFunction} if null map input
      * @since 4.5
      */
     public static <K> float getFloatValue(final Map<? super K, ?> map, final K key,
-                                          final Function<K, Float> defaultFunction) {
+            final Function<K, Float> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getFloat, defaultFunction, 0f).floatValue();
     }
 
@@ -587,32 +556,28 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into an integer, using the defaultFunction to
-     * produce the default value if the conversion fails.
+     * Looks up the given key in the given map, converting the result into an integer, using the defaultFunction to produce the default value if the conversion fails.
      *
      * @param <K>             the key type
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value
-     * is null, the map is null or the number conversion fails
+     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      * @since 4.5
      */
     public static <K> Integer getInteger(final Map<? super K, ?> map, final K key,
-                                         final Function<K, Integer> defaultFunction) {
+            final Function<K, Integer> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getInteger, defaultFunction);
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into an integer, using the default value if the
-     * conversion fails.
+     * Looks up the given key in the given map, converting the result into an integer, using the default value if the conversion fails.
      *
      * @param <K>          the key type
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the
-     * number conversion fails
+     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Integer getInteger(final Map<? super K, ?> map, final K key, final Integer defaultValue) {
         return applyDefaultValue(map, key, MapUtils::getInteger, defaultValue);
@@ -634,8 +599,7 @@ public class MapUtils {
     }
 
     /**
-     * Gets an int from a Map in a null-safe manner, using the default value produced by the defaultFunction if the
-     * conversion fails.
+     * Gets an int from a Map in a null-safe manner, using the default value produced by the defaultFunction if the conversion fails.
      * <p>
      * The int is obtained from the results of {@link #getNumber(Map, Object)}.
      * </p>
@@ -644,12 +608,11 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
-     * @return the value in the Map as an int, default value produced by the {@code defaultFunction} if null map
-     * input
+     * @return the value in the Map as an int, default value produced by the {@code defaultFunction} if null map input
      * @since 4.5
      */
     public static <K> int getIntValue(final Map<? super K, ?> map, final K key,
-                                      final Function<K, Integer> defaultFunction) {
+            final Function<K, Integer> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getInteger, defaultFunction, 0).byteValue();
     }
 
@@ -692,15 +655,13 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a Long, using the defaultFunction to produce
-     * the default value if the conversion fails.
+     * Looks up the given key in the given map, converting the result into a Long, using the defaultFunction to produce the default value if the conversion fails.
      *
      * @param <K>             the key type
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value
-     * is null, the map is null or the number conversion fails
+     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      * @since 4.5
      */
     public static <K> Long getLong(final Map<? super K, ?> map, final K key, final Function<K, Long> defaultFunction) {
@@ -708,15 +669,13 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a long, using the default value if the
-     * conversion fails.
+     * Looks up the given key in the given map, converting the result into a long, using the default value if the conversion fails.
      *
      * @param <K>          the key type
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the
-     * number conversion fails
+     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Long getLong(final Map<? super K, ?> map, final K key, final Long defaultValue) {
         return applyDefaultValue(map, key, MapUtils::getLong, defaultValue);
@@ -738,8 +697,7 @@ public class MapUtils {
     }
 
     /**
-     * Gets a long from a Map in a null-safe manner, using the default value produced by the defaultFunction if the
-     * conversion fails.
+     * Gets a long from a Map in a null-safe manner, using the default value produced by the defaultFunction if the conversion fails.
      * <p>
      * The long is obtained from the results of {@link #getNumber(Map, Object)}.
      * </p>
@@ -748,12 +706,11 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
-     * @return the value in the Map as a long, default value produced by the {@code defaultFunction} if null map
-     * input
+     * @return the value in the Map as a long, default value produced by the {@code defaultFunction} if null map input
      * @since 4.5
      */
     public static <K> long getLongValue(final Map<? super K, ?> map, final K key,
-                                        final Function<K, Long> defaultFunction) {
+            final Function<K, Long> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getLong, defaultFunction, 0L).byteValue();
     }
 
@@ -795,32 +752,28 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a map, using the defaultFunction to produce
-     * the default value if the conversion fails.
+     * Looks up the given key in the given map, converting the result into a map, using the defaultFunction to produce the default value if the conversion fails.
      *
      * @param <K>             the key type
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value
-     * is null, the map is null or the map conversion fails
+     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the map conversion fails
      * @since 4.5
      */
     public static <K> Map<?, ?> getMap(final Map<? super K, ?> map, final K key,
-                                       final Function<K, Map<?, ?>> defaultFunction) {
+            final Function<K, Map<?, ?>> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getMap, defaultFunction);
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a map, using the default value if the
-     * conversion fails.
+     * Looks up the given key in the given map, converting the result into a map, using the default value if the conversion fails.
      *
      * @param <K>          the key type
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the
-     * map conversion fails
+     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the map conversion fails
      */
     public static <K> Map<?, ?> getMap(final Map<? super K, ?> map, final K key, final Map<?, ?> defaultValue) {
         return applyDefaultValue(map, key, MapUtils::getMap, defaultValue);
@@ -829,9 +782,8 @@ public class MapUtils {
     /**
      * Gets a Number from a Map in a null-safe manner.
      * <p>
-     * If the value is a {@code Number} it is returned directly. If the value is a {@code String} it is
-     * converted using {@link NumberFormat#parse(String)} on the system default formatter returning {@code null} if
-     * the conversion fails. Otherwise, {@code null} is returned.
+     * If the value is a {@code Number} it is returned directly. If the value is a {@code String} it is converted using {@link NumberFormat#parse(String)} on the system default
+     * formatter returning {@code null} if the conversion fails. Otherwise, {@code null} is returned.
      * </p>
      *
      * @param <K> the key type
@@ -860,32 +812,28 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a number, using the defaultFunction to
-     * produce the default value if the conversion fails.
+     * Looks up the given key in the given map, converting the result into a number, using the defaultFunction to produce the default value if the conversion fails.
      *
      * @param <K>             the key type
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value
-     * is null, the map is null or the number conversion fails
+     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      * @since 4.5
      */
     public static <K> Number getNumber(final Map<? super K, ?> map, final K key,
-                                       final Function<K, Number> defaultFunction) {
+            final Function<K, Number> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getNumber, defaultFunction);
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a number, using the default value if the
-     * conversion fails.
+     * Looks up the given key in the given map, converting the result into a number, using the default value if the conversion fails.
      *
      * @param <K>          the key type
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the
-     * number conversion fails
+     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Number getNumber(final Map<? super K, ?> map, final K key, final Number defaultValue) {
         return applyDefaultValue(map, key, MapUtils::getNumber, defaultValue);
@@ -954,32 +902,28 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a short, using the defaultFunction to produce
-     * the default value if the conversion fails.
+     * Looks up the given key in the given map, converting the result into a short, using the defaultFunction to produce the default value if the conversion fails.
      *
      * @param <K>             the key type
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value
-     * is null, the map is null or the number conversion fails
+     * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      * @since 4.5
      */
     public static <K> Short getShort(final Map<? super K, ?> map, final K key,
-                                     final Function<K, Short> defaultFunction) {
+            final Function<K, Short> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getShort, defaultFunction);
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a short, using the default value if the
-     * conversion fails.
+     * Looks up the given key in the given map, converting the result into a short, using the default value if the conversion fails.
      *
      * @param <K>          the key type
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
-     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the
-     * number conversion fails
+     * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Short getShort(final Map<? super K, ?> map, final K key, final Short defaultValue) {
         return applyDefaultValue(map, key, MapUtils::getShort, defaultValue);
@@ -1001,8 +945,7 @@ public class MapUtils {
     }
 
     /**
-     * Gets a short from a Map in a null-safe manner, using the default value produced by the defaultFunction if the
-     * conversion fails.
+     * Gets a short from a Map in a null-safe manner, using the default value produced by the defaultFunction if the conversion fails.
      * <p>
      * The short is obtained from the results of {@link #getNumber(Map, Object)}.
      * </p>
@@ -1011,12 +954,11 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
-     * @return the value in the Map as a short, default value produced by the {@code defaultFunction} if null map
-     * input
+     * @return the value in the Map as a short, default value produced by the {@code defaultFunction} if null map input
      * @since 4.5
      */
     public static <K> short getShortValue(final Map<? super K, ?> map, final K key,
-                                          final Function<K, Short> defaultFunction) {
+            final Function<K, Short> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getShort, defaultFunction, (short) 0).shortValue();
     }
 
@@ -1058,32 +1000,28 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a string, using the defaultFunction to
-     * produce the default value if the conversion fails.
+     * Looks up the given key in the given map, converting the result into a string, using the defaultFunction to produce the default value if the conversion fails.
      *
      * @param <K>             the key type
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
-     * @return the value in the map as a string, or defaultValue produced by the defaultFunction if the original value
-     * is null, the map is null or the string conversion fails
+     * @return the value in the map as a string, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the string conversion fails
      * @since 4.5
      */
     public static <K> String getString(final Map<? super K, ?> map, final K key,
-                                       final Function<K, String> defaultFunction) {
+            final Function<K, String> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getString, defaultFunction);
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a string, using the default value if the
-     * conversion fails.
+     * Looks up the given key in the given map, converting the result into a string, using the default value if the conversion fails.
      *
      * @param <K>          the key type
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
-     * @return the value in the map as a string, or defaultValue if the original value is null, the map is null or the
-     * string conversion fails
+     * @return the value in the map as a string, or defaultValue if the original value is null, the map is null or the string conversion fails
      */
     public static <K> String getString(final Map<? super K, ?> map, final K key, final String defaultValue) {
         return applyDefaultValue(map, key, MapUtils::getString, defaultValue);
@@ -1095,9 +1033,8 @@ public class MapUtils {
     /**
      * Inverts the supplied map returning a new HashMap such that the keys of the input are swapped with the values.
      * <p>
-     * This operation assumes that the inverse mapping is well defined. If the input map had multiple entries with the
-     * same value mapped to different keys, the returned map will map one of those keys to the value, but the exact key
-     * which will be mapped is undefined.
+     * This operation assumes that the inverse mapping is well defined. If the input map had multiple entries with the same value mapped to different keys, the returned map will
+     * map one of those keys to the value, but the exact key which will be mapped is undefined.
      * </p>
      *
      * @param <K> the key type
@@ -1126,7 +1063,7 @@ public class MapUtils {
      * @since 3.2
      */
     public static boolean isEmpty(final Map<?, ?> map) {
-        
+
         return map == null || map.isEmpty();
     }
 
@@ -1161,14 +1098,12 @@ public class MapUtils {
     /**
      * Puts all the keys and values from the specified array into the map.
      * <p>
-     * This method is an alternative to the {@link Map#putAll(Map)} method and constructors. It
-     * allows you to build a map from an object array of various possible styles.
+     * This method is an alternative to the {@link Map#putAll(Map)} method and constructors. It allows you to build a map from an object array of various possible styles.
      * </p>
      * <p>
-     * If the first entry in the object array implements {@link Entry} or {@link KeyValue} then the key
-     * and value are added from that object. If the first entry in the object array is an object array itself, then it
-     * is assumed that index 0 in the sub-array is the key and index 1 is the value. Otherwise, the array is treated as
-     * keys and values in alternate indices.
+     * If the first entry in the object array implements {@link Entry} or {@link KeyValue} then the key and value are added from that object. If the first entry in the object array
+     * is an object array itself, then it is assumed that index 0 in the sub-array is the key and index 1 is the value. Otherwise, the array is treated as keys and values in
+     * alternate indices.
      * </p>
      * <p>
      * For example, to create a color map:
@@ -1244,8 +1179,8 @@ public class MapUtils {
      * This method checks the value being added to the map, and if it is null it is replaced by an empty string.
      * </p>
      * <p>
-     * This could be useful if the map does not accept null values, or for receiving data from a source that may provide
-     * null or empty string which should be held in the same way in the map.
+     * This could be useful if the map does not accept null values, or for receiving data from a source that may provide null or empty string which should be held in the same way
+     * in the map.
      * </p>
      * <p>
      * Keys are not validated. Note that this method can be used to circumvent the map's value type at runtime.
@@ -1362,11 +1297,10 @@ public class MapUtils {
     // -------------------------------------------------------------------------
 
     /**
-     * Gets a new Properties object initialized with the values from a Map. A null input will return an empty properties
-     * object.
+     * Gets a new Properties object initialized with the values from a Map. A null input will return an empty properties object.
      * <p>
-     * A Properties object may only store non-null keys and values, thus if the provided map contains either a key or
-     * value which is {@code null}, a {@link NullPointerException} will be thrown.
+     * A Properties object may only store non-null keys and values, thus if the provided map contains either a key or value which is {@code null}, a {@link NullPointerException}
+     * will be thrown.
      * </p>
      *
      * @param <K> the key type
@@ -1387,6 +1321,7 @@ public class MapUtils {
         }
         return answer;
     }
+
     /**
      * 合并多个map 重复key 保存最新值
      *
@@ -1414,12 +1349,13 @@ public class MapUtils {
         return Arrays.stream(maps).flatMap(m -> m.entrySet().stream().filter(e -> e.getValue() != null))
                 .collect(Collectors.toMap(Entry::getKey, Entry::getValue, (a, b) -> a));
     }
+
     /**
      * 按照值排序，可选是否倒序
      *
-     * @param map 需要对值排序的map
-     * @param <K> 键类型
-     * @param <V> 值类型
+     * @param map    需要对值排序的map
+     * @param <K>    键类型
+     * @param <V>    值类型
      * @param isDesc 是否倒序
      * @return 排序后新的Map
      * @since 5.5.8
@@ -1427,12 +1363,179 @@ public class MapUtils {
     public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map, boolean isDesc) {
         Map<K, V> result = new LinkedHashMap<>();
         Comparator<Entry<K, V>> entryComparator = Entry.comparingByValue();
-        if(isDesc){
+        if (isDesc) {
             entryComparator = entryComparator.reversed();
         }
         map.entrySet().stream().sorted(entryComparator).forEachOrdered(e -> result.put(e.getKey(), e.getValue()));
         return result;
     }
+
+
+    /**
+     * 过滤Map保留指定键值对，如果键不存在跳过
+     *
+     * @param <K>  Key类型
+     * @param <V>  Value类型
+     * @param map  原始Map
+     * @param keys 键列表，{@code null}返回原Map
+     * @return Map 结果，结果的Map类型与原Map保持一致
+     * @since 4.0.10
+     */
+    @SuppressWarnings("unchecked")
+    public static <K, V> Map<K, V> filter(Map<K, V> map, K... keys) {
+        if (null == map || null == keys) {
+            return map;
+        }
+        Map<K, V> map2 = ObjectUtils.clone(map);
+        if (null == map2) {
+            // 不支持clone
+            map2 = new HashMap<>(map.size(), 1f);
+        }
+        if (isEmpty(map2)) {
+            return map2;
+        }
+        try {
+            map2.clear();
+        } catch (UnsupportedOperationException e) {
+            // 克隆后的对象不支持清空，说明为不可变集合对象，使用默认的ArrayList保存结果
+            map2 = new HashMap<>();
+        }
+
+        for (K key : keys) {
+            if (map.containsKey(key)) {
+                map2.put(key, map.get(key));
+            }
+        }
+        return map2;
+    }
+
+
+    /**
+     * 排序已有Map，Key有序的Map，使用默认Key排序方式（字母顺序）
+     *
+     * @param <K> key的类型
+     * @param <V> value的类型
+     * @param map Map
+     * @return TreeMap
+     * @since 4.0.1
+     */
+    public static <K, V> TreeMap<K, V> sort(Map<K, V> map) {
+        return sort(map, null);
+    }
+
+    /**
+     * 排序已有Map，Key有序的Map
+     *
+     * @param <K>        key的类型
+     * @param <V>        value的类型
+     * @param map        Map，为null返回null
+     * @param comparator Key比较器
+     * @return TreeMap，map为null返回null
+     * @since 4.0.1
+     */
+    public static <K, V> TreeMap<K, V> sort(Map<K, V> map, Comparator<? super K> comparator) {
+        if (null == map) {
+            return null;
+        }
+
+        if (map instanceof TreeMap) {
+            // 已经是可排序Map，此时只有比较器一致才返回原map
+            TreeMap<K, V> result = (TreeMap<K, V>) map;
+            if (null == comparator || comparator.equals(result.comparator())) {
+                return result;
+            }
+        }
+
+        return new TreeMap<>(comparator) {{
+            putAll(map);
+        }};
+    }
+
+    /**
+     * 将map转成字符串
+     *
+     * @param <K>               键类型
+     * @param <V>               值类型
+     * @param map               Map
+     * @param separator         entry之间的连接符
+     * @param keyValueSeparator kv之间的连接符
+     * @param otherParams       其它附加参数字符串（例如密钥）
+     * @return 连接字符串
+     * @since 3.1.1
+     */
+    public static <K, V> String join(Map<K, V> map, String separator, String keyValueSeparator, String... otherParams) {
+        return join(map, separator, keyValueSeparator, false, otherParams);
+    }
+
+    /**
+     * 根据参数排序后拼接为字符串，常用于签名
+     *
+     * @param params            参数
+     * @param separator         entry之间的连接符
+     * @param keyValueSeparator kv之间的连接符
+     * @param isIgnoreNull      是否忽略null的键和值
+     * @param otherParams       其它附加参数字符串（例如密钥）
+     * @return 签名字符串
+     * @since 5.0.4
+     */
+    public static String sortJoin(Map<?, ?> params, String separator, String keyValueSeparator, boolean isIgnoreNull,
+            String... otherParams) {
+        return join(sort(params), separator, keyValueSeparator, isIgnoreNull, otherParams);
+    }
+
+    /**
+     * 将map转成字符串，忽略null的键和值
+     *
+     * @param <K>               键类型
+     * @param <V>               值类型
+     * @param map               Map
+     * @param separator         entry之间的连接符
+     * @param keyValueSeparator kv之间的连接符
+     * @param otherParams       其它附加参数字符串（例如密钥）
+     * @return 连接后的字符串
+     * @since 3.1.1
+     */
+    public static <K, V> String joinIgnoreNull(Map<K, V> map, String separator, String keyValueSeparator, String... otherParams) {
+        return join(map, separator, keyValueSeparator, true, otherParams);
+    }
+
+    /**
+     * 将map转成字符串
+     *
+     * @param <K>               键类型
+     * @param <V>               值类型
+     * @param map               Map，为空返回otherParams拼接
+     * @param separator         entry之间的连接符
+     * @param keyValueSeparator kv之间的连接符
+     * @param isIgnoreNull      是否忽略null的键和值
+     * @param otherParams       其它附加参数字符串（例如密钥）
+     * @return 连接后的字符串，map和otherParams为空返回""
+     * @since 3.1.1
+     */
+    public static <K, V> String join(Map<K, V> map, String separator, String keyValueSeparator, boolean isIgnoreNull, String... otherParams) {
+        final StringBuilder strBuilder = new StringBuilder();
+        boolean isFirst = true;
+        if (isNotEmpty(map)) {
+            for (Entry<K, V> entry : map.entrySet()) {
+                if (false == isIgnoreNull || entry.getKey() != null && entry.getValue() != null) {
+                    if (isFirst) {
+                        isFirst = false;
+                    } else {
+                        strBuilder.append(separator);
+                    }
+                    strBuilder.append(Convert.toStr(entry.getKey())).append(keyValueSeparator).append(Convert.toStr(entry.getValue()));
+                }
+            }
+        }
+        // 补充其它字符串到末尾，默认无分隔符
+        if (ArrayUtils.isNotEmpty(otherParams)) {
+            for (String otherParam : otherParams) {
+                strBuilder.append(otherParam);
+            }
+        }
+        return strBuilder.toString();
+    }
+
     /**
      * Don't allow instances.
      */

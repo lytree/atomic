@@ -17,6 +17,10 @@
 
 package top.yang.time;
 
+import static top.yang.time.ZoneIdEnum.CTT;
+
+import java.time.ZoneId;
+
 /**
  * Helps to deal with {@link java.util.TimeZone}s.
  *
@@ -32,4 +36,18 @@ public class TimeZones {
      * A public version of {@link java.util.TimeZone}'s package private {@code GMT_ID} field.
      */
     public static final String GMT_ID = "GMT";
+    /**
+     * 系统默认时区
+     */
+    private static final ZoneId ZONE = ZoneId.systemDefault();
+
+    /**
+     * 上海时区ID Asia/Shanghai
+     */
+    public static final String SHANGHAI_ZONE_ID = CTT.getZoneIdName();
+
+    /**
+     * 上海时区  Asia/Shanghai
+     */
+    public static final ZoneId SHANGHAI_ZONE = ZoneId.of(SHANGHAI_ZONE_ID);
 }

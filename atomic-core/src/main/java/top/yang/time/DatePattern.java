@@ -24,6 +24,17 @@ public class DatePattern {
      */
     public static final Pattern REGEX_NORM = Pattern.compile("\\d{4}-\\d{1,2}-\\d{1,2}(\\s\\d{1,2}:\\d{1,2}(:\\d{1,2})?)?(.\\d{1,3})?");
 
+    /**
+     * 标准时间中文
+     * <pre>
+     *     yyyy年MM月dd日 HH:mm:ss
+     *     yyyy年MM月dd日 HH:mm
+     *     yyyy年MM月dd日
+     * </pre>
+     * <p>
+     * 正则： "\\d{4}(年)\\d{1,2}(月)\\d{1,2}(日)( \\d{1,2}:\\d{1,2}(:\\d{1,2})?)?"
+     */
+    public static final Pattern REGEX_NORM_CHINA = Pattern.compile("\\d{4}(年)\\d{1,2}(月)\\d{1,2}(日)( \\d{1,2}:\\d{1,2}(:\\d{1,2})?)?");
     //-------------------------------------------------------------------------------------------------------------------------------- Normal
     /**
      * 年月格式：yyyy-MM

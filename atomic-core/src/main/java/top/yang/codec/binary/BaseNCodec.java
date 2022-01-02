@@ -281,12 +281,6 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
     return b;
   }
 
-  /**
-   * @deprecated Use {@link #pad}. Will be removed in 2.0.
-   */
-  @Deprecated
-  protected final byte PAD = PAD_DEFAULT; // instance variable just in case it needs to vary later
-
   protected final byte pad; // instance variable just in case it needs to vary later
 
   /**
@@ -512,16 +506,6 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
     return encode((byte[]) obj);
   }
 
-  /**
-   * Encodes a byte[] containing binary data, into a String containing characters in the appropriate alphabet. Uses UTF8 encoding.
-   *
-   * @param pArray a byte array containing binary data
-   * @return String containing only character data in the appropriate alphabet.
-   * @since 1.5 This is a duplicate of {@link #encodeToString(byte[])}; it was merged during refactoring.
-   */
-  public String encodeAsString(final byte[] pArray) {
-    return StringUtils.newStringUtf8(encode(pArray));
-  }
 
   /**
    * Encodes a byte[] containing binary data, into a String containing characters in the Base-N alphabet. Uses UTF8 encoding.
