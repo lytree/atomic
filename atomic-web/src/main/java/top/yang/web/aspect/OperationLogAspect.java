@@ -21,7 +21,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
-import top.yang.web.annotation.ControllerLog;
+import top.yang.web.annotation.OperationLog;
 import top.yang.web.domain.dto.SysLog;
 import top.yang.web.enums.BusinessStatus;
 import top.yang.web.utils.IPUtils;
@@ -29,13 +29,13 @@ import top.yang.web.utils.ServletUtils;
 
 @Aspect
 @Component
-public class ControllerLogAspect {
+public class OperationLogAspect {
 
-    private static final Logger log = LoggerFactory.getLogger(ControllerLogAspect.class);
+    private static final Logger log = LoggerFactory.getLogger(OperationLogAspect.class);
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     // 配置织入点
-    @Pointcut("@annotation(top.yang.web.annotation.ControllerLog)")
+    @Pointcut("@annotation(top.yang.web.annotation.OperationLog)")
     public void logPointCut() {
     }
 
@@ -63,7 +63,7 @@ public class ControllerLogAspect {
     protected void handleLog(final JoinPoint joinPoint, final Exception e, Object jsonResult) {
         try {
             // 获得注解
-            ControllerLog controllerLog = getAnnotationLog(joinPoint);
+            OperationLog controllerLog = getAnnotationLog(joinPoint);
             if (controllerLog == null) {
                 return;
             }
@@ -107,7 +107,7 @@ public class ControllerLogAspect {
      * @param sysLog        操作日志
      * @throws Exception
      */
-    public void getControllerMethodDescription(JoinPoint joinPoint, ControllerLog controllerLog, SysLog sysLog) throws Exception {
+    public void getControllerMethodDescription(JoinPoint joinPoint, OperationLog controllerLog, SysLog sysLog) throws Exception {
         // 设置action动作
         sysLog.setBusinessType(controllerLog.businessType().ordinal());
         // 设置标题
@@ -138,13 +138,13 @@ public class ControllerLogAspect {
     /**
      * 是否存在注解，如果存在就获取
      */
-    private ControllerLog getAnnotationLog(JoinPoint joinPoint) throws Exception {
+    private OperationLog getAnnotationLog(JoinPoint joinPoint) throws Exception {
         Signature signature = joinPoint.getSignature();
         MethodSignature methodSignature = (MethodSignature) signature;
         Method method = methodSignature.getMethod();
 
         if (method != null) {
-            return method.getAnnotation(ControllerLog.class);
+            return method.getAnnotation(OperationLog.class);
         }
         return null;
     }

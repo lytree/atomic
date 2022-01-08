@@ -17,7 +17,7 @@ import top.yang.domain.dto.BaseDto;
 import top.yang.domain.pojo.BaseBean;
 import top.yang.spring.exception.PojoInstanceFailException;
 
-public abstract class BaseManagerImpl<C extends BaseJdbcComponent, T extends BaseDto, ID extends Serializable> {
+public abstract class BaseManagerImpl<C extends BaseJdbcComponent, T extends BaseBean, ID extends Serializable> {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
@@ -37,29 +37,17 @@ public abstract class BaseManagerImpl<C extends BaseJdbcComponent, T extends Bas
     }
 
     public T findById(ID id) {
-        BaseBean baseBean = compoment.findById(id);
-        T instance = copy(baseBean, pojoClass);
-        return instance;
+        return (T) compoment.findById(id);
+
     }
 
     public List<T> findAll() {
-        List<BaseBean> list = compoment.findAll();
-        ArrayList<T> results = new ArrayList<>();
-        for (BaseBean baseBean : list) {
-            results.add(copy(baseBean, pojoClass));
-        }
-        return results;
-
+        return compoment.findAll();
     }
 
 
     public List<T> findAllByIds(Collection<ID> ids) {
-        List<BaseBean> list = compoment.findAllByIds(ids);
-        ArrayList<T> results = new ArrayList<>();
-        for (BaseBean baseBean : list) {
-            results.add(copy(baseBean, pojoClass));
-        }
-        return results;
+        return compoment.findAllByIds(ids);
 
     }
 
@@ -73,26 +61,18 @@ public abstract class BaseManagerImpl<C extends BaseJdbcComponent, T extends Bas
 
     @Transactional
     public T save(T t) {
-        BaseBean pojo = generatePojo(getEntityClass());
-        BeanUtils.copyProperties(t, pojo);
-        BaseBean bean = compoment.save(pojo);
-        return copy(bean, pojoClass);
+        return (T) compoment.save(t);
+
     }
 
     @Transactional
     public List<T> save(List<T> t) {
-        ArrayList<T> result = new ArrayList<>();
-        for (T baseDto : t) {
-            result.add(save(baseDto));
-        }
-        return result;
+        return compoment.save(t);
     }
 
     @Transactional
     public void delete(T instance) {
-        BaseBean baseBean = generatePojo(getEntityClass());
-        BeanUtils.copyProperties(instance, baseBean);
-        compoment.delete(baseBean);
+        compoment.delete(instance);
     }
 
 
@@ -108,29 +88,5 @@ public abstract class BaseManagerImpl<C extends BaseJdbcComponent, T extends Bas
 
     public void deleteAll() {
         compoment.deleteAll();
-    }
-
-
-    private T copy(BaseBean baseBean, Class pojoClass) {
-        T instance = null;
-        try {
-            instance = (T) pojoClass.getDeclaredConstructor().newInstance();
-            BeanUtils.copyProperties(baseBean, instance);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            logger.error("pojo对象初始化异常,对象为：" + pojoClass.getSimpleName(), e);
-            throw new PojoInstanceFailException();
-        }
-        return instance;
-    }
-
-    private BaseBean generatePojo(Class pojoClass) {
-
-        try {
-            return (BaseBean) getEntityClass().getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
-            logger.error("pojo对象初始化异常,对象为：" + pojoClass.getSimpleName(), e);
-            throw new PojoInstanceFailException();
-        }
-
     }
 }

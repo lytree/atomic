@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import top.yang.domain.dto.BaseDto;
+import top.yang.domain.pojo.BaseBean;
 
-public interface BaseManager<T extends BaseDto, ID extends Serializable> {
+public interface BaseManager<T extends BaseBean, ID extends Serializable> {
 
     T findById(ID id);
 
