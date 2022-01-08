@@ -13,8 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import top.yang.component.BaseJdbcComponent;
+import top.yang.domain.dto.BaseDto;
 import top.yang.domain.pojo.BaseBean;
-import top.yang.spring.dto.BaseDto;
 import top.yang.spring.exception.PojoInstanceFailException;
 
 public abstract class BaseManagerImpl<C extends BaseJdbcComponent, T extends BaseDto, ID extends Serializable> {

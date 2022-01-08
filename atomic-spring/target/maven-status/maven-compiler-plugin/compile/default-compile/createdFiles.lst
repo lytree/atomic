@@ -1,6 +1,5 @@
 top\yang\spring\factory\BaseHandlerFactory.class
 top\yang\spring\exception\ResultCode.class
-top\yang\spring\dto\BaseDto.class
 top\yang\spring\utils\SpringUtils.class
 top\yang\spring\exception\PojoInstanceFailException.class
 top\yang\spring\utils\EnvironmentUtils.class

@@ -9,6 +9,8 @@ import okhttp3.Route;
 
 /**
  * http 代理
+ *
+ * @author pride
  */
 public final class ProxyConfiguration {
 

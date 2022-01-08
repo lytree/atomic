@@ -3,6 +3,7 @@ package top.yang.crypto;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import org.apache.commons.lang3.RandomStringUtils;
 import top.yang.collections.ArrayUtils;
 import top.yang.crypto.asymmetric.AsymmetricAlgorithm;
 import top.yang.crypto.symmetric.SymmetricAlgorithm;
@@ -40,13 +41,10 @@ import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import top.yang.io.FileUtils;
-import top.yang.io.IOUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import top.yang.lang.Assert;
-import top.yang.math.RandomUtils;
-import top.yang.string.CharSequenceUtils;
-import top.yang.string.CharUtils;
-import top.yang.string.CharsetsUtils;
+import top.yang.lang.RandomUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -219,7 +217,7 @@ public class KeyUtil {
         }
 
         if (null == key) {
-            key = RandomUtils.random(32).toCharArray();
+            key = RandomStringUtils.random(32).toCharArray();
         }
         PBEKeySpec keySpec = new PBEKeySpec(key);
         return generateKey(algorithm, keySpec);

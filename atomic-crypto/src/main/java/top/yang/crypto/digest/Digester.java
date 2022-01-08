@@ -1,6 +1,7 @@
 package top.yang.crypto.digest;
 
 
+import org.apache.commons.io.FileUtils;
 import top.yang.collections.ArrayUtils;
 import top.yang.crypto.CryptoException;
 import top.yang.crypto.SecureUtil;
@@ -13,8 +14,8 @@ import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
-import top.yang.io.FileUtils;
-import top.yang.io.IOUtils;
+
+import org.apache.commons.io.IOUtils;
 import top.yang.math.HexUtil;
 import top.yang.string.CharsetsUtils;
 import top.yang.string.StringUtils;
@@ -231,7 +232,7 @@ public class Digester implements Serializable {
     }
 
     /**
-     * 生成文件摘要<br> 使用默认缓存大小，见 {@link top.yang.io.IOUtils#DEFAULT_BUFFER_SIZE}
+     * 生成文件摘要<br> 使用默认缓存大小，见 {@link IOUtils#DEFAULT_BUFFER_SIZE}
      *
      * @param file 被摘要文件
      * @return 摘要bytes

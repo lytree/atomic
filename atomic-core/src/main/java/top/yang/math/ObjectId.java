@@ -1,6 +1,7 @@
 package top.yang.math;
 
 
+import top.yang.lang.RandomUtils;
 import top.yang.validator.RegExUtils;
 import top.yang.time.DateUtils;
 
@@ -10,8 +11,7 @@ import java.util.Enumeration;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * MongoDB ID生成策略实现<br>
- * ObjectId由以下几部分组成：
+ * MongoDB ID生成策略实现<br> ObjectId由以下几部分组成：
  *
  * <pre>
  * 1. Time 时间戳。
@@ -30,7 +30,7 @@ public class ObjectId {
     /**
      * 线程安全的下一个随机数,每次生成自增+1
      */
-    private static final AtomicInteger NEXT_INC = new AtomicInteger(RandomUtils.randomInt());
+    private static final AtomicInteger NEXT_INC = new AtomicInteger(RandomUtils.nextIntThreadLocal());
     /**
      * 机器信息   生成机器信息 = 取机器码的后2位和进程码的前2位
      */
@@ -141,7 +141,7 @@ public class ObjectId {
             machinePiece = netSb.toString().hashCode() << 16;
         } catch (Throwable e) {
             // 出问题随机生成,保留后两位
-            machinePiece = (RandomUtils.randomInt()) << 16;
+            machinePiece = (RandomUtils.nextIntThreadLocal()) << 16;
         }
         return machinePiece;
     }

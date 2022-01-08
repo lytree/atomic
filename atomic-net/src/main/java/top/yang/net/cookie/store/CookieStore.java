@@ -5,6 +5,9 @@ import okhttp3.HttpUrl;
 
 import java.util.List;
 
+/**
+ * @author pride
+ */
 public interface CookieStore {
     /**
      * 保存url对应所有cookie

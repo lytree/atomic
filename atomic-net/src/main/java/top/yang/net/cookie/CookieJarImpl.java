@@ -8,7 +8,11 @@ import top.yang.net.cookie.store.CookieStore;
 
 import java.util.List;
 
+/**
+ * @author pride
+ */
 public class CookieJarImpl implements CookieJar {
+
     private CookieStore cookieStore;
 
     public CookieJarImpl(CookieStore cookieStore) {
@@ -22,6 +26,7 @@ public class CookieJarImpl implements CookieJar {
     public synchronized void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
         cookieStore.saveCookie(url, cookies);
     }
+
     @NotNull
     @Override
     public synchronized List<Cookie> loadForRequest(HttpUrl url) {

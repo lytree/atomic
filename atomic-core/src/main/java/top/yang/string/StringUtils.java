@@ -24,7 +24,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.ObjectUtils;
-import top.yang.codec.CharEncoding;
 import top.yang.collections.ArrayUtils;
 import top.yang.text.StringFormatter;
 
@@ -118,6 +117,20 @@ import top.yang.text.StringFormatter;
  */
 //@Immutable
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
+
+
+
+    public static final String US_ASCII = "US-ASCII";
+
+
+    public static final String UTF_16 = "UTF-16";
+
+
+    public static final String UTF_16BE = "UTF-16BE";
+
+
+    public static final String UTF_16LE = "UTF-16LE";
+
 
     private static final int STRING_BUILDER_SIZE = 256;
     /**
@@ -680,7 +693,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param charsetName The name of a required {@link java.nio.charset.Charset}
      * @return encoded bytes, or {@code null} if the input string was {@code null}
      * @throws IllegalStateException Thrown when a {@link UnsupportedEncodingException} is caught, which should never happen for a required charset name.
-     * @see CharEncoding
      * @see String#getBytes(String)
      */
     public static byte[] getBytesUnchecked(final String string, final String charsetName) {
@@ -796,7 +808,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param charsetName The name of a required {@link java.nio.charset.Charset}
      * @return A new {@code String} decoded from the specified array of bytes using the given charset, or {@code null} if the input byte array was {@code null}.
      * @throws IllegalStateException Thrown when a {@link UnsupportedEncodingException} is caught, which should never happen for a required charset name.
-     * @see CharEncoding
      * @see String#String(byte[], String)
      */
     public static String newString(final byte[] bytes, final String charsetName) {

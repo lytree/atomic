@@ -3,7 +3,7 @@ package top.yang.crypto;
 
 import java.io.IOException;
 import javax.xml.validation.Validator;
-import top.yang.codec.binary.Base64;
+import org.apache.commons.codec.binary.Base64;
 import top.yang.collections.MapUtils;
 import top.yang.crypto.asymmetric.AsymmetricAlgorithm;
 import top.yang.crypto.asymmetric.RSA;
@@ -42,7 +42,7 @@ import java.security.cert.Certificate;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.KeySpec;
 import java.util.Map;
-import top.yang.io.FileUtils;
+import org.apache.commons.io.FileUtils;
 import top.yang.math.HexUtil;
 import top.yang.string.StringUtils;
 

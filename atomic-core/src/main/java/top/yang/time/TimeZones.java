@@ -24,13 +24,11 @@ import java.time.ZoneId;
 /**
  * Helps to deal with {@link java.util.TimeZone}s.
  *
+ * @author pride
  * @since 3.7
  */
 public class TimeZones {
 
-    // do not instantiate
-    private TimeZones() {
-    }
 
     /**
      * A public version of {@link java.util.TimeZone}'s package private {@code GMT_ID} field.

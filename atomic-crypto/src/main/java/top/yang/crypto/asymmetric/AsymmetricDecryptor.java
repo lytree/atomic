@@ -2,14 +2,11 @@ package top.yang.crypto.asymmetric;
 
 
 import java.io.IOException;
-import org.apache.commons.lang3.StringUtils;
-import top.yang.codec.BCD;
-import top.yang.crypto.SecureUtil;
-
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import top.yang.io.IOUtils;
-import top.yang.lang.Assert;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import top.yang.crypto.SecureUtil;
 import top.yang.string.CharsetsUtils;
 
 /**
@@ -84,55 +81,5 @@ public interface AsymmetricDecryptor {
         return decryptStr(data, keyType, CharsetsUtils.CHARSET_UTF_8);
     }
 
-    /**
-     * 解密BCD
-     *
-     * @param data    数据
-     * @param keyType 密钥类型
-     * @return 解密后的密文
-     * @since 4.1.0
-     */
-    default byte[] decryptFromBcd(String data, KeyType keyType) {
-        return decryptFromBcd(data, keyType, CharsetsUtils.CHARSET_UTF_8);
-    }
 
-    /**
-     * 分组解密
-     *
-     * @param data    数据
-     * @param keyType 密钥类型
-     * @param charset 加密前编码
-     * @return 解密后的密文
-     * @since 4.1.0
-     */
-    default byte[] decryptFromBcd(String data, KeyType keyType, Charset charset) {
-        Assert.notNull(data, "Bcd string must be not null!");
-        final byte[] dataBytes = BCD.ascToBcd(StringUtils.getBytes(data, charset));
-        return decrypt(dataBytes, keyType);
-    }
-
-    /**
-     * 解密为字符串，密文需为BCD格式
-     *
-     * @param data    数据，BCD格式
-     * @param keyType 密钥类型
-     * @param charset 加密前编码
-     * @return 解密后的密文
-     * @since 4.5.2
-     */
-    default String decryptStrFromBcd(String data, KeyType keyType, Charset charset) {
-        return StringUtils.toEncodedString(decryptFromBcd(data, keyType, charset), charset);
-    }
-
-    /**
-     * 解密为字符串，密文需为BCD格式，编码为UTF-8格式
-     *
-     * @param data    数据，BCD格式
-     * @param keyType 密钥类型
-     * @return 解密后的密文
-     * @since 4.5.2
-     */
-    default String decryptStrFromBcd(String data, KeyType keyType) {
-        return decryptStrFromBcd(data, keyType, CharsetsUtils.CHARSET_UTF_8);
-    }
 }

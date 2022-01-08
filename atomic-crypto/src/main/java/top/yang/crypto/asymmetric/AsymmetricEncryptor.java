@@ -5,11 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
-import top.yang.codec.BCD;
-import top.yang.codec.binary.Base64;
-import top.yang.io.IOUtils;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 import top.yang.math.HexUtil;
-import top.yang.string.CharsetsUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -179,28 +177,4 @@ public interface AsymmetricEncryptor {
         return new Base64().encodeToString(encrypt(data, keyType));
     }
 
-    /**
-     * 分组加密
-     *
-     * @param data    数据
-     * @param keyType 密钥类型
-     * @return 加密后的密文
-     * @since 4.1.0
-     */
-    default String encryptBcd(String data, KeyType keyType) {
-        return encryptBcd(data, keyType, CharsetsUtils.CHARSET_UTF_8);
-    }
-
-    /**
-     * 分组加密
-     *
-     * @param data    数据
-     * @param keyType 密钥类型
-     * @param charset 加密前编码
-     * @return 加密后的密文
-     * @since 4.1.0
-     */
-    default String encryptBcd(String data, KeyType keyType, Charset charset) {
-        return BCD.bcdToStr(encrypt(data, charset, keyType));
-    }
 }

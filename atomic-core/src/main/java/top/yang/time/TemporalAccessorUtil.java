@@ -1,7 +1,6 @@
 package top.yang.time;
 
 
-
 import top.yang.string.StringUtils;
 
 import java.time.*;
@@ -49,7 +48,6 @@ public class TemporalAccessorUtil extends TemporalUtil {
         if (null == formatter) {
             formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
         }
-
 
         try {
             return formatter.format(time);

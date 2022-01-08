@@ -31,194 +31,194 @@ import top.yang.net.interceptor.DefaultLoggingInterceptor.Level;
 
 public class HttpManager {
 
-  private final static Logger logger = LoggerFactory.getLogger(HttpManager.class);
-  private final OkHttpClient okHttpClient;
+    private final static Logger logger = LoggerFactory.getLogger(HttpManager.class);
+    private final OkHttpClient okHttpClient;
 
-  public GetBuilderAsync asyncGet() {
-    return new GetBuilderAsync(this.okHttpClient);
-  }
-
-  public GetBuilder get() {
-    return new GetBuilder(this.okHttpClient);
-  }
-
-  public PostBuilderAsync asyncPost() {
-    return new PostBuilderAsync(this.okHttpClient);
-  }
-
-  public PostBuilder post() {
-    return new PostBuilder(this.okHttpClient);
-  }
-
-  public PutBuilderAsync asyncPut() {
-    return new PutBuilderAsync(this.okHttpClient);
-  }
-
-  public PutBuilder put() {
-    return new PutBuilder(this.okHttpClient);
-  }
-
-  public PatchBuilderAsync asyncPatch() {
-    return new PatchBuilderAsync(this.okHttpClient);
-  }
-
-  public PatchBuilder patch() {
-    return new PatchBuilder(this.okHttpClient);
-  }
-
-  public DeleteBuilderAsync asyncDelete() {
-    return new DeleteBuilderAsync(this.okHttpClient);
-  }
-
-  public DeleteBuilder delete() {
-    return new DeleteBuilder(this.okHttpClient);
-  }
-
-  public UploadBuilderAsync asyncUpload() {
-    return new UploadBuilderAsync(this.okHttpClient);
-  }
-
-  public DownloadBuilderAsync asyncDownload() {
-    return new DownloadBuilderAsync(this.okHttpClient);
-  }
-
-  /**
-   * 根据tag 取消请求
-   *
-   * @param tag tag
-   */
-  public void cancel(Object tag) {
-    if (this.okHttpClient == null) {
-      return;
+    public GetBuilderAsync asyncGet() {
+        return new GetBuilderAsync(this.okHttpClient);
     }
-    Dispatcher dispatcher = this.okHttpClient.dispatcher();
-    for (Call call : dispatcher.queuedCalls()) {
-      if (tag.equals(call.request().tag())) {
-        call.cancel();
-      }
+
+    public GetBuilder get() {
+        return new GetBuilder(this.okHttpClient);
     }
-    for (Call call : dispatcher.runningCalls()) {
-      if (tag.equals(call.request().tag())) {
-        call.cancel();
-      }
+
+    public PostBuilderAsync asyncPost() {
+        return new PostBuilderAsync(this.okHttpClient);
     }
-  }
 
-  /**
-   * 取消所有请求请求
-   */
-  public void cancelAll() {
-    if (this.okHttpClient == null) {
-      return;
+    public PostBuilder post() {
+        return new PostBuilder(this.okHttpClient);
     }
-    Dispatcher dispatcher = this.okHttpClient.dispatcher();
 
-    for (Call call : dispatcher.queuedCalls()) {
-      call.cancel();
+    public PutBuilderAsync asyncPut() {
+        return new PutBuilderAsync(this.okHttpClient);
     }
-    for (Call call : dispatcher.runningCalls()) {
-      call.cancel();
+
+    public PutBuilder put() {
+        return new PutBuilder(this.okHttpClient);
     }
-  }
 
-  /**
-   * 构建一个默认配置的 HTTP Client 类
-   */
-  private HttpManager() {
-    this(null, null,
-        Constants.CONNECT_TIMEOUT, Constants.READ_TIMEOUT, Constants.WRITE_TIMEOUT,
-        Constants.DISPATCHER_MAX_REQUESTS, Constants.DISPATCHER_MAX_REQUESTS_PER_HOST,
-        Constants.CONNECTION_POOL_MAX_IDLE_COUNT, Constants.CONNECTION_POOL_MAX_IDLE_MINUTES);
-  }
+    public PatchBuilderAsync asyncPatch() {
+        return new PatchBuilderAsync(this.okHttpClient);
+    }
 
-  /**
-   * 构建一个自定义配置的 HTTP Client 类
-   */
-  private HttpManager(ClientConfiguration cfg) {
-    this(cfg.dns, cfg.proxy,
-        cfg.connectTimeout, cfg.readTimeout, cfg.writeTimeout,
-        cfg.dispatcherMaxRequests, cfg.dispatcherMaxRequestsPerHost,
-        cfg.connectionPoolMaxIdleCount, cfg.connectionPoolMaxIdleMinutes);
-  }
+    public PatchBuilder patch() {
+        return new PatchBuilder(this.okHttpClient);
+    }
 
-  /**
-   * 构建一个自定义配置的 HTTP Client 类
-   */
-  private HttpManager(final Dns dns, final ProxyConfiguration proxy,
-      int connTimeout, int readTimeout, int writeTimeout, int dispatcherMaxRequests,
-      int dispatcherMaxRequestsPerHost, int connectionPoolMaxIdleCount,
-      int connectionPoolMaxIdleMinutes) {
-    Dispatcher dispatcher = new Dispatcher();
-    dispatcher.setMaxRequests(dispatcherMaxRequests);
-    dispatcher.setMaxRequestsPerHost(dispatcherMaxRequestsPerHost);
-    ConnectionPool connectionPool = new ConnectionPool(connectionPoolMaxIdleCount,
-        connectionPoolMaxIdleMinutes, TimeUnit.MINUTES);
-    OkHttpClient.Builder builder = new OkHttpClient.Builder();
+    public DeleteBuilderAsync asyncDelete() {
+        return new DeleteBuilderAsync(this.okHttpClient);
+    }
 
-    builder.dispatcher(dispatcher);
-    builder.connectionPool(connectionPool);
-    builder.addInterceptor(new DefaultLoggingInterceptor(Level.HEADERS));
-    if (dns != null) {
-      builder.dns(hostname -> {
-        try {
-          return dns.lookup(hostname);
-        } catch (Exception ignored) {
+    public DeleteBuilder delete() {
+        return new DeleteBuilder(this.okHttpClient);
+    }
+
+    public UploadBuilderAsync asyncUpload() {
+        return new UploadBuilderAsync(this.okHttpClient);
+    }
+
+    public DownloadBuilderAsync asyncDownload() {
+        return new DownloadBuilderAsync(this.okHttpClient);
+    }
+
+    /**
+     * 根据tag 取消请求
+     *
+     * @param tag tag
+     */
+    public void cancel(Object tag) {
+        if (this.okHttpClient == null) {
+            return;
         }
-        return okhttp3.Dns.SYSTEM.lookup(hostname);
-      });
+        Dispatcher dispatcher = this.okHttpClient.dispatcher();
+        for (Call call : dispatcher.queuedCalls()) {
+            if (tag.equals(call.request().tag())) {
+                call.cancel();
+            }
+        }
+        for (Call call : dispatcher.runningCalls()) {
+            if (tag.equals(call.request().tag())) {
+                call.cancel();
+            }
+        }
     }
-    if (proxy != null) {
-      builder.proxy(proxy.proxy());
-      if (proxy.user != null && proxy.password != null) {
-        builder.proxyAuthenticator(proxy.authenticator());
-      }
+
+    /**
+     * 取消所有请求请求
+     */
+    public void cancelAll() {
+        if (this.okHttpClient == null) {
+            return;
+        }
+        Dispatcher dispatcher = this.okHttpClient.dispatcher();
+
+        for (Call call : dispatcher.queuedCalls()) {
+            call.cancel();
+        }
+        for (Call call : dispatcher.runningCalls()) {
+            call.cancel();
+        }
     }
-    builder.connectTimeout(connTimeout, TimeUnit.SECONDS);
-    builder.readTimeout(readTimeout, TimeUnit.SECONDS);
-    builder.writeTimeout(writeTimeout, TimeUnit.SECONDS);
-    builder.eventListener(new EventListener() {
-      @Override
-      public void connectStart(@NotNull Call call, @NotNull InetSocketAddress inetSocketAddress, @NotNull Proxy proxy) {
-        Request req = call.request();
-        IpTag tag = (IpTag) req.tag();
-        tag.ip = inetSocketAddress + "";
-      }
-    });
-    builder.addInterceptor(new DefaultLoggingInterceptor(Level.BASIC));
-    builder.addNetworkInterceptor(chain -> {
-      Request request = chain.request();
-      okhttp3.Response response = chain.proceed(request);
-      IpTag tag = (IpTag) request.tag();
-      try {
-        tag.ip = Objects.requireNonNull(chain.connection()).socket().getRemoteSocketAddress() + "";
-      } catch (Exception e) {
-        // ingore
-      }
-      return response;
-    });
-    this.okHttpClient = builder.build();
-  }
 
-  private static class IpTag {
+    /**
+     * 构建一个默认配置的 HTTP Client 类
+     */
+    private HttpManager() {
+        this(null, null,
+                Constants.CONNECT_TIMEOUT, Constants.READ_TIMEOUT, Constants.WRITE_TIMEOUT,
+                Constants.DISPATCHER_MAX_REQUESTS, Constants.DISPATCHER_MAX_REQUESTS_PER_HOST,
+                Constants.CONNECTION_POOL_MAX_IDLE_COUNT, Constants.CONNECTION_POOL_MAX_IDLE_MINUTES);
+    }
 
-    public String ip = "";
-  }
+    /**
+     * 构建一个自定义配置的 HTTP Client 类
+     */
+    private HttpManager(ClientConfiguration cfg) {
+        this(cfg.dns, cfg.proxy,
+                cfg.connectTimeout, cfg.readTimeout, cfg.writeTimeout,
+                cfg.dispatcherMaxRequests, cfg.dispatcherMaxRequestsPerHost,
+                cfg.connectionPoolMaxIdleCount, cfg.connectionPoolMaxIdleMinutes);
+    }
 
-  public static HttpManager httpFactory() {
-    return new HttpManager();
-  }
+    /**
+     * 构建一个自定义配置的 HTTP Client 类
+     */
+    private HttpManager(final Dns dns, final ProxyConfiguration proxy,
+            int connTimeout, int readTimeout, int writeTimeout, int dispatcherMaxRequests,
+            int dispatcherMaxRequestsPerHost, int connectionPoolMaxIdleCount,
+            int connectionPoolMaxIdleMinutes) {
+        Dispatcher dispatcher = new Dispatcher();
+        dispatcher.setMaxRequests(dispatcherMaxRequests);
+        dispatcher.setMaxRequestsPerHost(dispatcherMaxRequestsPerHost);
+        ConnectionPool connectionPool = new ConnectionPool(connectionPoolMaxIdleCount,
+                connectionPoolMaxIdleMinutes, TimeUnit.MINUTES);
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-  public static HttpManager httpFactory(ClientConfiguration cfg) {
-    return new HttpManager(cfg);
-  }
+        builder.dispatcher(dispatcher);
+        builder.connectionPool(connectionPool);
+        builder.addInterceptor(new DefaultLoggingInterceptor(Level.HEADERS));
+        if (dns != null) {
+            builder.dns(hostname -> {
+                try {
+                    return dns.lookup(hostname);
+                } catch (Exception ignored) {
+                }
+                return okhttp3.Dns.SYSTEM.lookup(hostname);
+            });
+        }
+        if (proxy != null) {
+            builder.proxy(proxy.proxy());
+            if (proxy.user != null && proxy.password != null) {
+                builder.proxyAuthenticator(proxy.authenticator());
+            }
+        }
+        builder.connectTimeout(connTimeout, TimeUnit.SECONDS);
+        builder.readTimeout(readTimeout, TimeUnit.SECONDS);
+        builder.writeTimeout(writeTimeout, TimeUnit.SECONDS);
+        builder.eventListener(new EventListener() {
+            @Override
+            public void connectStart(@NotNull Call call, @NotNull InetSocketAddress inetSocketAddress, @NotNull Proxy proxy) {
+                Request req = call.request();
+                IpTag tag = (IpTag) req.tag();
+                tag.ip = inetSocketAddress + "";
+            }
+        });
+        builder.addInterceptor(new DefaultLoggingInterceptor(Level.BASIC));
+        builder.addNetworkInterceptor(chain -> {
+            Request request = chain.request();
+            okhttp3.Response response = chain.proceed(request);
+            IpTag tag = (IpTag) request.tag();
+            try {
+                tag.ip = Objects.requireNonNull(chain.connection()).socket().getRemoteSocketAddress() + "";
+            } catch (Exception e) {
+                // ingore
+            }
+            return response;
+        });
+        this.okHttpClient = builder.build();
+    }
 
-  public static HttpManager httpFactory(final Dns dns, final ProxyConfiguration proxy,
-      int connTimeout, int readTimeout, int writeTimeout, int dispatcherMaxRequests,
-      int dispatcherMaxRequestsPerHost, int connectionPoolMaxIdleCount,
-      int connectionPoolMaxIdleMinutes) {
-    return new HttpManager(dns, proxy,
-        connTimeout, readTimeout, writeTimeout, dispatcherMaxRequests,
-        dispatcherMaxRequestsPerHost, connectionPoolMaxIdleCount,
-        connectionPoolMaxIdleMinutes);
-  }
+    private static class IpTag {
+
+        public String ip = "";
+    }
+
+    public static HttpManager httpFactory() {
+        return new HttpManager();
+    }
+
+    public static HttpManager httpFactory(ClientConfiguration cfg) {
+        return new HttpManager(cfg);
+    }
+
+    public static HttpManager httpFactory(final Dns dns, final ProxyConfiguration proxy,
+            int connTimeout, int readTimeout, int writeTimeout, int dispatcherMaxRequests,
+            int dispatcherMaxRequestsPerHost, int connectionPoolMaxIdleCount,
+            int connectionPoolMaxIdleMinutes) {
+        return new HttpManager(dns, proxy,
+                connTimeout, readTimeout, writeTimeout, dispatcherMaxRequests,
+                dispatcherMaxRequestsPerHost, connectionPoolMaxIdleCount,
+                connectionPoolMaxIdleMinutes);
+    }
 }

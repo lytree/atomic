@@ -1,7 +1,8 @@
 package top.yang.crypto.asymmetric;
 
 
-import top.yang.codec.binary.Base64;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 import top.yang.collections.CollectionUtils;
 import top.yang.crypto.CryptoException;
 import top.yang.crypto.SecureUtil;
@@ -18,7 +19,7 @@ import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.security.spec.AlgorithmParameterSpec;
 import java.util.Set;
-import top.yang.io.IOUtils;
+
 import top.yang.math.HexUtil;
 import top.yang.string.CharsetsUtils;
 import top.yang.string.StringUtils;
@@ -253,7 +254,7 @@ public class Sign extends BaseAsymmetric<Sign> {
     }
 
     /**
-     * 生成签名，并转为16进制字符串<br> 使用默认缓存大小，见 {@link top.yang.io.IOUtils#DEFAULT_BUFFER_SIZE}
+     * 生成签名，并转为16进制字符串<br> 使用默认缓存大小，见 {@link IOUtils#DEFAULT_BUFFER_SIZE}
      *
      * @param data 被签名数据
      * @return 签名

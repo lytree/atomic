@@ -19,7 +19,7 @@
     <mybatis.version>2.2.0</mybatis.version>
     <elasticsearch.version>7.16.2</elasticsearch.version>
     <druid.version>1.2.6</druid.version>
-    <okhttp.version>4.9.1</okhttp.version>
+    <okhttp.version>4.9.3</okhttp.version>
     <kotlin-stdlib.version>1.4.10</kotlin-stdlib.version>
     <jsoup.version>1.14.2</jsoup.version>
     <selenium-java.version>3.141.59</selenium-java.version>
@@ -37,7 +37,7 @@
     <commons-configuration2.version>2.7</commons-configuration2.version>
     <elasticjob.version>3.0.1</elasticjob.version>
     <!--        <dubbo.version>3.0.4</dubbo.version>-->
-    <dubbo.version>2.7.14</dubbo.version>
+    <dubbo.version>2.7.15</dubbo.version>
     <lombok.version>1.18.20</lombok.version>
     <guava.version>30.1.1-jre</guava.version>
     <redisson.version>3.15.6</redisson.version>
@@ -54,6 +54,13 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+        <dependency>
+          <groupId>com.alibaba.cloud</groupId>
+          <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+          <version>2.2.7.RELEASE</version>
+          <type>pom</type>
+          <scope>import</scope>
+        </dependency>
       <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-bom</artifactId>
@@ -162,6 +169,11 @@
         <groupId>org.redisson</groupId>
         <artifactId>redisson</artifactId>
         <version>${redisson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.shardingsphere.elasticjob</groupId>

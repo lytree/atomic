@@ -25,10 +25,10 @@ import java.security.SecureRandom;
 import java.security.spec.AlgorithmParameterSpec;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import top.yang.io.IOUtils;
+import org.apache.commons.io.IOUtils;
 import top.yang.lang.Assert;
+import top.yang.lang.RandomUtils;
 import top.yang.math.HexUtil;
-import top.yang.math.RandomUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -377,7 +377,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
             if (StringUtils.startsWithIgnoreCase(algorithm, "PBE")) {
                 // 对于PBE算法使用随机数加盐
                 if (null == iv) {
-                    iv = RandomUtils.randomBytes(8);
+                    iv = RandomUtils.nextBytesThreadLocal(8);
                 }
                 paramsSpec = new PBEParameterSpec(iv, 100);
             } else if (StringUtils.startsWithIgnoreCase(algorithm, "AES")) {

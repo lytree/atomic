@@ -2,7 +2,7 @@ package top.yang.crypto.asymmetric;
 
 
 import java.io.ByteArrayOutputStream;
-import top.yang.codec.binary.Base64;
+import org.apache.commons.codec.binary.Base64;
 import top.yang.crypto.CipherWrapper;
 import top.yang.crypto.CryptoException;
 import top.yang.crypto.KeyUtil;

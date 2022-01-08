@@ -3,10 +3,10 @@ package top.yang.crypto.digest.otp;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import top.yang.codec.binary.Base32;
+import org.apache.commons.codec.binary.Base32;
 import top.yang.crypto.digest.HMac;
 import top.yang.crypto.digest.HmacAlgorithm;
-import top.yang.math.RandomUtils;
+import top.yang.lang.RandomUtils;
 
 /**
  * <p>HMAC-based one-time passwords (HOTP) 基于HMAC算法一次性密码生成器，
@@ -107,7 +107,7 @@ public class HOTP {
      * @since 5.7.4
      */
     public static String generateSecretKey(int numBytes) throws NoSuchAlgorithmException {
-        return new Base32().encodeToString(getSHA1PRNGRandom(RandomUtils.randomBytes(256)).generateSeed(numBytes));
+        return new Base32().encodeToString(getSHA1PRNGRandom(RandomUtils.nextBytesThreadLocal(256)).generateSeed(numBytes));
     }
 
     /**

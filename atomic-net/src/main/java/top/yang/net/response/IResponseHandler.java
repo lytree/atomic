@@ -4,11 +4,14 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Response;
 
+/**
+ * @author pride
+ */
 public interface IResponseHandler {
 
-  void onSuccess(Response response);
+    void onSuccess(Response response);
 
-  void onFailure(Call call, String e);
+    void onFailure(Call call, String e);
 
-  void onProgress(long currentBytes, long totalBytes);
+    void onProgress(long currentBytes, long totalBytes);
 }

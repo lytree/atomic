@@ -5,7 +5,7 @@ import top.yang.crypto.CryptoException;
 
 import java.io.IOException;
 import java.io.InputStream;
-import top.yang.io.IOUtils;
+import org.apache.commons.io.IOUtils;
 
 /**
  * MAC（Message Authentication Code）算法引擎

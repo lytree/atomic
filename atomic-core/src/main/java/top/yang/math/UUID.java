@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Random;
+import top.yang.lang.RandomUtils;
 
 /**
  * 提供通用唯一识别码（universally unique identifier）（UUID）实现，UUID表示一个128位的值。<br>
@@ -114,7 +115,7 @@ public class UUID implements java.io.Serializable, Comparable<UUID> {
      * @return 随机生成的 {@code UUID}
      */
     public static UUID randomUUID(boolean isSecure) {
-        final Random ng = isSecure ? Holder.NUMBER_GENERATOR : RandomUtils.random(false);
+        final Random ng = isSecure ? Holder.NUMBER_GENERATOR : RandomUtils.randomThreadLocal(false);
 
         final byte[] randomBytes = new byte[16];
         ng.nextBytes(randomBytes);

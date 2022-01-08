@@ -3,11 +3,7 @@ package top.yang.manager;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import top.yang.domain.pojo.BaseBean;
-import top.yang.spring.dto.BaseDto;
+import top.yang.domain.dto.BaseDto;
 
 public interface BaseManager<T extends BaseDto, ID extends Serializable> {
 

@@ -5,8 +5,11 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * SDK相关配置常量
+ *
+ * @author pride
  */
 public final class Constants {
+
     /**
      * 块大小，不能改变
      */

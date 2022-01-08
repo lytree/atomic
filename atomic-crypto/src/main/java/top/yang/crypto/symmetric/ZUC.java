@@ -4,7 +4,7 @@ package top.yang.crypto.symmetric;
 import top.yang.crypto.KeyUtil;
 
 import javax.crypto.spec.IvParameterSpec;
-import top.yang.math.RandomUtils;
+import top.yang.lang.RandomUtils;
 
 /**
  * 祖冲之算法集（ZUC算法）实现，基于BouncyCastle实现。
@@ -81,10 +81,10 @@ public class ZUC extends SymmetricCrypto {
         if (null == iv) {
             switch (algorithm) {
                 case ZUC_128:
-                    iv = RandomUtils.randomBytes(16);
+                    iv = RandomUtils.nextBytesThreadLocal(16);
                     break;
                 case ZUC_256:
-                    iv = RandomUtils.randomBytes(25);
+                    iv = RandomUtils.nextBytesThreadLocal(25);
                     break;
             }
         }

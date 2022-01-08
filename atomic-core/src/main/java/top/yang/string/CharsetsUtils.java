@@ -20,6 +20,8 @@ package top.yang.string;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
+import org.apache.commons.lang3.CharSet;
+import org.apache.commons.lang3.CharSetUtils;
 
 /**
  * Internal use only.
@@ -32,7 +34,7 @@ import java.nio.charset.UnsupportedCharsetException;
  *
  * @since 3.10
  */
-public class CharsetsUtils {
+public class CharsetsUtils extends CharSetUtils {
 
   /**
    * ISO-8859-1

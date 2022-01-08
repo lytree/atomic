@@ -1,7 +1,8 @@
 package top.yang.crypto.asymmetric;
 
 
-import top.yang.codec.binary.Base64;
+
+import org.apache.commons.codec.binary.Base64;
 import top.yang.crypto.CryptoException;
 import top.yang.crypto.KeyUtil;
 
