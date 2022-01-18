@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.yang.spring.constants.GlobalsConstants;
@@ -22,6 +23,7 @@ import top.yang.web.exception.CommonCode;
  * @author pride
  * @date 2021/8/30 10:16
  */
+@ControllerAdvice("top.yang")
 public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
@@ -30,17 +32,6 @@ public class GlobalExceptionHandler {
     //定义map的builder对象，去构建ImmutableMap
     protected static ImmutableMap.Builder<Class<? extends Throwable>, ResultCode> builder = ImmutableMap.builder();
 
-    //捕获CustomException此类异常
-    @ExceptionHandler({BusinessException.class, SystemException.class})
-    @ResponseBody
-    public ResponseResult customException(BusinessException businessException) {
-        String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
-        businessException.printStackTrace();
-        //记录日志
-        logger.error("catch exception:{}", businessException.toString());
-        ResultCode resultCode = businessException.getResult();
-        return new ResponseResult(resultCode, requestId);
-    }
 
     //捕获ValidationException此类异常
     @ExceptionHandler(MethodArgumentNotValidException.class)

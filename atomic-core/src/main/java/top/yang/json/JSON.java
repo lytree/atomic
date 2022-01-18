@@ -21,18 +21,23 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.TimeZone;
 import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,6 +64,7 @@ abstract class JSON {
      */
     static {
         MAPPER = new ObjectMapper();
+        MAPPER.setLocale(Locale.CHINA);
         // 如果json中有新增的字段并且是实体类类中不存在的，不报错
         // mapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
         // 如果存在未知属性，则忽略不报错
@@ -69,6 +75,10 @@ abstract class JSON {
         MAPPER.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
         //忽略空Bean转json的错误
         MAPPER.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        //去掉默认的时间戳格式
+        MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        //设置为中国上海时区
+        MAPPER.setTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));
 //            // 允许整数以0开头
 //            mapper.configure(JsonParser.Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
 //            // 允许字符串中存在回车换行控制符
@@ -101,6 +111,19 @@ abstract class JSON {
         return MAPPER;
     }
 
+    /**
+     * 将对象序列化成 json byte 数组
+     *
+     * @param object javaBean
+     * @return jsonString json字符串
+     */
+    public static byte[] toJsonAsBytes(Object object) {
+        try {
+            return getObjectMapper().writeValueAsBytes(object);
+        } catch (JsonProcessingException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 
     public static String toJSONString(Object obj, boolean format) {
         return obj != null ? toJSONString(obj, () -> "", format) : "";
@@ -354,6 +377,30 @@ abstract class JSON {
         try {
             return MAPPER.readTree(value);
         } catch (JsonProcessingException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public static JsonNode toJSONNode(InputStream inputStream) {
+        try {
+            return MAPPER.readTree(inputStream);
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public static JsonNode toJSONNode(byte[] content) {
+        try {
+            return MAPPER.readTree(content);
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public static JsonNode toJSONNode(JsonParser content) {
+        try {
+            return MAPPER.readTree(content);
+        } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
     }

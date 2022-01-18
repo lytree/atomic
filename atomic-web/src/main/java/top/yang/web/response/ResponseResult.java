@@ -10,7 +10,7 @@ import top.yang.web.exception.CommonCode;
  */
 public class ResponseResult<T> implements Response {
 
-  String requestId;
+  private String requestId;
   //
   /**
    * 操作代码

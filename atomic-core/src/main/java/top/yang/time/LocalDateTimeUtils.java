@@ -493,6 +493,25 @@ public class LocalDateTimeUtils {
         return TemporalAccessorUtil.toEpochMilli(temporalAccessor);
     }
 
+    /**
+     * 时间转 Instant
+     *
+     * @param dateTime 时间
+     * @return Instant
+     */
+    public static Instant toInstant(LocalDateTime dateTime) {
+        return dateTime.atZone(ZoneId.systemDefault()).toInstant();
+    }
+
+    /**
+     * Instant 转 时间
+     *
+     * @param instant Instant
+     * @return Instant
+     */
+    public static LocalDateTime toDateTime(Instant instant) {
+        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+    }
 
     private static void validateDateNotNull(final LocalDateTime localDateTime) {
         Validate.notNull(localDateTime, "localDateTime");

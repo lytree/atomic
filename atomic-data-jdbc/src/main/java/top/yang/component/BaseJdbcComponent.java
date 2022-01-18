@@ -1,6 +1,8 @@
 package top.yang.component;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +19,16 @@ public class BaseJdbcComponent<R extends BaseJdbcRepository, T extends BaseBean,
 
     @Autowired
     protected R repository;
+    protected Class pojoClass = null;
 
+    public BaseJdbcComponent() {
+        Class c = this.getClass();
+        Type t = c.getGenericSuperclass();
+        if (t instanceof ParameterizedType) {
+            Type[] p = ((ParameterizedType) t).getActualTypeArguments();
+            pojoClass = (Class) p[1];
+        }
+    }
     public T findById(ID id) {
         return (T) repository.findById(id).get();
     }
@@ -27,16 +38,6 @@ public class BaseJdbcComponent<R extends BaseJdbcRepository, T extends BaseBean,
         Iterable<T> all = repository.findAll();
         return Streamable.of(all).stream() //
                 .collect(Collectors.toList());
-    }
-
-    public List<T> findAll(Sort sort) {
-        Iterable<T> all = repository.findAll(sort);
-        return Streamable.of(all).stream() //
-                .collect(Collectors.toList());
-    }
-
-    public Page<T> findAllPage(Pageable pageable) {
-        return (Page<T>) repository.findAll(pageable);
     }
 
     public List<T> findAllByIds(Collection<Serializable> ids) {

@@ -9,38 +9,50 @@ import top.yang.spring.exception.ResultCode;
  */
 public class BusinessException extends RuntimeException {
 
-  protected String code;
+    private static final long serialVersionUID = 2359767895161832954L;
 
-  protected String msg;
 
-  public BusinessException(ResultCode resultCode) {
-    this.code = resultCode.getCode();
-    this.msg = resultCode.getMessage();
-  }
+    private final String code;
 
-  public BusinessException(String code, String msg) {
-    this.code = code;
-    this.msg = msg;
+    private final String msg;
 
-  }
+    public BusinessException(ResultCode resultCode) {
+        this.code = resultCode.getCode();
+        this.msg = resultCode.getMessage();
+    }
 
-  public String getCode() {
-    return code;
-  }
+    public BusinessException(String code, String msg) {
+        this.code = code;
+        this.msg = msg;
 
-  public String getMsg() {
-    return msg;
-  }
+    }
 
-  public ResultCode getResult() {
-    return new CustomCode(this.code, this.msg);
-  }
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return super.fillInStackTrace();
+    }
 
-  @Override
-  public String toString() {
-    return "BusinessException{" +
-        "code='" + code + '\'' +
-        ", msg=' 业务逻辑错误" + msg + '\'' +
-        "} " + super.toString();
-  }
+    public Throwable doFillInStackTrace() {
+        return super.fillInStackTrace();
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public ResultCode getResult() {
+        return new CustomCode(this.code, this.msg);
+    }
+
+    @Override
+    public String toString() {
+        return "BusinessException{" +
+                "code='" + code + '\'' +
+                ", msg=' 业务逻辑错误" + msg + '\'' +
+                "} " + super.toString();
+    }
 }
