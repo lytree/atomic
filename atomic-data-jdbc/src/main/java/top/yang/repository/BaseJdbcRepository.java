@@ -10,7 +10,7 @@ import top.yang.domain.pojo.BaseBean;
  * @author Y
  */
 @NoRepositoryBean
-public interface BaseJdbcRepository<T extends BaseBean, ID extends Serializable> extends CrudRepository<T, ID> {
+public interface BaseJdbcRepository<T extends BaseBean, ID extends Serializable> extends PagingAndSortingRepository<T, ID> {
 
 }
 

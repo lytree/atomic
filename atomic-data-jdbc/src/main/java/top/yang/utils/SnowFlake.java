@@ -1,5 +1,8 @@
 package top.yang.utils;
 
+/**
+ * @author pride
+ */
 public class SnowFlake {
 
   /**

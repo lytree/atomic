@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.relational.core.mapping.NamingStrategy;
 import org.springframework.data.relational.core.mapping.RelationalPersistentProperty;
 import org.springframework.data.util.ParsingUtils;
+import org.springframework.lang.NonNullApi;
 import org.springframework.util.Assert;
 
 /**

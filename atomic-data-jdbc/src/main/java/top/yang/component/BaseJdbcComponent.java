@@ -29,6 +29,7 @@ public class BaseJdbcComponent<R extends BaseJdbcRepository, T extends BaseBean,
             pojoClass = (Class) p[1];
         }
     }
+
     public T findById(ID id) {
         return (T) repository.findById(id).get();
     }
