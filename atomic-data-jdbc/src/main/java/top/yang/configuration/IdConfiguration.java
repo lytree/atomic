@@ -13,7 +13,7 @@ import org.springframework.data.relational.core.mapping.event.BeforeSaveCallback
 import top.yang.domain.pojo.BaseEntity;
 import top.yang.reflect.FieldUtils;
 import top.yang.reflect.ObjectUtils;
-import top.yang.utils.SnowFlake;
+import top.yang.utils.idgen.contract.IIdGenerator;
 
 /**
  * @author pride
@@ -23,7 +23,7 @@ public class IdConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(IdConfiguration.class);
     @Autowired
-    private SnowFlake snowFlake;
+    private IIdGenerator iIdGenerator;
 
     /**
      * 处理id更新或创建时间
@@ -61,7 +61,7 @@ public class IdConfiguration {
             try {
                 if (field.getType().getTypeName().equals(Long.class.getTypeName())) {
                     if (ObjectUtils.isEmpty(FieldUtils.readField(field, baseEntity))) {
-                        FieldUtils.writeField(field, baseEntity, snowFlake.nextId());
+                        FieldUtils.writeField(field, baseEntity, iIdGenerator.newLong());
                     }
                 }
             } catch (IllegalAccessException e) {

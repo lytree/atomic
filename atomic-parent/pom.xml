@@ -36,6 +36,7 @@
     <commons-compress.version>1.20</commons-compress.version>
     <commons-configuration2.version>2.7</commons-configuration2.version>
     <elasticjob.version>3.0.1</elasticjob.version>
+    <mapstruct.version>1.4.2.Final</mapstruct.version>
     <!--        <dubbo.version>3.0.4</dubbo.version>-->
     <dubbo.version>2.7.15</dubbo.version>
     <lombok.version>1.18.20</lombok.version>
@@ -103,6 +104,13 @@
         <groupId>org.apache.rocketmq</groupId>
         <artifactId>rocketmq-spring-boot-starter</artifactId>
         <version>${rocketmq.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>
+          ${mapstruct.version}
+        </version>
       </dependency>
       <dependency>
         <groupId>mysql</groupId>
