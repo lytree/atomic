@@ -13,7 +13,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-@Component
 public class SpringUtils implements ApplicationContextAware {
 
   private final static Logger logger = LoggerFactory.getLogger(SpringUtils.class);
