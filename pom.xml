@@ -21,6 +21,7 @@
     <druid.version>1.2.6</druid.version>
     <okhttp.version>4.9.3</okhttp.version>
     <kotlin-stdlib.version>1.4.10</kotlin-stdlib.version>
+    <okio.version>2.10.0</okio.version>
     <jsoup.version>1.14.2</jsoup.version>
     <selenium-java.version>3.141.59</selenium-java.version>
     <htmlunit.version>2.56.0</htmlunit.version>
@@ -138,6 +139,13 @@
         <artifactId>okhttp</artifactId>
         <version>${okhttp.version}</version>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/com.squareup.okio/okio -->
+      <dependency>
+        <groupId>com.squareup.okio</groupId>
+        <artifactId>okio</artifactId>
+        <version>${okio.version}</version>
+      </dependency>
+
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-stdlib</artifactId>
