@@ -1,6 +1,6 @@
 package top.yang.dubbo.pojo;
 
-import top.yang.dto.BaseDto;
+import top.yang.domain.dto.BaseDto;
 
 public class DubboResponse extends BaseDto {
 

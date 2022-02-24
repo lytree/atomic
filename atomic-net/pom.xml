@@ -14,11 +14,17 @@
       <artifactId>okhttp</artifactId>
       <groupId>com.squareup.okhttp3</groupId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/com.squareup.retrofit2/retrofit -->
+    <dependency>
+      <groupId>com.squareup.retrofit2</groupId>
+      <artifactId>retrofit</artifactId>
+      <version>2.9.0</version>
+    </dependency>
 
   </dependencies>
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>atomic-parent</artifactId>
+    <artifactId>atomic</artifactId>
     <groupId>top.yang</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>

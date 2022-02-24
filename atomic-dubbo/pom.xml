@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>atomic-parent</artifactId>
+    <artifactId>atomic</artifactId>
     <groupId>top.yang</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
@@ -16,14 +16,18 @@
     <maven.compiler.target>11</maven.compiler.target>
   </properties>
   <dependencies>
-    <!-- Dubbo Spring Cloud Starter -->
-    <dependency>
-      <groupId>com.alibaba.cloud</groupId>
-      <artifactId>spring-cloud-starter-dubbo</artifactId>
-    </dependency>
     <dependency>
       <groupId>top.yang</groupId>
       <artifactId>atomic-spring</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.dubbo</groupId>
+      <artifactId>dubbo-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>top.yang</groupId>
+      <artifactId>atomic-data</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
   </dependencies>

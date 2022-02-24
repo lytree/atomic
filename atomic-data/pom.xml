@@ -8,7 +8,7 @@
   <version>1.0-SNAPSHOT</version>
   <parent>
     <groupId>top.yang</groupId>
-    <artifactId>atomic-parent</artifactId>
+    <artifactId>atomic</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <properties>
