@@ -34,7 +34,7 @@ public class OkHttpClientFactoryBean implements FactoryBean<OkHttpClient>, Initi
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         this.client = buildOkHttpClientFactory();
     }
 

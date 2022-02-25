@@ -1,6 +1,7 @@
 package top.yang.net.autoconfigure;
 
 import java.util.List;
+import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +12,13 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -27,17 +30,14 @@ import top.yang.net.annotation.RetrofitClient;
 public class RetrofitAutoConfiguration implements InitializingBean {
 
     private static final Logger logger = LoggerFactory.getLogger(RetrofitAutoConfiguration.class);
-    private final RetrofitProperties retrofitProperties;
 
     public RetrofitAutoConfiguration(RetrofitProperties retrofitProperties) {
-        this.retrofitProperties = retrofitProperties;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
 
     }
-
     public static class AutoConfigurationRetrofitClientScannerRegistrar implements ApplicationContextAware, ImportBeanDefinitionRegistrar, ResourceLoaderAware {
 
         private ApplicationContext applicationContext;
@@ -67,7 +67,7 @@ public class RetrofitAutoConfiguration implements InitializingBean {
 
 
         @Override
-        public void setResourceLoader(ResourceLoader resourceLoader) {
+        public void setResourceLoader(@NotNull ResourceLoader resourceLoader) {
             this.resourceLoader = resourceLoader;
         }
     }

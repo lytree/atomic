@@ -12,7 +12,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 import top.yang.net.spring.RetrofitClientFactoryBean;
-import top.yang.net.spring.RetrofitFactoryBean;
 
 public class ClassPathRetrofitClientScanner extends ClassPathBeanDefinitionScanner {
 
