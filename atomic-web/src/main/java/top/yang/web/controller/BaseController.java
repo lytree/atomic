@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.client.RestTemplate;
 import top.yang.spring.constants.GlobalsConstants;
 import top.yang.spring.constants.GlobalsConstants;
 

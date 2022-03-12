@@ -48,7 +48,6 @@
   </properties>
   <modules>
     <module>atomic-core</module>
-    <module>atomic-net</module>
     <module>atomic-crypto</module>
     <module>atomic-data</module>
     <module>atomic-email</module>
