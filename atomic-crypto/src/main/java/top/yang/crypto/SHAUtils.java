@@ -7,13 +7,13 @@ import org.bouncycastle.jcajce.provider.digest.SHA1;
 import org.bouncycastle.jcajce.provider.digest.SHA256;
 import org.bouncycastle.jcajce.provider.digest.SHA3;
 import org.bouncycastle.jcajce.provider.digest.SHA512;
-import top.yang.math.HexUtil;
+import top.yang.math.HexUtils;
 
 public class SHAUtils {
 
     public static String sha1(byte[] data) {
         try {
-            return HexUtil.encodeHexString(SHA1.Digest.getInstance("SHA1").digest(data));
+            return HexUtils.encodeHexString(SHA1.Digest.getInstance("SHA1").digest(data));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -34,7 +34,7 @@ public class SHAUtils {
 
     public static String sha3224(byte[] data) {
         try {
-            return HexUtil.encodeHexString(SHA3.Digest224.getInstance("SHA3").digest(data));
+            return HexUtils.encodeHexString(SHA3.Digest224.getInstance("SHA3").digest(data));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class SHAUtils {
 
     public static String sha3256(byte[] data) {
         try {
-            return HexUtil.encodeHexString(SHA3.Digest256.getInstance("SHA3").digest(data));
+            return HexUtils.encodeHexString(SHA3.Digest256.getInstance("SHA3").digest(data));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -76,7 +76,7 @@ public class SHAUtils {
 
     public static String sha3512(byte[] data) {
         try {
-            return HexUtil.encodeHexString(SHA3.Digest512.getInstance("SHA3").digest(data));
+            return HexUtils.encodeHexString(SHA3.Digest512.getInstance("SHA3").digest(data));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -97,7 +97,7 @@ public class SHAUtils {
 
     public static String sha256(byte[] data) {
         try {
-            return HexUtil.encodeHexString(SHA256.Digest.getInstance("SHA256").digest(data));
+            return HexUtils.encodeHexString(SHA256.Digest.getInstance("SHA256").digest(data));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -118,7 +118,7 @@ public class SHAUtils {
 
     public static String sha512(byte[] data) {
         try {
-            return HexUtil.encodeHexString(SHA512.Digest.getInstance("SHA512").digest(data));
+            return HexUtils.encodeHexString(SHA512.Digest.getInstance("SHA512").digest(data));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

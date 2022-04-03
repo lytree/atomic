@@ -1,6 +1,8 @@
 package top.yang.math;
 
 
+import top.yang.math.support.Number128;
+
 /**
  * Hash算法大全<br>
  * 推荐使用FNV1算法

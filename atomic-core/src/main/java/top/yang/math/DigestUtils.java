@@ -30,6 +30,7 @@ import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import top.yang.math.support.MessageDigestAlgorithms;
 import top.yang.string.StringUtils;
 
 
@@ -427,7 +428,7 @@ public class DigestUtils {
      * @since 1.7
      */
     public static String md2Hex(final byte[] data) {
-        return HexUtil.encodeHexString(md2(data));
+        return HexUtils.encodeHexString(md2(data));
     }
 
     /**
@@ -441,7 +442,7 @@ public class DigestUtils {
      * @since 1.7
      */
     public static String md2Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(md2(data));
+        return HexUtils.encodeHexString(md2(data));
     }
 
     /**
@@ -453,7 +454,7 @@ public class DigestUtils {
      * @since 1.7
      */
     public static String md2Hex(final String data) {
-        return HexUtil.encodeHexString(md2(data));
+        return HexUtils.encodeHexString(md2(data));
     }
 
     /**
@@ -500,7 +501,7 @@ public class DigestUtils {
      * @return MD5 digest as a hex string
      */
     public static String md5Hex(final byte[] data) {
-        return HexUtil.encodeHexString(md5(data));
+        return HexUtils.encodeHexString(md5(data));
     }
 
     /**
@@ -514,7 +515,7 @@ public class DigestUtils {
      * @since 1.4
      */
     public static String md5Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(md5(data));
+        return HexUtils.encodeHexString(md5(data));
     }
 
     /**
@@ -525,7 +526,7 @@ public class DigestUtils {
      * @return MD5 digest as a hex string
      */
     public static String md5Hex(final String data) {
-        return HexUtil.encodeHexString(md5(data));
+        return HexUtils.encodeHexString(md5(data));
     }
 
     /**
@@ -616,7 +617,7 @@ public class DigestUtils {
      * @since 1.7
      */
     public static String sha1Hex(final byte[] data) {
-        return HexUtil.encodeHexString(sha1(data));
+        return HexUtils.encodeHexString(sha1(data));
     }
 
     /**
@@ -630,7 +631,7 @@ public class DigestUtils {
      * @since 1.7
      */
     public static String sha1Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(sha1(data));
+        return HexUtils.encodeHexString(sha1(data));
     }
 
     /**
@@ -642,7 +643,7 @@ public class DigestUtils {
      * @since 1.7
      */
     public static String sha1Hex(final String data) {
-        return HexUtil.encodeHexString(sha1(data));
+        return HexUtils.encodeHexString(sha1(data));
     }
 
     /**
@@ -692,7 +693,7 @@ public class DigestUtils {
      * @since 1.4
      */
     public static String sha256Hex(final byte[] data) {
-        return HexUtil.encodeHexString(sha256(data));
+        return HexUtils.encodeHexString(sha256(data));
     }
 
     /**
@@ -706,7 +707,7 @@ public class DigestUtils {
      * @since 1.4
      */
     public static String sha256Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(sha256(data));
+        return HexUtils.encodeHexString(sha256(data));
     }
 
     /**
@@ -718,7 +719,7 @@ public class DigestUtils {
      * @since 1.4
      */
     public static String sha256Hex(final String data) {
-        return HexUtil.encodeHexString(sha256(data));
+        return HexUtils.encodeHexString(sha256(data));
     }
 
     /**
@@ -768,7 +769,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_224Hex(final byte[] data) {
-        return HexUtil.encodeHexString(sha3_224(data));
+        return HexUtils.encodeHexString(sha3_224(data));
     }
 
     /**
@@ -782,7 +783,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_224Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(sha3_224(data));
+        return HexUtils.encodeHexString(sha3_224(data));
     }
 
     /**
@@ -794,7 +795,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_224Hex(final String data) {
-        return HexUtil.encodeHexString(sha3_224(data));
+        return HexUtils.encodeHexString(sha3_224(data));
     }
 
     /**
@@ -844,7 +845,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_256Hex(final byte[] data) {
-        return HexUtil.encodeHexString(sha3_256(data));
+        return HexUtils.encodeHexString(sha3_256(data));
     }
 
     /**
@@ -858,7 +859,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_256Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(sha3_256(data));
+        return HexUtils.encodeHexString(sha3_256(data));
     }
 
     /**
@@ -870,7 +871,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_256Hex(final String data) {
-        return HexUtil.encodeHexString(sha3_256(data));
+        return HexUtils.encodeHexString(sha3_256(data));
     }
 
     /**
@@ -920,7 +921,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_384Hex(final byte[] data) {
-        return HexUtil.encodeHexString(sha3_384(data));
+        return HexUtils.encodeHexString(sha3_384(data));
     }
 
     /**
@@ -934,7 +935,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_384Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(sha3_384(data));
+        return HexUtils.encodeHexString(sha3_384(data));
     }
 
     /**
@@ -946,7 +947,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_384Hex(final String data) {
-        return HexUtil.encodeHexString(sha3_384(data));
+        return HexUtils.encodeHexString(sha3_384(data));
     }
 
     /**
@@ -996,7 +997,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_512Hex(final byte[] data) {
-        return HexUtil.encodeHexString(sha3_512(data));
+        return HexUtils.encodeHexString(sha3_512(data));
     }
 
     /**
@@ -1010,7 +1011,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_512Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(sha3_512(data));
+        return HexUtils.encodeHexString(sha3_512(data));
     }
 
     /**
@@ -1022,7 +1023,7 @@ public class DigestUtils {
      * @since 1.12
      */
     public static String sha3_512Hex(final String data) {
-        return HexUtil.encodeHexString(sha3_512(data));
+        return HexUtils.encodeHexString(sha3_512(data));
     }
 
     /**
@@ -1072,7 +1073,7 @@ public class DigestUtils {
      * @since 1.4
      */
     public static String sha384Hex(final byte[] data) {
-        return HexUtil.encodeHexString(sha384(data));
+        return HexUtils.encodeHexString(sha384(data));
     }
 
     /**
@@ -1086,7 +1087,7 @@ public class DigestUtils {
      * @since 1.4
      */
     public static String sha384Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(sha384(data));
+        return HexUtils.encodeHexString(sha384(data));
     }
 
     /**
@@ -1098,7 +1099,7 @@ public class DigestUtils {
      * @since 1.4
      */
     public static String sha384Hex(final String data) {
-        return HexUtil.encodeHexString(sha384(data));
+        return HexUtils.encodeHexString(sha384(data));
     }
 
     /**
@@ -1186,7 +1187,7 @@ public class DigestUtils {
      * @since 1.14
      */
     public static String sha512_224Hex(final byte[] data) {
-        return HexUtil.encodeHexString(sha512_224(data));
+        return HexUtils.encodeHexString(sha512_224(data));
     }
 
     /**
@@ -1200,7 +1201,7 @@ public class DigestUtils {
      * @since 1.14
      */
     public static String sha512_224Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(sha512_224(data));
+        return HexUtils.encodeHexString(sha512_224(data));
     }
 
     /**
@@ -1212,7 +1213,7 @@ public class DigestUtils {
      * @since 1.14
      */
     public static String sha512_224Hex(final String data) {
-        return HexUtil.encodeHexString(sha512_224(data));
+        return HexUtils.encodeHexString(sha512_224(data));
     }
 
     /**
@@ -1262,7 +1263,7 @@ public class DigestUtils {
      * @since 1.14
      */
     public static String sha512_256Hex(final byte[] data) {
-        return HexUtil.encodeHexString(sha512_256(data));
+        return HexUtils.encodeHexString(sha512_256(data));
     }
 
     /**
@@ -1276,7 +1277,7 @@ public class DigestUtils {
      * @since 1.14
      */
     public static String sha512_256Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(sha512_256(data));
+        return HexUtils.encodeHexString(sha512_256(data));
     }
 
     /**
@@ -1288,7 +1289,7 @@ public class DigestUtils {
      * @since 1.14
      */
     public static String sha512_256Hex(final String data) {
-        return HexUtil.encodeHexString(sha512_256(data));
+        return HexUtils.encodeHexString(sha512_256(data));
     }
 
     /**
@@ -1300,7 +1301,7 @@ public class DigestUtils {
      * @since 1.4
      */
     public static String sha512Hex(final byte[] data) {
-        return HexUtil.encodeHexString(sha512(data));
+        return HexUtils.encodeHexString(sha512(data));
     }
 
     /**
@@ -1314,7 +1315,7 @@ public class DigestUtils {
      * @since 1.4
      */
     public static String sha512Hex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(sha512(data));
+        return HexUtils.encodeHexString(sha512(data));
     }
 
     /**
@@ -1326,7 +1327,7 @@ public class DigestUtils {
      * @since 1.4
      */
     public static String sha512Hex(final String data) {
-        return HexUtil.encodeHexString(sha512(data));
+        return HexUtils.encodeHexString(sha512(data));
     }
 
     /**
@@ -1652,7 +1653,7 @@ public class DigestUtils {
      * @since 1.11
      */
     public String digestAsHex(final byte[] data) {
-        return HexUtil.encodeHexString(digest(data));
+        return HexUtils.encodeHexString(digest(data));
     }
 
     /**
@@ -1665,7 +1666,7 @@ public class DigestUtils {
      * @since 1.11
      */
     public String digestAsHex(final ByteBuffer data) {
-        return HexUtil.encodeHexString(digest(data));
+        return HexUtils.encodeHexString(digest(data));
     }
 
     /**
@@ -1679,7 +1680,7 @@ public class DigestUtils {
      * @since 1.11
      */
     public String digestAsHex(final File data) throws IOException {
-        return HexUtil.encodeHexString(digest(data));
+        return HexUtils.encodeHexString(digest(data));
     }
 
     /**
@@ -1693,7 +1694,7 @@ public class DigestUtils {
      * @since 1.11
      */
     public String digestAsHex(final InputStream data) throws IOException {
-        return HexUtil.encodeHexString(digest(data));
+        return HexUtils.encodeHexString(digest(data));
     }
 
     /**
@@ -1709,7 +1710,7 @@ public class DigestUtils {
      * @since 1.11
      */
     public String digestAsHex(final Path data, final OpenOption... options) throws IOException {
-        return HexUtil.encodeHexString(digest(data, options));
+        return HexUtils.encodeHexString(digest(data, options));
     }
 
     /**
@@ -1721,7 +1722,7 @@ public class DigestUtils {
      * @since 1.11
      */
     public String digestAsHex(final String data) {
-        return HexUtil.encodeHexString(digest(data));
+        return HexUtils.encodeHexString(digest(data));
     }
 
     /**

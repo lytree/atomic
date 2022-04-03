@@ -9,8 +9,8 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
-import top.yang.math.HexUtil;
-import top.yang.string.CharsetsUtils;
+import top.yang.math.HexUtils;
+import top.yang.string.CharsetUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -51,7 +51,7 @@ public interface SymmetricEncryptor {
      * @return 加密后的Hex
      */
     default String encryptHex(byte[] data) {
-        return HexUtil.encodeHexString(encrypt(data));
+        return HexUtils.encodeHexString(encrypt(data));
     }
 
     /**
@@ -72,7 +72,7 @@ public interface SymmetricEncryptor {
      * @return 加密后的bytes
      */
     default byte[] encrypt(String data, String charset) {
-        return encrypt(StringUtils.getBytes(data, CharsetsUtils.toCharset(charset)));
+        return encrypt(StringUtils.getBytes(data, CharsetUtils.toCharset(charset)));
     }
 
     /**
@@ -94,7 +94,7 @@ public interface SymmetricEncryptor {
      * @return 加密后的Hex
      */
     default String encryptHex(String data, String charset) {
-        return HexUtil.encodeHexString(encrypt(data, charset));
+        return HexUtils.encodeHexString(encrypt(data, charset));
     }
 
     /**
@@ -105,7 +105,7 @@ public interface SymmetricEncryptor {
      * @return 加密后的Hex
      */
     default String encryptHex(String data, Charset charset) {
-        return HexUtil.encodeHexString(encrypt(data, charset));
+        return HexUtils.encodeHexString(encrypt(data, charset));
     }
 
     /**
@@ -138,7 +138,7 @@ public interface SymmetricEncryptor {
      * @return 加密后的bytes
      */
     default byte[] encrypt(String data) {
-        return encrypt(StringUtils.getBytes(data, CharsetsUtils.CHARSET_UTF_8));
+        return encrypt(StringUtils.getBytes(data, CharsetUtils.CHARSET_UTF_8));
     }
 
     /**
@@ -148,7 +148,7 @@ public interface SymmetricEncryptor {
      * @return 加密后的Hex
      */
     default String encryptHex(String data) {
-        return HexUtil.encodeHexString(encrypt(data));
+        return HexUtils.encodeHexString(encrypt(data));
     }
 
     /**
@@ -179,7 +179,7 @@ public interface SymmetricEncryptor {
      * @return 加密后的Hex
      */
     default String encryptHex(InputStream data) throws IOException {
-        return HexUtil.encodeHexString(encrypt(data));
+        return HexUtils.encodeHexString(encrypt(data));
     }
 
     /**

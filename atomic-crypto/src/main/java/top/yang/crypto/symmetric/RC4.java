@@ -10,8 +10,8 @@ import java.nio.charset.Charset;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.WriteLock;
-import top.yang.math.HexUtil;
-import top.yang.string.CharsetsUtils;
+import top.yang.math.HexUtils;
+import top.yang.string.CharsetUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -66,7 +66,7 @@ public class RC4 implements Serializable {
      * @throws CryptoException key长度小于5或者大于255抛出此异常
      */
     public byte[] encrypt(String message) throws CryptoException {
-        return encrypt(message, CharsetsUtils.CHARSET_UTF_8);
+        return encrypt(message, CharsetUtils.CHARSET_UTF_8);
     }
 
     /**
@@ -77,7 +77,7 @@ public class RC4 implements Serializable {
      * @since 4.5.12
      */
     public String encryptHex(byte[] data) {
-        return HexUtil.encodeHexString(crypt(data));
+        return HexUtils.encodeHexString(crypt(data));
     }
 
     /**
@@ -100,7 +100,7 @@ public class RC4 implements Serializable {
      * @since 4.5.12
      */
     public String encryptHex(String data, Charset charset) {
-        return HexUtil.encodeHexString(encrypt(data, charset));
+        return HexUtils.encodeHexString(encrypt(data, charset));
     }
 
     /**
@@ -111,7 +111,7 @@ public class RC4 implements Serializable {
      * @since 5.4.4
      */
     public String encryptHex(String data) {
-        return HexUtil.encodeHexString(encrypt(data));
+        return HexUtils.encodeHexString(encrypt(data));
     }
 
     /**
@@ -158,7 +158,7 @@ public class RC4 implements Serializable {
      * @throws CryptoException key长度小于5或者大于255抛出此异常
      */
     public String decrypt(byte[] message) throws CryptoException {
-        return decrypt(message, CharsetsUtils.CHARSET_UTF_8);
+        return decrypt(message, CharsetUtils.CHARSET_UTF_8);
     }
 
     /**

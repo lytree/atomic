@@ -6,7 +6,7 @@ import javax.crypto.SecretKey;
 import java.io.File;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import top.yang.string.CharsetsUtils;
+import top.yang.string.CharsetUtils;
 
 /**
  * 摘要算法工具类
@@ -45,7 +45,7 @@ public class DigestUtil {
      * @return MD5摘要
      */
     public static byte[] md5(String data) {
-        return md5(data, CharsetsUtils.UTF_8);
+        return md5(data, CharsetUtils.UTF_8);
     }
 
     /**
@@ -108,7 +108,7 @@ public class DigestUtil {
      * @return MD5摘要的16进制表示
      */
     public static String md5Hex(String data) {
-        return md5Hex(data, CharsetsUtils.UTF_8);
+        return md5Hex(data, CharsetUtils.UTF_8);
     }
 
     /**
@@ -164,7 +164,7 @@ public class DigestUtil {
      * @since 4.6.0
      */
     public static String md5Hex16(String data) {
-        return md5Hex16(data, CharsetsUtils.CHARSET_UTF_8);
+        return md5Hex16(data, CharsetUtils.CHARSET_UTF_8);
     }
 
     /**
@@ -230,7 +230,7 @@ public class DigestUtil {
      * @return MD5摘要
      */
     public static byte[] sha1(String data) {
-        return sha1(data, CharsetsUtils.UTF_8);
+        return sha1(data, CharsetUtils.UTF_8);
     }
 
     /**
@@ -281,7 +281,7 @@ public class DigestUtil {
      * @return SHA-1摘要的16进制表示
      */
     public static String sha1Hex(String data) {
-        return sha1Hex(data, CharsetsUtils.UTF_8);
+        return sha1Hex(data, CharsetUtils.UTF_8);
     }
 
     /**
@@ -337,7 +337,7 @@ public class DigestUtil {
      * @since 3.0.8
      */
     public static byte[] sha256(String data) {
-        return sha256(data, CharsetsUtils.UTF_8);
+        return sha256(data, CharsetUtils.UTF_8);
     }
 
     /**
@@ -393,7 +393,7 @@ public class DigestUtil {
      * @since 3.0.8
      */
     public static String sha256Hex(String data) {
-        return sha256Hex(data, CharsetsUtils.UTF_8);
+        return sha256Hex(data, CharsetUtils.UTF_8);
     }
 
     /**

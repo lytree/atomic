@@ -24,7 +24,7 @@ import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import top.yang.lang.Assert;
-import top.yang.math.HexUtil;
+import top.yang.math.HexUtils;
 
 /**
  * 国密SM2非对称算法实现，基于BC库<br> SM2算法只支持公钥加密，私钥解密<br> 参考：https://blog.csdn.net/pridas/article/details/86118774
@@ -318,7 +318,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * @return 签名
      */
     public String signHex(String dataHex, String idHex) {
-        return HexUtil.encodeHexString(sign(HexUtil.decodeHex(dataHex), HexUtil.decodeHex(idHex)));
+        return HexUtils.encodeHexString(sign(HexUtils.decodeHex(dataHex), HexUtils.decodeHex(idHex)));
     }
 
     /**
@@ -379,7 +379,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * @since 5.2.0
      */
     public boolean verifyHex(String dataHex, String signHex, String idHex) {
-        return verify(HexUtil.decodeHex(dataHex), HexUtil.decodeHex(signHex), HexUtil.decodeHex(idHex));
+        return verify(HexUtils.decodeHex(dataHex), HexUtils.decodeHex(signHex), HexUtils.decodeHex(idHex));
     }
 
     /**

@@ -25,6 +25,7 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import top.yang.math.support.MessageDigestAlgorithms;
 
 /**
  * SHA2-based Unix crypt implementation.

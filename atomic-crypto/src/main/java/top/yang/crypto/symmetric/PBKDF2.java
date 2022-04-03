@@ -5,7 +5,7 @@ import top.yang.crypto.KeyUtil;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.PBEKeySpec;
-import top.yang.math.HexUtil;
+import top.yang.math.HexUtils;
 
 /**
  * PBKDF2应用一个伪随机函数以导出密钥，PBKDF2简单而言就是将salted hash进行多次重复计算。 参考：https://blog.csdn.net/huoji555/article/details/83659687
@@ -61,6 +61,6 @@ public class PBKDF2 {
      * @return 加密后的密码
      */
     public String encryptHex(char[] password, byte[] salt) {
-        return HexUtil.encodeHexString(encrypt(password, salt));
+        return HexUtils.encodeHexString(encrypt(password, salt));
     }
 }

@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
-import top.yang.math.HexUtil;
+import top.yang.math.HexUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -41,7 +41,7 @@ public interface AsymmetricEncryptor {
      * @return Hex字符串
      */
     default String encryptHex(byte[] data, KeyType keyType) {
-        return HexUtil.encodeHexString(encrypt(data, keyType));
+        return HexUtils.encodeHexString(encrypt(data, keyType));
     }
 
     /**
@@ -100,7 +100,7 @@ public interface AsymmetricEncryptor {
      * @since 4.0.1
      */
     default String encryptHex(String data, KeyType keyType) {
-        return HexUtil.encodeHexString(encrypt(data, keyType));
+        return HexUtils.encodeHexString(encrypt(data, keyType));
     }
 
     /**
@@ -113,7 +113,7 @@ public interface AsymmetricEncryptor {
      * @since 4.0.1
      */
     default String encryptHex(String data, Charset charset, KeyType keyType) {
-        return HexUtil.encodeHexString(encrypt(data, charset, keyType));
+        return HexUtils.encodeHexString(encrypt(data, charset, keyType));
     }
 
     /**
@@ -162,7 +162,7 @@ public interface AsymmetricEncryptor {
      * @since 4.0.1
      */
     default String encryptHex(InputStream data, KeyType keyType) throws IOException {
-        return HexUtil.encodeHexString(encrypt(data, keyType));
+        return HexUtils.encodeHexString(encrypt(data, keyType));
     }
 
     /**

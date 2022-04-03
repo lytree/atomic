@@ -24,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.ObjectUtils;
+import top.yang.Filter;
 import top.yang.collections.ArrayUtils;
 import top.yang.text.StringFormatter;
 
@@ -119,7 +120,6 @@ import top.yang.text.StringFormatter;
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
 
-
     public static final String US_ASCII = "US-ASCII";
 
 
@@ -136,18 +136,18 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * ISO-8859-1
      */
-    public static final String ISO_8859_1 = CharsetsUtils.ISO_8859_1;
+    public static final String ISO_8859_1 = CharsetUtils.ISO_8859_1;
     /**
      * UTF-8
      */
-    public static final String UTF_8 = CharsetsUtils.UTF_8;
+    public static final String UTF_8 = CharsetUtils.UTF_8;
 
 
     public static final String DEFAULT_ENCODING = UTF_8;
     /**
      * GBK
      */
-    public static final String GBK = CharsetsUtils.GBK;
+    public static final String GBK = CharsetUtils.GBK;
     /**
      * 字符串常量：制表符 {@code "\t"}
      */
@@ -584,7 +584,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 字符串
      */
     public static String toString(Object obj) {
-        return toString(obj, CharsetsUtils.CHARSET_UTF_8);
+        return toString(obj, CharsetUtils.CHARSET_UTF_8);
     }
 
 
@@ -897,4 +897,41 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     public static String newStringUtf8(final byte[] bytes) {
         return newString(bytes, StandardCharsets.UTF_8);
     }
+
+    /**
+     * 清理空白字符
+     *
+     * @param str 被清理的字符串
+     * @return 清理后的字符串
+     */
+    public static String cleanBlank(String str) {
+        return filter(str, c -> false == CharUtils.isBlankChar(c));
+    }
+    // ------------------------------------------------------------------------ filter
+
+    /**
+     * 过滤字符串
+     *
+     * @param str    字符串
+     * @param filter 过滤器，{@link Filter#accept(Object)}返回为{@code true}的保留字符
+     * @return 过滤后的字符串
+     * @since 5.4.0
+     */
+    public static String filter(CharSequence str, final Filter<Character> filter) {
+        if (str == null || filter == null) {
+            return null;
+        }
+
+        int len = str.length();
+        final StringBuilder sb = new StringBuilder(len);
+        char c;
+        for (int i = 0; i < len; i++) {
+            c = str.charAt(i);
+            if (filter.accept(c)) {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
 }

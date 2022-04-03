@@ -1,9 +1,7 @@
 package top.yang.dubbo.pojo;
 
 
-import top.yang.domain.dto.BaseDto;
-
-public class DubboRequest extends BaseDto {
+public class DubboRequest  {
 
   private String interfaceClass;
   private String methodName;

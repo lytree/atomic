@@ -7,7 +7,7 @@ import java.nio.charset.Charset;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import top.yang.crypto.SecureUtil;
-import top.yang.string.CharsetsUtils;
+import top.yang.string.CharsetUtils;
 
 /**
  * 非对称解密器接口，提供：
@@ -78,7 +78,7 @@ public interface AsymmetricDecryptor {
      * @since 4.5.2
      */
     default String decryptStr(String data, KeyType keyType) {
-        return decryptStr(data, keyType, CharsetsUtils.CHARSET_UTF_8);
+        return decryptStr(data, keyType, CharsetUtils.CHARSET_UTF_8);
     }
 
 

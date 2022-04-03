@@ -2,7 +2,7 @@ package top.yang.math;
 
 
 import top.yang.lang.RandomUtils;
-import top.yang.validator.RegExUtils;
+import top.yang.lang.RegExUtils;
 import top.yang.time.DateUtils;
 
 import java.net.NetworkInterface;

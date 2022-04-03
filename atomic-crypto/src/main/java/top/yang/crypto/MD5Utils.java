@@ -7,7 +7,7 @@ import java.util.Objects;
 import org.bouncycastle.jcajce.provider.digest.MD2;
 import org.bouncycastle.jcajce.provider.digest.MD4;
 import org.bouncycastle.jcajce.provider.digest.MD5;
-import top.yang.math.HexUtil;
+import top.yang.math.HexUtils;
 
 public class MD5Utils {
 
@@ -21,7 +21,7 @@ public class MD5Utils {
   public static String md5(byte[] data) {
     try {
       byte[] bytes = MD5.Digest.getInstance("MD5").digest(data);
-      return HexUtil.encodeHexString(bytes);
+      return HexUtils.encodeHexString(bytes);
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
@@ -61,7 +61,7 @@ public class MD5Utils {
   public static String md4(byte[] data) {
     try {
       byte[] bytes = MD4.Digest.getInstance("MD4").digest(data);
-      return HexUtil.encodeHexString(bytes);
+      return HexUtils.encodeHexString(bytes);
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }
@@ -101,7 +101,7 @@ public class MD5Utils {
   public static String md2(byte[] data) {
     try {
       byte[] bytes = MD2.Digest.getInstance("MD2").digest(data);
-      return HexUtil.encodeHexString(bytes);
+      return HexUtils.encodeHexString(bytes);
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     }

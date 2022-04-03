@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import org.apache.commons.io.IOUtils;
-import top.yang.string.CharsetsUtils;
+import top.yang.string.CharsetUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -62,7 +62,7 @@ public interface SymmetricDecryptor {
      * @return 解密后的String
      */
     default String decryptStr(byte[] bytes) {
-        return decryptStr(bytes, CharsetsUtils.CHARSET_UTF_8);
+        return decryptStr(bytes, CharsetUtils.CHARSET_UTF_8);
     }
 
     /**
@@ -93,7 +93,7 @@ public interface SymmetricDecryptor {
      * @return 解密后的String
      */
     default String decryptStr(String data) {
-        return decryptStr(data, CharsetsUtils.CHARSET_UTF_8);
+        return decryptStr(data, CharsetUtils.CHARSET_UTF_8);
     }
 
     /**
@@ -125,6 +125,6 @@ public interface SymmetricDecryptor {
      * @return 解密后的String
      */
     default String decryptStr(InputStream data) throws IOException {
-        return decryptStr(data, CharsetsUtils.CHARSET_UTF_8);
+        return decryptStr(data, CharsetUtils.CHARSET_UTF_8);
     }
 }

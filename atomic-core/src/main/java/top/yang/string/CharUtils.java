@@ -22,4 +22,139 @@ package top.yang.string;
  */
 public class CharUtils extends org.apache.commons.lang3.CharUtils {
 
+    /**
+     * 字符常量：空格符 {@code ' '}
+     */
+    public final static char SPACE = ' ';
+    /**
+     * 字符常量：制表符 {@code '\t'}
+     */
+    public final static char TAB = '	';
+    /**
+     * 字符常量：点 {@code '.'}
+     */
+    public final static char DOT = '.';
+    /**
+     * 字符常量：斜杠 {@code '/'}
+     */
+    public final static char SLASH = '/';
+    /**
+     * 字符常量：反斜杠 {@code '\\'}
+     */
+    public final static char BACKSLASH = '\\';
+    /**
+     * 字符常量：回车符 {@code '\r'}
+     */
+    public final static char CR = '\r';
+    /**
+     * 字符常量：换行符 {@code '\n'}
+     */
+    public final static char LF = '\n';
+    /**
+     * 字符常量：减号（连接符） {@code '-'}
+     */
+    public final static char DASHED = '-';
+    /**
+     * 字符常量：下划线 {@code '_'}
+     */
+    public final static char UNDERLINE = '_';
+    /**
+     * 字符常量：逗号 {@code ','}
+     */
+    public final static char COMMA = ',';
+    /**
+     * 字符常量：花括号（左） <code>'{'</code>
+     */
+    public final static char DELIM_START = '{';
+    /**
+     * 字符常量：花括号（右） <code>'}'</code>
+     */
+    public final static char DELIM_END = '}';
+    /**
+     * 字符常量：中括号（左） {@code '['}
+     */
+    public final static char BRACKET_START = '[';
+    /**
+     * 字符常量：中括号（右） {@code ']'}
+     */
+    public final static char BRACKET_END = ']';
+    /**
+     * 字符常量：双引号 {@code '"'}
+     */
+    public final static char DOUBLE_QUOTES = '"';
+    /**
+     * 字符常量：单引号 {@code '\''}
+     */
+    public final static char SINGLE_QUOTE = '\'';
+    /**
+     * 字符常量：与 {@code '&'}
+     */
+    public final static char AMP = '&';
+    /**
+     * 字符常量：冒号 {@code ':'}
+     */
+    public final static char COLON = ':';
+    /**
+     * 字符常量：艾特 {@code '@'}
+     */
+    public final static char AT = '@';
+
+    /**
+     * 获取给定字符的16进制数值
+     *
+     * @param b 字符
+     * @return 16进制字符
+     * @since 5.3.1
+     */
+    public static int digit16(int b) {
+        return Character.digit(b, 16);
+    }
+
+    /**
+     * 是否空白符<br> 空白符包括空格、制表符、全角空格和不间断空格<br>
+     *
+     * @param c 字符
+     * @return 是否空白符
+     * @see Character#isWhitespace(int)
+     * @see Character#isSpaceChar(int)
+     * @since 4.0.10
+     */
+    public static boolean isBlankChar(char c) {
+        return isBlankChar((int) c);
+    }
+
+    /**
+     * 是否空白符<br> 空白符包括空格、制表符、全角空格和不间断空格<br>
+     *
+     * @param c 字符
+     * @return 是否空白符
+     * @see Character#isWhitespace(int)
+     * @see Character#isSpaceChar(int)
+     * @since 4.0.10
+     */
+    public static boolean isBlankChar(int c) {
+        return Character.isWhitespace(c)
+                || Character.isSpaceChar(c)
+                || c == '\ufeff'
+                || c == '\u202a'
+                || c == '\u0000';
+    }
+
+    /**
+     * 判断是否为emoji表情符<br>
+     *
+     * @param c 字符
+     * @return 是否为emoji
+     * @since 4.0.8
+     */
+    public static boolean isEmoji(char c) {
+        //noinspection ConstantConditions
+        return !((c == 0x0) || //
+                (c == 0x9) || //
+                (c == 0xA) || //
+                (c == 0xD) || //
+                ((c >= 0x20) && (c <= 0xD7FF)) || //
+                ((c >= 0xE000) && (c <= 0xFFFD)) || //
+                ((c >= 0x100000) && (c <= 0x10FFFF)));
+    }
 }

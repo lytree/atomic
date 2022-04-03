@@ -28,7 +28,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import top.yang.reflect.ObjectUtils;
-import top.yang.string.Convert;
 import top.yang.tree.Tree;
 
 
@@ -1523,7 +1522,7 @@ public class MapUtils {
                     } else {
                         strBuilder.append(separator);
                     }
-                    strBuilder.append(Convert.toStr(entry.getKey())).append(keyValueSeparator).append(Convert.toStr(entry.getValue()));
+                    strBuilder.append(entry.getKey().toString()).append(keyValueSeparator).append(entry.getValue().toString());
                 }
             }
         }
@@ -1534,6 +1533,19 @@ public class MapUtils {
             }
         }
         return strBuilder.toString();
+    }
+
+    /**
+     * 将对应Map转换为不可修改的Map
+     *
+     * @param map Map
+     * @param <K> 键类型
+     * @param <V> 值类型
+     * @return 不修改Map
+     * @since 5.2.6
+     */
+    public static <K, V> Map<K, V> unmodifiable(Map<K, V> map) {
+        return Collections.unmodifiableMap(map);
     }
 
     /**

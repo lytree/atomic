@@ -2,7 +2,6 @@ package top.yang.crypto;
 
 
 import java.io.IOException;
-import javax.xml.validation.Validator;
 import org.apache.commons.codec.binary.Base64;
 import top.yang.collections.MapUtils;
 import top.yang.crypto.asymmetric.AsymmetricAlgorithm;
@@ -43,7 +42,7 @@ import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.KeySpec;
 import java.util.Map;
 import org.apache.commons.io.FileUtils;
-import top.yang.math.HexUtil;
+import top.yang.math.HexUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -910,7 +909,7 @@ public class SecureUtil {
      * @since 4.3.3
      */
     public static byte[] decode(String key) {
-        return HexUtil.isHexNumber(key) ? HexUtil.decodeHex(key) : new Base64().decode(key);
+        return HexUtils.isHexNumber(key) ? HexUtils.decodeHex(key) : new Base64().decode(key);
     }
 
     /**

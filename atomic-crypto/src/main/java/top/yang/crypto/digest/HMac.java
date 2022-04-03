@@ -1,10 +1,8 @@
 package top.yang.crypto.digest;
 
 
-import ch.qos.logback.core.util.FileUtil;
 import java.io.IOException;
 import org.apache.commons.codec.binary.Base64;
-import top.yang.crypto.CryptoException;
 import top.yang.crypto.digest.mac.MacEngine;
 import top.yang.crypto.digest.mac.MacEngineFactory;
 
@@ -19,8 +17,8 @@ import java.security.MessageDigest;
 import java.security.spec.AlgorithmParameterSpec;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import top.yang.math.HexUtil;
-import top.yang.string.CharsetsUtils;
+import top.yang.math.HexUtils;
+import top.yang.string.CharsetUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -140,7 +138,7 @@ public class HMac implements Serializable {
      * @return 摘要
      */
     public byte[] digest(String data) {
-        return digest(data, CharsetsUtils.CHARSET_UTF_8);
+        return digest(data, CharsetUtils.CHARSET_UTF_8);
     }
 
     /**
@@ -151,7 +149,7 @@ public class HMac implements Serializable {
      * @return 摘要
      */
     public String digestBase64(String data, boolean isUrlSafe) {
-        return digestBase64(data, CharsetsUtils.CHARSET_UTF_8, isUrlSafe);
+        return digestBase64(data, CharsetUtils.CHARSET_UTF_8, isUrlSafe);
     }
 
     /**
@@ -174,7 +172,7 @@ public class HMac implements Serializable {
      * @return 摘要
      */
     public String digestHex(String data, Charset charset) {
-        return HexUtil.encodeHexString(digest(data, charset));
+        return HexUtils.encodeHexString(digest(data, charset));
     }
 
     /**
@@ -184,7 +182,7 @@ public class HMac implements Serializable {
      * @return 摘要
      */
     public String digestHex(String data) {
-        return digestHex(data, CharsetsUtils.CHARSET_UTF_8);
+        return digestHex(data, CharsetUtils.CHARSET_UTF_8);
     }
 
     /**
@@ -212,7 +210,7 @@ public class HMac implements Serializable {
      * @return 摘要
      */
     public String digestHex(File file) throws IOException {
-        return HexUtil.encodeHexString(digest(file));
+        return HexUtils.encodeHexString(digest(file));
     }
 
     /**
@@ -232,7 +230,7 @@ public class HMac implements Serializable {
      * @return 摘要
      */
     public String digestHex(byte[] data) {
-        return HexUtil.encodeHexString(digest(data));
+        return HexUtils.encodeHexString(digest(data));
     }
 
     /**
@@ -252,7 +250,7 @@ public class HMac implements Serializable {
      * @return 摘要
      */
     public String digestHex(InputStream data) {
-        return HexUtil.encodeHexString(digest(data));
+        return HexUtils.encodeHexString(digest(data));
     }
 
     /**
@@ -274,7 +272,7 @@ public class HMac implements Serializable {
      * @return 摘要
      */
     public String digestHex(InputStream data, int bufferLength) {
-        return HexUtil.encodeHexString(digest(data, bufferLength));
+        return HexUtils.encodeHexString(digest(data, bufferLength));
     }
 
     /**

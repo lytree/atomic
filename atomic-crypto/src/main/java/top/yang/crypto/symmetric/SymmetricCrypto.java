@@ -28,7 +28,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.apache.commons.io.IOUtils;
 import top.yang.lang.Assert;
 import top.yang.lang.RandomUtils;
-import top.yang.math.HexUtil;
+import top.yang.math.HexUtils;
 import top.yang.string.StringUtils;
 
 /**
@@ -259,7 +259,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      * @since 5.6.8
      */
     public String updateHex(byte[] data) {
-        return HexUtil.encodeHexString(update(data));
+        return HexUtils.encodeHexString(update(data));
     }
 
     // --------------------------------------------------------------------------------- Encrypt
@@ -424,7 +424,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
             final int remainLength = length % blockSize;
             if (remainLength > 0) {
                 // 新长度为blockSize的整数倍，多余部分填充0
-                return ArrayUtils.resize(data, length + blockSize - remainLength);
+                return (byte[]) ArrayUtils.resize(data, length + blockSize - remainLength);
             }
         }
         return data;
@@ -451,7 +451,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
                 while (i >= 0 && 0 == data[i]) {
                     i--;
                 }
-                return ArrayUtils.resize(data, i + 1);
+                return (byte[]) ArrayUtils.resize(data, i + 1);
             }
         }
         return data;

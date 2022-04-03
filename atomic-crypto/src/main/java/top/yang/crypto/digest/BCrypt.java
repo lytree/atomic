@@ -2,7 +2,7 @@ package top.yang.crypto.digest;
 
 
 import java.security.SecureRandom;
-import top.yang.string.CharsetsUtils;
+import top.yang.string.CharsetUtils;
 
 /**
  * BCrypt加密算法实现。由它加密的文件可在所有支持的操作系统和处理器上进行转移。它的口令必须是8至56个字符，并将在内部被转化为448位的密钥。
@@ -519,7 +519,7 @@ public class BCrypt {
         rounds = Integer.parseInt(salt.substring(off, off + 2));
 
         real_salt = salt.substring(off + 3, off + 25);
-        byte[] passwordb = (password + (minor >= 'a' ? "\000" : "")).getBytes(CharsetsUtils.CHARSET_UTF_8);
+        byte[] passwordb = (password + (minor >= 'a' ? "\000" : "")).getBytes(CharsetUtils.CHARSET_UTF_8);
         saltb = decodeBase64(real_salt, BCRYPT_SALT_LEN);
 
         bcrypt = new BCrypt();
@@ -606,8 +606,8 @@ public class BCrypt {
             // 生成密文时错误直接返回false issue#1377@Github
             return false;
         }
-        hashed_bytes = hashed.getBytes(CharsetsUtils.CHARSET_UTF_8);
-        try_bytes = try_pw.getBytes(CharsetsUtils.CHARSET_UTF_8);
+        hashed_bytes = hashed.getBytes(CharsetUtils.CHARSET_UTF_8);
+        try_bytes = try_pw.getBytes(CharsetUtils.CHARSET_UTF_8);
         if (hashed_bytes.length != try_bytes.length) {
             return false;
         }

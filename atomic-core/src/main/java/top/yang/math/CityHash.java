@@ -1,6 +1,7 @@
 package top.yang.math;
 
 import java.util.Arrays;
+import top.yang.math.support.Number128;
 
 /**
  * Google发布的Hash计算算法：CityHash64 与 CityHash128。<br>
