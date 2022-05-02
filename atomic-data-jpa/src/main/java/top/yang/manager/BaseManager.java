@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Streamable;
 import top.yang.domain.pojo.BaseBean;
-import top.yang.repository.BaseJdbcRepository;
+import top.yang.repository.BaseJpaRepository;
 
-public abstract class BaseManager<R extends BaseJdbcRepository, T extends BaseBean, ID extends Serializable> {
+public abstract class BaseManager<R extends BaseJpaRepository, T extends BaseBean, ID extends Serializable> {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
