@@ -24,7 +24,7 @@ public @interface ComplexCondition {
      * @return
      * @see ComplexConditionSign
      */
-    String sign() default "EQ";
+    ComplexConditionSign sign() default ComplexConditionSign.EQ;
 
 
 }

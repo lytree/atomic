@@ -9,14 +9,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-/**
- * @className: Ignore
- * @description: 复杂查询条件请求对象忽略字段
- * @author xiangfeng@biyouxinli.com.cn
- * @date 2018/8/9
-*/
 public @interface Ignore {
-
 
 
 }

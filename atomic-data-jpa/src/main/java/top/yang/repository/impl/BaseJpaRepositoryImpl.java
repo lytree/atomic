@@ -3,8 +3,6 @@ package top.yang.repository.impl;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.sql.Timestamp;
-import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -36,20 +33,17 @@ import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.util.StringUtils;
 import top.yang.annotations.ComplexCondition;
-import top.yang.annotations.ComplexConditionSign;
-import top.yang.annotations.Ignore;
 import top.yang.annotations.NullHandler;
 import top.yang.annotations.OrderBy;
 import top.yang.annotations.OrderGroup;
-import top.yang.exception.ExceptionUtils;
 import top.yang.exceptions.UnknownComplexConditionClassException;
-import top.yang.exceptions.UnknownComplexConditionSignException;
 import top.yang.model.query.support.BaseQuery;
 import top.yang.reflect.FieldUtils;
 import top.yang.repository.BaseJpaRepository;
 import top.yang.spring.exception.PojoInstanceFailException;
-import top.yang.time.TemporalAccessorUtil;
 
 
 public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAIN, ID>
@@ -172,14 +166,8 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
     @Override
     public Page<DOMAIN> findByCondition(BaseQuery query, Pageable pageable) {
 
-//        ValidatorWapper.from(page, "page").isNotNull().numerical().min(0);
-//        ValidatorWapper.from(pageSize, "pageSize").isNotNull().numerical().min(0);
-
-        // 将空字符串转换成null
-        convertEmptyStringToNull(query);
-
         List<Sort.Order> orders = buildOrder(query);
-
+        pageable.getSortOr(Sort.by(orders));
         DOMAIN queryParams = generatePojo(this.pojoClass);
 
         BeanUtils.copyProperties(queryParams, query);
@@ -194,9 +182,6 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
 
         DOMAIN queryParams = generatePojo(this.pojoClass);
 
-        // 将空字符串转换成null
-        convertEmptyStringToNull(query);
-
         BeanUtils.copyProperties(queryParams, query);
 
         Example<DOMAIN> example = Example.of(queryParams);
@@ -207,12 +192,6 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
     @Override
     public Page<DOMAIN> findByComplexCondition(BaseQuery queryReq, Pageable pageable) {
 
-//        ValidatorWapper.from(page, "page").isNotNull().numerical().min(0);
-//        ValidatorWapper.from(pageSize, "pageSize").isNotNull().numerical().min(0);
-
-        // 将空字符串转换成null
-        convertEmptyStringToNull(queryReq);
-
         List<Sort.Order> orders = buildOrder(queryReq);
         pageable.getSortOr(Sort.by(orders));
         Specification<DOMAIN> complexConditions = Specification.where(new CommonSpecification(queryReq));
@@ -222,9 +201,6 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
 
     @Override
     public Long countByComplexCondition(BaseQuery queryReq) {
-
-        // 将空字符串转换成null
-        convertEmptyStringToNull(queryReq);
 
         Specification<DOMAIN> complexConditions = Specification.where(new CommonSpecification(queryReq));
 
@@ -255,12 +231,6 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
 
     }
 
-    /**
-     * @methodName: transformNullHandler
-     * @description: 转换空值处理
-     * @author: xiangfeng@biyouxinli.com.cn
-     * @date: 2018/7/30
-     **/
     private Sort.NullHandling transformNullHandler(String nullHandler) {
         if (NullHandler.FIRST.equals(nullHandler)) {
             return Sort.NullHandling.NULLS_FIRST;
@@ -271,12 +241,6 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
         }
     }
 
-    /**
-     * @methodName: buildOrder
-     * @description: 构建排序对象
-     * @author: xiangfeng@biyouxinli.com.cn
-     * @date: 2018/7/30
-     **/
     private List<Sort.Order> buildOrder(BaseQuery query) {
         List<Sort.Order> orders = new ArrayList<>();
         OrderGroup group = AnnotationUtils.findAnnotation(query.getClass(), OrderGroup.class);
@@ -333,174 +297,116 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
         }
     }
 
-    /**
-     * @author xiangfeng@yintong.com.cn
-     * @className: CommonSpecification
-     * @description: 通用的复杂查询类
-     * @date 2018/5/3
-     */
     private final class CommonSpecification implements Specification<DOMAIN> {
 
-        private final BaseQuery query;
+        private final BaseQuery baseQuery;
 
         public CommonSpecification(BaseQuery query) {
-            this.query = query;
+            this.baseQuery = query;
         }
 
         @Override
         public Predicate toPredicate(Root<DOMAIN> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-            Field[] fields = FieldUtils.getAllFields(query.getClass());
-
-//            List<ReflectField> fields = Reflect.on(baseDto).fields();
             List<Predicate> predicates = new ArrayList<>();
+            for (Field field : baseQuery.getClass().getDeclaredFields()) {
+                field.setAccessible(Boolean.TRUE);
+                ComplexCondition condition = field.getAnnotation(ComplexCondition.class);
+                if (ObjectUtils.isEmpty(condition)) {
+                    //如果没有注解 忽略此字段 不进行构建处理
+                    continue;
+                }
+                //如果没有输入实体字段 默认为当前属性字段的名称
+                String nameStr = condition.target();
+                if (StringUtils.hasText(nameStr)) {
+                    nameStr = field.getName();
+                }
+                String[] names = StringUtils.split(nameStr, ".");
+                assert names != null;
+                Path expression = root.get(names[0]);
+                for (int i = 1; i < names.length; i++) {
+                    expression = expression.get(names[i]);
+                }
+                //in 和or 中需要的一个中间变量 用来将filter.value放入数组
+                Object[] objects = new Object[1];
+                Object val = ReflectionUtils.getField(field, baseQuery);
 
-            Arrays.stream(fields).filter(field -> {
-                        try {
-                            return null != FieldUtils.readField(field, query);
-                        } catch (IllegalAccessException e) {
-                            logger.error("未查找到 {} 字段 : {}", field.getName(), ExceptionUtils.getStackTrace(e));
-                            e.printStackTrace();
+                switch (condition.sign()) {
+                    case EQ:
+                        if (ObjectUtils.isEmpty(val)) {
+                            continue;
                         }
-                        return false;
-                    })
-                    .forEach(field -> {
-                        try {
-                            if (field.isAnnotationPresent(Ignore.class)) {
-                                return;
-                            }
-
-                            ComplexCondition complexCondition = AnnotationUtils.findAnnotation(query.getClass(), ComplexCondition.class);
-
-                            Object value = FieldUtils.readField(field, query);
-
-                            if (null == value) {
-                                return;
-                            }
-                            if (null == complexCondition) {
-                                predicates.add(cb.equal(root.get(field.getName()), value));
-                            } else {
-                                Predicate predicate = buildComplexCondition(field, complexCondition, root, cb);
-                                if (null != predicate) {
-                                    predicates.add(predicate);
-
-                                }
-                            }
-                        } catch (IllegalAccessException e) {
-                            e.printStackTrace();
+                        predicates.add(cb.equal(expression, val));
+                        break;
+                    case LIKE:
+                        if (ObjectUtils.isEmpty(val)) {
+                            continue;
                         }
-                    });
+                        predicates.add(cb.like(expression, "%" + val + "%"));
+                        break;
+                    case NOT_LIKE:
+                        if (ObjectUtils.isEmpty(val)) {
+                            continue;
+                        }
+                        predicates.add(cb.notLike(expression, "%" + val + "%"));
+                        break;
+                    case GT:
+                        if (ObjectUtils.isEmpty(val)) {
+                            continue;
+                        }
+                        predicates.add(cb.greaterThan(expression, (Comparable) val));
+                        break;
+                    case LT:
+                        if (ObjectUtils.isEmpty(val)) {
+                            continue;
+                        }
+                        predicates.add(cb.lessThan(expression, (Comparable) val));
+                        break;
+                    case GTE:
+                        if (ObjectUtils.isEmpty(val)) {
+                            continue;
+                        }
+                        predicates.add(cb.greaterThanOrEqualTo(expression, (Comparable) val));
+                        break;
+                    case LTE:
+                        if (ObjectUtils.isEmpty(val)) {
+                            continue;
+                        }
+                        predicates.add(cb.lessThanOrEqualTo(expression, (Comparable) val));
+                        break;
+                    case IN:
+                        if (ObjectUtils.isEmpty(val)) {
+                            continue;
+                        }
+                        //因为spring data jpa 本身没有对数组进行判断 传入数组的话会失败 所以在此进行是否是数组的判断
+                        //因为expression。in参数是不定参数  理论上是可以传入数组 但是直接传入object不能判断是否为数组
+                        //把他当成一个参数 而不是需要的数组参数
+                        Object filterValue = val;
+                        if (filterValue.getClass().isArray()) {
+                            objects = (Object[]) filterValue;
+                        } else {
+                            objects[0] = filterValue;
+                        }
+                        predicates.add(expression.in(objects));
+                        break;
+                    case NEQ:
+                        if (ObjectUtils.isEmpty(val)) {
+                            continue;
+                        }
+                        predicates.add(cb.notEqual(expression, val));
+                        break;
+                    case IS_NULL:
+                        predicates.add(cb.isNull(expression));
+                    case IS_NOT_NULL:
+                        predicates.add(cb.isNull(expression));
+                    default:
+                        throw new UnknownComplexConditionClassException();
+                }
+            }
 
             query.where(cb.and(predicates.toArray(new Predicate[]{})));
 
             return query.getRestriction();
         }
-
-
-        private Predicate buildComplexCondition(Field field, ComplexCondition complexCondition, Root<DOMAIN> root, CriteriaBuilder cb) throws IllegalAccessException {
-
-            Object value = FieldUtils.readField(field, root);
-
-            Predicate result = null;
-            if (value instanceof TemporalAccessor) {
-                Expression path = buildPath(complexCondition, field, root);
-                result = buildResult(complexCondition, cb, path, new Timestamp(TemporalAccessorUtil.toEpochMilli((TemporalAccessor) value)));
-            } else if (value instanceof Integer) {
-                Expression path = buildPath(complexCondition, field, root);
-                result = buildResult(complexCondition, cb, path, (Integer) value);
-            } else if (value instanceof Long) {
-                Expression path = buildPath(complexCondition, field, root);
-                result = buildResult(complexCondition, cb, path, (Long) value);
-            } else if (value instanceof List || value instanceof String) {
-                Expression path = buildPath(complexCondition, field, root);
-                if (null == path) {
-                    result = null;
-                } else {
-                    result = buildExtendsResult(complexCondition, cb, path, value);
-                }
-            } else {
-                throw new UnknownComplexConditionClassException();
-            }
-            return result;
-
-        }
-
-        /**
-         * @className: buildResult
-         * @description: 构建复杂条件表达式结果
-         * @author xiangfeng@yintong.com.cn
-         * @date 2018/5/3
-         */
-        private <Y extends Comparable<? super Y>> Predicate buildResult(ComplexCondition complexCondition, CriteriaBuilder cb, Expression<Y> path, Y value) {
-
-            Predicate result = null;
-            if (ComplexConditionSign.EQ.equals(complexCondition.sign())) {
-                result = cb.equal(path, value);
-            } else if (ComplexConditionSign.LT.equals(complexCondition.sign())) {
-                result = cb.lessThan(path, value);
-            } else if (ComplexConditionSign.LTEQ.equals(complexCondition.sign())) {
-                result = cb.lessThanOrEqualTo(path, value);
-            } else if (ComplexConditionSign.GT.equals(complexCondition.sign())) {
-                result = cb.greaterThan(path, value);
-            } else if (ComplexConditionSign.GTEQ.equals(complexCondition.sign())) {
-                result = cb.greaterThanOrEqualTo(path, value);
-            } else if (ComplexConditionSign.NOTEQ.equals(complexCondition.sign())) {
-                result = cb.notEqual(path, value);
-            } else {
-                throw new UnknownComplexConditionSignException();
-            }
-            return result;
-
-        }
-
-        private Predicate buildExtendsResult(ComplexCondition complexCondition, CriteriaBuilder cb, Expression path, Object value) {
-            Predicate result = null;
-            if (ComplexConditionSign.IN.equals(complexCondition.sign())) {
-                if (((List) value).isEmpty()) {
-                    return null;
-                }
-                result = cb.in(path);
-                for (int i = 0; i < ((List) value).size(); i++) {
-                    Object o = ((List) value).get(i);
-                    ((CriteriaBuilder.In) result).value(o);
-                }
-            } else if (ComplexConditionSign.LIKE.equals(complexCondition.sign())) {
-                result = cb.like(path, value.toString());
-            } else {
-                throw new UnknownComplexConditionSignException();
-            }
-
-            return result;
-        }
-
-        /**
-         * @className: buildPath
-         * @description: 构建复杂条件表达式对象路径（名称）
-         * @author xiangfeng@yintong.com.cn
-         * @date 2018/5/3
-         */
-        private Expression buildPath(ComplexCondition complexCondition, Field field, Root<DOMAIN> root) throws IllegalAccessException {
-            Expression<?> path;
-            if (null == complexCondition.target()) {
-                path = root.get(field.getName());
-            } else {
-                path = root.get(complexCondition.target());
-            }
-            if (field.getType().equals(List.class)) {
-                //做空值校验
-                if (((List) FieldUtils.readField(field, query)).isEmpty() || null == ((List) FieldUtils.readField(field, query)).get(0)) {
-                    return null;
-                } else {
-                    Class type = ((List) FieldUtils.readField(field, query)).get(0).getClass();
-                    path = path.as(type);
-                }
-            } else if (TemporalAccessor.class.isInstance(field.getType())) {
-
-            } else {
-                path = path.as(field.getType());
-            }
-            return path;
-        }
-
     }
 }
 
