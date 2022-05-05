@@ -17,7 +17,7 @@
     <mysql-connector-java.version>8.0.27</mysql-connector-java.version>
     <rocketmq.version>2.2.1</rocketmq.version>
     <mybatis.version>2.2.0</mybatis.version>
-    <elasticsearch.version>7.16.2</elasticsearch.version>
+    <elasticsearch.version>7.17.3</elasticsearch.version>
     <druid.version>1.2.6</druid.version>
     <okhttp.version>4.9.3</okhttp.version>
     <kotlin-stdlib.version>1.4.10</kotlin-stdlib.version>
