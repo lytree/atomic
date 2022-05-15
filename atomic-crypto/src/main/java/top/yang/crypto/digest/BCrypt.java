@@ -2,7 +2,7 @@ package top.yang.crypto.digest;
 
 
 import java.security.SecureRandom;
-import top.yang.string.CharsetUtils;
+import top.yang.lang.CharsetUtils;
 
 /**
  * BCrypt加密算法实现。由它加密的文件可在所有支持的操作系统和处理器上进行转移。它的口令必须是8至56个字符，并将在内部被转化为448位的密钥。

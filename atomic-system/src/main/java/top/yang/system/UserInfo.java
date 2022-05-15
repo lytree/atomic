@@ -3,7 +3,7 @@ package top.yang.system;
 
 import java.io.File;
 import java.io.Serializable;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * 代表当前用户的信息。

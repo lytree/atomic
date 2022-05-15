@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import top.yang.math.NumberUtils;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * 组合，即C(n, m)<br> 排列组合相关类 参考：http://cgs1999.iteye.com/blog/2327664

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Stack;
 import top.yang.math.NumberUtils;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * 数学表达式计算工具类<br> 见：https://github.com/looly/hutool/issues/1090#issuecomment-693750140

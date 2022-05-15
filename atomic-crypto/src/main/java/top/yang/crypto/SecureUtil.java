@@ -43,7 +43,7 @@ import java.security.spec.KeySpec;
 import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import top.yang.math.HexUtils;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * 安全相关工具类<br> 加密分为三种：<br> 1、对称加密（symmetric），例如：AES、DES等<br> 2、非对称加密（asymmetric），例如：RSA、DSA等<br> 3、摘要加密（digest），例如：MD5、SHA-1、SHA-256、HMAC等<br>

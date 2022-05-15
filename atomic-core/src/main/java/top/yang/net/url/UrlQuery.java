@@ -9,7 +9,7 @@ import top.yang.codec.PercentCodec;
 import top.yang.codec.RFC3986;
 import top.yang.codec.URLDecoder;
 import top.yang.collections.MapUtils;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * URL中查询字符串部分的封装，类似于：

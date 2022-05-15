@@ -2,7 +2,7 @@ package top.yang.text;
 
 import java.util.Arrays;
 import top.yang.collections.CollectionUtils;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 public class StringFormatter {
 

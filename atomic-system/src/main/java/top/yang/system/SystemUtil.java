@@ -13,7 +13,7 @@ import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.RuntimeMXBean;
 import java.lang.management.ThreadMXBean;
 import java.util.List;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * Java的System类封装工具类。<br> 参考：http://blog.csdn.net/zhongweijian/article/details/7619383

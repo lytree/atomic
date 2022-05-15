@@ -29,7 +29,7 @@ import org.apache.commons.io.IOUtils;
 import top.yang.lang.Assert;
 import top.yang.lang.RandomUtils;
 import top.yang.math.HexUtils;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * 对称加密算法<br> 在对称加密算法中，数据发信方将明文（原始数据）和加密密钥一起经过特殊加密算法处理后，使其变成复杂的加密密文发送出去。<br> 收信方收到密文后，若想解读原文，则需要使用加密用过的密钥及相同算法的逆算法对密文进行解密，才能使其恢复成可读明文。<br>

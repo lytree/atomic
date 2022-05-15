@@ -30,7 +30,7 @@ import top.yang.collections.CollectionUtils;
 import top.yang.exception.NetException;
 import top.yang.Filter;
 import top.yang.lang.RandomUtils;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * 网络相关工具

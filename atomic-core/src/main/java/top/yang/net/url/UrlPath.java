@@ -7,7 +7,7 @@ import top.yang.codec.RFC3986;
 import top.yang.codec.URLDecoder;
 import top.yang.collections.CollectionUtils;
 import top.yang.lang.Assert;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * URL中Path部分的封装

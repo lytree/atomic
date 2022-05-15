@@ -2,7 +2,7 @@ package top.yang.math;
 
 
 
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 import java.io.Serializable;
 import java.nio.charset.Charset;

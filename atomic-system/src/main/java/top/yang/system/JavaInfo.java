@@ -2,7 +2,7 @@ package top.yang.system;
 
 
 import java.io.Serializable;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 import top.yang.lang.RegExUtils;
 
 /**

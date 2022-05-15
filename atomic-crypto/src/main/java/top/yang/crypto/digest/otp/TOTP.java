@@ -6,7 +6,7 @@ import top.yang.crypto.digest.HmacAlgorithm;
 
 import java.time.Duration;
 import java.time.Instant;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * <p>time-based one-time passwords (TOTP) 基于时间戳算法的一次性密码生成器，

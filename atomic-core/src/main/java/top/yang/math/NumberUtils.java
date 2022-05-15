@@ -29,7 +29,7 @@ import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.atomic.LongAdder;
 import top.yang.collections.ArrayUtils;
 import top.yang.lang.Assert;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * <p>Provides extra functionality for Java Number classes.</p>

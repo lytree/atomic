@@ -1,6 +1,6 @@
 package top.yang.exception;
 
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 public class NetException extends RuntimeException {
 

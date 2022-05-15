@@ -4,8 +4,7 @@ package top.yang.system;
 import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import top.yang.math.NumberUtils;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * 系统属性工具<br> 此工具用于读取系统属性或环境变量信息，封装包括：

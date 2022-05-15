@@ -8,7 +8,7 @@ import top.yang.crypto.SecureUtil;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * 国密对称堆成加密算法SM4实现

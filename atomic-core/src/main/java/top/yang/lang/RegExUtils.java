@@ -20,9 +20,7 @@ import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.mutable.MutableByte;
 import org.apache.commons.lang3.mutable.MutableObject;
-import top.yang.string.StringUtils;
 
 /**
  * <p>Helpers to process Strings using regular expressions.</p>

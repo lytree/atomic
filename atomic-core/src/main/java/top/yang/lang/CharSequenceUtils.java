@@ -1,4 +1,4 @@
-package top.yang.string;
+package top.yang.lang;
 
 /**
  * @author PrideYang

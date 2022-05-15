@@ -31,7 +31,7 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import top.yang.math.support.MessageDigestAlgorithms;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 
 /**

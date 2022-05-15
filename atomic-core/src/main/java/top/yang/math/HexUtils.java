@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import top.yang.string.StringUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * 十六进制（简写为hex或下标16）在数学中是一种逢16进1的进位制，一般用数字0到9和字母A到F表示（其中:A~F即10~15）。<br> 例如十进制数57，在二进制写作111001，在16进制写作39。<br> 像java,c这样的语言为了区分十六进制和十进制数值,会在十六进制数的前面加上
