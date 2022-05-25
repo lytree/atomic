@@ -1,5 +1,8 @@
 package top.yang.lang;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
 /**
@@ -131,7 +134,7 @@ public class CommonPattern {
     /**
      * Pattern池
      */
-    private static final SimpleCache<RegexWithFlag, Pattern> POOL = new SimpleCache<>();
+    private static final Cache<RegexWithFlag, Pattern> POOL = CacheBuilder.newBuilder().build();
 
     /**
      * 先从Pattern池中查找正则对应的{@link Pattern}，找不到则编译正则表达式并入池。
@@ -139,7 +142,7 @@ public class CommonPattern {
      * @param regex 正则表达式
      * @return {@link Pattern}
      */
-    public static Pattern get(String regex) {
+    public static Pattern get(String regex) throws ExecutionException {
         return get(regex, 0);
     }
 
@@ -150,33 +153,22 @@ public class CommonPattern {
      * @param flags 正则标识位集合 {@link Pattern}
      * @return {@link Pattern}
      */
-    public static Pattern get(String regex, int flags) {
+    public static Pattern get(String regex, int flags) throws ExecutionException {
         final RegexWithFlag regexWithFlag = new RegexWithFlag(regex, flags);
 
-        Pattern pattern = POOL.get(regexWithFlag);
-        if (null == pattern) {
-            pattern = Pattern.compile(regex, flags);
+        return POOL.get(regexWithFlag, () -> {
+            Pattern pattern = Pattern.compile(regex, flags);
             POOL.put(regexWithFlag, pattern);
-        }
-        return pattern;
+            return pattern;
+        });
     }
 
-    /**
-     * 移除缓存
-     *
-     * @param regex 正则
-     * @param flags 标识
-     * @return 移除的{@link Pattern}，可能为{@code null}
-     */
-    public static Pattern remove(String regex, int flags) {
-        return POOL.remove(new RegexWithFlag(regex, flags));
-    }
 
     /**
      * 清空缓存池
      */
     public static void clear() {
-        POOL.clear();
+        POOL.cleanUp();
     }
 // ---------------------------------------------------------------------------------------------------------------------------------
 

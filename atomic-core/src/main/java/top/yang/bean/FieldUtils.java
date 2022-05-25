@@ -1,4 +1,4 @@
-package top.yang.reflect;
+package top.yang.bean;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

@@ -16,6 +16,7 @@
  */
 package top.yang.lang;
 
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -438,7 +439,7 @@ public class RegExUtils {
      * @param groupIndex 匹配正则的分组序号
      * @return 匹配后得到的字符串，未匹配返回null
      */
-    public static String get(String regex, CharSequence content, int groupIndex) {
+    public static String get(String regex, CharSequence content, int groupIndex) throws ExecutionException {
         if (null == content || null == regex) {
             return null;
         }
@@ -455,7 +456,7 @@ public class RegExUtils {
      * @param groupName 匹配正则的分组名称
      * @return 匹配后得到的字符串，未匹配返回null
      */
-    public static String get(String regex, CharSequence content, String groupName) {
+    public static String get(String regex, CharSequence content, String groupName) throws ExecutionException {
         if (null == content || null == regex) {
             return null;
         }

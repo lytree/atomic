@@ -17,17 +17,18 @@
 package top.yang.collections;
 
 
-
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 
@@ -37,18 +38,19 @@ import java.util.function.Predicate;
  * @since 1.0
  */
 public class ListUtils {
+
     /**
      * Don't allow instances.
      */
-    private ListUtils() {}
+    private ListUtils() {
+    }
 
     //-----------------------------------------------------------------------
 
     /**
-     * Returns an immutable empty list if the argument is {@code null},
-     * or the argument itself otherwise.
+     * Returns an immutable empty list if the argument is {@code null}, or the argument itself otherwise.
      *
-     * @param <T> the element type
+     * @param <T>  the element type
      * @param list the list, possibly {@code null}
      * @return an empty list if the argument is {@code null}
      */
@@ -57,12 +59,11 @@ public class ListUtils {
     }
 
     /**
-     * Returns either the passed in list, or if the list is {@code null},
-     * the value of {@code defaultList}.
+     * Returns either the passed in list, or if the list is {@code null}, the value of {@code defaultList}.
      *
-     * @param <T> the element type
-     * @param list  the list, possibly {@code null}
-     * @param defaultList  the returned values if list is {@code null}
+     * @param <T>         the element type
+     * @param list        the list, possibly {@code null}
+     * @param defaultList the returned values if list is {@code null}
      * @return an empty list if the argument is {@code null}
      * @since 4.0
      */
@@ -71,13 +72,12 @@ public class ListUtils {
     }
 
     /**
-     * Returns a new list containing all elements that are contained in
-     * both given lists.
+     * Returns a new list containing all elements that are contained in both given lists.
      *
-     * @param <E> the element type
-     * @param list1  the first list
-     * @param list2  the second list
-     * @return  the intersection of those two lists
+     * @param <E>   the element type
+     * @param list1 the first list
+     * @param list2 the second list
+     * @return the intersection of those two lists
      * @throws NullPointerException if either list is null
      */
     public static <E> List<E> intersection(final List<? extends E> list1, final List<? extends E> list2) {
@@ -102,13 +102,12 @@ public class ListUtils {
     }
 
     /**
-     * Returns a new list containing the second list appended to the
-     * first list.  The {@link List#addAll(Collection)} operation is
-     * used to append the two given lists into a new list.
+     * Returns a new list containing the second list appended to the first list.  The {@link List#addAll(Collection)} operation is used to append the two given lists into a new
+     * list.
      *
-     * @param <E> the element type
-     * @param list1  the first list
-     * @param list2  the second list
+     * @param <E>   the element type
+     * @param list1 the first list
+     * @param list2 the second list
      * @return a new list containing the union of those lists
      * @throws NullPointerException if either list is null
      */
@@ -121,33 +120,26 @@ public class ListUtils {
 
 
     /**
-     * Tests two lists for value-equality as per the equality contract in
-     * {@link List#equals(Object)}.
+     * Tests two lists for value-equality as per the equality contract in {@link List#equals(Object)}.
      * <p>
-     * This method is useful for implementing {@code List} when you cannot
-     * extend AbstractList. The method takes Collection instances to enable other
-     * collection types to use the List implementation algorithm.
+     * This method is useful for implementing {@code List} when you cannot extend AbstractList. The method takes Collection instances to enable other collection types to use the
+     * List implementation algorithm.
      * <p>
      * The relevant text (slightly paraphrased as this is a static method) is:
      * <blockquote>
-     * Compares the two list objects for equality.  Returns
-     * {@code true} if and only if both
-     * lists have the same size, and all corresponding pairs of elements in
-     * the two lists are <i>equal</i>.  (Two elements {@code e1} and
-     * {@code e2} are <i>equal</i> if <code>(e1==null ? e2==null :
-     * e1.equals(e2))</code>.)  In other words, two lists are defined to be
-     * equal if they contain the same elements in the same order.  This
-     * definition ensures that the equals method works properly across
-     * different implementations of the {@code List} interface.
+     * Compares the two list objects for equality.  Returns {@code true} if and only if both lists have the same size, and all corresponding pairs of elements in the two lists are
+     * <i>equal</i>.  (Two elements {@code e1} and {@code e2} are <i>equal</i> if <code>(e1==null ? e2==null : e1.equals(e2))</code>.)  In other words, two lists are defined to be
+     * equal if they contain the same elements in the same order.  This definition ensures that the equals method works properly across different implementations of the {@code
+     * List} interface.
      * </blockquote>
      *
      * <b>Note:</b> The behavior of this method is undefined if the lists are
      * modified during the equals comparison.
      *
-     * @see List
-     * @param list1  the first list, may be null
-     * @param list2  the second list, may be null
+     * @param list1 the first list, may be null
+     * @param list2 the second list, may be null
      * @return whether the lists are equal by value comparison
+     * @see List
      */
     public static boolean isEqualList(final Collection<?> list1, final Collection<?> list2) {
         if (list1 == list2) {
@@ -175,16 +167,14 @@ public class ListUtils {
     }
 
     /**
-     * Generates a hash code using the algorithm specified in
-     * {@link List#hashCode()}.
+     * Generates a hash code using the algorithm specified in {@link List#hashCode()}.
      * <p>
-     * This method is useful for implementing {@code List} when you cannot
-     * extend AbstractList. The method takes Collection instances to enable other
-     * collection types to use the List implementation algorithm.
+     * This method is useful for implementing {@code List} when you cannot extend AbstractList. The method takes Collection instances to enable other collection types to use the
+     * List implementation algorithm.
      *
-     * @see List#hashCode()
-     * @param list  the list to generate the hashCode for, may be null
+     * @param list the list to generate the hashCode for, may be null
      * @return the hash code
+     * @see List#hashCode()
      */
     public static int hashCodeForList(final Collection<?> list) {
         if (list == null) {
@@ -201,25 +191,19 @@ public class ListUtils {
     }
 
     //-----------------------------------------------------------------------
+
     /**
-     * Returns a List containing all the elements in {@code collection}
-     * that are also in {@code retain}. The cardinality of an element {@code e}
-     * in the returned list is the same as the cardinality of {@code e}
-     * in {@code collection} unless {@code retain} does not contain {@code e}, in which
-     * case the cardinality is zero. This method is useful if you do not wish to modify
-     * the collection {@code c} and thus cannot call {@code collection.retainAll(retain);}.
+     * Returns a List containing all the elements in {@code collection} that are also in {@code retain}. The cardinality of an element {@code e} in the returned list is the same as
+     * the cardinality of {@code e} in {@code collection} unless {@code retain} does not contain {@code e}, in which case the cardinality is zero. This method is useful if you do
+     * not wish to modify the collection {@code c} and thus cannot call {@code collection.retainAll(retain);}.
      * <p>
-     * This implementation iterates over {@code collection}, checking each element in
-     * turn to see if it's contained in {@code retain}. If it's contained, it's added
-     * to the returned list. As a consequence, it is advised to use a collection type for
-     * {@code retain} that provides a fast (e.g. O(1)) implementation of
-     * {@link Collection#contains(Object)}.
+     * This implementation iterates over {@code collection}, checking each element in turn to see if it's contained in {@code retain}. If it's contained, it's added to the returned
+     * list. As a consequence, it is advised to use a collection type for {@code retain} that provides a fast (e.g. O(1)) implementation of {@link Collection#contains(Object)}.
      *
-     * @param <E>  the element type
-     * @param collection  the collection whose contents are the target of the #retailAll operation
-     * @param retain  the collection containing the elements to be retained in the returned collection
-     * @return a {@code List} containing all the elements of {@code c}
-     * that occur at least once in {@code retain}.
+     * @param <E>        the element type
+     * @param collection the collection whose contents are the target of the #retailAll operation
+     * @param retain     the collection containing the elements to be retained in the returned collection
+     * @return a {@code List} containing all the elements of {@code c} that occur at least once in {@code retain}.
      * @throws NullPointerException if either parameter is null
      * @since 3.2
      */
@@ -235,25 +219,19 @@ public class ListUtils {
     }
 
     /**
-     * Removes the elements in {@code remove} from {@code collection}. That is, this
-     * method returns a list containing all the elements in {@code collection}
-     * that are not in {@code remove}. The cardinality of an element {@code e}
-     * in the returned collection is the same as the cardinality of {@code e}
-     * in {@code collection} unless {@code remove} contains {@code e}, in which
-     * case the cardinality is zero. This method is useful if you do not wish to modify
-     * {@code collection} and thus cannot call {@code collection.removeAll(remove);}.
+     * Removes the elements in {@code remove} from {@code collection}. That is, this method returns a list containing all the elements in {@code collection} that are not in {@code
+     * remove}. The cardinality of an element {@code e} in the returned collection is the same as the cardinality of {@code e} in {@code collection} unless {@code remove} contains
+     * {@code e}, in which case the cardinality is zero. This method is useful if you do not wish to modify {@code collection} and thus cannot call {@code
+     * collection.removeAll(remove);}.
      * <p>
-     * This implementation iterates over {@code collection}, checking each element in
-     * turn to see if it's contained in {@code remove}. If it's not contained, it's added
-     * to the returned list. As a consequence, it is advised to use a collection type for
-     * {@code remove} that provides a fast (e.g. O(1)) implementation of
-     * {@link Collection#contains(Object)}.
+     * This implementation iterates over {@code collection}, checking each element in turn to see if it's contained in {@code remove}. If it's not contained, it's added to the
+     * returned list. As a consequence, it is advised to use a collection type for {@code remove} that provides a fast (e.g. O(1)) implementation of {@link
+     * Collection#contains(Object)}.
      *
-     * @param <E>  the element type
-     * @param collection  the collection from which items are removed (in the returned collection)
-     * @param remove  the items to be removed from the returned {@code collection}
-     * @return a {@code List} containing all the elements of {@code c} except
-     * any elements that also occur in {@code remove}.
+     * @param <E>        the element type
+     * @param collection the collection from which items are removed (in the returned collection)
+     * @param remove     the items to be removed from the returned {@code collection}
+     * @return a {@code List} containing all the elements of {@code c} except any elements that also occur in {@code remove}.
      * @throws NullPointerException if either parameter is null
      * @since 3.2
      */
@@ -268,9 +246,41 @@ public class ListUtils {
     }
 
     /**
+     * 通过func自定义一个规则，此规则将原集合中的元素转换成新的元素，生成新的列表返回<br> 例如提供的是一个Bean列表，通过Function接口实现获取某个字段值，返回这个字段值组成的新列表
+     *
+     * @param <T>        集合元素类型
+     * @param <R>        返回集合元素类型
+     * @param collection 原集合
+     * @param func       编辑函数
+     * @param ignoreNull 是否忽略空值，这里的空值包括函数处理前和处理后的null值
+     * @return 抽取后的新列表
+     * @since 5.3.5
+     */
+    public static <T, R> List<R> map(Iterable<T> collection, Function<? super T, ? extends R> func, boolean ignoreNull) {
+        final List<R> fieldValueList = new ArrayList<>();
+        if (null == collection) {
+            return fieldValueList;
+        }
+
+        R value;
+        for (T t : collection) {
+            if (null == t && ignoreNull) {
+                continue;
+            }
+            value = func.apply(t);
+            if (null == value && ignoreNull) {
+                continue;
+            }
+            fieldValueList.add(value);
+        }
+        return fieldValueList;
+    }
+
+    /**
      * A simple wrapper to use a CharSequence as List.
      */
     private static final class CharSequenceAsList extends AbstractList<Character> {
+
         private final CharSequence sequence;
 
         CharSequenceAsList(final CharSequence sequence) {
@@ -289,25 +299,22 @@ public class ListUtils {
     }
 
     //-----------------------------------------------------------------------
+
     /**
-     * Returns consecutive {@link List#subList(int, int) sublists} of a
-     * list, each of the same size (the final list may be smaller). For example,
-     * partitioning a list containing {@code [a, b, c, d, e]} with a partition
-     * size of 3 yields {@code [[a, b, c], [d, e]]} -- an outer list containing
-     * two inner lists of three and two elements, all in the original order.
+     * Returns consecutive {@link List#subList(int, int) sublists} of a list, each of the same size (the final list may be smaller). For example, partitioning a list containing
+     * {@code [a, b, c, d, e]} with a partition size of 3 yields {@code [[a, b, c], [d, e]]} -- an outer list containing two inner lists of three and two elements, all in the
+     * original order.
      * <p>
-     * The outer list is unmodifiable, but reflects the latest state of the
-     * source list. The inner lists are sublist views of the original list,
-     * produced on demand using {@link List#subList(int, int)}, and are subject
-     * to all the usual caveats about modification as explained in that API.
+     * The outer list is unmodifiable, but reflects the latest state of the source list. The inner lists are sublist views of the original list, produced on demand using {@link
+     * List#subList(int, int)}, and are subject to all the usual caveats about modification as explained in that API.
      * <p>
      * Adapted from http://code.google.com/p/guava-libraries/
      *
-     * @param <T> the element type
-     * @param list  the list to return consecutive sublists of
-     * @param size  the desired size of each sublist (the last may be smaller)
+     * @param <T>  the element type
+     * @param list the list to return consecutive sublists of
+     * @param size the desired size of each sublist (the last may be smaller)
      * @return a list of consecutive sublists
-     * @throws NullPointerException if list is null
+     * @throws NullPointerException     if list is null
      * @throws IllegalArgumentException if size is not strictly positive
      * @since 4.0
      */
@@ -321,9 +328,11 @@ public class ListUtils {
 
     /**
      * Provides a partition view on a {@link List}.
+     *
      * @since 4.0
      */
     private static class Partition<T> extends AbstractList<List<T>> {
+
         private final List<T> list;
         private final int size;
 
@@ -340,7 +349,7 @@ public class ListUtils {
             }
             if (index >= listSize) {
                 throw new IndexOutOfBoundsException("Index " + index + " must be less than size " +
-                                                    listSize);
+                        listSize);
             }
             final int start = index * size;
             final int end = Math.min(start + size, list.size());
@@ -357,6 +366,7 @@ public class ListUtils {
             return list.isEmpty();
         }
     }
+
     /**
      * 新建一个ArrayList
      *
@@ -370,8 +380,7 @@ public class ListUtils {
     }
 
     /**
-     * 数组转为一个不可变List<br>
-     * 类似于Java9中的List.of
+     * 数组转为一个不可变List<br> 类似于Java9中的List.of
      *
      * @param ts  对象
      * @param <T> 对象类型
@@ -409,8 +418,7 @@ public class ListUtils {
     }
 
     /**
-     * 新建一个ArrayList<br>
-     * 提供的参数为null时返回空{@link ArrayList}
+     * 新建一个ArrayList<br> 提供的参数为null时返回空{@link ArrayList}
      *
      * @param <T>      集合元素类型
      * @param iterable {@link Iterable}
@@ -422,8 +430,7 @@ public class ListUtils {
     }
 
     /**
-     * 新建一个ArrayList<br>
-     * 提供的参数为null时返回空{@link ArrayList}
+     * 新建一个ArrayList<br> 提供的参数为null时返回空{@link ArrayList}
      *
      * @param <T>      集合元素类型
      * @param iterator {@link Iterator}
@@ -435,8 +442,7 @@ public class ListUtils {
     }
 
     /**
-     * 新建一个ArrayList<br>
-     * 提供的参数为null时返回空{@link ArrayList}
+     * 新建一个ArrayList<br> 提供的参数为null时返回空{@link ArrayList}
      *
      * @param <T>         集合元素类型
      * @param enumeration {@link Enumeration}
@@ -446,23 +452,23 @@ public class ListUtils {
     public static <T> ArrayList<T> toList(Enumeration<T> enumeration) {
         return (ArrayList<T>) list(false, enumeration);
     }
+
     /**
      * 新建一个空List
      *
-     * @param <T>      集合元素类型
-
+     * @param <T> 集合元素类型
      * @return List对象
      * @since 4.1.2
      */
     public static <T> List<T> list() {
         return new ArrayList<>();
     }
+
     /**
      * 新建一个List
      *
-     * @param <T>      集合元素类型
-
-     * @param values   数组
+     * @param <T>    集合元素类型
+     * @param values 数组
      * @return List对象
      * @since 4.1.2
      */
@@ -471,7 +477,7 @@ public class ListUtils {
         if (ArrayUtils.isEmpty(values)) {
             return list();
         }
-        final List<T> arrayList =  new ArrayList<>(values.length);
+        final List<T> arrayList = new ArrayList<>(values.length);
         Collections.addAll(arrayList, values);
         return arrayList;
     }
@@ -484,19 +490,17 @@ public class ListUtils {
      * @return List对象
      * @since 4.1.2
      */
-    public static <T> List<T> list( Collection<T> collection) {
+    public static <T> List<T> list(Collection<T> collection) {
         if (null == collection) {
             return list();
         }
-        return  new ArrayList<>(collection);
+        return new ArrayList<>(collection);
     }
 
     /**
-     * 新建一个List<br>
-     * 提供的参数为null时返回空{@link ArrayList}
+     * 新建一个List<br> 提供的参数为null时返回空{@link ArrayList}
      *
      * @param <T>      集合元素类型
-
      * @param iterable {@link Iterable}
      * @return List对象
      * @since 4.1.2
@@ -505,20 +509,18 @@ public class ListUtils {
         if (null == iterable) {
             return list();
         }
-        return list( iterable.iterator());
+        return list(iterable.iterator());
     }
 
     /**
-     * 新建一个ArrayList<br>
-     * 提供的参数为null时返回空{@link ArrayList}
+     * 新建一个ArrayList<br> 提供的参数为null时返回空{@link ArrayList}
      *
-     * @param <T>      集合元素类型
-
-     * @param iter     {@link Iterator}
+     * @param <T>  集合元素类型
+     * @param iter {@link Iterator}
      * @return ArrayList对象
      * @since 4.1.2
      */
-    public static <T> List<T> list( Iterator<T> iter) {
+    public static <T> List<T> list(Iterator<T> iter) {
         final List<T> list = list();
         if (null != iter) {
             while (iter.hasNext()) {
@@ -529,8 +531,7 @@ public class ListUtils {
     }
 
     /**
-     * 新建一个List<br>
-     * 提供的参数为null时返回空{@link ArrayList}
+     * 新建一个List<br> 提供的参数为null时返回空{@link ArrayList}
      *
      * @param <T>        集合元素类型
      * @param enumration {@link Enumeration}
@@ -547,4 +548,20 @@ public class ListUtils {
         return list;
     }
 
+    /**
+     * 针对List排序，排序会修改原List
+     *
+     * @param <T>  元素类型
+     * @param list 被排序的List
+     * @param c    {@link Comparator}
+     * @return 原list
+     * @see Collections#sort(List, Comparator)
+     */
+    public static <T> List<T> sort(List<T> list, Comparator<? super T> c) {
+        if (CollectionUtils.isEmpty(list)) {
+            return list;
+        }
+        list.sort(c);
+        return list;
+    }
 }

@@ -13,6 +13,7 @@ import java.lang.management.OperatingSystemMXBean;
 import java.lang.management.RuntimeMXBean;
 import java.lang.management.ThreadMXBean;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import top.yang.lang.StringUtils;
 
 /**
@@ -272,7 +273,7 @@ public class SystemUtil extends SystemPropsUtil {
      *
      * @return {@link JavaInfo}对象
      */
-    public static JavaInfo getJavaInfo() {
+    public static JavaInfo getJavaInfo() throws ExecutionException {
         return new JavaInfo();
     }
 
@@ -369,7 +370,7 @@ public class SystemUtil extends SystemPropsUtil {
     /**
      * 将系统信息输出到{@link System#out}中。
      */
-    public static void dumpSystemInfo() {
+    public static void dumpSystemInfo() throws ExecutionException {
         dumpSystemInfo(new PrintWriter(System.out));
     }
 
@@ -378,7 +379,7 @@ public class SystemUtil extends SystemPropsUtil {
      *
      * @param out {@link PrintWriter}输出流
      */
-    public static void dumpSystemInfo(PrintWriter out) {
+    public static void dumpSystemInfo(PrintWriter out) throws ExecutionException {
         out.println("--------------");
         out.println(getJvmSpecInfo());
         out.println("--------------");

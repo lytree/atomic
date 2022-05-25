@@ -1,9 +1,7 @@
-package top.yang.reflect;
+package top.yang.bean;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.WeakHashMap;
 
 /**
  * @author PrideYang

@@ -31,20 +31,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
+import top.yang.Filter;
+import top.yang.Matcher;
 
 
-/**
- * Provides utility methods and decorators for {@link Collection} instances.
- * <p>
- * Various utility methods might put the input objects into a Set/Map/Bag. In case the input objects override {@link Object#equals(Object)}, it is mandatory that the general
- * contract of the {@link Object#hashCode()} method is maintained.
- * </p>
- * <p>
- * NOTE: From 4.0, method parameters will take {@link Iterable} objects when possible.
- * </p>
- *
- * @since 1.0
- */
 public class CollectionUtils {
 
     /**
@@ -829,6 +820,34 @@ public class CollectionUtils {
         return !isEmpty(coll);
     }
 
+    /**
+     * 如果给定集合为空，返回默认集合
+     *
+     * @param <T>               集合类型
+     * @param <E>               集合元素类型
+     * @param collection        集合
+     * @param defaultCollection 默认数组
+     * @return 非空（empty）的原集合或默认集合
+     * @since 4.6.9
+     */
+    public static <T extends Collection<E>, E> T defaultIfEmpty(T collection, T defaultCollection) {
+        return isEmpty(collection) ? defaultCollection : collection;
+    }
+
+    /**
+     * 如果给定集合为空，返回默认集合
+     *
+     * @param <T>        集合类型
+     * @param <E>        集合元素类型
+     * @param collection 集合
+     * @param supplier   默认值懒加载函数
+     * @return 非空（empty）的原集合或默认集合
+     * @since 5.7.15
+     */
+    public static <T extends Collection<E>, E> T defaultIfEmpty(T collection, Supplier<? extends T> supplier) {
+        return isEmpty(collection) ? supplier.get() : collection;
+    }
+
     //-----------------------------------------------------------------------
 
     /**
@@ -956,6 +975,158 @@ public class CollectionUtils {
      */
     public static <E> Collection<E> removeAll(final Collection<E> collection, final Collection<?> remove) {
         return ListUtils.removeAll(collection, remove);
+    }
+
+    /**
+     * 去除指定元素，此方法直接修改原集合
+     *
+     * @param <T>        集合类型
+     * @param <E>        集合元素类型
+     * @param collection 集合
+     * @param filter     过滤器
+     * @return 处理后的集合
+     * @since 4.6.5
+     */
+    public static <T extends Collection<E>, E> T filter(T collection, final Filter<E> filter) {
+        return filter(collection, filter);
+    }
+
+    /**
+     * 过滤集合，此方法在原集合上直接修改<br> 通过实现Filter接口，完成元素的过滤，这个Filter实现可以实现以下功能：
+     *
+     * <pre>
+     * 1、过滤出需要的对象，{@link Filter#accept(Object)}方法返回false的对象将被使用{@link Iterator#remove()}方法移除
+     * </pre>
+     *
+     * @param <T>    集合类型
+     * @param <E>    集合元素类型
+     * @param iter   集合
+     * @param filter 过滤器接口
+     * @return 编辑后的集合
+     * @since 4.6.5
+     */
+    public static <T extends Iterable<E>, E> T filter(T iter, Filter<E> filter) {
+        if (null == iter) {
+            return null;
+        }
+
+        filter(iter.iterator(), filter);
+
+        return iter;
+    }
+
+    /**
+     * 过滤集合，此方法在原集合上直接修改<br> 通过实现Filter接口，完成元素的过滤，这个Filter实现可以实现以下功能：
+     *
+     * <pre>
+     * 1、过滤出需要的对象，{@link Filter#accept(Object)}方法返回false的对象将被使用{@link Iterator#remove()}方法移除
+     * </pre>
+     *
+     * @param <E>    集合元素类型
+     * @param iter   集合
+     * @param filter 过滤器接口，删除{@link Filter#accept(Object)}为{@code false}的元素
+     * @return 编辑后的集合
+     * @since 4.6.5
+     */
+    public static <E> Iterator<E> filter(Iterator<E> iter, Filter<E> filter) {
+        if (null == iter || null == filter) {
+            return iter;
+        }
+
+        while (iter.hasNext()) {
+            if (!filter.accept(iter.next())) {
+                iter.remove();
+            }
+        }
+        return iter;
+    }
+
+    /**
+     * 集合中匹配规则的数量
+     *
+     * @param <T>      集合元素类型
+     * @param iterable {@link Iterable}
+     * @param matcher  匹配器，为空则全部匹配
+     * @return 匹配数量
+     */
+    public static <T> int count(Iterable<T> iterable, Matcher<T> matcher) {
+        int count = 0;
+        if (null != iterable) {
+            for (T t : iterable) {
+                if (null == matcher || matcher.match(t)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 获取匹配规则定义中匹配到元素的第一个位置<br> 此方法对于某些无序集合的位置信息，以转换为数组后的位置为准。
+     *
+     * @param <T>        元素类型
+     * @param collection 集合
+     * @param matcher    匹配器，为空则全部匹配
+     * @return 第一个位置
+     * @since 5.6.6
+     */
+    public static <T> int indexOf(Collection<T> collection, Matcher<T> matcher) {
+        if (isNotEmpty(collection)) {
+            int index = 0;
+            for (T t : collection) {
+                if (null == matcher || matcher.match(t)) {
+                    return index;
+                }
+                index++;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 获取匹配规则定义中匹配到元素的最后位置<br> 此方法对于某些无序集合的位置信息，以转换为数组后的位置为准。
+     *
+     * @param <T>        元素类型
+     * @param collection 集合
+     * @param matcher    匹配器，为空则全部匹配
+     * @return 最后一个位置
+     * @since 5.6.6
+     */
+    public static <T> int lastIndexOf(Collection<T> collection, Matcher<T> matcher) {
+        int matchIndex = -1;
+        if (isNotEmpty(collection)) {
+            int index = collection.size();
+            for (T t : collection) {
+                if (null == matcher || matcher.match(t)) {
+                    matchIndex = index;
+                }
+                index--;
+            }
+        }
+        return matchIndex;
+    }
+
+    /**
+     * 获取匹配规则定义中匹配到元素的所有位置<br> 此方法对于某些无序集合的位置信息，以转换为数组后的位置为准。
+     *
+     * @param <T>        元素类型
+     * @param collection 集合
+     * @param matcher    匹配器，为空则全部匹配
+     * @return 位置数组
+     * @since 5.2.5
+     */
+    public static <T> List<Integer> indexOfAll(Collection<T> collection, Matcher<T> matcher) {
+        final List<Integer> indexList = new ArrayList<>();
+        if (null != collection) {
+            int index = 0;
+            for (T t : collection) {
+                if (null == matcher || matcher.match(t)) {
+                    indexList.add(index);
+                }
+                index++;
+            }
+        }
+        return indexList;
     }
 
     /**

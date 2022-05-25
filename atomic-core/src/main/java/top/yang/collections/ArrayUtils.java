@@ -18,16 +18,10 @@ package top.yang.collections;
 
 
 import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
-import top.yang.reflect.ObjectUtils;
+import top.yang.Filter;
+import top.yang.bean.ObjectUtils;
 
 
 /**
@@ -271,6 +265,58 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      */
     public static <T> T[] resize(T[] buffer, int newSize) {
         return resize(buffer, newSize, buffer.getClass().getComponentType());
+    }
+
+    /**
+     * 编辑数组<br> 编辑过程通过传入的Editor实现来返回需要的元素内容，这个Editor实现可以实现以下功能：
+     *
+     * <pre>
+     * 1、过滤出需要的对象，如果返回{@code null}表示这个元素对象抛弃
+     * 2、修改元素对象，返回集合中为修改后的对象
+     * </pre>
+     * <p>
+     *
+     * @param <T>    数组元素类型
+     * @param array  数组
+     * @param editor 编辑器接口，{@code null}返回原集合
+     * @return 编辑后的数组
+     * @since 5.3.3
+     */
+    public static <T> T[] edit(T[] array, Editor<T> editor) {
+        if (null == editor) {
+            return array;
+        }
+
+        final ArrayList<T> list = new ArrayList<>(array.length);
+        T modified;
+        for (T t : array) {
+            modified = editor.edit(t);
+            if (null != modified) {
+                list.add(modified);
+            }
+        }
+        final T[] result = newArray(array.getClass().getComponentType(), list.size());
+        return list.toArray(result);
+    }
+
+    /**
+     * 过滤<br> 过滤过程通过传入的Filter实现来过滤返回需要的元素内容，这个Filter实现可以实现以下功能：
+     *
+     * <pre>
+     * 1、过滤出需要的对象，{@link Filter#accept(Object)}方法返回true的对象将被加入结果集合中
+     * </pre>
+     *
+     * @param <T>    数组元素类型
+     * @param array  数组
+     * @param filter 过滤器接口，用于定义过滤规则，{@code null}返回原集合
+     * @return 过滤后的数组
+     * @since 3.2.1
+     */
+    public static <T> T[] filter(T[] array, Filter<T> filter) {
+        if (null == array || null == filter) {
+            return array;
+        }
+        return edit(array, t -> filter.accept(t) ? t : null);
     }
 
     /**

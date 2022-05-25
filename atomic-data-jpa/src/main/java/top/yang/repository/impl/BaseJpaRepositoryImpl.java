@@ -41,7 +41,7 @@ import top.yang.annotations.OrderBy;
 import top.yang.annotations.OrderGroup;
 import top.yang.exceptions.UnknownComplexConditionClassException;
 import top.yang.model.query.support.BaseQuery;
-import top.yang.reflect.FieldUtils;
+import top.yang.bean.FieldUtils;
 import top.yang.repository.BaseJpaRepository;
 import top.yang.spring.exception.PojoInstanceFailException;
 

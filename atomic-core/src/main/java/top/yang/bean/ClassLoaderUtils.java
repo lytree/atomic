@@ -1,4 +1,4 @@
-package top.yang.reflect;
+package top.yang.bean;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;

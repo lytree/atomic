@@ -4,8 +4,10 @@ package top.yang.collections;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import top.yang.Filter;
 
 public class IterableUtils {
+
     /**
      * Returns the number of elements contained in the given iterator.
      * <p>
@@ -25,8 +27,7 @@ public class IterableUtils {
     }
 
     /**
-     * Returns an empty iterator if the argument is {@code null},
-     * or {@code iterable.iterator()} otherwise.
+     * Returns an empty iterator if the argument is {@code null}, or {@code iterable.iterator()} otherwise.
      *
      * @param <E>      the element type
      * @param iterable the iterable, possibly {@code null}
@@ -37,8 +38,7 @@ public class IterableUtils {
     }
 
     /**
-     * Returns the {@code index}-th value in the {@code iterable}'s {@link Iterator}, throwing
-     * {@code IndexOutOfBoundsException} if there is no such element.
+     * Returns the {@code index}-th value in the {@code iterable}'s {@link Iterator}, throwing {@code IndexOutOfBoundsException} if there is no such element.
      * <p>
      * If the {@link Iterable} is a {@link List}, then it will use {@link List#get(int)}.
      *
@@ -59,8 +59,7 @@ public class IterableUtils {
     /**
      * Shortcut for {@code get(iterator, 0)}.
      * <p>
-     * Returns the {@code first} value in the {@code iterable}'s {@link Iterator}, throwing
-     * {@code IndexOutOfBoundsException} if there is no such element.
+     * Returns the {@code first} value in the {@code iterable}'s {@link Iterator}, throwing {@code IndexOutOfBoundsException} if there is no such element.
      * </p>
      * <p>
      * If the {@link Iterable} is a {@link List}, then it will use {@link List#get(int)}.
@@ -90,4 +89,5 @@ public class IterableUtils {
         }
         return IteratorUtils.isEmpty(emptyIteratorIfNull(iterable));
     }
+
 }
