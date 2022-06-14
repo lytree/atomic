@@ -17,19 +17,17 @@
     <mysql-connector-java.version>8.0.27</mysql-connector-java.version>
     <rocketmq.version>2.2.1</rocketmq.version>
     <mybatis.version>2.2.0</mybatis.version>
-    <elasticsearch.version>7.17.3</elasticsearch.version>
-    <druid.version>1.2.6</druid.version>
-    <okhttp.version>4.9.3</okhttp.version>
-    <kotlin-stdlib.version>1.4.10</kotlin-stdlib.version>
+    <elasticsearch.version>7.17.4</elasticsearch.version>
+    <druid.version>1.2.11</druid.version>
+    <okhttp.version>4.10.0</okhttp.version>
+    <kotlin-stdlib.version>1.6.20</kotlin-stdlib.version>
     <okio.version>2.10.0</okio.version>
     <jsoup.version>1.14.2</jsoup.version>
     <selenium-java.version>3.141.59</selenium-java.version>
     <htmlunit.version>2.56.0</htmlunit.version>
     <jsoupxpath.version>2.5.0</jsoupxpath.version>
-    <logstash.version>7.0.1</logstash.version>
+    <logstash.version>7.2.0</logstash.version>
     <freemarker.version>2.3.31</freemarker.version>
-    <commons-collections.version>4.4</commons-collections.version>
-    <commons-beanutils.version>1.9.4</commons-beanutils.version>
     <commons-io.version>2.11.0</commons-io.version>
     <commons-codec.version>1.15</commons-codec.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
@@ -37,11 +35,11 @@
     <commons-compress.version>1.20</commons-compress.version>
     <commons-configuration2.version>2.7</commons-configuration2.version>
     <elasticjob.version>3.0.1</elasticjob.version>
-    <mapstruct.version>1.4.2.Final</mapstruct.version>
+    <mapstruct.version>1.5.1.Final</mapstruct.version>
     <jjwt.version>0.11.5</jjwt.version>
     <!--        <dubbo.version>3.0.4</dubbo.version>-->
     <dubbo.version>2.7.15</dubbo.version>
-    <lombok.version>1.18.20</lombok.version>
+    <lombok.version>1.18.24</lombok.version>
     <guava.version>31.1-jre</guava.version>
     <redisson.version>3.15.6</redisson.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
