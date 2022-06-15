@@ -57,9 +57,6 @@ abstract class JSON {
      */
     protected static ThreadLocal<SimpleDateFormat> formatLocal = ThreadLocal.withInitial(() -> new SimpleDateFormat(STANDARD_FORMAT));
 
-    /**
-     * 设置一些通用的属性
-     */
     static {
         MAPPER = new ObjectMapper();
         MAPPER.setLocale(Locale.CHINA);

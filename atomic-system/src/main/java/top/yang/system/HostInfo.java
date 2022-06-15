@@ -3,7 +3,7 @@ package top.yang.system;
 
 import java.io.Serializable;
 import java.net.InetAddress;
-import top.yang.net.NetUtil;
+import top.yang.codec.net.NetUtil;
 
 /**
  * 代表当前主机的信息。

@@ -1621,4 +1621,32 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
         return FACTORIALS[(int) n];
     }
 
+    /**
+     * 把给定的总数平均分成N份，返回每份的个数<br> 当除以分数有余数时每份+1
+     *
+     * @param total     总数
+     * @param partCount 份数
+     * @return 每份的个数
+     * @since 4.0.7
+     */
+    public static int partValue(int total, int partCount) {
+        return partValue(total, partCount, true);
+    }
+
+    /**
+     * 把给定的总数平均分成N份，返回每份的个数<br> 如果isPlusOneWhenHasRem为true，则当除以分数有余数时每份+1，否则丢弃余数部分
+     *
+     * @param total               总数
+     * @param partCount           份数
+     * @param isPlusOneWhenHasRem 在有余数时是否每份+1
+     * @return 每份的个数
+     * @since 4.0.7
+     */
+    public static int partValue(int total, int partCount, boolean isPlusOneWhenHasRem) {
+        int partValue = total / partCount;
+        if (isPlusOneWhenHasRem && total % partCount > 0) {
+            partValue++;
+        }
+        return partValue;
+    }
 }

@@ -3,7 +3,7 @@ package top.yang.crypto.digest.otp;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import org.apache.commons.codec.binary.Base32;
+import top.yang.codec.binary.Base32;
 import top.yang.crypto.digest.HMac;
 import top.yang.crypto.digest.HmacAlgorithm;
 import top.yang.lang.RandomUtils;

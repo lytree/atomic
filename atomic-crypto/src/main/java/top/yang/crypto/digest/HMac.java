@@ -2,7 +2,7 @@ package top.yang.crypto.digest;
 
 
 import java.io.IOException;
-import org.apache.commons.codec.binary.Base64;
+import top.yang.codec.binary.Base64;
 import top.yang.crypto.digest.mac.MacEngine;
 import top.yang.crypto.digest.mac.MacEngineFactory;
 

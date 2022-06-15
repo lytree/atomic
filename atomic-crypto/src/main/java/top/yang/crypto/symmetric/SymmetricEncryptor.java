@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
-import org.apache.commons.codec.binary.Base64;
+import top.yang.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import top.yang.math.HexUtils;
 import top.yang.lang.CharsetUtils;

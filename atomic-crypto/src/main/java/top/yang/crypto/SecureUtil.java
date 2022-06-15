@@ -2,7 +2,7 @@ package top.yang.crypto;
 
 
 import java.io.IOException;
-import org.apache.commons.codec.binary.Base64;
+import top.yang.codec.binary.Base64;
 import top.yang.collections.MapUtils;
 import top.yang.crypto.asymmetric.AsymmetricAlgorithm;
 import top.yang.crypto.asymmetric.RSA;

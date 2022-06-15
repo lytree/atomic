@@ -25,6 +25,7 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.ObjectUtils;
 import top.yang.Filter;
+import top.yang.codec.binary.CharSequenceUtils;
 import top.yang.collections.ArrayUtils;
 import top.yang.text.StringFormatter;
 
@@ -933,5 +934,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         }
         return sb.toString();
     }
+
 
 }
