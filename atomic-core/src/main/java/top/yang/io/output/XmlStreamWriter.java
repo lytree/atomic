@@ -28,7 +28,6 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import top.yang.io.IOUtils;
-import top.yang.io.input.XmlStreamReader;
 
 /**
  * Character stream that handles all the necessary Voodoo to figure out the charset encoding of the XML document written to the stream.
