@@ -59,7 +59,7 @@ import top.yang.io.IOCase;
  *
  * @see FileFilterUtils#prefixFileFilter(String)
  * @see FileFilterUtils#prefixFileFilter(String, IOCase)
- * @since 1.0
+ *
  */
 public class PrefixFileFilter extends AbstractFileFilter implements Serializable {
 
@@ -93,7 +93,7 @@ public class PrefixFileFilter extends AbstractFileFilter implements Serializable
      * @param ioCase   how to handle case sensitivity, null means case-sensitive
      * @throws IllegalArgumentException if the prefix list is null
      * @throws ClassCastException       if the list does not contain Strings
-     * @since 1.4
+     *
      */
     public PrefixFileFilter(final List<String> prefixes, final IOCase ioCase) {
         requireNonNull(prefixes, "prefixes");
@@ -129,7 +129,7 @@ public class PrefixFileFilter extends AbstractFileFilter implements Serializable
      * @param prefix the prefix to allow, must not be null
      * @param ioCase how to handle case sensitivity, null means case-sensitive
      * @throws IllegalArgumentException if the prefix is null
-     * @since 1.4
+     *
      */
     public PrefixFileFilter(final String prefix, final IOCase ioCase) {
         requireNonNull(prefix, "prefix");
@@ -143,7 +143,7 @@ public class PrefixFileFilter extends AbstractFileFilter implements Serializable
      * @param prefixes the prefixes to allow, must not be null
      * @param ioCase   how to handle case sensitivity, null means case-sensitive
      * @throws IllegalArgumentException if the prefix is null
-     * @since 1.4
+     *
      */
     public PrefixFileFilter(final String[] prefixes, final IOCase ioCase) {
         requireNonNull(prefixes, "prefixes");
@@ -179,7 +179,7 @@ public class PrefixFileFilter extends AbstractFileFilter implements Serializable
      *
      * @param file the File to check
      * @return true if the file name starts with one of our prefixes
-     * @since 2.9.0
+     *
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

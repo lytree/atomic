@@ -27,7 +27,7 @@ import java.util.NoSuchElementException;
  * object instance.
  *
  * @param <E> the type of elements returned by this iterator.
- * @since 2.1
+ * 
  */
 public class SingletonListIterator<E> implements
         ResettableListIterator<E> {

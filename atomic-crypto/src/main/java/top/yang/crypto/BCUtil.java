@@ -29,7 +29,7 @@ import java.security.spec.ECPublicKeySpec;
  * Bouncy Castle相关工具类封装
  *
  * @author looly
- * @since 4.5.0
+ *
  */
 public class BCUtil {
 
@@ -38,7 +38,7 @@ public class BCUtil {
      *
      * @param privateKey {@link PublicKey}，必须为org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPrivateKey
      * @return 压缩得到的X
-     * @since 5.1.6
+     *
      */
     public static byte[] encodeECPrivateKey(PrivateKey privateKey) {
         return ((BCECPrivateKey) privateKey).getD().toByteArray();
@@ -49,7 +49,7 @@ public class BCUtil {
      *
      * @param publicKey {@link PublicKey}，必须为org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPublicKey
      * @return 压缩得到的Q
-     * @since 4.4.4
+     *
      */
     public static byte[] encodeECPublicKey(PublicKey publicKey) {
         return encodeECPublicKey(publicKey, true);
@@ -61,7 +61,7 @@ public class BCUtil {
      * @param publicKey    {@link PublicKey}，必须为org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPublicKey
      * @param isCompressed 是否压缩
      * @return 得到的Q
-     * @since 5.5.9
+     *
      */
     public static byte[] encodeECPublicKey(PublicKey publicKey, boolean isCompressed) {
         return ((BCECPublicKey) publicKey).getQ().getEncoded(isCompressed);
@@ -73,7 +73,7 @@ public class BCUtil {
      * @param encode    压缩公钥
      * @param curveName EC曲线名
      * @return 公钥
-     * @since 4.4.4
+     *
      */
     public static PublicKey decodeECPoint(String encode, String curveName) {
         return decodeECPoint(SecureUtil.decode(encode), curveName);
@@ -85,7 +85,7 @@ public class BCUtil {
      * @param encodeByte 压缩公钥
      * @param curveName  EC曲线名，例如{@link SmUtil#SM2_DOMAIN_PARAMS}
      * @return 公钥
-     * @since 4.4.4
+     *
      */
     public static PublicKey decodeECPoint(byte[] encodeByte, String curveName) {
         final X9ECParameters x9ECParameters = ECUtil.getNamedCurveByName(curveName);
@@ -102,7 +102,7 @@ public class BCUtil {
      *
      * @param parameterSpec ECParameterSpec
      * @return {@link ECDomainParameters}
-     * @since 5.2.0
+     *
      */
     public static ECDomainParameters toDomainParams(ECParameterSpec parameterSpec) {
         return new ECDomainParameters(
@@ -117,7 +117,7 @@ public class BCUtil {
      *
      * @param curveName Curve名称
      * @return {@link ECDomainParameters}
-     * @since 5.2.0
+     *
      */
     public static ECDomainParameters toDomainParams(String curveName) {
         return toDomainParams(ECUtil.getNamedCurveByName(curveName));
@@ -128,7 +128,7 @@ public class BCUtil {
      *
      * @param x9ECParameters {@link X9ECParameters}
      * @return {@link ECDomainParameters}
-     * @since 5.2.0
+     *
      */
     public static ECDomainParameters toDomainParams(X9ECParameters x9ECParameters) {
         return new ECDomainParameters(
@@ -144,7 +144,7 @@ public class BCUtil {
      *
      * @param key PrivateKey或者PublicKey
      * @return ECPrivateKeyParameters或者ECPublicKeyParameters
-     * @since 5.2.0
+     *
      */
     public static AsymmetricKeyParameter toParams(Key key) {
         return ECKeyUtil.toParams(key);
@@ -297,7 +297,7 @@ public class BCUtil {
      * @param pemStream pem流
      * @return {@link PrivateKey}
      * @see PemUtil#readPemPrivateKey(InputStream)
-     * @since 5.2.5
+     *
      */
     public static PrivateKey readPemPrivateKey(InputStream pemStream) throws IOException {
         return PemUtil.readPemPrivateKey(pemStream);
@@ -309,7 +309,7 @@ public class BCUtil {
      * @param pemStream pem流
      * @return {@link PublicKey}
      * @see PemUtil#readPemPublicKey(InputStream)
-     * @since 5.2.5
+     *
      */
     public static PublicKey readPemPublicKey(InputStream pemStream) throws IOException {
         return PemUtil.readPemPublicKey(pemStream);
@@ -320,7 +320,7 @@ public class BCUtil {
      *
      * @param privateKey PKCS#8格式私钥
      * @return PKCS#1格式私钥
-     * @since 5.5.9
+     *
      */
     public static byte[] toPkcs1(PrivateKey privateKey) throws IOException {
         final PrivateKeyInfo pkInfo = PrivateKeyInfo.getInstance(privateKey.getEncoded());
@@ -334,7 +334,7 @@ public class BCUtil {
      *
      * @param publicKey X.509格式公钥
      * @return PKCS#1格式公钥
-     * @since 5.5.9
+     *
      */
     public static byte[] toPkcs1(PublicKey publicKey) throws IOException {
         final SubjectPublicKeyInfo spkInfo = SubjectPublicKeyInfo

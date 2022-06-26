@@ -17,7 +17,7 @@ import java.util.TimeZone;
  * JDK8+中的{@link LocalDateTime} 工具类封装
  *
  * @author looly
- * @since 5.3.9
+ *
  */
 public class LocalDateTimeUtils {
 
@@ -202,7 +202,7 @@ public class LocalDateTimeUtils {
      *
      * @param temporalAccessor {@link TemporalAccessor}
      * @return {@link LocalDate}
-     * @since 5.3.10
+     *
      */
     public static LocalDate ofDate(TemporalAccessor temporalAccessor) {
         if (null == temporalAccessor) {
@@ -289,7 +289,7 @@ public class LocalDateTimeUtils {
      *
      * @param text 日期时间字符串
      * @return {@link LocalDate}
-     * @since 5.3.10
+     *
      */
     public static LocalDate parseDate(String text) {
         return parseDate(text, (DateTimeFormatter) null);
@@ -301,7 +301,7 @@ public class LocalDateTimeUtils {
      * @param text      日期时间字符串
      * @param formatter 日期格式化器，预定义的格式见：{@link DateTimeFormatter}
      * @return {@link LocalDate}
-     * @since 5.3.10
+     *
      */
     public static LocalDate parseDate(String text, DateTimeFormatter formatter) {
         if (null == text) {
@@ -333,7 +333,7 @@ public class LocalDateTimeUtils {
      *
      * @param time {@link LocalDateTime}
      * @return 格式化后的字符串
-     * @since 5.3.11
+     *
      */
     public static String formatNormal(LocalDateTime time) {
         return format(time, DatePattern.NORM_DATETIME_FORMATTER);
@@ -369,7 +369,7 @@ public class LocalDateTimeUtils {
      *
      * @param date {@link LocalDate}
      * @return 格式化后的字符串
-     * @since 5.3.11
+     *
      */
     public static String formatNormal(LocalDate date) {
         return format(date, DatePattern.NORM_DATE_FORMATTER);
@@ -381,7 +381,7 @@ public class LocalDateTimeUtils {
      * @param date      {@link LocalDate}
      * @param formatter 日期格式化器，预定义的格式见：{@link DateTimeFormatter}
      * @return 格式化后的字符串
-     * @since 5.3.10
+     *
      */
     public static String format(LocalDate date, DateTimeFormatter formatter) {
         return TemporalAccessorUtil.format(date, formatter);
@@ -393,7 +393,7 @@ public class LocalDateTimeUtils {
      * @param date   {@link LocalDate}
      * @param format 日期格式，类似于yyyy-MM-dd
      * @return 格式化后的字符串
-     * @since 5.3.10
+     *
      */
     public static String format(LocalDate date, String format) {
         if (null == date) {
@@ -441,7 +441,7 @@ public class LocalDateTimeUtils {
      * @param endTimeExclude   结束时间（不包括）
      * @param unit             时间差单位
      * @return 时间差
-     * @since 5.4.5
+     *
      */
     public static long between(LocalDateTime startTimeInclude, LocalDateTime endTimeExclude, ChronoUnit unit) {
         return TemporalUtil.between(startTimeInclude, endTimeExclude, unit);
@@ -455,7 +455,7 @@ public class LocalDateTimeUtils {
      * @param startTimeInclude 开始时间（包括）
      * @param endTimeExclude   结束时间（不包括）
      * @return 时间差
-     * @since 5.4.5
+     *
      */
     public static Period betweenPeriod(LocalDate startTimeInclude, LocalDate endTimeExclude) {
         return Period.between(startTimeInclude, endTimeExclude);
@@ -487,7 +487,7 @@ public class LocalDateTimeUtils {
      * @param temporalAccessor Date对象
      * @return {@link Instant}对象
      * @see TemporalAccessorUtil#toEpochMilli(TemporalAccessor)
-     * @since 5.4.1
+     *
      */
     public static long toEpochMilli(TemporalAccessor temporalAccessor) {
         return TemporalAccessorUtil.toEpochMilli(temporalAccessor);

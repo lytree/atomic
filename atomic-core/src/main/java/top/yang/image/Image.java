@@ -128,7 +128,7 @@ public class Image implements Serializable {
      *
      * @param srcImage        来源图片
      * @param targetImageType 目标图片类型，null则读取来源图片类型
-     * @since 5.0.7
+     * 
      */
     public Image(BufferedImage srcImage, String targetImageType) {
         this.srcImage = srcImage;
@@ -164,7 +164,7 @@ public class Image implements Serializable {
      *
      * @param positionBaseCentre 是否从中心做为原始坐标开始计算
      * @return this
-     * @since 4.1.15
+     * 
      */
     public Image setPositionBaseCentre(boolean positionBaseCentre) {
         this.positionBaseCentre = positionBaseCentre;
@@ -176,7 +176,7 @@ public class Image implements Serializable {
      *
      * @param quality 质量，数字为0~1（不包括0和1）表示质量压缩比，除此数字外设置表示不压缩
      * @return this
-     * @since 4.3.2
+     * 
      */
     public Image setQuality(double quality) {
         return setQuality((float) quality);
@@ -187,7 +187,7 @@ public class Image implements Serializable {
      *
      * @param quality 质量，数字为0~1（不包括0和1）表示质量压缩比，除此数字外设置表示不压缩
      * @return this
-     * @since 4.3.2
+     * 
      */
     public Image setQuality(float quality) {
         if (quality > 0 && quality < 1) {
@@ -245,7 +245,7 @@ public class Image implements Serializable {
      * @param height    目标高度
      * @param scaleType 缩放类型，可选{@link java.awt.Image#SCALE_SMOOTH}平滑模式或{@link java.awt.Image#SCALE_DEFAULT}默认模式
      * @return this
-     * @since 5.7.18
+     * 
      */
     public Image scale(int width, int height, int scaleType) {
         final java.awt.Image srcImage = getValidSrcImages();
@@ -341,7 +341,7 @@ public class Image implements Serializable {
      * @param x 原图的x坐标起始位置
      * @param y 原图的y坐标起始位置
      * @return this
-     * @since 4.1.15
+     * 
      */
     public Image cut(int x, int y) {
         return cut(x, y, -1);
@@ -354,7 +354,7 @@ public class Image implements Serializable {
      * @param y      原图的y坐标起始位置
      * @param radius 半径，小于0表示填充满整个图片（直径取长宽最小值）
      * @return this
-     * @since 4.1.15
+     * 
      */
     public Image cut(int x, int y, int radius) {
         final java.awt.Image srcImage = getValidSrcImages();
@@ -382,7 +382,7 @@ public class Image implements Serializable {
      *
      * @param arc 圆角弧度，0~1，为长宽占比
      * @return this
-     * @since 4.5.3
+     * 
      */
     public Image round(double arc) {
         final java.awt.Image srcImage = getValidSrcImages();
@@ -490,7 +490,7 @@ public class Image implements Serializable {
      * @param degree     旋转角度，（单位：弧度），以圆点（0,0）为圆心，正代表顺时针，负代表逆时针
      * @param alpha      透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
      * @return 处理后的图像
-     * @since 5.8.0
+     * 
      */
     public Image pressTextFull(String pressText, Color color, Font font, int lineHeight, int degree, float alpha) {
         final BufferedImage targetImage = ImageUtils.toBufferedImage(getValidSrcImages(), this.targetImageType);
@@ -556,7 +556,7 @@ public class Image implements Serializable {
      * @param rectangle  矩形对象，表示矩形区域的x，y，width，height，x,y从背景图片中心计算
      * @param alpha      透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
      * @return this
-     * @since 4.1.14
+     * 
      */
     public Image pressImage(java.awt.Image pressImage, Rectangle rectangle, float alpha) {
         final java.awt.Image targetImage = getValidSrcImages();
@@ -570,7 +570,7 @@ public class Image implements Serializable {
      *
      * @param degree 旋转角度
      * @return 旋转后的图片
-     * @since 3.2.2
+     * 
      */
     public Image rotate(int degree) {
         final java.awt.Image image = getValidSrcImages();
@@ -614,7 +614,7 @@ public class Image implements Serializable {
      * @param color 描边颜色，默认黑色
      * @param width 边框粗细
      * @return this
-     * @since 5.4.1
+     * 
      */
     public Image stroke(Color color, float width) {
         return stroke(color, new BasicStroke(width));
@@ -626,7 +626,7 @@ public class Image implements Serializable {
      * @param color  描边颜色，默认黑色
      * @param stroke 描边属性，包括粗细、线条类型等，见{@link BasicStroke}
      * @return this
-     * @since 5.4.1
+     * 
      */
     public Image stroke(Color color, Stroke stroke) {
         final BufferedImage image = ImageUtils.toBufferedImage(getValidSrcImages(), this.targetImageType);
@@ -766,7 +766,7 @@ public class Image implements Serializable {
      * 获取有效的源{@link BufferedImage}图片，首先检查上一次处理的结果图片，如无则使用用户传入的源图片
      *
      * @return 有效的源图片
-     * @since 5.7.8
+     * 
      */
     private BufferedImage getValidSrcBufferedImages() {
         return ImageUtils.toBufferedImage(getValidSrcImages(), this.targetImageType);
@@ -779,7 +779,7 @@ public class Image implements Serializable {
      * @param baseWidth  参考宽
      * @param baseHeight 参考高
      * @return 修正后的{@link Rectangle}
-     * @since 4.1.15
+     * 
      */
     private Rectangle fixRectangle(Rectangle rectangle, int baseWidth, int baseHeight) {
         if (this.positionBaseCentre) {
@@ -797,7 +797,7 @@ public class Image implements Serializable {
      * @param height 高度
      * @param degree 旋转角度
      * @return 计算后目标尺寸
-     * @since 4.1.20
+     * 
      */
     private static Rectangle calcRotatedSize(int width, int height, int degree) {
         if (degree < 0) {

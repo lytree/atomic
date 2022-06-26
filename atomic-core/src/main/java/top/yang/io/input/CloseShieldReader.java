@@ -26,7 +26,7 @@ import java.io.Reader;
  * still be available to other components.
  * </p>
  *
- * @since 2.7
+ *
  */
 public class CloseShieldReader extends ProxyReader {
 
@@ -35,7 +35,7 @@ public class CloseShieldReader extends ProxyReader {
      *
      * @param reader the reader to wrap
      * @return the created proxy
-     * @since 2.9.0
+     *
      */
     public static CloseShieldReader wrap(final Reader reader) {
         return new CloseShieldReader(reader);

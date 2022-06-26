@@ -74,7 +74,7 @@ import top.yang.io.IOUtils;
  * System.out.println(visitor.getFileList());
  * </pre>
  *
- * @since 1.3
+ * 
  */
 public class EmptyFileFilter extends AbstractFileFilter implements Serializable {
 
@@ -116,7 +116,7 @@ public class EmptyFileFilter extends AbstractFileFilter implements Serializable 
      *
      * @param file the file or directory to check
      * @return {@code true} if the file or directory is <i>empty</i>, otherwise {@code false}.
-     * @since 2.9.0
+     * 
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

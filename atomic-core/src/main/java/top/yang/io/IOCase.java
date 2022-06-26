@@ -31,7 +31,7 @@ import java.util.Objects;
  * Wherever possible, you should use the {@code check} methods in this class to compare file names.
  * </p>
  *
- * @since 1.3
+ *
  */
 public enum IOCase {
 
@@ -84,7 +84,7 @@ public enum IOCase {
      *
      * @param ioCase an IOCase.
      * @return true if the input is non-null and {@link #isCaseSensitive()}.
-     * @since 2.10.0
+     *
      */
     public static boolean isCaseSensitive(final IOCase ioCase) {
         return ioCase != null && ioCase.isCaseSensitive();
@@ -96,7 +96,7 @@ public enum IOCase {
      * @param value        the value to test.
      * @param defaultValue the default value.
      * @return the given value if not-null, the defaultValue if null.
-     * @since 2.12.0
+     *
      */
     public static IOCase value(final IOCase value, final IOCase defaultValue) {
         return value != null ? value : defaultValue;
@@ -186,7 +186,7 @@ public enum IOCase {
      * @param search        the start to search for, not null
      * @return the first index of the search String, -1 if no match or {@code null} string input
      * @throws NullPointerException if either string is null
-     * @since 2.0
+     *
      */
     public int checkIndexOf(final String str, final int strStartIndex, final String search) {
         final int endIndex = str.length() - search.length();

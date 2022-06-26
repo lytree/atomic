@@ -19,7 +19,7 @@ import top.yang.lang.Assert;
  * 非对称基础，提供锁、私钥和公钥的持有
  *
  * @author Looly
- * @since 3.3.0
+ * 
  */
 public class BaseAsymmetric<T extends BaseAsymmetric<T>> implements Serializable {
 
@@ -52,7 +52,7 @@ public class BaseAsymmetric<T extends BaseAsymmetric<T>> implements Serializable
      * @param algorithm  算法
      * @param privateKey 私钥
      * @param publicKey  公钥
-     * @since 3.1.1
+     * 
      */
     public BaseAsymmetric(String algorithm, PrivateKey privateKey, PublicKey publicKey) {
         init(algorithm, privateKey, publicKey);
@@ -166,7 +166,7 @@ public class BaseAsymmetric<T extends BaseAsymmetric<T>> implements Serializable
      *
      * @param key 密钥，可以是公钥{@link PublicKey}或者私钥{@link PrivateKey}
      * @return this
-     * @since 5.2.0
+     * 
      */
     public T setKey(Key key) {
         Assert.notNull(key, "key must be not null !");

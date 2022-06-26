@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  * </p>.
  *
  * @version $Revision$
- * @since Validator 1.4
+ * 
  */
 public class EmailValidator implements Serializable {
 
@@ -129,7 +129,7 @@ public class EmailValidator implements Serializable {
      * @param allowTld Should TLDs be allowed?
      * @param domainValidator allow override of the DomainValidator.
      * The instance must have the same allowLocal setting.
-     * @since 1.7
+     * 
      */
     public EmailValidator(boolean allowLocal, boolean allowTld, DomainValidator domainValidator) {
         this.allowTld = allowTld;

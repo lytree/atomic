@@ -7,7 +7,7 @@ import oshi.util.Util;
  * CPU负载时间信息
  *
  * @author looly
- * @since 5.7.12
+ * 
  */
 public class CpuTicks {
 
@@ -137,7 +137,7 @@ public class CpuTicks {
 	 * @param ticks     结束的ticks
 	 * @param tickType  tick类型
 	 * @return 标记差
-	 * @since 5.7.12
+	 * 
 	 */
 	private static long tick(long[] prevTicks, long[] ticks, CentralProcessor.TickType tickType) {
 		return ticks[tickType.getIndex()] - prevTicks[tickType.getIndex()];

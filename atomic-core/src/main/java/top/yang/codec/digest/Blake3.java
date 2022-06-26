@@ -71,7 +71,7 @@ import java.util.Objects;
  * </p>
  *
  * @see <a href="https://github.com/BLAKE3-team/BLAKE3">BLAKE3 hash function</a>
- * @since 1.16
+ * 
  */
 public final class Blake3 {
     // TODO: migrate to Integer.BYTES after upgrading to Java 8

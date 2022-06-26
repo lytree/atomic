@@ -31,7 +31,7 @@ import top.yang.io.filefilter.TrueFileFilter;
 /**
  * Counts files, directories, and sizes, as a visit proceeds.
  *
- * @since 2.7
+ *
  */
 public class CountingPathVisitor extends SimplePathVisitor {
 
@@ -74,7 +74,7 @@ public class CountingPathVisitor extends SimplePathVisitor {
      * @param pathCounter How to count path visits.
      * @param fileFilter  Filters which files to count.
      * @param dirFilter   Filters which directories to count.
-     * @since 2.9.0
+     *
      */
     public CountingPathVisitor(final PathCounters pathCounter, final PathFilter fileFilter, final PathFilter dirFilter) {
         this.pathCounters = Objects.requireNonNull(pathCounter, "pathCounter");
@@ -130,7 +130,7 @@ public class CountingPathVisitor extends SimplePathVisitor {
      *
      * @param dir the visited directory.
      * @param exc Encountered exception.
-     * @since 2.9.0
+     *
      */
     protected void updateDirCounter(final Path dir, final IOException exc) {
         pathCounters.getDirectoryCounter().increment();

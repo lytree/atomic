@@ -55,7 +55,7 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
      * <p>
      * This class is not itself thread-safe; each thread must allocate its own copy.
      *
-     * @since 1.7
+     *
      */
     static class Context {
 
@@ -120,7 +120,7 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
     /**
      * EOF
      *
-     * @since 1.7
+     *
      */
     static final int EOF = -1;
 
@@ -176,7 +176,7 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
     /**
      * The default decoding policy.
      *
-     * @since 1.15
+     *
      */
     protected static final CodecPolicy DECODING_POLICY_DEFAULT = CodecPolicy.LENIENT;
 
@@ -230,7 +230,7 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
      *
      * @return the chunk separator
      * @see <a href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045 section 2.1</a>
-     * @since 1.15
+     *
      */
     public static byte[] getChunkSeparator() {
         return CHUNK_SEPARATOR.clone();
@@ -364,7 +364,7 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
      * @param chunkSeparatorLength the chunk separator length, if relevant
      * @param pad                  byte used as padding byte.
      * @param decodingPolicy       Decoding policy.
-     * @since 1.15
+     *
      */
     protected BaseNCodec(final int unencodedBlockSize, final int encodedBlockSize,
             final int lineLength, final int chunkSeparatorLength, final byte pad,
@@ -480,7 +480,7 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
      * @param offset initial offset of the subarray.
      * @param length length of the subarray.
      * @return A byte array containing only the base N alphabetic character data
-     * @since 1.11
+     *
      */
     public byte[] encode(final byte[] pArray, final int offset, final int length) {
         if (BinaryCodec.isEmpty(pArray)) {
@@ -518,7 +518,7 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
      *
      * @param pArray a byte array containing binary data
      * @return String containing only character data in the appropriate alphabet.
-     * @since 1.5 This is a duplicate of {@link #encodeToString(byte[])}; it was merged during refactoring.
+     *
      */
     public String encodeAsString(final byte[] pArray) {
         return StringUtils.newStringUtf8(encode(pArray));
@@ -564,7 +564,7 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
      * </p>
      *
      * @return true if using strict decoding
-     * @since 1.15
+     *
      */
     public CodecPolicy getCodecPolicy() {
         return decodingPolicy;
@@ -650,7 +650,7 @@ public abstract class BaseNCodec implements BinaryEncoder, BinaryDecoder {
      * </p>
      *
      * @return true if using strict decoding
-     * @since 1.15
+     *
      */
     public boolean isStrictDecoding() {
         return decodingPolicy == CodecPolicy.STRICT;

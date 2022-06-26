@@ -23,7 +23,7 @@ import java.nio.file.SimpleFileVisitor;
 /**
  * A {@link SimpleFileVisitor} typed to a {@link Path}.
  *
- * @since 2.7
+ *
  */
 public abstract class SimplePathVisitor extends SimpleFileVisitor<Path> implements PathVisitor {
 

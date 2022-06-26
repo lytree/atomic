@@ -29,7 +29,7 @@ import top.yang.io.function.IOTriFunction;
 /**
  * Helps use lambdas that throw {@link IOException} rethrow as {@link UncheckedIOException}.
  *
- * @since 2.12.0
+ *
  */
 public class UncheckedIO {
 

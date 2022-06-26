@@ -71,7 +71,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  * System.out.println(visitor.getFileList());
  * </pre>
  *
- * @since 1.3
+ * 
  */
 public class HiddenFileFilter extends AbstractFileFilter implements Serializable {
 
@@ -107,7 +107,7 @@ public class HiddenFileFilter extends AbstractFileFilter implements Serializable
      *
      * @return {@code true} if the file is
      *  <i>hidden</i>, otherwise {@code false}.
-     * @since 2.9.0
+     * 
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

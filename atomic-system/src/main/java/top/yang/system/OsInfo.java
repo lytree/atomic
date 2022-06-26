@@ -47,7 +47,7 @@ public class OsInfo implements Serializable{
 	 *
 	 * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回{@code null}。
 	 *
-	 * @since Java 1.1
+	 *
 	 */
 	public final String getArch() {
 		return OS_ARCH;
@@ -62,7 +62,7 @@ public class OsInfo implements Serializable{
 	 *
 	 * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回{@code null}。
 	 *
-	 * @since Java 1.1
+	 *
 	 */
 	public final String getName() {
 		return OS_NAME;
@@ -77,7 +77,7 @@ public class OsInfo implements Serializable{
 	 *
 	 * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回{@code null}。
 	 *
-	 * @since Java 1.1
+	 *
 	 */
 	public final String getVersion() {
 		return OS_VERSION;
@@ -383,7 +383,7 @@ public class OsInfo implements Serializable{
 	 *
 	 * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回{@code null}。
 	 *
-	 * @since Java 1.1
+	 *
 	 */
 	public final String getFileSeparator() {
 		return FILE_SEPARATOR;
@@ -398,7 +398,7 @@ public class OsInfo implements Serializable{
 	 *
 	 * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回{@code null}。
 	 *
-	 * @since Java 1.1
+	 *
 	 */
 	public final String getLineSeparator() {
 		return LINE_SEPARATOR;
@@ -413,7 +413,7 @@ public class OsInfo implements Serializable{
 	 *
 	 * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回{@code null}。
 	 *
-	 * @since Java 1.1
+	 *
 	 */
 	public final String getPathSeparator() {
 		return PATH_SEPARATOR;

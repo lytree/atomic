@@ -62,14 +62,14 @@ import java.io.Reader;
  *  }
  * </pre>
  *
- * @since 1.3
+ *
  */
 public class NullReader extends Reader {
 
     /**
      * The singleton instance.
      *
-     * @since 2.12.0
+     *
      */
     public static final NullReader INSTANCE = new NullReader();
 
@@ -85,7 +85,7 @@ public class NullReader extends Reader {
      * Creates a {@link Reader} that emulates a size 0 reader
      * which supports marking and does not throw EOFException.
      *
-     * @since 2.7
+     *
      */
     public NullReader() {
        this(0, true, false);

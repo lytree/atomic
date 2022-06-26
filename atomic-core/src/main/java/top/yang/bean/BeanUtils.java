@@ -30,7 +30,7 @@ public class BeanUtils {
      *
      * @param clazz 待测试类
      * @return 是否为Bean对象
-     * @since 4.2.2
+     * 
      */
     public static boolean hasSetter(Class<?> clazz) {
         if (ClassUtils.isNormalClass(clazz)) {
@@ -49,7 +49,7 @@ public class BeanUtils {
      *
      * @param clazz 待测试类
      * @return 是否为Bean对象
-     * @since 4.2.2
+     * 
      */
     public static boolean hasGetter(Class<?> clazz) {
         if (ClassUtils.isNormalClass(clazz)) {
@@ -69,7 +69,7 @@ public class BeanUtils {
      *
      * @param clazz 待测试类
      * @return 是否有public类型字段
-     * @since 5.1.0
+     * 
      */
     public static boolean hasPublicField(Class<?> clazz) {
         if (ClassUtils.isNormalClass(clazz)) {

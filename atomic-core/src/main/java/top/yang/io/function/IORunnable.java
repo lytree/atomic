@@ -22,7 +22,7 @@ import java.io.IOException;
 /**
  * Like {@link Runnable} but throws {@link IOException}.
  *
- * @since 2.12.0
+ *
  */
 @FunctionalInterface
 public interface IORunnable {

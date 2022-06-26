@@ -27,7 +27,7 @@ import java.util.stream.Stream;
  * of stream.
  *
  * @param <E> The stream and iterator type.
- * @since 2.9.0
+ *
  */
 class StreamIterator<E> implements Iterator<E>, Closeable {
 

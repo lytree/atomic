@@ -34,7 +34,7 @@ package top.yang.codec.digest;
  * @see <a href=
  *      "http://docs.oracle.com/javase/9/security/oracleproviders.htm#JSSEC-GUID-A47B1249-593C-4C38-A0D0-68FA7681E0A7">
  *      Java 9 Cryptography Architecture Sun Providers Documentation</a>
- * @since 1.10
+ * 
  */
 public enum HmacAlgorithms {
 
@@ -59,7 +59,7 @@ public enum HmacAlgorithms {
      * <p>
      * Every implementation of the Java 8+ platform is required to support this standard MAC algorithm.
      * </p>
-     * @since 1.11
+     * 
      */
     HMAC_SHA_224("HmacSHA224"),
 
@@ -97,7 +97,7 @@ public enum HmacAlgorithms {
      * Gets the algorithm name.
      *
      * @return the algorithm name.
-     * @since 1.11
+     * 
      */
     public String getName() {
         return name;

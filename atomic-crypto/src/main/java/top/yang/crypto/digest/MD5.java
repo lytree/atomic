@@ -9,7 +9,7 @@ import java.nio.charset.Charset;
  * MD5算法
  * 
  * @author looly
- * @since 4.4.3
+ * 
  */
 public class MD5 extends Digester {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +18,7 @@ public class MD5 extends Digester {
 	 * 创建MD5实例
 	 * 
 	 * @return MD5
-	 * @since 4.6.0
+	 * 
 	 */
 	public static MD5 create() {
 		return new MD5();
@@ -70,7 +70,7 @@ public class MD5 extends Digester {
 	 * @param data 数据
 	 * @param charset 编码
 	 * @return 16位MD5摘要
-	 * @since 4.6.0
+	 * 
 	 */
 	public String digestHex16(String data, Charset charset) {
 		return DigestUtil.md5HexTo16(digestHex(data, charset));
@@ -81,7 +81,7 @@ public class MD5 extends Digester {
 	 * 
 	 * @param data 数据
 	 * @return 16位MD5摘要
-	 * @since 4.5.1
+	 * 
 	 */
 	public String digestHex16(String data) {
 		return DigestUtil.md5HexTo16(digestHex(data));
@@ -92,7 +92,7 @@ public class MD5 extends Digester {
 	 * 
 	 * @param data 数据
 	 * @return 16位MD5摘要
-	 * @since 4.5.1
+	 * 
 	 */
 	public String digestHex16(InputStream data) throws IOException {
 		return DigestUtil.md5HexTo16(digestHex(data));
@@ -113,7 +113,7 @@ public class MD5 extends Digester {
 	 * 
 	 * @param data 数据
 	 * @return 16位MD5摘要
-	 * @since 4.5.1
+	 * 
 	 */
 	public String digestHex16(byte[] data) {
 		return DigestUtil.md5HexTo16(digestHex(data));

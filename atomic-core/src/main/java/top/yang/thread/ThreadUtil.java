@@ -38,7 +38,7 @@ public class ThreadUtil {
      *
      * @param millis 挂起的毫秒数
      * @return 被中断返回false，否则true
-     * @since 5.3.2
+     *
      */
     public static boolean sleep(long millis) {
         if (millis > 0) {
@@ -72,7 +72,7 @@ public class ThreadUtil {
      * @param millis 给定的sleep时间
      * @return 被中断返回false，否则true
      * @see ThreadUtil#sleep(Number)
-     * @since 5.3.2
+     *
      */
     public static boolean safeSleep(long millis) {
         long done = 0;

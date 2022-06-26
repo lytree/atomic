@@ -115,7 +115,7 @@ import top.yang.text.StringFormatter;
  * <p>#ThreadSafe#</p>
  *
  * @see String
- * @since 1.0
+ *
  */
 //@Immutable
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
@@ -304,7 +304,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /**
      * Represents a failed index search.
      *
-     * @since 2.1
+     *
      */
     public static final int INDEX_NOT_FOUND = -1;
 
@@ -660,7 +660,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_8} is not initialized, which should never happen since it is required by the Java platform specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     * @since 1.11
+     *
      */
     public static ByteBuffer getByteBufferUtf8(final String string) {
         return getByteBuffer(string, StandardCharsets.UTF_8);
@@ -676,7 +676,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *                              specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static byte[] getBytesIso8859_1(final String string) {
         return getBytes(string, StandardCharsets.ISO_8859_1);
@@ -716,7 +716,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *                              specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static byte[] getBytesUsAscii(final String string) {
         return getBytes(string, StandardCharsets.US_ASCII);
@@ -731,7 +731,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *                              specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static byte[] getBytesUtf16(final String string) {
         return getBytes(string, StandardCharsets.UTF_16);
@@ -746,7 +746,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *                              specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static byte[] getBytesUtf16Be(final String string) {
         return getBytes(string, StandardCharsets.UTF_16BE);
@@ -761,7 +761,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *                              specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static byte[] getBytesUtf16Le(final String string) {
         return getBytes(string, StandardCharsets.UTF_16LE);
@@ -775,7 +775,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_8} is not initialized, which should never happen since it is required by the Java platform specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static byte[] getBytesUtf8(final String string) {
         return getBytes(string, StandardCharsets.UTF_8);
@@ -829,7 +829,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return A new {@code String} decoded from the specified array of bytes using the ISO-8859-1 charset, or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#ISO_8859_1} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static String newStringIso8859_1(final byte[] bytes) {
         return newString(bytes, StandardCharsets.ISO_8859_1);
@@ -842,7 +842,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return A new {@code String} decoded from the specified array of bytes using the US-ASCII charset, or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#US_ASCII} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static String newStringUsAscii(final byte[] bytes) {
         return newString(bytes, StandardCharsets.US_ASCII);
@@ -855,7 +855,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-16 charset or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static String newStringUtf16(final byte[] bytes) {
         return newString(bytes, StandardCharsets.UTF_16);
@@ -868,7 +868,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-16BE charset, or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16BE} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static String newStringUtf16Be(final byte[] bytes) {
         return newString(bytes, StandardCharsets.UTF_16BE);
@@ -881,7 +881,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-16LE charset, or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16LE} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static String newStringUtf16Le(final byte[] bytes) {
         return newString(bytes, StandardCharsets.UTF_16LE);
@@ -893,7 +893,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param bytes The bytes to be decoded into characters
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-8 charset, or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_8} is not initialized, which should never happen since it is required by the Java platform specification.
-     * @since As of 1.7, throws {@link NullPointerException} instead of UnsupportedEncodingException
+     *
      */
     public static String newStringUtf8(final byte[] bytes) {
         return newString(bytes, StandardCharsets.UTF_8);
@@ -916,7 +916,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param str    字符串
      * @param filter 过滤器，{@link Filter#accept(Object)}返回为{@code true}的保留字符
      * @return 过滤后的字符串
-     * @since 5.4.0
+     *
      */
     public static String filter(CharSequence str, final Filter<Character> filter) {
         if (str == null || filter == null) {

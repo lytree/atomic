@@ -22,7 +22,7 @@ import java.io.InputStream;
 /**
  * Consider this class package private. Helps load resources.
  *
- * @since 1.12
+ *
  */
 public class Resources {
 

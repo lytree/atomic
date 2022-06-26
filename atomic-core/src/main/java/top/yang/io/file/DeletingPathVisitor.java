@@ -31,7 +31,7 @@ import top.yang.io.file.Counters.PathCounters;
 /**
  * Deletes files and directories as a visit proceeds.
  *
- * @since 2.7
+ * 
  */
 public class DeletingPathVisitor extends CountingPathVisitor {
 
@@ -63,7 +63,7 @@ public class DeletingPathVisitor extends CountingPathVisitor {
      * @param pathCounter  How to count visits.
      * @param deleteOption How deletion is handled.
      * @param skip         The files to skip deleting.
-     * @since 2.8.0
+     * 
      */
     public DeletingPathVisitor(final PathCounters pathCounter, final DeleteOption[] deleteOption, final String... skip) {
         this(pathCounter, PathUtils.noFollowLinkOptionArray(), deleteOption, skip);
@@ -76,7 +76,7 @@ public class DeletingPathVisitor extends CountingPathVisitor {
      * @param linkOptions  How symbolic links are handled.
      * @param deleteOption How deletion is handled.
      * @param skip         The files to skip deleting.
-     * @since 2.9.0
+     * 
      */
     public DeletingPathVisitor(final PathCounters pathCounter, final LinkOption[] linkOptions, final DeleteOption[] deleteOption, final String... skip) {
         super(pathCounter);

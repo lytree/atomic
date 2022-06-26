@@ -53,7 +53,7 @@ import top.yang.io.file.Counters.PathCounters;
  * System.out.println(visitor.getFileList());
  * </pre>
  *
- * @since 2.7
+ *
  */
 public class AccumulatorPathVisitor extends CountingPathVisitor {
 
@@ -72,7 +72,7 @@ public class AccumulatorPathVisitor extends CountingPathVisitor {
      * @param fileFilter Filters files to accumulate and count.
      * @param dirFilter  Filters directories to accumulate and count.
      * @return a new instance configured with a long {@link PathCounters}.
-     * @since 2.9.0
+     *
      */
     public static AccumulatorPathVisitor withBigIntegerCounters(final PathFilter fileFilter,
             final PathFilter dirFilter) {
@@ -94,7 +94,7 @@ public class AccumulatorPathVisitor extends CountingPathVisitor {
      * @param fileFilter Filters files to accumulate and count.
      * @param dirFilter  Filters directories to accumulate and count.
      * @return a new instance configured with a long {@link PathCounters}.
-     * @since 2.9.0
+     *
      */
     public static AccumulatorPathVisitor withLongCounters(final PathFilter fileFilter, final PathFilter dirFilter) {
         return new AccumulatorPathVisitor(Counters.longPathCounters(), fileFilter, dirFilter);
@@ -107,7 +107,7 @@ public class AccumulatorPathVisitor extends CountingPathVisitor {
     /**
      * Constructs a new instance.
      *
-     * @since 2.9.0
+     *
      */
     public AccumulatorPathVisitor() {
         super(Counters.noopPathCounters());
@@ -128,7 +128,7 @@ public class AccumulatorPathVisitor extends CountingPathVisitor {
      * @param pathCounter How to count path visits.
      * @param fileFilter  Filters which files to count.
      * @param dirFilter   Filters which directories to count.
-     * @since 2.9.0
+     *
      */
     public AccumulatorPathVisitor(final PathCounters pathCounter, final PathFilter fileFilter, final PathFilter dirFilter) {
         super(pathCounter, fileFilter, dirFilter);

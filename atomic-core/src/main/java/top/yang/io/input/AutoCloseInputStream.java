@@ -30,7 +30,7 @@ import java.io.InputStream;
  * longer needed) or the underlying stream (by not releasing resources once the last byte has been read) do not do that.
  * </p>
  *
- * @since 1.4
+ * 
  */
 public class AutoCloseInputStream extends ProxyInputStream {
 
@@ -48,7 +48,7 @@ public class AutoCloseInputStream extends ProxyInputStream {
      *
      * @param n number of bytes read, or -1 if no more bytes are available
      * @throws IOException if the stream could not be closed
-     * @since 2.0
+     * 
      */
     @Override
     protected void afterRead(final int n) throws IOException {

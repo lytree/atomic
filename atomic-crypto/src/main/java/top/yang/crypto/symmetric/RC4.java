@@ -74,7 +74,7 @@ public class RC4 implements Serializable {
      *
      * @param data 数据
      * @return 加密后的Hex
-     * @since 4.5.12
+     *
      */
     public String encryptHex(byte[] data) {
         return HexUtils.encodeHexString(crypt(data));
@@ -85,7 +85,7 @@ public class RC4 implements Serializable {
      *
      * @param data 数据
      * @return 加密后的Base64
-     * @since 4.5.12
+     *
      */
     public String encryptBase64(byte[] data) {
         return new Base64().encodeToString(crypt(data));
@@ -97,7 +97,7 @@ public class RC4 implements Serializable {
      * @param data    被加密的字符串
      * @param charset 编码
      * @return 加密后的Hex
-     * @since 4.5.12
+     *
      */
     public String encryptHex(String data, Charset charset) {
         return HexUtils.encodeHexString(encrypt(data, charset));
@@ -108,7 +108,7 @@ public class RC4 implements Serializable {
      *
      * @param data 被加密的字符串
      * @return 加密后的Hex
-     * @since 5.4.4
+     *
      */
     public String encryptHex(String data) {
         return HexUtils.encodeHexString(encrypt(data));
@@ -120,7 +120,7 @@ public class RC4 implements Serializable {
      * @param data    被加密的字符串
      * @param charset 编码
      * @return 加密后的Base64
-     * @since 4.5.12
+     *
      */
     public String encryptBase64(String data, Charset charset) {
         return new Base64().encodeToString(encrypt(data, charset));
@@ -132,7 +132,7 @@ public class RC4 implements Serializable {
      *
      * @param data 被加密的字符串
      * @return 加密后的Base64
-     * @since 5.4.4
+     *
      */
     public String encryptBase64(String data) {
         return new Base64().encodeToString(encrypt(data));
@@ -166,7 +166,7 @@ public class RC4 implements Serializable {
      *
      * @param message 消息
      * @return 明文
-     * @since 5.4.4
+     *
      */
     public String decrypt(String message) {
         return decrypt(SecureUtil.decode(message));
@@ -178,7 +178,7 @@ public class RC4 implements Serializable {
      * @param message 明文
      * @param charset 解密后的charset
      * @return 明文
-     * @since 5.4.4
+     *
      */
     public String decrypt(String message, Charset charset) {
         return StringUtils.toString(decrypt(message), charset);

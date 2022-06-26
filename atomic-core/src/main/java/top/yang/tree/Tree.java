@@ -11,7 +11,7 @@ import top.yang.collections.ArrayUtils;
  *
  * @param <T> ID类型
  * @author liangbaikai
- * @since 5.2.1
+ *
  */
 public class Tree<T> extends LinkedHashMap<String, Object> implements Node<T> {
 
@@ -38,7 +38,7 @@ public class Tree<T> extends LinkedHashMap<String, Object> implements Node<T> {
    * 获取节点配置
    *
    * @return 节点配置
-   * @since 5.7.2
+   *
    */
   public TreeNodeConfig getConfig() {
     return this.treeNodeConfig;
@@ -48,7 +48,7 @@ public class Tree<T> extends LinkedHashMap<String, Object> implements Node<T> {
    * 获取父节点
    *
    * @return 父节点
-   * @since 5.2.4
+   *
    */
   public Tree<T> getParent() {
     return parent;
@@ -59,7 +59,7 @@ public class Tree<T> extends LinkedHashMap<String, Object> implements Node<T> {
    *
    * @param id ID
    * @return 节点
-   * @since 5.2.4
+   *
    */
   public Tree<T> getNode(T id) {
     return TreeUtils.getNode(this, id);
@@ -74,7 +74,7 @@ public class Tree<T> extends LinkedHashMap<String, Object> implements Node<T> {
    * @param id                 节点ID
    * @param includeCurrentNode 是否包含当前节点的名称
    * @return 所有父节点名称列表
-   * @since 5.2.4
+   *
    */
   public List<CharSequence> getParentsName(T id, boolean includeCurrentNode) {
     return TreeUtils.getParentsName(getNode(id), includeCurrentNode);
@@ -88,7 +88,7 @@ public class Tree<T> extends LinkedHashMap<String, Object> implements Node<T> {
    *
    * @param includeCurrentNode 是否包含当前节点的名称
    * @return 所有父节点名称列表
-   * @since 5.2.4
+   *
    */
   public List<CharSequence> getParentsName(boolean includeCurrentNode) {
     return TreeUtils.getParentsName(this, includeCurrentNode);
@@ -99,7 +99,7 @@ public class Tree<T> extends LinkedHashMap<String, Object> implements Node<T> {
    *
    * @param parent 父节点
    * @return this
-   * @since 5.2.4
+   *
    */
   public Tree<T> setParent(Tree<T> parent) {
     this.parent = parent;
@@ -181,7 +181,7 @@ public class Tree<T> extends LinkedHashMap<String, Object> implements Node<T> {
    *
    * @param children 子节点列表
    * @return this
-   * @since 5.6.7
+   *
    */
   @SafeVarargs
   public final Tree<T> addChildren(Tree<T>... children) {

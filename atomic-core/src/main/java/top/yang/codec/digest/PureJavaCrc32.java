@@ -37,7 +37,7 @@ import java.util.zip.Checksum;
  * This class is Not ThreadSafe
  *
  * @see java.util.zip.CRC32
- * @since 1.11
+ *
  */
 public class PureJavaCrc32 implements Checksum {
 

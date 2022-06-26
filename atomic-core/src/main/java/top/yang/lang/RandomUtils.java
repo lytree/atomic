@@ -22,7 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author pride
- * @since 3.3
+ * 
  */
 public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
 
@@ -48,7 +48,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      *
      * @param seed 自定义随机种子
      * @return {@link SecureRandom}
-     * @since 4.6.5
+     * 
      */
     public static SecureRandom createSecureRandom(byte[] seed) {
         return (null == seed) ? new SecureRandom() : new SecureRandom(seed);
@@ -61,7 +61,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      * 相关说明见：https://stackoverflow.com/questions/137212/how-to-solve-slow-java-securerandom
      *
      * @return {@link SecureRandom}
-     * @since 3.1.2
+     * 
      */
     public static SecureRandom getSecureRandom() {
         return getSecureRandom(null);
@@ -76,7 +76,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      * @param seed 随机数种子
      * @return {@link SecureRandom}
      * @see #createSecureRandom(byte[])
-     * @since 5.5.2
+     * 
      */
     public static SecureRandom getSecureRandom(byte[] seed) {
         return createSecureRandom(seed);
@@ -89,7 +89,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      * @param isSecure 是否为强随机数生成器 (RNG)
      * @return {@link Random}
      * @see #getSecureRandom()
-     * @since 4.1.15
+     * 
      */
     public static Random randomThreadLocal(boolean isSecure) {
         return isSecure ? getSecureRandom() : random();
@@ -99,7 +99,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      * 获得随机Boolean值
      *
      * @return true or false
-     * @since 4.5.9
+     * 
      */
     public static boolean nextBooleanThreadLocal() {
         return random().nextBoolean();
@@ -141,7 +141,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      * @param min 最小数（包含）
      * @param max 最大数（不包含）
      * @return 随机数
-     * @since 3.3.0
+     * 
      */
     public static long nextLongThreadLocal(long min, long max) {
         return random().nextLong(min, max);
@@ -151,7 +151,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      * 获得随机数
      *
      * @return 随机数
-     * @since 3.3.0
+     * 
      */
     public static long nextLongThreadLocal() {
         return random().nextLong();
@@ -173,7 +173,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      * @param min 最小数（包含）
      * @param max 最大数（不包含）
      * @return 随机数
-     * @since 3.3.0
+     * 
      */
     public static double nextDoubleThreadLocal(double min, double max) {
         return random().nextDouble(min, max);
@@ -184,7 +184,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      * 获得随机数[0, 1)
      *
      * @return 随机数
-     * @since 3.3.0
+     * 
      */
     public static double nextDoubleThreadLocal() {
         return random().nextDouble();
@@ -196,7 +196,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      *
      * @param limit 限制随机数的范围，不包括这个数
      * @return 随机数
-     * @since 3.3.0
+     * 
      */
     public static double nextDoubleThreadLocal(double limit) {
         return random().nextDouble(limit);
@@ -218,7 +218,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      * 随机数字，数字为0~9单个数字
      *
      * @return 随机数字字符
-     * @since 3.1.2
+     * 
      */
     public static char nextNumberThreadLocal() {
         return nextCharThreadLocal(BASE_NUMBER);
@@ -228,7 +228,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      * 随机字母或数字，小写
      *
      * @return 随机字符
-     * @since 3.1.2
+     * 
      */
     public static char nextCharThreadLocal() {
         return nextCharThreadLocal(BASE_CHAR_NUMBER);
@@ -239,7 +239,7 @@ public class RandomUtils extends org.apache.commons.lang3.RandomUtils {
      *
      * @param baseString 随机字符选取的样本
      * @return 随机字符
-     * @since 3.1.2
+     * 
      */
     public static char nextCharThreadLocal(String baseString) {
         return baseString.charAt(nextIntThreadLocal(baseString.length()));

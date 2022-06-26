@@ -22,7 +22,7 @@ import top.yang.lang.CharsetUtils;
  * {@code String strong_salt = BCrypt.gensalt(10); String stronger_salt = BCrypt.gensalt(12); }
  *
  * @author Damien Miller
- * @since 4.1.1
+ *
  */
 public class BCrypt {
 

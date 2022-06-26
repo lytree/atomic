@@ -65,7 +65,7 @@ import java.util.regex.Matcher;
  * </p>
  *
  * @version $Revision$
- * @since Validator 1.4
+ *
  */
 public class RegexValidator implements Serializable {
 

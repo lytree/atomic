@@ -33,7 +33,7 @@ import top.yang.codec.EncoderException;
  * TODO: may want to add more bit vector functions like and/or/xor/nand
  * TODO: also might be good to generate boolean[] from byte[] et cetera.
  *
- * @since 1.3
+ * 
  */
 public class BinaryCodec implements BinaryDecoder, BinaryEncoder {
     /*
@@ -157,7 +157,7 @@ public class BinaryCodec implements BinaryDecoder, BinaryEncoder {
      *
      * @param array the source array
      * @return {@code true} if the given array is {@code null} or empty (size 0.)
-     * @since 1.16 change visibility to public
+     * 
      */
     static boolean isEmpty(final byte[] array) {
         return array == null || array.length == 0;

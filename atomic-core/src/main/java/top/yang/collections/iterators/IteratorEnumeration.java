@@ -24,7 +24,7 @@ import java.util.Iterator;
  * {@link Enumeration Enumeration} instance.
  *
  * @param <E> the type of elements returned by this iterator.
- * @since 1.0
+ *
  */
 public class IteratorEnumeration<E> implements Enumeration<E> {
 

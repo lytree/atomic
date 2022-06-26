@@ -29,7 +29,7 @@ import top.yang.io.IOIndexedException;
  * Like {@link Consumer} but throws {@link IOException}.
  *
  * @param <T> the type of the input to the operations.
- * @since 2.7
+ *
  */
 @FunctionalInterface
 public interface IOConsumer<T> {
@@ -46,7 +46,7 @@ public interface IOConsumer<T> {
      * @param array  The input to stream.
      * @param action The action to apply to each input element.
      * @throws IOException if an I/O error occurs.
-     * @since 2.12.0
+     *
      */
     static <T> void forEach(final T[] array, final IOConsumer<T> action) throws IOException {
         IOStreams.forEach(IOStreams.of(array), action);
@@ -59,7 +59,7 @@ public interface IOConsumer<T> {
      * @param stream The input to stream.
      * @param action The action to apply to each input element.
      * @throws IOExceptionList if an I/O error occurs.
-     * @since 2.12.0
+     *
      */
     static <T> void forEachIndexed(final Stream<T> stream, final IOConsumer<T> action) throws IOExceptionList {
         IOStreams.forEachIndexed(stream, action, IOIndexedException::new);
@@ -70,7 +70,7 @@ public interface IOConsumer<T> {
      *
      * @param <T> Type consumer type.
      * @return a constant NOOP consumer.
-     * @since 2.9.0
+     *
      */
     @SuppressWarnings("unchecked")
     static <T> IOConsumer<T> noop() {

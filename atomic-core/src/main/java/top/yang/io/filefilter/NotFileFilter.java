@@ -28,7 +28,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  * This filter produces a logical NOT of the filters specified.
  *
  * @see FileFilterUtils#notFileFilter(IOFileFilter)
- * @since 1.0
+ *
  */
 public class NotFileFilter extends AbstractFileFilter implements Serializable {
 
@@ -78,7 +78,7 @@ public class NotFileFilter extends AbstractFileFilter implements Serializable {
      *
      * @param file the File to check
      * @return true if the filter returns false
-     * @since 2.9.0
+     *
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

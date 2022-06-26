@@ -10,7 +10,7 @@ import java.security.spec.AlgorithmParameterSpec;
  * {@link MacEngine} 实现工厂类
  *
  * @author Looly
- * @since 4.5.13
+ *
  */
 public class MacEngineFactory {
 
@@ -32,7 +32,7 @@ public class MacEngineFactory {
 	 * @param key       密钥
 	 * @param spec      spec
 	 * @return {@link MacEngine}
-	 * @since 5.7.12
+	 *
 	 */
 	public static MacEngine createEngine(String algorithm, Key key, AlgorithmParameterSpec spec) {
 		if (algorithm.equalsIgnoreCase(HmacAlgorithm.HmacSM3.getValue())) {

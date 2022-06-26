@@ -10,7 +10,7 @@ import java.security.Provider;
  * </pre>
  *
  * @author looly
- * @since 4.2.1
+ *
  */
 public class ProviderFactory {
 

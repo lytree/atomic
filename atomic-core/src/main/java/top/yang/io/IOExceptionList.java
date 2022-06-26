@@ -29,7 +29,7 @@ import java.util.Objects;
  * #getCauseList()}.
  * </p>
  *
- * @since 2.7
+ *
  */
 public class IOExceptionList extends IOException {
 
@@ -41,7 +41,7 @@ public class IOExceptionList extends IOException {
      * @param causeList The list to test.
      * @param message   The detail message, see {@link #getMessage()}.
      * @throws IOExceptionList if the list is not null or empty.
-     * @since 2.12.0
+     *
      */
     public static void checkEmpty(final List<? extends Throwable> causeList, final Object message) throws IOExceptionList {
         if (!isEmpty(causeList)) {
@@ -73,7 +73,7 @@ public class IOExceptionList extends IOException {
      *
      * @param message   The detail message, see {@link #getMessage()}.
      * @param causeList a list of cause exceptions.
-     * @since 2.9.0
+     *
      */
     public IOExceptionList(final String message, final List<? extends Throwable> causeList) {
         super(message != null ? message : toMessage(causeList), isEmpty(causeList) ? null : causeList.get(0));

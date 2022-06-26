@@ -59,7 +59,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  * }
  * </pre>
  *
- * @since 1.3
+ * 
  */
 public class CanReadFileFilter extends AbstractFileFilter implements Serializable {
 
@@ -96,7 +96,7 @@ public class CanReadFileFilter extends AbstractFileFilter implements Serializabl
      * @param file the File to check.
      *
      * @return {@code true} if the file can be read, otherwise {@code false}.
-     * @since 2.9.0
+     * 
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

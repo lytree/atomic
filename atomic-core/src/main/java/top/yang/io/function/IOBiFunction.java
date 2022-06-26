@@ -34,7 +34,7 @@ import java.util.function.Function;
  * @param <R> the type of the result of the function
  *
  * @see Function
- * @since 2.12.0
+ *
  */
 @FunctionalInterface
 public interface IOBiFunction<T, U, R> {

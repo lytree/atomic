@@ -40,7 +40,7 @@ import java.util.Currency;
  * </ul>
  *
  * @author ddatsh
- * @since 5.0.4
+ * 
  */
 
 public class Money implements Serializable, Comparable<Money> {

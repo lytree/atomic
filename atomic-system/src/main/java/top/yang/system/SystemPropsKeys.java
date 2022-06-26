@@ -8,7 +8,7 @@ package top.yang.system;
  *
  *
  * @author Looly
- * @since 4.6.7
+ *
  */
 public interface SystemPropsKeys {
 

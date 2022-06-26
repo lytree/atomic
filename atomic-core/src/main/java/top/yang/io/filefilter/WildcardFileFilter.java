@@ -67,7 +67,7 @@ import top.yang.io.IOCase;
  * System.out.println(visitor.getFileList());
  * </pre>
  *
- * @since 1.3
+ *
  */
 public class WildcardFileFilter extends AbstractFileFilter implements Serializable {
 
@@ -182,7 +182,7 @@ public class WildcardFileFilter extends AbstractFileFilter implements Serializab
      *
      * @param file the file to check
      * @return true if the file name matches one of the wildcards.
-     * @since 2.9.0
+     *
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

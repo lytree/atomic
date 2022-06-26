@@ -35,7 +35,7 @@ import java.util.NoSuchElementException;
  * @see java.util.Iterator
  * @see java.util.ListIterator
  *
- * @since 3.0
+ *
  */
 public class ObjectArrayListIterator<E> extends ObjectArrayIterator<E>
         implements ResettableListIterator<E> {

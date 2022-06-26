@@ -10,7 +10,7 @@ import top.yang.lang.RandomUtils;
  * 祖冲之算法集（ZUC算法）实现，基于BouncyCastle实现。
  *
  * @author looly
- * @since 5.7.12
+ *
  */
 public class ZUC extends SymmetricCrypto {
 

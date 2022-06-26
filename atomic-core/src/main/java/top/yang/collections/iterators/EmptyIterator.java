@@ -30,20 +30,20 @@ import java.util.Iterator;
  * 2.1.1 and 3.1 due to issues with {@code IteratorUtils}.
  *
  * @param <E> the type of elements returned by this iterator.
- * @since 2.1.1 and 3.1
+ *
  */
 public class EmptyIterator<E> extends AbstractEmptyIterator<E> implements ResettableIterator<E> {
 
     /**
      * Singleton instance of the iterator.
-     * @since 3.1
+     *
      */
     @SuppressWarnings("rawtypes")
     public static final ResettableIterator RESETTABLE_INSTANCE = new EmptyIterator<>();
 
     /**
      * Singleton instance of the iterator.
-     * @since 2.1.1 and 3.1
+     *
      */
     @SuppressWarnings("rawtypes")
     public static final Iterator INSTANCE = RESETTABLE_INSTANCE;

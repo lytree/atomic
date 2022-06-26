@@ -25,7 +25,7 @@ import java.io.OutputStream;
  * Native code may need to copy the input array; if the write buffer
  * is very large this can cause OOME.
  *
- * @since 2.5
+ *
  */
 public class ChunkedOutputStream extends FilterOutputStream {
 

@@ -24,7 +24,7 @@ import java.nio.file.Path;
 /**
  * Access modes and factory methods for {@link RandomAccessFile}.
  *
- * @since 2.12.0
+ *
  */
 public enum RandomAccessFileMode {
 

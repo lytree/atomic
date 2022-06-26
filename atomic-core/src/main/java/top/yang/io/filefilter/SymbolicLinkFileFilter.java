@@ -57,7 +57,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  * System.out.println(visitor.getFileList());
  * </pre>
  *
- * @since 2.11.0
+ *
  * @see FileFilterUtils#fileFileFilter()
  */
 public class SymbolicLinkFileFilter extends AbstractFileFilter implements Serializable {
@@ -80,7 +80,7 @@ public class SymbolicLinkFileFilter extends AbstractFileFilter implements Serial
      *
      * @param onAccept What to do on acceptance.
      * @param onReject What to do on rejection.
-     * @since 2.12.0.
+     *
      */
     public SymbolicLinkFileFilter(final FileVisitResult onAccept, final FileVisitResult onReject) {
         super(onAccept, onReject);

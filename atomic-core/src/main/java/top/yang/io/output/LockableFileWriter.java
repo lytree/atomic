@@ -66,7 +66,7 @@ public class LockableFileWriter extends Writer {
      * @param charset the charset to use, null means platform default
      * @throws NullPointerException if the file is null
      * @throws IOException          in case of an I/O error
-     * @since 2.3
+     *
      */
     public LockableFileWriter(final File file, final Charset charset) throws IOException {
         this(file, charset, false, null);
@@ -81,7 +81,7 @@ public class LockableFileWriter extends Writer {
      * @param lockDir the directory in which the lock file should be held
      * @throws NullPointerException if the file is null
      * @throws IOException          in case of an I/O error
-     * @since 2.3
+     *
      */
     public LockableFileWriter(File file, final Charset charset, final boolean append,
             String lockDir) throws IOException {

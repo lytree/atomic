@@ -32,7 +32,7 @@ import java.io.Reader;
  * too many characters removes the ability to do a successful reset.
  * </p>
  *
- * @since 2.5
+ *
  */
 public class BoundedReader extends Reader {
 

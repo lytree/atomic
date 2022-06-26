@@ -83,7 +83,7 @@ import top.yang.io.IOUtils;
  *
  * @see ByteOrderMark
  * @see <a href="http://en.wikipedia.org/wiki/Byte_order_mark">Wikipedia - Byte Order Mark</a>
- * @since 2.0
+ *
  */
 public class BOMInputStream extends ProxyInputStream {
 

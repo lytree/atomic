@@ -29,21 +29,21 @@ import java.util.ListIterator;
  * due to issues with {@code IteratorUtils}.
  *
  * @param <E> the type of elements returned by this iterator.
- * @since 2.1.1 and 3.1
+ * 
  */
 public class EmptyListIterator<E> extends AbstractEmptyIterator<E> implements
         ResettableListIterator<E> {
 
     /**
      * Singleton instance of the iterator.
-     * @since 3.1
+     * 
      */
     @SuppressWarnings("rawtypes")
     public static final ResettableListIterator RESETTABLE_INSTANCE = new EmptyListIterator<>();
 
     /**
      * Singleton instance of the iterator.
-     * @since 2.1.1 and 3.1
+     * 
      */
     @SuppressWarnings("rawtypes")
     public static final ListIterator INSTANCE = RESETTABLE_INSTANCE;

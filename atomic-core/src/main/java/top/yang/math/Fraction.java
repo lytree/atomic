@@ -34,7 +34,7 @@ import java.math.BigInteger;
  * based and thus suffers from various overflow issues. For a BigInteger based
  * equivalent, please see the Commons Math BigFraction class. </p>
  *
- * @since 2.0
+ * 
  */
 public final class Fraction extends Number implements Comparable<Fraction> {
 

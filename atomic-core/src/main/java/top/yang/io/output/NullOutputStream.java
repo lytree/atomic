@@ -30,7 +30,7 @@ public class NullOutputStream extends OutputStream {
     /**
      * The singleton instance.
      *
-     * @since 2.12.0
+     *
      */
     public static final NullOutputStream INSTANCE = new NullOutputStream();
 

@@ -25,7 +25,7 @@ import java.time.ZoneId;
  * Helps to deal with {@link java.util.TimeZone}s.
  *
  * @author pride
- * @since 3.7
+ *
  */
 public class TimeZones {
 

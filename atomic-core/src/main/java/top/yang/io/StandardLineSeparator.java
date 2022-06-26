@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * Enumerates standard line separators: {@link #CR}, {@link #CRLF}, {@link #LF}.
  *
- * @since 2.9.0
+ *
  */
 public enum StandardLineSeparator {
 

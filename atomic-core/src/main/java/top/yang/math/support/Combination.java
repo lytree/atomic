@@ -11,7 +11,7 @@ import top.yang.lang.StringUtils;
  * 组合，即C(n, m)<br> 排列组合相关类 参考：http://cgs1999.iteye.com/blog/2327664
  *
  * @author looly
- * @since 4.0.6
+ * 
  */
 public class Combination implements Serializable {
 

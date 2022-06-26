@@ -70,7 +70,7 @@ public class HMac implements Serializable {
      *
      * @param algorithm 算法
      * @param key       密钥
-     * @since 4.5.13
+     *
      */
     public HMac(String algorithm, byte[] key) {
         this(algorithm, new SecretKeySpec(key, algorithm));
@@ -81,7 +81,7 @@ public class HMac implements Serializable {
      *
      * @param algorithm 算法
      * @param key       密钥
-     * @since 4.5.13
+     *
      */
     public HMac(String algorithm, Key key) {
         this(algorithm, key, null);
@@ -93,7 +93,7 @@ public class HMac implements Serializable {
      * @param algorithm 算法
      * @param key       密钥
      * @param spec      {@link AlgorithmParameterSpec}
-     * @since 5.6.12
+     *
      */
     public HMac(String algorithm, Key key, AlgorithmParameterSpec spec) {
         this(MacEngineFactory.createEngine(algorithm, key, spec));
@@ -103,7 +103,7 @@ public class HMac implements Serializable {
      * 构造
      *
      * @param engine MAC算法实现引擎
-     * @since 4.5.13
+     *
      */
     public HMac(MacEngine engine) {
         this.engine = engine;
@@ -283,7 +283,7 @@ public class HMac implements Serializable {
      * @param digestToCompare 需要比较的摘要
      * @return 是否一致
      * @see MessageDigest#isEqual(byte[], byte[])
-     * @since 5.6.8
+     *
      */
     public boolean verify(byte[] digest, byte[] digestToCompare) {
         return MessageDigest.isEqual(digest, digestToCompare);
@@ -293,7 +293,7 @@ public class HMac implements Serializable {
      * 获取MAC算法块长度
      *
      * @return MAC算法块长度
-     * @since 5.3.3
+     *
      */
     public int getMacLength() {
         return this.engine.getMacLength();
@@ -303,7 +303,7 @@ public class HMac implements Serializable {
      * 获取算法
      *
      * @return 算法
-     * @since 5.3.3
+     *
      */
     public String getAlgorithm() {
         return this.engine.getAlgorithm();

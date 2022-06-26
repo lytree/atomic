@@ -6,7 +6,7 @@ import javax.crypto.Cipher;
  * Cipher模式的枚举封装
  *
  * @author looly
- * @since 5.4.3
+ *
  */
 public enum CipherMode {
 	/**

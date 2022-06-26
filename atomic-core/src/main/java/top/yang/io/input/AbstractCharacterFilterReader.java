@@ -31,7 +31,7 @@ public abstract class AbstractCharacterFilterReader extends FilterReader {
     /**
      * Skips nothing.
      *
-     * @since 2.9.0
+     * 
      */
     protected static final IntPredicate SKIP_NONE = ch -> false;
 
@@ -51,7 +51,7 @@ public abstract class AbstractCharacterFilterReader extends FilterReader {
      *
      * @param reader the reader to filter.
      * @param skip Skip test.
-     * @since 2.9.0
+     * 
      */
     protected AbstractCharacterFilterReader(final Reader reader, final IntPredicate skip) {
         super(reader);

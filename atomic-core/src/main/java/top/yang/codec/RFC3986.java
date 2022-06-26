@@ -4,7 +4,7 @@ package top.yang.codec;
  * rfc3986 : https://www.ietf.org/rfc/rfc3986.html 编码实现<br> 定义见：https://www.ietf.org/rfc/rfc3986.html#appendix-A
  *
  * @author looly
- * @since 5.7.16
+ *
  */
 public class RFC3986 {
 

@@ -41,7 +41,7 @@ import top.yang.io.function.IOConsumer;
  * IOIndexedException}.
  * </p>
  *
- * @since 2.7
+ *
  */
 public class FilterCollectionWriter extends Writer {
 

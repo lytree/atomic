@@ -8,7 +8,7 @@ import java.io.Serializable;
  *
  * @param <T> ID类型
  * @author looly
- * @since 5.2.4
+ * 
  */
 public interface Node<T> extends Comparable<Node<T>>, Serializable {
 

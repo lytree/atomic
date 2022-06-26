@@ -184,7 +184,7 @@ public class CpuInfo {
 	 *
 	 * @param processor   {@link CentralProcessor}
 	 * @param waitingTime 设置等待时间，单位毫秒
-	 * @since 5.7.12
+	 *
 	 */
 	private void init(CentralProcessor processor, long waitingTime) {
 		final CpuTicks ticks = new CpuTicks(processor, waitingTime);
@@ -207,7 +207,7 @@ public class CpuInfo {
 	 * @param tick     tick
 	 * @param totalCpu CPU总数
 	 * @return 平均每个CPU核心的tick
-	 * @since 5.7.12
+	 *
 	 */
 	private static double formatDouble(long tick, long totalCpu) {
 		if (0 == totalCpu) {

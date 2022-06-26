@@ -42,7 +42,7 @@ public class UserInfo implements Serializable{
 	 *
 	 * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回{@code null}。
 	 *
-	 * @since Java 1.1
+	 *
 	 */
 	public final String getName() {
 		return USER_NAME;
@@ -57,7 +57,7 @@ public class UserInfo implements Serializable{
 	 *
 	 * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回{@code null}。
 	 *
-	 * @since Java 1.1
+	 *
 	 */
 	public final String getHomeDir() {
 		return USER_HOME;
@@ -72,7 +72,7 @@ public class UserInfo implements Serializable{
 	 *
 	 * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回{@code null}。
 	 *
-	 * @since Java 1.1
+	 *
 	 */
 	public final String getCurrentDir() {
 		return USER_DIR;
@@ -148,7 +148,7 @@ public class UserInfo implements Serializable{
 	 * </ul>
 	 * @param path 路径
 	 * @return 修正后的路径
-	 * @since 5.6.4
+	 *
 	 */
 	private static String fixPath(String path){
 		return StringUtils.appendIfMissing(path, File.separator);

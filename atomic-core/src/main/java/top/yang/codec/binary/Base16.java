@@ -40,7 +40,7 @@ import top.yang.codec.CodecPolicy;
  *
  * @see <a href="https://tools.ietf.org/html/rfc4648#section-8">RFC 4648 - 8. Base 16 Encoding</a>
  *
- * @since 1.15
+ * 
  */
 public class Base16 extends BaseNCodec {
 

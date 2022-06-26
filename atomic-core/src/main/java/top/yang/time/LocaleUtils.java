@@ -35,7 +35,7 @@ import java.util.concurrent.ConcurrentMap;
  * An exception will not be thrown for a {@code null} input.
  * Each method documents its behavior in more detail.</p>
  *
- * @since 2.2
+ *
  */
 public class LocaleUtils {
 
@@ -275,7 +275,7 @@ public class LocaleUtils {
      *
      * @param locale a locale or {@code null}.
      * @return the given locale if non-{@code null}, otherwise {@link Locale#getDefault()}.
-     * @since 3.12.0
+     *
      */
     public static Locale toLocale(final Locale locale) {
         return locale != null ? locale : Locale.getDefault();

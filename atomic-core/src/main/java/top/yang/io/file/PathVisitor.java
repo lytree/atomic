@@ -23,7 +23,7 @@ import java.nio.file.Path;
 /**
  * A {@link FileVisitor} typed to a {@link Path}.
  *
- * @since 2.9.0
+ *
  */
 public interface PathVisitor extends FileVisitor<Path> {
     // empty

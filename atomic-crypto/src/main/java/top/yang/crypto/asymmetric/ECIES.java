@@ -11,7 +11,7 @@ import java.security.PublicKey;
  * 此算法必须引入Bouncy Castle库
  *
  * @author loolly
- * @since 5.3.10
+ *
  */
 public class ECIES extends AsymmetricCrypto{
 	private static final long serialVersionUID = 1L;
@@ -56,7 +56,7 @@ public class ECIES extends AsymmetricCrypto{
 	 * @param eciesAlgorithm 自定义ECIES算法，例如ECIESwithDESede/NONE/PKCS7Padding
 	 * @param privateKeyStr 私钥Hex或Base64表示
 	 * @param publicKeyStr 公钥Hex或Base64表示
-	 * @since 4.5.8
+	 *
 	 */
 	public ECIES(String eciesAlgorithm, String privateKeyStr, String publicKeyStr) {
 		super(eciesAlgorithm, privateKeyStr, publicKeyStr);
@@ -81,7 +81,7 @@ public class ECIES extends AsymmetricCrypto{
 	 *
 	 * @param privateKey 私钥
 	 * @param publicKey 公钥
-	 * @since 3.1.1
+	 *
 	 */
 	public ECIES(PrivateKey privateKey, PublicKey publicKey) {
 		super(ALGORITHM_ECIES, privateKey, publicKey);
@@ -95,7 +95,7 @@ public class ECIES extends AsymmetricCrypto{
 	 * @param eciesAlgorithm 自定义ECIES算法，例如ECIESwithDESede/NONE/PKCS7Padding
 	 * @param privateKey 私钥
 	 * @param publicKey 公钥
-	 * @since 4.5.8
+	 *
 	 */
 	public ECIES(String eciesAlgorithm, PrivateKey privateKey, PublicKey publicKey) {
 		super(eciesAlgorithm, privateKey, publicKey);

@@ -28,14 +28,14 @@ import java.util.function.Supplier;
  * output stream.
  * </p>
  *
- * @since 2.0
+ * 
  */
 public class BrokenOutputStream extends OutputStream {
 
     /**
      * A singleton instance.
      *
-     * @since 2.12.0
+     * 
      */
     public static final BrokenOutputStream INSTANCE = new BrokenOutputStream();
 
@@ -64,7 +64,7 @@ public class BrokenOutputStream extends OutputStream {
      * Creates a new stream that always throws an {@link IOException}.
      *
      * @param exceptionSupplier a supplier for the exception to be thrown.
-     * @since 2.12.0
+     * 
      */
     public BrokenOutputStream(final Supplier<IOException> exceptionSupplier) {
         this.exceptionSupplier = exceptionSupplier;

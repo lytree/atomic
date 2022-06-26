@@ -23,7 +23,7 @@ import top.yang.lang.StringUtils;
  *
  * @author looly
  * @see <a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">Uniform Resource Identifier</a>
- * @since 5.3.1
+ * 
  */
 public final class UrlBuilder implements Builder<String> {
 	private static final long serialVersionUID = 1L;
@@ -76,7 +76,7 @@ public final class UrlBuilder implements Builder<String> {
 	 *
 	 * @param httpUrl URL字符串
 	 * @return UrlBuilder
-	 * @since 5.4.3
+	 * 
 	 */
 	public static UrlBuilder ofHttpWithoutEncode(String httpUrl) {
 		return ofHttp(httpUrl, null);
@@ -87,7 +87,7 @@ public final class UrlBuilder implements Builder<String> {
 	 *
 	 * @param httpUrl URL字符串
 	 * @return UrlBuilder
-	 * @since 5.6.3
+	 * 
 	 */
 	public static UrlBuilder ofHttp(String httpUrl) {
 		return ofHttp(httpUrl, CharsetUtils.CHARSET_UTF_8);
@@ -337,7 +337,7 @@ public final class UrlBuilder implements Builder<String> {
 	 *
 	 * @param segment 路径节点
 	 * @return this
-	 * @since 5.7.16
+	 * 
 	 */
 	public UrlBuilder addPathSegment(String segment) {
 		if (StringUtils.isEmpty(segment)) {

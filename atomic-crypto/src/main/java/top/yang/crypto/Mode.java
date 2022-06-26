@@ -8,7 +8,7 @@ package top.yang.crypto;
  *
  * @author Looly
  * @see <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#Cipher"> Cipher章节</a>
- * @since 3.0.8
+ *
  */
 public enum Mode {
 	/**

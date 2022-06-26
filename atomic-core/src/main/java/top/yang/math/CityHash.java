@@ -12,7 +12,7 @@ import top.yang.math.support.Number128;
  * 原始算法：https://github.com/google/cityhash
  *
  * @author hexiufeng
- * @since 5.2.5
+ * 
  */
 public class CityHash {
 

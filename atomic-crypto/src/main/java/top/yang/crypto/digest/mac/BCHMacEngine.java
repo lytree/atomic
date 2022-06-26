@@ -12,7 +12,7 @@ import org.bouncycastle.crypto.params.ParametersWithIV;
  * 当引入BouncyCastle库时自动使用其作为Provider
  *
  * @author Looly
- * @since 4.5.13
+ *
  */
 public class BCHMacEngine implements MacEngine {
 
@@ -26,7 +26,7 @@ public class BCHMacEngine implements MacEngine {
 	 * @param digest 摘要算法，为{@link Digest} 的接口实现
 	 * @param key    密钥
 	 * @param iv     加盐
-	 * @since 5.7.12
+	 *
 	 */
 	public BCHMacEngine(Digest digest, byte[] key, byte[] iv) {
 		this(digest, new ParametersWithIV(new KeyParameter(key), iv));
@@ -37,7 +37,7 @@ public class BCHMacEngine implements MacEngine {
 	 *
 	 * @param digest 摘要算法，为{@link Digest} 的接口实现
 	 * @param key    密钥
-	 * @since 4.5.13
+	 *
 	 */
 	public BCHMacEngine(Digest digest, byte[] key) {
 		this(digest, new KeyParameter(key));
@@ -48,7 +48,7 @@ public class BCHMacEngine implements MacEngine {
 	 *
 	 * @param digest 摘要算法
 	 * @param params 参数，例如密钥可以用{@link KeyParameter}
-	 * @since 4.5.13
+	 *
 	 */
 	public BCHMacEngine(Digest digest, CipherParameters params) {
 		init(digest, params);

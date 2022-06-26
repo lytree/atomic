@@ -37,7 +37,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * This class was ported and adapted from Apache Spark commit 933dc6cb7b3de1d8ccaf73d124d6eb95b947ed19.
  * </p>
  *
- * @since 2.9.0
+ *
  */
 public class ReadAheadInputStream extends InputStream {
 

@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * Validators using format parsing.</p>
  *
  * @version $Revision$
- * @since Validator 1.3.0
+ * 
  */
 public abstract class AbstractCalendarValidator extends AbstractFormatValidator {
 

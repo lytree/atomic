@@ -24,7 +24,7 @@ import top.yang.validator.Validate;
  *
  * <p>See: <a href="http://en.wikipedia.org/wiki/IEEE_754r">http://en.wikipedia.org/wiki/IEEE_754r</a></p>
  *
- * @since 2.4
+ *
  */
 public class IEEE754rUtils {
 
@@ -35,7 +35,7 @@ public class IEEE754rUtils {
      * @return the minimum value in the array
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
-      * @since 3.4 Changed signature from min(double[]) to min(double...)
+      *
      */
     public static double min(final double... array) {
         Validate.notNull(array, "array");
@@ -57,7 +57,7 @@ public class IEEE754rUtils {
      * @return the minimum value in the array
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
-     * @since 3.4 Changed signature from min(float[]) to min(float...)
+     *
      */
     public static float min(final float... array) {
         Validate.notNull(array, "array");
@@ -145,7 +145,7 @@ public class IEEE754rUtils {
      * @return the minimum value in the array
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
-     * @since 3.4 Changed signature from max(double[]) to max(double...)
+     *
      */
     public static double max(final double... array) {
         Validate.notNull(array, "array");
@@ -167,7 +167,7 @@ public class IEEE754rUtils {
      * @return the minimum value in the array
      * @throws NullPointerException if {@code array} is {@code null}
      * @throws IllegalArgumentException if {@code array} is empty
-     * @since 3.4 Changed signature from max(float[]) to max(float...)
+     *
      */
     public static float max(final float... array) {
         Validate.notNull(array, "array");

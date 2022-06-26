@@ -27,7 +27,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * <p>
  * This class is immutable and thread-safe.
  *
- * @since 1.7
+ *
  */
 public class Crypt {
 

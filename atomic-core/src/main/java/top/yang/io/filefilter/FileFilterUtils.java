@@ -37,7 +37,7 @@ import top.yang.io.IOCase;
 /**
  * Useful utilities for working with file filters. It provides access to most file filter implementations in this package so you don't have to import every class you use.
  *
- * @since 1.0
+ * 
  */
 public class FileFilterUtils {
 
@@ -56,7 +56,7 @@ public class FileFilterUtils {
      * @param cutoffDate the time threshold
      * @return an appropriately configured age file filter
      * @see AgeFileFilter
-     * @since 1.2
+     * 
      */
     public static IOFileFilter ageFileFilter(final Date cutoffDate) {
         return new AgeFileFilter(cutoffDate);
@@ -69,7 +69,7 @@ public class FileFilterUtils {
      * @param acceptOlder if true, older files get accepted, if false, newer
      * @return an appropriately configured age file filter
      * @see AgeFileFilter
-     * @since 1.2
+     * 
      */
     public static IOFileFilter ageFileFilter(final Date cutoffDate, final boolean acceptOlder) {
         return new AgeFileFilter(cutoffDate, acceptOlder);
@@ -81,7 +81,7 @@ public class FileFilterUtils {
      * @param cutoffReference the file whose last modification time is used as the threshold age of the files
      * @return an appropriately configured age file filter
      * @see AgeFileFilter
-     * @since 1.2
+     * 
      */
     public static IOFileFilter ageFileFilter(final File cutoffReference) {
         return new AgeFileFilter(cutoffReference);
@@ -94,7 +94,7 @@ public class FileFilterUtils {
      * @param acceptOlder     if true, older files get accepted, if false, newer
      * @return an appropriately configured age file filter
      * @see AgeFileFilter
-     * @since 1.2
+     * 
      */
     public static IOFileFilter ageFileFilter(final File cutoffReference, final boolean acceptOlder) {
         return new AgeFileFilter(cutoffReference, acceptOlder);
@@ -106,7 +106,7 @@ public class FileFilterUtils {
      * @param cutoffMillis the time threshold
      * @return an appropriately configured age file filter
      * @see AgeFileFilter
-     * @since 1.2
+     * 
      */
     public static IOFileFilter ageFileFilter(final long cutoffMillis) {
         return new AgeFileFilter(cutoffMillis);
@@ -119,7 +119,7 @@ public class FileFilterUtils {
      * @param acceptOlder  if true, older files get accepted, if false, newer
      * @return an appropriately configured age file filter
      * @see AgeFileFilter
-     * @since 1.2
+     * 
      */
     public static IOFileFilter ageFileFilter(final long cutoffMillis, final boolean acceptOlder) {
         return new AgeFileFilter(cutoffMillis, acceptOlder);
@@ -132,7 +132,7 @@ public class FileFilterUtils {
      * @return a filter that ANDs the specified filters
      * @throws IllegalArgumentException if the filters are null or contain a null value.
      * @see AndFileFilter
-     * @since 2.0
+     * 
      */
     public static IOFileFilter and(final IOFileFilter... filters) {
         return new AndFileFilter(toList(filters));
@@ -220,7 +220,7 @@ public class FileFilterUtils {
      * @param files  the array of files to apply the filter to.
      * @return a subset of {@code files} that is accepted by the file filter.
      * @throws IllegalArgumentException if the filter is {@code null} or {@code files} contains a {@code null} value.
-     * @since 2.0
+     * 
      */
     public static File[] filter(final IOFileFilter filter, final File... files) {
         if (filter == null) {
@@ -251,7 +251,7 @@ public class FileFilterUtils {
      * @param files  the array of files to apply the filter to.
      * @return a subset of {@code files} that is accepted by the file filter.
      * @throws IllegalArgumentException if the filter is {@code null} or {@code files} contains a {@code null} value.
-     * @since 2.0
+     * 
      */
     public static File[] filter(final IOFileFilter filter, final Iterable<File> files) {
         return filterList(filter, files).toArray(FileUtils.EMPTY_FILE_ARRAY);
@@ -302,7 +302,7 @@ public class FileFilterUtils {
      * @param files  the collection of files to apply the filter to.
      * @return a subset of {@code files} that is accepted by the file filter.
      * @throws IllegalArgumentException if the filter is {@code null} or {@code files} contains a {@code null} value.
-     * @since 2.0
+     * 
      */
     public static List<File> filterList(final IOFileFilter filter, final File... files) {
         return Arrays.asList(filter(filter, files));
@@ -327,7 +327,7 @@ public class FileFilterUtils {
      * @param files  the collection of files to apply the filter to.
      * @return a subset of {@code files} that is accepted by the file filter.
      * @throws IllegalArgumentException if the filter is {@code null}
-     * @since 2.0
+     * 
      */
     public static List<File> filterList(final IOFileFilter filter, final Iterable<File> files) {
         if (files == null) {
@@ -355,7 +355,7 @@ public class FileFilterUtils {
      * @param files  the collection of files to apply the filter to.
      * @return a subset of {@code files} that is accepted by the file filter.
      * @throws IllegalArgumentException if the filter is {@code null} or {@code files} contains a {@code null} value.
-     * @since 2.0
+     * 
      */
     public static Set<File> filterSet(final IOFileFilter filter, final File... files) {
         return new HashSet<>(Arrays.asList(filter(filter, files)));
@@ -380,7 +380,7 @@ public class FileFilterUtils {
      * @param files  the collection of files to apply the filter to.
      * @return a subset of {@code files} that is accepted by the file filter.
      * @throws IllegalArgumentException if the filter is {@code null}
-     * @since 2.0
+     * 
      */
     public static Set<File> filterSet(final IOFileFilter filter, final Iterable<File> files) {
         if (files == null) {
@@ -396,7 +396,7 @@ public class FileFilterUtils {
      * @return an IOFileFilter that accepts files beginning with the provided magic number.
      * @throws IllegalArgumentException if {@code magicNumber} is {@code null} or is of length zero.
      * @see MagicNumberFileFilter
-     * @since 2.0
+     * 
      */
     public static IOFileFilter magicNumberFileFilter(final byte[] magicNumber) {
         return new MagicNumberFileFilter(magicNumber);
@@ -410,7 +410,7 @@ public class FileFilterUtils {
      * @return an IOFileFilter that accepts files containing the magic number at the specified offset.
      * @throws IllegalArgumentException if {@code magicNumber} is {@code null}, or contains no bytes, or {@code offset} is a negative number.
      * @see MagicNumberFileFilter
-     * @since 2.0
+     * 
      */
     public static IOFileFilter magicNumberFileFilter(final byte[] magicNumber, final long offset) {
         return new MagicNumberFileFilter(magicNumber, offset);
@@ -423,7 +423,7 @@ public class FileFilterUtils {
      * @return an IOFileFilter that accepts files beginning with the provided magic number.
      * @throws IllegalArgumentException if {@code magicNumber} is {@code null} or the empty String.
      * @see MagicNumberFileFilter
-     * @since 2.0
+     * 
      */
     public static IOFileFilter magicNumberFileFilter(final String magicNumber) {
         return new MagicNumberFileFilter(magicNumber);
@@ -437,7 +437,7 @@ public class FileFilterUtils {
      * @return an IOFileFilter that accepts files containing the magic number at the specified offset.
      * @throws IllegalArgumentException if {@code magicNumber} is {@code null} or the empty String, or if offset is a negative number.
      * @see MagicNumberFileFilter
-     * @since 2.0
+     * 
      */
     public static IOFileFilter magicNumberFileFilter(final String magicNumber, final long offset) {
         return new MagicNumberFileFilter(magicNumber, offset);
@@ -448,7 +448,7 @@ public class FileFilterUtils {
      *
      * @param filter the filter to decorate, null means an unrestricted filter
      * @return the decorated filter, never null
-     * @since 1.1 (method existed but had bug in 1.0)
+     * 
      */
     public static IOFileFilter makeCVSAware(final IOFileFilter filter) {
         return filter == null ? CVS_FILTER : and(filter, CVS_FILTER);
@@ -460,7 +460,7 @@ public class FileFilterUtils {
      * @param filter the filter to decorate, null means an unrestricted filter
      * @return the decorated filter, never null
      * @see DirectoryFileFilter#DIRECTORY
-     * @since 1.3
+     * 
      */
     public static IOFileFilter makeDirectoryOnly(final IOFileFilter filter) {
         if (filter == null) {
@@ -475,7 +475,7 @@ public class FileFilterUtils {
      * @param filter the filter to decorate, null means an unrestricted filter
      * @return the decorated filter, never null
      * @see FileFileFilter#INSTANCE
-     * @since 1.3
+     * 
      */
     public static IOFileFilter makeFileOnly(final IOFileFilter filter) {
         if (filter == null) {
@@ -489,7 +489,7 @@ public class FileFilterUtils {
      *
      * @param filter the filter to decorate, null means an unrestricted filter
      * @return the decorated filter, never null
-     * @since 1.1
+     * 
      */
     public static IOFileFilter makeSVNAware(final IOFileFilter filter) {
         return filter == null ? SVN_FILTER : and(filter, SVN_FILTER);
@@ -513,7 +513,7 @@ public class FileFilterUtils {
      * @param ioCase how to handle case sensitivity, null means case-sensitive
      * @return a name checking filter
      * @see NameFileFilter
-     * @since 2.0
+     * 
      */
     public static IOFileFilter nameFileFilter(final String name, final IOCase ioCase) {
         return new NameFileFilter(name, ioCase);
@@ -537,7 +537,7 @@ public class FileFilterUtils {
      * @return a filter that ORs the specified filters
      * @throws IllegalArgumentException if the filters are null or contain a null value.
      * @see OrFileFilter
-     * @since 2.0
+     * 
      */
     public static IOFileFilter or(final IOFileFilter... filters) {
         return new OrFileFilter(toList(filters));
@@ -576,7 +576,7 @@ public class FileFilterUtils {
      * @param ioCase how to handle case sensitivity, null means case-sensitive
      * @return a prefix checking filter
      * @see PrefixFileFilter
-     * @since 2.0
+     * 
      */
     public static IOFileFilter prefixFileFilter(final String prefix, final IOCase ioCase) {
         return new PrefixFileFilter(prefix, ioCase);
@@ -588,7 +588,7 @@ public class FileFilterUtils {
      * @param threshold the file size threshold
      * @return an appropriately configured SizeFileFilter
      * @see SizeFileFilter
-     * @since 1.2
+     * 
      */
     public static IOFileFilter sizeFileFilter(final long threshold) {
         return new SizeFileFilter(threshold);
@@ -601,7 +601,7 @@ public class FileFilterUtils {
      * @param acceptLarger if true, larger files get accepted, if false, smaller
      * @return an appropriately configured SizeFileFilter
      * @see SizeFileFilter
-     * @since 1.2
+     * 
      */
     public static IOFileFilter sizeFileFilter(final long threshold, final boolean acceptLarger) {
         return new SizeFileFilter(threshold, acceptLarger);
@@ -614,7 +614,7 @@ public class FileFilterUtils {
      * @param maxSizeInclusive the maximum file size (inclusive)
      * @return an appropriately configured IOFileFilter
      * @see SizeFileFilter
-     * @since 1.3
+     * 
      */
     public static IOFileFilter sizeRangeFileFilter(final long minSizeInclusive, final long maxSizeInclusive) {
         final IOFileFilter minimumFilter = new SizeFileFilter(minSizeInclusive, true);
@@ -640,7 +640,7 @@ public class FileFilterUtils {
      * @param ioCase how to handle case sensitivity, null means case-sensitive
      * @return a suffix checking filter
      * @see SuffixFileFilter
-     * @since 2.0
+     * 
      */
     public static IOFileFilter suffixFileFilter(final String suffix, final IOCase ioCase) {
         return new SuffixFileFilter(suffix, ioCase);
@@ -652,7 +652,7 @@ public class FileFilterUtils {
      * @param filters The file filters
      * @return The list of file filters
      * @throws IllegalArgumentException if the filters are null or contain a null value.
-     * @since 2.0
+     * 
      */
     public static List<IOFileFilter> toList(final IOFileFilter... filters) {
         if (filters == null) {

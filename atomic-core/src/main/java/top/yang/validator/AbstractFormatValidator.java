@@ -28,7 +28,7 @@ import java.io.Serializable;
  *    Validators using format parsing.</p>
  *
  * @version $Revision$
- * @since Validator 1.3.0
+ *
  */
 public abstract class AbstractFormatValidator implements Serializable {
 

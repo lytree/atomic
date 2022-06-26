@@ -20,7 +20,7 @@ package top.yang.codec;
 /**
  * Defines encoding and decoding policies.
  *
- * @since 1.15
+ * 
  */
 public enum CodecPolicy {
 

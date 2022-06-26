@@ -50,7 +50,7 @@ import top.yang.collections.iterators.SingletonListIterator;
 /**
  * Provides static utility methods and decorators for {@link Iterator} instances. The implementations are provided in the iterators subpackage.
  *
- * @since 2.1
+ *
  */
 public class IteratorUtils {
     // validation is done in this class in certain cases because the
@@ -555,7 +555,7 @@ public class IteratorUtils {
      *
      * @param iterator the {@link Iterator} to use, may be null
      * @return true if the iterator is exhausted or null, false otherwise
-     * @since 4.1
+     *
      */
     public static boolean isEmpty(final Iterator<?> iterator) {
         return iterator == null || !iterator.hasNext();
@@ -571,7 +571,7 @@ public class IteratorUtils {
      * @param index    the index to get
      * @return the object at the specified index
      * @throws IndexOutOfBoundsException if the index is invalid
-     * @since 4.1
+     *
      */
     public static <E> E get(final Iterator<E> iterator, final int index) {
         int i = index;
@@ -599,7 +599,7 @@ public class IteratorUtils {
      * @param iterator the iterator to get a value from
      * @return the first object
      * @throws IndexOutOfBoundsException if the request is invalid
-     * @since 4.2
+     *
      */
     public static <E> E first(final Iterator<E> iterator) {
         return get(iterator, 0);
@@ -612,7 +612,7 @@ public class IteratorUtils {
      *
      * @param iterator the iterator to check, may be null
      * @return the number of elements contained in the iterator
-     * @since 4.1
+     *
      */
     public static int size(final Iterator<?> iterator) {
         int size = 0;
@@ -632,7 +632,7 @@ public class IteratorUtils {
      * @param <T>      集合元素类型
      * @param iterable {@link Iterable}
      * @return 第一个元素
-     * @since 5.7.2
+     *
      */
     public static <T> T getFirstNoneNull(Iterable<T> iterable) {
         if (null == iterable) {
@@ -647,7 +647,7 @@ public class IteratorUtils {
      * @param <T>      集合元素类型
      * @param iterator {@link Iterator}
      * @return 第一个非空元素，null表示未找到
-     * @since 5.7.2
+     *
      */
     public static <T> T getFirstNoneNull(Iterator<T> iterator) {
         if (null != iterator) {

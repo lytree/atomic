@@ -87,7 +87,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      *
      * @param algorithm 算法 {@link SymmetricAlgorithm}
      * @param key       自定义KEY
-     * @since 3.1.2
+     *
      */
     public SymmetricCrypto(SymmetricAlgorithm algorithm, SecretKey key) {
         this(algorithm.getValue(), key);
@@ -108,7 +108,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      *
      * @param algorithm 算法
      * @param key       密钥
-     * @since 3.1.2
+     *
      */
     public SymmetricCrypto(String algorithm, SecretKey key) {
         this(algorithm, key, null);
@@ -120,7 +120,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      * @param algorithm  算法
      * @param key        密钥
      * @param paramsSpec 算法参数，例如加盐等
-     * @since 3.3.0
+     *
      */
     public SymmetricCrypto(String algorithm, SecretKey key, AlgorithmParameterSpec paramsSpec) {
         init(algorithm, key);
@@ -204,7 +204,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      *
      * @param random 随机数生成器，可自定义随机数种子
      * @return this
-     * @since 5.7.17
+     *
      */
     public SymmetricCrypto setRandom(SecureRandom random) {
         this.cipherWrapper.setRandom(random);
@@ -218,7 +218,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      *
      * @param mode 模式枚举
      * @return this
-     * @since 5.7.12
+     *
      */
     public SymmetricCrypto setMode(CipherMode mode) {
         lock.lock();
@@ -237,7 +237,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      *
      * @param data 被加密的bytes
      * @return update之后的bytes
-     * @since 5.6.8
+     *
      */
     public byte[] update(byte[] data) {
         final Cipher cipher = cipherWrapper.getCipher();
@@ -256,7 +256,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      *
      * @param data 被加密的bytes
      * @return update之后的hex数据
-     * @since 5.6.8
+     *
      */
     public String updateHex(byte[] data) {
         return HexUtils.encodeHexString(update(data));
@@ -366,7 +366,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      * @param algorithm  算法
      * @param paramsSpec 用户定义的{@link AlgorithmParameterSpec}
      * @return this
-     * @since 5.7.11
+     *
      */
     private SymmetricCrypto initParams(String algorithm, AlgorithmParameterSpec paramsSpec) {
         if (null == paramsSpec) {
@@ -415,7 +415,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      * @param data      数据
      * @param blockSize 块大小
      * @return 填充后的数据，如果isZeroPadding为false或长度刚好，返回原数据
-     * @since 4.6.7
+     *
      */
     private byte[] paddingDataWithZero(byte[] data, int blockSize) {
         if (this.isZeroPadding) {
@@ -439,7 +439,7 @@ public class SymmetricCrypto implements SymmetricEncryptor, SymmetricDecryptor, 
      * @param data      数据
      * @param blockSize 块大小，必须大于0
      * @return 去除填充后的数据，如果isZeroPadding为false或长度刚好，返回原数据
-     * @since 4.6.7
+     *
      */
     private byte[] removePadding(byte[] data, int blockSize) {
         if (this.isZeroPadding && blockSize > 0) {

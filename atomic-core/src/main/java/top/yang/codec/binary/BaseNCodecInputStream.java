@@ -30,7 +30,7 @@ import top.yang.codec.binary.BaseNCodec.Context;
 /**
  * Abstract superclass for Base-N input streams.
  *
- * @since 1.5
+ *
  */
 public class BaseNCodecInputStream extends FilterInputStream {
 
@@ -63,7 +63,7 @@ public class BaseNCodecInputStream extends FilterInputStream {
      *
      * @return {@code 0} if the {@link InputStream} has reached {@code EOF},
      * {@code 1} otherwise
-     * @since 1.7
+     *
      */
     @Override
     public int available() throws IOException {
@@ -83,7 +83,7 @@ public class BaseNCodecInputStream extends FilterInputStream {
      * into 8-bit bytes and discard the remainder.
      *
      * @return true if using strict decoding
-     * @since 1.15
+     *
      */
     public boolean isStrictDecoding() {
         return baseNCodec.isStrictDecoding();
@@ -95,7 +95,7 @@ public class BaseNCodecInputStream extends FilterInputStream {
      *
      * @param readLimit the maximum limit of bytes that can be read before the mark position becomes invalid.
      * @see #markSupported()
-     * @since 1.7
+     *
      */
     @Override
     public synchronized void mark(final int readLimit) {
@@ -208,7 +208,7 @@ public class BaseNCodecInputStream extends FilterInputStream {
      * The {@link #reset} method of {@link BaseNCodecInputStream} does nothing except throw an {@link IOException}.
      *
      * @throws IOException if this method is invoked
-     * @since 1.7
+     *
      */
     @Override
     public synchronized void reset() throws IOException {
@@ -219,7 +219,7 @@ public class BaseNCodecInputStream extends FilterInputStream {
      * {@inheritDoc}
      *
      * @throws IllegalArgumentException if the provided skip length is negative
-     * @since 1.7
+     *
      */
     @Override
     public long skip(final long n) throws IOException {

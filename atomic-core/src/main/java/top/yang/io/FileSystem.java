@@ -28,7 +28,7 @@ import java.util.Objects;
  * The starting point of any operation is {@link #getCurrent()} which gets you the enum for the file system that matches the OS hosting the running JVM.
  * </p>
  *
- * @since 2.7
+ * 
  */
 public enum FileSystem {
 
@@ -219,7 +219,7 @@ public enum FileSystem {
      * @param searchChar the char to be searched for
      * @param start      the start index, negative starts at the string start
      * @return the index where the search char was found, -1 if not found
-     * @since 3.6 updated to behave more like {@code String}
+     * 
      */
     private static int indexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String) {
@@ -337,7 +337,7 @@ public enum FileSystem {
      * Gets a cloned copy of the illegal code points for this file system.
      *
      * @return the illegal code points for this file system.
-     * @since 2.12.0
+     * 
      */
     public int[] getIllegalFileNameCodePoints() {
         return this.illegalFileNameChars.clone();
@@ -365,7 +365,7 @@ public enum FileSystem {
      * Gets the name separator, '\\' on Windows, '/' on Linux.
      *
      * @return '\\' on Windows, '/' on Linux.
-     * @since 2.12.0
+     * 
      */
     public char getNameSeparator() {
         return nameSeparator;
@@ -441,7 +441,7 @@ public enum FileSystem {
      *
      * @param path the path to be changed, null ignored
      * @return the updated path
-     * @since 2.12.0
+     * 
      */
     public String normalizeSeparators(final String path) {
         return replace(path, nameSeparatorOther, nameSeparator);
@@ -456,7 +456,7 @@ public enum FileSystem {
      * @return whether this file system support driver letters.
      * @see <a href="https://en.wikipedia.org/wiki/Drive_letter_assignment">Operating systems that use drive letter
      * assignment</a>
-     * @since 2.9.0
+     * 
      */
     public boolean supportsDriveLetter() {
         return supportsDriveLetter;

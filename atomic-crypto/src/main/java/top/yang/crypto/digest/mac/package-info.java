@@ -5,6 +5,6 @@
  * HMAC 可以与任何迭代散列函数捆绑使用。MD5 和 SHA-1 就是这种散列函数。HMAC 还可以使用一个用于计算和确认消息鉴别值的密钥。<br>
  * 
  * @author Looly
- * @since 4.5.13
+ * 
  */
 package top.yang.crypto.digest.mac;

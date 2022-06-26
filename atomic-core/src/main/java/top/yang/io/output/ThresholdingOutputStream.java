@@ -79,7 +79,7 @@ public class ThresholdingOutputStream extends OutputStream {
      * @param threshold          The number of bytes at which to trigger an event.
      * @param thresholdConsumer  Accepts reaching the threshold.
      * @param outputStreamGetter Gets the output stream.
-     * @since 2.9.0
+     *
      */
     public ThresholdingOutputStream(final int threshold, final IOConsumer<ThresholdingOutputStream> thresholdConsumer,
             final IOFunction<ThresholdingOutputStream, OutputStream> outputStreamGetter) {
@@ -177,7 +177,7 @@ public class ThresholdingOutputStream extends OutputStream {
      * Sets the byteCount to count. Useful for re-opening an output stream that has previously been written to.
      *
      * @param count The number of bytes that have already been written to the output stream
-     * @since 2.5
+     *
      */
     protected void setByteCount(final long count) {
         this.written = count;

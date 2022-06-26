@@ -104,7 +104,7 @@ public class CharUtils extends org.apache.commons.lang3.CharUtils {
      *
      * @param b 字符
      * @return 16进制字符
-     * @since 5.3.1
+     *
      */
     public static int digit16(int b) {
         return Character.digit(b, 16);
@@ -117,7 +117,7 @@ public class CharUtils extends org.apache.commons.lang3.CharUtils {
      * @return 是否空白符
      * @see Character#isWhitespace(int)
      * @see Character#isSpaceChar(int)
-     * @since 4.0.10
+     *
      */
     public static boolean isBlankChar(char c) {
         return isBlankChar((int) c);
@@ -130,7 +130,7 @@ public class CharUtils extends org.apache.commons.lang3.CharUtils {
      * @return 是否空白符
      * @see Character#isWhitespace(int)
      * @see Character#isSpaceChar(int)
-     * @since 4.0.10
+     *
      */
     public static boolean isBlankChar(int c) {
         return Character.isWhitespace(c)
@@ -145,7 +145,7 @@ public class CharUtils extends org.apache.commons.lang3.CharUtils {
      *
      * @param c 字符
      * @return 是否为emoji
-     * @since 4.0.8
+     *
      */
     public static boolean isEmoji(char c) {
         //noinspection ConstantConditions

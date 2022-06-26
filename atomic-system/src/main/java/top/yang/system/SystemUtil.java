@@ -158,7 +158,7 @@ public class SystemUtil extends SystemPropsUtil {
      * 返回Java虚拟机类加载系统相关属性
      *
      * @return {@link ClassLoadingMXBean}
-     * @since 4.1.4
+     *
      */
     public static ClassLoadingMXBean getClassLoadingMXBean() {
         return ManagementFactory.getClassLoadingMXBean();
@@ -168,7 +168,7 @@ public class SystemUtil extends SystemPropsUtil {
      * 返回Java虚拟机内存系统相关属性
      *
      * @return {@link MemoryMXBean}
-     * @since 4.1.4
+     *
      */
     public static MemoryMXBean getMemoryMXBean() {
         return ManagementFactory.getMemoryMXBean();
@@ -178,7 +178,7 @@ public class SystemUtil extends SystemPropsUtil {
      * 返回Java虚拟机线程系统相关属性
      *
      * @return {@link ThreadMXBean}
-     * @since 4.1.4
+     *
      */
     public static ThreadMXBean getThreadMXBean() {
         return ManagementFactory.getThreadMXBean();
@@ -188,7 +188,7 @@ public class SystemUtil extends SystemPropsUtil {
      * 返回Java虚拟机运行时系统相关属性
      *
      * @return {@link RuntimeMXBean}
-     * @since 4.1.4
+     *
      */
     public static RuntimeMXBean getRuntimeMXBean() {
         return ManagementFactory.getRuntimeMXBean();
@@ -198,7 +198,7 @@ public class SystemUtil extends SystemPropsUtil {
      * 返回Java虚拟机编译系统相关属性<br> 如果没有编译系统，则返回{@code null}
      *
      * @return a {@link CompilationMXBean} ，如果没有编译系统，则返回{@code null}
-     * @since 4.1.4
+     *
      */
     public static CompilationMXBean getCompilationMXBean() {
         return ManagementFactory.getCompilationMXBean();
@@ -208,7 +208,7 @@ public class SystemUtil extends SystemPropsUtil {
      * 返回Java虚拟机运行下的操作系统相关信息属性
      *
      * @return {@link OperatingSystemMXBean}
-     * @since 4.1.4
+     *
      */
     public static OperatingSystemMXBean getOperatingSystemMXBean() {
         return ManagementFactory.getOperatingSystemMXBean();
@@ -326,7 +326,7 @@ public class SystemUtil extends SystemPropsUtil {
      * 获取JVM中内存总大小
      *
      * @return 内存总大小
-     * @since 4.5.4
+     *
      */
     public static long getTotalMemory() {
         return Runtime.getRuntime().totalMemory();
@@ -336,7 +336,7 @@ public class SystemUtil extends SystemPropsUtil {
      * 获取JVM中内存剩余大小
      *
      * @return 内存剩余大小
-     * @since 4.5.4
+     *
      */
     public static long getFreeMemory() {
         return Runtime.getRuntime().freeMemory();
@@ -346,7 +346,7 @@ public class SystemUtil extends SystemPropsUtil {
      * 获取JVM可用的内存总大小
      *
      * @return JVM可用的内存总大小
-     * @since 4.5.4
+     *
      */
     public static long getMaxMemory() {
         return Runtime.getRuntime().maxMemory();

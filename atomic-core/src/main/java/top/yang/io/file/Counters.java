@@ -23,7 +23,7 @@ import java.util.Objects;
 /**
  * Provides counters for files, directories, and sizes, as a visit proceeds.
  *
- * @since 2.7
+ *
  */
 public class Counters {
 
@@ -336,7 +336,7 @@ public class Counters {
          * Returns {@code "0"}, always.
          *
          * @return {@code "0"}, always.
-         * @since 2.12.0
+         *
          */
         @Override
         public String toString() {
@@ -436,7 +436,7 @@ public class Counters {
      * Returns the NOOP Counter.
      *
      * @return the NOOP Counter.
-     * @since 2.9.0
+     *
      */
     public static Counter noopCounter() {
         return NoopCounter.INSTANCE;
@@ -446,7 +446,7 @@ public class Counters {
      * Returns the NOOP PathCounters.
      *
      * @return the NOOP PathCounters.
-     * @since 2.9.0
+     *
      */
     public static PathCounters noopPathCounters() {
         return NoopPathCounters.INSTANCE;

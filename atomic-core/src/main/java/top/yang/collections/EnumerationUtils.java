@@ -32,7 +32,7 @@ import java.util.StringTokenizer;
 /**
  * Provides utility methods for {@link Enumeration} instances.
  *
- * @since 3.0
+ *
  */
 public class EnumerationUtils {
 
@@ -50,7 +50,7 @@ public class EnumerationUtils {
      * @param <T> the element type
      * @param enumeration the enumeration to use, may not be null
      * @return a new, single use {@link Iterable}
-     * @since 4.5
+     *
      */
     public static <T> Iterable<T> asIterable(final Enumeration<T> enumeration) {
         return new IteratorIterable<>(new EnumerationIterator<>(enumeration));
@@ -69,7 +69,7 @@ public class EnumerationUtils {
      * @return the object at the specified index
      * @throws IndexOutOfBoundsException if the index is invalid
      * @throws IllegalArgumentException if the object type is invalid
-     * @since 4.1
+     *
      */
     public static <T> T get(final Enumeration<T> e, final int index) {
         CollectionUtils.checkIndexBounds(index);

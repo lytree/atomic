@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 参考：http://blog.csdn.net/qxc1281/article/details/54021882
  *
  * @author looly
- * @since 4.0.0
+ * 
  */
 public class ObjectId {
 
@@ -73,7 +73,7 @@ public class ObjectId {
      * 获取一个objectId的bytes表现形式
      *
      * @return objectId
-     * @since 4.1.15
+     * 
      */
     public static byte[] nextBytes() {
         final ByteBuffer bb = ByteBuffer.wrap(new byte[12]);

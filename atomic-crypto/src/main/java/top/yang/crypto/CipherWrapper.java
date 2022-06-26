@@ -16,7 +16,7 @@ import java.security.spec.AlgorithmParameterSpec;
  * </ul>
  *
  * @author looly
- * @since 5.7.17
+ *
  */
 public class CipherWrapper {
 

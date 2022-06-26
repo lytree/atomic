@@ -21,7 +21,7 @@ import top.yang.lang.StringUtils;
  * </ul>
  *
  * @author looly
- * @since 5.7.12
+ *
  */
 public interface AsymmetricEncryptor {
 
@@ -51,7 +51,7 @@ public interface AsymmetricEncryptor {
      * @param data    被加密的bytes
      * @param keyType 私钥或公钥 {@link KeyType}
      * @return Base64字符串
-     * @since 4.0.1
+     *
      */
     default String encryptBase64(byte[] data, KeyType keyType) {
         return new Base64().encodeToString(encrypt(data, keyType));
@@ -98,7 +98,7 @@ public interface AsymmetricEncryptor {
      * @param data    被加密的字符串
      * @param keyType 私钥或公钥 {@link KeyType}
      * @return Hex字符串
-     * @since 4.0.1
+     *
      */
     default String encryptHex(String data, KeyType keyType) {
         return HexUtils.encodeHexString(encrypt(data, keyType));
@@ -111,7 +111,7 @@ public interface AsymmetricEncryptor {
      * @param charset 编码
      * @param keyType 私钥或公钥 {@link KeyType}
      * @return Hex字符串
-     * @since 4.0.1
+     *
      */
     default String encryptHex(String data, Charset charset, KeyType keyType) {
         return HexUtils.encodeHexString(encrypt(data, charset, keyType));
@@ -123,7 +123,7 @@ public interface AsymmetricEncryptor {
      * @param data    被加密的字符串
      * @param keyType 私钥或公钥 {@link KeyType}
      * @return Base64字符串
-     * @since 4.0.1
+     *
      */
     default String encryptBase64(String data, KeyType keyType) {
         return new Base64().encodeToString(encrypt(data, keyType));
@@ -136,7 +136,7 @@ public interface AsymmetricEncryptor {
      * @param charset 编码
      * @param keyType 私钥或公钥 {@link KeyType}
      * @return Base64字符串
-     * @since 4.0.1
+     *
      */
     default String encryptBase64(String data, Charset charset, KeyType keyType) {
         return new Base64().encodeToString(encrypt(data, charset, keyType));
@@ -160,7 +160,7 @@ public interface AsymmetricEncryptor {
      * @param data    被加密的数据流
      * @param keyType 私钥或公钥 {@link KeyType}
      * @return Hex字符串
-     * @since 4.0.1
+     *
      */
     default String encryptHex(InputStream data, KeyType keyType) throws IOException {
         return HexUtils.encodeHexString(encrypt(data, keyType));
@@ -172,7 +172,7 @@ public interface AsymmetricEncryptor {
      * @param data    被加密的数据流
      * @param keyType 私钥或公钥 {@link KeyType}
      * @return Base64字符串
-     * @since 4.0.1
+     *
      */
     default String encryptBase64(InputStream data, KeyType keyType) throws IOException {
         return new Base64().encodeToString(encrypt(data, keyType));

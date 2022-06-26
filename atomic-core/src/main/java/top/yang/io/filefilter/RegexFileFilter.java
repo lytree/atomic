@@ -63,7 +63,7 @@ import top.yang.io.IOCase;
  * System.out.println(visitor.getFileList());
  * </pre>
  *
- * @since 1.4
+ *
  */
 public class RegexFileFilter extends AbstractFileFilter implements Serializable {
 
@@ -118,7 +118,7 @@ public class RegexFileFilter extends AbstractFileFilter implements Serializable 
      * @param pattern      regular expression to match.
      * @param pathToString How convert a path to a string.
      * @throws IllegalArgumentException if the pattern is null.
-     * @since 2.10.0
+     *
      */
     public RegexFileFilter(final Pattern pattern, final Function<Path, String> pathToString) {
         requireNonNull(pattern, "pattern");
@@ -185,7 +185,7 @@ public class RegexFileFilter extends AbstractFileFilter implements Serializable 
     /**
      * Returns a debug string.
      *
-     * @since 2.10.0
+     *
      */
     @Override
     public String toString() {

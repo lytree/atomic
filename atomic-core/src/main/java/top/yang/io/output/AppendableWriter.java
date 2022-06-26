@@ -28,7 +28,7 @@ import java.util.Objects;
  * or {@link StringBuffer}.
  * </p>
  *
- * @since 2.7
+ * 
  * @see Appendable
  *
  * @param <T> The type of the {@link Appendable} wrapped by this AppendableWriter.

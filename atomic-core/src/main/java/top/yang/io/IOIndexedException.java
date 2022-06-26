@@ -22,7 +22,7 @@ import java.io.IOException;
 /**
  * A IOException associated with a source index.
  *
- * @since 2.7
+ *
  */
 public class IOIndexedException extends IOException {
 

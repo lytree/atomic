@@ -20,7 +20,7 @@ import top.yang.lang.CharsetUtils;
  * </ul>
  *
  * @author looly
- * @since 5.7.12
+ * 
  */
 public interface AsymmetricDecryptor {
 
@@ -51,7 +51,7 @@ public interface AsymmetricDecryptor {
      * @param data    Hex（16进制）或Base64字符串
      * @param keyType 私钥或公钥 {@link KeyType}
      * @return 解密后的bytes
-     * @since 4.5.2
+     * 
      */
     default byte[] decrypt(String data, KeyType keyType) {
         return decrypt(SecureUtil.decode(data), keyType);
@@ -64,7 +64,7 @@ public interface AsymmetricDecryptor {
      * @param keyType 密钥类型
      * @param charset 加密前编码
      * @return 解密后的密文
-     * @since 4.5.2
+     * 
      */
     default String decryptStr(String data, KeyType keyType, Charset charset) {
         return StringUtils.toEncodedString(decrypt(data, keyType), charset);
@@ -76,7 +76,7 @@ public interface AsymmetricDecryptor {
      * @param data    数据，Hex（16进制）或Base64字符串
      * @param keyType 密钥类型
      * @return 解密后的密文
-     * @since 4.5.2
+     * 
      */
     default String decryptStr(String data, KeyType keyType) {
         return decryptStr(data, keyType, CharsetUtils.CHARSET_UTF_8);

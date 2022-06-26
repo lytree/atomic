@@ -24,7 +24,7 @@ import java.util.List;
  * 相关内容见：https://github.com/oshi/oshi
  *
  * @author Looly
- * @since 4.6.4
+ *
  */
 public class OshiUtil {
 
@@ -57,7 +57,7 @@ public class OshiUtil {
 	 * 获取当前进程信息{@link OSProcess}
 	 *
 	 * @return 进程信息 {@link OSProcess}
-	 * @since 5.7.12
+	 *
 	 */
 	public static OSProcess getCurrentProcess() {
 		return os.getProcess(os.getProcessId());
@@ -112,7 +112,7 @@ public class OshiUtil {
 	 * 获取磁盘相关信息，可能有多个磁盘（包括可移动磁盘等）
 	 *
 	 * @return 磁盘相关信息
-	 * @since 5.3.6
+	 *
 	 */
 	public static List<HWDiskStore> getDiskStores() {
 		return hardware.getDiskStores();
@@ -122,7 +122,7 @@ public class OshiUtil {
 	 * 获取网络相关信息，可能多块网卡
 	 *
 	 * @return 网络相关信息
-	 * @since 5.3.6
+	 *
 	 */
 	public static List<NetworkIF> getNetworkIFs() {
 		return hardware.getNetworkIFs();

@@ -58,7 +58,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  * System.out.println(visitor.getFileList());
  * </pre>
  *
- * @since 1.0
+ * 
  * @see FileFilterUtils#directoryFileFilter()
  */
 public class DirectoryFileFilter extends AbstractFileFilter implements Serializable {
@@ -66,7 +66,7 @@ public class DirectoryFileFilter extends AbstractFileFilter implements Serializa
     /**
      * Singleton instance of directory filter.
      *
-     * @since 1.3
+     * 
      */
     public static final IOFileFilter DIRECTORY = new DirectoryFileFilter();
 
@@ -101,7 +101,7 @@ public class DirectoryFileFilter extends AbstractFileFilter implements Serializa
      * @param file the File to check
      *
      * @return true if the file is a directory
-     * @since 2.9.0
+     * 
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

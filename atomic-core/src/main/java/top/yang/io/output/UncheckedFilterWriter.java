@@ -28,7 +28,7 @@ import java.io.Writer;
  * @see FilterWriter
  * @see IOException
  * @see UncheckedIOException
- * @since 2.12.0
+ *
  */
 public class UncheckedFilterWriter extends FilterWriter {
 

@@ -14,7 +14,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 修饰符枚举
      *
      * @author looly
-     * @since 4.0.5
+     * 
      */
     public enum ModifierType {
         /**
@@ -188,7 +188,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      *
      * @param field 字段
      * @return 是否是static
-     * @since 4.0.8
+     * 
      */
     public static boolean isStatic(Field field) {
         return hasModifier(field, ModifierType.STATIC);
@@ -199,7 +199,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      *
      * @param method 方法
      * @return 是否是static
-     * @since 4.0.8
+     * 
      */
     public static boolean isStatic(Method method) {
         return hasModifier(method, ModifierType.STATIC);
@@ -210,7 +210,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      *
      * @param clazz 类
      * @return 是否是static
-     * @since 4.0.8
+     * 
      */
     public static boolean isStatic(Class<?> clazz) {
         return hasModifier(clazz, ModifierType.STATIC);
@@ -221,7 +221,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      *
      * @param field 字段
      * @return 是否是合成字段
-     * @since 5.6.3
+     * 
      */
     public static boolean isSynthetic(Field field) {
         return field.isSynthetic();
@@ -232,7 +232,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      *
      * @param method 方法
      * @return 是否是合成方法
-     * @since 5.6.3
+     * 
      */
     public static boolean isSynthetic(Method method) {
         return method.isSynthetic();
@@ -243,7 +243,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      *
      * @param clazz 类
      * @return 是否是合成
-     * @since 5.6.3
+     * 
      */
     public static boolean isSynthetic(Class<?> clazz) {
         return clazz.isSynthetic();
@@ -254,7 +254,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      *
      * @param method 方法
      * @return 是否抽象方法
-     * @since 5.7.23
+     * 
      */
     public static boolean isAbstract(Method method) {
         return hasModifier(method, ModifierType.ABSTRACT);

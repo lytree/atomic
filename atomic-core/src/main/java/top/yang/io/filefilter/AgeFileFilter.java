@@ -70,7 +70,7 @@ import top.yang.io.file.PathUtils;
  * @see FileFilterUtils#ageFileFilter(Date, boolean)
  * @see FileFilterUtils#ageFileFilter(File, boolean)
  * @see FileFilterUtils#ageFileFilter(long, boolean)
- * @since 1.2
+ * 
  */
 public class AgeFileFilter extends AbstractFileFilter implements Serializable {
 
@@ -128,7 +128,7 @@ public class AgeFileFilter extends AbstractFileFilter implements Serializable {
      * Constructs a new age file filter for files equal to or older than a certain cutoff.
      *
      * @param cutoffInstant The cutoff time threshold since the epoch (00:00:00 GMT, January 1, 1970).
-     * @since 2.12.0
+     * 
      */
     public AgeFileFilter(final Instant cutoffInstant) {
         this(cutoffInstant, true);
@@ -139,7 +139,7 @@ public class AgeFileFilter extends AbstractFileFilter implements Serializable {
      *
      * @param cutoffInstant The cutoff time threshold since the epoch (00:00:00 GMT, January 1, 1970).
      * @param acceptOlder   if true, older files (at or before the cutoff) are accepted, else newer ones (after the cutoff).
-     * @since 2.12.0
+     * 
      */
     public AgeFileFilter(final Instant cutoffInstant, final boolean acceptOlder) {
         this.acceptOlder = acceptOlder;
@@ -191,7 +191,7 @@ public class AgeFileFilter extends AbstractFileFilter implements Serializable {
      *
      * @param file the File to check
      * @return true if the file name matches
-     * @since 2.9.0
+     * 
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

@@ -25,7 +25,7 @@ import java.util.ListIterator;
  * </p>
  *
  * @param <E> the type of elements returned by this iterator.
- * @since 3.0
+ * 
  */
 public interface ResettableListIterator<E> extends ListIterator<E>, ResettableIterator<E> {
     // empty

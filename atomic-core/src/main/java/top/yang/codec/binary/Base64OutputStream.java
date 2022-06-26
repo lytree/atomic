@@ -58,7 +58,7 @@ import top.yang.codec.CodecPolicy;
  * and alphabet as the encoder.
  * </p>
  * @see <a href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045</a>
- * @since 1.4
+ *
  */
 public class Base64OutputStream extends BaseNCodecOutputStream {
 
@@ -122,7 +122,7 @@ public class Base64OutputStream extends BaseNCodecOutputStream {
      *            If doEncode is true, each line of encoded data will be terminated with this byte sequence (e.g. \r\n).
      *            If lineLength &lt;= 0, the lineSeparator is not used. If doEncode is false lineSeparator is ignored.
      * @param decodingPolicy The decoding policy.
-     * @since 1.15
+     *
      */
     public Base64OutputStream(final OutputStream out, final boolean doEncode,
                               final int lineLength, final byte[] lineSeparator, final CodecPolicy decodingPolicy) {

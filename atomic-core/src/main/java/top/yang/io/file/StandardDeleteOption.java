@@ -23,7 +23,7 @@ import top.yang.io.IOUtils;
 /**
  * Defines the standard delete options.
  *
- * @since 2.8.0
+ *
  */
 public enum StandardDeleteOption implements DeleteOption {
 

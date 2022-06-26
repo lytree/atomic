@@ -24,7 +24,7 @@ import top.yang.io.input.UnsynchronizedByteArrayInputStream;
 /**
  * Implements a version of {@link AbstractByteArrayOutputStream} <b>without</b> any concurrent thread safety.
  *
- * @since 2.7
+ *
  */
 //@NotThreadSafe
 public final class UnsynchronizedByteArrayOutputStream extends AbstractByteArrayOutputStream {

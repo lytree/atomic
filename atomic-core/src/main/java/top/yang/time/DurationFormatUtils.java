@@ -19,7 +19,7 @@ package top.yang.time;
 
 /**
  * @author pride
- * @since 2.1
+ *
  */
 public class DurationFormatUtils extends org.apache.commons.lang3.time.DurationFormatUtils {
 

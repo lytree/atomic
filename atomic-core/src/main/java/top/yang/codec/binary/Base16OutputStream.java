@@ -28,7 +28,7 @@ import top.yang.codec.CodecPolicy;
  * using a different constructor.
  * </p>
  *
- * @since 1.15
+ * 
  */
 public class Base16OutputStream extends BaseNCodecOutputStream {
 

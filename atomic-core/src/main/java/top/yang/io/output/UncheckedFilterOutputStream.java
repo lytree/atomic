@@ -28,7 +28,7 @@ import java.io.UncheckedIOException;
  * @see FilterOutputStream
  * @see UncheckedIOException
  * @see UncheckedIOException
- * @since 2.12.0
+ *
  */
 public class UncheckedFilterOutputStream extends FilterOutputStream {
 

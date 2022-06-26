@@ -28,7 +28,7 @@ import java.util.function.Supplier;
  *
  * @param <T> the type of the input to the operations.
  * @param <R> the return type of the operations.
- * @since 2.7
+ *
  */
 @FunctionalInterface
 public interface IOFunction<T, R> {

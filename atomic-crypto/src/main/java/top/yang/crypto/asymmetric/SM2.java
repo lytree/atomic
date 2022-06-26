@@ -38,7 +38,7 @@ import top.yang.math.HexUtils;
  * </ol>
  *
  * @author looly
- * @since 4.3.2
+ * 
  */
 public class SM2 extends AbstractAsymmetricCrypto<SM2> {
 
@@ -113,7 +113,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * @param privateKeyHex      私钥16进制
      * @param publicKeyPointXHex 公钥X16进制
      * @param publicKeyPointYHex 公钥Y16进制
-     * @since 5.2.0
+     * 
      */
     public SM2(String privateKeyHex, String publicKeyPointXHex, String publicKeyPointYHex) {
         this(BCUtil.toSm2Params(privateKeyHex), BCUtil.toSm2Params(publicKeyPointXHex, publicKeyPointYHex));
@@ -125,7 +125,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * @param privateKey      私钥
      * @param publicKeyPointX 公钥X
      * @param publicKeyPointY 公钥Y
-     * @since 5.2.0
+     * 
      */
     public SM2(byte[] privateKey, byte[] publicKeyPointX, byte[] publicKeyPointY) {
         this(BCUtil.toSm2Params(privateKey), BCUtil.toSm2Params(publicKeyPointX, publicKeyPointY));
@@ -181,7 +181,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * @param data 被加密的bytes
      * @return 加密后的bytes
      * @throws CryptoException 包括InvalidKeyException和InvalidCipherTextException的包装异常
-     * @since 5.7.10
+     * 
      */
     public byte[] encrypt(byte[] data) throws CryptoException {
         return encrypt(data, KeyType.PublicKey);
@@ -222,7 +222,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * @param pubKeyParameters 公钥参数
      * @return 加密后的bytes
      * @throws CryptoException 包括InvalidKeyException和InvalidCipherTextException的包装异常
-     * @since 5.1.6
+     * 
      */
     public byte[] encrypt(byte[] data, CipherParameters pubKeyParameters) throws CryptoException {
         lock.lock();
@@ -245,7 +245,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * @param data SM2密文，实际包含三部分：ECC公钥、真正的密文、公钥和原文的SM3-HASH值
      * @return 加密后的bytes
      * @throws CryptoException 包括InvalidKeyException和InvalidCipherTextException的包装异常
-     * @since 5.7.10
+     * 
      */
     public byte[] decrypt(byte[] data) throws CryptoException {
         return decrypt(data, KeyType.PrivateKey);
@@ -274,7 +274,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * @param privateKeyParameters 私钥参数
      * @return 加密后的bytes
      * @throws CryptoException 包括InvalidKeyException和InvalidCipherTextException的包装异常
-     * @since 5.1.6
+     * 
      */
     public byte[] decrypt(byte[] data, CipherParameters privateKeyParameters) throws CryptoException {
         lock.lock();
@@ -352,7 +352,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * @param dataHex 数据签名后的数据
      * @param signHex 签名
      * @return 是否验证通过
-     * @since 5.2.0
+     * 
      */
     public boolean verifyHex(String dataHex, String signHex) {
         return verifyHex(dataHex, signHex, null);
@@ -376,7 +376,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * @param signHex 签名的Hex值
      * @param idHex   ID的Hex值
      * @return 是否验证通过
-     * @since 5.2.0
+     * 
      */
     public boolean verifyHex(String dataHex, String signHex, String idHex) {
         return verify(HexUtils.decodeHex(dataHex), HexUtils.decodeHex(signHex), HexUtils.decodeHex(idHex));
@@ -421,7 +421,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      *
      * @param privateKeyParams 私钥参数
      * @return this
-     * @since 5.2.0
+     * 
      */
     public SM2 setPrivateKeyParams(ECPrivateKeyParameters privateKeyParams) {
         this.privateKeyParams = privateKeyParams;
@@ -453,7 +453,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * 设置DSA signatures的编码为PlainDSAEncoding
      *
      * @return this
-     * @since 5.3.1
+     * 
      */
     public SM2 usePlainEncoding() {
         return setEncoding(PlainDSAEncoding.INSTANCE);
@@ -464,7 +464,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      *
      * @param encoding {@link DSAEncoding}实现
      * @return this
-     * @since 5.3.1
+     * 
      */
     public SM2 setEncoding(DSAEncoding encoding) {
         this.encoding = encoding;
@@ -477,7 +477,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      *
      * @param digest {@link Digest}实现
      * @return this
-     * @since 5.3.1
+     * 
      */
     public SM2 setDigest(Digest digest) {
         this.digest = digest;
@@ -502,7 +502,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * 获得私钥D值（编码后的私钥）
      *
      * @return D值
-     * @since 5.5.9
+     * 
      */
     public byte[] getD() {
         return BigIntegers.asUnsignedByteArray(getDBigInteger());
@@ -512,7 +512,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * 获得私钥D值（编码后的私钥）
      *
      * @return D值
-     * @since 5.7.17
+     * 
      */
     public String getDHex() {
         return getDBigInteger().toString(16);
@@ -522,7 +522,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      * 获得私钥D值
      *
      * @return D值
-     * @since 5.7.17
+     * 
      */
     public BigInteger getDBigInteger() {
         return this.privateKeyParams.getD();
@@ -533,7 +533,7 @@ public class SM2 extends AbstractAsymmetricCrypto<SM2> {
      *
      * @param isCompressed 是否压缩
      * @return Q值
-     * @since 5.5.9
+     * 
      */
     public byte[] getQ(boolean isCompressed) {
         return this.publicKeyParams.getQ().getEncoded(isCompressed);

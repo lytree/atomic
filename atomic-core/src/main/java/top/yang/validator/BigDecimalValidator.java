@@ -65,7 +65,7 @@ import java.util.Locale;
  *    </ul>
  *
  * @version $Revision$
- * @since Validator 1.3.0
+ *
  */
 public class BigDecimalValidator extends AbstractNumberValidator {
 

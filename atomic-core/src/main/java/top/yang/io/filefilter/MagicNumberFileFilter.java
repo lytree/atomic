@@ -85,7 +85,7 @@ import top.yang.io.RandomAccessFileMode;
  * System.out.println(visitor.getFileList());
  * </pre>
  *
- * @since 2.0
+ *
  * @see FileFilterUtils#magicNumberFileFilter(byte[])
  * @see FileFilterUtils#magicNumberFileFilter(String)
  * @see FileFilterUtils#magicNumberFileFilter(byte[], long)
@@ -286,7 +286,7 @@ public class MagicNumberFileFilter extends AbstractFileFilter implements
      *
      * @return {@code true} if the file contains the filter's magic number
      *         at the specified offset, {@code false} otherwise.
-     * @since 2.9.0
+     *
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

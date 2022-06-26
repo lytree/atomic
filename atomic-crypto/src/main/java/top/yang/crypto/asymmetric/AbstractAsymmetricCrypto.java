@@ -24,7 +24,7 @@ public abstract class AbstractAsymmetricCrypto<T extends AbstractAsymmetricCrypt
 	 * @param algorithm  算法
 	 * @param privateKey 私钥
 	 * @param publicKey  公钥
-	 * @since 3.1.1
+	 *
 	 */
 	public AbstractAsymmetricCrypto(String algorithm, PrivateKey privateKey, PublicKey publicKey) {
 		super(algorithm, privateKey, publicKey);

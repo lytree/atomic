@@ -69,7 +69,7 @@ public class TypeUtils extends org.apache.commons.lang3.reflect.TypeUtils {
      *
      * @param type {@link Type}
      * @return {@link ParameterizedType}
-     * @since 4.5.2
+     *
      */
     public static ParameterizedType toParameterizedType(Type type) {
         ParameterizedType result = null;

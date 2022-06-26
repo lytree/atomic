@@ -10,7 +10,7 @@ import top.yang.lang.RandomUtils;
  * ChaCha20算法实现<br> ChaCha系列流密码，作为salsa密码的改良版，具有更强的抵抗密码分析攻击的特性，“20”表示该算法有20轮的加密计算。
  *
  * @author looly
- * @since 5.7.12
+ *
  */
 public class ChaCha20 extends SymmetricCrypto {
 

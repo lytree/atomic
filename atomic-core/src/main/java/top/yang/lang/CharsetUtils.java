@@ -32,7 +32,7 @@ import org.apache.commons.lang3.CharSetUtils;
  * Package private since Apache Commons IO already provides a Charsets because {@link Charset} is in {@code java.nio.charset}.
  * </p>
  *
- * @since 3.10
+ *
  */
 public class CharsetUtils extends CharSetUtils {
 

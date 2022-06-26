@@ -44,7 +44,7 @@ import java.util.Objects;
  * <p>
  * This class implements ResettableListIterator from Commons Collections 3.2.
  *
- * @since 2.1
+ *
  */
 public class ListIteratorWrapper<E> implements ResettableListIterator<E> {
 
@@ -253,7 +253,7 @@ public class ListIteratorWrapper<E> implements ResettableListIterator<E> {
      * Resets this iterator back to the position at which the iterator
      * was created.
      *
-     * @since 3.2
+     *
      */
     @Override
     public void reset()  {

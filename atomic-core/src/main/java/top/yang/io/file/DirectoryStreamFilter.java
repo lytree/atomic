@@ -29,7 +29,7 @@ import java.util.Objects;
  * You pass this filter to {@link java.nio.file.Files#newDirectoryStream(Path, DirectoryStream.Filter) Files#newDirectoryStream(Path, DirectoryStream.Filter)}.
  * </p>
  *
- * @since 2.9.0
+ *
  */
 public class DirectoryStreamFilter implements DirectoryStream.Filter<Path> {
 

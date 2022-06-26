@@ -35,7 +35,7 @@ import java.util.function.Predicate;
 /**
  * Provides utility methods and decorators for {@link List} instances.
  *
- * @since 1.0
+ * 
  */
 public class ListUtils {
 
@@ -65,7 +65,7 @@ public class ListUtils {
      * @param list        the list, possibly {@code null}
      * @param defaultList the returned values if list is {@code null}
      * @return an empty list if the argument is {@code null}
-     * @since 4.0
+     * 
      */
     public static <T> List<T> defaultIfNull(final List<T> list, final List<T> defaultList) {
         return list == null ? defaultList : list;
@@ -205,7 +205,7 @@ public class ListUtils {
      * @param retain     the collection containing the elements to be retained in the returned collection
      * @return a {@code List} containing all the elements of {@code c} that occur at least once in {@code retain}.
      * @throws NullPointerException if either parameter is null
-     * @since 3.2
+     * 
      */
     public static <E> List<E> retainAll(final Collection<E> collection, final Collection<?> retain) {
         final List<E> list = new ArrayList<>(Math.min(collection.size(), retain.size()));
@@ -233,7 +233,7 @@ public class ListUtils {
      * @param remove     the items to be removed from the returned {@code collection}
      * @return a {@code List} containing all the elements of {@code c} except any elements that also occur in {@code remove}.
      * @throws NullPointerException if either parameter is null
-     * @since 3.2
+     * 
      */
     public static <E> List<E> removeAll(final Collection<E> collection, final Collection<?> remove) {
         final List<E> list = new ArrayList<>();
@@ -254,7 +254,7 @@ public class ListUtils {
      * @param func       编辑函数
      * @param ignoreNull 是否忽略空值，这里的空值包括函数处理前和处理后的null值
      * @return 抽取后的新列表
-     * @since 5.3.5
+     * 
      */
     public static <T, R> List<R> map(Iterable<T> collection, Function<? super T, ? extends R> func, boolean ignoreNull) {
         final List<R> fieldValueList = new ArrayList<>();
@@ -316,7 +316,7 @@ public class ListUtils {
      * @return a list of consecutive sublists
      * @throws NullPointerException     if list is null
      * @throws IllegalArgumentException if size is not strictly positive
-     * @since 4.0
+     * 
      */
     public static <T> List<List<T>> partition(final List<T> list, final int size) {
         Objects.requireNonNull(list, "list");
@@ -329,7 +329,7 @@ public class ListUtils {
     /**
      * Provides a partition view on a {@link List}.
      *
-     * @since 4.0
+     * 
      */
     private static class Partition<T> extends AbstractList<List<T>> {
 
@@ -385,7 +385,7 @@ public class ListUtils {
      * @param ts  对象
      * @param <T> 对象类型
      * @return 不可修改List
-     * @since 5.4.3
+     * 
      */
     @SafeVarargs
     public static <T> List<T> of(T... ts) {
@@ -423,7 +423,7 @@ public class ListUtils {
      * @param <T>      集合元素类型
      * @param iterable {@link Iterable}
      * @return ArrayList对象
-     * @since 3.1.0
+     * 
      */
     public static <T> ArrayList<T> toList(Iterable<T> iterable) {
         return (ArrayList<T>) list(false, iterable);
@@ -435,7 +435,7 @@ public class ListUtils {
      * @param <T>      集合元素类型
      * @param iterator {@link Iterator}
      * @return ArrayList对象
-     * @since 3.0.8
+     * 
      */
     public static <T> ArrayList<T> toList(Iterator<T> iterator) {
         return (ArrayList<T>) list(false, iterator);
@@ -447,7 +447,7 @@ public class ListUtils {
      * @param <T>         集合元素类型
      * @param enumeration {@link Enumeration}
      * @return ArrayList对象
-     * @since 3.0.8
+     * 
      */
     public static <T> ArrayList<T> toList(Enumeration<T> enumeration) {
         return (ArrayList<T>) list(false, enumeration);
@@ -458,7 +458,7 @@ public class ListUtils {
      *
      * @param <T> 集合元素类型
      * @return List对象
-     * @since 4.1.2
+     * 
      */
     public static <T> List<T> list() {
         return new ArrayList<>();
@@ -470,7 +470,7 @@ public class ListUtils {
      * @param <T>    集合元素类型
      * @param values 数组
      * @return List对象
-     * @since 4.1.2
+     * 
      */
     @SafeVarargs
     public static <T> List<T> list(T... values) {
@@ -488,7 +488,7 @@ public class ListUtils {
      * @param <T>        集合元素类型
      * @param collection 集合
      * @return List对象
-     * @since 4.1.2
+     * 
      */
     public static <T> List<T> list(Collection<T> collection) {
         if (null == collection) {
@@ -503,7 +503,7 @@ public class ListUtils {
      * @param <T>      集合元素类型
      * @param iterable {@link Iterable}
      * @return List对象
-     * @since 4.1.2
+     * 
      */
     public static <T> List<T> list(Iterable<T> iterable) {
         if (null == iterable) {
@@ -518,7 +518,7 @@ public class ListUtils {
      * @param <T>  集合元素类型
      * @param iter {@link Iterator}
      * @return ArrayList对象
-     * @since 4.1.2
+     * 
      */
     public static <T> List<T> list(Iterator<T> iter) {
         final List<T> list = list();
@@ -536,7 +536,7 @@ public class ListUtils {
      * @param <T>        集合元素类型
      * @param enumration {@link Enumeration}
      * @return ArrayList对象
-     * @since 3.0.8
+     * 
      */
     public static <T> List<T> list(Enumeration<T> enumration) {
         final List<T> list = list();

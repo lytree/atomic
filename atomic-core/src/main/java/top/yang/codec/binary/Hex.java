@@ -31,21 +31,21 @@ import top.yang.codec.EncoderException;
  * <p>
  * This class is thread-safe.
  *
- * @since 1.1
+ *
  */
 public class Hex implements BinaryEncoder, BinaryDecoder {
 
     /**
      * Default charset is {@link StandardCharsets#UTF_8}.
      *
-     * @since 1.7
+     *
      */
     public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
     /**
      * Default charset name is {@link CharEncoding#UTF_8}.
      *
-     * @since 1.4
+     *
      */
     public static final String DEFAULT_CHARSET_NAME = CharEncoding.UTF_8;
 
@@ -84,7 +84,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param outOffset The position within {@code out} to start writing the decoded bytes.
      * @return the number of bytes written to {@code out}.
      * @throws DecoderException Thrown if an odd number of characters or illegal characters are supplied
-     * @since 1.15
+     *
      */
     public static int decodeHex(final char[] data, final byte[] out, final int outOffset) throws DecoderException {
         final int len = data.length;
@@ -117,7 +117,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param data A String containing hexadecimal digits
      * @return A byte array containing binary data decoded from the supplied char array.
      * @throws DecoderException Thrown if an odd number of characters or illegal characters are supplied
-     * @since 1.11
+     *
      */
     public static byte[] decodeHex(final String data) throws DecoderException {
         return decodeHex(data.toCharArray());
@@ -141,7 +141,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param data        a byte[] to convert to Hex characters
      * @param toLowerCase {@code true} converts to lowercase, {@code false} to uppercase
      * @return A char[] containing hexadecimal characters in the selected case
-     * @since 1.4
+     *
      */
     public static char[] encodeHex(final byte[] data, final boolean toLowerCase) {
         return encodeHex(data, toLowerCase ? DIGITS_LOWER : DIGITS_UPPER);
@@ -154,7 +154,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param data     a byte[] to convert to hex characters
      * @param toDigits the output alphabet (must contain at least 16 chars)
      * @return A char[] containing the appropriate characters from the alphabet For best results, this should be either upper- or lower-case hex.
-     * @since 1.4
+     *
      */
     protected static char[] encodeHex(final byte[] data, final char[] toDigits) {
         final int dataLength = data.length;
@@ -171,7 +171,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param dataLen     the number of bytes from {@code dataOffset} to encode
      * @param toLowerCase {@code true} converts to lowercase, {@code false} to uppercase
      * @return A char[] containing the appropriate characters from the alphabet For best results, this should be either upper- or lower-case hex.
-     * @since 1.15
+     *
      */
     public static char[] encodeHex(final byte[] data, final int dataOffset, final int dataLen,
             final boolean toLowerCase) {
@@ -189,7 +189,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param toLowerCase {@code true} converts to lowercase, {@code false} to uppercase
      * @param out         a char[] which will hold the resultant appropriate characters from the alphabet.
      * @param outOffset   the position within {@code out} at which to start writing the encoded characters.
-     * @since 1.15
+     *
      */
     public static void encodeHex(final byte[] data, final int dataOffset, final int dataLen,
             final boolean toLowerCase, final char[] out, final int outOffset) {
@@ -224,7 +224,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      *
      * @param data a byte buffer to convert to hex characters
      * @return A char[] containing lower-case hexadecimal characters
-     * @since 1.11
+     *
      */
     public static char[] encodeHex(final ByteBuffer data) {
         return encodeHex(data, true);
@@ -240,7 +240,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param data        a byte buffer to convert to hex characters
      * @param toLowerCase {@code true} converts to lowercase, {@code false} to uppercase
      * @return A char[] containing hexadecimal characters in the selected case
-     * @since 1.11
+     *
      */
     public static char[] encodeHex(final ByteBuffer data, final boolean toLowerCase) {
         return encodeHex(data, toLowerCase ? DIGITS_LOWER : DIGITS_UPPER);
@@ -256,7 +256,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param byteBuffer a byte buffer to convert to hex characters
      * @param toDigits   the output alphabet (must be at least 16 characters)
      * @return A char[] containing the appropriate characters from the alphabet For best results, this should be either upper- or lower-case hex.
-     * @since 1.11
+     *
      */
     protected static char[] encodeHex(final ByteBuffer byteBuffer, final char[] toDigits) {
         return encodeHex(toByteArray(byteBuffer), toDigits);
@@ -268,7 +268,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      *
      * @param data a byte[] to convert to hex characters
      * @return A String containing lower-case hexadecimal characters
-     * @since 1.4
+     *
      */
     public static String encodeHexString(final byte[] data) {
         return new String(encodeHex(data));
@@ -281,7 +281,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param data        a byte[] to convert to hex characters
      * @param toLowerCase {@code true} converts to lowercase, {@code false} to uppercase
      * @return A String containing lower-case hexadecimal characters
-     * @since 1.11
+     *
      */
     public static String encodeHexString(final byte[] data, final boolean toLowerCase) {
         return new String(encodeHex(data, toLowerCase));
@@ -296,7 +296,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      *
      * @param data a byte buffer to convert to hex characters
      * @return A String containing lower-case hexadecimal characters
-     * @since 1.11
+     *
      */
     public static String encodeHexString(final ByteBuffer data) {
         return new String(encodeHex(data));
@@ -312,7 +312,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param data        a byte buffer to convert to hex characters
      * @param toLowerCase {@code true} converts to lowercase, {@code false} to uppercase
      * @return A String containing lower-case hexadecimal characters
-     * @since 1.11
+     *
      */
     public static String encodeHexString(final ByteBuffer data, final boolean toLowerCase) {
         return new String(encodeHex(data, toLowerCase));
@@ -370,7 +370,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * Creates a new codec with the given Charset.
      *
      * @param charset the charset.
-     * @since 1.7
+     *
      */
     public Hex(final Charset charset) {
         this.charset = charset;
@@ -381,8 +381,8 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      *
      * @param charsetName the charset name.
      * @throws java.nio.charset.UnsupportedCharsetException If the named charset is unavailable
-     * @since 1.4
-     * @since 1.7 throws UnsupportedCharsetException if the named charset is unavailable
+     *
+     *
      */
     public Hex(final String charsetName) {
         this(Charset.forName(charsetName));
@@ -413,7 +413,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @return A byte array containing binary data decoded from the supplied byte array (representing characters).
      * @throws DecoderException Thrown if an odd number of characters is supplied to this function
      * @see #decodeHex(char[])
-     * @since 1.11
+     *
      */
     public byte[] decode(final ByteBuffer buffer) throws DecoderException {
         return decodeHex(new String(toByteArray(buffer), getCharset()).toCharArray());
@@ -456,7 +456,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param array a byte[] to convert to hex characters
      * @return A byte[] containing the bytes of the lower-case hexadecimal characters
      * @see #encodeHex(byte[])
-     * @since 1.7 No longer throws IllegalStateException if the charsetName is invalid.
+     *
      */
     @Override
     public byte[] encode(final byte[] array) {
@@ -476,7 +476,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * @param array a byte buffer to convert to hex characters
      * @return A byte[] containing the bytes of the lower-case hexadecimal characters
      * @see #encodeHex(byte[])
-     * @since 1.11
+     *
      */
     public byte[] encode(final ByteBuffer array) {
         return encodeHexString(array).getBytes(this.getCharset());
@@ -515,7 +515,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * Gets the charset.
      *
      * @return the charset.
-     * @since 1.7
+     *
      */
     public Charset getCharset() {
         return this.charset;
@@ -525,7 +525,7 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
      * Gets the charset name.
      *
      * @return the charset name.
-     * @since 1.4
+     *
      */
     public String getCharsetName() {
         return this.charset.name();

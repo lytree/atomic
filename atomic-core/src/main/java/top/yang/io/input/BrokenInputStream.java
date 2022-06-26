@@ -26,14 +26,14 @@ import java.util.function.Supplier;
  * This class is mostly useful for testing error handling.
  * </p>
  *
- * @since 2.0
+ *
  */
 public class BrokenInputStream extends InputStream {
 
     /**
      * The singleton instance.
      *
-     * @since 2.12.0
+     *
      */
     public static final BrokenInputStream INSTANCE = new BrokenInputStream();
 
@@ -62,7 +62,7 @@ public class BrokenInputStream extends InputStream {
      * Creates a new stream that always throws an {@link IOException}.
      *
      * @param exceptionSupplier a supplier for the exception to be thrown.
-     * @since 2.12.0
+     *
      */
     public BrokenInputStream(final Supplier<IOException> exceptionSupplier) {
         this.exceptionSupplier = exceptionSupplier;

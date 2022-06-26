@@ -29,7 +29,7 @@ import java.util.Objects;
  *
  * @param <K> the type of keys
  * @param <V> the type of mapped values
- * @since 3.0
+ * 
  */
 public class AbstractMapIteratorDecorator<K, V> implements MapIterator<K, V> {
 

@@ -69,7 +69,7 @@ public class IterableUtils {
      * @param iterable the {@link Iterable} to get a value from, may be null
      * @return the first object
      * @throws IndexOutOfBoundsException if the request  is invalid
-     * @since 4.2
+     *
      */
     public static <T> T first(final Iterable<T> iterable) {
         return get(iterable, 0);

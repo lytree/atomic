@@ -63,7 +63,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
-     * @since 3.5
+     *
      */
     public static String randomAsciiThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomAsciiThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
@@ -92,7 +92,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
-     * @since 3.5
+     *
      */
     public static String randomAlphabeticThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomAlphabeticThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
@@ -122,7 +122,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
-     * @since 3.5
+     *
      */
     public static String randomAlphanumericThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomAlphanumericThreadLocal(org.apache.commons.lang3.RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
@@ -136,7 +136,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
      *
      * @param count the length of random string to create
      * @return the random string
-     * @since 3.5
+     *
      */
     public static String randomGraphThreadLocal(final int count) {
         return randomThreadLocal(count, 33, 126, false, false);
@@ -151,7 +151,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
-     * @since 3.5
+     *
      */
     public static String randomGraphThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomGraphThreadLocal(org.apache.commons.lang3.RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
@@ -180,7 +180,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
-     * @since 3.5
+     *
      */
     public static String randomNumericThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomNumericThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
@@ -194,7 +194,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
      *
      * @param count the length of random string to create
      * @return the random string
-     * @since 3.5
+     *
      */
     public static String randomPrintThreadLocal(final int count) {
         return randomThreadLocal(count, 32, 126, false, false);
@@ -209,7 +209,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
      * @param minLengthInclusive the inclusive minimum length of the string to generate
      * @param maxLengthExclusive the exclusive maximum length of the string to generate
      * @return the random string
-     * @since 3.5
+     *
      */
     public static String randomPrintThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomPrintThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
@@ -295,7 +295,7 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
      * @return the random string
      * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
      * @throws IllegalArgumentException       if {@code count} &lt; 0 or the provided chars array is empty.
-     * @since 2.0
+     *
      */
     public static String randomThreadLocal(int count, int start, int end, final boolean letters, final boolean numbers,
             final char[] chars, final Random random) {

@@ -39,7 +39,7 @@ import java.util.NoSuchElementException;
  * @see java.util.Iterator
  * @see java.util.ListIterator
  *
- * @since 3.0
+ * 
  */
 public class ArrayListIterator<E> extends ArrayIterator<E>
         implements ResettableListIterator<E> {

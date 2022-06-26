@@ -59,7 +59,7 @@ import top.yang.lang.CharsetDecoders;
  * </p>
  *
  * @see ReaderInputStream
- * @since 2.0
+ *
  */
 public class WriterOutputStream extends OutputStream {
 
@@ -154,7 +154,7 @@ public class WriterOutputStream extends OutputStream {
      *
      * @param writer  the target {@link Writer}
      * @param decoder the charset decoder
-     * @since 2.1
+     *
      */
     public WriterOutputStream(final Writer writer, final CharsetDecoder decoder) {
         this(writer, decoder, BUFFER_SIZE, false);
@@ -169,7 +169,7 @@ public class WriterOutputStream extends OutputStream {
      * @param writeImmediately If {@code true} the output buffer will be flushed after each write operation, i.e. all available data will be written to the underlying {@link
      *                         Writer} immediately. If {@code false}, the output buffer will only be flushed when it overflows or when {@link #flush()} or {@link #close()} is
      *                         called.
-     * @since 2.1
+     *
      */
     public WriterOutputStream(final Writer writer, final CharsetDecoder decoder, final int bufferSize, final boolean writeImmediately) {
         checkIbmJdkWithBrokenUTF16(CharsetDecoders.toCharsetDecoder(decoder).charset());

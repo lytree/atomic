@@ -35,7 +35,7 @@ public class JavaSpecInfo implements Serializable{
 	 * 
 	 * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回<code>null</code>。
 	 * 
-	 * @since Java 1.3
+	 *
 	 */
 	public final String getVersion() {
 		return JAVA_SPECIFICATION_VERSION;

@@ -53,7 +53,6 @@ public class ClassUtils extends org.apache.commons.lang3.ClassUtils {
      *
      * @param clazz 类
      * @return 默认值
-     * @since 3.0.8
      */
     public static Object getDefaultValue(Class<?> clazz) {
         // 原始类型
@@ -73,7 +72,6 @@ public class ClassUtils extends org.apache.commons.lang3.ClassUtils {
      *
      * @param clazz 类
      * @return 默认值
-     * @since 5.8.0
      */
     public static Object getPrimitiveDefaultValue(Class<?> clazz) {
         if (long.class == clazz) {
@@ -101,7 +99,6 @@ public class ClassUtils extends org.apache.commons.lang3.ClassUtils {
      *
      * @param classes 值类型
      * @return 默认值列表
-     * @since 3.0.9
      */
     public static Object[] getDefaultValues(Class<?>... classes) {
         final Object[] values = new Object[classes.length];

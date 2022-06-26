@@ -61,7 +61,7 @@ import top.yang.lang.StringUtils;
  *
  * @see <a href="http://www.ietf.org/rfc/rfc1521.txt">RFC 1521 MIME (Multipurpose Internet Mail Extensions) Part One:
  * Mechanisms for Specifying and Describing the Format of Internet Message Bodies </a>
- * @since 1.3
+ *
  */
 public class QuotedPrintableCodec implements BinaryEncoder, BinaryDecoder, StringEncoder, StringDecoder {
 
@@ -119,7 +119,7 @@ public class QuotedPrintableCodec implements BinaryEncoder, BinaryDecoder, Strin
      * Constructor which allows for the selection of the strict mode.
      *
      * @param strict if {@code true}, soft line breaks will be used
-     * @since 1.10
+     *
      */
     public QuotedPrintableCodec(final boolean strict) {
         this(StandardCharsets.UTF_8, strict);
@@ -129,7 +129,7 @@ public class QuotedPrintableCodec implements BinaryEncoder, BinaryDecoder, Strin
      * Constructor which allows for the selection of a default Charset.
      *
      * @param charset the default string Charset to use.
-     * @since 1.7
+     *
      */
     public QuotedPrintableCodec(final Charset charset) {
         this(charset, false);
@@ -140,7 +140,7 @@ public class QuotedPrintableCodec implements BinaryEncoder, BinaryDecoder, Strin
      *
      * @param charset the default string Charset to use.
      * @param strict  if {@code true}, soft line breaks will be used
-     * @since 1.10
+     *
      */
     public QuotedPrintableCodec(final Charset charset, final boolean strict) {
         this.charset = charset;
@@ -154,7 +154,7 @@ public class QuotedPrintableCodec implements BinaryEncoder, BinaryDecoder, Strin
      * @throws UnsupportedCharsetException If no support for the named Charset is available in this instance of the Java virtual machine
      * @throws IllegalArgumentException    If the given charsetName is null
      * @throws IllegalCharsetNameException If the given Charset name is illegal
-     * @since 1.7 throws UnsupportedCharsetException if the named Charset is unavailable
+     *
      */
     public QuotedPrintableCodec(final String charsetName)
             throws IllegalCharsetNameException, IllegalArgumentException, UnsupportedCharsetException {
@@ -243,7 +243,7 @@ public class QuotedPrintableCodec implements BinaryEncoder, BinaryDecoder, Strin
      * @param bytes     array of bytes to be encoded
      * @param strict    if {@code true} the full ruleset is used, otherwise only rule #1 and rule #2
      * @return array of bytes containing quoted-printable data
-     * @since 1.10
+     *
      */
     public static final byte[] encodeQuotedPrintable(BitSet printable, final byte[] bytes, final boolean strict) {
         if (bytes == null) {
@@ -399,7 +399,7 @@ public class QuotedPrintableCodec implements BinaryEncoder, BinaryDecoder, Strin
      * @param sourceCharset the original string Charset
      * @return original string
      * @throws DecoderException Thrown if quoted-printable decoding is unsuccessful
-     * @since 1.7
+     *
      */
     public String decode(final String sourceStr, final Charset sourceCharset) throws DecoderException {
         if (sourceStr == null) {
@@ -488,7 +488,7 @@ public class QuotedPrintableCodec implements BinaryEncoder, BinaryDecoder, Strin
      * Gets the default Charset name used for string decoding and encoding.
      *
      * @return the default Charset name
-     * @since 1.7
+     *
      */
     public Charset getCharset() {
         return this.charset;
@@ -512,7 +512,7 @@ public class QuotedPrintableCodec implements BinaryEncoder, BinaryDecoder, Strin
      * @param sourceStr     string to convert to quoted-printable form
      * @param sourceCharset the Charset for sourceStr
      * @return quoted-printable string
-     * @since 1.7
+     *
      */
     public String encode(final String sourceStr, final Charset sourceCharset) {
         if (sourceStr == null) {

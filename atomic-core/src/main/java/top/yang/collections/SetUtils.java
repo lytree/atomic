@@ -47,7 +47,7 @@ public class SetUtils {
      * and {@link #toSet()} methods.
      *
      * @param <E> the element type
-     * @since 4.1
+     * 
      */
     public abstract static class SetView<E> extends AbstractSet<E> {
 
@@ -148,7 +148,7 @@ public class SetUtils {
      * @param <E>   the element type
      * @param items the elements that make up the new set
      * @return a set
-     * @since 4.3
+     * 
      */
     public static <E> HashSet<E> hashSet(final E... items) {
         if (items == null) {
@@ -213,7 +213,7 @@ public class SetUtils {
      *
      * @param <E> the element type
      * @return a new identity hash set
-     * @since 4.1
+     * 
      */
     public static <E> Set<E> newIdentityHashSet() {
         return Collections.newSetFromMap(new IdentityHashMap<E, Boolean>());

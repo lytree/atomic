@@ -25,7 +25,7 @@ package top.yang.codec.binary;
  * </p>
  *
  * @see CharSequence
- * @since 1.10
+ * 
  */
 public class CharSequenceUtils {
 

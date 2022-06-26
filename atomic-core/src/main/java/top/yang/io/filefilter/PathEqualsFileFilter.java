@@ -28,7 +28,7 @@ import java.util.Objects;
  * file tree with
  * {@link java.nio.file.Files#walkFileTree(Path, java.util.Set, int, java.nio.file.FileVisitor)}.
  *
- * @since 2.9.0
+ * 
  */
 public class PathEqualsFileFilter extends AbstractFileFilter {
 

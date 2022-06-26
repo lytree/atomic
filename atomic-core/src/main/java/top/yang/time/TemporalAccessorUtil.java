@@ -13,7 +13,7 @@ import java.time.temporal.UnsupportedTemporalTypeException;
  * {@link TemporalAccessor} 工具类封装
  *
  * @author looly
- * @since 5.3.9
+ * 
  */
 public class TemporalAccessorUtil extends TemporalUtil {
 
@@ -38,7 +38,7 @@ public class TemporalAccessorUtil extends TemporalUtil {
      * @param time      {@link TemporalAccessor}
      * @param formatter 日期格式化器，预定义的格式见：{@link DateTimeFormatter}
      * @return 格式化后的字符串
-     * @since 5.3.10
+     * 
      */
     public static String format(TemporalAccessor time, DateTimeFormatter formatter) {
         if (null == time) {
@@ -69,7 +69,7 @@ public class TemporalAccessorUtil extends TemporalUtil {
      * @param time   {@link TemporalAccessor}
      * @param format 日期格式
      * @return 格式化后的字符串
-     * @since 5.3.10
+     * 
      */
     public static String format(TemporalAccessor time, String format) {
         if (null == time) {
@@ -87,7 +87,7 @@ public class TemporalAccessorUtil extends TemporalUtil {
      *
      * @param temporalAccessor Date对象
      * @return {@link Instant}对象
-     * @since 5.4.1
+     * 
      */
     public static long toEpochMilli(TemporalAccessor temporalAccessor) {
         return toInstant(temporalAccessor).toEpochMilli();
@@ -98,7 +98,7 @@ public class TemporalAccessorUtil extends TemporalUtil {
      *
      * @param temporalAccessor Date对象
      * @return {@link Instant}对象
-     * @since 5.3.10
+     * 
      */
     public static Instant toInstant(TemporalAccessor temporalAccessor) {
         if (null == temporalAccessor) {

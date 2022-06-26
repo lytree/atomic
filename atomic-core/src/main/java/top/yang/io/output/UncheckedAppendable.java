@@ -26,7 +26,7 @@ import java.io.UncheckedIOException;
  * @see Appendable
  * @see IOException
  * @see UncheckedIOException
- * @since 2.12.0
+ *
  */
 public interface UncheckedAppendable extends Appendable {
 

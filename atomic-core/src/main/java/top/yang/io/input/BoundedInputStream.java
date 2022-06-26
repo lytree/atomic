@@ -33,7 +33,7 @@ import java.io.InputStream;
  * with a correct content length.
  * </p>
  *
- * @since 2.0
+ *
  */
 public class BoundedInputStream extends InputStream {
 

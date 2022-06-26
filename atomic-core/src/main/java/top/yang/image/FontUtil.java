@@ -12,7 +12,7 @@ import java.io.InputStream;
  * AWT中字体相关工具类
  *
  * @author looly
- * @since 5.3.6
+ *
  */
 public class FontUtil {
 

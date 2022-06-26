@@ -6,7 +6,7 @@ package top.yang.crypto.symmetric;
  * 算法实现来自：https://github.com/zhaorenjie110/SymmetricEncryptionAndDecryption
  * 
  * @author looly,zhaorenjie110
- * @since 4.4.1
+ *
  */
 public class Vigenere {
 

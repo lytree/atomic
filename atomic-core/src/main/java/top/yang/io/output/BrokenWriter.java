@@ -26,14 +26,14 @@ import java.util.function.Supplier;
  * This class is mostly useful for testing error handling in code that uses a writer.
  * </p>
  *
- * @since 2.0
+ * 
  */
 public class BrokenWriter extends Writer {
 
     /**
      * The singleton instance.
      *
-     * @since 2.12.0
+     * 
      */
     public static final BrokenWriter INSTANCE = new BrokenWriter();
 
@@ -62,7 +62,7 @@ public class BrokenWriter extends Writer {
      * Creates a new writer that always throws an {@link IOException}.
      *
      * @param exceptionSupplier a supplier for the exception to be thrown.
-     * @since 2.12.0
+     * 
      */
     public BrokenWriter(final Supplier<IOException> exceptionSupplier) {
         this.exceptionSupplier = exceptionSupplier;

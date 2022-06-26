@@ -19,7 +19,7 @@ import top.yang.lang.StringUtils;
  * 查询封装分为解析查询字符串和构建查询字符串，解析可通过charset为null来自定义是否decode编码后的内容，<br> 构建则通过charset是否为null是否encode参数键值对
  *
  * @author looly
- * @since 5.3.1
+ *
  */
 public class UrlQuery {
 
@@ -68,7 +68,7 @@ public class UrlQuery {
      * @param charset        decode用的编码，null表示不做decode
      * @param autoRemovePath 是否自动去除path部分，{@code true}则自动去除第一个?前的内容
      * @return UrlQuery
-     * @since 5.5.8
+     *
      */
     public static UrlQuery of(String queryStr, Charset charset, boolean autoRemovePath) {
         return of(queryStr, charset, autoRemovePath, false);
@@ -82,7 +82,7 @@ public class UrlQuery {
      * @param autoRemovePath   是否自动去除path部分，{@code true}则自动去除第一个?前的内容
      * @param isFormUrlEncoded 是否为x-www-form-urlencoded模式，此模式下空格会编码为'+'
      * @return UrlQuery
-     * @since 5.7.16
+     *
      */
     public static UrlQuery of(String queryStr, Charset charset, boolean autoRemovePath, boolean isFormUrlEncoded) {
         return new UrlQuery(isFormUrlEncoded).parse(queryStr, charset, autoRemovePath);
@@ -99,7 +99,7 @@ public class UrlQuery {
      * 构造
      *
      * @param isFormUrlEncoded 是否为x-www-form-urlencoded模式，此模式下空格会编码为'+'
-     * @since 5.7.16
+     *
      */
     public UrlQuery(boolean isFormUrlEncoded) {
         this(null, isFormUrlEncoded);
@@ -119,7 +119,7 @@ public class UrlQuery {
      *
      * @param queryMap         初始化的查询键值对
      * @param isFormUrlEncoded 是否为x-www-form-urlencoded模式，此模式下空格会编码为'+'
-     * @since 5.7.16
+     *
      */
     public UrlQuery(Map<String, ?> queryMap, boolean isFormUrlEncoded) {
         if (MapUtils.isNotEmpty(queryMap)) {
@@ -174,7 +174,7 @@ public class UrlQuery {
      * @param charset        decode编码，null表示不做decode
      * @param autoRemovePath 是否自动去除path部分，{@code true}则自动去除第一个?前的内容
      * @return this
-     * @since 5.5.8
+     *
      */
     public UrlQuery parse(String queryStr, Charset charset, boolean autoRemovePath) {
         if (StringUtils.isBlank(queryStr)) {
@@ -246,7 +246,7 @@ public class UrlQuery {
      * @param valueCoder 键值对中值的编码器
      * @param charset    encode编码，null表示不做encode编码
      * @return URL查询字符串
-     * @since 5.7.16
+     *
      */
     public String build(PercentCodec keyCoder, PercentCodec valueCoder, Charset charset) {
         if (MapUtils.isEmpty(this.query)) {
@@ -288,7 +288,7 @@ public class UrlQuery {
      * @param queryStr 查询字符串，类似于key1=v1&amp;key2=&amp;key3=v3
      * @param charset  decode编码，null表示不做decode
      * @return this
-     * @since 5.5.8
+     *
      */
     private UrlQuery doParse(String queryStr, Charset charset) {
         final int len = queryStr.length();

@@ -5,7 +5,7 @@ package top.yang.math.support;
  *
  * @param <T> 被计算hash的对象类型
  * @author looly
- * @since 5.2.5
+ *
  */
 @FunctionalInterface
 public interface Hash128<T> {

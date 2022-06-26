@@ -13,7 +13,7 @@ import top.yang.lang.StringUtils;
  * URL中Path部分的封装
  *
  * @author looly
- * @since 5.3.1
+ *
  */
 public class UrlPath {
 

@@ -37,7 +37,7 @@ import java.util.regex.Pattern;
  * <p>
  * This class is immutable and thread-safe.
  *
- * @since 1.7
+ *
  */
 public class Sha2Crypt {
 
@@ -130,7 +130,7 @@ public class Sha2Crypt {
      *             if the salt does not match the allowed pattern
      * @throws IllegalArgumentException
      *             when a {@link NoSuchAlgorithmException} is caught.
-     * @since 1.12
+     *
      */
     public static String sha256Crypt(final byte[] keyBytes, String salt, final Random random) {
         if (salt == null) {
@@ -606,7 +606,7 @@ public class Sha2Crypt {
      *             if the salt does not match the allowed pattern
      * @throws IllegalArgumentException
      *             when a {@link NoSuchAlgorithmException} is caught.
-     * @since 1.12
+     *
      */
     public static String sha512Crypt(final byte[] keyBytes, String salt, final Random random) {
         if (salt == null) {

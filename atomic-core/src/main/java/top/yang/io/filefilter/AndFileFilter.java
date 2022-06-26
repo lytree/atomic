@@ -33,7 +33,7 @@ import java.util.Objects;
  * Checking of the file filter list stops when the first filter returns
  * {@code false}.
  *
- * @since 1.0
+ * 
  * @see FileFilterUtils#and(IOFileFilter...)
  */
 public class AndFileFilter
@@ -48,7 +48,7 @@ public class AndFileFilter
     /**
      * Constructs a new empty instance.
      *
-     * @since 1.1
+     * 
      */
     public AndFileFilter() {
         this(0);
@@ -76,7 +76,7 @@ public class AndFileFilter
      * Constructs a new instance for the give filters.
      * @param fileFilters filters to OR.
      *
-     * @since 2.9.0
+     * 
      */
     public AndFileFilter(final IOFileFilter... fileFilters) {
         this(Objects.requireNonNull(fileFilters, "fileFilters").length);
@@ -101,7 +101,7 @@ public class AndFileFilter
      * with the specified list of filters.
      *
      * @param fileFilters  a List of IOFileFilter instances, copied.
-     * @since 1.1
+     * 
      */
     public AndFileFilter(final List<IOFileFilter> fileFilters) {
         this(new ArrayList<>(Objects.requireNonNull(fileFilters, "fileFilters")));
@@ -141,7 +141,7 @@ public class AndFileFilter
 
     /**
      * {@inheritDoc}
-     * @since 2.9.0
+     * 
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {
@@ -168,7 +168,7 @@ public class AndFileFilter
      * Adds the given file filters.
      *
      * @param fileFilters the filters to add.
-     * @since 2.9.0
+     * 
      */
     public void addFileFilter(final IOFileFilter... fileFilters) {
         for (final IOFileFilter fileFilter : Objects.requireNonNull(fileFilters, "fileFilters")) {

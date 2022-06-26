@@ -43,7 +43,7 @@ public class CharacterFilterReader extends AbstractCharacterFilterReader {
      *
      * @param reader the reader to filter.
      * @param skip Skip test.
-     * @since 2.9.0
+     * 
      */
     public CharacterFilterReader(final Reader reader, final IntPredicate skip) {
         super(reader, skip);

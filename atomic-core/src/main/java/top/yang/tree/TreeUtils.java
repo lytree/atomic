@@ -19,7 +19,7 @@ public class TreeUtils {
      *
      * @param list 源数据集合
      * @return List
-     * @since 5.7.2
+     *
      */
     public static Tree<Integer> buildSingle(List<TreeNode<Integer>> list) {
         return buildSingle(list, 0);
@@ -42,7 +42,7 @@ public class TreeUtils {
      * @param list     源数据集合
      * @param parentId 最顶层父id值 一般为 0 之类
      * @return List
-     * @since 5.7.2
+     *
      */
     public static <E> Tree<E> buildSingle(List<TreeNode<E>> list, E parentId) {
         return buildSingle(list, parentId, TreeNodeConfig.DEFAULT_CONFIG, new DefaultNodeParser<>());
@@ -69,7 +69,7 @@ public class TreeUtils {
      * @param parentId   最顶层父id值 一般为 0 之类
      * @param nodeParser 转换器
      * @return List
-     * @since 5.7.2
+     *
      */
     public static <T, E> Tree<E> buildSingle(List<T> list, E parentId, NodeParser<T, E> nodeParser) {
         return buildSingle(list, parentId, TreeNodeConfig.DEFAULT_CONFIG, nodeParser);
@@ -114,7 +114,7 @@ public class TreeUtils {
      * @param treeNodeConfig 配置
      * @param nodeParser     转换器
      * @return List
-     * @since 5.7.2
+     *
      */
     public static <T, E> Tree<E> buildSingle(List<T> list, E rootId, TreeNodeConfig treeNodeConfig, NodeParser<T, E> nodeParser) {
         return TreeBuilder.of(rootId, treeNodeConfig)
@@ -128,7 +128,7 @@ public class TreeUtils {
      * @param map    源数据Map
      * @param rootId 最顶层父id值 一般为 0 之类
      * @return List
-     * @since 5.6.7
+     *
      */
     public static <E> List<Tree<E>> build(Map<E, Tree<E>> map, E rootId) {
         return buildSingle(map, rootId).getChildren();
@@ -141,7 +141,7 @@ public class TreeUtils {
      * @param map    源数据Map
      * @param rootId 根节点id值 一般为 0 之类
      * @return {@link Tree}
-     * @since 5.7.2
+     *
      */
     public static <E> Tree<E> buildSingle(Map<E, Tree<E>> map, E rootId) {
         final Tree<E> tree = IteratorUtils.getFirstNoneNull(map.values());
@@ -162,7 +162,7 @@ public class TreeUtils {
      * @param node 节点
      * @param id   ID
      * @return 节点
-     * @since 5.2.4
+     *
      */
     public static <T> Tree<T> getNode(Tree<T> node, T id) {
         if (Objects.equals(id, node.getId())) {
@@ -197,7 +197,7 @@ public class TreeUtils {
      * @param node               节点
      * @param includeCurrentNode 是否包含当前节点的名称
      * @return 所有父节点名称列表，node为null返回空List
-     * @since 5.2.4
+     *
      */
     public static <T> List<CharSequence> getParentsName(Tree<T> node, boolean includeCurrentNode) {
         final List<CharSequence> result = new ArrayList<>();
@@ -223,7 +223,7 @@ public class TreeUtils {
      * @param id  节点ID
      * @param <E> 节点ID类型
      * @return {@link Tree}
-     * @since 5.7.2
+     *
      */
     public static <E> Tree<E> createEmptyNode(E id) {
         return new Tree<E>().setId(id);

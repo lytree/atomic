@@ -24,7 +24,7 @@ import java.util.function.Supplier;
  * Like {@link Supplier} but throws {@link IOException}.
  *
  * @param <T> the return type of the operations.
- * @since 2.7
+ * 
  */
 @FunctionalInterface
 public interface IOSupplier<T> {

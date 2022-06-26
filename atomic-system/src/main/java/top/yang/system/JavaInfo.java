@@ -43,7 +43,7 @@ public class JavaInfo implements Serializable {
      * 例如Sun JDK 1.4.2：<code>"1.4.2"</code>
      *
      * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回<code>null</code>。
-     * @since Java 1.1
+     *
      */
     public final String getVersion() {
         return JAVA_VERSION;
@@ -79,7 +79,7 @@ public class JavaInfo implements Serializable {
      * </ul>
      *
      * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回<code>0</code>。
-     * @since Java 1.1
+     *
      */
     public final int getVersionInt() {
         return JAVA_VERSION_INT;
@@ -132,7 +132,7 @@ public class JavaInfo implements Serializable {
      * 例如Sun JDK 1.4.2：<code>"Sun Microsystems Inc."</code>
      *
      * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回<code>null</code>。
-     * @since Java 1.1
+     *
      */
     public final String getVendor() {
         return JAVA_VENDOR;
@@ -145,7 +145,7 @@ public class JavaInfo implements Serializable {
      * 例如Sun JDK 1.4.2：<code>"http://java.sun.com/"</code>
      *
      * @return 属性值，如果不能取得（因为Java安全限制）或值不存在，则返回<code>null</code>。
-     * @since Java 1.1
+     *
      */
     public final String getVendorURL() {
         return JAVA_VENDOR_URL;

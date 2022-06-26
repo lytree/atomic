@@ -80,7 +80,7 @@ public class Snowflake implements Serializable {
      * @param workerId         工作机器节点id
      * @param dataCenterId     数据中心id
      * @param isUseSystemClock 是否使用{@link SystemClock} 获取当前时间戳
-     * @since 5.1.3
+     *
      */
     public Snowflake(Date epochDate, long workerId, long dataCenterId, boolean isUseSystemClock) {
         if (null != epochDate) {

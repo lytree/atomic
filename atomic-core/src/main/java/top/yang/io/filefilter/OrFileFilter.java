@@ -31,7 +31,7 @@ import java.util.Objects;
  * {@code true} if any filters in the list return {@code true}. Otherwise, it returns {@code false}. Checking of the
  * file filter list stops when the first filter returns {@code true}.
  *
- * @since 1.0
+ *
  * @see FileFilterUtils#or(IOFileFilter...)
  */
 public class OrFileFilter extends AbstractFileFilter implements ConditionalFileFilter, Serializable {
@@ -44,7 +44,7 @@ public class OrFileFilter extends AbstractFileFilter implements ConditionalFileF
     /**
      * Constructs a new instance of {@code OrFileFilter}.
      *
-     * @since 1.1
+     *
      */
     public OrFileFilter() {
         this(0);
@@ -72,7 +72,7 @@ public class OrFileFilter extends AbstractFileFilter implements ConditionalFileF
      * Constructs a new instance for the give filters.
      * @param fileFilters filters to OR.
      *
-     * @since 2.9.0
+     *
      */
     public OrFileFilter(final IOFileFilter... fileFilters) {
         this(Objects.requireNonNull(fileFilters, "fileFilters").length);
@@ -96,7 +96,7 @@ public class OrFileFilter extends AbstractFileFilter implements ConditionalFileF
      * Constructs a new instance of {@code OrFileFilter} with the specified filters.
      *
      * @param fileFilters the file filters for this filter, copied.
-     * @since 1.1
+     *
      */
     public OrFileFilter(final List<IOFileFilter> fileFilters) {
         this(new ArrayList<>(Objects.requireNonNull(fileFilters, "fileFilters")));
@@ -153,7 +153,7 @@ public class OrFileFilter extends AbstractFileFilter implements ConditionalFileF
      * Adds the given file filters.
      *
      * @param fileFilters the filters to add.
-     * @since 2.9.0
+     *
      */
     public void addFileFilter(final IOFileFilter... fileFilters) {
         for (final IOFileFilter fileFilter : Objects.requireNonNull(fileFilters, "fileFilters")) {

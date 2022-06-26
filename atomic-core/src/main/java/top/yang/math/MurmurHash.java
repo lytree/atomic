@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets;
  * </p>
  *
  * @author looly, Simhash4J
- * @since 4.3.3
+ *
  */
 public class MurmurHash implements Serializable {
     private static final long serialVersionUID = 1L;

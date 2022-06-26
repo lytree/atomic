@@ -54,7 +54,7 @@ import java.nio.charset.StandardCharsets;
  * </p>
  *
  * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
- * @since 1.7
+ *
  */
 public class Charsets {
 

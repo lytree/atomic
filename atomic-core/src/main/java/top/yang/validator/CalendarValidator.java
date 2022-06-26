@@ -83,7 +83,7 @@ import java.util.TimeZone;
  *    </ul>
  *
  * @version $Revision$
- * @since Validator 1.3.0
+ *
  */
 public class CalendarValidator extends AbstractCalendarValidator {
 

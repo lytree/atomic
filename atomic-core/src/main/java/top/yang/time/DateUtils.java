@@ -43,7 +43,7 @@ import java.util.concurrent.TimeUnit;
  * internally (with default time zone and locale) and may be affected by changes to daylight saving time (DST).
  * </p>
  *
- * @since 2.0
+ *
  */
 public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
@@ -61,7 +61,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
      * 当前时间的时间戳（秒）
      *
      * @return 当前时间秒数
-     * @since 4.0.0
+     *
      */
     public static long currentSeconds() {
         return System.currentTimeMillis() / 1000;

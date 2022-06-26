@@ -51,7 +51,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  * <p>
  * <b>N.B.</b> For read-only files, use {@code CanReadFileFilter.READ_ONLY}.
  *
- * @since 1.3
+ *
  */
 public class CanWriteFileFilter extends AbstractFileFilter implements Serializable {
 
@@ -85,7 +85,7 @@ public class CanWriteFileFilter extends AbstractFileFilter implements Serializab
      * @param file the File to check
      *
      * @return {@code true} if the file can be written to, otherwise {@code false}.
-     * @since 2.9.0
+     *
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

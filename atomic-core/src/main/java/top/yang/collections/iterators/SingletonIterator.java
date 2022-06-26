@@ -27,7 +27,7 @@ import java.util.NoSuchElementException;
  * object instance.
  *
  * @param <E> the type of elements returned by this iterator.
- * @since 2.0
+ *
  */
 public class SingletonIterator<E>
         implements ResettableIterator<E> {
@@ -57,7 +57,7 @@ public class SingletonIterator<E>
      *
      * @param object  the single object to return from the iterator
      * @param removeAllowed  true if remove is allowed
-     * @since 3.1
+     *
      */
     public SingletonIterator(final E object, final boolean removeAllowed) {
         this.object = object;

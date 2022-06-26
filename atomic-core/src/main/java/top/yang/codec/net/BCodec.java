@@ -40,7 +40,7 @@ import top.yang.codec.binary.BaseNCodec;
  *
  * @see <a href="http://www.ietf.org/rfc/rfc1522.txt">MIME (Multipurpose Internet Mail Extensions) Part Two: Message
  * Header Extensions for Non-ASCII Text</a>
- * @since 1.3
+ *
  */
 public class BCodec extends RFC1522Codec implements StringEncoder, StringDecoder {
 
@@ -71,7 +71,7 @@ public class BCodec extends RFC1522Codec implements StringEncoder, StringDecoder
      *
      * @param charset the default string Charset to use.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     * @since 1.7
+     *
      */
     public BCodec(final Charset charset) {
         this(charset, DECODING_POLICY_DEFAULT);
@@ -83,7 +83,7 @@ public class BCodec extends RFC1522Codec implements StringEncoder, StringDecoder
      * @param charset        the default string Charset to use.
      * @param decodingPolicy The decoding policy.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     * @since 1.15
+     *
      */
     public BCodec(final Charset charset, final CodecPolicy decodingPolicy) {
         this.charset = charset;
@@ -96,7 +96,7 @@ public class BCodec extends RFC1522Codec implements StringEncoder, StringDecoder
      * @param charsetName the default Charset to use.
      * @throws java.nio.charset.UnsupportedCharsetException If the named Charset is unavailable
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
-     * @since 1.7 throws UnsupportedCharsetException if the named Charset is unavailable
+     *
      */
     public BCodec(final String charsetName) {
         this(Charset.forName(charsetName));
@@ -109,7 +109,7 @@ public class BCodec extends RFC1522Codec implements StringEncoder, StringDecoder
      * into 8-bit bytes and discard the remainder.
      *
      * @return true if using strict decoding
-     * @since 1.15
+     *
      */
     public boolean isStrictDecoding() {
         return decodingPolicy == CodecPolicy.STRICT;
@@ -143,7 +143,7 @@ public class BCodec extends RFC1522Codec implements StringEncoder, StringDecoder
      * @param sourceCharset the Charset for {@code value}
      * @return Base64 string
      * @throws EncoderException thrown if a failure condition is encountered during the encoding process.
-     * @since 1.7
+     *
      */
     public String encode(final String strSource, final Charset sourceCharset) throws EncoderException {
         if (strSource == null) {
@@ -249,7 +249,7 @@ public class BCodec extends RFC1522Codec implements StringEncoder, StringDecoder
      * Gets the default Charset name used for string decoding and encoding.
      *
      * @return the default Charset name
-     * @since 1.7
+     *
      */
     public Charset getCharset() {
         return this.charset;

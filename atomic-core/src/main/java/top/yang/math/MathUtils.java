@@ -9,7 +9,7 @@ import top.yang.math.support.Money;
  * 数学相关方法工具类<br> 此工具类与{@link }属于一类工具，NumberUtil偏向于简单数学计算的封装，MathUtil偏向复杂数学计算
  *
  * @author looly
- * @since 4.0.7
+ *
  */
 public class MathUtils {
 
@@ -86,7 +86,7 @@ public class MathUtils {
      *
      * @param yuan 金额，单位元
      * @return 金额，单位分
-     * @since 5.7.11
+     *
      */
     public static long yuanToCent(double yuan) {
         return new Money(yuan).getCent();
@@ -97,7 +97,7 @@ public class MathUtils {
      *
      * @param cent 金额，单位分
      * @return 金额，单位元
-     * @since 5.7.11
+     *
      */
     public static double centToYuan(long cent) {
         long yuan = cent / 100;

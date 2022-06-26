@@ -60,7 +60,7 @@ import top.yang.io.IOCase;
  *
  * @see FileFilterUtils#suffixFileFilter(String)
  * @see FileFilterUtils#suffixFileFilter(String, IOCase)
- * @since 1.0
+ *
  */
 public class SuffixFileFilter extends AbstractFileFilter implements Serializable {
 
@@ -94,7 +94,7 @@ public class SuffixFileFilter extends AbstractFileFilter implements Serializable
      * @param ioCase   how to handle case sensitivity, null means case-sensitive
      * @throws IllegalArgumentException if the suffix list is null
      * @throws ClassCastException       if the list does not contain Strings
-     * @since 1.4
+     *
      */
     public SuffixFileFilter(final List<String> suffixes, final IOCase ioCase) {
         requireNonNull(suffixes, "suffixes");
@@ -130,7 +130,7 @@ public class SuffixFileFilter extends AbstractFileFilter implements Serializable
      * @param suffix the suffix to allow, must not be null
      * @param ioCase how to handle case sensitivity, null means case-sensitive
      * @throws IllegalArgumentException if the suffix is null
-     * @since 1.4
+     *
      */
     public SuffixFileFilter(final String suffix, final IOCase ioCase) {
         requireNonNull(suffix, "suffix");
@@ -144,7 +144,7 @@ public class SuffixFileFilter extends AbstractFileFilter implements Serializable
      * @param suffixes the suffixes to allow, must not be null
      * @param ioCase   how to handle case sensitivity, null means case-sensitive
      * @throws IllegalArgumentException if the suffix array is null
-     * @since 1.4
+     *
      */
     public SuffixFileFilter(final String[] suffixes, final IOCase ioCase) {
         requireNonNull(suffixes, "suffixes");
@@ -180,7 +180,7 @@ public class SuffixFileFilter extends AbstractFileFilter implements Serializable
      *
      * @param file the File to check
      * @return true if the file name ends with one of our suffixes
-     * @since 2.9.0
+     *
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

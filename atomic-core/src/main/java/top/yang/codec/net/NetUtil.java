@@ -79,7 +79,7 @@ public class NetUtil {
      *
      * @param IPv6Str 字符串
      * @return 大整数, 如发生异常返回 null
-     * @since 5.5.7
+     *
      */
     public static BigInteger ipv6ToBitInteger(String IPv6Str) {
         try {
@@ -97,7 +97,7 @@ public class NetUtil {
      *
      * @param bigInteger 大整数
      * @return IPv6字符串, 如发生异常返回 null
-     * @since 5.5.7
+     *
      */
     public static String bigIntegerToIPv6(BigInteger bigInteger) {
         try {
@@ -150,7 +150,7 @@ public class NetUtil {
      * 查找1024~65535范围内的可用端口<br> 此方法只检测给定范围内的随机一个端口，检测65535-1024次<br> 来自org.springframework.util.SocketUtils
      *
      * @return 可用的端口
-     * @since 4.5.4
+     *
      */
     public static int getUsableLocalPort() {
         return getUsableLocalPort(PORT_RANGE_MIN);
@@ -161,7 +161,7 @@ public class NetUtil {
      *
      * @param minPort 端口最小值（包含）
      * @return 可用的端口
-     * @since 4.5.4
+     *
      */
     public static int getUsableLocalPort(int minPort) {
         return getUsableLocalPort(minPort, PORT_RANGE_MAX);
@@ -173,7 +173,7 @@ public class NetUtil {
      * @param minPort 端口最小值（包含）
      * @param maxPort 端口最大值（包含）
      * @return 可用的端口
-     * @since 4.5.4
+     *
      */
     public static int getUsableLocalPort(int minPort, int maxPort) {
         final int maxPortExclude = maxPort + 1;
@@ -195,7 +195,7 @@ public class NetUtil {
      * @param minPort      端口最小值（包含）
      * @param maxPort      端口最大值（包含）
      * @return 可用的端口
-     * @since 4.5.4
+     *
      */
     public static TreeSet<Integer> getUsableLocalPorts(int numRequested, int minPort, int maxPort) {
         final TreeSet<Integer> availablePorts = new TreeSet<>();
@@ -310,7 +310,7 @@ public class NetUtil {
      *
      * @param name 网络接口名，例如Linux下默认是eth0
      * @return 网卡，未找到返回{@code null}
-     * @since 5.0.7
+     *
      */
     public static NetworkInterface getNetworkInterface(String name) {
         Enumeration<NetworkInterface> networkInterfaces;
@@ -335,7 +335,7 @@ public class NetUtil {
      * 获取本机所有网卡
      *
      * @return 所有网卡，异常返回{@code null}
-     * @since 3.0.1
+     *
      */
     public static Collection<NetworkInterface> getNetworkInterfaces() {
         Enumeration<NetworkInterface> networkInterfaces;
@@ -363,7 +363,7 @@ public class NetUtil {
      * 获得本机的IPv6地址列表<br> 返回的IP列表有序，按照系统设备顺序
      *
      * @return IP地址列表 {@link LinkedHashSet}
-     * @since 4.5.17
+     *
      */
     public static LinkedHashSet<String> localIpv6s() {
         final LinkedHashSet<InetAddress> localAddressList = localAddressList(t -> t instanceof Inet6Address);
@@ -376,7 +376,7 @@ public class NetUtil {
      *
      * @param addressList 地址{@link Inet4Address} 列表
      * @return IP地址字符串列表
-     * @since 4.5.17
+     *
      */
     public static LinkedHashSet<String> toIpList(Set<InetAddress> addressList) {
         final LinkedHashSet<String> ipSet = new LinkedHashSet<>();
@@ -402,7 +402,7 @@ public class NetUtil {
      *
      * @param addressFilter 过滤器，null表示不过滤，获取所有地址
      * @return 过滤后的地址对象列表
-     * @since 4.5.17
+     *
      */
     public static LinkedHashSet<InetAddress> localAddressList(Filter<InetAddress> addressFilter) {
         Enumeration<NetworkInterface> networkInterfaces;
@@ -438,7 +438,7 @@ public class NetUtil {
      * 参考：http://stackoverflow.com/questions/9481865/getting-the-ip-address-of-the-current-machine-using-java
      *
      * @return 本机网卡IP地址，获取失败返回{@code null}
-     * @since 3.0.7
+     *
      */
     public static String getLocalhostStr() {
         InetAddress localhost = getLocalhost();
@@ -461,7 +461,7 @@ public class NetUtil {
      * 见：https://github.com/looly/hutool/issues/428
      *
      * @return 本机网卡IP地址，获取失败返回{@code null}
-     * @since 3.0.1
+     *
      */
     public static InetAddress getLocalhost() {
         final LinkedHashSet<InetAddress> localAddressList = localAddressList(address -> {
@@ -550,7 +550,7 @@ public class NetUtil {
      *
      * @param inetAddress {@link InetAddress}
      * @return 硬件地址
-     * @since 5.7.3
+     *
      */
     public static byte[] getHardwareAddress(InetAddress inetAddress) {
         if (null == inetAddress) {
@@ -572,7 +572,7 @@ public class NetUtil {
      * 获得本机物理地址
      *
      * @return 本机物理地址
-     * @since 5.7.3
+     *
      */
     public static byte[] getLocalHardwareAddress() {
         return getHardwareAddress(getLocalhost());
@@ -582,7 +582,7 @@ public class NetUtil {
      * 获取主机名称，一次获取会缓存名称
      *
      * @return 主机名称
-     * @since 5.4.4
+     *
      */
     public static String getLocalHostName() {
         if (StringUtils.isNotBlank(localhostName)) {
@@ -607,7 +607,7 @@ public class NetUtil {
      * @param host 域名或IP地址，空表示任意地址
      * @param port 端口，0表示系统分配临时端口
      * @return {@link InetSocketAddress}
-     * @since 3.3.0
+     *
      */
     public static InetSocketAddress createAddress(String host, int port) {
         if (StringUtils.isBlank(host)) {
@@ -624,7 +624,7 @@ public class NetUtil {
      * @param isBlock 是否阻塞方式
      * @param data    需要发送的数据
      * @throws IOException IO异常
-     * @since 3.3.0
+     *
      */
     public static void netCat(String host, int port, boolean isBlock, ByteBuffer data) throws IOException {
         SocketChannel channel = SocketChannel.open(createAddress(host, port));
@@ -640,7 +640,7 @@ public class NetUtil {
      * @param port Server端口
      * @param data 数据
      * @throws IOException IO异常
-     * @since 3.3.0
+     *
      */
     public static void netCat(String host, int port, byte[] data) throws IOException {
         OutputStream out = null;
@@ -657,7 +657,7 @@ public class NetUtil {
      * @param ip   需要验证的IP
      * @param cidr CIDR规则
      * @return 是否在范围内
-     * @since 4.0.6
+     *
      */
     public static boolean isInRange(String ip, String cidr) {
         final int maskSplitMarkIndex = cidr.lastIndexOf(Ipv4Util.IP_MASK_SPLIT_MARK);
@@ -676,7 +676,7 @@ public class NetUtil {
      *
      * @param unicode Unicode域名
      * @return puny code
-     * @since 4.1.22
+     *
      */
     public static String idnToASCII(String unicode) {
         return IDN.toASCII(unicode);
@@ -687,7 +687,7 @@ public class NetUtil {
      *
      * @param ip 获得的IP地址
      * @return 第一个非unknown IP地址
-     * @since 4.4.1
+     *
      */
     public static String getMultistageReverseProxyIp(String ip) {
         // 多级反向代理检测
@@ -708,7 +708,7 @@ public class NetUtil {
      *
      * @param checkString 被检测的字符串
      * @return 是否未知
-     * @since 5.2.6
+     *
      */
     public static boolean isUnknown(String checkString) {
         return StringUtils.isBlank(checkString) || "unknown".equalsIgnoreCase(checkString);
@@ -744,7 +744,7 @@ public class NetUtil {
      *
      * @param cookieStr Cookie字符串
      * @return cookie字符串
-     * @since 5.2.6
+     *
      */
     public static List<HttpCookie> parseCookies(String cookieStr) {
         if (StringUtils.isBlank(cookieStr)) {
@@ -759,7 +759,7 @@ public class NetUtil {
      * @param address 远程地址
      * @param timeout 检测超时
      * @return 远程端口是否开启
-     * @since 5.3.2
+     *
      */
     public static boolean isOpen(InetSocketAddress address, int timeout) {
         try (Socket sc = new Socket()) {

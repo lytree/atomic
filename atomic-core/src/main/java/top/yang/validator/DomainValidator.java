@@ -55,7 +55,7 @@ import java.util.Locale;
  * </p>
  *
  * @version $Revision$
- * @since Validator 1.4
+ *
  */
 public class DomainValidator implements Serializable {
 
@@ -153,7 +153,7 @@ public class DomainValidator implements Serializable {
      * @param allowLocal Should local addresses be considered valid?
      * @param items      - array of {@link Item} entries
      * @return an instance of this validator
-     * @since 1.7
+     *
      */
     public static synchronized DomainValidator getInstance(boolean allowLocal, List<Item> items) {
         inUse = true;
@@ -194,7 +194,7 @@ public class DomainValidator implements Serializable {
     /**
      * Private constructor, allowing local overrides
      *
-     * @since 1.7
+     *
      */
     private DomainValidator(boolean allowLocal, List<Item> items) {
         this.allowLocal = allowLocal;
@@ -370,7 +370,7 @@ public class DomainValidator implements Serializable {
      * Does this instance allow local addresses?
      *
      * @return true if local addresses are allowed.
-     * @since 1.7
+     *
      */
     public boolean isAllowLocal() {
         return this.allowLocal;
@@ -2027,8 +2027,8 @@ public class DomainValidator implements Serializable {
     /**
      * enum used by {@link DomainValidator#updateTLDOverride(ArrayType, String[])} to determine which override array to update / fetch
      *
-     * @since 1.5.0
-     * @since 1.5.1 made public and added read-only array references
+     *
+     *
      */
     public enum ArrayType {
         /**
@@ -2066,13 +2066,13 @@ public class DomainValidator implements Serializable {
         /**
          * Update (or get a copy of) the LOCAL_TLDS_PLUS table containing additional local TLDs
          *
-         * @since 1.7
+         *
          */
         LOCAL_PLUS,
         /**
          * Update (or get a copy of) the LOCAL_TLDS_MINUS table containing deleted local TLDs
          *
-         * @since 1.7
+         *
          */
         LOCAL_MINUS;
     }
@@ -2080,7 +2080,7 @@ public class DomainValidator implements Serializable {
     /**
      * Used to specify overrides when creating a new class.
      *
-     * @since 1.7
+     *
      */
     public static class Item {
 
@@ -2118,7 +2118,7 @@ public class DomainValidator implements Serializable {
      * @param tlds  the array of TLDs, must not be null
      * @throws IllegalStateException    if the method is called after getInstance
      * @throws IllegalArgumentException if one of the read-only tables is requested
-     * @since 1.5.0
+     *
      */
     public static synchronized void updateTLDOverride(ArrayType table, String[] tlds) {
         if (inUse) {
@@ -2165,7 +2165,7 @@ public class DomainValidator implements Serializable {
      * @param table the array type (any of the enum values)
      * @return a copy of the array
      * @throws IllegalArgumentException if the table type is unexpected (should not happen)
-     * @since 1.5.1
+     *
      */
     public static synchronized String[] getTLDEntries(ArrayType table) {
         final String[] array;
@@ -2212,7 +2212,7 @@ public class DomainValidator implements Serializable {
      * @param table the array type (any of the enum values)
      * @return a copy of the array
      * @throws IllegalArgumentException if the table type is unexpected, e.g. GENERIC_RO
-     * @since 1.7
+     *
      */
     public String[] getOverrides(ArrayType table) {
         final String[] array;

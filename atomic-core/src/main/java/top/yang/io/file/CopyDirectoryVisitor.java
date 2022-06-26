@@ -32,7 +32,7 @@ import top.yang.io.file.Counters.PathCounters;
 /**
  * Copies a source directory to a target directory.
  *
- * @since 2.7
+ *
  */
 public class CopyDirectoryVisitor extends CountingPathVisitor {
 
@@ -64,7 +64,7 @@ public class CopyDirectoryVisitor extends CountingPathVisitor {
      * @param sourceDirectory The source directory
      * @param targetDirectory The target directory
      * @param copyOptions     Specifies how the copying should be done.
-     * @since 2.9.0
+     *
      */
     public CopyDirectoryVisitor(final PathCounters pathCounter, final PathFilter fileFilter, final PathFilter dirFilter, final Path sourceDirectory,
             final Path targetDirectory, final CopyOption... copyOptions) {
@@ -80,7 +80,7 @@ public class CopyDirectoryVisitor extends CountingPathVisitor {
      * @param sourceFile the source file.
      * @param targetFile the target file.
      * @throws IOException if an I/O error occurs.
-     * @since 2.8.0
+     *
      */
     protected void copy(final Path sourceFile, final Path targetFile) throws IOException {
         Files.copy(sourceFile, targetFile, copyOptions);
@@ -106,7 +106,7 @@ public class CopyDirectoryVisitor extends CountingPathVisitor {
      * Gets the copy options.
      *
      * @return the copy options.
-     * @since 2.8.0
+     *
      */
     public CopyOption[] getCopyOptions() {
         return copyOptions.clone();
@@ -116,7 +116,7 @@ public class CopyDirectoryVisitor extends CountingPathVisitor {
      * Gets the source directory.
      *
      * @return the source directory.
-     * @since 2.8.0
+     *
      */
     public Path getSourceDirectory() {
         return sourceDirectory;
@@ -126,7 +126,7 @@ public class CopyDirectoryVisitor extends CountingPathVisitor {
      * Gets the target directory.
      *
      * @return the target directory.
-     * @since 2.8.0
+     *
      */
     public Path getTargetDirectory() {
         return targetDirectory;

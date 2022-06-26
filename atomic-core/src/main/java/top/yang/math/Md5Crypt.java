@@ -48,7 +48,7 @@ import java.util.regex.Pattern;
  * This class is immutable and thread-safe.
  * </p>
  *
- * @since 1.7
+ *
  */
 public class Md5Crypt {
 
@@ -92,7 +92,7 @@ public class Md5Crypt {
      * @return the hash value
      * @throws IllegalArgumentException when a {@link java.security.NoSuchAlgorithmException} is caught. *
      * @see #apr1Crypt(byte[], String)
-     * @since 1.12
+     *
      */
     public static String apr1Crypt(final byte[] keyBytes, final Random random) {
         return apr1Crypt(keyBytes, APR1_PREFIX + B64.getRandomSalt(8, random));
@@ -201,7 +201,7 @@ public class Md5Crypt {
      * @throws IllegalArgumentException
      *             when a {@link java.security.NoSuchAlgorithmException} is caught.
      * @see #md5Crypt(byte[], String)
-     * @since 1.12
+     *
      */
     public static String md5Crypt(final byte[] keyBytes, final Random random) {
         return md5Crypt(keyBytes, MD5_PREFIX + B64.getRandomSalt(8, random));
@@ -277,7 +277,7 @@ public class Md5Crypt {
      *             if the salt does not match the allowed pattern
      * @throws IllegalArgumentException
      *             when a {@link java.security.NoSuchAlgorithmException} is caught.
-     * @since 1.12
+     *
      */
     public static String md5Crypt(final byte[] keyBytes, final String salt, final String prefix, final Random random) {
         final int keyLen = keyBytes.length;

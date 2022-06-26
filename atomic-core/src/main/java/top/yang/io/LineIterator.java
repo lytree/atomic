@@ -42,7 +42,7 @@ import java.util.NoSuchElementException;
  * }
  * </pre>
  *
- * @since 1.2
+ *
  */
 public class LineIterator implements Iterator<String>, Closeable {
 

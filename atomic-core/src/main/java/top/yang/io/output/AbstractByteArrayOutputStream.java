@@ -45,7 +45,7 @@ import top.yang.io.input.ClosedInputStream;
  * the original. The only exception is the deprecated {@link java.io.ByteArrayOutputStream#toString(int)} method that has been ignored.
  * </p>
  *
- * @since 2.7
+ * 
  */
 public abstract class AbstractByteArrayOutputStream extends OutputStream {
 
@@ -206,7 +206,7 @@ public abstract class AbstractByteArrayOutputStream extends OutputStream {
      * @return the current contents of this output stream.
      * @see java.io.ByteArrayOutputStream#toByteArray()
      * @see #reset()
-     * @since 2.5
+     * 
      */
     public abstract InputStream toInputStream();
 
@@ -219,7 +219,7 @@ public abstract class AbstractByteArrayOutputStream extends OutputStream {
      * @return the current contents of this output stream.
      * @see java.io.ByteArrayOutputStream#toByteArray()
      * @see #reset()
-     * @since 2.7
+     * 
      */
     @SuppressWarnings("resource") // The result InputStream MUST be managed by the call site.
     protected <T extends InputStream> InputStream toInputStream(
@@ -261,7 +261,7 @@ public abstract class AbstractByteArrayOutputStream extends OutputStream {
      * @param charset the character encoding
      * @return the string converted from the byte array
      * @see java.io.ByteArrayOutputStream#toString(String)
-     * @since 2.5
+     * 
      */
     public String toString(final Charset charset) {
         return new String(toByteArray(), charset);
@@ -295,7 +295,7 @@ public abstract class AbstractByteArrayOutputStream extends OutputStream {
      * @param in the input stream to read from
      * @return total number of bytes read from the input stream (and written to this stream)
      * @throws IOException if an I/O error occurs while reading the input stream
-     * @since 1.4
+     * 
      */
     public abstract int write(final InputStream in) throws IOException;
 
@@ -336,7 +336,7 @@ public abstract class AbstractByteArrayOutputStream extends OutputStream {
      * @param in the input stream to read from
      * @return total number of bytes read from the input stream (and written to this stream)
      * @throws IOException if an I/O error occurs while reading the input stream
-     * @since 2.7
+     * 
      */
     protected int writeImpl(final InputStream in) throws IOException {
         int readCount = 0;

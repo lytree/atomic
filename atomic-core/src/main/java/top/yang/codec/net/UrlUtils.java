@@ -19,7 +19,7 @@ import top.yang.lang.StringUtils;
  * url and html utils.
  *
  * @author code4crafter@gmail.com <br>
- * @since 0.1.0
+ * 
  */
 public class UrlUtils {
 
@@ -237,7 +237,7 @@ public class UrlUtils {
      * @return URL对象
      * @throws NetException {@link MalformedURLException}包装，URI格式有问题时抛出
      * @see URI#toURL()
-     * @since 5.7.21
+     * 
      */
     public static URL url(URI uri) throws NetException {
         if (null == uri) {
@@ -262,7 +262,7 @@ public class UrlUtils {
      * @param mimeType 可选项（null表示无），数据类型（image/png、text/plain等）
      * @param data     编码后的数据
      * @return Data URI字符串
-     * @since 5.3.11
+     * 
      */
     public static String getDataUriBase64(String mimeType, String data) {
         return getDataUri(mimeType, null, "base64", data);
@@ -281,7 +281,7 @@ public class UrlUtils {
      * @param encoding 数据编码方式（US-ASCII，BASE64等）
      * @param data     编码后的数据
      * @return Data URI字符串
-     * @since 5.3.6
+     * 
      */
     public static String getDataUri(String mimeType, String encoding, String data) {
         return getDataUri(mimeType, null, encoding, data);
@@ -301,7 +301,7 @@ public class UrlUtils {
      * @param encoding 数据编码方式（US-ASCII，BASE64等）
      * @param data     编码后的数据
      * @return Data URI字符串
-     * @since 5.3.6
+     * 
      */
     public static String getDataUri(String mimeType, Charset charset, String encoding, String data) {
         final StringBuilder builder = new StringBuilder("data:");
@@ -335,7 +335,7 @@ public class UrlUtils {
      * @param url     URL
      * @param handler {@link URLStreamHandler}
      * @return URL对象
-     * @since 4.1.1
+     * 
      */
     public static URL url(String url, URLStreamHandler handler) {
         if (null == url) {

@@ -26,14 +26,14 @@ import java.util.function.Supplier;
  * This class is mostly useful for testing error handling.
  * </p>
  *
- * @since 2.7
+ * 
  */
 public class BrokenReader extends Reader {
 
     /**
      * A singleton instance using a default IOException.
      *
-     * @since 2.12.0
+     * 
      */
     public static final BrokenReader INSTANCE = new BrokenReader();
 
@@ -62,7 +62,7 @@ public class BrokenReader extends Reader {
      * Creates a new reader that always throws an {@link IOException}
      *
      * @param exceptionSupplier a supplier for the exception to be thrown.
-     * @since 2.12.0
+     * 
      */
     public BrokenReader(final Supplier<IOException> exceptionSupplier) {
         this.exceptionSupplier = exceptionSupplier;

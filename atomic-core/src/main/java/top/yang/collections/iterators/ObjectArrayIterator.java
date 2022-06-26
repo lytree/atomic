@@ -31,7 +31,7 @@ import java.util.NoSuchElementException;
  * back to the start if required.
  *
  * @param <E> the type of elements returned by this iterator.
- * @since 3.0
+ *
  */
 public class ObjectArrayIterator<E> implements ResettableIterator<E> {
 

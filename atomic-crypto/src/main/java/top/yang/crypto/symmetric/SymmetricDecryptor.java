@@ -22,7 +22,7 @@ import top.yang.lang.StringUtils;
  * </ul>
  *
  * @author looly
- * @since 5.7.12
+ *
  */
 public interface SymmetricDecryptor {
 

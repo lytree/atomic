@@ -35,7 +35,7 @@ import java.util.NoSuchElementException;
  * the iterator back to the start if required.
  *
  * @param <E> the type of elements returned by this iterator.
- * @since 1.0
+ * 
  */
 public class ArrayIterator<E> implements ResettableIterator<E> {
 
@@ -177,7 +177,7 @@ public class ArrayIterator<E> implements ResettableIterator<E> {
      * Gets the start index to loop from.
      *
      * @return the start index
-     * @since 4.0
+     * 
      */
     public int getStartIndex() {
         return this.startIndex;
@@ -187,7 +187,7 @@ public class ArrayIterator<E> implements ResettableIterator<E> {
      * Gets the end index to loop to.
      *
      * @return the end index
-     * @since 4.0
+     * 
      */
     public int getEndIndex() {
         return this.endIndex;

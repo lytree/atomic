@@ -32,7 +32,7 @@ import top.yang.codec.EncoderException;
  * </p>
  *
  * @see <a href="https://tools.ietf.org/html/rfc3986#section-2.1">Percent-Encoding</a>
- * @since 1.12
+ *
  */
 public class PercentCodec implements BinaryEncoder, BinaryDecoder {
 

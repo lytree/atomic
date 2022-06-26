@@ -22,7 +22,7 @@ import top.yang.lang.StringUtils;
  * </ol>
  *
  * @author Looly
- * @since 4.6.8
+ *
  */
 public class SM4 extends SymmetricCrypto {
 

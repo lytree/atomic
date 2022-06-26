@@ -29,7 +29,7 @@ public class NullWriter extends Writer {
     /**
      * The singleton instance.
      *
-     * @since 2.12.0
+     *
      */
     public static final NullWriter INSTANCE = new NullWriter();
 
@@ -51,7 +51,7 @@ public class NullWriter extends Writer {
      * Does nothing - output to {@code /dev/null}.
      * @param c The character to write
      * @return this writer
-     * @since 2.0
+     *
      */
     @Override
     public Writer append(final char c) {
@@ -63,7 +63,7 @@ public class NullWriter extends Writer {
      * Does nothing - output to {@code /dev/null}.
      * @param csq The character sequence to write
      * @return this writer
-     * @since 2.0
+     *
      */
     @Override
     public Writer append(final CharSequence csq) {
@@ -77,7 +77,7 @@ public class NullWriter extends Writer {
      * @param start The index of the first character to write
      * @param end  The index of the first character to write (exclusive)
      * @return this writer
-     * @since 2.0
+     *
      */
     @Override
     public Writer append(final CharSequence csq, final int start, final int end) {

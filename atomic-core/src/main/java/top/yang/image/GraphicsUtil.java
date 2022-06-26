@@ -18,7 +18,7 @@ import top.yang.bean.ObjectUtils;
  * {@link Graphics}相关工具类
  *
  * @author looly
- * @since 4.5.2
+ *
  */
 public class GraphicsUtil {
 
@@ -28,7 +28,7 @@ public class GraphicsUtil {
      * @param image {@link BufferedImage}
      * @param color {@link Color}背景颜色以及当前画笔颜色，{@code null}表示不设置背景色
      * @return {@link Graphics2D}
-     * @since 4.5.2
+     *
      */
     public static Graphics2D createGraphics(BufferedImage image, Color color) {
         final Graphics2D g = image.createGraphics();
@@ -48,7 +48,7 @@ public class GraphicsUtil {
      * @param g                {@link Graphics2D}画笔
      * @param backgroundHeight 背景高度
      * @return 最小高度，-1表示无法获取
-     * @since 4.5.17
+     *
      */
     public static int getCenterY(Graphics g, int backgroundHeight) {
         // 获取允许文字最小高度
@@ -76,7 +76,7 @@ public class GraphicsUtil {
      * @param width  字符串总宽度
      * @param height 字符串背景高度
      * @return 画笔对象
-     * @since 4.5.10
+     *
      */
     public static Graphics drawStringColourful(Graphics g, String str, Font font, int width, int height) {
         return drawString(g, str, font, null, width, height);
@@ -92,7 +92,7 @@ public class GraphicsUtil {
      * @param width  字符串背景的宽度
      * @param height 字符串背景的高度
      * @return 画笔对象
-     * @since 4.5.10
+     *
      */
     public static Graphics drawString(Graphics g, String str, Font font, Color color, int width, int height) {
         // 抗锯齿
@@ -129,7 +129,7 @@ public class GraphicsUtil {
      * @param color     字体颜色，{@code null} 表示使用黑色
      * @param rectangle 字符串绘制坐标和大小，此对象定义了绘制字符串的区域大小和偏移位置
      * @return 画笔对象
-     * @since 4.5.10
+     *
      */
     public static Graphics drawString(Graphics g, String str, Font font, Color color, Rectangle rectangle) {
         // 背景长宽
@@ -160,7 +160,7 @@ public class GraphicsUtil {
      * @param color 字体颜色，{@code null} 表示使用黑色
      * @param point 绘制字符串的位置坐标
      * @return 画笔对象
-     * @since 5.3.6
+     *
      */
     public static Graphics drawString(Graphics g, String str, Font font, Color color, Point point) {
         // 抗锯齿

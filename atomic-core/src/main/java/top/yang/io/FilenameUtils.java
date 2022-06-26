@@ -87,7 +87,7 @@ import java.util.regex.Pattern;
  * Origin of code: Excalibur, Alexandria, Tomcat, Commons-Utils.
  * </p>
  *
- * @since 1.1
+ *
  */
 public class FilenameUtils {
 
@@ -100,14 +100,14 @@ public class FilenameUtils {
     /**
      * The extension separator character.
      *
-     * @since 1.4
+     *
      */
     public static final char EXTENSION_SEPARATOR = '.';
 
     /**
      * The extension separator String.
      *
-     * @since 1.4
+     *
      */
     public static final String EXTENSION_SEPARATOR_STR = Character.toString(EXTENSION_SEPARATOR);
 
@@ -225,7 +225,7 @@ public class FilenameUtils {
      * @param canonicalChild  the file to consider as the child.
      * @return true is the candidate leaf is under by the specified composite. False otherwise.
      * @see FileUtils#directoryContains(File, File)
-     * @since 2.2
+     *
      */
     public static boolean directoryContains(final String canonicalParent, final String canonicalChild) {
         if (isEmpty(canonicalParent) || isEmpty(canonicalChild)) {
@@ -429,7 +429,7 @@ public class FilenameUtils {
      * @param normalized whether to normalize the fileNames
      * @param ioCase     what case sensitivity rule to use, null means case-sensitive
      * @return true if the fileNames are equal, null equals null
-     * @since 1.3
+     *
      */
     public static boolean equals(String fileName1, String fileName2, final boolean normalized, final IOCase ioCase) {
 
@@ -1251,7 +1251,7 @@ public class FilenameUtils {
      * @param unixSeparator {@code true} if a unix separator should be used or {@code false} if a windows separator should be used.
      * @return the normalized fileName, or null if invalid
      * @throws IllegalArgumentException if the fileName contains the null character ({@code U+0000})
-     * @since 2.0
+     *
      */
     public static String normalize(final String fileName, final boolean unixSeparator) {
         return doNormalize(fileName, toSeparator(unixSeparator), true);
@@ -1330,7 +1330,7 @@ public class FilenameUtils {
      * @param unixSeparator {@code true} if a unix separator should be used or {@code false} if a windows separator should be used.
      * @return the normalized fileName, or null if invalid
      * @throws IllegalArgumentException if the fileName contains the null character ({@code U+0000})
-     * @since 2.0
+     *
      */
     public static String normalizeNoEndSeparator(final String fileName, final boolean unixSeparator) {
         return doNormalize(fileName, toSeparator(unixSeparator), false);
@@ -1497,7 +1497,7 @@ public class FilenameUtils {
      * @param wildcardMatcher the wildcard string to match against
      * @param ioCase          what case sensitivity rule to use, null means case-sensitive
      * @return true if the fileName matches the wildcard string
-     * @since 1.3
+     *
      */
     public static boolean wildcardMatch(final String fileName, final String wildcardMatcher, IOCase ioCase) {
         if (fileName == null && wildcardMatcher == null) {

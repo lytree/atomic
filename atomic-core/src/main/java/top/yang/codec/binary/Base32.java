@@ -41,7 +41,7 @@ import top.yang.lang.StringUtils;
  * </p>
  *
  * @see <a href="http://www.ietf.org/rfc/rfc4648.txt">RFC 4648</a>
- * @since 1.5
+ *
  */
 public class Base32 extends BaseNCodec {
 
@@ -294,7 +294,7 @@ public class Base32 extends BaseNCodec {
      * @param padding        byte used as padding byte.
      * @param decodingPolicy The decoding policy.
      * @throws IllegalArgumentException Thrown when the {@code lineSeparator} contains Base32 characters. Or the lineLength &gt; 0 and lineSeparator is null.
-     * @since 1.15
+     *
      */
     public Base32(final int lineLength, final byte[] lineSeparator, final boolean useHex,
             final byte padding, final CodecPolicy decodingPolicy) {

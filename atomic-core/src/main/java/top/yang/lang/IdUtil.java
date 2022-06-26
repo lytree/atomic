@@ -16,7 +16,7 @@ import top.yang.math.UUID;
  * ID相关文章见：http://calvin1978.blogcn.com/articles/uuid.html
  *
  * @author looly
- * @since 4.1.13
+ *
  */
 public class IdUtil {
 
@@ -44,7 +44,7 @@ public class IdUtil {
      * 获取随机UUID，使用性能更好的ThreadLocalRandom生成UUID
      *
      * @return 随机UUID
-     * @since 4.1.19
+     *
      */
     public static String fastUUID() {
         return UUID.fastUUID().toString();
@@ -54,7 +54,7 @@ public class IdUtil {
      * 简化的UUID，去掉了横线，使用性能更好的ThreadLocalRandom生成UUID
      *
      * @return 简化的UUID，去掉了横线
-     * @since 4.1.19
+     *
      */
     public static String fastSimpleUUID() {
         return UUID.fastUUID().toString(true);
@@ -100,7 +100,7 @@ public class IdUtil {
      * @param workerId     终端ID
      * @param datacenterId 数据中心ID
      * @return {@link Snowflake}
-     * @since 4.5.9
+     *
      */
     private volatile static Snowflake snowflake;
 

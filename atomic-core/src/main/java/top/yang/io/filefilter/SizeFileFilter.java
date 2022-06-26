@@ -59,7 +59,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  * System.out.println(visitor.getFileList());
  * </pre>
  *
- * @since 1.2
+ * 
  * @see FileFilterUtils#sizeFileFilter(long)
  * @see FileFilterUtils#sizeFileFilter(long, boolean)
  * @see FileFilterUtils#sizeRangeFileFilter(long, long)

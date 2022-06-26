@@ -28,6 +28,6 @@
  * You have no idea what type of Number it will return, so you should call the relevant {@code xxxValue} method when you reach the point of needing a number.
  * NumberUtils also has a related {@link org.apache.commons.lang3.math.NumberUtils#isCreatable(String)} method.</p>
  *
- * @since 2.0
+ *
  */
 package top.yang.math;

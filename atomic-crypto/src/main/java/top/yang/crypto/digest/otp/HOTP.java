@@ -104,7 +104,7 @@ public class HOTP {
      *
      * @param numBytes 将生成的种子字节数量。
      * @return 共享密钥
-     * @since 5.7.4
+     * 
      */
     public static String generateSecretKey(int numBytes) throws NoSuchAlgorithmException {
         return new Base32().encodeToString(getSHA1PRNGRandom(RandomUtils.nextBytesThreadLocal(256)).generateSeed(numBytes));
@@ -152,7 +152,7 @@ public class HOTP {
      *
      * @param seed 随机数种子
      * @return {@link SecureRandom}
-     * @since 5.5.8
+     * 
      */
     private static SecureRandom getSHA1PRNGRandom(byte[] seed) throws NoSuchAlgorithmException {
         SecureRandom random;

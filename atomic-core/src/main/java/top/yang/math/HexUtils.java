@@ -208,7 +208,7 @@ public class HexUtils {
      *
      * @param color {@link Color}
      * @return Hex字符串
-     * @since 3.0.8
+     * 
      */
     public static String encodeColor(Color color) {
         return encodeColor(color, "#");
@@ -220,7 +220,7 @@ public class HexUtils {
      * @param color  {@link Color}
      * @param prefix 前缀字符串，可以是#、0x等
      * @return Hex字符串
-     * @since 3.0.8
+     * 
      */
     public static String encodeColor(Color color, String prefix) {
         final StringBuilder builder = new StringBuilder(prefix);
@@ -248,7 +248,7 @@ public class HexUtils {
      *
      * @param hexColor 16进制颜色值，可以以#开头，也可以用0x开头
      * @return {@link Color}
-     * @since 3.0.8
+     * 
      */
     public static Color decodeColor(String hexColor) {
         return Color.decode(hexColor);
@@ -287,7 +287,7 @@ public class HexUtils {
      *
      * @param ch char值
      * @return Unicode表现形式
-     * @since 4.0.1
+     * 
      */
     public static String toUnicodeHex(char ch) {
         return "\\u" +//
@@ -302,7 +302,7 @@ public class HexUtils {
      *
      * @param value int值
      * @return 16进制字符串
-     * @since 4.4.1
+     * 
      */
     public static String toHex(int value) {
         return Integer.toHexString(value);
@@ -313,7 +313,7 @@ public class HexUtils {
      *
      * @param value int值
      * @return 16进制字符串
-     * @since 4.4.1
+     * 
      */
     public static String toHex(long value) {
         return Long.toHexString(value);
@@ -325,7 +325,7 @@ public class HexUtils {
      * @param builder     {@link StringBuilder}
      * @param b           byte
      * @param toLowerCase 是否使用小写
-     * @since 4.4.1
+     * 
      */
     public static void appendHex(StringBuilder builder, byte b, boolean toLowerCase) {
         final char[] toDigits = toLowerCase ? DIGITS_LOWER : DIGITS_UPPER;
@@ -341,7 +341,7 @@ public class HexUtils {
      *
      * @param hexStr Hex(16进制字符串)
      * @return {@link BigInteger}
-     * @since 5.2.0
+     * 
      */
     public static BigInteger toBigInteger(String hexStr) {
         if (null == hexStr) {

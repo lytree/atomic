@@ -25,7 +25,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 /**
  * A file filter that always returns true.
  *
- * @since 1.0
+ *
  * @see FileFilterUtils#trueFileFilter()
  */
 public class TrueFileFilter implements IOFileFilter, Serializable {
@@ -37,7 +37,7 @@ public class TrueFileFilter implements IOFileFilter, Serializable {
     /**
      * Singleton instance of true filter.
      *
-     * @since 1.3
+     *
      */
     public static final IOFileFilter TRUE = new TrueFileFilter();
 
@@ -81,7 +81,7 @@ public class TrueFileFilter implements IOFileFilter, Serializable {
      * @param file the file to check (ignored)
      *
      * @return true
-     * @since 2.9.0
+     *
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

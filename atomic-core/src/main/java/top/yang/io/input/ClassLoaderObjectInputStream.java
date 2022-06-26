@@ -30,7 +30,7 @@ import java.lang.reflect.Proxy;
  * This is useful in dynamic container environments.
  * </p>
  *
- * @since 1.1
+ *
  */
 public class ClassLoaderObjectInputStream extends ObjectInputStream {
 
@@ -82,7 +82,7 @@ public class ClassLoaderObjectInputStream extends ObjectInputStream {
      * @throws IOException in case of an I/O error
      * @throws ClassNotFoundException if the Class cannot be found
      * @see ObjectInputStream#resolveProxyClass(String[])
-     * @since 2.1
+     *
      */
     @Override
     protected Class<?> resolveProxyClass(final String[] interfaces) throws IOException,

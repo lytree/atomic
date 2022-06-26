@@ -24,7 +24,7 @@ import java.time.Duration;
 /**
  * Utilities for {@link Duration}.
  *
- * @since 3.12.0
+ *
  */
 public class DurationUtils extends org.apache.commons.lang3.time.DurationUtils {
 

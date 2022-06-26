@@ -26,7 +26,7 @@ import java.io.InputStream;
  * input would still be available to other components.
  * </p>
  *
- * @since 1.4
+ * 
  */
 public class CloseShieldInputStream extends ProxyInputStream {
 
@@ -35,7 +35,7 @@ public class CloseShieldInputStream extends ProxyInputStream {
      *
      * @param inputStream the input stream to wrap
      * @return the created proxy
-     * @since 2.9.0
+     * 
      */
     public static CloseShieldInputStream wrap(final InputStream inputStream) {
         return new CloseShieldInputStream(inputStream);

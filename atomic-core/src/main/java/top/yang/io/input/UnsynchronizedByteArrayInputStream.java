@@ -26,7 +26,7 @@ import java.util.Objects;
  * which removes the synchronization overhead for non-concurrent
  * access; as such this class is not thread-safe.
  *
- * @since 2.7
+ *
  */
 //@NotThreadSafe
 public class UnsynchronizedByteArrayInputStream extends InputStream {

@@ -490,7 +490,7 @@ public class RegExUtils {
      * @param content   被匹配的内容
      * @param groupName 匹配正则的分组名称
      * @return 匹配后得到的字符串，未匹配返回null
-     * @since 5.7.15
+     *
      */
     public static String get(Pattern pattern, CharSequence content, String groupName) {
         if (null == content || null == pattern || null == groupName) {
@@ -508,7 +508,7 @@ public class RegExUtils {
      * @param pattern  匹配的正则
      * @param content  被匹配的内容
      * @param consumer 匹配到的内容处理器
-     * @since 5.7.15
+     *
      */
     public static void get(Pattern pattern, CharSequence content, Consumer<Matcher> consumer) {
         if (null == content || null == pattern || null == consumer) {
@@ -561,7 +561,7 @@ public class RegExUtils {
      *
      * @param value 值
      * @return 是否为手机号码（中国）
-     * @since 5.3.11
+     *
      */
     public static boolean isMobile(CharSequence value) {
         return isMatch(CommonPattern.MOBILE, value);
@@ -572,7 +572,7 @@ public class RegExUtils {
      *
      * @param value 值
      * @return 是否为座机号码（中国）
-     * @since 5.3.11
+     *
      */
     public static boolean isTel(CharSequence value) {
         return isMatch(CommonPattern.TEL, value);
@@ -583,7 +583,7 @@ public class RegExUtils {
      *
      * @param value 值
      * @return 是否为座机号码+手机号码（中国）
-     * @since 5.3.11
+     *
      */
     public static boolean isPhone(CharSequence value) {
         return isMobile(value) || isTel(value);
@@ -594,7 +594,7 @@ public class RegExUtils {
      *
      * @param value 值
      * @return 是否为Hex（16进制）字符串
-     * @since 4.3.3
+     *
      */
     public static boolean isHex(CharSequence value) {
         return isMatch(CommonPattern.HEX, value);

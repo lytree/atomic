@@ -15,7 +15,7 @@ import top.yang.lang.StringUtils;
  * Java中默认实现为：DES/CBC/PKCS5Padding
  * 
  * @author Looly
- * @since 3.0.8
+ *
  */
 public class DES extends SymmetricCrypto {
 	private static final long serialVersionUID = 1L;
@@ -65,7 +65,7 @@ public class DES extends SymmetricCrypto {
 	 * @param padding {@link Padding}补码方式
 	 * @param key 密钥，长度：8的倍数
 	 * @param iv 偏移向量，加盐
-	 * @since 3.3.0
+	 *
 	 */
 	public DES(Mode mode, Padding padding, byte[] key, byte[] iv) {
 		this(mode.name(), padding.name(), key, iv);
@@ -77,7 +77,7 @@ public class DES extends SymmetricCrypto {
 	 * @param mode 模式{@link Mode}
 	 * @param padding {@link Padding}补码方式
 	 * @param key 密钥，长度：8的倍数
-	 * @since 3.3.0
+	 *
 	 */
 	public DES(Mode mode, Padding padding, SecretKey key) {
 		this(mode, padding, key, null);
@@ -90,7 +90,7 @@ public class DES extends SymmetricCrypto {
 	 * @param padding {@link Padding}补码方式
 	 * @param key 密钥，长度：8的倍数
 	 * @param iv 偏移向量，加盐
-	 * @since 3.3.0
+	 *
 	 */
 	public DES(Mode mode, Padding padding, SecretKey key, IvParameterSpec iv) {
 		this(mode.name(), padding.name(), key, iv);

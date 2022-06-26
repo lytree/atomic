@@ -24,7 +24,7 @@ package top.yang.collections;
  * </p>
  *
  * @param <T> the types of object this {@link Equator} can evaluate.
- * @since 4.0
+ *
  */
 public interface Equator<T> {
     /**

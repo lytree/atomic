@@ -28,14 +28,14 @@ import top.yang.io.IOUtils;
  * Typically uses of this class include testing for corner cases in methods that accept readers and acting as a sentinel value instead of a {@code null} reader.
  * </p>
  *
- * @since 2.7
+ * 
  */
 public class ClosedReader extends Reader {
 
     /**
      * The singleton instance.
      *
-     * @since 2.12.0
+     * 
      */
     public static final ClosedReader INSTANCE = new ClosedReader();
 

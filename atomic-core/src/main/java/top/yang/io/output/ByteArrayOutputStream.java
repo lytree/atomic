@@ -46,7 +46,7 @@ public class ByteArrayOutputStream extends AbstractByteArrayOutputStream {
      * @param input Stream to be fully buffered.
      * @return A fully buffered stream.
      * @throws IOException if an I/O error occurs.
-     * @since 2.0
+     *
      */
     public static InputStream toBufferedInputStream(final InputStream input)
             throws IOException {
@@ -74,7 +74,7 @@ public class ByteArrayOutputStream extends AbstractByteArrayOutputStream {
      * @param size the initial buffer size
      * @return A fully buffered stream.
      * @throws IOException if an I/O error occurs.
-     * @since 2.5
+     *
      */
     public static InputStream toBufferedInputStream(final InputStream input, final int size)
         throws IOException {

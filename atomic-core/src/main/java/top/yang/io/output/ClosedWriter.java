@@ -25,14 +25,14 @@ import java.io.Writer;
  * Typically uses of this class include testing for corner cases in methods that accept a writer and acting as a sentinel value instead of a {@code null} writer.
  * </p>
  *
- * @since 2.7
+ * 
  */
 public class ClosedWriter extends Writer {
 
     /**
      * The singleton instance.
      *
-     * @since 2.12.0
+     * 
      */
     public static final ClosedWriter INSTANCE = new ClosedWriter();
 

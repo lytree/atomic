@@ -436,7 +436,7 @@ public class HashUtil {
      *
      * @param obj 对象
      * @return hash值
-     * @since 4.2.2
+     *
      */
     public static int identityHashCode(Object obj) {
         return System.identityHashCode(obj);
@@ -447,7 +447,7 @@ public class HashUtil {
      *
      * @param data 数据
      * @return hash值
-     * @since 4.3.3
+     *
      */
     public static int murmur32(byte[] data) {
         return MurmurHash.hash32(data);
@@ -458,7 +458,7 @@ public class HashUtil {
      *
      * @param data 数据
      * @return hash值
-    R * @since 4.3.3
+    R *
      */
     public static long murmur64(byte[] data) {
         return MurmurHash.hash64(data);
@@ -469,7 +469,7 @@ public class HashUtil {
      *
      * @param data 数据
      * @return hash值
-     * @since 4.3.3
+     *
      */
     public static long[] murmur128(byte[] data) {
         return MurmurHash.hash128(data);
@@ -480,7 +480,7 @@ public class HashUtil {
      *
      * @param data 数据
      * @return hash值
-     * @since 5.2.5
+     *
      */
     public static int cityHash32(byte[] data) {
         return CityHash.hash32(data);
@@ -492,7 +492,7 @@ public class HashUtil {
      * @param data 数据
      * @param seed 种子2
      * @return hash值
-     * @since 5.2.5
+     *
      */
     public static long cityHash64(byte[] data, long seed) {
         return CityHash.hash64(data, seed);
@@ -505,7 +505,7 @@ public class HashUtil {
      * @param seed0 种子1
      * @param seed1 种子2
      * @return hash值
-     * @since 5.2.5
+     *
      */
     public static long cityHash64(byte[] data, long seed0, long seed1) {
         return CityHash.hash64(data, seed0, seed1);
@@ -516,7 +516,7 @@ public class HashUtil {
      *
      * @param data 数据
      * @return hash值
-     * @since 5.2.5
+     *
      */
     public static long cityHash64(byte[] data) {
         return CityHash.hash64(data);
@@ -527,7 +527,7 @@ public class HashUtil {
      *
      * @param data 数据
      * @return hash值
-     * @since 5.2.5
+     *
      */
     public static long[] cityHash128(byte[] data) {
         return CityHash.hash128(data).getLongArray();
@@ -539,7 +539,7 @@ public class HashUtil {
      * @param data 数据
      * @param seed 种子
      * @return hash值，long[0]：低位，long[1]：高位
-     * @since 5.2.5
+     *
      */
     public static long[] cityHash128(byte[] data, Number128 seed) {
         return CityHash.hash128(data).getLongArray();

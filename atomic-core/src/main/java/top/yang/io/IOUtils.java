@@ -123,7 +123,7 @@ public class IOUtils {
     /**
      * CR char.
      *
-     * @since 2.9.0
+     * 
      */
     public static final int CR = '\r';
 
@@ -150,21 +150,21 @@ public class IOUtils {
     /**
      * A singleton empty byte array.
      *
-     * @since 2.9.0
+     * 
      */
     public static final byte[] EMPTY_BYTE_ARRAY = {};
 
     /**
      * Represents the end-of-file (or stream).
      *
-     * @since 2.5 (made public)
+     * 
      */
     public static final int EOF = -1;
 
     /**
      * LF char.
      *
-     * @since 2.9.0
+     * 
      */
     public static final int LF = '\n';
 
@@ -198,7 +198,7 @@ public class IOUtils {
      * @param inputStream the InputStream to wrap or return (not null)
      * @return the given InputStream or a new {@link BufferedInputStream} for the given InputStream
      * @throws NullPointerException if the input parameter is null
-     * @since 2.5
+     * 
      */
     @SuppressWarnings("resource") // parameter null check
     public static BufferedInputStream buffer(final InputStream inputStream) {
@@ -216,7 +216,7 @@ public class IOUtils {
      * @param size        the buffer size, if a new BufferedInputStream is created.
      * @return the given InputStream or a new {@link BufferedInputStream} for the given InputStream
      * @throws NullPointerException if the input parameter is null
-     * @since 2.5
+     * 
      */
     @SuppressWarnings("resource") // parameter null check
     public static BufferedInputStream buffer(final InputStream inputStream, final int size) {
@@ -233,7 +233,7 @@ public class IOUtils {
      * @param outputStream the OutputStream to wrap or return (not null)
      * @return the given OutputStream or a new {@link BufferedOutputStream} for the given OutputStream
      * @throws NullPointerException if the input parameter is null
-     * @since 2.5
+     * 
      */
     @SuppressWarnings("resource") // parameter null check
     public static BufferedOutputStream buffer(final OutputStream outputStream) {
@@ -251,7 +251,7 @@ public class IOUtils {
      * @param size         the buffer size, if a new BufferedOutputStream is created.
      * @return the given OutputStream or a new {@link BufferedOutputStream} for the given OutputStream
      * @throws NullPointerException if the input parameter is null
-     * @since 2.5
+     * 
      */
     @SuppressWarnings("resource") // parameter null check
     public static BufferedOutputStream buffer(final OutputStream outputStream, final int size) {
@@ -268,7 +268,7 @@ public class IOUtils {
      * @param reader the reader to wrap or return (not null)
      * @return the given reader or a new {@link BufferedReader} for the given reader
      * @throws NullPointerException if the input parameter is null
-     * @since 2.5
+     * 
      */
     public static BufferedReader buffer(final Reader reader) {
         return reader instanceof BufferedReader ? (BufferedReader) reader : new BufferedReader(reader);
@@ -281,7 +281,7 @@ public class IOUtils {
      * @param size   the buffer size, if a new BufferedReader is created.
      * @return the given reader or a new {@link BufferedReader} for the given reader
      * @throws NullPointerException if the input parameter is null
-     * @since 2.5
+     * 
      */
     public static BufferedReader buffer(final Reader reader, final int size) {
         return reader instanceof BufferedReader ? (BufferedReader) reader : new BufferedReader(reader, size);
@@ -293,7 +293,7 @@ public class IOUtils {
      * @param writer the Writer to wrap or return (not null)
      * @return the given Writer or a new {@link BufferedWriter} for the given Writer
      * @throws NullPointerException if the input parameter is null
-     * @since 2.5
+     * 
      */
     public static BufferedWriter buffer(final Writer writer) {
         return writer instanceof BufferedWriter ? (BufferedWriter) writer : new BufferedWriter(writer);
@@ -306,7 +306,7 @@ public class IOUtils {
      * @param size   the buffer size, if a new BufferedWriter is created.
      * @return the given Writer or a new {@link BufferedWriter} for the given Writer
      * @throws NullPointerException if the input parameter is null
-     * @since 2.5
+     * 
      */
     public static BufferedWriter buffer(final Writer writer, final int size) {
         return writer instanceof BufferedWriter ? (BufferedWriter) writer : new BufferedWriter(writer, size);
@@ -316,7 +316,7 @@ public class IOUtils {
      * Returns a new byte array of size {@link #DEFAULT_BUFFER_SIZE}.
      *
      * @return a new byte array of size {@link #DEFAULT_BUFFER_SIZE}.
-     * @since 2.9.0
+     * 
      */
     public static byte[] byteArray() {
         return byteArray(DEFAULT_BUFFER_SIZE);
@@ -329,7 +329,7 @@ public class IOUtils {
      *
      * @param size array size.
      * @return a new byte array of the given size.
-     * @since 2.9.0
+     * 
      */
     public static byte[] byteArray(final int size) {
         return new byte[size];
@@ -339,7 +339,7 @@ public class IOUtils {
      * Returns a new char array of size {@link #DEFAULT_BUFFER_SIZE}.
      *
      * @return a new char array of size {@link #DEFAULT_BUFFER_SIZE}.
-     * @since 2.9.0
+     * 
      */
     private static char[] charArray() {
         return charArray(DEFAULT_BUFFER_SIZE);
@@ -352,7 +352,7 @@ public class IOUtils {
      *
      * @param size array size.
      * @return a new char array of the given size.
-     * @since 2.9.0
+     * 
      */
     private static char[] charArray(final int size) {
         return new char[size];
@@ -363,7 +363,7 @@ public class IOUtils {
      *
      * @param closeable The resource to close, may be null.
      * @throws IOException if an I/O error occurs.
-     * @since 2.7
+     * 
      */
     public static void close(final Closeable closeable) throws IOException {
         if (closeable != null) {
@@ -376,7 +376,7 @@ public class IOUtils {
      *
      * @param closeables The resource(s) to close, may be null.
      * @throws IOException if an I/O error occurs.
-     * @since 2.8.0
+     * 
      */
     public static void close(final Closeable... closeables) throws IOException {
         IOConsumer.forEach(closeables, IOUtils::close);
@@ -388,7 +388,7 @@ public class IOUtils {
      * @param closeable The resource to close, may be null.
      * @param consumer  Consume the IOException thrown by {@link Closeable#close()}.
      * @throws IOException if an I/O error occurs.
-     * @since 2.7
+     * 
      */
     public static void close(final Closeable closeable, final IOConsumer<IOException> consumer) throws IOException {
         if (closeable != null) {
@@ -406,7 +406,7 @@ public class IOUtils {
      * Closes a URLConnection.
      *
      * @param conn the connection to close.
-     * @since 2.4
+     * 
      */
     public static void close(final URLConnection conn) {
         if (conn instanceof HttpURLConnection) {
@@ -451,7 +451,7 @@ public class IOUtils {
      *
      * @param closeable the objects to close, may be null or already closed
      * @see Throwable#addSuppressed(java.lang.Throwable)
-     * @since 2.0
+     * 
      */
     public static void closeQuietly(final Closeable closeable) {
         closeQuietly(closeable, null);
@@ -500,7 +500,7 @@ public class IOUtils {
      * @param closeables the objects to close, may be null or already closed
      * @see #closeQuietly(Closeable)
      * @see Throwable#addSuppressed(java.lang.Throwable)
-     * @since 2.5
+     * 
      */
     public static void closeQuietly(final Closeable... closeables) {
         if (closeables != null) {
@@ -513,7 +513,7 @@ public class IOUtils {
      *
      * @param closeable The resource to close, may be null.
      * @param consumer  Consumes the IOException thrown by {@link Closeable#close()}.
-     * @since 2.7
+     * 
      */
     public static void closeQuietly(final Closeable closeable, final Consumer<IOException> consumer) {
         if (closeable != null) {
@@ -650,7 +650,7 @@ public class IOUtils {
      *
      * @param selector the Selector to close, may be null or already closed
      * @see Throwable#addSuppressed(java.lang.Throwable)
-     * @since 2.2
+     * 
      */
     public static void closeQuietly(final Selector selector) {
         closeQuietly((Closeable) selector);
@@ -682,7 +682,7 @@ public class IOUtils {
      *
      * @param serverSocket the ServerSocket to close, may be null or already closed
      * @see Throwable#addSuppressed(java.lang.Throwable)
-     * @since 2.2
+     * 
      */
     public static void closeQuietly(final ServerSocket serverSocket) {
         closeQuietly((Closeable) serverSocket);
@@ -714,7 +714,7 @@ public class IOUtils {
      *
      * @param socket the Socket to close, may be null or already closed
      * @see Throwable#addSuppressed(java.lang.Throwable)
-     * @since 2.0
+     * 
      */
     public static void closeQuietly(final Socket socket) {
         closeQuietly((Closeable) socket);
@@ -762,7 +762,7 @@ public class IOUtils {
      * @throws NullPointerException if the InputStream is {@code null}.
      * @throws NullPointerException if the OutputStream is {@code null}.
      * @throws IOException          if an I/O error occurs.
-     * @since 2.8.0
+     * 
      */
     public static long consume(final InputStream input)
             throws IOException {
@@ -839,7 +839,7 @@ public class IOUtils {
      * @return true if the content of the readers are equal or they both don't exist, false otherwise
      * @throws NullPointerException if either input is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.1
+     * 
      */
     public static boolean contentEquals(final Reader input1, final Reader input2) throws IOException {
         if (input1 == input2) {
@@ -897,7 +897,7 @@ public class IOUtils {
      * @return true if the content of the readers are equal (ignoring EOL differences),  false otherwise
      * @throws NullPointerException if either input is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.2
+     * 
      */
     @SuppressWarnings("resource")
     public static boolean contentEqualsIgnoreEOL(final Reader reader1, final Reader reader2)
@@ -936,7 +936,7 @@ public class IOUtils {
      * @throws NullPointerException if the InputStream is {@code null}.
      * @throws NullPointerException if the OutputStream is {@code null}.
      * @throws IOException          if an I/O error occurs.
-     * @since 1.1
+     * 
      */
     public static int copy(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         final long count = copyLarge(inputStream, outputStream);
@@ -956,7 +956,7 @@ public class IOUtils {
      * @throws NullPointerException if the InputStream is {@code null}.
      * @throws NullPointerException if the OutputStream is {@code null}.
      * @throws IOException          if an I/O error occurs.
-     * @since 2.5
+     * 
      */
     public static long copy(final InputStream inputStream, final OutputStream outputStream, final int bufferSize)
             throws IOException {
@@ -976,7 +976,7 @@ public class IOUtils {
      * @param writer the {@code Writer} to write to
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.1
+     * 
      * @deprecated 2.5 use {@link #copy(InputStream, Writer, Charset)} instead
      */
     @Deprecated
@@ -999,7 +999,7 @@ public class IOUtils {
      * @param inputCharset the charset to use for the input stream, null means platform default
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.3
+     * 
      */
     public static void copy(final InputStream input, final Writer writer, final Charset inputCharset)
             throws IOException {
@@ -1026,7 +1026,7 @@ public class IOUtils {
      * @throws NullPointerException                         if the input or output is null
      * @throws IOException                                  if an I/O error occurs
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 1.1
+     * 
      */
     public static void copy(final InputStream input, final Writer writer, final String inputCharsetName)
             throws IOException {
@@ -1048,7 +1048,7 @@ public class IOUtils {
      * @return the number of characters copied, or -1 if &gt; Integer.MAX_VALUE
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.7
+     * 
      */
     public static long copy(final Reader reader, final Appendable output) throws IOException {
         return copy(reader, output, CharBuffer.allocate(DEFAULT_BUFFER_SIZE));
@@ -1066,7 +1066,7 @@ public class IOUtils {
      * @return the number of characters copied
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.7
+     * 
      */
     public static long copy(final Reader reader, final Appendable output, final CharBuffer buffer) throws IOException {
         long count = 0;
@@ -1095,7 +1095,7 @@ public class IOUtils {
      * @param output the {@code OutputStream} to write to
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.1
+     * 
      * @deprecated 2.5 use {@link #copy(Reader, OutputStream, Charset)} instead
      */
     @Deprecated
@@ -1121,7 +1121,7 @@ public class IOUtils {
      * @param outputCharset the charset to use for the OutputStream, null means platform default
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.3
+     * 
      */
     public static void copy(final Reader reader, final OutputStream output, final Charset outputCharset)
             throws IOException {
@@ -1154,7 +1154,7 @@ public class IOUtils {
      * @throws NullPointerException                         if the input or output is null
      * @throws IOException                                  if an I/O error occurs
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 1.1
+     * 
      */
     public static void copy(final Reader reader, final OutputStream output, final String outputCharsetName)
             throws IOException {
@@ -1176,7 +1176,7 @@ public class IOUtils {
      * @return the number of characters copied, or -1 if &gt; Integer.MAX_VALUE
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.1
+     * 
      */
     public static int copy(final Reader reader, final Writer writer) throws IOException {
         final long count = copyLarge(reader, writer);
@@ -1201,7 +1201,7 @@ public class IOUtils {
      * @throws NullPointerException if the URL is {@code null}.
      * @throws NullPointerException if the OutputStream is {@code null}.
      * @throws IOException          if an I/O error occurs.
-     * @since 2.9.0
+     * 
      */
     public static long copy(final URL url, final File file) throws IOException {
         try (OutputStream outputStream = Files.newOutputStream(Objects.requireNonNull(file, "file").toPath())) {
@@ -1224,7 +1224,7 @@ public class IOUtils {
      * @throws NullPointerException if the URL is {@code null}.
      * @throws NullPointerException if the OutputStream is {@code null}.
      * @throws IOException          if an I/O error occurs.
-     * @since 2.9.0
+     * 
      */
     public static long copy(final URL url, final OutputStream outputStream) throws IOException {
         try (InputStream inputStream = Objects.requireNonNull(url, "url").openStream()) {
@@ -1247,7 +1247,7 @@ public class IOUtils {
      * @throws NullPointerException if the InputStream is {@code null}.
      * @throws NullPointerException if the OutputStream is {@code null}.
      * @throws IOException          if an I/O error occurs.
-     * @since 1.3
+     * 
      */
     public static long copyLarge(final InputStream inputStream, final OutputStream outputStream)
             throws IOException {
@@ -1267,7 +1267,7 @@ public class IOUtils {
      * @throws NullPointerException if the InputStream is {@code null}.
      * @throws NullPointerException if the OutputStream is {@code null}.
      * @throws IOException          if an I/O error occurs.
-     * @since 2.2
+     * 
      */
     @SuppressWarnings("resource") // streams are closed by the caller.
     public static long copyLarge(final InputStream inputStream, final OutputStream outputStream, final byte[] buffer)
@@ -1301,7 +1301,7 @@ public class IOUtils {
      * @return the number of bytes copied
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.2
+     * 
      */
     public static long copyLarge(final InputStream input, final OutputStream output, final long inputOffset,
             final long length) throws IOException {
@@ -1326,7 +1326,7 @@ public class IOUtils {
      * @return the number of bytes copied
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.2
+     * 
      */
     public static long copyLarge(final InputStream input, final OutputStream output,
             final long inputOffset, final long length, final byte[] buffer) throws IOException {
@@ -1368,7 +1368,7 @@ public class IOUtils {
      * @return the number of characters copied
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.3
+     * 
      */
     public static long copyLarge(final Reader reader, final Writer writer) throws IOException {
         return copyLarge(reader, writer, getCharArray());
@@ -1386,7 +1386,7 @@ public class IOUtils {
      * @return the number of characters copied
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.2
+     * 
      */
     public static long copyLarge(final Reader reader, final Writer writer, final char[] buffer) throws IOException {
         long count = 0;
@@ -1414,7 +1414,7 @@ public class IOUtils {
      * @return the number of chars copied
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.2
+     * 
      */
     public static long copyLarge(final Reader reader, final Writer writer, final long inputOffset, final long length)
             throws IOException {
@@ -1435,7 +1435,7 @@ public class IOUtils {
      * @return the number of chars copied
      * @throws NullPointerException if the input or output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.2
+     * 
      */
     public static long copyLarge(final Reader reader, final Writer writer, final long inputOffset, final long length,
             final char[] buffer)
@@ -1486,7 +1486,7 @@ public class IOUtils {
      *
      * @param array an array or null
      * @return the array length -- or 0 if the given array is null.
-     * @since 2.7
+     * 
      */
     public static int length(final byte[] array) {
         return array == null ? 0 : array.length;
@@ -1497,7 +1497,7 @@ public class IOUtils {
      *
      * @param array an array or null
      * @return the array length -- or 0 if the given array is null.
-     * @since 2.7
+     * 
      */
     public static int length(final char[] array) {
         return array == null ? 0 : array.length;
@@ -1508,7 +1508,7 @@ public class IOUtils {
      *
      * @param csq a CharSequence or null
      * @return the CharSequence length -- or 0 if the given CharSequence is null.
-     * @since 2.7
+     * 
      */
     public static int length(final CharSequence csq) {
         return csq == null ? 0 : csq.length();
@@ -1519,7 +1519,7 @@ public class IOUtils {
      *
      * @param array an array or null
      * @return the array length -- or 0 if the given array is null.
-     * @since 2.7
+     * 
      */
     public static int length(final Object[] array) {
         return array == null ? 0 : array.length;
@@ -1550,7 +1550,7 @@ public class IOUtils {
      * @param charset the charset to use, null means platform default
      * @return an Iterator of the lines in the reader, never null
      * @throws IllegalArgumentException if the input is null
-     * @since 2.3
+     * 
      */
     public static LineIterator lineIterator(final InputStream input, final Charset charset) {
         return new LineIterator(new InputStreamReader(input, Charsets.toCharset(charset)));
@@ -1582,7 +1582,7 @@ public class IOUtils {
      * @return an Iterator of the lines in the reader, never null
      * @throws IllegalArgumentException                     if the input is null
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 1.2
+     * 
      */
     public static LineIterator lineIterator(final InputStream input, final String charsetName) {
         return lineIterator(input, Charsets.toCharset(charsetName));
@@ -1612,7 +1612,7 @@ public class IOUtils {
      * @param reader the {@code Reader} to read from, not null
      * @return an Iterator of the lines in the reader, never null
      * @throws IllegalArgumentException if the reader is null
-     * @since 1.2
+     * 
      */
     public static LineIterator lineIterator(final Reader reader) {
         return new LineIterator(reader);
@@ -1626,7 +1626,7 @@ public class IOUtils {
      * @param buffer destination
      * @return actual length read; may be less than requested if EOF was reached
      * @throws IOException if a read error occurs
-     * @since 2.2
+     * 
      */
     public static int read(final InputStream input, final byte[] buffer) throws IOException {
         return read(input, buffer, 0, buffer.length);
@@ -1643,7 +1643,7 @@ public class IOUtils {
      * @return actual length read; may be less than requested if EOF was reached
      * @throws IllegalArgumentException if length is negative
      * @throws IOException              if a read error occurs
-     * @since 2.2
+     * 
      */
     public static int read(final InputStream input, final byte[] buffer, final int offset, final int length)
             throws IOException {
@@ -1672,7 +1672,7 @@ public class IOUtils {
      * @param buffer byte buffer destination
      * @return the actual length read; may be less than requested if EOF was reached
      * @throws IOException if a read error occurs
-     * @since 2.5
+     * 
      */
     public static int read(final ReadableByteChannel input, final ByteBuffer buffer) throws IOException {
         final int length = buffer.remaining();
@@ -1693,7 +1693,7 @@ public class IOUtils {
      * @param buffer destination
      * @return actual length read; may be less than requested if EOF was reached
      * @throws IOException if a read error occurs
-     * @since 2.2
+     * 
      */
     public static int read(final Reader reader, final char[] buffer) throws IOException {
         return read(reader, buffer, 0, buffer.length);
@@ -1710,7 +1710,7 @@ public class IOUtils {
      * @return actual length read; may be less than requested if EOF was reached
      * @throws IllegalArgumentException if length is negative
      * @throws IOException              if a read error occurs
-     * @since 2.2
+     * 
      */
     public static int read(final Reader reader, final char[] buffer, final int offset, final int length)
             throws IOException {
@@ -1740,7 +1740,7 @@ public class IOUtils {
      * @throws IOException              if there is a problem reading the file
      * @throws IllegalArgumentException if length is negative
      * @throws EOFException             if the number of bytes read was incorrect
-     * @since 2.2
+     * 
      */
     public static void readFully(final InputStream input, final byte[] buffer) throws IOException {
         readFully(input, buffer, 0, buffer.length);
@@ -1759,7 +1759,7 @@ public class IOUtils {
      * @throws IOException              if there is a problem reading the file
      * @throws IllegalArgumentException if length is negative
      * @throws EOFException             if the number of bytes read was incorrect
-     * @since 2.2
+     * 
      */
     public static void readFully(final InputStream input, final byte[] buffer, final int offset, final int length)
             throws IOException {
@@ -1781,7 +1781,7 @@ public class IOUtils {
      * @throws IOException              if there is a problem reading the file
      * @throws IllegalArgumentException if length is negative
      * @throws EOFException             if the number of bytes read was incorrect
-     * @since 2.5
+     * 
      */
     public static byte[] readFully(final InputStream input, final int length) throws IOException {
         final byte[] buffer = IOUtils.byteArray(length);
@@ -1799,7 +1799,7 @@ public class IOUtils {
      * @param buffer byte buffer destination
      * @throws IOException  if there is a problem reading the file
      * @throws EOFException if the number of bytes read was incorrect
-     * @since 2.5
+     * 
      */
     public static void readFully(final ReadableByteChannel input, final ByteBuffer buffer) throws IOException {
         final int expected = buffer.remaining();
@@ -1820,7 +1820,7 @@ public class IOUtils {
      * @throws IOException              if there is a problem reading the file
      * @throws IllegalArgumentException if length is negative
      * @throws EOFException             if the number of characters read was incorrect
-     * @since 2.2
+     * 
      */
     public static void readFully(final Reader reader, final char[] buffer) throws IOException {
         readFully(reader, buffer, 0, buffer.length);
@@ -1839,7 +1839,7 @@ public class IOUtils {
      * @throws IOException              if there is a problem reading the file
      * @throws IllegalArgumentException if length is negative
      * @throws EOFException             if the number of characters read was incorrect
-     * @since 2.2
+     * 
      */
     public static void readFully(final Reader reader, final char[] buffer, final int offset, final int length)
             throws IOException {
@@ -1859,7 +1859,7 @@ public class IOUtils {
      * @return the list of Strings, never null
      * @throws NullPointerException if the input is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.1
+     * 
      * @deprecated 2.5 use {@link #readLines(InputStream, Charset)} instead
      */
     @Deprecated
@@ -1878,7 +1878,7 @@ public class IOUtils {
      * @return the list of Strings, never null
      * @throws NullPointerException if the input is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.3
+     * 
      */
     public static List<String> readLines(final InputStream input, final Charset charset) throws IOException {
         final InputStreamReader reader = new InputStreamReader(input, Charsets.toCharset(charset));
@@ -1901,7 +1901,7 @@ public class IOUtils {
      * @throws NullPointerException                         if the input is null
      * @throws IOException                                  if an I/O error occurs
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 1.1
+     * 
      */
     public static List<String> readLines(final InputStream input, final String charsetName) throws IOException {
         return readLines(input, Charsets.toCharset(charsetName));
@@ -1917,7 +1917,7 @@ public class IOUtils {
      * @return the list of Strings, never null
      * @throws NullPointerException if the input is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.1
+     * 
      */
     @SuppressWarnings("resource") // reader wraps input and is the responsibility of the caller.
     public static List<String> readLines(final Reader reader) throws IOException {
@@ -1939,7 +1939,7 @@ public class IOUtils {
      * @param name name of the desired resource
      * @return the requested byte array
      * @throws IOException if an I/O error occurs.
-     * @since 2.6
+     * 
      */
     public static byte[] resourceToByteArray(final String name) throws IOException {
         return resourceToByteArray(name, null);
@@ -1955,7 +1955,7 @@ public class IOUtils {
      * @param classLoader the class loader that the resolution of the resource is delegated to
      * @return the requested byte array
      * @throws IOException if an I/O error occurs.
-     * @since 2.6
+     * 
      */
     public static byte[] resourceToByteArray(final String name, final ClassLoader classLoader) throws IOException {
         return toByteArray(resourceToURL(name, classLoader));
@@ -1971,7 +1971,7 @@ public class IOUtils {
      * @param charset the charset to use, null means platform default
      * @return the requested String
      * @throws IOException if an I/O error occurs.
-     * @since 2.6
+     * 
      */
     public static String resourceToString(final String name, final Charset charset) throws IOException {
         return resourceToString(name, charset, null);
@@ -1988,7 +1988,7 @@ public class IOUtils {
      * @param classLoader the class loader that the resolution of the resource is delegated to
      * @return the requested String
      * @throws IOException if an I/O error occurs.
-     * @since 2.6
+     * 
      */
     public static String resourceToString(final String name, final Charset charset, final ClassLoader classLoader) throws IOException {
         return toString(resourceToURL(name, classLoader), charset);
@@ -2003,7 +2003,7 @@ public class IOUtils {
      * @param name name of the desired resource
      * @return the requested URL
      * @throws IOException if an I/O error occurs.
-     * @since 2.6
+     * 
      */
     public static URL resourceToURL(final String name) throws IOException {
         return resourceToURL(name, null);
@@ -2019,7 +2019,7 @@ public class IOUtils {
      * @param classLoader the class loader that the resolution of the resource is delegated to
      * @return the requested URL
      * @throws IOException if an I/O error occurs.
-     * @since 2.6
+     * 
      */
     public static URL resourceToURL(final String name, final ClassLoader classLoader) throws IOException {
         // What about the thread context class loader?
@@ -2046,7 +2046,7 @@ public class IOUtils {
      * @throws IllegalArgumentException if toSkip is negative
      * @see InputStream#skip(long)
      * @see <a href="https://issues.apache.org/jira/browse/IO-203">IO-203 - Add skipFully() method for InputStreams</a>
-     * @since 2.0
+     * 
      */
     public static long skip(final InputStream input, final long toSkip) throws IOException {
         if (toSkip < 0) {
@@ -2079,7 +2079,7 @@ public class IOUtils {
      * @return number of bytes actually skipped.
      * @throws IOException              if there is a problem reading the ReadableByteChannel
      * @throws IllegalArgumentException if toSkip is negative
-     * @since 2.5
+     * 
      */
     public static long skip(final ReadableByteChannel input, final long toSkip) throws IOException {
         if (toSkip < 0) {
@@ -2114,7 +2114,7 @@ public class IOUtils {
      * @throws IllegalArgumentException if toSkip is negative
      * @see Reader#skip(long)
      * @see <a href="https://issues.apache.org/jira/browse/IO-203">IO-203 - Add skipFully() method for InputStreams</a>
-     * @since 2.0
+     * 
      */
     public static long skip(final Reader reader, final long toSkip) throws IOException {
         if (toSkip < 0) {
@@ -2149,7 +2149,7 @@ public class IOUtils {
      * @throws IllegalArgumentException if toSkip is negative
      * @throws EOFException             if the number of bytes skipped was incorrect
      * @see InputStream#skip(long)
-     * @since 2.0
+     * 
      */
     public static void skipFully(final InputStream input, final long toSkip) throws IOException {
         if (toSkip < 0) {
@@ -2169,7 +2169,7 @@ public class IOUtils {
      * @throws IOException              if there is a problem reading the ReadableByteChannel
      * @throws IllegalArgumentException if toSkip is negative
      * @throws EOFException             if the number of bytes skipped was incorrect
-     * @since 2.5
+     * 
      */
     public static void skipFully(final ReadableByteChannel input, final long toSkip) throws IOException {
         if (toSkip < 0) {
@@ -2197,7 +2197,7 @@ public class IOUtils {
      * @throws IllegalArgumentException if toSkip is negative
      * @throws EOFException             if the number of characters skipped was incorrect
      * @see Reader#skip(long)
-     * @since 2.0
+     * 
      */
     public static void skipFully(final Reader reader, final long toSkip) throws IOException {
         final long skipped = skip(reader, toSkip);
@@ -2227,7 +2227,7 @@ public class IOUtils {
      * @param input Stream to be fully buffered.
      * @return A fully buffered stream.
      * @throws IOException if an I/O error occurs.
-     * @since 2.0
+     * 
      */
     public static InputStream toBufferedInputStream(final InputStream input) throws IOException {
         return ByteArrayOutputStream.toBufferedInputStream(input);
@@ -2255,7 +2255,7 @@ public class IOUtils {
      * @param size  the initial buffer size
      * @return A fully buffered stream.
      * @throws IOException if an I/O error occurs.
-     * @since 2.5
+     * 
      */
     public static InputStream toBufferedInputStream(final InputStream input, final int size) throws IOException {
         return ByteArrayOutputStream.toBufferedInputStream(input, size);
@@ -2268,7 +2268,7 @@ public class IOUtils {
      * @return the given reader or a new {@link BufferedReader} for the given reader
      * @throws NullPointerException if the input parameter is null
      * @see #buffer(Reader)
-     * @since 2.2
+     * 
      */
     public static BufferedReader toBufferedReader(final Reader reader) {
         return reader instanceof BufferedReader ? (BufferedReader) reader : new BufferedReader(reader);
@@ -2282,7 +2282,7 @@ public class IOUtils {
      * @return the given reader or a new {@link BufferedReader} for the given reader
      * @throws NullPointerException if the input parameter is null
      * @see #buffer(Reader)
-     * @since 2.5
+     * 
      */
     public static BufferedReader toBufferedReader(final Reader reader, final int size) {
         return reader instanceof BufferedReader ? (BufferedReader) reader : new BufferedReader(reader, size);
@@ -2295,7 +2295,7 @@ public class IOUtils {
      * @return the requested byte array
      * @throws NullPointerException if the input is null
      * @throws IOException          if an I/O exception occurs
-     * @since 2.4
+     * 
      */
     public static byte[] toByteArray(final URL url) throws IOException {
         try (CloseableURLConnection urlConnection = CloseableURLConnection.open(url)) {
@@ -2310,7 +2310,7 @@ public class IOUtils {
      * @return the requested byte array.
      * @throws NullPointerException if the urlConn is null.
      * @throws IOException          if an I/O exception occurs.
-     * @since 2.4
+     * 
      */
     public static byte[] toByteArray(final URLConnection urlConnection) throws IOException {
         try (InputStream inputStream = urlConnection.getInputStream()) {
@@ -2348,7 +2348,7 @@ public class IOUtils {
      * @return byte [] of length {@code size}.
      * @throws IOException              if an I/O error occurs or {@code InputStream} length is smaller than parameter {@code size}.
      * @throws IllegalArgumentException if {@code size} is less than zero.
-     * @since 2.1
+     * 
      */
     public static byte[] toByteArray(final InputStream input, final int size) throws IOException {
 
@@ -2386,7 +2386,7 @@ public class IOUtils {
      * @throws IOException              if an I/O error occurs or {@code InputStream} length is less than {@code size}
      * @throws IllegalArgumentException if size is less than zero or size is greater than Integer.MAX_VALUE
      * @see IOUtils#toByteArray(java.io.InputStream, int)
-     * @since 2.1
+     * 
      */
     public static byte[] toByteArray(final InputStream input, final long size) throws IOException {
         if (size > Integer.MAX_VALUE) {
@@ -2423,7 +2423,7 @@ public class IOUtils {
      * @return the requested byte array
      * @throws NullPointerException if the input is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.3
+     * 
      */
     public static byte[] toByteArray(final Reader reader, final Charset charset) throws IOException {
         try (ByteArrayOutputStream output = new ByteArrayOutputStream()) {
@@ -2448,7 +2448,7 @@ public class IOUtils {
      * @throws NullPointerException                         if the input is null
      * @throws IOException                                  if an I/O error occurs
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 1.1
+     * 
      */
     public static byte[] toByteArray(final Reader reader, final String charsetName) throws IOException {
         return toByteArray(reader, Charsets.toCharset(charsetName));
@@ -2466,7 +2466,7 @@ public class IOUtils {
      * @return the requested character array
      * @throws NullPointerException if the input is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.3
+     * 
      */
     public static char[] toCharArray(final InputStream inputStream, final Charset charset)
             throws IOException {
@@ -2491,7 +2491,7 @@ public class IOUtils {
      * @throws NullPointerException                         if the input is null
      * @throws IOException                                  if an I/O error occurs
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 1.1
+     * 
      */
     public static char[] toCharArray(final InputStream inputStream, final String charsetName) throws IOException {
         return toCharArray(inputStream, Charsets.toCharset(charsetName));
@@ -2507,7 +2507,7 @@ public class IOUtils {
      * @return the requested character array
      * @throws NullPointerException if the input is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.1
+     * 
      */
     public static char[] toCharArray(final Reader reader) throws IOException {
         final CharArrayWriter sw = new CharArrayWriter();
@@ -2522,7 +2522,7 @@ public class IOUtils {
      * @param input   the CharSequence to convert
      * @param charset the charset to use, null means platform default
      * @return an input stream
-     * @since 2.3
+     * 
      */
     public static InputStream toInputStream(final CharSequence input, final Charset charset) {
         return toInputStream(input.toString(), charset);
@@ -2539,7 +2539,7 @@ public class IOUtils {
      * @param charsetName the name of the requested charset, null means platform default
      * @return an input stream
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 2.0
+     * 
      */
     public static InputStream toInputStream(final CharSequence input, final String charsetName) {
         return toInputStream(input, Charsets.toCharset(charsetName));
@@ -2552,7 +2552,7 @@ public class IOUtils {
      * @param input   the string to convert
      * @param charset the charset to use, null means platform default
      * @return an input stream
-     * @since 2.3
+     * 
      */
     public static InputStream toInputStream(final String input, final Charset charset) {
         return new ByteArrayInputStream(input.getBytes(Charsets.toCharset(charset)));
@@ -2569,7 +2569,7 @@ public class IOUtils {
      * @param charsetName the name of the requested charset, null means platform default
      * @return an input stream
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 1.1
+     * 
      */
     public static InputStream toInputStream(final String input, final String charsetName) {
         return new ByteArrayInputStream(input.getBytes(Charsets.toCharset(charsetName)));
@@ -2604,7 +2604,7 @@ public class IOUtils {
      * @return the requested String
      * @throws NullPointerException if the input is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.3
+     * 
      */
     public static String toString(final InputStream input, final Charset charset) throws IOException {
         try (StringBuilderWriter sw = new StringBuilderWriter()) {
@@ -2659,7 +2659,7 @@ public class IOUtils {
      * @param uri The URI source.
      * @return The contents of the URL as a String.
      * @throws IOException if an I/O exception occurs.
-     * @since 2.1
+     * 
      * @deprecated 2.5 use {@link #toString(URI, Charset)} instead
      */
     @Deprecated
@@ -2674,7 +2674,7 @@ public class IOUtils {
      * @param encoding The encoding name for the URL contents.
      * @return The contents of the URL as a String.
      * @throws IOException if an I/O exception occurs.
-     * @since 2.3.
+     * 
      */
     public static String toString(final URI uri, final Charset encoding) throws IOException {
         return toString(uri.toURL(), Charsets.toCharset(encoding));
@@ -2688,7 +2688,7 @@ public class IOUtils {
      * @return The contents of the URL as a String.
      * @throws IOException                                  if an I/O exception occurs.
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 2.1
+     * 
      */
     public static String toString(final URI uri, final String charsetName) throws IOException {
         return toString(uri, Charsets.toCharset(charsetName));
@@ -2700,7 +2700,7 @@ public class IOUtils {
      * @param url The URL source.
      * @return The contents of the URL as a String.
      * @throws IOException if an I/O exception occurs.
-     * @since 2.1
+     * 
      * @deprecated 2.5 use {@link #toString(URL, Charset)} instead
      */
     @Deprecated
@@ -2715,7 +2715,7 @@ public class IOUtils {
      * @param encoding The encoding name for the URL contents.
      * @return The contents of the URL as a String.
      * @throws IOException if an I/O exception occurs.
-     * @since 2.3
+     * 
      */
     public static String toString(final URL url, final Charset encoding) throws IOException {
         try (InputStream inputStream = url.openStream()) {
@@ -2731,7 +2731,7 @@ public class IOUtils {
      * @return The contents of the URL as a String.
      * @throws IOException                                  if an I/O exception occurs.
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 2.1
+     * 
      */
     public static String toString(final URL url, final String charsetName) throws IOException {
         return toString(url, Charsets.toCharset(charsetName));
@@ -2744,7 +2744,7 @@ public class IOUtils {
      * @param output the {@code OutputStream} to write to
      * @throws NullPointerException if output is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.1
+     * 
      */
     public static void write(final byte[] data, final OutputStream output)
             throws IOException {
@@ -2765,7 +2765,7 @@ public class IOUtils {
      * @param charset the charset to use, null means platform default
      * @throws NullPointerException if output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.3
+     * 
      */
     public static void write(final byte[] data, final Writer writer, final Charset charset) throws IOException {
         if (data != null) {
@@ -2789,7 +2789,7 @@ public class IOUtils {
      * @throws NullPointerException                         if output is null
      * @throws IOException                                  if an I/O error occurs
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 1.1
+     * 
      */
     public static void write(final byte[] data, final Writer writer, final String charsetName) throws IOException {
         write(data, writer, Charsets.toCharset(charsetName));
@@ -2806,7 +2806,7 @@ public class IOUtils {
      * @param charset the charset to use, null means platform default
      * @throws NullPointerException if output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.3
+     * 
      */
     public static void write(final char[] data, final OutputStream output, final Charset charset) throws IOException {
         if (data != null) {
@@ -2830,7 +2830,7 @@ public class IOUtils {
      * @throws NullPointerException                         if output is null
      * @throws IOException                                  if an I/O error occurs
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 1.1
+     * 
      */
     public static void write(final char[] data, final OutputStream output, final String charsetName)
             throws IOException {
@@ -2844,7 +2844,7 @@ public class IOUtils {
      * @param writer the {@code Writer} to write to
      * @throws NullPointerException if output is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.1
+     * 
      */
     public static void write(final char[] data, final Writer writer) throws IOException {
         if (data != null) {
@@ -2862,7 +2862,7 @@ public class IOUtils {
      * @param output the {@code OutputStream} to write to
      * @throws NullPointerException if output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.0
+     * 
      * @deprecated 2.5 use {@link #write(CharSequence, OutputStream, Charset)} instead
      */
     @Deprecated
@@ -2882,7 +2882,7 @@ public class IOUtils {
      * @param charset the charset to use, null means platform default
      * @throws NullPointerException if output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.3
+     * 
      */
     public static void write(final CharSequence data, final OutputStream output, final Charset charset)
             throws IOException {
@@ -2907,7 +2907,7 @@ public class IOUtils {
      * @throws NullPointerException                         if output is null
      * @throws IOException                                  if an I/O error occurs
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 2.0
+     * 
      */
     public static void write(final CharSequence data, final OutputStream output, final String charsetName)
             throws IOException {
@@ -2921,7 +2921,7 @@ public class IOUtils {
      * @param writer the {@code Writer} to write to
      * @throws NullPointerException if output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.0
+     * 
      */
     public static void write(final CharSequence data, final Writer writer) throws IOException {
         if (data != null) {
@@ -2941,7 +2941,7 @@ public class IOUtils {
      * @param charset the charset to use, null means platform default
      * @throws NullPointerException if output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.3
+     * 
      */
     @SuppressWarnings("resource")
     public static void write(final String data, final OutputStream output, final Charset charset) throws IOException {
@@ -2969,7 +2969,7 @@ public class IOUtils {
      * @throws NullPointerException                         if output is null
      * @throws IOException                                  if an I/O error occurs
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 1.1
+     * 
      */
     public static void write(final String data, final OutputStream output, final String charsetName)
             throws IOException {
@@ -2983,7 +2983,7 @@ public class IOUtils {
      * @param writer the {@code Writer} to write to
      * @throws NullPointerException if output is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.1
+     * 
      */
     public static void write(final String data, final Writer writer) throws IOException {
         if (data != null) {
@@ -3000,7 +3000,7 @@ public class IOUtils {
      * @param output the {@code OutputStream} to write to
      * @throws NullPointerException if output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.5
+     * 
      */
     public static void writeChunked(final byte[] data, final OutputStream output)
             throws IOException {
@@ -3024,7 +3024,7 @@ public class IOUtils {
      * @param writer the {@code Writer} to write to
      * @throws NullPointerException if output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.5
+     * 
      */
     public static void writeChunked(final char[] data, final Writer writer) throws IOException {
         if (data != null) {
@@ -3050,7 +3050,7 @@ public class IOUtils {
      * @param charset    the charset to use, null means platform default
      * @throws NullPointerException if the output is null
      * @throws IOException          if an I/O error occurs
-     * @since 2.3
+     * 
      */
     public static void writeLines(final Collection<?> lines, String lineEnding, final OutputStream output,
             final Charset charset) throws IOException {
@@ -3085,7 +3085,7 @@ public class IOUtils {
      * @throws NullPointerException                         if the output is null
      * @throws IOException                                  if an I/O error occurs
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported.
-     * @since 1.1
+     * 
      */
     public static void writeLines(final Collection<?> lines, final String lineEnding,
             final OutputStream output, final String charsetName) throws IOException {
@@ -3100,7 +3100,7 @@ public class IOUtils {
      * @param writer     the {@code Writer} to write to, not null, not closed
      * @throws NullPointerException if the input is null
      * @throws IOException          if an I/O error occurs
-     * @since 1.1
+     * 
      */
     public static void writeLines(final Collection<?> lines, String lineEnding,
             final Writer writer) throws IOException {
@@ -3124,7 +3124,7 @@ public class IOUtils {
      * @param appendable the Appendable to wrap or return (not null)
      * @return the given Appendable or a Writer wrapper around the given Appendable
      * @throws NullPointerException if the input parameter is null
-     * @since 2.7
+     * 
      */
     public static Writer writer(final Appendable appendable) {
         Objects.requireNonNull(appendable, "appendable");
@@ -3142,7 +3142,7 @@ public class IOUtils {
      *
      * @param content 内容bytes
      * @return 字节流
-     * @since 4.1.8
+     * 
      */
     public static ByteArrayInputStream toStream(byte[] content) {
         if (content == null) {
@@ -3156,7 +3156,7 @@ public class IOUtils {
      *
      * @param out {@link java.io.ByteArrayOutputStream}
      * @return 字节流
-     * @since 5.3.6
+     * 
      */
     public static ByteArrayInputStream toStream(ByteArrayOutputStream out) {
         if (out == null) {

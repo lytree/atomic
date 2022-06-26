@@ -45,7 +45,7 @@ import java.util.Iterator;
  *
  * @param <K> the type of the keys in the map
  * @param <V> the type of the values in the map
- * @since 3.0
+ * 
  */
 public interface MapIterator<K, V> extends Iterator<K> {
 

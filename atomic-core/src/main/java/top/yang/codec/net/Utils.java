@@ -24,7 +24,7 @@ import top.yang.codec.DecoderException;
  *
  * <p>This class is immutable and thread-safe.</p>
  *
- * @since 1.4
+ *
  */
 class Utils {
 

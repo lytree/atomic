@@ -28,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Helps use {@link FileTime} and interoperate Date and NTFS times.
  *
- * @since 2.12.0
+ * 
  */
 public class FileTimes {
 

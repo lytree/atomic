@@ -33,7 +33,7 @@ import top.yang.io.file.PathVisitor;
  * Note that a subclass MUST override one of the {@code accept} methods, otherwise that subclass will infinitely loop.
  * </p>
  *
- * @since 1.0
+ * 
  */
 public abstract class AbstractFileFilter implements IOFileFilter, PathVisitor {
 
@@ -70,7 +70,7 @@ public abstract class AbstractFileFilter implements IOFileFilter, PathVisitor {
      *
      * @param onAccept What to do on acceptance.
      * @param onReject What to do on rejection.
-     * @since 2.12.0.
+     * 
      */
     protected AbstractFileFilter(final FileVisitResult onAccept, final FileVisitResult onReject) {
         this.onAccept = onAccept;
@@ -107,7 +107,7 @@ public abstract class AbstractFileFilter implements IOFileFilter, PathVisitor {
      *
      * @param t the caught Throwable.
      * @return the given Throwable.
-     * @since 2.9.0
+     * 
      */
     protected FileVisitResult handle(final Throwable t) {
         return FileVisitResult.TERMINATE;

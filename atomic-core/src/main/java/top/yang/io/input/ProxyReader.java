@@ -53,7 +53,7 @@ public abstract class ProxyReader extends FilterReader {
      *
      * @param n number of chars read, or -1 if the end of stream was reached
      * @throws IOException if the post-processing fails
-     * @since 2.0
+     *
      */
     @SuppressWarnings("unused") // Possibly thrown from subclasses.
     protected void afterRead(final int n) throws IOException {
@@ -71,7 +71,7 @@ public abstract class ProxyReader extends FilterReader {
      *
      * @param n number of chars that the caller asked to be read
      * @throws IOException if the pre-processing fails
-     * @since 2.0
+     *
      */
     @SuppressWarnings("unused") // Possibly thrown from subclasses.
     protected void beforeRead(final int n) throws IOException {
@@ -99,7 +99,7 @@ public abstract class ProxyReader extends FilterReader {
      *
      * @param e The IOException thrown
      * @throws IOException if an I/O error occurs.
-     * @since 2.0
+     *
      */
     protected void handleIOException(final IOException e) throws IOException {
         throw e;
@@ -197,7 +197,7 @@ public abstract class ProxyReader extends FilterReader {
      * @param target the char buffer to read the characters into
      * @return the number of characters read or -1 if the end of stream
      * @throws IOException if an I/O error occurs.
-     * @since 2.0
+     *
      */
     @Override
     public int read(final CharBuffer target) throws IOException {

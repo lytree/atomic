@@ -66,7 +66,7 @@ public class Digester implements Serializable {
      *
      * @param algorithm 算法
      * @param provider  算法提供者，null表示JDK默认，可以引入Bouncy Castle等来提供更多算法支持
-     * @since 4.5.1
+     * 
      */
     public Digester(DigestAlgorithm algorithm, Provider provider) {
         init(algorithm.getValue(), provider);
@@ -77,7 +77,7 @@ public class Digester implements Serializable {
      *
      * @param algorithm 算法
      * @param provider  算法提供者，null表示JDK默认，可以引入Bouncy Castle等来提供更多算法支持
-     * @since 4.5.1
+     * 
      */
     public Digester(String algorithm, Provider provider) {
         init(algorithm, provider);
@@ -110,7 +110,7 @@ public class Digester implements Serializable {
      *
      * @param salt 盐值
      * @return this
-     * @since 4.4.3
+     * 
      */
     public Digester setSalt(byte[] salt) {
         this.salt = salt;
@@ -132,7 +132,7 @@ public class Digester implements Serializable {
      *
      * @param saltPosition 盐的位置
      * @return this
-     * @since 4.4.3
+     * 
      */
     public Digester setSaltPosition(int saltPosition) {
         this.saltPosition = saltPosition;
@@ -154,7 +154,7 @@ public class Digester implements Serializable {
      * 重置{@link MessageDigest}
      *
      * @return this
-     * @since 4.5.1
+     * 
      */
     public Digester reset() {
         this.digest.reset();
@@ -180,7 +180,7 @@ public class Digester implements Serializable {
      * @param data    被摘要数据
      * @param charset 编码
      * @return 摘要
-     * @since 4.6.0
+     * 
      */
     public byte[] digest(String data, Charset charset) {
         return digest(StringUtils.getBytes(data, charset));
@@ -213,7 +213,7 @@ public class Digester implements Serializable {
      * @param data    被摘要数据
      * @param charset 编码
      * @return 摘要
-     * @since 4.6.0
+     * 
      */
     public String digestHex(String data, Charset charset) {
         return HexUtils.encodeHexString(digest(data, charset));
@@ -362,7 +362,7 @@ public class Digester implements Serializable {
      * 获取散列长度，0表示不支持此方法
      *
      * @return 散列长度，0表示不支持此方法
-     * @since 4.5.0
+     * 
      */
     public int getDigestLength() {
         return this.digest.getDigestLength();
@@ -431,7 +431,7 @@ public class Digester implements Serializable {
      *
      * @param datas 数据bytes
      * @return 摘要bytes
-     * @since 4.4.3
+     * 
      */
     private byte[] doDigest(byte[]... datas) {
         for (byte[] data : datas) {

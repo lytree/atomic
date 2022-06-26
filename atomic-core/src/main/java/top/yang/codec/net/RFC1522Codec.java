@@ -35,7 +35,7 @@ import top.yang.lang.StringUtils;
  *
  * @see <a href="http://www.ietf.org/rfc/rfc1522.txt">MIME (Multipurpose Internet Mail Extensions) Part Two:
  * Message Header Extensions for Non-ASCII Text</a>
- * @since 1.3
+ *
  */
 abstract class RFC1522Codec {
 

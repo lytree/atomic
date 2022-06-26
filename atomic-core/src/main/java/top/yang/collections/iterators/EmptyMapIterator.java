@@ -21,7 +21,7 @@ package top.yang.collections.iterators;
  *
  * @param <K> the type of keys
  * @param <V> the type of mapped values
- * @since 3.1
+ * 
  */
 public class EmptyMapIterator<K, V> extends AbstractEmptyMapIterator<K, V> implements
         MapIterator<K, V>, ResettableIterator<K> {
@@ -29,7 +29,7 @@ public class EmptyMapIterator<K, V> extends AbstractEmptyMapIterator<K, V> imple
     /**
      * Singleton instance of the iterator.
      *
-     * @since 3.1
+     * 
      */
     @SuppressWarnings("rawtypes")
     public static final MapIterator INSTANCE = new EmptyMapIterator<>();

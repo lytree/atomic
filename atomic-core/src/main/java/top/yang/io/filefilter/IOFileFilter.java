@@ -27,7 +27,7 @@ import top.yang.io.file.PathFilter;
 /**
  * An interface which brings the FileFilter, FilenameFilter, and PathFilter interfaces together.
  *
- * @since 1.0
+ *
  */
 public interface IOFileFilter extends FileFilter, FilenameFilter, PathFilter {
 
@@ -66,7 +66,7 @@ public interface IOFileFilter extends FileFilter, FilenameFilter, PathFilter {
      *
      * @param path the Path to check.
      * @return true if this path matches the test.
-     * @since 2.9.0
+     *
      */
     @Override
     default FileVisitResult accept(final Path path, final BasicFileAttributes attributes) {
@@ -78,7 +78,7 @@ public interface IOFileFilter extends FileFilter, FilenameFilter, PathFilter {
      *
      * @param fileFilter the filter to "and".
      * @return a new filter.
-     * @since 2.9.0
+     *
      */
     default IOFileFilter and(final IOFileFilter fileFilter) {
         return new AndFileFilter(this, fileFilter);
@@ -88,7 +88,7 @@ public interface IOFileFilter extends FileFilter, FilenameFilter, PathFilter {
      * Creates a new "not" filter with this filter.
      *
      * @return a new filter.
-     * @since 2.9.0
+     *
      */
     default IOFileFilter negate() {
         return new NotFileFilter(this);
@@ -99,7 +99,7 @@ public interface IOFileFilter extends FileFilter, FilenameFilter, PathFilter {
      *
      * @param fileFilter the filter to "or".
      * @return a new filter.
-     * @since 2.9.0
+     *
      */
     default IOFileFilter or(final IOFileFilter fileFilter) {
         return new OrFileFilter(this, fileFilter);

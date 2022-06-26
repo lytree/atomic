@@ -189,7 +189,7 @@ public class UrlValidator {
      *                           <p><code>ALLOW_2_SLASHES + NO_FRAGMENTS</code></p>
      *                           enables both of those options.
      * @param domainValidator    the DomainValidator to use; must agree with ALLOW_LOCAL_URLS setting
-     * @since 1.7
+     *
      */
     public UrlValidator(String[] schemes, RegexValidator authorityValidator, long options, DomainValidator domainValidator) {
         this.options = options;

@@ -38,7 +38,7 @@ import top.yang.codec.Charsets;
  * <strong>Note:</strong> Supports {@link #mark(int)} and {@link #reset()}.
  * </p>
  *
- * @since 2.2
+ *
  */
 public class CharSequenceInputStream extends InputStream {
 

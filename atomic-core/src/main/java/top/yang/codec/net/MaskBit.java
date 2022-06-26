@@ -6,7 +6,7 @@ import com.google.common.collect.HashBiMap;
 /**
  * 掩码位和掩码之间的Map对应
  *
- * @since 5.4.1
+ * 
  * @author looly
  */
 public class MaskBit {
@@ -67,7 +67,7 @@ public class MaskBit {
      * @param mask 掩码的点分十进制表示，如 255.255.255.0
      *
      * @return 掩码位，如 24；如果掩码不合法，则返回null
-     * @since 5.6.5
+     * 
      */
     public static Integer getMaskBit(String mask) {
         return MASK_BIT_MAP.inverse().get(mask);

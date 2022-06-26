@@ -47,7 +47,7 @@ public class ProxyWriter extends FilterWriter {
      *
      * @param n number of chars written
      * @throws IOException if the post-processing fails
-     * @since 2.0
+     * 
      */
     @SuppressWarnings("unused") // Possibly thrown from subclasses.
     protected void afterWrite(final int n) throws IOException {
@@ -60,7 +60,7 @@ public class ProxyWriter extends FilterWriter {
      * @param c The character to write
      * @return this writer
      * @throws IOException if an I/O error occurs.
-     * @since 2.0
+     * 
      */
     @Override
     public Writer append(final char c) throws IOException {
@@ -80,7 +80,7 @@ public class ProxyWriter extends FilterWriter {
      * @param csq The character sequence to write
      * @return this writer
      * @throws IOException if an I/O error occurs.
-     * @since 2.0
+     * 
      */
     @Override
     public Writer append(final CharSequence csq) throws IOException {
@@ -103,7 +103,7 @@ public class ProxyWriter extends FilterWriter {
      * @param end   The index of the first character to write (exclusive)
      * @return this writer
      * @throws IOException if an I/O error occurs.
-     * @since 2.0
+     * 
      */
     @Override
     public Writer append(final CharSequence csq, final int start, final int end) throws IOException {
@@ -126,7 +126,7 @@ public class ProxyWriter extends FilterWriter {
      *
      * @param n number of chars to be written
      * @throws IOException if the pre-processing fails
-     * @since 2.0
+     * 
      */
     @SuppressWarnings("unused") // Possibly thrown from subclasses.
     protected void beforeWrite(final int n) throws IOException {
@@ -165,7 +165,7 @@ public class ProxyWriter extends FilterWriter {
      *
      * @param e The IOException thrown
      * @throws IOException if an I/O error occurs.
-     * @since 2.0
+     * 
      */
     protected void handleIOException(final IOException e) throws IOException {
         throw e;

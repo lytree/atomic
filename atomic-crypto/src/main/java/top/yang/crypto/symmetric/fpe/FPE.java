@@ -28,7 +28,7 @@ import java.io.Serializable;
  * 此类基于BouncyCastle实现。
  *
  * @author looly
- * @since 5.7.12
+ * 
  */
 public class FPE implements Serializable {
 	private static final long serialVersionUID = 1L;

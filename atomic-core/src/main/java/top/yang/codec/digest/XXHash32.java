@@ -33,7 +33,7 @@ import java.util.zip.Checksum;
  * </p>
  *
  * @see <a href="http://cyan4973.github.io/xxHash/">xxHash</a>
- * @since 1.11
+ *
  */
 public class XXHash32 implements Checksum {
 

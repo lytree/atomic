@@ -23,7 +23,7 @@ import java.nio.charset.CharsetEncoder;
 /**
  * Works with {@link CharsetEncoder}.
  *
- * @since 2.12.0
+ *
  */
 public class CharsetEncoders {
 

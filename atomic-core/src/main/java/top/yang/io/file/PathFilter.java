@@ -24,7 +24,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 /**
  * A filter for {@link Path}s.
  *
- * @since 2.9.0
+ *
  */
 @FunctionalInterface
 public interface PathFilter {

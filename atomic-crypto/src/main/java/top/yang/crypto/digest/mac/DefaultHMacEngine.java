@@ -14,7 +14,7 @@ import java.security.spec.AlgorithmParameterSpec;
  * 当引入BouncyCastle库时自动使用其作为Provider
  *
  * @author Looly
- * @since 4.5.13
+ *
  */
 public class DefaultHMacEngine implements MacEngine {
 
@@ -27,7 +27,7 @@ public class DefaultHMacEngine implements MacEngine {
 	 *
 	 * @param algorithm 算法
 	 * @param key       密钥
-	 * @since 4.5.13
+	 *
 	 */
 	public DefaultHMacEngine(String algorithm, byte[] key) {
 		this(algorithm, (null == key) ? null : new SecretKeySpec(key, algorithm));
@@ -38,7 +38,7 @@ public class DefaultHMacEngine implements MacEngine {
 	 *
 	 * @param algorithm 算法
 	 * @param key       密钥
-	 * @since 4.5.13
+	 *
 	 */
 	public DefaultHMacEngine(String algorithm, Key key) {
 		this(algorithm, key, null);
@@ -50,7 +50,7 @@ public class DefaultHMacEngine implements MacEngine {
 	 * @param algorithm 算法
 	 * @param key       密钥
 	 * @param spec {@link AlgorithmParameterSpec}
-	 * @since 5.7.12
+	 *
 	 */
 	public DefaultHMacEngine(String algorithm, Key key, AlgorithmParameterSpec spec) {
 		init(algorithm, key, spec);
@@ -88,7 +88,7 @@ public class DefaultHMacEngine implements MacEngine {
 	 * @param spec      {@link AlgorithmParameterSpec}
 	 * @return this
 	 * @throws CryptoException Cause by IOException
-	 * @since 5.7.12
+	 *
 	 */
 	public DefaultHMacEngine init(String algorithm, Key key, AlgorithmParameterSpec spec) {
 		try {

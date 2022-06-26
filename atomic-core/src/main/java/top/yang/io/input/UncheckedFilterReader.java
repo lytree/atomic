@@ -30,7 +30,7 @@ import top.yang.io.UncheckedIO;
  * @see FilterReader
  * @see IOException
  * @see UncheckedIOException
- * @since 2.12.0
+ *
  */
 public class UncheckedFilterReader extends FilterReader {
 

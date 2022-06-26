@@ -29,7 +29,7 @@ import java.io.Writer;
  * {@code java.io.StringWriter} should be used.
  * </p>
  *
- * @since 2.0
+ *
  */
 public class StringBuilderWriter extends Writer implements Serializable {
 

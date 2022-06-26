@@ -46,7 +46,7 @@ public class CharacterSetFilterReader extends AbstractCharacterFilterReader {
      *
      * @param reader the reader to filter.
      * @param skip the set of characters to filter out.
-     * @since 2.9.0
+     *
      */
     public CharacterSetFilterReader(final Reader reader, final Integer... skip) {
         this(reader, new HashSet<>(Arrays.asList(skip)));

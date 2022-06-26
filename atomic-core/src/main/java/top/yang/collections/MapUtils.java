@@ -39,7 +39,7 @@ import top.yang.bean.ObjectUtils;
  * </p>
  * </ul>
  *
- * @since 1.0
+ *
  */
 @SuppressWarnings("deprecation")
 public class MapUtils {
@@ -168,7 +168,7 @@ public class MapUtils {
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
      * @return the value in the map as a boolean, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the boolean conversion fails
-     * @since 4.5
+     *
      */
     public static <K> Boolean getBoolean(final Map<? super K, ?> map, final K key,
             final Function<K, Boolean> defaultFunction) {
@@ -227,7 +227,7 @@ public class MapUtils {
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
      * @return the value in the Map as a Boolean, default value produced by the {@code defaultFunction} if null map input
-     * @since 4.5
+     *
      */
     public static <K> boolean getBooleanValue(final Map<? super K, ?> map, final K key,
             final Function<K, Boolean> defaultFunction) {
@@ -277,7 +277,7 @@ public class MapUtils {
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
-     * @since 4.5
+     *
      */
     public static <K> Byte getByte(final Map<? super K, ?> map, final K key, final Function<K, Byte> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getByte, defaultFunction);
@@ -325,7 +325,7 @@ public class MapUtils {
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
      * @return the value in the Map as a byte, default value produced by the {@code defaultFunction} if null map input
-     * @since 4.5
+     *
      */
     public static <K> byte getByteValue(final Map<? super K, ?> map, final K key,
             final Function<K, Byte> defaultFunction) {
@@ -375,7 +375,7 @@ public class MapUtils {
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
-     * @since 4.5
+     *
      */
     public static <K> Double getDouble(final Map<? super K, ?> map, final K key,
             final Function<K, Double> defaultFunction) {
@@ -424,7 +424,7 @@ public class MapUtils {
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
      * @return the value in the Map as a double, default value produced by the {@code defaultFunction} if null map input
-     * @since 4.5
+     *
      */
     public static <K> double getDoubleValue(final Map<? super K, ?> map, final K key,
             final Function<K, Double> defaultFunction) {
@@ -474,7 +474,7 @@ public class MapUtils {
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
-     * @since 4.5
+     *
      */
     public static <K> Float getFloat(final Map<? super K, ?> map, final K key,
             final Function<K, Float> defaultFunction) {
@@ -523,7 +523,7 @@ public class MapUtils {
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
      * @return the value in the Map as a float, default value produced by the {@code defaultFunction} if null map input
-     * @since 4.5
+     *
      */
     public static <K> float getFloatValue(final Map<? super K, ?> map, final K key,
             final Function<K, Float> defaultFunction) {
@@ -560,7 +560,7 @@ public class MapUtils {
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
-     * @since 4.5
+     *
      */
     public static <K> Integer getInteger(final Map<? super K, ?> map, final K key,
             final Function<K, Integer> defaultFunction) {
@@ -606,7 +606,7 @@ public class MapUtils {
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
      * @return the value in the Map as an int, default value produced by the {@code defaultFunction} if null map input
-     * @since 4.5
+     *
      */
     public static <K> int getIntValue(final Map<? super K, ?> map, final K key,
             final Function<K, Integer> defaultFunction) {
@@ -659,7 +659,7 @@ public class MapUtils {
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
-     * @since 4.5
+     *
      */
     public static <K> Long getLong(final Map<? super K, ?> map, final K key, final Function<K, Long> defaultFunction) {
         return applyDefaultFunction(map, key, MapUtils::getLong, defaultFunction);
@@ -704,7 +704,7 @@ public class MapUtils {
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
      * @return the value in the Map as a long, default value produced by the {@code defaultFunction} if null map input
-     * @since 4.5
+     *
      */
     public static <K> long getLongValue(final Map<? super K, ?> map, final K key,
             final Function<K, Long> defaultFunction) {
@@ -756,7 +756,7 @@ public class MapUtils {
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the map conversion fails
-     * @since 4.5
+     *
      */
     public static <K> Map<?, ?> getMap(final Map<? super K, ?> map, final K key,
             final Function<K, Map<?, ?>> defaultFunction) {
@@ -816,7 +816,7 @@ public class MapUtils {
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
-     * @since 4.5
+     *
      */
     public static <K> Number getNumber(final Map<? super K, ?> map, final K key,
             final Function<K, Number> defaultFunction) {
@@ -906,7 +906,7 @@ public class MapUtils {
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
-     * @since 4.5
+     *
      */
     public static <K> Short getShort(final Map<? super K, ?> map, final K key,
             final Function<K, Short> defaultFunction) {
@@ -952,7 +952,7 @@ public class MapUtils {
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
      * @return the value in the Map as a short, default value produced by the {@code defaultFunction} if null map input
-     * @since 4.5
+     *
      */
     public static <K> short getShortValue(final Map<? super K, ?> map, final K key,
             final Function<K, Short> defaultFunction) {
@@ -1004,7 +1004,7 @@ public class MapUtils {
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
      * @return the value in the map as a string, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the string conversion fails
-     * @since 4.5
+     *
      */
     public static <K> String getString(final Map<? super K, ?> map, final K key,
             final Function<K, String> defaultFunction) {
@@ -1057,7 +1057,7 @@ public class MapUtils {
      *
      * @param map the map to check, may be null
      * @return true if empty or null
-     * @since 3.2
+     *
      */
     public static boolean isEmpty(final Map<?, ?> map) {
 
@@ -1072,7 +1072,7 @@ public class MapUtils {
      *
      * @param map the map to check, may be null
      * @return true if non-null and non-empty
-     * @since 3.2
+     *
      */
     public static boolean isNotEmpty(final Map<?, ?> map) {
         return !MapUtils.isEmpty(map);
@@ -1137,7 +1137,7 @@ public class MapUtils {
      * @throws NullPointerException     if map is null
      * @throws IllegalArgumentException if sub-array or entry matching used and an entry is invalid
      * @throws ClassCastException       if the array contents is mixed
-     * @since 3.2
+     *
      */
     @SuppressWarnings("unchecked") // As per Javadoc throws CCE for invalid array contents
     public static <K, V> Map<K, V> putAll(final Map<K, V> map, final Object[] array) {
@@ -1355,7 +1355,7 @@ public class MapUtils {
      * @param <V>    值类型
      * @param isDesc 是否倒序
      * @return 排序后新的Map
-     * @since 5.5.8
+     *
      */
     public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map, boolean isDesc) {
         Map<K, V> result = new LinkedHashMap<>();
@@ -1376,7 +1376,7 @@ public class MapUtils {
      * @param map  原始Map
      * @param keys 键列表，{@code null}返回原Map
      * @return Map 结果，结果的Map类型与原Map保持一致
-     * @since 4.0.10
+     *
      */
     @SuppressWarnings("unchecked")
     public static <K, V> Map<K, V> filter(Map<K, V> map, K... keys) {
@@ -1414,7 +1414,7 @@ public class MapUtils {
      * @param <V> value的类型
      * @param map Map
      * @return TreeMap
-     * @since 4.0.1
+     *
      */
     public static <K, V> TreeMap<K, V> sort(Map<K, V> map) {
         return sort(map, null);
@@ -1428,7 +1428,7 @@ public class MapUtils {
      * @param map        Map，为null返回null
      * @param comparator Key比较器
      * @return TreeMap，map为null返回null
-     * @since 4.0.1
+     *
      */
     public static <K, V> TreeMap<K, V> sort(Map<K, V> map, Comparator<? super K> comparator) {
         if (null == map) {
@@ -1458,7 +1458,7 @@ public class MapUtils {
      * @param keyValueSeparator kv之间的连接符
      * @param otherParams       其它附加参数字符串（例如密钥）
      * @return 连接字符串
-     * @since 3.1.1
+     *
      */
     public static <K, V> String join(Map<K, V> map, String separator, String keyValueSeparator, String... otherParams) {
         return join(map, separator, keyValueSeparator, false, otherParams);
@@ -1473,7 +1473,7 @@ public class MapUtils {
      * @param isIgnoreNull      是否忽略null的键和值
      * @param otherParams       其它附加参数字符串（例如密钥）
      * @return 签名字符串
-     * @since 5.0.4
+     *
      */
     public static String sortJoin(Map<?, ?> params, String separator, String keyValueSeparator, boolean isIgnoreNull,
             String... otherParams) {
@@ -1490,7 +1490,7 @@ public class MapUtils {
      * @param keyValueSeparator kv之间的连接符
      * @param otherParams       其它附加参数字符串（例如密钥）
      * @return 连接后的字符串
-     * @since 3.1.1
+     *
      */
     public static <K, V> String joinIgnoreNull(Map<K, V> map, String separator, String keyValueSeparator, String... otherParams) {
         return join(map, separator, keyValueSeparator, true, otherParams);
@@ -1507,7 +1507,7 @@ public class MapUtils {
      * @param isIgnoreNull      是否忽略null的键和值
      * @param otherParams       其它附加参数字符串（例如密钥）
      * @return 连接后的字符串，map和otherParams为空返回""
-     * @since 3.1.1
+     *
      */
     public static <K, V> String join(Map<K, V> map, String separator, String keyValueSeparator, boolean isIgnoreNull, String... otherParams) {
         final StringBuilder strBuilder = new StringBuilder();
@@ -1540,7 +1540,7 @@ public class MapUtils {
      * @param <K> 键类型
      * @param <V> 值类型
      * @return 不修改Map
-     * @since 5.2.6
+     *
      */
     public static <K, V> Map<K, V> unmodifiable(Map<K, V> map) {
         return Collections.unmodifiableMap(map);

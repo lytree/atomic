@@ -28,7 +28,7 @@ import java.util.function.BiConsumer;
  * @param <U> the type of the second argument to the operation
  *
  * @see BiConsumer
- * @since 1.8
+ *
  */
 @FunctionalInterface
 public interface IOBiConsumer<T, U> {

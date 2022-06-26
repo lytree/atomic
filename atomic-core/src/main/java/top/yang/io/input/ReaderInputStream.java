@@ -70,7 +70,7 @@ import top.yang.lang.CharsetEncoders;
  * </p>
  *
  * @see WriterOutputStream
- * @since 2.0
+ * 
  */
 public class ReaderInputStream extends InputStream {
 
@@ -151,7 +151,7 @@ public class ReaderInputStream extends InputStream {
      *
      * @param reader         the target {@link Reader}
      * @param charsetEncoder the charset encoder
-     * @since 2.1
+     * 
      */
     public ReaderInputStream(final Reader reader, final CharsetEncoder charsetEncoder) {
         this(reader, charsetEncoder, DEFAULT_BUFFER_SIZE);
@@ -168,7 +168,7 @@ public class ReaderInputStream extends InputStream {
      * @param reader         the target {@link Reader}
      * @param charsetEncoder the charset encoder, null defauls to the default Charset encoder.
      * @param bufferSize     the size of the input buffer in number of characters
-     * @since 2.1
+     * 
      */
     public ReaderInputStream(final Reader reader, final CharsetEncoder charsetEncoder, final int bufferSize) {
         this.reader = reader;

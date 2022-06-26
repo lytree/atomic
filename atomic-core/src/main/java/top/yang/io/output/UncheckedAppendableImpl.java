@@ -29,7 +29,7 @@ import top.yang.io.UncheckedIO;
  * @see Appendable
  * @see IOException
  * @see UncheckedIOException
- * @since 2.12.0
+ *
  */
 class UncheckedAppendableImpl implements UncheckedAppendable {
 

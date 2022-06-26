@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * Streams data from a {@link RandomAccessFile} starting at its current position.
  *
- * @since 2.8.0
+ *
  */
 public class RandomAccessFileInputStream extends InputStream {
 

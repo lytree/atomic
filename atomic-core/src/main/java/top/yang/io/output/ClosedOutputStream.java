@@ -25,14 +25,14 @@ import java.io.OutputStream;
  * Typically uses of this class include testing for corner cases in methods that accept an output stream and acting as a sentinel value instead of a {@code null} output stream.
  * </p>
  *
- * @since 1.4
+ *
  */
 public class ClosedOutputStream extends OutputStream {
 
     /**
      * The singleton instance.
      *
-     * @since 2.12.0
+     *
      */
     public static final ClosedOutputStream INSTANCE = new ClosedOutputStream();
 

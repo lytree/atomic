@@ -51,7 +51,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  * }
  * </pre>
  *
- * @since 2.7
+ *
  */
 public class CanExecuteFileFilter extends AbstractFileFilter implements Serializable {
 
@@ -86,7 +86,7 @@ public class CanExecuteFileFilter extends AbstractFileFilter implements Serializ
      * @param file  the File to check.
      *
      * @return {@code true} if the file can be executed, otherwise {@code false}.
-     * @since 2.9.0
+     *
      */
     @Override
     public FileVisitResult accept(final Path file, final BasicFileAttributes attributes) {

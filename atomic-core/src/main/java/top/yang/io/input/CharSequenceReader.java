@@ -29,7 +29,7 @@ import java.util.Objects;
  * <strong>Note:</strong> Supports {@link #mark(int)} and {@link #reset()}.
  * </p>
  *
- * @since 1.4
+ *
  */
 public class CharSequenceReader extends Reader implements Serializable {
 
@@ -47,7 +47,7 @@ public class CharSequenceReader extends Reader implements Serializable {
      * </p>
      *
      * @see #start()
-     * @since 2.7
+     *
      */
     private final int start;
 
@@ -64,7 +64,7 @@ public class CharSequenceReader extends Reader implements Serializable {
      * </p>
      *
      * @see #end()
-     * @since 2.7
+     *
      */
     private final Integer end;
 
@@ -90,7 +90,7 @@ public class CharSequenceReader extends Reader implements Serializable {
      * @param charSequence The character sequence, may be {@code null}
      * @param start The start index in the character sequence, inclusive
      * @throws IllegalArgumentException if the start index is negative
-     * @since 2.7
+     *
      */
     public CharSequenceReader(final CharSequence charSequence, final int start) {
         this(charSequence, start, Integer.MAX_VALUE);
@@ -112,7 +112,7 @@ public class CharSequenceReader extends Reader implements Serializable {
      * @param start The start index in the character sequence, inclusive
      * @param end The end index in the character sequence, exclusive
      * @throws IllegalArgumentException if the start index is negative, or if the end index is smaller than the start index
-     * @since 2.7
+     *
      */
     public CharSequenceReader(final CharSequence charSequence, final int start, final int end) {
         if (start < 0) {

@@ -27,14 +27,14 @@ import top.yang.io.IOUtils;
  * Typically uses of this class include testing for corner cases in methods that accept input streams and acting as a sentinel value instead of a {@code null} input stream.
  * </p>
  *
- * @since 1.4
+ *
  */
 public class ClosedInputStream extends InputStream {
 
     /**
      * The singleton instance.
      *
-     * @since 2.12.0
+     *
      */
     public static final ClosedInputStream INSTANCE = new ClosedInputStream();
 

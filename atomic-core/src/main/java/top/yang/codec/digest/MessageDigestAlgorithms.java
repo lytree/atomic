@@ -49,7 +49,7 @@ import java.security.MessageDigest;
  *
  * @see <a href="http://dx.doi.org/10.6028/NIST.FIPS.180-4">FIPS PUB 180-4</a>
  * @see <a href="http://dx.doi.org/10.6028/NIST.FIPS.202">FIPS PUB 202</a>
- * @since 1.7
+ *
  */
 public class MessageDigestAlgorithms {
 
@@ -74,7 +74,7 @@ public class MessageDigestAlgorithms {
      * Present in Oracle Java 8.
      * </p>
      *
-     * @since 1.11
+     *
      */
     public static final String SHA_224 = "SHA-224";
 
@@ -99,7 +99,7 @@ public class MessageDigestAlgorithms {
      * Included starting in Oracle Java 9.
      * </p>
      *
-     * @since 1.14
+     *
      */
     public static final String SHA_512_224 = "SHA-512/224";
 
@@ -109,7 +109,7 @@ public class MessageDigestAlgorithms {
      * Included starting in Oracle Java 9.
      * </p>
      *
-     * @since 1.14
+     *
      */
     public static final String SHA_512_256 = "SHA-512/256";
 
@@ -119,7 +119,7 @@ public class MessageDigestAlgorithms {
      * Included starting in Oracle Java 9.
      * </p>
      *
-     * @since 1.11
+     *
      */
     public static final String SHA3_224 = "SHA3-224";
 
@@ -129,7 +129,7 @@ public class MessageDigestAlgorithms {
      * Included starting in Oracle Java 9.
      * </p>
      *
-     * @since 1.11
+     *
      */
     public static final String SHA3_256 = "SHA3-256";
 
@@ -139,7 +139,7 @@ public class MessageDigestAlgorithms {
      * Included starting in Oracle Java 9.
      * </p>
      *
-     * @since 1.11
+     *
      */
     public static final String SHA3_384 = "SHA3-384";
 
@@ -149,7 +149,7 @@ public class MessageDigestAlgorithms {
      * Included starting in Oracle Java 9.
      * </p>
      *
-     * @since 1.11
+     *
      */
     public static final String SHA3_512 = "SHA3-512";
 
@@ -157,7 +157,7 @@ public class MessageDigestAlgorithms {
      * Gets all constant values defined in this class.
      *
      * @return all constant values defined in this class.
-     * @since 1.11
+     *
      */
     public static String[] values() {
         // N.B. do not use a constant array here as that can be changed externally by accident or design

@@ -34,7 +34,7 @@ import top.yang.codec.binary.BaseNCodec.Context;
  * >CloseShieldOutputStream</a>.
  * </p>
  *
- * @since 1.5
+ *
  */
 public class BaseNCodecOutputStream extends FilterOutputStream {
 
@@ -83,7 +83,7 @@ public class BaseNCodecOutputStream extends FilterOutputStream {
      *
      * @throws IOException
      *             if an I/O error occurs.
-     * @since 1.11
+     *
      */
     public void eof() throws IOException {
         // Notify encoder of EOF (-1).
@@ -136,7 +136,7 @@ public class BaseNCodecOutputStream extends FilterOutputStream {
      * into 8-bit bytes and discard the remainder.
      *
      * @return true if using strict decoding
-     * @since 1.15
+     *
      */
     public boolean isStrictDecoding() {
         return baseNCodec.isStrictDecoding();

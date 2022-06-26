@@ -4,7 +4,7 @@ package top.yang.math.support;
  * 128位数字表示，分高位和低位
  *
  * @author hexiufeng
- * @since 5.2.5
+ *
  */
 public class Number128 {
 

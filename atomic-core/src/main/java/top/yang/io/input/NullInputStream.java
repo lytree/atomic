@@ -53,14 +53,14 @@ import java.io.InputStream;
  *  }
  * </pre>
  *
- * @since 1.3
+ *
  */
 public class NullInputStream extends InputStream {
 
     /**
      * The singleton instance.
      *
-     * @since 2.12.0
+     *
      */
     public static final NullInputStream INSTANCE = new NullInputStream();
 
@@ -75,7 +75,7 @@ public class NullInputStream extends InputStream {
     /**
      * Create an {@link InputStream} that emulates a size 0 stream which supports marking and does not throw EOFException.
      *
-     * @since 2.7
+     *
      */
     public NullInputStream() {
         this(0, true, false);
