@@ -25,7 +25,7 @@ import java.security.SecureRandom;
 import java.security.spec.AlgorithmParameterSpec;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import org.apache.commons.io.IOUtils;
+import top.yang.io.IOUtils;
 import top.yang.lang.Assert;
 import top.yang.lang.RandomUtils;
 import top.yang.math.HexUtils;

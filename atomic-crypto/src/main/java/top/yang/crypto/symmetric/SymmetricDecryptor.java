@@ -9,7 +9,7 @@ import top.yang.crypto.SecureUtil;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import org.apache.commons.io.IOUtils;
+import top.yang.io.IOUtils;
 import top.yang.lang.CharsetUtils;
 import top.yang.lang.StringUtils;
 

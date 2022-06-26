@@ -10,13 +10,13 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.8</version>
+    <version>2.6.9</version>
   </parent>
   <properties>
     <skipTests>true</skipTests>
     <mysql-connector-java.version>8.0.27</mysql-connector-java.version>
     <rocketmq.version>2.2.1</rocketmq.version>
-    <mybatis.version>2.2.0</mybatis.version>
+    <mybatis.version>2.2.2</mybatis.version>
     <elasticsearch.version>7.17.4</elasticsearch.version>
     <druid.version>1.2.11</druid.version>
     <okhttp.version>4.10.0</okhttp.version>
@@ -35,11 +35,11 @@
     <commons-compress.version>1.20</commons-compress.version>
     <commons-configuration2.version>2.7</commons-configuration2.version>
     <elasticjob.version>3.0.1</elasticjob.version>
-    <mapstruct.version>1.5.1.Final</mapstruct.version>
+    <mapstruct.version>1.5.2.Final</mapstruct.version>
     <jjwt.version>0.11.5</jjwt.version>
     <!--        <dubbo.version>3.0.4</dubbo.version>-->
     <dubbo.version>2.7.15</dubbo.version>
-    <lombok.version>1.18.24</lombok.version>
+    <c.version>1.18.24</c.version>
     <guava.version>31.1-jre</guava.version>
     <redisson.version>3.15.6</redisson.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -63,7 +63,7 @@
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
-        <version>2021.0.1</version>
+        <version>2021.0.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -77,7 +77,7 @@
       <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-bom</artifactId>
-        <version>2021.1.2</version>
+        <version>2021.2.1</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>

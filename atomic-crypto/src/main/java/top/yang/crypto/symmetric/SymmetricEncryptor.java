@@ -8,7 +8,7 @@ import java.nio.charset.Charset;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import top.yang.codec.binary.Base64;
-import org.apache.commons.io.IOUtils;
+import top.yang.io.IOUtils;
 import top.yang.math.HexUtils;
 import top.yang.lang.CharsetUtils;
 import top.yang.lang.StringUtils;
