@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import org.slf4j.MDC;
 
 /**
+ * 日志 MDC TraceId
  * @author pride
  */
 public class ThreadMdcUtil {

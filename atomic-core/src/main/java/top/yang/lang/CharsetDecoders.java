@@ -22,16 +22,14 @@ import java.nio.charset.CharsetDecoder;
 
 /**
  * Works with {@link CharsetDecoder}.
- *
- * 
  */
 public class CharsetDecoders {
 
     /**
-     * Returns the given non-null CharsetDecoder or a new default CharsetDecoder.
+     * 返回给定的非空CharsetDecoder或新的默认CharsetDecoder。
      *
      * @param charsetDecoder The CharsetDecoder to test.
-     * @return the given non-null CharsetDecoder or a new default CharsetDecoder.
+     * @return 定的非空CharsetDecoder或新的默认CharsetDecoder
      */
     public static CharsetDecoder toCharsetDecoder(final CharsetDecoder charsetDecoder) {
         return charsetDecoder != null ? charsetDecoder : Charset.defaultCharset().newDecoder();

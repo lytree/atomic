@@ -41,7 +41,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request,
             ServerHttpResponse response) {
-        String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
+        String requestId = MDC.get(GlobalsConstants.TRACE_ID);
         if (body instanceof ResponseResult) {
             return body;
         }

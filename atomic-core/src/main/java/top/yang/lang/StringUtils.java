@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import javax.annotation.Nullable;
 import org.apache.commons.lang3.ObjectUtils;
 import top.yang.Filter;
 import top.yang.codec.binary.CharSequenceUtils;
@@ -31,91 +32,7 @@ import top.yang.text.StringFormatter;
 
 
 /**
- * <p>Operations on {@link String} that are
- * {@code null} safe.</p>
- *
- * <ul>
- *  <li><b>IsEmpty/IsBlank</b>
- *      - checks if a String contains text</li>
- *  <li><b>Trim/Strip</b>
- *      - removes leading and trailing whitespace</li>
- *  <li><b>Equals/Compare</b>
- *      - compares two strings in a null-safe manner</li>
- *  <li><b>startsWith</b>
- *      - check if a String starts with a prefix in a null-safe manner</li>
- *  <li><b>endsWith</b>
- *      - check if a String ends with a suffix in a null-safe manner</li>
- *  <li><b>IndexOf/LastIndexOf/Contains</b>
- *      - null-safe index-of checks
- *  <li><b>IndexOfAny/LastIndexOfAny/IndexOfAnyBut/LastIndexOfAnyBut</b>
- *      - index-of any of a set of Strings</li>
- *  <li><b>ContainsOnly/ContainsNone/ContainsAny</b>
- *      - checks if String contains only/none/any of these characters</li>
- *  <li><b>Substring/Left/Right/Mid</b>
- *      - null-safe substring extractions</li>
- *  <li><b>SubstringBefore/SubstringAfter/SubstringBetween</b>
- *      - substring extraction relative to other strings</li>
- *  <li><b>Split/Join</b>
- *      - splits a String into an array of substrings and vice versa</li>
- *  <li><b>Remove/Delete</b>
- *      - removes part of a String</li>
- *  <li><b>Replace/Overlay</b>
- *      - Searches a String and replaces one String with another</li>
- *  <li><b>Chomp/Chop</b>
- *      - removes the last part of a String</li>
- *  <li><b>AppendIfMissing</b>
- *      - appends a suffix to the end of the String if not present</li>
- *  <li><b>PrependIfMissing</b>
- *      - prepends a prefix to the start of the String if not present</li>
- *  <li><b>LeftPad/RightPad/Center/Repeat</b>
- *      - pads a String</li>
- *  <li><b>UpperCase/LowerCase/SwapCase/Capitalize/Uncapitalize</b>
- *      - changes the case of a String</li>
- *  <li><b>CountMatches</b>
- *      - counts the number of occurrences of one String in another</li>
- *  <li><b>IsAlpha/IsNumeric/IsWhitespace/IsAsciiPrintable</b>
- *      - checks the characters in a String</li>
- *  <li><b>DefaultString</b>
- *      - protects against a null input String</li>
- *  <li><b>Rotate</b>
- *      - rotate (circular shift) a String</li>
- *  <li><b>Reverse/ReverseDelimited</b>
- *      - reverses a String</li>
- *  <li><b>Abbreviate</b>
- *      - abbreviates a string using ellipses or another given String</li>
- *  <li><b>Difference</b>
- *      - compares Strings and reports on their differences</li>
- *  <li><b>LevenshteinDistance</b>
- *      - the number of changes needed to change one String into another</li>
- * </ul>
- *
- * <p>The {@code StringUtils} class defines certain words related to
- * String handling.</p>
- *
- * <ul>
- *  <li>null - {@code null}</li>
- *  <li>empty - a zero-length string ({@code ""})</li>
- *  <li>space - the space character ({@code ' '}, char 32)</li>
- *  <li>whitespace - the characters defined by {@link Character#isWhitespace(char)}</li>
- *  <li>trim - the characters &lt;= 32 as in {@link String#trim()}</li>
- * </ul>
- *
- * <p>{@code StringUtils} handles {@code null} input Strings quietly.
- * That is to say that a {@code null} input will return {@code null}.
- * Where a {@code boolean} or {@code int} is being returned
- * details vary by method.</p>
- *
- * <p>A side effect of the {@code null} handling is that a
- * {@code NullPointerException} should be considered a bug in
- * {@code StringUtils}.</p>
- *
- * <p>Methods in this class include sample code in their Javadoc comments to explain their operation.
- * The symbol {@code *} is used to indicate any input including {@code null}.</p>
- *
- * <p>#ThreadSafe#</p>
- *
- * @see String
- *
+ * 字符串工具类
  */
 //@Immutable
 public class StringUtils extends org.apache.commons.lang3.StringUtils {
@@ -285,40 +202,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static final String EMPTY_JSON = "{}";
 
-    // Performance testing notes (JDK 1.4, Jul03, scolebourne)
-    // Whitespace:
-    // Character.isWhitespace() is faster than WHITESPACE.indexOf()
-    // where WHITESPACE is a string of all whitespace characters
-    //
-    // Character access:
-    // String.charAt(n) versus toCharArray(), then array[n]
-    // String.charAt(n) is about 15% worse for a 10K string
-    // They are about equal for a length 50 string
-    // String.charAt(n) is about 4 times better for a length 3 string
-    // String.charAt(n) is best bet overall
-    //
-    // Append:
-    // String.concat about twice as fast as StringBuffer.append
-    // (not sure who tested this)
-
-    /**
-     * Represents a failed index search.
-     *
-     *
-     */
-    public static final int INDEX_NOT_FOUND = -1;
-
-    /**
-     * <p>The maximum size to which the padding constant(s) can expand.</p>
-     */
-    private static final int PAD_LIMIT = 8192;
-
-    /**
-     * Pattern used in {@link #stripAccents(String)}.
-     */
-    private static final Pattern STRIP_ACCENTS_PATTERN = Pattern.compile("\\p{InCombiningDiacriticalMarks}+"); //$NON-NLS-1$
-
-
     /**
      * 将下划线大写方式命名的字符串转换为驼峰式。如果转换前的下划线大写方式命名的字符串为空，则返回空字符串。 例如：HELLO_WORLD->HelloWorld
      *
@@ -409,45 +292,10 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return StringFormatter.format(template, params);
     }
 
-    /**
-     * Check that the given {@code CharSequence} is neither {@code null} nor of length 0.
-     * <p>Note: this method returns {@code true} for a {@code CharSequence}
-     * that purely consists of whitespace.
-     * <p><pre class="code">
-     * StringUtils.hasLength(null) = false
-     * StringUtils.hasLength("") = false
-     * StringUtils.hasLength(" ") = true
-     * StringUtils.hasLength("Hello") = true
-     * </pre>
-     *
-     * @param str the {@code CharSequence} to check (may be {@code null})
-     * @return {@code true} if the {@code CharSequence} is not {@code null} and has length
-     * @see #hasLength(String)
-     * @see #hasText(CharSequence)
-     */
-    public static boolean hasLength(CharSequence str) {
-        return (str != null && str.length() > 0);
-    }
 
     /**
-     * Check that the given {@code String} is neither {@code null} nor of length 0.
-     * <p>Note: this method returns {@code true} for a {@code String} that
-     * purely consists of whitespace.
-     *
-     * @param str the {@code String} to check (may be {@code null})
-     * @return {@code true} if the {@code String} is not {@code null} and has length
-     * @see #hasLength(CharSequence)
-     * @see #hasText(String)
-     */
-    public static boolean hasLength(String str) {
-        return (str != null && !str.isEmpty());
-    }
-
-    /**
-     * Check whether the given {@code CharSequence} contains actual <em>text</em>.
-     * <p>More specifically, this method returns {@code true} if the
-     * {@code CharSequence} is not {@code null}, its length is greater than 0, and it contains at least one non-whitespace character.
-     * <p><pre class="code">
+     * 检查给定的{@code CharSequence}是否包含实际的
+     * <pre>
      * StringUtils.hasText(null) = false
      * StringUtils.hasText("") = false
      * StringUtils.hasText(" ") = false
@@ -455,13 +303,13 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * StringUtils.hasText(" 12345 ") = true
      * </pre>
      *
-     * @param str the {@code CharSequence} to check (may be {@code null})
-     * @return {@code true} if the {@code CharSequence} is not {@code null}, its length is greater than 0, and it does not contain whitespace only
+     * @param str 受检查参数
+     * @return {@code true}如果{@code CharSequence}不是{@code null}，它的长度大于0，并且不只包含空格
      * @see #hasText(String)
-     * @see #hasLength(CharSequence)
+     * @see #isEmpty(CharSequence)
      * @see Character#isWhitespace
      */
-    public static boolean hasText(CharSequence str) {
+    public static boolean hasText(@Nullable CharSequence str) {
         return (str != null && str.length() > 0 && containsText(str));
     }
 
@@ -470,25 +318,16 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * <p>More specifically, this method returns {@code true} if the
      * {@code String} is not {@code null}, its length is greater than 0, and it contains at least one non-whitespace character.
      *
-     * @param str the {@code String} to check (may be {@code null})
-     * @return {@code true} if the {@code String} is not {@code null}, its length is greater than 0, and it does not contain whitespace only
+     * @param str 受检查参数
+     * @return {@code true}如果{@code String}不是{@code null}，它的长度大于0，并且它不只包含空格
      * @see #hasText(CharSequence)
-     * @see #hasLength(String)
+     * @see #isEmpty(CharSequence)
      * @see Character#isWhitespace
      */
-    public static boolean hasText(String str) {
+    public static boolean hasText(@Nullable String str) {
         return (str != null && !str.isEmpty() && containsText(str));
     }
 
-    private static boolean containsText(CharSequence str) {
-        int strLen = str.length();
-        for (int i = 0; i < strLen; i++) {
-            if (!Character.isWhitespace(str.charAt(i))) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * 字符串转换为byteBuffer
@@ -660,7 +499,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_8} is not initialized, which should never happen since it is required by the Java platform specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     *
      */
     public static ByteBuffer getByteBufferUtf8(final String string) {
         return getByteBuffer(string, StandardCharsets.UTF_8);
@@ -668,35 +506,30 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
 
     /**
-     * Encodes the given string into a sequence of bytes using the ISO-8859-1 charset, storing the result into a new byte array.
+     * 使用ISO-8859-1字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
      *
-     * @param string the String to encode, may be {@code null}
-     * @return encoded bytes, or {@code null} if the input string was {@code null}
-     * @throws NullPointerException Thrown if {@link StandardCharsets#ISO_8859_1} is not initialized, which should never happen since it is required by the Java platform
-     *                              specification.
-     * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
+     * @param string 要编码的字符串，可以是{@code null}
+     * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
      * @see #getBytesUnchecked(String, String)
-     *
      */
-    public static byte[] getBytesIso8859_1(final String string) {
+    public static byte[] getBytesIso8859_1(@Nullable final String string) {
         return getBytes(string, StandardCharsets.ISO_8859_1);
     }
 
 
     /**
-     * Encodes the given string into a sequence of bytes using the named charset, storing the result into a new byte array.
+     * 使用命名字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
      * <p>
-     * This method catches {@link UnsupportedEncodingException} and rethrows it as {@link IllegalStateException}, which should never happen for a required charset name. Use this
-     * method when the encoding is required to be in the JRE.
+     * 这个方法捕获{@link UnsupportedEncodingException}并将其重新抛出为{@link IllegalStateException}，这对于所需的字符集名称不应该发生。 这个方法，当需要在JRE中进行编码时。
      * </p>
      *
-     * @param string      the String to encode, may be {@code null}
-     * @param charsetName The name of a required {@link java.nio.charset.Charset}
-     * @return encoded bytes, or {@code null} if the input string was {@code null}
-     * @throws IllegalStateException Thrown when a {@link UnsupportedEncodingException} is caught, which should never happen for a required charset name.
+     * @param string      要编码的字符串，可以是{@code null}
+     * @param charsetName 所需的名称{@link java.nio.charset.Charset}
+     * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
+     * @throws 当捕捉到 {@link UnsupportedEncodingException}时抛出，这种情况永远不会发生在所需的字符集名称上。
      * @see String#getBytes(String)
      */
-    public static byte[] getBytesUnchecked(final String string, final String charsetName) {
+    public static byte[] getBytesUnchecked(@Nullable final String string, final String charsetName) {
         if (string == null) {
             return null;
         }
@@ -708,22 +541,19 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     /**
-     * Encodes the given string into a sequence of bytes using the US-ASCII charset, storing the result into a new byte array.
+     * 使用US-ASCII字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
      *
-     * @param string the String to encode, may be {@code null}
-     * @return encoded bytes, or {@code null} if the input string was {@code null}
-     * @throws NullPointerException Thrown if {@link StandardCharsets#US_ASCII} is not initialized, which should never happen since it is required by the Java platform
-     *                              specification.
-     * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
+     * @param string 编码的字符串，可以是{@code null}
+     * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
+     * @throws NullPointerException 如果{@link StandardCharsets.US_ASCII }没有初始化则抛出，这是不应该发生的，因为它是Java平台规范所要求的。
      * @see #getBytesUnchecked(String, String)
-     *
      */
     public static byte[] getBytesUsAscii(final String string) {
         return getBytes(string, StandardCharsets.US_ASCII);
     }
 
     /**
-     * Encodes the given string into a sequence of bytes using the UTF-16 charset, storing the result into a new byte array.
+     * 使用UTF-16字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
      *
      * @param string the String to encode, may be {@code null}
      * @return encoded bytes, or {@code null} if the input string was {@code null}
@@ -731,14 +561,13 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *                              specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     *
      */
     public static byte[] getBytesUtf16(final String string) {
         return getBytes(string, StandardCharsets.UTF_16);
     }
 
     /**
-     * Encodes the given string into a sequence of bytes using the UTF-16BE charset, storing the result into a new byte array.
+     * 使用UTF-16BE字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中
      *
      * @param string the String to encode, may be {@code null}
      * @return encoded bytes, or {@code null} if the input string was {@code null}
@@ -746,14 +575,13 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *                              specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     *
      */
     public static byte[] getBytesUtf16Be(final String string) {
         return getBytes(string, StandardCharsets.UTF_16BE);
     }
 
     /**
-     * Encodes the given string into a sequence of bytes using the UTF-16LE charset, storing the result into a new byte array.
+     * 使用UTF-16LE字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
      *
      * @param string the String to encode, may be {@code null}
      * @return encoded bytes, or {@code null} if the input string was {@code null}
@@ -761,33 +589,27 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *                              specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     *
      */
     public static byte[] getBytesUtf16Le(final String string) {
         return getBytes(string, StandardCharsets.UTF_16LE);
     }
 
     /**
-     * Encodes the given string into a sequence of bytes using the UTF-8 charset, storing the result into a new byte array.
+     * 使用UTF-8字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
      *
      * @param string the String to encode, may be {@code null}
      * @return encoded bytes, or {@code null} if the input string was {@code null}
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_8} is not initialized, which should never happen since it is required by the Java platform specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
-     *
      */
     public static byte[] getBytesUtf8(final String string) {
         return getBytes(string, StandardCharsets.UTF_8);
     }
 
-    private static IllegalStateException newIllegalStateException(final String charsetName,
-            final UnsupportedEncodingException e) {
-        return new IllegalStateException(charsetName + ": " + e);
-    }
 
     /**
-     * Constructs a new {@code String} by decoding the specified array of bytes using the given charset.
+     * 通过使用给定字符集解码指定的字节数组来构造一个新的{@code String}
      *
      * @param bytes   The bytes to be decoded into characters
      * @param charset The {@link Charset} to encode the {@code String}; not {@code null}
@@ -799,7 +621,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     /**
-     * Constructs a new {@code String} by decoding the specified array of bytes using the given charset.
+     * 通过使用给定字符集解码指定的字节数组来构造一个新的{@code String}。
      * <p>
      * This method catches {@link UnsupportedEncodingException} and re-throws it as {@link IllegalStateException}, which should never happen for a required charset name. Use this
      * method when the encoding is required to be in the JRE.
@@ -823,77 +645,71 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     /**
-     * Constructs a new {@code String} by decoding the specified array of bytes using the ISO-8859-1 charset.
+     * 通过使用ISO-8859-1字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters, may be {@code null}
      * @return A new {@code String} decoded from the specified array of bytes using the ISO-8859-1 charset, or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#ISO_8859_1} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
-     *
      */
     public static String newStringIso8859_1(final byte[] bytes) {
         return newString(bytes, StandardCharsets.ISO_8859_1);
     }
 
     /**
-     * Constructs a new {@code String} by decoding the specified array of bytes using the US-ASCII charset.
+     * 通过使用US-ASCII字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters
      * @return A new {@code String} decoded from the specified array of bytes using the US-ASCII charset, or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#US_ASCII} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
-     *
      */
     public static String newStringUsAscii(final byte[] bytes) {
         return newString(bytes, StandardCharsets.US_ASCII);
     }
 
     /**
-     * Constructs a new {@code String} by decoding the specified array of bytes using the UTF-16 charset.
+     * 通过使用UTF-16字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-16 charset or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
-     *
      */
     public static String newStringUtf16(final byte[] bytes) {
         return newString(bytes, StandardCharsets.UTF_16);
     }
 
     /**
-     * Constructs a new {@code String} by decoding the specified array of bytes using the UTF-16BE charset.
+     * 通过使用UTF-16BE字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-16BE charset, or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16BE} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
-     *
      */
     public static String newStringUtf16Be(final byte[] bytes) {
         return newString(bytes, StandardCharsets.UTF_16BE);
     }
 
     /**
-     * Constructs a new {@code String} by decoding the specified array of bytes using the UTF-16LE charset.
+     * 通过使用UTF-16LE字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-16LE charset, or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16LE} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
-     *
      */
     public static String newStringUtf16Le(final byte[] bytes) {
         return newString(bytes, StandardCharsets.UTF_16LE);
     }
 
     /**
-     * Constructs a new {@code String} by decoding the specified array of bytes using the UTF-8 charset.
+     * 通过使用UTF-8字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-8 charset, or {@code null} if the input byte array was {@code null}.
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_8} is not initialized, which should never happen since it is required by the Java platform specification.
-     *
      */
     public static String newStringUtf8(final byte[] bytes) {
         return newString(bytes, StandardCharsets.UTF_8);
@@ -906,7 +722,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 清理后的字符串
      */
     public static String cleanBlank(String str) {
-        return filter(str, c -> false == CharUtils.isBlankChar(c));
+        return filter(str, c -> !CharUtils.isBlankChar(c));
     }
     // ------------------------------------------------------------------------ filter
 
@@ -916,7 +732,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param str    字符串
      * @param filter 过滤器，{@link Filter#accept(Object)}返回为{@code true}的保留字符
      * @return 过滤后的字符串
-     *
      */
     public static String filter(CharSequence str, final Filter<Character> filter) {
         if (str == null || filter == null) {
@@ -935,5 +750,20 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
         return sb.toString();
     }
 
+    // ------------------------------------------------------------------------ private
+    private static IllegalStateException newIllegalStateException(final String charsetName,
+            final UnsupportedEncodingException e) {
+        return new IllegalStateException(charsetName + ": " + e);
+    }
+
+    private static boolean containsText(CharSequence str) {
+        int strLen = str.length();
+        for (int i = 0; i < strLen; i++) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

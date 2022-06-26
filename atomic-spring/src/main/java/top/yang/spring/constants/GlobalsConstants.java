@@ -5,5 +5,5 @@ package top.yang.spring.constants;
  */
 public interface GlobalsConstants {
 
-  String REQUEST_ID = "RequestId";
+    String TRACE_ID = "TraceId";
 }

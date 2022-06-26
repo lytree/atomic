@@ -8,8 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.client.RestTemplate;
-import top.yang.spring.constants.GlobalsConstants;
 import top.yang.spring.constants.GlobalsConstants;
 
 public class BaseController {
@@ -24,7 +22,7 @@ public class BaseController {
   protected final String tempPath = System.getProperty("java.io.tmpdir").contains("\\") ? System.getProperty("java.io.tmpdir") : System.getProperty("java.io.tmpdir") + "/";
 
   public String requestId() {
-    return MDC.get(GlobalsConstants.REQUEST_ID);
+    return MDC.get(GlobalsConstants.TRACE_ID);
   }
 
   /**

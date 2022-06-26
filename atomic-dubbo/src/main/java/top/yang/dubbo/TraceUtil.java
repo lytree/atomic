@@ -8,9 +8,9 @@ import top.yang.spring.constants.GlobalsConstants;
 public class TraceUtil {
 
     public static void putTraceInto(RpcContext context) {
-        String traceId = MDC.get(GlobalsConstants.REQUEST_ID);
+        String traceId = MDC.get(GlobalsConstants.TRACE_ID);
         if (StringUtils.hasText(traceId)) {
-            context.setAttachment(GlobalsConstants.REQUEST_ID, traceId);
+            context.setAttachment(GlobalsConstants.TRACE_ID, traceId);
         }
 
 //    String uri = MDC.get(TRACE_EXTENDED_INFO);
@@ -20,7 +20,7 @@ public class TraceUtil {
     }
 
     public static void getTraceFrom(RpcContext context) {
-        String traceId = context.getAttachment(GlobalsConstants.REQUEST_ID);
+        String traceId = context.getAttachment(GlobalsConstants.TRACE_ID);
         if (StringUtils.hasText(traceId)) {
             setTraceId(traceId);
         }
@@ -31,6 +31,6 @@ public class TraceUtil {
     }
 
     private static void setTraceId(String traceId) {
-        MDC.put(GlobalsConstants.REQUEST_ID, traceId);
+        MDC.put(GlobalsConstants.TRACE_ID, traceId);
     }
 }

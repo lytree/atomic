@@ -2,6 +2,9 @@ package top.yang.thread;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 线程工具类
+ */
 public class ThreadUtil {
 
     /**
@@ -38,7 +41,6 @@ public class ThreadUtil {
      *
      * @param millis 挂起的毫秒数
      * @return 被中断返回false，否则true
-     *
      */
     public static boolean sleep(long millis) {
         if (millis > 0) {
@@ -72,7 +74,6 @@ public class ThreadUtil {
      * @param millis 给定的sleep时间
      * @return 被中断返回false，否则true
      * @see ThreadUtil#sleep(Number)
-     *
      */
     public static boolean safeSleep(long millis) {
         long done = 0;

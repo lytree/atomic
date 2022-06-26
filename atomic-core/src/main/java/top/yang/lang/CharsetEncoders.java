@@ -22,16 +22,14 @@ import java.nio.charset.CharsetEncoder;
 
 /**
  * Works with {@link CharsetEncoder}.
- *
- *
  */
 public class CharsetEncoders {
 
     /**
-     * Returns the given non-null CharsetEncoder or a new default CharsetEncoder.
+     * 返回给定的非空CharsetEncoder或新的默认CharsetEncoder。
      *
      * @param charsetEncoder The CharsetEncoder to test.
-     * @return the given non-null CharsetEncoder or a new default CharsetEncoder.
+     * @return 给定的非空CharsetEncoder或新的默认CharsetEncoder
      */
     public static CharsetEncoder toCharsetEncoder(final CharsetEncoder charsetEncoder) {
         return charsetEncoder != null ? charsetEncoder : Charset.defaultCharset().newEncoder();

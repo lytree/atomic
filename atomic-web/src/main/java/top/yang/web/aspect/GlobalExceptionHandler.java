@@ -15,7 +15,6 @@ import top.yang.spring.constants.GlobalsConstants;
 import top.yang.spring.exception.ResultCode;
 import top.yang.spring.exception.SystemException;
 import top.yang.web.response.ResponseResult;
-import top.yang.web.exception.BusinessException;
 import top.yang.web.exception.CommonCode;
 
 
@@ -37,7 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public ResponseResult validationException(MethodArgumentNotValidException methodArgumentNotValidException) {
-        String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
+        String requestId = MDC.get(GlobalsConstants.TRACE_ID);
         methodArgumentNotValidException.printStackTrace();
         //记录日志
         logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
@@ -48,7 +47,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     @ResponseBody
     public ResponseResult bindException(BindException methodArgumentNotValidException) {
-        String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
+        String requestId = MDC.get(GlobalsConstants.TRACE_ID);
         methodArgumentNotValidException.printStackTrace();
         //记录日志
         logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
@@ -59,7 +58,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SystemException.class)
     @ResponseBody
     public ResponseResult systemException(ValidationException validationException) {
-        String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
+        String requestId = MDC.get(GlobalsConstants.TRACE_ID);
         validationException.printStackTrace();
         //记录日志
         logger.error("catch exception:{}", validationException.getMessage());
@@ -70,7 +69,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseResult exception(Exception exception) {
-        String requestId = MDC.get(GlobalsConstants.REQUEST_ID);
+        String requestId = MDC.get(GlobalsConstants.TRACE_ID);
         exception.printStackTrace();
         //记录日志
         logger.error("catch exception:{}", exception.getMessage());

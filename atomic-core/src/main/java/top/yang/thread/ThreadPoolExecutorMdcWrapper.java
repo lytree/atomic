@@ -11,6 +11,8 @@ import java.util.function.Supplier;
 import org.slf4j.MDC;
 
 /**
+ * 可以使用MDC 链路id的线程池
+ *
  * @author pride
  */
 public class ThreadPoolExecutorMdcWrapper extends ThreadPoolExecutor {
