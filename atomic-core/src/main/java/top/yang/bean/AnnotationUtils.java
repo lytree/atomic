@@ -18,7 +18,7 @@ public class AnnotationUtils extends org.apache.commons.lang3.AnnotationUtils {
      * @param annotationEle {@link AnnotatedElement}，可以是Class、Method、Field、Constructor、ReflectPermission
      * @return 注解对象
      */
-    public static Annotation[] getAnnotations(AnnotatedElement annotationEle, boolean isToCombination) {
+    public static Annotation[] getAnnotations(AnnotatedElement annotationEle) {
         return getAnnotations(annotationEle, (Predicate<Annotation>) null);
     }
 
