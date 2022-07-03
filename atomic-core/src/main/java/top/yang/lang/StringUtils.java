@@ -314,9 +314,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     /**
-     * Check whether the given {@code String} contains actual <em>text</em>.
-     * <p>More specifically, this method returns {@code true} if the
-     * {@code String} is not {@code null}, its length is greater than 0, and it contains at least one non-whitespace character.
+     * 检查给定的{@code String}是否包含实际的<em>文本<em>。
+     * <p>更具体地说，如果{@code String}不是{@code null}，它的长度大于0，并且包含至少一个非空白字符，这个方法返回{@code true}。
      *
      * @param str 受检查参数
      * @return {@code true}如果{@code String}不是{@code null}，它的长度大于0，并且它不只包含空格
@@ -492,12 +491,10 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     }
 
     /**
-     * Encodes the given string into a byte buffer using the UTF-8 charset, storing the result into a new byte array.
+     * 使用UTF-8字符集将给定字符串编码到字节缓冲区，并将结果存储到新的字节数组中。
      *
-     * @param string the String to encode, may be {@code null}
-     * @return encoded bytes, or {@code null} if the input string was {@code null}
-     * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_8} is not initialized, which should never happen since it is required by the Java platform specification.
-     * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
+     * @param string 要编码的字符串，可以是{@code null}
+     * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
      * @see #getBytesUnchecked(String, String)
      */
     public static ByteBuffer getByteBufferUtf8(final String string) {
@@ -519,14 +516,10 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     /**
      * 使用命名字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
-     * <p>
-     * 这个方法捕获{@link UnsupportedEncodingException}并将其重新抛出为{@link IllegalStateException}，这对于所需的字符集名称不应该发生。 这个方法，当需要在JRE中进行编码时。
-     * </p>
      *
      * @param string      要编码的字符串，可以是{@code null}
      * @param charsetName 所需的名称{@link java.nio.charset.Charset}
      * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
-     * @throws 当捕捉到 {@link UnsupportedEncodingException}时抛出，这种情况永远不会发生在所需的字符集名称上。
      * @see String#getBytes(String)
      */
     public static byte[] getBytesUnchecked(@Nullable final String string, final String charsetName) {
@@ -545,7 +538,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param string 编码的字符串，可以是{@code null}
      * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
-     * @throws NullPointerException 如果{@link StandardCharsets.US_ASCII }没有初始化则抛出，这是不应该发生的，因为它是Java平台规范所要求的。
      * @see #getBytesUnchecked(String, String)
      */
     public static byte[] getBytesUsAscii(final String string) {

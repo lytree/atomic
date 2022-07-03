@@ -104,7 +104,6 @@ public class CharUtils extends org.apache.commons.lang3.CharUtils {
      *
      * @param b 字符
      * @return 16进制字符
-     *
      */
     public static int digit16(int b) {
         return Character.digit(b, 16);
@@ -117,7 +116,6 @@ public class CharUtils extends org.apache.commons.lang3.CharUtils {
      * @return 是否空白符
      * @see Character#isWhitespace(int)
      * @see Character#isSpaceChar(int)
-     *
      */
     public static boolean isBlankChar(char c) {
         return isBlankChar((int) c);
@@ -130,7 +128,6 @@ public class CharUtils extends org.apache.commons.lang3.CharUtils {
      * @return 是否空白符
      * @see Character#isWhitespace(int)
      * @see Character#isSpaceChar(int)
-     *
      */
     public static boolean isBlankChar(int c) {
         return Character.isWhitespace(c)
@@ -141,11 +138,47 @@ public class CharUtils extends org.apache.commons.lang3.CharUtils {
     }
 
     /**
+     * <p>
+     * 检查是否为数字字符，数字字符指0~9
+     * </p>
+     *
+     * <pre>
+     *   CharUtil.isNumber('a')  = false
+     *   CharUtil.isNumber('A')  = false
+     *   CharUtil.isNumber('3')  = true
+     *   CharUtil.isNumber('-')  = false
+     *   CharUtil.isNumber('\n') = false
+     *   CharUtil.isNumber('&copy;') = false
+     * </pre>
+     *
+     * @param ch 被检查的字符
+     * @return true表示为数字字符，数字字符指0~9
+     */
+    public static boolean isNumber(char ch) {
+        return ch >= '0' && ch <= '9';
+    }
+
+    /**
+     * 是否为16进制规范的字符，判断是否为如下字符
+     * <pre>
+     * 1. 0~9
+     * 2. a~f
+     * 4. A~F
+     * </pre>
+     *
+     * @param c 字符
+     * @return 是否为16进制规范的字符
+     * @since 4.1.5
+     */
+    public static boolean isHexChar(char c) {
+        return isNumber(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
+    }
+
+    /**
      * 判断是否为emoji表情符<br>
      *
      * @param c 字符
      * @return 是否为emoji
-     *
      */
     public static boolean isEmoji(char c) {
         //noinspection ConstantConditions

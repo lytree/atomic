@@ -1,4 +1,4 @@
-package top.yang.web.utils;
+package top.yang.text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -212,7 +212,7 @@ public class HTMLFilter {
 
   private String escapeComments(final String s) {
     final Matcher m = P_COMMENTS.matcher(s);
-    final StringBuffer buf = new StringBuffer();
+    final StringBuilder buf = new StringBuilder();
     if (m.find()) {
       final String match = m.group(1); // (.*?)
       m.appendReplacement(buf, Matcher.quoteReplacement("<!--" + htmlSpecialChars(match) + "-->"));
@@ -253,7 +253,7 @@ public class HTMLFilter {
   private String checkTags(String s) {
     Matcher m = P_TAGS.matcher(s);
 
-    final StringBuffer buf = new StringBuffer();
+    final StringBuilder buf = new StringBuilder();
     while (m.find()) {
       String replaceStr = m.group(1);
       replaceStr = processTag(replaceStr);
@@ -301,7 +301,7 @@ public class HTMLFilter {
     if (m.find()) {
       final String name = m.group(1).toLowerCase();
       if (allowed(name)) {
-        if (false == inArray(name, vSelfClosingTags)) {
+        if (!inArray(name, vSelfClosingTags)) {
           if (vTagCounts.containsKey(name)) {
             vTagCounts.put(name, vTagCounts.get(name) - 1);
             return "</" + name + ">";
@@ -401,32 +401,32 @@ public class HTMLFilter {
   }
 
   private String decodeEntities(String s) {
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
 
     Matcher m = P_ENTITY.matcher(s);
     while (m.find()) {
       final String match = m.group(1);
-      final int decimal = Integer.decode(match).intValue();
+      final int decimal = Integer.decode(match);
       m.appendReplacement(buf, Matcher.quoteReplacement(chr(decimal)));
     }
     m.appendTail(buf);
     s = buf.toString();
 
-    buf = new StringBuffer();
+    buf = new StringBuilder();
     m = P_ENTITY_UNICODE.matcher(s);
     while (m.find()) {
       final String match = m.group(1);
-      final int decimal = Integer.valueOf(match, 16).intValue();
+      final int decimal = Integer.valueOf(match, 16);
       m.appendReplacement(buf, Matcher.quoteReplacement(chr(decimal)));
     }
     m.appendTail(buf);
     s = buf.toString();
 
-    buf = new StringBuffer();
+    buf = new StringBuilder();
     m = P_ENCODE.matcher(s);
     while (m.find()) {
       final String match = m.group(1);
-      final int decimal = Integer.valueOf(match, 16).intValue();
+      final int decimal = Integer.valueOf(match, 16);
       m.appendReplacement(buf, Matcher.quoteReplacement(chr(decimal)));
     }
     m.appendTail(buf);
@@ -437,7 +437,7 @@ public class HTMLFilter {
   }
 
   private String validateEntities(final String s) {
-    StringBuffer buf = new StringBuffer();
+    StringBuilder buf = new StringBuilder();
 
     // validate entities throughout the string
     Matcher m = P_VALID_ENTITIES.matcher(s);
@@ -453,7 +453,7 @@ public class HTMLFilter {
 
   private String encodeQuotes(final String s) {
     if (encodeQuotes) {
-      StringBuffer buf = new StringBuffer();
+      StringBuilder buf = new StringBuilder();
       Matcher m = P_VALID_QUOTES.matcher(s);
       while (m.find()) {
         final String one = m.group(1); // (>|^)

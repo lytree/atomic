@@ -2,6 +2,10 @@ package top.yang.bean;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Map;
+import top.yang.collections.ArrayUtils;
+import top.yang.collections.CollectionUtils;
 
 /**
  * @author PrideYang
@@ -30,7 +34,6 @@ public class BeanUtils {
      *
      * @param clazz 待测试类
      * @return 是否为Bean对象
-     * 
      */
     public static boolean hasSetter(Class<?> clazz) {
         if (ClassUtils.isNormalClass(clazz)) {
@@ -49,7 +52,6 @@ public class BeanUtils {
      *
      * @param clazz 待测试类
      * @return 是否为Bean对象
-     * 
      */
     public static boolean hasGetter(Class<?> clazz) {
         if (ClassUtils.isNormalClass(clazz)) {
@@ -69,7 +71,6 @@ public class BeanUtils {
      *
      * @param clazz 待测试类
      * @return 是否有public类型字段
-     * 
      */
     public static boolean hasPublicField(Class<?> clazz) {
         if (ClassUtils.isNormalClass(clazz)) {
@@ -82,6 +83,5 @@ public class BeanUtils {
         }
         return false;
     }
-
 
 }
