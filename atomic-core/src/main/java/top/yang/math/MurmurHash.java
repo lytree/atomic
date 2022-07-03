@@ -1,7 +1,6 @@
 package top.yang.math;
 
 
-
 import top.yang.lang.StringUtils;
 
 import java.io.Serializable;
@@ -9,18 +8,15 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Murmur3 32bit、64bit、128bit 哈希算法实现<br>
- * 此算法来自于：https://github.com/xlturing/Simhash4J/blob/master/src/main/java/bee/simhash/main/Murmur3.java
+ * Murmur3 32bit、64bit、128bit 哈希算法实现<br> 此算法来自于：https://github.com/xlturing/Simhash4J/blob/master/src/main/java/bee/simhash/main/Murmur3.java
  *
  * <p>
- * 32-bit Java port of https://code.google.com/p/smhasher/source/browse/trunk/MurmurHash3.cpp#94 <br>
- * 128-bit Java port of https://code.google.com/p/smhasher/source/browse/trunk/MurmurHash3.cpp#255
+ * 32-bit Java port of https://code.google.com/p/smhasher/source/browse/trunk/MurmurHash3.cpp#94 <br> 128-bit Java port of
+ * https://code.google.com/p/smhasher/source/browse/trunk/MurmurHash3.cpp#255
  * </p>
- *
- * @author looly, Simhash4J
- *
  */
 public class MurmurHash implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     // Constants for 32 bit variant
@@ -132,8 +128,7 @@ public class MurmurHash implements Serializable {
     }
 
     /**
-     * Murmur3 64-bit 算法<br>
-     * This is essentially MSB 8 bytes of Murmur3 128-bit variant.
+     * Murmur3 64-bit 算法<br> This is essentially MSB 8 bytes of Murmur3 128-bit variant.
      *
      * @param data 数据
      * @return Hash值
@@ -143,8 +138,7 @@ public class MurmurHash implements Serializable {
     }
 
     /**
-     * Murmur3 64-bit 算法 <br>
-     * This is essentially MSB 8 bytes of Murmur3 128-bit variant.
+     * Murmur3 64-bit 算法 <br> This is essentially MSB 8 bytes of Murmur3 128-bit variant.
      *
      * @param data   数据
      * @param length 长度

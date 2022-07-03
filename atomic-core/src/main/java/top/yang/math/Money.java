@@ -1,10 +1,13 @@
-package top.yang.math.support;
+package top.yang.math;
 
 import java.io.File;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
 
 /**
  * 单币种货币类，处理货币算术、币种和取整。
@@ -40,7 +43,6 @@ import java.util.Currency;
  * </ul>
  *
  * @author ddatsh
- * 
  */
 
 public class Money implements Serializable, Comparable<Money> {
@@ -361,7 +363,7 @@ public class Money implements Serializable, Comparable<Money> {
      * @throws IllegalArgumentException 待比较货币对象与本货币对象的币种不同。
      */
     @Override
-    public int compareTo(Money other) {
+    public int compareTo(@NotNull Money other) {
         assertSameCurrencyAs(other);
         return Long.compare(cent, other.cent);
     }

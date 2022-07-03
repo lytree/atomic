@@ -1,7 +1,7 @@
 package top.yang.math;
 
 
-import top.yang.math.support.Number128;
+import top.yang.codec.digest.CityHash;
 
 /**
  * Hash算法大全<br>
@@ -385,7 +385,7 @@ public class HashUtil {
                 if (ucChar <= 'Z' && ucChar >= 'A') {
                     ucChar = (char) (ucChar + 32);
                 }
-                hash += (3 * i * ucChar * ucChar + 5 * i * ucChar + 7 * i + 11 * ucChar) % 16777216;
+                hash += (3L * i * ucChar * ucChar + 5 * i * ucChar + 7 * i + 11 * ucChar) % 16777216;
             }
         } else {
             for (i = 1; i <= 96; i++) {
@@ -393,7 +393,7 @@ public class HashUtil {
                 if (ucChar <= 'Z' && ucChar >= 'A') {
                     ucChar = (char) (ucChar + 32);
                 }
-                hash += (3 * i * ucChar * ucChar + 5 * i * ucChar + 7 * i + 11 * ucChar) % 16777216;
+                hash += (3L * i * ucChar * ucChar + 5L * i * ucChar + 7L * i + 11 * ucChar) % 16777216;
             }
         }
         if (hash < 0) {

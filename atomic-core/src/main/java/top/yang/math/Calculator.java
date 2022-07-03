@@ -1,9 +1,8 @@
-package top.yang.math.support;
+package top.yang.math;
 
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Stack;
-import top.yang.math.NumberUtils;
 import top.yang.lang.StringUtils;
 
 /**
@@ -41,7 +40,7 @@ public class Calculator {
         String firstValue, secondValue, currentOp;// 参与计算的第一个值，第二个值和算术运算符
         while (!postfixStack.isEmpty()) {
             currentOp = postfixStack.pop();
-            if (false == isOperator(currentOp.charAt(0))) {// 如果不是运算符则存入操作数栈中
+            if (!isOperator(currentOp.charAt(0))) {// 如果不是运算符则存入操作数栈中
                 currentOp = currentOp.replace("~", "-");
                 resultStack.push(currentOp);
             } else {// 如果是运算符则从操作数栈中取两个值和该数值一起参与运算

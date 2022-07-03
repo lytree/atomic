@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package top.yang.math.support;
+package top.yang.math;
 
 import java.security.MessageDigest;
 

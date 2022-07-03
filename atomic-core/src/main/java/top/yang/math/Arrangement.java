@@ -1,4 +1,4 @@
-package top.yang.math.support;
+package top.yang.math;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -110,7 +110,7 @@ public class Arrangement implements Serializable {
      */
     private void select(String[] datas, String[] resultList, int resultIndex, List<String[]> result) {
         if (resultIndex >= resultList.length) { // 全部选择完时，输出排列结果
-            if (false == result.contains(resultList)) {
+            if (!result.contains(resultList)) {
                 result.add(Arrays.copyOf(resultList, resultList.length));
             }
             return;

@@ -22,11 +22,9 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
-import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 import org.apache.commons.lang3.ObjectUtils;
 import top.yang.Filter;
-import top.yang.codec.binary.CharSequenceUtils;
 import top.yang.collections.ArrayUtils;
 import top.yang.text.StringFormatter;
 

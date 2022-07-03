@@ -17,10 +17,10 @@
 package top.yang.math;
 
 
+import javax.validation.constraints.NotNull;
 import top.yang.validator.Validate;
 
 import java.math.BigInteger;
-
 
 
 /**
@@ -31,10 +31,7 @@ import java.math.BigInteger;
  * a {@code Number}.</p>
  *
  * <p>Note that this class is intended for common use cases, it is <i>int</i>
- * based and thus suffers from various overflow issues. For a BigInteger based
- * equivalent, please see the Commons Math BigFraction class. </p>
- *
- * 
+ * based and thus suffers from various overflow issues. For a BigInteger based equivalent, please see the Commons Math BigFraction class. </p>
  */
 public final class Fraction extends Number implements Comparable<Fraction> {
 
@@ -861,7 +858,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      * @throws NullPointerException if the object is {@code null}
      */
     @Override
-    public int compareTo(final Fraction other) {
+    public int compareTo(final @NotNull Fraction other) {
         if (this == other) {
             return 0;
         }

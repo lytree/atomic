@@ -1,4 +1,4 @@
-package top.yang.math.support;
+package top.yang.math;
 
 import java.io.Serializable;
 import java.util.ArrayList;

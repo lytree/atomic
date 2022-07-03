@@ -1,7 +1,7 @@
-package top.yang.math;
+package top.yang.codec.digest;
 
 import java.util.Arrays;
-import top.yang.math.support.Number128;
+import top.yang.math.Number128;
 
 /**
  * Google发布的Hash计算算法：CityHash64 与 CityHash128。<br>
@@ -319,7 +319,7 @@ public class CityHash {
 	private static long hashLen0to16(byte[] byteArray) {
 		int len = byteArray.length;
 		if (len >= 8) {
-			long mul = k2 + len * 2;
+			long mul = k2 + len * 2L;
 			long a = fetch64(byteArray, 0) + k2;
 			long b = fetch64(byteArray, len - 8);
 			long c = rotate(b, 37) * mul + a;
@@ -345,7 +345,7 @@ public class CityHash {
 	// This probably works well for 16-byte strings as well, but it may be overkill in that case.
 	private static long hashLen17to32(byte[] byteArray) {
 		int len = byteArray.length;
-		long mul = k2 + len * 2;
+		long mul = k2 + len * 2L;
 		long a = fetch64(byteArray, 0) * k1;
 		long b = fetch64(byteArray, 8);
 		long c = fetch64(byteArray, len - 8) * mul;
@@ -356,7 +356,7 @@ public class CityHash {
 
 	private static long hashLen33to64(byte[] byteArray) {
 		int len = byteArray.length;
-		long mul = k2 + len * 2;
+		long mul = k2 + len * 2L;
 		long a = fetch64(byteArray, 0) * k2;
 		long b = fetch64(byteArray, 8);
 		long c = fetch64(byteArray, len - 24);
