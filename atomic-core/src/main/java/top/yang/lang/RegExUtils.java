@@ -444,7 +444,7 @@ public class RegExUtils {
             return null;
         }
 
-        final Pattern pattern = CommonPattern.get(regex, Pattern.DOTALL);
+        final Pattern pattern = PatternPool.get(regex, Pattern.DOTALL);
         return get(pattern, content, groupIndex);
     }
 
@@ -461,7 +461,7 @@ public class RegExUtils {
             return null;
         }
 
-        final Pattern pattern = CommonPattern.get(regex, Pattern.DOTALL);
+        final Pattern pattern = PatternPool.get(regex, Pattern.DOTALL);
         return get(pattern, content, groupName);
     }
 
@@ -564,7 +564,7 @@ public class RegExUtils {
      *
      */
     public static boolean isMobile(CharSequence value) {
-        return isMatch(CommonPattern.MOBILE, value);
+        return isMatch(PatternPool.MOBILE, value);
     }
 
     /**
@@ -575,7 +575,7 @@ public class RegExUtils {
      *
      */
     public static boolean isTel(CharSequence value) {
-        return isMatch(CommonPattern.TEL, value);
+        return isMatch(PatternPool.TEL, value);
     }
 
     /**
@@ -597,6 +597,6 @@ public class RegExUtils {
      *
      */
     public static boolean isHex(CharSequence value) {
-        return isMatch(CommonPattern.HEX, value);
+        return isMatch(PatternPool.HEX, value);
     }
 }

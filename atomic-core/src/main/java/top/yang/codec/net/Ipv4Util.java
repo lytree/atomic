@@ -10,7 +10,7 @@ import top.yang.lang.Assert;
 import top.yang.lang.CharUtils;
 
 import top.yang.lang.StringUtils;
-import top.yang.lang.CommonPattern;
+import top.yang.lang.PatternPool;
 
 public class Ipv4Util {
 
@@ -157,7 +157,7 @@ public class Ipv4Util {
      * @return long值
      */
     public static long ipv4ToLong(String strIP) {
-        final Matcher matcher = CommonPattern.IPV4.matcher(strIP);
+        final Matcher matcher = PatternPool.IPV4.matcher(strIP);
         if (matcher.matches()) {
             return matchAddress(matcher);
         }

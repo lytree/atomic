@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 /**
  * @author Pride_Yang
  */
-public class CommonPattern {
+public class PatternPool {
 
     /**
      * 英文字母 、数字和下划线
@@ -38,7 +38,7 @@ public class CommonPattern {
      * IP v4
      */
     public final static Pattern IPV4 = Pattern.compile(
-            "\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b");
+            "^(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)\\.(25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)$");
     /**
      * IP v6
      */
