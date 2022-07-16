@@ -7,8 +7,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RedisSet {
-  @Autowired
-  private StringRedisTemplate stringRedisTemplate;
+  private final StringRedisTemplate stringRedisTemplate;
+
+  public RedisSet(StringRedisTemplate stringRedisTemplate) {
+    this.stringRedisTemplate = stringRedisTemplate;
+  }
+
   /**
    * 新增一个  sadd
    *

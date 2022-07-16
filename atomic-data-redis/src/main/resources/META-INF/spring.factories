@@ -5,4 +5,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   top.yang.redis.string.RedisHash,\
   top.yang.redis.string.RedisSet,\
   top.yang.redis.string.RedisZSet,\
-  top.yang.redis.bitmap.RedisBitmap
+  top.yang.redis.bitmap.RedisBitmap,\
+  top.yang.redis.configure.RedisConfig

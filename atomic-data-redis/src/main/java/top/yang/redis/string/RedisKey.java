@@ -9,8 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisKey {
 
-  @Autowired
-  private StringRedisTemplate stringRedisTemplate;
+  private final StringRedisTemplate stringRedisTemplate;
+
+  public RedisKey(StringRedisTemplate stringRedisTemplate) {
+    this.stringRedisTemplate = stringRedisTemplate;
+  }
 
   /**
    * 设置并获取之间的结果，要求key，value都不能为空；如果之前没有值，返回null

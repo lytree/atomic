@@ -9,8 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisList {
 
-  @Autowired
-  private StringRedisTemplate stringRedisTemplate;
+  private final StringRedisTemplate stringRedisTemplate;
+
+  public RedisList(StringRedisTemplate stringRedisTemplate) {
+    this.stringRedisTemplate = stringRedisTemplate;
+  }
 
   /**
    * 在列表的最左边塞入一个value

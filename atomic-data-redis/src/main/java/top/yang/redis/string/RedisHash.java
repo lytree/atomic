@@ -9,46 +9,50 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisHash {
 
-  @Autowired
-  private StringRedisTemplate stringRedisTemplate;
 
-  public void hput(String key, String hk, String hv) {
-    stringRedisTemplate.<String, String>opsForHash().put(key, hk, hv);
-  }
+    private final StringRedisTemplate stringRedisTemplate;
 
-  public void hput(String key, Map<String, String> map) {
-    stringRedisTemplate.<String, String>opsForHash().putAll(key, map);
-  }
+    public RedisHash(StringRedisTemplate stringRedisTemplate) {
+        this.stringRedisTemplate = stringRedisTemplate;
+    }
 
-  /**
-   * 获取hash中field对应的值
-   */
-  public String hget(String key, String field) {
-    return stringRedisTemplate.<String, String>opsForHash().get(key, field);
-  }
+    public void hput(String key, String hk, String hv) {
+        stringRedisTemplate.<String, String>opsForHash().put(key, hk, hv);
+    }
 
-  /**
-   * 删除hash中field这一对kv
-   */
-  public void hdel(String key, String field) {
-    stringRedisTemplate.opsForHash().delete(key, field);
-  }
+    public void hput(String key, Map<String, String> map) {
+        stringRedisTemplate.<String, String>opsForHash().putAll(key, map);
+    }
 
-  public Map<String, String> hgetAll(String key) {
-    return stringRedisTemplate.<String, String>opsForHash().entries(key);
-  }
+    /**
+     * 获取hash中field对应的值
+     */
+    public String hget(String key, String field) {
+        return stringRedisTemplate.<String, String>opsForHash().get(key, field);
+    }
 
-  public List<String> hgetAllValue(String key) {
-    return stringRedisTemplate.<String, String>opsForHash().values(key);
-  }
+    /**
+     * 删除hash中field这一对kv
+     */
+    public void hdel(String key, String field) {
+        stringRedisTemplate.opsForHash().delete(key, field);
+    }
 
-  public List<String> hmget(String key, List<String> fields) {
-    return stringRedisTemplate.<String, String>opsForHash().multiGet(key, fields);
-  }
+    public Map<String, String> hgetAll(String key) {
+        return stringRedisTemplate.<String, String>opsForHash().entries(key);
+    }
 
-  // hash 结构的计数
-  public long hincr(String key, String field, long value) {
-    return stringRedisTemplate.opsForHash().increment(key, field, value);
-  }
+    public List<String> hgetAllValue(String key) {
+        return stringRedisTemplate.<String, String>opsForHash().values(key);
+    }
+
+    public List<String> hmget(String key, List<String> fields) {
+        return stringRedisTemplate.<String, String>opsForHash().multiGet(key, fields);
+    }
+
+    // hash 结构的计数
+    public long hincr(String key, String field, long value) {
+        return stringRedisTemplate.opsForHash().increment(key, field, value);
+    }
 
 }
