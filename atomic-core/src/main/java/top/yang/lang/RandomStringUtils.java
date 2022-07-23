@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * @author pride
  */
-public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtils {
+public class RandomStringUtils {
 
     private static ThreadLocalRandom random() {
         return ThreadLocalRandom.current();
@@ -14,11 +14,9 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 
 
     /**
-     * <p>{@code RandomStringUtils} instances should NOT be constructed in
-     * standard programming. Instead, the class should be used as {@code RandomStringUtils.random(5);}.</p>
+     * <p>{@code RandomStringUtils} 不应该在标准编程中构造实例。相反，这个类应该被用作{@code RandomStringUtils.random(5);}。</p>
      *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
+     * <p>这个构造函数是公共的，允许需要JavaBean实例操作的工具。</p>
      */
     public RandomStringUtils() {
     }
@@ -27,204 +25,175 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * <p>创建一个随机字符串，其长度为指定的字符数。</p>
      *
-     * <p>Characters will be chosen from the set of all characters.</p>
+     * <p>字符将从所有字符集中选择。</p>
      *
-     * @param count the length of random string to create
-     * @return the random string
+     * @param count 要创建的随机字符串的长度
+     * @return 随机字符串
      */
     public static String randomThreadLocal(final int count) {
         return randomThreadLocal(count, false, false);
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * <p>创建一个随机字符串，其长度为指定的字符数。</p>
      *
-     * <p>Characters will be chosen from the set of characters whose
-     * ASCII value is between {@code 32} and {@code 126} (inclusive).</p>
+     * <p>字符将从ASCII值在{@code 32}和{@code 126}(包括)之间的字符集中选择。.</p>
      *
-     * @param count the length of random string to create
-     * @return the random string
+     * @param count 要创建的随机字符串的长度
+     * @return 随机字符串
      */
     public static String randomAsciiThreadLocal(final int count) {
         return randomThreadLocal(count, 32, 127, false, false);
     }
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * <p>创建一个随机字符串，其长度介于包含的最小值和独占的最大值之间。</p>
      *
-     * <p>Characters will be chosen from the set of characters whose
-     * ASCII value is between {@code 32} and {@code 126} (inclusive).</p>
+     * <p>字符将从ASCII值在{@code 32}和{@code 126}(包括)之间的字符集中选择。</p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @param minLengthInclusive 要生成的字符串的最小长度
+     * @param maxLengthExclusive 要生成的字符串的唯一最大长度
      * @return the random string
-     *
      */
     public static String randomAsciiThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomAsciiThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * <p>创建一个随机字符串，其长度为指定的字符数。</p>
      *
-     * <p>Characters will be chosen from the set of Latin alphabetic
-     * characters (a-z, A-Z).</p>
+     * <p>字符将从拉丁字母字符集(a-z, a-z)中选择。</p>
      *
-     * @param count the length of random string to create
-     * @return the random string
+     * @param count 要创建的随机字符串的长度
+     * @return 随机字符串
      */
     public static String randomAlphabeticThreadLocal(final int count) {
         return randomThreadLocal(count, true, false);
     }
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * <p>创建一个随机字符串，其长度介于包含的最小值和独占的最大值之间。</p>
      *
-     * <p>Characters will be chosen from the set of Latin alphabetic characters (a-z, A-Z).</p>
+     * <p>字符将从拉丁字母字符集(a-z, a-z)中选择。</p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @param minLengthInclusive 要生成的字符串的最小长度
+     * @param maxLengthExclusive 要生成的字符串的唯一最大长度
      * @return the random string
-     *
      */
     public static String randomAlphabeticThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomAlphabeticThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * <p>创建一个随机字符串，其长度为指定的字符数。</p>
      *
-     * <p>Characters will be chosen from the set of Latin alphabetic
-     * characters (a-z, A-Z) and the digits 0-9.</p>
+     * <p>字符将从一组拉丁字母(a-z, a-z)和数字0-9中选择。</p>
      *
-     * @param count the length of random string to create
-     * @return the random string
+     * @param count 要创建的随机字符串的长度
+     * @return 随机字符串
      */
     public static String randomAlphanumericThreadLocal(final int count) {
         return randomThreadLocal(count, true, true);
     }
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * <p>创建一个随机字符串，其长度介于包含的最小值和独占的最大值之间。</p>
      *
-     * <p>Characters will be chosen from the set of Latin alphabetic
-     * characters (a-z, A-Z) and the digits 0-9.</p>
+     * <p>字符将从一组拉丁字母(a-z, a-z)和数字0-9中选择。</p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate
-     * @return the random string
-     *
+     * @param minLengthInclusive 要生成的字符串的最小长度
+     * @param maxLengthExclusive 要生成的字符串的唯一最大长度
+     * @return 随机字符串
      */
     public static String randomAlphanumericThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomAlphanumericThreadLocal(org.apache.commons.lang3.RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters specified.</p>
+     * <p>创建一个随机字符串，其长度为指定的字符数。</p>
      *
-     * <p>Characters will be chosen from the set of characters which match the POSIX [:graph:]
-     * regular expression character class. This class contains all visible ASCII characters (i.e. anything except spaces and control characters).</p>
+     * <p>字符将从匹配POSIX [:graph:]正则表达式字符类的字符集中选择。该类包含所有可见的ASCII字符(即除空格和控制字符外的任何字符)。</p>
      *
-     * @param count the length of random string to create
-     * @return the random string
-     *
+     * @param count 要创建的随机字符串的长度
+     * @return 随机字符串
      */
     public static String randomGraphThreadLocal(final int count) {
         return randomThreadLocal(count, 33, 126, false, false);
     }
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * <p>创建一个随机字符串，其长度介于包含的最小值和独占的最大值之间。</p>
      *
-     * <p>Characters will be chosen from the set of \p{Graph} characters.</p>
+     * <p>字符将从\p{Graph}字符集中选择。</p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @param minLengthInclusive 要生成的字符串的最小长度
+     * @param maxLengthExclusive 要生成的字符串的唯一最大长度
      * @return the random string
-     *
      */
     public static String randomGraphThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomGraphThreadLocal(org.apache.commons.lang3.RandomUtils.nextInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * <p>创建一个随机字符串，其长度为指定的字符数。</p>
      *
-     * <p>Characters will be chosen from the set of numeric
-     * characters.</p>
+     * <p>字符将从数字字符集中选择。</p>
      *
-     * @param count the length of random string to create
-     * @return the random string
+     * @param count 要创建的随机字符串的长度
+     * @return 随机字符串
      */
     public static String randomNumericThreadLocal(final int count) {
         return randomThreadLocal(count, false, true);
     }
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * <p>创建一个随机字符串，其长度介于包含的最小值和独占的最大值之间。</p>
      *
-     * <p>Characters will be chosen from the set of \p{Digit} characters.</p>
+     * <p>字符将从\p{Digit}字符集合中选择。</p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate
-     * @return the random string
-     *
+     * @param minLengthInclusive 要生成的字符串的最小长度
+     * @param maxLengthExclusive 要生成的字符串的唯一最大长度
+     * @return 随机字符串
      */
     public static String randomNumericThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomNumericThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters specified.</p>
+     * <p>创建一个随机字符串，其长度为指定的字符数。</p>
      *
-     * <p>Characters will be chosen from the set of characters which match the POSIX [:print:]
-     * regular expression character class. This class includes all visible ASCII characters and spaces (i.e. anything except control characters).</p>
+     * <p>将从POSIX [:print:]正则表达式字符类匹配的字符集中选择字符。该类包括所有可见的ASCII字符和空格(即除控制字符外的任何字符)。</p>
      *
-     * @param count the length of random string to create
-     * @return the random string
-     *
+     * @param count 要创建的随机字符串的长度
+     * @return 随机字符串
      */
     public static String randomPrintThreadLocal(final int count) {
         return randomThreadLocal(count, 32, 126, false, false);
     }
 
     /**
-     * <p>Creates a random string whose length is between the inclusive minimum and
-     * the exclusive maximum.</p>
+     * <p>创建一个随机字符串，其长度介于包含的最小值和独占的最大值之间。</p>
      *
-     * <p>Characters will be chosen from the set of \p{Print} characters.</p>
+     * <p>字符将从\p{Print}字符集合中选择。</p>
      *
-     * @param minLengthInclusive the inclusive minimum length of the string to generate
-     * @param maxLengthExclusive the exclusive maximum length of the string to generate
+     * @param minLengthInclusive 要生成的字符串的最小长度
+     * @param maxLengthExclusive 要生成的字符串的唯一最大长度
      * @return the random string
-     *
      */
     public static String randomPrintThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
         return randomPrintThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * <p>创建一个随机字符串，其长度为指定的字符数。</p>
      *
-     * <p>Characters will be chosen from the set of alpha-numeric
-     * characters as indicated by the arguments.</p>
+     * <p>字符将从参数指定的字母-数字字符集合中选择。</p>
      *
-     * @param count   the length of random string to create
-     * @param letters if {@code true}, generated string may include alphabetic characters
-     * @param numbers if {@code true}, generated string may include numeric characters
+     * @param count   要创建的随机字符串的长度
+     * @param letters 如果{@code true}，生成的字符串可能包含字母字符
+     * @param numbers 如果{@code true}，生成的字符串可能包含数字字符
      * @return the random string
      */
     public static String randomThreadLocal(final int count, final boolean letters, final boolean numbers) {
@@ -232,17 +201,15 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * <p>创建一个随机字符串，其长度为指定的字符数。</p>
      *
-     * <p>Characters will be chosen from the set of alpha-numeric
-     * characters as indicated by the arguments.</p>
+     * <p>字符将从参数指定的字母-数字字符集合中选择。</p>
      *
-     * @param count   the length of random string to create
-     * @param start   the position in set of chars to start at
-     * @param end     the position in set of chars to end before
-     * @param letters if {@code true}, generated string may include alphabetic characters
-     * @param numbers if {@code true}, generated string may include numeric characters
+     * @param count   要创建的随机字符串的长度
+     * @param start   字符集中开始的位置
+     * @param end     字符集中前面结束的位置
+     * @param letters 如果{@code true}，生成的字符串可能包含字母字符
+     * @param numbers 如果{@code true}，生成的字符串可能包含数字字符
      * @return the random string
      */
     public static String randomThreadLocal(final int count, final int start, final int end, final boolean letters, final boolean numbers) {
@@ -250,52 +217,43 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
     }
 
     /**
-     * <p>Creates a random string based on a variety of options, using
-     * default source of randomness.</p>
+     * <p>基于各种选项创建一个随机字符串，使用默认的随机源.</p>
      *
-     * <p>This method has exactly the same semantics as
-     * {@link #random(int, int, int, boolean, boolean, char[], Random)}, but instead of using an externally supplied source of randomness, it uses the internal static {@link
-     * Random} instance.</p>
+     * <p>该方法具有完全相同的语义，但它没有使用外部提供的随机性来源，而是使用内部静态{@link Random}实例。</p>
      *
-     * @param count   the length of random string to create
-     * @param start   the position in set of chars to start at
-     * @param end     the position in set of chars to end before
-     * @param letters if {@code true}, generated string may include alphabetic characters
-     * @param numbers if {@code true}, generated string may include numeric characters
-     * @param chars   the set of chars to choose randoms from. If {@code null}, then it will use the set of all chars.
+     * @param count   要创建的随机字符串的长度
+     * @param start   字符集中开始的位置
+     * @param end     字符集中前面结束的位置
+     * @param letters 如果{@code true}，生成的字符串可能包含字母字符
+     * @param numbers 如果{@code true}，生成的字符串可能包含数字字符
+     * @param chars   可以进行随机选择的字符集。如果{@code null}，那么它将使用所有字符的集合。
      * @return the random string
-     * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
+     * @throws ArrayIndexOutOfBoundsException 如果set数组中没有{@code (end - start) + 1}字符。
      */
     public static String randomThreadLocal(final int count, final int start, final int end, final boolean letters, final boolean numbers, final char... chars) {
         return randomThreadLocal(count, start, end, letters, numbers, chars, random());
     }
 
     /**
-     * <p>Creates a random string based on a variety of options, using
-     * supplied source of randomness.</p>
+     * <p>基于各种选项创建一个随机字符串，使用提供的随机源。</p>
      *
-     * <p>If start and end are both {@code 0}, start and end are set
-     * to {@code ' '} and {@code 'z'}, the ASCII printable characters, will be used, unless letters and numbers are both {@code false}, in which case, start and end are set to
-     * {@code 0} and {@link Character#MAX_CODE_POINT}.
+     * <p>如果start和end都是{@code 0}， start和end设置为{@code ' '}和{@code 'z'}，将使用ASCII可打印字符，除非字母和数字都是{@code false}，在这种情况下，start和end设置为{@code 0}和{@link Character#MAX_CODE_POINT}。
      *
-     * <p>If set is not {@code null}, characters between start and
-     * end are chosen.</p>
+     * <p>如果set不是{@code null}，则选择开始和结束之间的字符。</p>
      *
-     * <p>This method accepts a user-supplied {@link Random}
-     * instance to use as a source of randomness. By seeding a single {@link Random} instance with a fixed seed and using it for each call, the same random sequence of strings can
-     * be generated repeatedly and predictably.</p>
+     * <p>此方法接受用户提供的{@link Random}
+     * 作为随机性来源的实例。通过在每个调用中使用一个带有固定种子的{@link Random}实例，可以重复地和可预测地生成相同的随机字符串序列。</p>
      *
-     * @param count   the length of random string to create
-     * @param start   the position in set of chars to start at (inclusive)
-     * @param end     the position in set of chars to end before (exclusive)
-     * @param letters if {@code true}, generated string may include alphabetic characters
-     * @param numbers if {@code true}, generated string may include numeric characters
-     * @param chars   the set of chars to choose randoms from, must not be empty. If {@code null}, then it will use the set of all chars.
-     * @param random  a source of randomness.
+     * @param count   要创建的随机字符串的长度
+     * @param start   字符集中开始的位置(包括)
+     * @param end     字符集中结束于(排他)之前的位置
+     * @param letters 如果{@code true}，生成的字符串可能包含字母字符
+     * @param numbers 如果{@code true}，生成的字符串可能包含数字字符
+     * @param chars   要进行随机选择的字符集不能为空。如果{@code null}，那么它将使用所有字符的集合。
+     * @param random  随机性的来源。
      * @return the random string
-     * @throws ArrayIndexOutOfBoundsException if there are not {@code (end - start) + 1} characters in the set array.
-     * @throws IllegalArgumentException       if {@code count} &lt; 0 or the provided chars array is empty.
-     *
+     * @throws ArrayIndexOutOfBoundsException 如果set数组中没有{@code (end - start) + 1}字符。
+     * @throws IllegalArgumentException       如果{@code count} &lt;0或提供的chars数组为空。
      */
     public static String randomThreadLocal(int count, int start, int end, final boolean letters, final boolean numbers,
             final char[] chars, final Random random) {
@@ -374,39 +332,36 @@ public class RandomStringUtils extends org.apache.commons.lang3.RandomStringUtil
 
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * <p>创建一个随机字符串，其长度为指定的字符数。</p>
      *
-     * <p>Characters will be chosen from the set of characters
-     * specified by the string, must not be empty. If null, the set of all characters is used.</p>
+     * <p>字符将从字符串指定的字符集合中选择，不能为空。如果为空，则使用所有字符的集合。</p>
      *
-     * @param count the length of random string to create
-     * @param chars the String containing the set of characters to use, may be null, but must not be empty
+     * @param count 要创建的随机字符串的长度
+     * @param chars 包含要使用的字符集的字符串可以为空，但不能为空
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0 or the string is empty.
      */
     public static String randomThreadLocal(final int count, final String chars) {
         if (chars == null) {
-            return random(count, 0, 0, false, false, null, random());
+            return randomThreadLocal(count, 0, 0, false, false, null, random());
         }
         return randomThreadLocal(count, chars.toCharArray());
     }
 
     /**
-     * <p>Creates a random string whose length is the number of characters
-     * specified.</p>
+     * <p>创建一个随机字符串，其长度为指定的字符数。</p>
      *
-     * <p>Characters will be chosen from the set of characters specified.</p>
+     * <p>将从指定的字符集中选择字符。</p>
      *
-     * @param count the length of random string to create
-     * @param chars the character array containing the set of characters to use, may be null
+     * @param count 要创建的随机字符串的长度
+     * @param chars 包含要使用的字符集的字符数组可以为空
      * @return the random string
      * @throws IllegalArgumentException if {@code count} &lt; 0.
      */
     public static String randomThreadLocal(final int count, final char... chars) {
         if (chars == null) {
-            return random(count, 0, 0, false, false, null, random());
+            return randomThreadLocal(count, 0, 0, false, false, null, random());
         }
-        return random(count, 0, chars.length, false, false, chars, random());
+        return randomThreadLocal(count, 0, chars.length, false, false, chars, random());
     }
 }
