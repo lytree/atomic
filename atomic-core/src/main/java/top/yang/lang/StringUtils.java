@@ -200,79 +200,58 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static final String EMPTY_JSON = "{}";
 
+    // ------------------------------------------------------------------------ lower and upper
+
     /**
-     * 将下划线大写方式命名的字符串转换为驼峰式。如果转换前的下划线大写方式命名的字符串为空，则返回空字符串。 例如：HELLO_WORLD->HelloWorld
+     * 原字符串首字母大写并在其首部添加指定字符串 例如：str=name, preString=get =》 return getName
      *
-     * @param name 转换前的下划线大写方式命名的字符串
-     * @return 转换后的驼峰式命名的字符串
+     * @param str       被处理的字符串
+     * @param preString 添加的首部
+     * @return 处理后的字符串
      */
-    public static String convertToCamelCase(String name) {
-        StringBuilder result = new StringBuilder();
-        // 快速检查
-        if (name == null || name.isEmpty()) {
-            // 没必要转换
-            return "";
-        } else if (!name.contains("_")) {
-            // 不含下划线，仅将首字母大写
-            return name.substring(0, 1).toUpperCase() + name.substring(1);
-        }
-        // 用下划线将原始字符串分割
-        String[] camels = name.split("_");
-        for (String camel : camels) {
-            // 跳过原始字符串中开头、结尾的下换线或双重下划线
-            if (camel.isEmpty()) {
-                continue;
-            }
-            // 首字母大写
-            result.append(camel.substring(0, 1).toUpperCase());
-            result.append(camel.substring(1).toLowerCase());
-        }
-        return result.toString();
-    }
-
-    /**
-     * @param name 小驼峰命名法
-     * @return 下划线格式
-     */
-    public static String convertToUnderline(String name) {
-        StringBuilder builder = new StringBuilder(name.replace('.', '_'));
-        for (int i = 1; i < builder.length() - 1; i++) {
-            if (isUnderscoreRequired(builder.charAt(i - 1), builder.charAt(i),
-                    builder.charAt(i + 1))) {
-                builder.insert(i++, '_');
-            }
-        }
-        return builder.toString().toUpperCase();
-    }
-
-    private static boolean isUnderscoreRequired(char before, char current, char after) {
-        return Character.isLowerCase(before) && Character.isUpperCase(current)
-                && Character.isLowerCase(after);
-    }
-
-    /**
-     * 驼峰式命名法 例如：user_name->userName
-     */
-    public static String toCamelCase(String s) {
-        if (s == null) {
+    public static String upperFirstAndAddPre(String str, String preString) {
+        if (str == null || preString == null) {
             return null;
         }
-        s = s.toLowerCase();
-        StringBuilder sb = new StringBuilder(s.length());
-        boolean upperCase = false;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
+        return preString + upperFirst(str);
+    }
 
-            if (Objects.equals(toString(c), UNDERLINE)) {
-                upperCase = true;
-            } else if (upperCase) {
-                sb.append(Character.toUpperCase(c));
-                upperCase = false;
-            } else {
-                sb.append(c);
+    /**
+     * 大写首字母<br> 例如：str = name, return Name
+     *
+     * @param str 字符串
+     * @return 字符串
+     */
+    public static String upperFirst(String str) {
+        if (null == str) {
+            return null;
+        }
+        if (str.length() > 0) {
+            char firstChar = str.charAt(0);
+            if (Character.isLowerCase(firstChar)) {
+                return Character.toUpperCase(firstChar) + substring(str, 1);
             }
         }
-        return sb.toString();
+        return str.toString();
+    }
+
+    /**
+     * 小写首字母<br> 例如：str = Name, return name
+     *
+     * @param str 字符串
+     * @return 字符串
+     */
+    public static String lowerFirst(String str) {
+        if (null == str) {
+            return null;
+        }
+        if (str.length() > 0) {
+            char firstChar = str.charAt(0);
+            if (Character.isUpperCase(firstChar)) {
+                return Character.toLowerCase(firstChar) + substring(str, 1);
+            }
+        }
+        return str.toString();
     }
 
     /**
@@ -307,22 +286,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @see #isEmpty(CharSequence)
      * @see Character#isWhitespace
      */
-    public static boolean hasText(@Nullable CharSequence str) {
-        return (str != null && str.length() > 0 && containsText(str));
-    }
-
-    /**
-     * 检查给定的{@code String}是否包含实际的<em>文本<em>。
-     * <p>更具体地说，如果{@code String}不是{@code null}，它的长度大于0，并且包含至少一个非空白字符，这个方法返回{@code true}。
-     *
-     * @param str 受检查参数
-     * @return {@code true}如果{@code String}不是{@code null}，它的长度大于0，并且它不只包含空格
-     * @see #hasText(CharSequence)
-     * @see #isEmpty(CharSequence)
-     * @see Character#isWhitespace
-     */
     public static boolean hasText(@Nullable String str) {
-        return (str != null && !str.isEmpty() && containsText(str));
+        return (str != null && str.length() > 0 && containsText(str));
     }
 
 

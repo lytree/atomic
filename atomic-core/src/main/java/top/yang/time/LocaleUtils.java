@@ -29,21 +29,22 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * <p>Operations to assist when working with a {@link Locale}.</p>
- *
- * <p>This class tries to handle {@code null} input gracefully.
- * An exception will not be thrown for a {@code null} input.
- * Each method documents its behavior in more detail.</p>
- *
- *
+ * <p>使用{@link区域设置}时的辅助操作。<p>
+ * <p>该类试图优雅地处理{@code null}输入。<p>
+ * <p> 对于{@code null}输入，不会引发异常。每个方法更详细地记录其行为<p>
  */
 public class LocaleUtils {
 
     // class to avoid synchronization (Init on demand)
     static class SyncAvoid {
-        /** Unmodifiable list of available locales. */
+
+        /**
+         * 不可修改的可用区域设置列表。
+         */
         private static final List<Locale> AVAILABLE_LOCALE_LIST;
-        /** Unmodifiable set of available locales. */
+        /**
+         * 不可修改的可用区域设置集。
+         */
         private static final Set<Locale> AVAILABLE_LOCALE_SET;
 
         static {
@@ -53,48 +54,49 @@ public class LocaleUtils {
         }
     }
 
-    /** Concurrent map of language locales by country. */
+    /**
+     * 按国家划分的语言区域的并发地图。
+     */
     private static final ConcurrentMap<String, List<Locale>> cLanguagesByCountry =
-        new ConcurrentHashMap<>();
-
-    /** Concurrent map of country locales by language. */
-    private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage =
-        new ConcurrentHashMap<>();
+            new ConcurrentHashMap<>();
 
     /**
-     * <p>Obtains an unmodifiable list of installed locales.</p>
+     * 对应地图的国家的地区语言。
+     */
+    private static final ConcurrentMap<String, List<Locale>> cCountriesByLanguage =
+            new ConcurrentHashMap<>();
+
+    /**
+     * <p>获取已安装区域设置的不可修改列表。<p>
+     * <p>该方法是对{@link Locale#getAvailableLocales()}的包装。 <p>
+     * <p> 这样更有效，因为JDK方法每次被调用时都必须创建一个新的数组。<p>
      *
-     * <p>This method is a wrapper around {@link Locale#getAvailableLocales()}.
-     * It is more efficient, as the JDK method must create a new array each
-     * time it is called.</p>
-     *
-     * @return the unmodifiable list of available locales
+     * @return 不可修改的可用地区列表
      */
     public static List<Locale> availableLocaleList() {
         return SyncAvoid.AVAILABLE_LOCALE_LIST;
     }
 
     /**
-     * <p>Obtains an unmodifiable set of installed locales.</p>
+     * <p>获取不可修改的已安装区域设置集</p>
      *
-     * <p>This method is a wrapper around {@link Locale#getAvailableLocales()}.
-     * It is more efficient, as the JDK method must create a new array each
-     * time it is called.</p>
      *
-     * @return the unmodifiable set of available locales
+     * <p>他的方法是对{@link Locale#getAvailableLocales()}的包装。<p>
+     * <p>这样更有效，因为JDK方法每次被调用时都必须创建一个新的数组<p>
+     *
+     * @return 不可修改的可用区域设置集
      */
     public static Set<Locale> availableLocaleSet() {
         return SyncAvoid.AVAILABLE_LOCALE_SET;
     }
 
     /**
-     * <p>Obtains the list of countries supported for a given language.</p>
+     * <p>获取给定语言支持的国家列表。</p>
      *
-     * <p>This method takes a language code and searches to find the
-     * countries available for that language. Variant locales are removed.</p>
+     * <p>此方法采用一种语言代码，并搜索该语言可用的国家。删除了不同的区域设置。</p>
      *
-     * @param languageCode  the 2 letter language code, null returns empty
-     * @return an unmodifiable List of Locale objects, not null
+     * @param languageCode 2个字母的语言代码，null返回空
+     * @return 一个不可修改的Locale对象列表，而不是null
      */
     public static List<Locale> countriesByLanguage(final String languageCode) {
         if (languageCode == null) {
@@ -107,7 +109,7 @@ public class LocaleUtils {
             for (final Locale locale : locales) {
                 if (languageCode.equals(locale.getLanguage()) &&
                         !locale.getCountry().isEmpty() &&
-                    locale.getVariant().isEmpty()) {
+                        locale.getVariant().isEmpty()) {
                     countries.add(locale);
                 }
             }
@@ -119,53 +121,52 @@ public class LocaleUtils {
     }
 
     /**
-     * <p>Checks if the locale specified is in the list of available locales.</p>
+     * <p>检查指定的区域设置是否在可用区域设置列表中。</p>
      *
-     * @param locale the Locale object to check if it is available
-     * @return true if the locale is a known locale
+     * @param locale Locale对象来检查它是否可用
+     * @return 如果区域设置是已知的，则为True
      */
     public static boolean isAvailableLocale(final Locale locale) {
         return availableLocaleList().contains(locale);
     }
 
     /**
-     * Checks whether the given String is a ISO 3166 alpha-2 country code.
+     * 检查给定的String是否为ISO 3166 alpha-2国家代码。
      *
-     * @param str the String to check
-     * @return true, is the given String is a ISO 3166 compliant country code.
+     * @param str 要检查的字符串
+     * @return true, 字符串是符合ISO 3166的国家代码
      */
     private static boolean isISO3166CountryCode(final String str) {
         return StringUtils.isAllUpperCase(str) && str.length() == 2;
     }
 
     /**
-     * Checks whether the given String is a ISO 639 compliant language code.
+     * 检查给定的String是否符合ISO 639语言代码。
      *
-     * @param str the String to check.
-     * @return true, if the given String is a ISO 639 compliant language code.
+     * @param str 要检查的字符串
+     * @return true, 如果给定的String是符合ISO 639的语言代码。
      */
     private static boolean isISO639LanguageCode(final String str) {
         return StringUtils.isAllLowerCase(str) && (str.length() == 2 || str.length() == 3);
     }
 
     /**
-     * Checks whether the given String is a UN M.49 numeric area code.
+     * 检查给定的String是否为UN M.49数字区号。
      *
-     * @param str the String to check
-     * @return true, is the given String is a UN M.49 numeric area code.
+     * @param str 要检查的字符串
+     * @return true, 所给的字符串是UN M.49的数字区号.
      */
     private static boolean isNumericAreaCode(final String str) {
         return StringUtils.isNumeric(str) && str.length() == 3;
     }
 
     /**
-     * <p>Obtains the list of languages supported for a given country.</p>
+     * <p>获取给定国家支持的语言列表。</p>
      *
-     * <p>This method takes a country code and searches to find the
-     * languages available for that country. Variant locales are removed.</p>
+     * <p>此方法获取一个国家代码，并搜索以查找该国家可用的语言。删除了不同的区域设置。</p>
      *
-     * @param countryCode  the 2 letter country code, null returns empty
-     * @return an unmodifiable List of Locale objects, not null
+     * @param countryCode 2个字母的国家代码，null返回空
+     * @return 一个不可修改的Locale对象列表，而不是null
      */
     public static List<Locale> languagesByCountry(final String countryCode) {
         if (countryCode == null) {
@@ -177,7 +178,7 @@ public class LocaleUtils {
             final List<Locale> locales = availableLocaleList();
             for (final Locale locale : locales) {
                 if (countryCode.equals(locale.getCountry()) &&
-                    locale.getVariant().isEmpty()) {
+                        locale.getVariant().isEmpty()) {
                     langs.add(locale);
                 }
             }
@@ -189,37 +190,33 @@ public class LocaleUtils {
     }
 
     /**
-     * <p>Obtains the list of locales to search through when performing
-     * a locale search.</p>
+     * <p>在执行区域设置搜索时，获取要搜索的区域设置列表。</p>
      *
      * <pre>
      * localeLookupList(Locale("fr", "CA", "xxx"))
      *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr")]
      * </pre>
      *
-     * @param locale  the locale to start from
-     * @return the unmodifiable list of Locale objects, 0 being locale, not null
+     * @param locale 从现场开始
+     * @return Locale对象的不可修改列表，0表示Locale，而不是null
      */
     public static List<Locale> localeLookupList(final Locale locale) {
         return localeLookupList(locale, locale);
     }
 
     /**
-     * <p>Obtains the list of locales to search through when performing
-     * a locale search.</p>
+     * <p>在执行区域设置搜索时，获取要搜索的区域设置列表。</p>
      *
      * <pre>
      * localeLookupList(Locale("fr", "CA", "xxx"), Locale("en"))
      *   = [Locale("fr", "CA", "xxx"), Locale("fr", "CA"), Locale("fr"), Locale("en"]
      * </pre>
      *
-     * <p>The result list begins with the most specific locale, then the
-     * next more general and so on, finishing with the default locale.
-     * The list will never contain the same locale twice.</p>
+     * <p>结果列表从最特定的区域设置开始，然后是更一般的区域设置，以此类推，最后是默认区域设置。该列表不会两次包含相同的区域设置
      *
-     * @param locale  the locale to start from, null returns empty list
-     * @param defaultLocale  the default locale to use if no other is found
-     * @return the unmodifiable list of Locale objects, 0 being locale, not null
+     * @param locale        要开始的区域设置，null返回空列表
+     * @param defaultLocale 如果没有找到其他地区，将使用的默认区域设置
+     * @return Locale对象的不可修改列表，0表示Locale，而不是null
      */
     public static List<Locale> localeLookupList(final Locale locale, final Locale defaultLocale) {
         final List<Locale> list = new ArrayList<>(4);
@@ -239,11 +236,11 @@ public class LocaleUtils {
     }
 
     /**
-     * Tries to parse a locale from the given String.
+     * 尝试从给定的String解析区域设置。
      *
-     * @param str the String to parse a locale from.
-     * @return a Locale instance parsed from the given String.
-     * @throws IllegalArgumentException if the given String can not be parsed.
+     * @param str 用于解析区域设置的字符串。
+     * @return 从给定String解析的Locale实例。
+     * @throws IllegalArgumentException 如果给定的字符串不能被解析。
      */
     private static Locale parseLocale(final String str) {
         if (isISO639LanguageCode(str)) {
@@ -271,21 +268,19 @@ public class LocaleUtils {
     }
 
     /**
-     * Returns the given locale if non-{@code null}, otherwise {@link Locale#getDefault()}.
+     * 如果非{@code null}，则返回给定的区域设置，否则返回{@link Locale#getDefault()}。
      *
-     * @param locale a locale or {@code null}.
-     * @return the given locale if non-{@code null}, otherwise {@link Locale#getDefault()}.
-     *
+     * @param locale 区域设置或{@code null}。
+     * @return 如果非{@code null}，则指定区域设置，否则为{@link Locale#getDefault()}。
      */
     public static Locale toLocale(final Locale locale) {
         return locale != null ? locale : Locale.getDefault();
     }
 
     /**
-     * <p>Converts a String to a Locale.</p>
+     * <p>将字符串转换为区域设置。</p>
      *
-     * <p>This method takes the string format of a locale and creates the
-     * locale object from it.</p>
+     * <p>此方法接受区域设置的字符串格式，并从中创建区域设置对象。</p>
      *
      * <pre>
      *   LocaleUtils.toLocale("")           = new Locale("", "")
@@ -295,20 +290,12 @@ public class LocaleUtils {
      *   LocaleUtils.toLocale("en_GB_xxx")  = new Locale("en", "GB", "xxx")   (#)
      * </pre>
      *
-     * <p>(#) The behavior of the JDK variant constructor changed between JDK1.3 and JDK1.4.
-     * In JDK1.3, the constructor upper cases the variant, in JDK1.4, it doesn't.
-     * Thus, the result from getVariant() may vary depending on your JDK.</p>
+     * <p>(#) JDK变体构造函数的行为在JDK1.3和JDK1.4之间发生了变化。在JDK1.3中，构造函数大写变体，而在JDK1.4中则不是。因此，getVariant()的结果可能因JDK而异
+     * <p>该方法严格验证输入。语言代码必须是小写的。国家代码必须大写。分隔符必须是下划线。长度必须正确。</p>
      *
-     * <p>This method validates the input strictly.
-     * The language code must be lowercase.
-     * The country code must be uppercase.
-     * The separator must be an underscore.
-     * The length must be correct.
-     * </p>
-     *
-     * @param str  the locale String to convert, null returns null
-     * @return a Locale, null if null input
-     * @throws IllegalArgumentException if the string is an invalid format
+     * @param str 要转换的locale String, null返回null
+     * @return 区域设置，如果输入为空则为空
+     * @throws IllegalArgumentException 如果字符串是无效格式
      * @see Locale#forLanguageTag(String)
      */
     public static Locale toLocale(final String str) {
@@ -351,11 +338,9 @@ public class LocaleUtils {
     }
 
     /**
-     * <p>{@code LocaleUtils} instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code LocaleUtils.toLocale("en_GB");}.</p>
+     * <p>{@code LocaleUtils}不应该在标准编程中构造实例。相反，这个类应该被用作{@code LocaleUtils.toLocale("en_GB");}.</p>
      *
-     * <p>This constructor is public to permit tools that require a JavaBean instance
-     * to operate.</p>
+     * <p>这个构造函数是公共的，允许需要JavaBean实例操作的工具。</p>
      */
     public LocaleUtils() {
     }

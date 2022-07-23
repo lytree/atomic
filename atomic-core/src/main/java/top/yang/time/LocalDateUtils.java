@@ -19,24 +19,47 @@ public class LocalDateUtils {
         return DEFAULT_FORMATTER;
     }
 
+    /**
+     * localDate 转Date
+     *
+     * @param localDate
+     * @return Date
+     */
     public static Date localDateToDate(LocalDate localDate) {
         ZoneId zone = ZoneId.systemDefault();
         Instant instant = localDate.atStartOfDay().atZone(zone).toInstant();
         return Date.from(instant);
     }
 
+    /**
+     * 获取当前时间 yyyy-MM-dd
+     *
+     * @return 当前时间字符串（天）
+     */
     public static String getLocalDate() {
         LocalDate now = LocalDate.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(getDefaultFormatter());
         return dateTimeFormatter.format(now);
     }
 
+    /**
+     * 获取当前时间
+     *
+     * @param dateFormatter 格式化参数
+     * @return 当前时间字符串（天）
+     */
     public static String getLocalDate(String dateFormatter) {
         LocalDate now = LocalDate.now();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dateFormatter);
         return dateTimeFormatter.format(now);
     }
 
+    /**
+     * 获取当前时间
+     *
+     * @param dateFormatter 格式化参数
+     * @return 当前时间字符串（天）
+     */
     public static String getLocalDate(DateTimeFormatter dateFormatter) {
         LocalDate now = LocalDate.now();
         return dateFormatter.format(now);
