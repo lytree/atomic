@@ -2,6 +2,7 @@ package top.yang.time;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -109,8 +110,7 @@ public class LocalDateUtils {
         if (null == instant) {
             return null;
         }
-
-        return LocalDate.ofInstant(instant, ObjectUtils.getIfNull(zoneId, ZoneId::systemDefault));
+        return LocalDateTime.ofInstant(instant, ObjectUtils.defaultIfNull(zoneId, ZoneId.systemDefault())).toLocalDate();
     }
 
     /**

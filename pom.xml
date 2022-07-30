@@ -10,7 +10,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.6.9</version>
+    <version>2.6.10</version>
   </parent>
   <properties>
     <skipTests>true</skipTests>
@@ -57,6 +57,7 @@
     <module>atomic-data-mongo</module>
     <module>atomic-data-redis</module>
     <module>atomic-system</module>
+    <module>atomic-data-jdbc</module>
   </modules>
   <dependencyManagement>
     <dependencies>
@@ -251,8 +252,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.1</version>
           <configuration>
-            <source>11</source>
-            <target>11</target>
+            <source>8</source>
+            <target>8</target>
           </configuration>
         </plugin>
       </plugins>

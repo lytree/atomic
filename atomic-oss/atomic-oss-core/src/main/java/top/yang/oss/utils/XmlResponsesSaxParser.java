@@ -60,7 +60,7 @@ public class XmlResponsesSaxParser {
     public XmlResponsesSaxParser() throws CosClientException {
         // Ensure we can load the XML Reader.
         try {
-            xr = SAXParserFactory.newDefaultInstance().newSAXParser().getXMLReader();
+            xr = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
         } catch (SAXException | ParserConfigurationException e) {
             throw new CosClientException("Couldn't initialize a SAX driver to create an XMLReader",
                     e);

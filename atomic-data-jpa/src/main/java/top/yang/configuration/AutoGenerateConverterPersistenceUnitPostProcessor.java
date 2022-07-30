@@ -1,25 +1,8 @@
 package top.yang.configuration;
 
-import static java.util.stream.Collectors.toUnmodifiableSet;
-import static net.bytebuddy.description.annotation.AnnotationDescription.Builder.ofType;
-import static net.bytebuddy.description.type.TypeDescription.Generic.Builder.parameterizedType;
-import static net.bytebuddy.implementation.FieldAccessor.ofField;
-import static net.bytebuddy.implementation.MethodDelegation.to;
-import static net.bytebuddy.matcher.ElementMatchers.isDefaultConstructor;
-import static net.bytebuddy.matcher.ElementMatchers.named;
 
-import java.lang.reflect.Modifier;
 import java.util.Set;
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
-import net.bytebuddy.ByteBuddy;
-import net.bytebuddy.NamingStrategy;
-import net.bytebuddy.description.type.TypeDescription;
-import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
-import net.bytebuddy.implementation.MethodCall;
-import net.bytebuddy.implementation.bind.annotation.FieldValue;
-import net.bytebuddy.implementation.bind.annotation.RuntimeType;
-import org.apache.commons.lang3.StringUtils;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.AssignableTypeFilter;
@@ -49,7 +32,7 @@ public class AutoGenerateConverterPersistenceUnitPostProcessor implements Persis
 
     @Override
     public void postProcessPersistenceUnitInfo(MutablePersistenceUnitInfo pui) {
-        var generator = new AttributeConverterAutoGenerator(factory.getBeanClassLoader());
+        AttributeConverterAutoGenerator generator = new AttributeConverterAutoGenerator(factory.getBeanClassLoader());
 
         findValueEnumClasses()
                 .stream()
@@ -59,7 +42,7 @@ public class AutoGenerateConverterPersistenceUnitPostProcessor implements Persis
     }
 
     private Set<Class<?>> findValueEnumClasses() {
-        var scanner = new ClassPathScanningCandidateComponentProvider(false);
+        ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         // include ValueEnum class
         scanner.addIncludeFilter(new AssignableTypeFilter(ValueEnum.class));
         // exclude PropertyEnum class
@@ -69,6 +52,6 @@ public class AutoGenerateConverterPersistenceUnitPostProcessor implements Persis
                 .stream()
                 .filter(bd -> bd.getBeanClassName() != null)
                 .map(bd -> ClassUtils.resolveClassName(bd.getBeanClassName(), null))
-                .collect(toUnmodifiableSet());
+                .collect(Collectors.toSet());
     }
 }
