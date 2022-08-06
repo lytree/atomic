@@ -21,6 +21,7 @@ public class DateConverterConfig implements Converter<String, LocalDateTime> {
         formarts.add("yyyy-MM-dd");
         formarts.add("yyyy-MM-dd HH:mm");
         formarts.add("yyyy-MM-dd HH:mm:ss");
+        formarts.add("yyyy-MM-dd'T'HH:mm:ss");
     }
 
 
@@ -38,6 +39,8 @@ public class DateConverterConfig implements Converter<String, LocalDateTime> {
             return parseDate(source, formarts.get(2));
         } else if (source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")) {
             return parseDate(source, formarts.get(3));
+        } else if (source.matches("^\\d{4}-\\d{1,2}-\\d{1,2}'T'{1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")) {
+            return parseDate(source, formarts.get(4));
         } else {
             throw new IllegalArgumentException("Invalid boolean value '" + source + "'");
         }

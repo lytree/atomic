@@ -4,13 +4,14 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 
 /**
  * @author PrideYang
  */
 
-public abstract class BaseEntity extends BaseBean {
+public abstract class BaseEntity extends BaseBean implements Persistable {
 
   public BaseEntity() {
     super();

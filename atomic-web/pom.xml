@@ -5,17 +5,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>atomic-web</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0</version>
   <parent>
     <groupId>top.yang</groupId>
     <artifactId>atomic</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
   </parent>
   <dependencies>
     <dependency>
       <groupId>top.yang</groupId>
       <artifactId>atomic-spring</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
