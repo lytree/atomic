@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Objects;
-import top.yang.Filter;
 import top.yang.collections.iterators.ArrayIterator;
 import top.yang.collections.iterators.ArrayListIterator;
 import top.yang.collections.iterators.EmptyIterator;

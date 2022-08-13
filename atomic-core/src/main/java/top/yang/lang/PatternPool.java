@@ -1,9 +1,10 @@
 package top.yang.lang;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
+import top.yang.bean.ObjectUtils;
 
 /**
  * @author Pride_Yang
@@ -134,7 +135,7 @@ public class PatternPool {
     /**
      * Pattern池
      */
-    private static final Cache<RegexWithFlag, Pattern> POOL = CacheBuilder.newBuilder().build();
+    private static final Map<RegexWithFlag, Pattern> POOL = new ConcurrentHashMap<>();
 
     /**
      * 先从Pattern池中查找正则对应的{@link Pattern}，找不到则编译正则表达式并入池。
@@ -155,12 +156,13 @@ public class PatternPool {
      */
     public static Pattern get(String regex, int flags) throws ExecutionException {
         final RegexWithFlag regexWithFlag = new RegexWithFlag(regex, flags);
+        Pattern pattern = POOL.get(regexWithFlag);
+        if (ObjectUtils.isEmpty(pattern)) {
 
-        return POOL.get(regexWithFlag, () -> {
-            Pattern pattern = Pattern.compile(regex, flags);
-            POOL.put(regexWithFlag, pattern);
-            return pattern;
-        });
+            return POOL.put(regexWithFlag, Pattern.compile(regex, flags));
+
+        }
+        return pattern;
     }
 
 
@@ -168,7 +170,7 @@ public class PatternPool {
      * 清空缓存池
      */
     public static void clear() {
-        POOL.cleanUp();
+        POOL.clear();
     }
 // ---------------------------------------------------------------------------------------------------------------------------------
 

@@ -21,9 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-
-import javax.annotation.Nullable;
-import top.yang.Filter;
+import top.yang.base.Filter;
 import top.yang.bean.ObjectUtils;
 import top.yang.collections.ArrayUtils;
 import top.yang.text.StringFormatter;
@@ -1639,7 +1637,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @see #isEmpty(CharSequence)
      * @see Character#isWhitespace
      */
-    public static boolean hasText(@Nullable String str) {
+    public static boolean hasText(String str) {
         return (str != null && str.length() > 0 && containsText(str));
     }
 
@@ -1825,7 +1823,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
      * @see #getBytesUnchecked(String, String)
      */
-    public static byte[] getBytesIso8859_1(@Nullable final String string) {
+    public static byte[] getBytesIso8859_1(final String string) {
         return getBytes(string, StandardCharsets.ISO_8859_1);
     }
 
@@ -1838,7 +1836,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
      * @see String#getBytes(String)
      */
-    public static byte[] getBytesUnchecked(@Nullable final String string, final String charsetName) {
+    public static byte[] getBytesUnchecked(final String string, final String charsetName) {
         if (string == null) {
             return null;
         }

@@ -20,7 +20,7 @@ package top.yang.collections;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import top.yang.Filter;
+import top.yang.base.Filter;
 import top.yang.bean.ObjectUtils;
 
 
@@ -33,8 +33,6 @@ import top.yang.bean.ObjectUtils;
  * behavior.
  *
  * <p>#ThreadSafe#
- *
- *
  */
 public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
 
@@ -78,7 +76,6 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param destPos 目标数组开始位置
      * @param length  拷贝数组长度
      * @return 目标数组
-     *
      */
     public static Object copy(Object src, int srcPos, Object dest, int destPos, int length) {
         //noinspection SuspiciousSystemArraycopy
@@ -93,7 +90,6 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param dest   目标数组
      * @param length 拷贝数组长度
      * @return 目标数组
-     *
      */
     public static Object copy(Object src, Object dest, int length) {
         //noinspection SuspiciousSystemArraycopy
@@ -158,7 +154,6 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      *
      * @param newSize 大小
      * @return 空数组
-     *
      */
     public static Object[] newArray(int newSize) {
         return new Object[newSize];
@@ -170,7 +165,6 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param <T>   数组元素类型
      * @param array 被检查的数组
      * @return 是否包含{@code null}元素
-     *
      */
     @SuppressWarnings("unchecked")
     public static <T> boolean hasNull(T... array) {
@@ -182,7 +176,6 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      *
      * @param array 数组对象
      * @return 元素类型
-     *
      */
     public static Class<?> getComponentType(Object array) {
         return null == array ? null : array.getClass().getComponentType();
@@ -193,7 +186,6 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      *
      * @param arrayClass 数组类
      * @return 元素类型
-     *
      */
     public static Class<?> getComponentType(Class<?> arrayClass) {
         return null == arrayClass ? null : arrayClass.getComponentType();
@@ -204,7 +196,6 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      *
      * @param componentType 数组元素类型
      * @return 数组类型
-     *
      */
     public static Class<?> getArrayType(Class<?> componentType) {
         return Array.newInstance(componentType, 0).getClass();
@@ -237,7 +228,6 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param array   原数组
      * @param newSize 新的数组大小
      * @return 调整后的新数组
-     *
      */
     public static Object resize(Object array, int newSize) {
         if (newSize < 0) {
@@ -280,7 +270,6 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param array  数组
      * @param editor 编辑器接口，{@code null}返回原集合
      * @return 编辑后的数组
-     *
      */
     public static <T> T[] edit(T[] array, Editor<T> editor) {
         if (null == editor) {
@@ -310,13 +299,16 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param array  数组
      * @param filter 过滤器接口，用于定义过滤规则，{@code null}返回原集合
      * @return 过滤后的数组
-     *
      */
     public static <T> T[] filter(T[] array, Filter<T> filter) {
         if (null == array || null == filter) {
             return array;
         }
         return edit(array, t -> filter.accept(t) ? t : null);
+    }
+
+    public static int hashCode(Object... objects) {
+        return Arrays.hashCode(objects);
     }
 
     /**

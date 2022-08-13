@@ -20,8 +20,6 @@ package top.yang.lang;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
-import javax.annotation.Nullable;
-import org.apache.commons.lang3.CharSet;
 import org.apache.commons.lang3.CharSetUtils;
 
 /**
@@ -74,7 +72,7 @@ public class CharsetUtils extends CharSetUtils {
      * @param charset 一个Charset或null。
      * @return 给定的{ @code字符集 }或默认的字符集，如果{ @code字符集 }为空。
      */
-    public static Charset toCharset(@Nullable final Charset charset) {
+    public static Charset toCharset(final Charset charset) {
         return charset == null ? Charset.defaultCharset() : charset;
     }
 
@@ -84,7 +82,7 @@ public class CharsetUtils extends CharSetUtils {
      * @param charsetName 一个Charset或null。
      * @return 给定的{ @code字符集 }或默认的字符集，如果{ @code字符集 }为空
      */
-    public static Charset toCharset(@Nullable final String charsetName) {
+    public static Charset toCharset(final String charsetName) {
         return charsetName == null ? Charset.defaultCharset() : Charset.forName(charsetName);
     }
 
@@ -94,7 +92,7 @@ public class CharsetUtils extends CharSetUtils {
      * @param charsetName 一个Charset或null。
      * @return 给定的{ @code字符集 }或默认的字符集，如果{ @code字符集 }为空。
      */
-    public static String toCharsetName(@Nullable final String charsetName) {
+    public static String toCharsetName(final String charsetName) {
         return charsetName == null ? Charset.defaultCharset().name() : charsetName;
     }
 

@@ -77,7 +77,7 @@ public interface PropertyEnum extends ValueEnum<String> {
      * @return property value
      */
     @SuppressWarnings("unchecked")
-    static Object convertTo(@Nullable String value, @NonNull PropertyEnum propertyEnum) {
+    static Object convertTo( String value, @NonNull PropertyEnum propertyEnum) {
         Assert.notNull(propertyEnum, "Property enum must not be null");
 
         if (StringUtils.isBlank(value)) {
@@ -107,7 +107,7 @@ public interface PropertyEnum extends ValueEnum<String> {
      * @param <T>   property value enum type
      * @return property enum value or null
      */
-    @Nullable
+    
     static <T extends Enum<T>> T convertToEnum(@NonNull String value, @NonNull Class<T> type) {
         Assert.hasText(value, "Property value must not be blank");
 
@@ -155,7 +155,7 @@ public interface PropertyEnum extends ValueEnum<String> {
      *
      * @return default value
      */
-    @Nullable
+    
     String defaultValue();
 
     /**
@@ -165,7 +165,7 @@ public interface PropertyEnum extends ValueEnum<String> {
      * @param <T>          property type
      * @return default value with given type
      */
-    @Nullable
+    
     default <T> T defaultValue(Class<T> propertyType) {
         // Get default value
         String defaultValue = defaultValue();

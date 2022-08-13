@@ -1,12 +1,11 @@
 package top.yang.codec.net;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
+import top.yang.collections.BiMap;
+import top.yang.collections.HashBiMap;
 
 /**
  * 掩码位和掩码之间的Map对应
  *
- * 
  * @author looly
  */
 public class MaskBit {
@@ -15,6 +14,7 @@ public class MaskBit {
      * 掩码位与掩码的点分十进制的双向对应关系
      */
     private static final BiMap<Integer, String> MASK_BIT_MAP;
+
     static {
         BiMap<Integer, String> integerStringBiMap = MASK_BIT_MAP = HashBiMap.create(32);
         MASK_BIT_MAP.put(1, "128.0.0.0");
@@ -65,9 +65,7 @@ public class MaskBit {
      * 根据掩码获取掩码位
      *
      * @param mask 掩码的点分十进制表示，如 255.255.255.0
-     *
      * @return 掩码位，如 24；如果掩码不合法，则返回null
-     * 
      */
     public static Integer getMaskBit(String mask) {
         return MASK_BIT_MAP.inverse().get(mask);

@@ -1,4 +1,4 @@
-package top.yang;
+package top.yang.base;
 
 /**
  * 替换器<br>

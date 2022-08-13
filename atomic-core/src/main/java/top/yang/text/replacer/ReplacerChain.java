@@ -4,7 +4,7 @@ package top.yang.text.replacer;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import top.yang.Chain;
+import top.yang.base.Chain;
 
 /**
  * 字符串替换链，用于组合多个字符串替换逻辑

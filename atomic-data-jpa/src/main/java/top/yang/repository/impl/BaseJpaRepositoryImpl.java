@@ -282,7 +282,7 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
 
         private static final long serialVersionUID = 1L;
         private final JpaEntityInformation<DOMAIN, ?> entityInformation;
-        @Nullable
+        
         ParameterExpression<Collection> parameter;
 
         ByIdsSpecification(JpaEntityInformation<DOMAIN, ?> entityInformation) {

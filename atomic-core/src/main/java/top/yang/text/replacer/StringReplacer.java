@@ -1,7 +1,7 @@
 package top.yang.text.replacer;
 
 import java.io.Serializable;
-import top.yang.Replacer;
+import top.yang.base.Replacer;
 
 /**
  * 抽象字符串替换类<br> 通过实现replace方法实现局部替换逻辑

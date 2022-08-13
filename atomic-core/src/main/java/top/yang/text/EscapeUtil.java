@@ -1,7 +1,7 @@
 package top.yang.text;
 
 
-import top.yang.Filter;
+import top.yang.base.Filter;
 import top.yang.lang.StringUtils;
 import top.yang.text.escape.Html4Escape;
 import top.yang.text.escape.Html4Unescape;
