@@ -16,9 +16,10 @@ package top.yang.base;
 
 
 import static java.util.Objects.requireNonNull;
-import static top.yang.base.Preconditions.checkNotNull;
+
 
 import java.io.Serializable;
+import top.yang.lang.Assert;
 
 /**
  * Utility class for converting between various ASCII case formats. Behavior is undefined for non-ASCII input.
@@ -130,8 +131,8 @@ public enum CaseFormat {
      * format, then the behavior of this method is undefined but we make a reasonable effort at converting anyway.
      */
     public final String to(CaseFormat format, String str) {
-        checkNotNull(format);
-        checkNotNull(str);
+        Assert.notNull(format);
+        Assert.notNull(str);
         return (format == this) ? str : convert(format, str);
     }
 
@@ -175,8 +176,8 @@ public enum CaseFormat {
         private final CaseFormat targetFormat;
 
         StringConverter(CaseFormat sourceFormat, CaseFormat targetFormat) {
-            this.sourceFormat = checkNotNull(sourceFormat);
-            this.targetFormat = checkNotNull(targetFormat);
+            this.sourceFormat = Assert.notNull(sourceFormat);
+            this.targetFormat = Assert.notNull(targetFormat);
         }
 
         @Override

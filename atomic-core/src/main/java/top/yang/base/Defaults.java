@@ -14,7 +14,8 @@
 
 package top.yang.base;
 
-import static top.yang.base.Preconditions.checkNotNull;
+
+import top.yang.lang.Assert;
 
 /**
  * This class provides default values for all Java types, as defined by the JLS.
@@ -39,7 +40,7 @@ public final class Defaults {
     @SuppressWarnings("unchecked")
 
     public static <T> T defaultValue(Class<T> type) {
-        checkNotNull(type);
+        Assert.notNull(type);
         if (type.isPrimitive()) {
             if (type == boolean.class) {
                 return (T) Boolean.FALSE;

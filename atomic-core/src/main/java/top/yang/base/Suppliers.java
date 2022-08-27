@@ -16,8 +16,8 @@ package top.yang.base;
 
 import static java.util.Objects.requireNonNull;
 import static top.yang.base.NullnessCasts.uncheckedCastNullableTToT;
-import static top.yang.base.Preconditions.checkArgument;
-import static top.yang.base.Preconditions.checkNotNull;
+
+
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -26,6 +26,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import top.yang.lang.Assert;
 
 /**
  * Useful suppliers.
@@ -60,8 +61,8 @@ public final class Suppliers {
         final Supplier<F> supplier;
 
         SupplierComposition(Function<? super F, T> function, Supplier<F> supplier) {
-            this.function = checkNotNull(function);
-            this.supplier = checkNotNull(supplier);
+            this.function = Assert.notNull(function);
+            this.supplier = Assert.notNull(supplier);
         }
 
         @Override
@@ -125,7 +126,7 @@ public final class Suppliers {
         transient T value;
 
         MemoizingSupplier(Supplier<T> delegate) {
-            this.delegate = checkNotNull(delegate);
+            this.delegate = Assert.notNull(delegate);
         }
 
         @Override
@@ -165,7 +166,7 @@ public final class Suppliers {
         T value;
 
         NonSerializableMemoizingSupplier(Supplier<T> delegate) {
-            this.delegate = checkNotNull(delegate);
+            this.delegate = Assert.notNull(delegate);
         }
 
         @Override
@@ -237,9 +238,9 @@ public final class Suppliers {
         transient volatile long expirationNanos;
 
         ExpiringMemoizingSupplier(Supplier<T> delegate, long duration, TimeUnit unit) {
-            this.delegate = checkNotNull(delegate);
+            this.delegate = Assert.notNull(delegate);
             this.durationNanos = unit.toNanos(duration);
-            checkArgument(duration > 0, "duration ({} {}) must be > 0", duration, unit);
+            Assert.checkArgument(duration > 0, "duration ({} {}) must be > 0", duration, unit);
         }
 
         @Override
@@ -337,7 +338,7 @@ public final class Suppliers {
         final Supplier<T> delegate;
 
         ThreadSafeSupplier(Supplier<T> delegate) {
-            this.delegate = checkNotNull(delegate);
+            this.delegate = Assert.notNull(delegate);
         }
 
         @Override

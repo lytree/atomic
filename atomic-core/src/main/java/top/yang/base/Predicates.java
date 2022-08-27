@@ -14,7 +14,6 @@
 
 package top.yang.base;
 
-import static top.yang.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
+import top.yang.lang.Assert;
 
 /**
  * Static utility methods pertaining to {@code Predicate} instances.
@@ -109,7 +109,7 @@ public final class Predicates {
      */
     public static <T extends Object> Predicate<T> and(
             Predicate<? super T> first, Predicate<? super T> second) {
-        return new AndPredicate<>(Predicates.<T>asList(checkNotNull(first), checkNotNull(second)));
+        return new AndPredicate<>(Predicates.<T>asList(Assert.notNull(first), Assert.notNull(second)));
     }
 
     /**
@@ -138,7 +138,7 @@ public final class Predicates {
      */
     public static <T extends Object> Predicate<T> or(
             Predicate<? super T> first, Predicate<? super T> second) {
-        return new OrPredicate<>(Predicates.<T>asList(checkNotNull(first), checkNotNull(second)));
+        return new OrPredicate<>(Predicates.<T>asList(Assert.notNull(first), Assert.notNull(second)));
     }
 
     /**
@@ -284,7 +284,7 @@ public final class Predicates {
         final Predicate<T> predicate;
 
         NotPredicate(Predicate<T> predicate) {
-            this.predicate = checkNotNull(predicate);
+            this.predicate = Assert.notNull(predicate);
         }
 
         @Override
@@ -473,7 +473,7 @@ public final class Predicates {
         private final Class<?> clazz;
 
         private InstanceOfPredicate(Class<?> clazz) {
-            this.clazz = checkNotNull(clazz);
+            this.clazz = Assert.notNull(clazz);
         }
 
         @Override
@@ -512,7 +512,7 @@ public final class Predicates {
         private final Class<?> clazz;
 
         private SubtypeOfPredicate(Class<?> clazz) {
-            this.clazz = checkNotNull(clazz);
+            this.clazz = Assert.notNull(clazz);
         }
 
         @Override
@@ -551,7 +551,7 @@ public final class Predicates {
         private final Collection<?> target;
 
         private InPredicate(Collection<?> target) {
-            this.target = checkNotNull(target);
+            this.target = Assert.notNull(target);
         }
 
         @Override
@@ -595,8 +595,8 @@ public final class Predicates {
         final Function<A, ? extends B> f;
 
         private CompositionPredicate(Predicate<B> p, Function<A, ? extends B> f) {
-            this.p = checkNotNull(p);
-            this.f = checkNotNull(f);
+            this.p = Assert.notNull(p);
+            this.f = Assert.notNull(f);
         }
 
         @Override
@@ -641,7 +641,7 @@ public final class Predicates {
     static <T> List<T> defensiveCopy(Iterable<T> iterable) {
         ArrayList<T> list = new ArrayList<>();
         for (T element : iterable) {
-            list.add(checkNotNull(element));
+            list.add(Assert.notNull(element));
         }
         return list;
     }

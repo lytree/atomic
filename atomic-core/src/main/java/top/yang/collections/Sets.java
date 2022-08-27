@@ -17,8 +17,6 @@
 package top.yang.collections;
 
 
-import static top.yang.base.Preconditions.checkNotNull;
-
 import java.io.Serializable;
 import java.util.AbstractSet;
 import java.util.Arrays;
@@ -42,6 +40,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Consumer;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
+import top.yang.lang.Assert;
 
 
 /**
@@ -88,7 +87,7 @@ public final class Sets {
 
         @Override
         public boolean retainAll(Collection<?> c) {
-            return super.retainAll(checkNotNull(c)); // GWT compatibility
+            return super.retainAll(Assert.notNull(c)); // GWT compatibility
         }
     }
 
@@ -104,7 +103,7 @@ public final class Sets {
     }
 
     static boolean removeAllImpl(Set<?> set, Collection<?> collection) {
-        checkNotNull(collection); // for GWT
+        Assert.notNull(collection); // for GWT
         if (collection instanceof Multiset) {
             collection = ((Multiset<?>) collection).elementSet();
         }

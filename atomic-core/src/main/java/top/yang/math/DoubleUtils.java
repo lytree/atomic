@@ -21,9 +21,10 @@ import static java.lang.Double.doubleToRawLongBits;
 import static java.lang.Double.isNaN;
 import static java.lang.Double.longBitsToDouble;
 import static java.lang.Math.getExponent;
-import static top.yang.base.Preconditions.checkArgument;
+
 
 import java.math.BigInteger;
+import top.yang.lang.Assert;
 
 /**
  * Utilities for {@code double} primitives.
@@ -62,7 +63,7 @@ final class DoubleUtils {
     static final long IMPLICIT_BIT = SIGNIFICAND_MASK + 1;
 
     static long getSignificand(double d) {
-        checkArgument(isFinite(d), "not a normal value");
+        Assert.checkArgument(isFinite(d), "not a normal value");
         int exponent = getExponent(d);
         long bits = doubleToRawLongBits(d);
         bits &= SIGNIFICAND_MASK;
@@ -134,7 +135,7 @@ final class DoubleUtils {
      * Returns its argument if it is non-negative, zero if it is negative.
      */
     static double ensureNonNegative(double value) {
-        checkArgument(!isNaN(value));
+        Assert.checkArgument(!isNaN(value));
         return Math.max(value, 0.0);
     }
 

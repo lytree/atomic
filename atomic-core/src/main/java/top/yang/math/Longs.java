@@ -15,11 +15,7 @@
 package top.yang.math;
 
 
-import static top.yang.base.Preconditions.checkArgument;
-import static top.yang.base.Preconditions.checkElementIndex;
-import static top.yang.base.Preconditions.checkNotNull;
-import static top.yang.base.Preconditions.checkPositionIndexes;
-
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.Arrays;
@@ -31,6 +27,7 @@ import java.util.RandomAccess;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import top.yang.base.Converter;
+import top.yang.lang.Assert;
 
 
 /**
@@ -138,8 +135,8 @@ public final class Longs {
      * @param target the array to search for as a sub-sequence of {@code array}
      */
     public static int indexOf(long[] array, long[] target) {
-        checkNotNull(array, "array");
-        checkNotNull(target, "target");
+        Assert.notNull(array, "array");
+        Assert.notNull(target, "target");
         if (target.length == 0) {
             return 0;
         }
@@ -185,7 +182,7 @@ public final class Longs {
      * @throws IllegalArgumentException if {@code array} is empty
      */
     public static long min(long... array) {
-        checkArgument(array.length > 0);
+        Assert.checkArgument(array.length > 0);
         long min = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
@@ -203,7 +200,7 @@ public final class Longs {
      * @throws IllegalArgumentException if {@code array} is empty
      */
     public static long max(long... array) {
-        checkArgument(array.length > 0);
+        Assert.checkArgument(array.length > 0);
         long max = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] > max) {
@@ -227,7 +224,7 @@ public final class Longs {
      */
 
     public static long constrainToRange(long value, long min, long max) {
-        checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)", min, max);
+        Assert.checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)", min, max);
         return Math.min(Math.max(value, min), max);
     }
 
@@ -280,7 +277,7 @@ public final class Longs {
      * @throws IllegalArgumentException if {@code bytes} has fewer than 8 elements
      */
     public static long fromByteArray(byte[] bytes) {
-        checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
+        Assert.checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
         return fromBytes(
                 bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]);
     }
@@ -372,7 +369,7 @@ public final class Longs {
 
 
     public static Long tryParse(String string, int radix) {
-        if (checkNotNull(string).isEmpty()) {
+        if (Assert.notNull(string).isEmpty()) {
             return null;
         }
         if (radix < Character.MIN_RADIX || radix > Character.MAX_RADIX) {
@@ -465,8 +462,8 @@ public final class Longs {
      * @throws IllegalArgumentException if {@code minLength} or {@code padding} is negative
      */
     public static long[] ensureCapacity(long[] array, int minLength, int padding) {
-        checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
-        checkArgument(padding >= 0, "Invalid padding: %s", padding);
+        Assert.checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
+        Assert.checkArgument(padding >= 0, "Invalid padding: %s", padding);
         return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
     }
 
@@ -477,7 +474,7 @@ public final class Longs {
      * @param array     an array of {@code long} values, possibly empty
      */
     public static String join(String separator, long... array) {
-        checkNotNull(separator);
+        Assert.notNull(separator);
         if (array.length == 0) {
             return "";
         }
@@ -532,7 +529,7 @@ public final class Longs {
      * @since 23.1
      */
     public static void sortDescending(long[] array) {
-        checkNotNull(array);
+        Assert.notNull(array);
         sortDescending(array, 0, array.length);
     }
 
@@ -542,8 +539,9 @@ public final class Longs {
      * @since 23.1
      */
     public static void sortDescending(long[] array, int fromIndex, int toIndex) {
-        checkNotNull(array);
-        checkPositionIndexes(fromIndex, toIndex, array.length);
+        Assert.notNull(array);
+        Assert.checkIndex(fromIndex, array.length);
+        Assert.checkIndex(toIndex, array.length);
         Arrays.sort(array, fromIndex, toIndex);
         reverse(array, fromIndex, toIndex);
     }
@@ -554,7 +552,7 @@ public final class Longs {
      * @since 23.1
      */
     public static void reverse(long[] array) {
-        checkNotNull(array);
+        Assert.notNull(array);
         reverse(array, 0, array.length);
     }
 
@@ -566,8 +564,9 @@ public final class Longs {
      * @since 23.1
      */
     public static void reverse(long[] array, int fromIndex, int toIndex) {
-        checkNotNull(array);
-        checkPositionIndexes(fromIndex, toIndex, array.length);
+        Assert.notNull(array);
+        Assert.checkIndex(fromIndex, array.length);
+        Assert.checkIndex(toIndex, array.length);
         for (int i = fromIndex, j = toIndex - 1; i < j; i++, j--) {
             long tmp = array[i];
             array[i] = array[j];
@@ -599,8 +598,9 @@ public final class Longs {
      */
     public static void rotate(long[] array, int distance, int fromIndex, int toIndex) {
         // See Ints.rotate for more details about possible algorithms here.
-        checkNotNull(array);
-        checkPositionIndexes(fromIndex, toIndex, array.length);
+        Assert.notNull(array);
+        Assert.checkIndex(fromIndex, array.length);
+        Assert.checkIndex(toIndex, array.length);
         if (array.length <= 1) {
             return;
         }
@@ -641,8 +641,8 @@ public final class Longs {
         int len = boxedArray.length;
         long[] array = new long[len];
         for (int i = 0; i < len; i++) {
-            // checkNotNull for GWT (do not optimize)
-            array[i] = ((Number) checkNotNull(boxedArray[i])).longValue();
+            // Assert.notNull for GWT (do not optimize)
+            array[i] = ((Number) Assert.notNull(boxedArray[i])).longValue();
         }
         return array;
     }
@@ -697,7 +697,7 @@ public final class Longs {
 
         @Override
         public Long get(int index) {
-            checkElementIndex(index, size());
+            Assert.checkIndex(index, size());
             return array[start + index];
         }
 
@@ -738,17 +738,18 @@ public final class Longs {
 
         @Override
         public Long set(int index, Long element) {
-            checkElementIndex(index, size());
+            Assert.checkIndex(index, size());
             long oldValue = array[start + index];
-            // checkNotNull for GWT (do not optimize)
-            array[start + index] = checkNotNull(element);
+            // Assert.notNull for GWT (do not optimize)
+            array[start + index] = Assert.notNull(element);
             return oldValue;
         }
 
         @Override
         public List<Long> subList(int fromIndex, int toIndex) {
             int size = size();
-            checkPositionIndexes(fromIndex, toIndex, size);
+            Assert.checkIndex(fromIndex, size);
+            Assert.checkIndex(toIndex, size);
             if (fromIndex == toIndex) {
                 return Collections.emptyList();
             }

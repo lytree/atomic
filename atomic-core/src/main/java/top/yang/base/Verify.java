@@ -46,7 +46,7 @@ import top.yang.lang.StringUtils;
  *       recommend using our {@link VerifyException} exception type. Throwing a plain {@link
  *       RuntimeException} is frowned upon.
  *   <li>Use of {@link java.util.Objects#requireNonNull(Object)} is generally discouraged, since
- *       {@link #verifyNotNull(Object)} and {@link Preconditions#checkNotNull(Object)} perform the
+ *       {@link #verifyNotNull(Object)} and {@link Preconditions#Assert.notNull(Object)} perform the
  *       same function with more clarity.
  * </ul>
  *
@@ -88,7 +88,7 @@ public final class Verify {
      * Ensures that {@code expression} is {@code true}, throwing a {@code VerifyException} with no message otherwise.
      *
      * @throws VerifyException if {@code expression} is {@code false}
-     * @see Preconditions#checkState Preconditions.checkState()
+     * @see Preconditions#checkState checkState()
      */
     public static void verify(boolean expression) {
         if (!expression) {
@@ -105,7 +105,7 @@ public final class Verify {
      *                             the formatted message in square braces. Unmatched placeholders will be left as-is.
      * @param errorMessageArgs     the arguments to be substituted into the message template. Arguments are converted to strings using {@link String#valueOf(Object)}.
      * @throws VerifyException if {@code expression} is {@code false}
-     * @see Preconditions#checkState Preconditions.checkState()
+     * @see Preconditions#checkState checkState()
      */
     public static void verify(
             boolean expression,
@@ -426,7 +426,7 @@ public final class Verify {
 
     /*
      * For a discussion of the signature of verifyNotNull, see the discussion above
-     * Preconditions.checkNotNull.
+     * Assert.notNull.
      *
      * (verifyNotNull has many fewer "problem" callers, so we could try to be stricter. On the other
      * hand, verifyNotNull arguably has more reason to accept nullable arguments in the first
@@ -438,7 +438,7 @@ public final class Verify {
      *
      * @return {@code reference}, guaranteed to be non-null, for convenience
      * @throws VerifyException if {@code reference} is {@code null}
-     * @see Preconditions#checkNotNull Preconditions.checkNotNull()
+     * @see Preconditions#Assert.notNull Assert.notNull()
      */
 
     public static <T> T verifyNotNull(T reference) {
@@ -454,7 +454,7 @@ public final class Verify {
      * @param errorMessageArgs     the arguments to be substituted into the message template. Arguments are converted to strings using {@link String#valueOf(Object)}.
      * @return {@code reference}, guaranteed to be non-null, for convenience
      * @throws VerifyException if {@code reference} is {@code null}
-     * @see Preconditions#checkNotNull Preconditions.checkNotNull()
+     * @see Preconditions#Assert.notNull Assert.notNull()
      */
 
     public static <T> T verifyNotNull(

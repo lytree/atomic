@@ -15,10 +15,9 @@
 package top.yang.math;
 
 
-import static top.yang.base.Preconditions.*;
-
 import java.io.Serializable;
 import java.math.BigInteger;
+import top.yang.lang.Assert;
 
 
 /**
@@ -75,7 +74,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
      */
 
     public static UnsignedLong valueOf(long value) {
-        checkArgument(value >= 0, "value (%s) is outside the range for an unsigned long value", value);
+        Assert.checkArgument(value >= 0, "value (%s) is outside the range for an unsigned long value", value);
         return fromLongBits(value);
     }
 
@@ -86,8 +85,8 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
      */
 
     public static UnsignedLong valueOf(BigInteger value) {
-        checkNotNull(value);
-        checkArgument(
+        Assert.notNull(value);
+        Assert.checkArgument(
                 value.signum() >= 0 && value.bitLength() <= Long.SIZE,
                 "value (%s) is outside the range for an unsigned long value",
                 value);
@@ -121,7 +120,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
      * @since 14.0
      */
     public UnsignedLong plus(UnsignedLong val) {
-        return fromLongBits(this.value + checkNotNull(val).value);
+        return fromLongBits(this.value + Assert.notNull(val).value);
     }
 
     /**
@@ -130,7 +129,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
      * @since 14.0
      */
     public UnsignedLong minus(UnsignedLong val) {
-        return fromLongBits(this.value - checkNotNull(val).value);
+        return fromLongBits(this.value - Assert.notNull(val).value);
     }
 
     /**
@@ -139,7 +138,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
      * @since 14.0
      */
     public UnsignedLong times(UnsignedLong val) {
-        return fromLongBits(value * checkNotNull(val).value);
+        return fromLongBits(value * Assert.notNull(val).value);
     }
 
     /**
@@ -148,7 +147,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
      * @since 14.0
      */
     public UnsignedLong dividedBy(UnsignedLong val) {
-        return fromLongBits(UnsignedLongs.divide(value, checkNotNull(val).value));
+        return fromLongBits(UnsignedLongs.divide(value, Assert.notNull(val).value));
     }
 
     /**
@@ -157,7 +156,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
      * @since 14.0
      */
     public UnsignedLong mod(UnsignedLong val) {
-        return fromLongBits(UnsignedLongs.remainder(value, checkNotNull(val).value));
+        return fromLongBits(UnsignedLongs.remainder(value, Assert.notNull(val).value));
     }
 
     /**
@@ -221,7 +220,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
 
     @Override
     public int compareTo(UnsignedLong o) {
-        checkNotNull(o);
+        Assert.notNull(o);
         return UnsignedLongs.compare(value, o.value);
     }
 

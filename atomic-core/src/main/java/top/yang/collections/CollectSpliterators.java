@@ -17,11 +17,12 @@
 package top.yang.collections;
 
 import static java.lang.Math.max;
-import static top.yang.base.Preconditions.*;
+
 
 import java.util.Spliterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import top.yang.lang.Assert;
 
 final class CollectSpliterators {
 
@@ -191,14 +192,14 @@ final class CollectSpliterators {
             Function<? super InElementT, Spliterator<OutElementT>> function,
             int topCharacteristics,
             long topSize) {
-        checkArgument(
+        Assert.checkArgument(
                 (topCharacteristics & Spliterator.SUBSIZED) == 0,
                 "flatMap does not support SUBSIZED characteristic");
-        checkArgument(
+        Assert.checkArgument(
                 (topCharacteristics & Spliterator.SORTED) == 0,
                 "flatMap does not support SORTED characteristic");
-        checkNotNull(fromSpliterator);
-        checkNotNull(function);
+        Assert.notNull(fromSpliterator);
+        Assert.notNull(function);
         return new FlatMapSpliteratorOfObject<>(
                 null, fromSpliterator, function, topCharacteristics, topSize);
     }

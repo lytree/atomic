@@ -20,8 +20,13 @@ import static java.lang.Math.min;
 import static java.math.RoundingMode.HALF_EVEN;
 import static java.math.RoundingMode.HALF_UP;
 
+
+import static top.yang.math.MathPreconditions.*;
+
+
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import top.yang.lang.Assert;
 
 /**
  * A class for arithmetic on values of type {@code int}. Where possible, methods are defined and named analogously to their {@code BigInteger} counterparts.
@@ -141,7 +146,7 @@ public final class IntMath {
      * @throws IllegalArgumentException if {@code x <= 0}
      * @throws ArithmeticException      if {@code mode} is {@link RoundingMode#UNNECESSARY} and {@code x} is not a power of ten
      */
-     // need BigIntegerMath to adequately test
+    // need BigIntegerMath to adequately test
     @SuppressWarnings("fallthrough")
     public static int log10(int x, RoundingMode mode) {
         checkPositive("x", x);
@@ -209,7 +214,7 @@ public final class IntMath {
      *
      * @throws IllegalArgumentException if {@code k < 0}
      */
-     // failing tests
+    // failing tests
     public static int pow(int b, int k) {
         checkNonNegative("exponent", k);
         switch (b) {
@@ -249,7 +254,7 @@ public final class IntMath {
      * @throws IllegalArgumentException if {@code x < 0}
      * @throws ArithmeticException      if {@code mode} is {@link RoundingMode#UNNECESSARY} and {@code sqrt(x)} is not an integer
      */
-     // need BigIntegerMath to adequately test
+    // need BigIntegerMath to adequately test
     @SuppressWarnings("fallthrough")
     public static int sqrt(int x, RoundingMode mode) {
         checkNonNegative("x", x);
@@ -297,7 +302,7 @@ public final class IntMath {
      */
     @SuppressWarnings("fallthrough")
     public static int divide(int p, int q, RoundingMode mode) {
-        checkNotNull(mode);
+        Assert.notNull(mode);
         if (q == 0) {
             throw new ArithmeticException("/ by zero"); // for GWT
         }
@@ -630,7 +635,7 @@ public final class IntMath {
     public static int binomial(int n, int k) {
         checkNonNegative("n", n);
         checkNonNegative("k", k);
-        checkArgument(k <= n, "k (%s) > n (%s)", k, n);
+        Assert.checkArgument(k <= n, "k (%s) > n (%s)", k, n);
         if (k > (n >> 1)) {
             k = n - k;
         }
@@ -696,8 +701,7 @@ public final class IntMath {
      * @throws IllegalArgumentException if {@code n} is negative
      * @since 20.0
      */
-     // TODO
-
+    // TODO
     public static boolean isPrime(int n) {
         return LongMath.isPrime(n);
     }

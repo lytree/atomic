@@ -15,8 +15,7 @@
 package top.yang.base;
 
 import static top.yang.base.NullnessCasts.uncheckedCastNullableTToT;
-import static top.yang.base.Preconditions.checkArgument;
-import static top.yang.base.Preconditions.checkNotNull;
+
 
 import java.io.Serializable;
 import java.util.Map;
@@ -24,6 +23,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import top.yang.collections.ArrayUtils;
+import top.yang.lang.Assert;
 
 /**
  * Static utility methods pertaining to {@code com.google.common.base.Function} instances; see that class for information about migrating to {@code java.util.function}.
@@ -68,7 +68,7 @@ public final class Functions {
 
         @Override
         public String apply(Object o) {
-            checkNotNull(o); // eager for GWT.
+            Assert.notNull(o); // eager for GWT.
             return o.toString();
         }
 
@@ -139,13 +139,13 @@ public final class Functions {
         final Map<K, V> map;
 
         FunctionForMapNoDefault(Map<K, V> map) {
-            this.map = checkNotNull(map);
+            this.map = Assert.notNull(map);
         }
 
         @Override
         public V apply(K key) {
             V result = map.get(key);
-            checkArgument(result != null || map.containsKey(key), "Key '%s' not present in map", key);
+            Assert.checkArgument(result != null || map.containsKey(key), "Key '%s' not present in map", key);
             // The unchecked cast is safe because of the containsKey check.
             return uncheckedCastNullableTToT(result);
         }
@@ -179,7 +179,7 @@ public final class Functions {
         final V defaultValue;
 
         ForMapWithDefault(Map<K, ? extends V> map, V defaultValue) {
-            this.map = checkNotNull(map);
+            this.map = Assert.notNull(map);
             this.defaultValue = defaultValue;
         }
 
@@ -240,8 +240,8 @@ public final class Functions {
         private final Function<A, ? extends B> f;
 
         public FunctionComposition(Function<B, C> g, Function<A, ? extends B> f) {
-            this.g = checkNotNull(g);
-            this.f = checkNotNull(f);
+            this.g = Assert.notNull(g);
+            this.f = Assert.notNull(f);
         }
 
         @Override
@@ -294,7 +294,7 @@ public final class Functions {
         private final Predicate<T> predicate;
 
         private PredicateFunction(Predicate<T> predicate) {
-            this.predicate = checkNotNull(predicate);
+            this.predicate = Assert.notNull(predicate);
         }
 
         @Override
@@ -394,7 +394,7 @@ public final class Functions {
         private final Supplier<T> supplier;
 
         private SupplierFunction(Supplier<T> supplier) {
-            this.supplier = checkNotNull(supplier);
+            this.supplier = Assert.notNull(supplier);
         }
 
         @Override

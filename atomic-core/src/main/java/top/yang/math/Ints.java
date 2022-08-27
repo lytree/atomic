@@ -14,10 +14,6 @@
 
 package top.yang.math;
 
-import static top.yang.base.Preconditions.checkArgument;
-import static top.yang.base.Preconditions.checkElementIndex;
-import static top.yang.base.Preconditions.checkNotNull;
-import static top.yang.base.Preconditions.checkPositionIndexes;
 
 import java.io.Serializable;
 import java.util.AbstractList;
@@ -30,6 +26,7 @@ import java.util.RandomAccess;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import top.yang.base.Converter;
+import top.yang.lang.Assert;
 
 /**
  * Static utility methods pertaining to {@code int} primitives, that are not already found in either {@link Integer} or {@link Arrays}.
@@ -81,7 +78,7 @@ public final class Ints {
      */
     public static int checkedCast(long value) {
         int result = (int) value;
-        checkArgument(result == value, "Out of range: %s", value);
+        Assert.checkArgument(result == value, "Out of range: %s", value);
         return result;
     }
 
@@ -163,8 +160,8 @@ public final class Ints {
      * @param target the array to search for as a sub-sequence of {@code array}
      */
     public static int indexOf(int[] array, int[] target) {
-        checkNotNull(array, "array");
-        checkNotNull(target, "target");
+        Assert.notNull(array, "array");
+        Assert.notNull(target, "target");
         if (target.length == 0) {
             return 0;
         }
@@ -210,7 +207,7 @@ public final class Ints {
      * @throws IllegalArgumentException if {@code array} is empty
      */
     public static int min(int... array) {
-        checkArgument(array.length > 0);
+        Assert.checkArgument(array.length > 0);
         int min = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] < min) {
@@ -228,7 +225,7 @@ public final class Ints {
      * @throws IllegalArgumentException if {@code array} is empty
      */
     public static int max(int... array) {
-        checkArgument(array.length > 0);
+        Assert.checkArgument(array.length > 0);
         int max = array[0];
         for (int i = 1; i < array.length; i++) {
             if (array[i] > max) {
@@ -252,7 +249,7 @@ public final class Ints {
      */
 
     public static int constrainToRange(int value, int min, int max) {
-        checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)", min, max);
+        Assert.checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)", min, max);
         return Math.min(Math.max(value, min), max);
     }
 
@@ -300,7 +297,7 @@ public final class Ints {
      * @throws IllegalArgumentException if {@code bytes} has fewer than 4 elements
      */
     public static int fromByteArray(byte[] bytes) {
-        checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
+        Assert.checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
         return fromBytes(bytes[0], bytes[1], bytes[2], bytes[3]);
     }
 
@@ -366,8 +363,8 @@ public final class Ints {
      * @throws IllegalArgumentException if {@code minLength} or {@code padding} is negative
      */
     public static int[] ensureCapacity(int[] array, int minLength, int padding) {
-        checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
-        checkArgument(padding >= 0, "Invalid padding: %s", padding);
+        Assert.checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
+        Assert.checkArgument(padding >= 0, "Invalid padding: %s", padding);
         return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
     }
 
@@ -378,7 +375,7 @@ public final class Ints {
      * @param array     an array of {@code int} values, possibly empty
      */
     public static String join(String separator, int... array) {
-        checkNotNull(separator);
+        Assert.notNull(separator);
         if (array.length == 0) {
             return "";
         }
@@ -433,7 +430,7 @@ public final class Ints {
      * @since 23.1
      */
     public static void sortDescending(int[] array) {
-        checkNotNull(array);
+        Assert.notNull(array);
         sortDescending(array, 0, array.length);
     }
 
@@ -443,8 +440,9 @@ public final class Ints {
      * @since 23.1
      */
     public static void sortDescending(int[] array, int fromIndex, int toIndex) {
-        checkNotNull(array);
-        checkPositionIndexes(fromIndex, toIndex, array.length);
+        Assert.notNull(array);
+        Assert.checkIndex(fromIndex, array.length);
+        Assert.checkIndex(toIndex, array.length);
         Arrays.sort(array, fromIndex, toIndex);
         reverse(array, fromIndex, toIndex);
     }
@@ -455,7 +453,7 @@ public final class Ints {
      * @since 23.1
      */
     public static void reverse(int[] array) {
-        checkNotNull(array);
+        Assert.notNull(array);
         reverse(array, 0, array.length);
     }
 
@@ -467,8 +465,9 @@ public final class Ints {
      * @since 23.1
      */
     public static void reverse(int[] array, int fromIndex, int toIndex) {
-        checkNotNull(array);
-        checkPositionIndexes(fromIndex, toIndex, array.length);
+        Assert.notNull(array);
+        Assert.checkIndex(fromIndex, array.length);
+        Assert.checkIndex(toIndex, array.length);
         for (int i = fromIndex, j = toIndex - 1; i < j; i++, j--) {
             int tmp = array[i];
             array[i] = array[j];
@@ -526,8 +525,9 @@ public final class Ints {
         // twice as many reads and writes. But benchmarking shows that they usually perform better than
         // Dolphin. Reversal is about as good as Successive on average, and it is much simpler,
         // especially since we already have a `reverse` method.
-        checkNotNull(array);
-        checkPositionIndexes(fromIndex, toIndex, array.length);
+        Assert.notNull(array);
+        Assert.checkIndex(fromIndex, array.length);
+        Assert.checkIndex(toIndex, array.length);
         if (array.length <= 1) {
             return;
         }
@@ -568,8 +568,8 @@ public final class Ints {
         int len = boxedArray.length;
         int[] array = new int[len];
         for (int i = 0; i < len; i++) {
-            // checkNotNull for GWT (do not optimize)
-            array[i] = ((Number) checkNotNull(boxedArray[i])).intValue();
+            // Assert.notNull for GWT (do not optimize)
+            array[i] = ((Number) Assert.notNull(boxedArray[i])).intValue();
         }
         return array;
     }
@@ -623,7 +623,7 @@ public final class Ints {
 
         @Override
         public Integer get(int index) {
-            checkElementIndex(index, size());
+            Assert.checkIndex(index, size());
             return array[start + index];
         }
 
@@ -664,17 +664,18 @@ public final class Ints {
 
         @Override
         public Integer set(int index, Integer element) {
-            checkElementIndex(index, size());
+            Assert.checkIndex(index, size());
             int oldValue = array[start + index];
-            // checkNotNull for GWT (do not optimize)
-            array[start + index] = checkNotNull(element);
+            // Assert.notNull for GWT (do not optimize)
+            array[start + index] = Assert.notNull(element);
             return oldValue;
         }
 
         @Override
         public List<Integer> subList(int fromIndex, int toIndex) {
             int size = size();
-            checkPositionIndexes(fromIndex, toIndex, size);
+            Assert.checkIndex(fromIndex, size);
+            Assert.checkIndex(toIndex, size);
             if (fromIndex == toIndex) {
                 return Collections.emptyList();
             }

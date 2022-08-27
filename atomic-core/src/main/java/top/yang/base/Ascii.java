@@ -15,8 +15,7 @@
 package top.yang.base;
 
 
-import static top.yang.base.Preconditions.checkArgument;
-import static top.yang.base.Preconditions.checkNotNull;
+import top.yang.lang.Assert;
 
 
 public final class Ascii {
@@ -478,14 +477,14 @@ public final class Ascii {
      * @since 16.0
      */
     public static String truncate(CharSequence seq, int maxLength, String truncationIndicator) {
-        checkNotNull(seq);
+        Assert.notNull(seq);
 
         // length to truncate the sequence to, not including the truncation indicator
         int truncationLength = maxLength - truncationIndicator.length();
 
         // in this worst case, this allows a maxLength equal to the length of the truncationIndicator,
         // meaning that a string will be truncated to just the truncation indicator itself
-        checkArgument(
+        Assert.checkArgument(
                 truncationLength >= 0,
                 "maxLength ({}) must be >= length of the truncation indicator ({})",
                 maxLength,

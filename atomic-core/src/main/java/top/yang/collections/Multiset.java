@@ -16,7 +16,7 @@
 
 package top.yang.collections;
 
-import static top.yang.base.Preconditions.checkNotNull;
+
 
 import java.util.Collection;
 import java.util.Collections;
@@ -26,6 +26,7 @@ import java.util.Set;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 import java.util.function.ObjIntConsumer;
+import top.yang.lang.Assert;
 
 /**
  * A collection that supports order-independent equality, like {@link Set}, but may have duplicate elements. A multiset is also sometimes called a <i>bag</i>.
@@ -286,7 +287,7 @@ public interface Multiset<E extends Object> extends Collection<E> {
      */
 
     default void forEachEntry(ObjIntConsumer<? super E> action) {
-        checkNotNull(action);
+        Assert.notNull(action);
         entrySet().forEach(entry -> action.accept(entry.getElement(), entry.getCount()));
     }
 
@@ -400,7 +401,7 @@ public interface Multiset<E extends Object> extends Collection<E> {
      */
     @Override
     default void forEach(Consumer<? super E> action) {
-        checkNotNull(action);
+        Assert.notNull(action);
         entrySet()
                 .forEach(
                         entry -> {

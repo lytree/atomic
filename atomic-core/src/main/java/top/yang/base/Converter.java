@@ -16,11 +16,12 @@ package top.yang.base;
 
 
 import static top.yang.base.NullnessCasts.uncheckedCastNullableTToT;
-import static top.yang.base.Preconditions.checkNotNull;
+
 
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.function.Function;
+import top.yang.lang.Assert;
 
 /**
  * A function from {@code A} to {@code B} with an associated <i>reverse</i> function from {@code B} to {@code A}; used for converting back and forth between <i>different
@@ -195,7 +196,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
     B correctedDoForward(A a) {
         if (handleNullAutomatically) {
             // TODO(kevinb): we shouldn't be checking for a null result at runtime. Assert?
-            return a == null ? null : checkNotNull(doForward(a));
+            return a == null ? null : Assert.notNull(doForward(a));
         } else {
             return unsafeDoForward(a);
         }
@@ -205,7 +206,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
     A correctedDoBackward(B b) {
         if (handleNullAutomatically) {
             // TODO(kevinb): we shouldn't be checking for a null result at runtime. Assert?
-            return b == null ? null : checkNotNull(doBackward(b));
+            return b == null ? null : Assert.notNull(doBackward(b));
         } else {
             return unsafeDoBackward(b);
         }
@@ -264,7 +265,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
      * (`implements Function<@PolyNull A, @PolyNull B>`), at least as far as I know.)
      */
     public Iterable<B> convertAll(Iterable<? extends A> fromIterable) {
-        checkNotNull(fromIterable, "fromIterable");
+        Assert.notNull(fromIterable, "fromIterable");
         return new Iterable<B>() {
             @Override
             public Iterator<B> iterator() {
@@ -382,7 +383,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
      * Package-private non-final implementation of andThen() so only we can override it.
      */
     <C> Converter<A, C> doAndThen(Converter<B, C> secondConverter) {
-        return new ConverterComposition<>(this, checkNotNull(secondConverter));
+        return new ConverterComposition<>(this, Assert.notNull(secondConverter));
     }
 
     private static final class ConverterComposition<A, B, C> extends Converter<A, C>
@@ -530,8 +531,8 @@ public abstract class Converter<A, B> implements Function<A, B> {
         private FunctionBasedConverter(
                 Function<? super A, ? extends B> forwardFunction,
                 Function<? super B, ? extends A> backwardFunction) {
-            this.forwardFunction = checkNotNull(forwardFunction);
-            this.backwardFunction = checkNotNull(backwardFunction);
+            this.forwardFunction = Assert.notNull(forwardFunction);
+            this.backwardFunction = Assert.notNull(backwardFunction);
         }
 
         @Override
@@ -597,7 +598,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
 
         @Override
         <S> Converter<T, S> doAndThen(Converter<T, S> otherConverter) {
-            return checkNotNull(otherConverter, "otherConverter");
+            return Assert.notNull(otherConverter, "otherConverter");
         }
 
         /*

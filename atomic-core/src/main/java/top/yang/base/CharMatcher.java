@@ -14,12 +14,10 @@
 
 package top.yang.base;
 
-import static top.yang.base.Preconditions.checkArgument;
-import static top.yang.base.Preconditions.checkNotNull;
-import static top.yang.base.Preconditions.checkPositionIndex;
 
 import java.util.Arrays;
 import java.util.BitSet;
+import top.yang.lang.Assert;
 
 /**
  * Determines a true or false value for any Java {@code char} value, just as {@link Predicate} does for any {@link Object}. Also offers basic text processing methods based on this
@@ -487,7 +485,7 @@ public abstract class CharMatcher implements Predicate<Character> {
      */
     public int indexIn(CharSequence sequence, int start) {
         int length = sequence.length();
-        checkPositionIndex(start, length);
+        Assert.checkIndex(start, length);
         for (int i = start; i < length; i++) {
             if (matches(sequence.charAt(i))) {
                 return i;
@@ -869,7 +867,7 @@ public abstract class CharMatcher implements Predicate<Character> {
         private final String description;
 
         NamedFastMatcher(String description) {
-            this.description = checkNotNull(description);
+            this.description = Assert.notNull(description);
         }
 
         @Override
@@ -947,7 +945,7 @@ public abstract class CharMatcher implements Predicate<Character> {
         @Override
         public int indexIn(CharSequence sequence, int start) {
             int length = sequence.length();
-            checkPositionIndex(start, length);
+            Assert.checkIndex(start, length);
             return (start == length) ? -1 : start;
         }
 
@@ -958,7 +956,7 @@ public abstract class CharMatcher implements Predicate<Character> {
 
         @Override
         public boolean matchesAllOf(CharSequence sequence) {
-            checkNotNull(sequence);
+            Assert.notNull(sequence);
             return true;
         }
 
@@ -969,7 +967,7 @@ public abstract class CharMatcher implements Predicate<Character> {
 
         @Override
         public String removeFrom(CharSequence sequence) {
-            checkNotNull(sequence);
+            Assert.notNull(sequence);
             return "";
         }
 
@@ -996,7 +994,7 @@ public abstract class CharMatcher implements Predicate<Character> {
 
         @Override
         public String trimFrom(CharSequence sequence) {
-            checkNotNull(sequence);
+            Assert.notNull(sequence);
             return "";
         }
 
@@ -1007,12 +1005,12 @@ public abstract class CharMatcher implements Predicate<Character> {
 
         @Override
         public CharMatcher and(CharMatcher other) {
-            return checkNotNull(other);
+            return Assert.notNull(other);
         }
 
         @Override
         public CharMatcher or(CharMatcher other) {
-            checkNotNull(other);
+            Assert.notNull(other);
             return this;
         }
 
@@ -1040,20 +1038,20 @@ public abstract class CharMatcher implements Predicate<Character> {
 
         @Override
         public int indexIn(CharSequence sequence) {
-            checkNotNull(sequence);
+            Assert.notNull(sequence);
             return -1;
         }
 
         @Override
         public int indexIn(CharSequence sequence, int start) {
             int length = sequence.length();
-            checkPositionIndex(start, length);
+            Assert.checkIndex(start, length);
             return -1;
         }
 
         @Override
         public int lastIndexIn(CharSequence sequence) {
-            checkNotNull(sequence);
+            Assert.notNull(sequence);
             return -1;
         }
 
@@ -1064,7 +1062,7 @@ public abstract class CharMatcher implements Predicate<Character> {
 
         @Override
         public boolean matchesNoneOf(CharSequence sequence) {
-            checkNotNull(sequence);
+            Assert.notNull(sequence);
             return true;
         }
 
@@ -1080,7 +1078,7 @@ public abstract class CharMatcher implements Predicate<Character> {
 
         @Override
         public String replaceFrom(CharSequence sequence, CharSequence replacement) {
-            checkNotNull(replacement);
+            Assert.notNull(replacement);
             return sequence.toString();
         }
 
@@ -1106,19 +1104,19 @@ public abstract class CharMatcher implements Predicate<Character> {
 
         @Override
         public int countIn(CharSequence sequence) {
-            checkNotNull(sequence);
+            Assert.notNull(sequence);
             return 0;
         }
 
         @Override
         public CharMatcher and(CharMatcher other) {
-            checkNotNull(other);
+            Assert.notNull(other);
             return this;
         }
 
         @Override
         public CharMatcher or(CharMatcher other) {
-            return checkNotNull(other);
+            return Assert.notNull(other);
         }
 
         @Override
@@ -1231,11 +1229,11 @@ public abstract class CharMatcher implements Predicate<Character> {
             this.description = description;
             this.rangeStarts = rangeStarts;
             this.rangeEnds = rangeEnds;
-            checkArgument(rangeStarts.length == rangeEnds.length);
+            Assert.checkArgument(rangeStarts.length == rangeEnds.length);
             for (int i = 0; i < rangeStarts.length; i++) {
-                checkArgument(rangeStarts[i] <= rangeEnds[i]);
+                Assert.checkArgument(rangeStarts[i] <= rangeEnds[i]);
                 if (i + 1 < rangeStarts.length) {
-                    checkArgument(rangeEnds[i] < rangeStarts[i + 1]);
+                    Assert.checkArgument(rangeEnds[i] < rangeStarts[i + 1]);
                 }
             }
         }
@@ -1446,7 +1444,7 @@ public abstract class CharMatcher implements Predicate<Character> {
         final CharMatcher original;
 
         Negated(CharMatcher original) {
-            this.original = checkNotNull(original);
+            this.original = Assert.notNull(original);
         }
 
         @Override
@@ -1498,8 +1496,8 @@ public abstract class CharMatcher implements Predicate<Character> {
         final CharMatcher second;
 
         And(CharMatcher a, CharMatcher b) {
-            first = checkNotNull(a);
-            second = checkNotNull(b);
+            first = Assert.notNull(a);
+            second = Assert.notNull(b);
         }
 
         @Override
@@ -1533,8 +1531,8 @@ public abstract class CharMatcher implements Predicate<Character> {
         final CharMatcher second;
 
         Or(CharMatcher a, CharMatcher b) {
-            first = checkNotNull(a);
-            second = checkNotNull(b);
+            first = Assert.notNull(a);
+            second = Assert.notNull(b);
         }
 
 
@@ -1730,7 +1728,7 @@ public abstract class CharMatcher implements Predicate<Character> {
         private final char endInclusive;
 
         InRange(char startInclusive, char endInclusive) {
-            checkArgument(endInclusive >= startInclusive);
+            Assert.notNull(endInclusive >= startInclusive);
             this.startInclusive = startInclusive;
             this.endInclusive = endInclusive;
         }
@@ -1764,7 +1762,7 @@ public abstract class CharMatcher implements Predicate<Character> {
         private final Predicate<? super Character> predicate;
 
         ForPredicate(Predicate<? super Character> predicate) {
-            this.predicate = checkNotNull(predicate);
+            this.predicate = Assert.notNull(predicate);
         }
 
         @Override
@@ -1775,7 +1773,7 @@ public abstract class CharMatcher implements Predicate<Character> {
         @SuppressWarnings("deprecation") // intentional; deprecation is for callers primarily
         @Override
         public boolean apply(Character character) {
-            return predicate.apply(checkNotNull(character));
+            return predicate.apply(Assert.notNull(character));
         }
 
         @Override

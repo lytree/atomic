@@ -19,10 +19,13 @@ import static java.lang.Math.abs;
 import static java.lang.Math.min;
 import static java.math.RoundingMode.HALF_EVEN;
 import static java.math.RoundingMode.HALF_UP;
+import static top.yang.math.MathPreconditions.*;
+import static top.yang.math.MathPreconditions.checkPositive;
 
 
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import top.yang.lang.Assert;
 
 /**
  * A class for arithmetic on values of type {@code long}. Where possible, methods are defined and named analogously to their {@code BigInteger} counterparts.
@@ -364,7 +367,7 @@ public final class LongMath {
     // TODO
     @SuppressWarnings("fallthrough")
     public static long divide(long p, long q, RoundingMode mode) {
-        checkNotNull(mode);
+        Assert.notNull(mode);
         long div = p / q; // throws if q == 0
         long rem = p - q * div; // equals p % q
 
@@ -785,7 +788,7 @@ public final class LongMath {
     public static long binomial(int n, int k) {
         checkNonNegative("n", n);
         checkNonNegative("k", k);
-        checkArgument(k <= n, "k (%s) > n (%s)", k, n);
+        Assert.checkArgument(k <= n, "k (%s) > n (%s)", k, n);
         if (k > (n >> 1)) {
             k = n - k;
         }

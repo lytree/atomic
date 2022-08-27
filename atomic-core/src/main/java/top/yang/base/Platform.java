@@ -21,6 +21,7 @@ import java.util.ServiceConfigurationError;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import top.yang.lang.Assert;
 import top.yang.lang.StringUtils;
 
 
@@ -86,7 +87,7 @@ final class Platform {
     }
 
     static CommonPattern compilePattern(String pattern) {
-        Preconditions.checkNotNull(pattern);
+        Assert.notNull(pattern);
         return patternCompiler.compile(pattern);
     }
 

@@ -1,6 +1,6 @@
 package top.yang.collections;
 
-import static top.yang.base.Preconditions.*;
+
 
 import java.util.AbstractMap;
 import java.util.Collection;
@@ -59,7 +59,7 @@ public class Maps {
         final Map<K, V> map;
 
         KeySet(Map<K, V> map) {
-            this.map = checkNotNull(map);
+            this.map = Assert.notNull(map);
         }
 
         Map<K, V> map() {
@@ -73,7 +73,7 @@ public class Maps {
 
         @Override
         public void forEach(Consumer<? super K> action) {
-            checkNotNull(action);
+            Assert.notNull(action);
             // avoids entry allocation for those maps that allocate entries on iteration
             map.forEach((k, v) -> action.accept(k));
         }
@@ -155,7 +155,7 @@ public class Maps {
         @Override
         public boolean removeAll(Collection<?> c) {
             try {
-                return super.removeAll(checkNotNull(c));
+                return super.removeAll(Assert.notNull(c));
             } catch (UnsupportedOperationException e) {
                 // if the iterators don't support remove
                 return Sets.removeAllImpl(this, c.iterator());
@@ -165,7 +165,7 @@ public class Maps {
         @Override
         public boolean retainAll(Collection<?> c) {
             try {
-                return super.retainAll(checkNotNull(c));
+                return super.retainAll(Assert.notNull(c));
             } catch (UnsupportedOperationException e) {
                 // if the iterators don't support remove
                 Set<Object> keys = Sets.newHashSetWithExpectedSize(c.size());

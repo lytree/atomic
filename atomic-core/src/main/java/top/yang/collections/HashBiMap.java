@@ -16,7 +16,7 @@ package top.yang.collections;
 
 
 import static java.util.Objects.requireNonNull;
-import static top.yang.base.Preconditions.*;
+
 import static top.yang.collections.Hashing.smearedHash;
 
 
@@ -37,6 +37,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import top.yang.collections.Maps.IteratorBasedAbstractMap;
+import top.yang.lang.Assert;
 
 
 /**
@@ -561,7 +562,7 @@ public final class HashBiMap<K, V>
                     if (valueHash == delegate.valueHash && Objects.equals(value, oldValue)) {
                         return value;
                     }
-                    checkArgument(seekByValue(value, valueHash) == null, "value already present: %s", value);
+                    Assert.checkArgument(seekByValue(value, valueHash) == null, "value already present: %s", value);
                     delete(delegate);
                     BiEntry<K, V> newEntry = new BiEntry<>(delegate.key, delegate.keyHash, value, valueHash);
                     insert(newEntry, delegate);
@@ -580,7 +581,7 @@ public final class HashBiMap<K, V>
 
     @Override
     public void forEach(BiConsumer<? super K, ? super V> action) {
-        checkNotNull(action);
+        Assert.notNull(action);
         for (BiEntry<K, V> entry = firstInKeyInsertionOrder;
                 entry != null;
                 entry = entry.nextInKeyInsertionOrder) {
@@ -590,7 +591,7 @@ public final class HashBiMap<K, V>
 
     @Override
     public void replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
-        checkNotNull(function);
+        Assert.notNull(function);
         BiEntry<K, V> oldFirst = firstInKeyInsertionOrder;
         clear();
         for (BiEntry<K, V> entry = oldFirst; entry != null; entry = entry.nextInKeyInsertionOrder) {
@@ -741,7 +742,7 @@ public final class HashBiMap<K, V>
                         if (keyHash == delegate.keyHash && Objects.equals(key, oldKey)) {
                             return key;
                         }
-                        checkArgument(seekByKey(key, keyHash) == null, "value already present: %s", key);
+                        Assert.checkArgument(seekByKey(key, keyHash) == null, "value already present: %s", key);
                         delete(delegate);
                         BiEntry<K, V> newEntry =
                                 new BiEntry<>(key, keyHash, delegate.value, delegate.valueHash);
@@ -756,13 +757,13 @@ public final class HashBiMap<K, V>
 
         @Override
         public void forEach(BiConsumer<? super V, ? super K> action) {
-            checkNotNull(action);
+            Assert.notNull(action);
             HashBiMap.this.forEach((k, v) -> action.accept(v, k));
         }
 
         @Override
         public void replaceAll(BiFunction<? super V, ? super K, ? extends K> function) {
-            checkNotNull(function);
+            Assert.notNull(function);
             BiEntry<K, V> oldFirst = firstInKeyInsertionOrder;
             clear();
             for (BiEntry<K, V> entry = oldFirst; entry != null; entry = entry.nextInKeyInsertionOrder) {

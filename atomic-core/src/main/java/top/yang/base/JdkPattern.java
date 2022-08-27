@@ -17,6 +17,7 @@ package top.yang.base;
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import top.yang.lang.Assert;
 
 /**
  * A regex pattern implementation which is backed by the {@link Pattern}.
@@ -26,7 +27,7 @@ final class JdkPattern extends CommonPattern implements Serializable {
     private final Pattern pattern;
 
     JdkPattern(Pattern pattern) {
-        this.pattern = Preconditions.checkNotNull(pattern);
+        this.pattern = Assert.notNull(pattern);
     }
 
     @Override
@@ -54,7 +55,7 @@ final class JdkPattern extends CommonPattern implements Serializable {
         final Matcher matcher;
 
         JdkMatcher(Matcher matcher) {
-            this.matcher = Preconditions.checkNotNull(matcher);
+            this.matcher = Assert.notNull(matcher);
         }
 
         @Override

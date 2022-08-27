@@ -14,7 +14,6 @@
 
 package top.yang.base;
 
-import static top.yang.base.Preconditions.checkNotNull;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -24,6 +23,7 @@ import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
+import top.yang.lang.Assert;
 
 /**
  * Helper functions that operate on any {@code Object}, and are not already provided in {@link java.util.Objects}.
@@ -167,7 +167,7 @@ public final class MoreObjects {
          * Use {@link MoreObjects#toStringHelper(Object)} to create an instance.
          */
         private ToStringHelper(String className) {
-            this.className = checkNotNull(className);
+            this.className = Assert.notNull(className);
         }
 
         /**
@@ -417,7 +417,7 @@ public final class MoreObjects {
         private ToStringHelper addHolder(String name, Object value) {
             ValueHolder valueHolder = addHolder();
             valueHolder.value = value;
-            valueHolder.name = checkNotNull(name);
+            valueHolder.name = Assert.notNull(name);
             return this;
         }
 
@@ -436,7 +436,7 @@ public final class MoreObjects {
         private ToStringHelper addUnconditionalHolder(String name, Object value) {
             UnconditionalValueHolder valueHolder = addUnconditionalHolder();
             valueHolder.value = value;
-            valueHolder.name = checkNotNull(name);
+            valueHolder.name = Assert.notNull(name);
             return this;
         }
 

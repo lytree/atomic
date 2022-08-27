@@ -14,11 +14,11 @@
 
 package top.yang.math;
 
-import static top.yang.base.Preconditions.*;
 
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Comparator;
+import top.yang.lang.Assert;
 
 /**
  * Static utility methods pertaining to {@code long} primitives that interpret values as
@@ -78,7 +78,7 @@ public final class UnsignedLongs {
      * @throws IllegalArgumentException if {@code array} is empty
      */
     public static long min(long... array) {
-        checkArgument(array.length > 0);
+        Assert.checkArgument(array.length > 0);
         long min = flip(array[0]);
         for (int i = 1; i < array.length; i++) {
             long next = flip(array[i]);
@@ -97,7 +97,7 @@ public final class UnsignedLongs {
      * @throws IllegalArgumentException if {@code array} is empty
      */
     public static long max(long... array) {
-        checkArgument(array.length > 0);
+        Assert.checkArgument(array.length > 0);
         long max = flip(array[0]);
         for (int i = 1; i < array.length; i++) {
             long next = flip(array[i]);
@@ -116,7 +116,7 @@ public final class UnsignedLongs {
      * @param array     an array of unsigned {@code long} values, possibly empty
      */
     public static String join(String separator, long... array) {
-        checkNotNull(separator);
+        Assert.notNull(separator);
         if (array.length == 0) {
             return "";
         }
@@ -168,7 +168,7 @@ public final class UnsignedLongs {
      * @since 23.1
      */
     public static void sort(long[] array) {
-        checkNotNull(array);
+        Assert.notNull(array);
         sort(array, 0, array.length);
     }
 
@@ -178,8 +178,9 @@ public final class UnsignedLongs {
      * @since 23.1
      */
     public static void sort(long[] array, int fromIndex, int toIndex) {
-        checkNotNull(array);
-        checkPositionIndexes(fromIndex, toIndex, array.length);
+        Assert.notNull(array);
+        Assert.checkIndex(fromIndex, array.length);
+        Assert.checkIndex(toIndex, array.length);
         for (int i = fromIndex; i < toIndex; i++) {
             array[i] = flip(array[i]);
         }
@@ -195,7 +196,7 @@ public final class UnsignedLongs {
      * @since 23.1
      */
     public static void sortDescending(long[] array) {
-        checkNotNull(array);
+        Assert.notNull(array);
         sortDescending(array, 0, array.length);
     }
 
@@ -205,8 +206,9 @@ public final class UnsignedLongs {
      * @since 23.1
      */
     public static void sortDescending(long[] array, int fromIndex, int toIndex) {
-        checkNotNull(array);
-        checkPositionIndexes(fromIndex, toIndex, array.length);
+        Assert.notNull(array);
+        Assert.checkIndex(fromIndex, array.length);
+        Assert.checkIndex(toIndex, array.length);
         for (int i = fromIndex; i < toIndex; i++) {
             array[i] ^= Long.MAX_VALUE;
         }
@@ -311,7 +313,7 @@ public final class UnsignedLongs {
      */
 
     public static long parseUnsignedLong(String string, int radix) {
-        checkNotNull(string);
+        Assert.notNull(string);
         if (string.length() == 0) {
             throw new NumberFormatException("empty string");
         }
@@ -427,7 +429,7 @@ public final class UnsignedLongs {
      * @throws IllegalArgumentException if {@code radix} is not between {@link Character#MIN_RADIX} and {@link Character#MAX_RADIX}.
      */
     public static String toString(long x, int radix) {
-        checkArgument(
+        Assert.checkArgument(
                 radix >= Character.MIN_RADIX && radix <= Character.MAX_RADIX,
                 "radix (%s) must be between Character.MIN_RADIX and Character.MAX_RADIX",
                 radix);

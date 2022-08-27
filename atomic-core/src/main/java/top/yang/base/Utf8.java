@@ -16,7 +16,8 @@ package top.yang.base;
 
 import static java.lang.Character.MAX_SURROGATE;
 import static java.lang.Character.MIN_SURROGATE;
-import static top.yang.base.Preconditions.checkPositionIndexes;
+
+import top.yang.lang.Assert;
 
 
 /**
@@ -115,7 +116,8 @@ public final class Utf8 {
      */
     public static boolean isWellFormed(byte[] bytes, int off, int len) {
         int end = off + len;
-        checkPositionIndexes(off, end, bytes.length);
+        Assert.checkIndex(off, bytes.length);
+        Assert.checkIndex(end, bytes.length);
         // Look for the first non-ASCII character.
         for (int i = off; i < end; i++) {
             if (bytes[i] < 0) {

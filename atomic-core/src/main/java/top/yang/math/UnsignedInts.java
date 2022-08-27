@@ -15,12 +15,9 @@
 package top.yang.math;
 
 
-import static top.yang.base.Preconditions.checkArgument;
-import static top.yang.base.Preconditions.checkNotNull;
-import static top.yang.base.Preconditions.checkPositionIndexes;
-
 import java.util.Arrays;
 import java.util.Comparator;
+import top.yang.lang.Assert;
 
 /**
  * Static utility methods pertaining to {@code int} primitives that interpret values as
@@ -84,7 +81,7 @@ public final class UnsignedInts {
      * @since 21.0
      */
     public static int checkedCast(long value) {
-        checkArgument((value >> Integer.SIZE) == 0, "out of range: %s", value);
+        Assert.checkArgument((value >> Integer.SIZE) == 0, "out of range: %s", value);
         return (int) value;
     }
 
@@ -113,7 +110,7 @@ public final class UnsignedInts {
      * @throws IllegalArgumentException if {@code array} is empty
      */
     public static int min(int... array) {
-        checkArgument(array.length > 0);
+        Assert.checkArgument(array.length > 0);
         int min = flip(array[0]);
         for (int i = 1; i < array.length; i++) {
             int next = flip(array[i]);
@@ -132,7 +129,7 @@ public final class UnsignedInts {
      * @throws IllegalArgumentException if {@code array} is empty
      */
     public static int max(int... array) {
-        checkArgument(array.length > 0);
+        Assert.checkArgument(array.length > 0);
         int max = flip(array[0]);
         for (int i = 1; i < array.length; i++) {
             int next = flip(array[i]);
@@ -151,7 +148,7 @@ public final class UnsignedInts {
      * @param array     an array of unsigned {@code int} values, possibly empty
      */
     public static String join(String separator, int... array) {
-        checkNotNull(separator);
+        Assert.notNull(separator);
         if (array.length == 0) {
             return "";
         }
@@ -203,7 +200,7 @@ public final class UnsignedInts {
      * @since 23.1
      */
     public static void sort(int[] array) {
-        checkNotNull(array);
+        Assert.notNull(array);
         sort(array, 0, array.length);
     }
 
@@ -213,8 +210,9 @@ public final class UnsignedInts {
      * @since 23.1
      */
     public static void sort(int[] array, int fromIndex, int toIndex) {
-        checkNotNull(array);
-        checkPositionIndexes(fromIndex, toIndex, array.length);
+        Assert.notNull(array);
+        Assert.checkIndex(fromIndex, array.length);
+        Assert.checkIndex(toIndex, array.length);
         for (int i = fromIndex; i < toIndex; i++) {
             array[i] = flip(array[i]);
         }
@@ -230,7 +228,7 @@ public final class UnsignedInts {
      * @since 23.1
      */
     public static void sortDescending(int[] array) {
-        checkNotNull(array);
+        Assert.notNull(array);
         sortDescending(array, 0, array.length);
     }
 
@@ -240,8 +238,9 @@ public final class UnsignedInts {
      * @since 23.1
      */
     public static void sortDescending(int[] array, int fromIndex, int toIndex) {
-        checkNotNull(array);
-        checkPositionIndexes(fromIndex, toIndex, array.length);
+        Assert.notNull(array);
+        Assert.checkIndex(fromIndex, array.length);
+        Assert.checkIndex(toIndex, array.length);
         for (int i = fromIndex; i < toIndex; i++) {
             array[i] ^= Integer.MAX_VALUE;
         }
@@ -331,7 +330,7 @@ public final class UnsignedInts {
      */
 
     public static int parseUnsignedInt(String string, int radix) {
-        checkNotNull(string);
+        Assert.notNull(string);
         long result = Long.parseLong(string, radix);
         if ((result & INT_MASK) != result) {
             throw new NumberFormatException(

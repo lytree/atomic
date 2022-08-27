@@ -15,7 +15,7 @@
 package top.yang.base;
 
 import static java.util.Objects.requireNonNull;
-import static top.yang.base.Preconditions.checkNotNull;
+
 
 import java.io.IOException;
 import java.util.AbstractList;
@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import top.yang.lang.Assert;
 
 /**
  * An object which joins pieces of text (specified as an array, {@link Iterable}, varargs or even a {@link Map}) with a separator. It either appends the results to an {@link
@@ -78,7 +79,7 @@ public class Joiner {
     private final String separator;
 
     private Joiner(String separator) {
-        this.separator = checkNotNull(separator);
+        this.separator = Assert.notNull(separator);
     }
 
     private Joiner(Joiner prototype) {
@@ -108,7 +109,7 @@ public class Joiner {
 
     public <A extends Appendable> A appendTo(A appendable, Iterator<? extends Object> parts)
             throws IOException {
-        checkNotNull(appendable);
+        Assert.notNull(appendable);
         if (parts.hasNext()) {
             appendable.append(toString(parts.next()));
             while (parts.hasNext()) {
@@ -225,7 +226,7 @@ public class Joiner {
      * Returns a joiner with the same behavior as this one, except automatically substituting {@code nullText} for any provided null elements.
      */
     public Joiner useForNull(String nullText) {
-        checkNotNull(nullText);
+        Assert.notNull(nullText);
         return new Joiner(this) {
             @Override
             CharSequence toString(Object part) {
@@ -252,8 +253,8 @@ public class Joiner {
             @Override
             public <A extends Appendable> A appendTo(
                     A appendable, Iterator<? extends Object> parts) throws IOException {
-                checkNotNull(appendable, "appendable");
-                checkNotNull(parts, "parts");
+                Assert.notNull(appendable, "appendable");
+                Assert.notNull(parts, "parts");
                 while (parts.hasNext()) {
                     Object part = parts.next();
                     if (part != null) {
@@ -322,8 +323,8 @@ public class Joiner {
         private final String keyValueSeparator;
 
         private MapJoiner(Joiner joiner, String keyValueSeparator) {
-            this.joiner = joiner; // only "this" is ever passed, so don't checkNotNull
-            this.keyValueSeparator = checkNotNull(keyValueSeparator);
+            this.joiner = joiner; // only "this" is ever passed, so don't Assert.notNull
+            this.keyValueSeparator = Assert.notNull(keyValueSeparator);
         }
 
         /**
@@ -364,7 +365,7 @@ public class Joiner {
 
         public <A extends Appendable> A appendTo(A appendable, Iterator<? extends Entry<?, ?>> parts)
                 throws IOException {
-            checkNotNull(appendable);
+            Assert.notNull(appendable);
             if (parts.hasNext()) {
                 Entry<?, ?> entry = parts.next();
                 appendable.append(joiner.toString(entry.getKey()));
@@ -469,7 +470,7 @@ public class Joiner {
 
     private static Iterable<Object> iterable(
             Object first, Object second, Object[] rest) {
-        checkNotNull(rest);
+        Assert.notNull(rest);
         return new AbstractList<Object>() {
             @Override
             public int size() {

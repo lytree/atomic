@@ -16,10 +16,11 @@
 
 package top.yang.collections;
 
-import static top.yang.base.Preconditions.*;
+
 
 import java.util.Collection;
 import java.util.Iterator;
+import top.yang.lang.Assert;
 
 /**
  * This class contains static utility methods that operate on or return objects of type {@link Iterator}. Except as noted, each method has a corresponding {@link Iterable}-based
@@ -43,7 +44,7 @@ public final class Iterators {
 
     // Methods only in Iterators, not in Iterables
     public static boolean removeAll(Iterator<?> removeFrom, Collection<?> elementsToRemove) {
-        checkNotNull(elementsToRemove);
+        Assert.notNull(elementsToRemove);
         boolean result = false;
         while (removeFrom.hasNext()) {
             if (elementsToRemove.contains(removeFrom.next())) {
@@ -58,7 +59,7 @@ public final class Iterators {
      * Clears the iterator using its remove method.
      */
     static void clear(Iterator<?> iterator) {
-        checkNotNull(iterator);
+        Assert.notNull(iterator);
         while (iterator.hasNext()) {
             iterator.next();
             iterator.remove();

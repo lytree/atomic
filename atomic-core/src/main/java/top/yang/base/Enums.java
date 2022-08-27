@@ -14,7 +14,6 @@
 
 package top.yang.base;
 
-import static top.yang.base.Preconditions.checkNotNull;
 
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
@@ -24,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.WeakHashMap;
+import top.yang.lang.Assert;
 
 /**
  * Utility methods for working with {@link Enum} instances.
@@ -61,8 +61,8 @@ public final class Enums {
      * @since 12.0
      */
     public static <T extends Enum<T>> Optional<T> getIfPresent(Class<T> enumClass, String value) {
-        checkNotNull(enumClass);
-        checkNotNull(value);
+        Assert.notNull(enumClass);
+        Assert.notNull(value);
         return Platform.getEnumIfPresent(enumClass, value);
     }
 
@@ -109,7 +109,7 @@ public final class Enums {
         private final Class<T> enumClass;
 
         StringConverter(Class<T> enumClass) {
-            this.enumClass = checkNotNull(enumClass);
+            this.enumClass = Assert.notNull(enumClass);
         }
 
         @Override
