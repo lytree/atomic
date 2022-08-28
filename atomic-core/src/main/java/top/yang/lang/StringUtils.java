@@ -21,6 +21,9 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 import top.yang.base.Filter;
 import top.yang.bean.ObjectUtils;
 import top.yang.collections.ArrayUtils;
@@ -1583,7 +1586,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
                 return Character.toUpperCase(firstChar) + substring(str, 1);
             }
         }
-        return str.toString();
+        return str;
     }
 
     /**
@@ -1602,7 +1605,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
                 return Character.toLowerCase(firstChar) + substring(str, 1);
             }
         }
-        return str.toString();
+        return str;
     }
 
     /**

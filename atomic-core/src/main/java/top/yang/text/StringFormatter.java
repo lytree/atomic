@@ -1,69 +1,296 @@
 package top.yang.text;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import org.slf4j.helpers.FormattingTuple;
+import org.slf4j.helpers.MessageFormatter;
+import org.slf4j.helpers.Util;
 import top.yang.collections.CollectionUtils;
 import top.yang.lang.StringUtils;
 
-public class StringFormatter {
+public final class StringFormatter {
 
-    public static final String EMPTY_JSON = "{}";
-    public static final char C_BACKSLASH = '\\';
-    public static final char C_DELIM_START = '{';
-    public static final char C_DELIM_END = '}';
+    static final char DELIM_START = '{';
+    static final char DELIM_STOP = '}';
+    static final String DELIM_STR = "{}";
+    private static final char ESCAPE_CHAR = '\\';
 
     /**
-     * 格式化字符串<br> 此方法只是简单将占位符 {} 按照顺序替换为参数<br> 如果想输出 {} 使用 \\转义 { 即可，如果想输出 {} 之前的 \ 使用双转义符 \\\\ 即可<br> 例：<br> 通常使用：format("this is {} for {}", "a", "b") -> this is a for b<br>
-     * 转义{}： format("this is \\{} for {}", "a", "b") -> this is \{} for a<br> 转义\： format("this is \\\\{} for {}", "a", "b") -> this is \a for b<br>
+     * Performs single argument substitution for the 'messagePattern' passed as parameter.
+     * <p>
+     * For example,
      *
-     * @param strPattern 字符串模板
-     * @param argArray   参数列表
-     * @return 结果
+     * <pre>
+     * MessageFormatter.format(&quot;Hi {}.&quot;, &quot;there&quot;);
+     * </pre>
+     * <p>
+     * will return the string "Hi there.".
+     * <p>
+     *
+     * @param messagePattern The message pattern which will be parsed and formatted
+     * @param arg            The argument to be substituted in place of the formatting anchor
+     * @return The formatted message
      */
-    public static String format(final String strPattern, final Object... argArray) {
-        if (StringUtils.isEmpty(strPattern) || CollectionUtils.isEmpty(Arrays.asList(argArray))) {
-            return strPattern;
+    public static String format(String messagePattern, Object arg) {
+        return arrayFormat(messagePattern, new Object[]{arg});
+    }
+
+    /**
+     * Performs a two argument substitution for the 'messagePattern' passed as parameter.
+     * <p>
+     * For example,
+     *
+     * <pre>
+     * MessageFormatter.format(&quot;Hi {}. My name is {}.&quot;, &quot;Alice&quot;, &quot;Bob&quot;);
+     * </pre>
+     * <p>
+     * will return the string "Hi Alice. My name is Bob.".
+     *
+     * @param messagePattern The message pattern which will be parsed and formatted
+     * @param arg1           The argument to be substituted in place of the first formatting anchor
+     * @param arg2           The argument to be substituted in place of the second formatting anchor
+     * @return The formatted message
+     */
+    public static String format(final String messagePattern, Object arg1, Object arg2) {
+        return arrayFormat(messagePattern, new Object[]{arg1, arg2});
+    }
+
+    public static String format(final String messagePattern, Object... argArray) {
+        return arrayFormat(messagePattern, argArray);
+    }
+
+    private static String arrayFormat(final String messagePattern, final Object[] argArray) {
+        if (messagePattern == null) {
+            return "";
         }
-        final int strPatternLength = strPattern.length();
 
-        // 初始化定义好的长度以获得更好的性能
-        StringBuilder sbuf = new StringBuilder(strPatternLength + 50);
+        if (argArray == null) {
+            return messagePattern;
+        }
 
-        int handledPosition = 0;
-        int delimIndex;// 占位符所在位置
-        for (int argIndex = 0; argIndex < argArray.length; argIndex++) {
-            delimIndex = strPattern.indexOf(EMPTY_JSON, handledPosition);
-            if (delimIndex == -1) {
-                if (handledPosition == 0) {
-                    return strPattern;
-                } else { // 字符串模板剩余部分不再包含占位符，加入剩余部分后返回结果
-                    sbuf.append(strPattern, handledPosition, strPatternLength);
+        int i = 0;
+        int j;
+        // use string builder for better multicore performance
+        StringBuilder sbuf = new StringBuilder(messagePattern.length() + 50);
+
+        int L;
+        for (L = 0; L < argArray.length; L++) {
+
+            j = messagePattern.indexOf(DELIM_STR, i);
+
+            if (j == -1) {
+                // no more variables
+                if (i == 0) { // this is a simple string
+                    return messagePattern;
+                } else { // add the tail string which contains no variables and return
+                    // the result.
+                    sbuf.append(messagePattern, i, messagePattern.length());
                     return sbuf.toString();
                 }
             } else {
-                if (delimIndex > 0 && strPattern.charAt(delimIndex - 1) == C_BACKSLASH) {
-                    if (delimIndex > 1 && strPattern.charAt(delimIndex - 2) == C_BACKSLASH) {
-                        // 转义符之前还有一个转义符，占位符依旧有效
-                        sbuf.append(strPattern, handledPosition, delimIndex - 1);
-                        sbuf.append((argArray[argIndex].toString()));
-                        handledPosition = delimIndex + 2;
+                if (isEscapedDelimeter(messagePattern, j)) {
+                    if (!isDoubleEscaped(messagePattern, j)) {
+                        L--; // DELIM_START was escaped, thus should not be incremented
+                        sbuf.append(messagePattern, i, j - 1);
+                        sbuf.append(DELIM_START);
+                        i = j + 1;
                     } else {
-                        // 占位符被转义
-                        argIndex--;
-                        sbuf.append(strPattern, handledPosition, delimIndex - 1);
-                        sbuf.append(C_DELIM_START);
-                        handledPosition = delimIndex + 1;
+                        // The escape character preceding the delimiter start is
+                        // itself escaped: "abc x:\\{}"
+                        // we have to consume one backward slash
+                        sbuf.append(messagePattern, i, j - 1);
+                        deeplyAppendParameter(sbuf, argArray[L], new HashMap<Object[], Object>());
+                        i = j + 2;
                     }
                 } else {
-                    // 正常占位符
-                    sbuf.append(strPattern, handledPosition, delimIndex);
-                    sbuf.append((argArray[argIndex].toString()));
-                    handledPosition = delimIndex + 2;
+                    // normal case
+                    sbuf.append(messagePattern, i, j);
+                    deeplyAppendParameter(sbuf, argArray[L], new HashMap<Object[], Object>());
+                    i = j + 2;
                 }
             }
         }
-        // 加入最后一个占位符后所有的字符
-        sbuf.append(strPattern, handledPosition, strPattern.length());
-
+        // append the characters following the last {} pair.
+        sbuf.append(messagePattern, i, messagePattern.length());
         return sbuf.toString();
+    }
+
+    static boolean isEscapedDelimeter(String messagePattern, int delimeterStartIndex) {
+
+        if (delimeterStartIndex == 0) {
+            return false;
+        }
+        char potentialEscape = messagePattern.charAt(delimeterStartIndex - 1);
+        if (potentialEscape == ESCAPE_CHAR) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    static boolean isDoubleEscaped(String messagePattern, int delimeterStartIndex) {
+        if (delimeterStartIndex >= 2 && messagePattern.charAt(delimeterStartIndex - 2) == ESCAPE_CHAR) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // special treatment of array values was suggested by 'lizongbo'
+    private static void deeplyAppendParameter(StringBuilder sbuf, Object o, Map<Object[], Object> seenMap) {
+        if (o == null) {
+            sbuf.append("null");
+            return;
+        }
+        if (!o.getClass().isArray()) {
+            safeObjectAppend(sbuf, o);
+        } else {
+            // check for primitive array types because they
+            // unfortunately cannot be cast to Object[]
+            if (o instanceof boolean[]) {
+                booleanArrayAppend(sbuf, (boolean[]) o);
+            } else if (o instanceof byte[]) {
+                byteArrayAppend(sbuf, (byte[]) o);
+            } else if (o instanceof char[]) {
+                charArrayAppend(sbuf, (char[]) o);
+            } else if (o instanceof short[]) {
+                shortArrayAppend(sbuf, (short[]) o);
+            } else if (o instanceof int[]) {
+                intArrayAppend(sbuf, (int[]) o);
+            } else if (o instanceof long[]) {
+                longArrayAppend(sbuf, (long[]) o);
+            } else if (o instanceof float[]) {
+                floatArrayAppend(sbuf, (float[]) o);
+            } else if (o instanceof double[]) {
+                doubleArrayAppend(sbuf, (double[]) o);
+            } else {
+                objectArrayAppend(sbuf, (Object[]) o, seenMap);
+            }
+        }
+    }
+
+    private static void safeObjectAppend(StringBuilder sbuf, Object o) {
+        try {
+            String oAsString = o.toString();
+            sbuf.append(oAsString);
+        } catch (Throwable t) {
+            sbuf.append("[" + o.getClass().getName() + " FAILED toString()]");
+        }
+    }
+
+    private static void objectArrayAppend(StringBuilder sbuf, Object[] a, Map<Object[], Object> seenMap) {
+        sbuf.append('[');
+        if (!seenMap.containsKey(a)) {
+            seenMap.put(a, null);
+            final int len = a.length;
+            for (int i = 0; i < len; i++) {
+                deeplyAppendParameter(sbuf, a[i], seenMap);
+                if (i != len - 1) {
+                    sbuf.append(", ");
+                }
+            }
+            // allow repeats in siblings
+            seenMap.remove(a);
+        } else {
+            sbuf.append("...");
+        }
+        sbuf.append(']');
+    }
+
+    private static void booleanArrayAppend(StringBuilder sbuf, boolean[] a) {
+        sbuf.append('[');
+        final int len = a.length;
+        for (int i = 0; i < len; i++) {
+            sbuf.append(a[i]);
+            if (i != len - 1) {
+                sbuf.append(", ");
+            }
+        }
+        sbuf.append(']');
+    }
+
+    private static void byteArrayAppend(StringBuilder sbuf, byte[] a) {
+        sbuf.append('[');
+        final int len = a.length;
+        for (int i = 0; i < len; i++) {
+            sbuf.append(a[i]);
+            if (i != len - 1) {
+                sbuf.append(", ");
+            }
+        }
+        sbuf.append(']');
+    }
+
+    private static void charArrayAppend(StringBuilder sbuf, char[] a) {
+        sbuf.append('[');
+        final int len = a.length;
+        for (int i = 0; i < len; i++) {
+            sbuf.append(a[i]);
+            if (i != len - 1) {
+                sbuf.append(", ");
+            }
+        }
+        sbuf.append(']');
+    }
+
+    private static void shortArrayAppend(StringBuilder sbuf, short[] a) {
+        sbuf.append('[');
+        final int len = a.length;
+        for (int i = 0; i < len; i++) {
+            sbuf.append(a[i]);
+            if (i != len - 1) {
+                sbuf.append(", ");
+            }
+        }
+        sbuf.append(']');
+    }
+
+    private static void intArrayAppend(StringBuilder sbuf, int[] a) {
+        sbuf.append('[');
+        final int len = a.length;
+        for (int i = 0; i < len; i++) {
+            sbuf.append(a[i]);
+            if (i != len - 1) {
+                sbuf.append(", ");
+            }
+        }
+        sbuf.append(']');
+    }
+
+    private static void longArrayAppend(StringBuilder sbuf, long[] a) {
+        sbuf.append('[');
+        final int len = a.length;
+        for (int i = 0; i < len; i++) {
+            sbuf.append(a[i]);
+            if (i != len - 1) {
+                sbuf.append(", ");
+            }
+        }
+        sbuf.append(']');
+    }
+
+    private static void floatArrayAppend(StringBuilder sbuf, float[] a) {
+        sbuf.append('[');
+        final int len = a.length;
+        for (int i = 0; i < len; i++) {
+            sbuf.append(a[i]);
+            if (i != len - 1) {
+                sbuf.append(", ");
+            }
+        }
+        sbuf.append(']');
+    }
+
+    private static void doubleArrayAppend(StringBuilder sbuf, double[] a) {
+        sbuf.append('[');
+        final int len = a.length;
+        for (int i = 0; i < len; i++) {
+            sbuf.append(a[i]);
+            if (i != len - 1) {
+                sbuf.append(", ");
+            }
+        }
+        sbuf.append(']');
     }
 }

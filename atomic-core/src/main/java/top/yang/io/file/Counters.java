@@ -19,11 +19,10 @@ package top.yang.io.file;
 
 import java.math.BigInteger;
 import java.util.Objects;
+import top.yang.lang.StringUtils;
 
 /**
  * Provides counters for files, directories, and sizes, as a visit proceeds.
- *
- *
  */
 public class Counters {
 
@@ -97,7 +96,7 @@ public class Counters {
 
         @Override
         public String toString() {
-            return String.format("%,d files, %,d directories, %,d bytes", Long.valueOf(fileCounter.get()),
+            return StringUtils.format("{},d files, {},d directories, {},d bytes", Long.valueOf(fileCounter.get()),
                     Long.valueOf(directoryCounter.get()), Long.valueOf(byteCounter.get()));
         }
 
@@ -336,7 +335,6 @@ public class Counters {
          * Returns {@code "0"}, always.
          *
          * @return {@code "0"}, always.
-         *
          */
         @Override
         public String toString() {
@@ -436,7 +434,6 @@ public class Counters {
      * Returns the NOOP Counter.
      *
      * @return the NOOP Counter.
-     *
      */
     public static Counter noopCounter() {
         return NoopCounter.INSTANCE;
@@ -446,7 +443,6 @@ public class Counters {
      * Returns the NOOP PathCounters.
      *
      * @return the NOOP PathCounters.
-     *
      */
     public static PathCounters noopPathCounters() {
         return NoopPathCounters.INSTANCE;

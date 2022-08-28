@@ -14,7 +14,6 @@ import top.yang.lang.StringUtils;
  *
  * @param <K> Key类型
  * @param <V> Value类型
- *
  */
 public class MapBuilder<K, V> implements Builder<Map<K, V>> {
 
@@ -28,7 +27,6 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>> {
      * @param <K> Key类型
      * @param <V> Value类型
      * @return MapBuilder
-     *
      */
     public static <K, V> MapBuilder<K, V> create() {
         return create(false);
@@ -41,7 +39,6 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>> {
      * @param <V>      Value类型
      * @param isLinked true创建LinkedHashMap，false创建HashMap
      * @return MapBuilder
-     *
      */
     public static <K, V> MapBuilder<K, V> create(boolean isLinked) {
         return create(isLinked ? new LinkedHashMap<>() : new HashMap<>());
@@ -54,7 +51,6 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>> {
      * @param <V> Value类型
      * @param map Map实体类
      * @return MapBuilder
-     *
      */
     public static <K, V> MapBuilder<K, V> create(Map<K, V> map) {
         return new MapBuilder<>(map);
@@ -88,7 +84,6 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>> {
      * @param k         Key类型
      * @param v         Value类型
      * @return 当前类
-     *
      */
     public MapBuilder<K, V> put(boolean condition, K k, V v) {
         if (condition) {
@@ -104,7 +99,6 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>> {
      * @param k         Key类型
      * @param supplier  Value类型结果提供方
      * @return 当前类
-     *
      */
     public MapBuilder<K, V> put(boolean condition, K k, Supplier<V> supplier) {
         if (condition) {
@@ -128,7 +122,6 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>> {
      * 清空Map
      *
      * @return this
-     *
      */
     public MapBuilder<K, V> clear() {
         this.map.clear();
@@ -148,7 +141,6 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>> {
      * 创建后的map
      *
      * @return 创建后的map
-     *
      */
     @Override
     public Map<K, V> build() {
