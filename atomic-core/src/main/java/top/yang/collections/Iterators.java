@@ -17,14 +17,12 @@
 package top.yang.collections;
 
 
-
 import java.util.Collection;
 import java.util.Iterator;
 import top.yang.lang.Assert;
 
 /**
- * This class contains static utility methods that operate on or return objects of type {@link Iterator}. Except as noted, each method has a corresponding {@link Iterable}-based
- * method in the {@link Iterables} class.
+ * 该类包含操作或返回{@link Iterator}类型对象的静态实用程序方法。除了如上所述，每个方法在{@link Iterables}类中都有一个对应的基于{@link Iterable}的方法。
  *
  * <p><i>Performance notes:</i> Unless otherwise noted, all of the iterators produced in this class
  * are <i>lazy</i>, which means that they only advance the backing iteration when absolutely necessary.

@@ -17,7 +17,6 @@
 package top.yang.collections;
 
 
-
 import top.yang.collections.iterators.EnumerationIterator;
 import top.yang.collections.iterators.IteratorIterable;
 
@@ -27,12 +26,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 
-
-
 /**
- * Provides utility methods for {@link Enumeration} instances.
- *
- *
+ * 为{@link Enumeration}实例提供实用程序方法。
  */
 public class EnumerationUtils {
 
@@ -44,32 +39,27 @@ public class EnumerationUtils {
     }
 
     /**
-     * Creates an {@link Iterable} that wraps an {@link Enumeration}. The returned {@link Iterable} can be used for a
-     * single iteration.
+     * 创建一个封装了{@link枚举}的{@link Iterable}。返回的{@link Iterable}可以用于单个迭代。
      *
-     * @param <T> the element type
-     * @param enumeration the enumeration to use, may not be null
-     * @return a new, single use {@link Iterable}
-     *
+     * @param <T>         元素类型
+     * @param enumeration 要使用的枚举不能为空
+     * @return 一种新的，一次性使用 {@link Iterable}
      */
     public static <T> Iterable<T> asIterable(final Enumeration<T> enumeration) {
         return new IteratorIterable<>(new EnumerationIterator<>(enumeration));
     }
 
     /**
-     * Returns the {@code index}-th value in the {@link Enumeration}, throwing
-     * {@code IndexOutOfBoundsException} if there is no such element.
+     * 返回{@link枚举}中{@code index}的值，如果没有该元素则抛出{@code IndexOutOfBoundsException}。
      * <p>
-     * The Enumeration is advanced to {@code index} (or to the end, if
-     * {@code index} exceeds the number of entries) as a side effect of this method.
+     * 作为该方法的一个副作用，枚举被提升到{@code index}(或者如果{@code index}超过条目数，则提升到末尾)。
      *
-     * @param e  the enumeration to get a value from
-     * @param index  the index to get
-     * @param <T> the type of object in the {@link Enumeration}
+     * @param e     the enumeration to get a value from
+     * @param index the index to get
+     * @param <T>   the type of object in the {@link Enumeration}
      * @return the object at the specified index
      * @throws IndexOutOfBoundsException if the index is invalid
-     * @throws IllegalArgumentException if the object type is invalid
-     *
+     * @throws IllegalArgumentException  if the object type is invalid
      */
     public static <T> T get(final Enumeration<T> e, final int index) {
         CollectionUtils.checkIndexBounds(index);
@@ -90,8 +80,8 @@ public class EnumerationUtils {
      * <p>As the enumeration is traversed, an ArrayList of its values is
      * created. The new list is returned.</p>
      *
-     * @param <E> the element type
-     * @param enumeration  the enumeration to traverse, which should not be {@code null}.
+     * @param <E>         the element type
+     * @param enumeration the enumeration to traverse, which should not be {@code null}.
      * @return a list containing all elements of the given enumeration
      * @throws NullPointerException if the enumeration parameter is {@code null}.
      */
@@ -100,10 +90,9 @@ public class EnumerationUtils {
     }
 
     /**
-     * Override toList(Enumeration) for StringTokenizer as it implements Enumeration&lt;Object&gt;
-     * for the sake of backward compatibility.
+     * Override toList(Enumeration) for StringTokenizer as it implements Enumeration&lt;Object&gt; for the sake of backward compatibility.
      *
-     * @param stringTokenizer  the tokenizer to convert to a {@link List}&lt;{@link String}&gt;
+     * @param stringTokenizer the tokenizer to convert to a {@link List}&lt;{@link String}&gt;
      * @return a list containing all tokens of the given StringTokenizer
      */
     public static List<String> toList(final StringTokenizer stringTokenizer) {

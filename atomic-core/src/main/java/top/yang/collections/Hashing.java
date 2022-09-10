@@ -20,11 +20,7 @@ package top.yang.collections;
 import top.yang.math.Ints;
 
 /**
- * Static methods for implementing hash-based collections.
- *
- * @author Kevin Bourrillion
- * @author Jesse Wilson
- * @author Austin Appleby
+ * 用于实现基于散列的集合的静态方法。
  */
 
 final class Hashing {

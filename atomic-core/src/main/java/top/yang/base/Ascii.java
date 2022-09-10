@@ -448,9 +448,7 @@ public final class Ascii {
     }
 
     /**
-     * Truncates the given character sequence to the given maximum length. If the length of the sequence is greater than {@code maxLength}, the returned string will be exactly
-     * {@code maxLength} chars in length and will end with the given {@code truncationIndicator}. Otherwise, the sequence will be returned as a string with no changes to the
-     * content.
+     * 将给定的字符序列截断为给定的最大长度。如果序列的长度大于{@code maxLength}，返回的字符串将恰好是{@code maxLength}的字符长度，并以给定的{@code truncationIndicator}结束。否则，序列将以不更改内容的字符串形式返回。
      *
      * <p>Examples:
      *
@@ -459,19 +457,16 @@ public final class Ascii {
      * Ascii.truncate("foobar", 5, "..."); // returns "fo..."
      * }</pre>
      *
-     * <p><b>Note:</b> This method <i>may</i> work with certain non-ASCII text but is not safe for use
-     * with arbitrary Unicode text. It is mostly intended for use with text that is known to be safe for use with it (such as all-ASCII text) and for simple debugging text. When
-     * using this method, consider the following:
+     * <p><b>Note:</b> This method <i>may</i> 可用于某些非ascii文本，但不适用于任意Unicode文本。它主要用于与已知安全的文本一起使用(例如全ascii文本)和简单的调试文本一起使用。使用这种方法时，请考虑以下几点:
      *
      * <ul>
-     *   <li>it may split surrogate pairs
-     *   <li>it may split characters and combining characters
-     *   <li>it does not consider word boundaries
-     *   <li>if truncating for display to users, there are other considerations that must be taken
-     *       into account
-     *   <li>the appropriate truncation indicator may be locale-dependent
-     *   <li>it is safe to use non-ASCII characters in the truncation indicator
-     * </ul>
+     *     <li>它可以拆分代理符对
+     *     <li>它可以拆分字符和组合字符
+     *     <li>它不考虑单词边界
+     *     <li>如果截断显示给用户，则必须考虑其他因素
+     *     <li>适当的截断指示器可能与地区相关
+     *     <li>在截断指示器
+     * <ul>中使用非ascii字符是安全的
      *
      * @throws IllegalArgumentException if {@code maxLength} is less than the length of {@code truncationIndicator}
      * @since 16.0

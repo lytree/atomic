@@ -30,12 +30,12 @@ import top.yang.bean.ObjectUtils;
 
 
 /**
- * Provides utility methods and decorators for {@link Map} and {@link SortedMap} instances.
+ * 为{@link Map}和{@link SortedMap}实例提供实用方法和装饰器。
  * <p>
- * It contains various type safe methods as well as other useful features like deep copying.
+ * 它包含各种类型安全的方法以及其他有用的特性，如深度复制。
  * </p>
  * <p>
- * It also provides the following decorators:
+ * 它还提供了以下装饰器:
  * </p>
  * </ul>
  */
@@ -43,7 +43,7 @@ import top.yang.bean.ObjectUtils;
 public class MapUtils {
 
     /**
-     * String used to indent the verbose and debug Map prints.
+     * 用于缩进详细和调试Map打印的字符串。
      */
     private static final String INDENT_STRING = "    ";
 

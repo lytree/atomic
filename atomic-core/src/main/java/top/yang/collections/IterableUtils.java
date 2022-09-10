@@ -8,12 +8,12 @@ import java.util.List;
 public class IterableUtils {
 
     /**
-     * Returns the number of elements contained in the given iterator.
+     * 返回给定迭代器中包含的元素个数。
      * <p>
      * A {@code null} or empty iterator returns {@code 0}.
      *
-     * @param iterable the iterable to check, may be null
-     * @return the number of elements contained in the iterable
+     * @param iterable 要检查的可迭代对象可以为空
+     * @return 迭代对象中包含的元素数量
      */
     public static int size(final Iterable<?> iterable) {
         if (iterable == null) {
@@ -26,7 +26,7 @@ public class IterableUtils {
     }
 
     /**
-     * Returns an empty iterator if the argument is {@code null}, or {@code iterable.iterator()} otherwise.
+     * 如果参数为{@code null}，则返回空迭代器，否则返回{@code iterable.iterator()}。
      *
      * @param <E>      the element type
      * @param iterable the iterable, possibly {@code null}
@@ -37,15 +37,13 @@ public class IterableUtils {
     }
 
     /**
-     * Returns the {@code index}-th value in the {@code iterable}'s {@link Iterator}, throwing {@code IndexOutOfBoundsException} if there is no such element.
-     * <p>
-     * If the {@link Iterable} is a {@link List}, then it will use {@link List#get(int)}.
+     * 在{@code iterable}的{@link Iterator}中返回{@code index}的值，如果没有该元素则抛出{@code IndexOutOfBoundsException}。如果{@link Iterable}是一个{@link List}，那么它将使用{@link Listget(int)}。
      *
-     * @param <T>      the type of object in the {@link Iterable}.
-     * @param iterable the {@link Iterable} to get a value from, may be null
-     * @param index    the index to get
-     * @return the object at the specified index
-     * @throws IndexOutOfBoundsException if the index is invalid
+     * @param <T>      {@link Iterable}中的对象类型。
+     * @param iterable 从{@link Iterable}获取一个值，可以为空
+     * @param index    要获取的索引
+     * @return 指定索引处的对象
+     * @throws IndexOutOfBoundsException 如果索引无效
      */
     public static <T> T get(final Iterable<T> iterable, final int index) {
         CollectionUtils.checkIndexBounds(index);
@@ -58,29 +56,28 @@ public class IterableUtils {
     /**
      * Shortcut for {@code get(iterator, 0)}.
      * <p>
-     * Returns the {@code first} value in the {@code iterable}'s {@link Iterator}, throwing {@code IndexOutOfBoundsException} if there is no such element.
+     * 在{@code iterable}的{@link Iterator}中返回{@code first}的值，如果没有该元素则抛出{@code IndexOutOfBoundsException}。
      * </p>
      * <p>
-     * If the {@link Iterable} is a {@link List}, then it will use {@link List#get(int)}.
+     * 如果{@link Iterable}是一个{@link List}，那么它将使用{@link List#get(int)}。
      * </p>
      *
-     * @param <T>      the type of object in the {@link Iterable}.
-     * @param iterable the {@link Iterable} to get a value from, may be null
-     * @return the first object
-     * @throws IndexOutOfBoundsException if the request  is invalid
-     *
+     * @param <T>      {@link Iterable}中的对象类型。
+     * @param iterable 从{@link Iterable}获取一个值，可以为空
+     * @return 第一个对象
+     * @throws IndexOutOfBoundsException 如果请求无效
      */
     public static <T> T first(final Iterable<T> iterable) {
         return get(iterable, 0);
     }
 
     /**
-     * Answers true if the provided iterable is empty.
+     * 如果提供的可迭代对象为空，则返回true。
      * <p>
-     * A {@code null} iterable returns true.
+     * {@code null}可迭代对象返回true。
      *
-     * @param iterable the {@link Iterable to use}, may be null
-     * @return true if the iterable is null or empty, false otherwise
+     * @param iterable the {@link Iterable to use}, 可以是 null
+     * @return 如果可迭代对象为null或空，则为True，否则为false
      */
     public static boolean isEmpty(final Iterable<?> iterable) {
         if (iterable instanceof Collection<?>) {

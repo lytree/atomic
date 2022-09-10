@@ -5,18 +5,16 @@ package top.yang.spring.exception;
  */
 public interface ResultCode {
 
-  /**
-   * 返回编码
-   *
-   * @return
-   */
-  String getCode();
+    /**
+     * @return 返回编码
+     */
+    String getCode();
 
-  /**
-   * 返回提示
-   * @return
-   */
+    /**
+     * @return 返回提示信息
+     */
 
-  String getMessage();
+    String getMessage();
+
 
 }

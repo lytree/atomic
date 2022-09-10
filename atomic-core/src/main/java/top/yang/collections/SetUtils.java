@@ -40,13 +40,12 @@ import java.util.function.Predicate;
 public class SetUtils {
 
     /**
-     * An unmodifiable <b>view</b> of a set that may be backed by other sets.
+     * 一个不可修改的<b>视图<b>的集合，该集合可能被其他集合支持。
      * <p>
-     * If the decorated sets change, this view will change as well. The contents
-     * of this view can be transferred to another instance via the {@link #copyInto(Set)}
+     * 如果被装饰的设置发生变化，这个视图也会发生变化. 此视图的内容可以通过 {@link #copyInto(Set)}
      * and {@link #toSet()} methods.
      *
-     * @param <E> the element type
+     * @param <E> 元素类型
      * 
      */
     public abstract static class SetView<E> extends AbstractSet<E> {

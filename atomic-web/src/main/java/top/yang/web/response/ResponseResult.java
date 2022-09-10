@@ -2,7 +2,7 @@ package top.yang.web.response;
 
 
 import top.yang.spring.exception.ResultCode;
-import top.yang.web.exception.CommonCode;
+import top.yang.web.exception.ServerCode;
 
 
 /**
@@ -41,15 +41,15 @@ public class ResponseResult<T> implements Response {
   }
 
   public static ResponseResult<Void> success(String requestId) {
-    return new ResponseResult(CommonCode.SUCCESS, requestId);
+    return new ResponseResult(ServerCode.SUCCESS, requestId);
   }
 
   public static <T> ResponseResult<T> success(T data, String requestId) {
-    return new ResponseResult<>(CommonCode.SUCCESS, data, requestId);
+    return new ResponseResult<>(ServerCode.SUCCESS, data, requestId);
   }
 
   public static ResponseResult<Void> fail(String requestId) {
-    return new ResponseResult<Void>(CommonCode.FAIL, requestId);
+    return new ResponseResult<Void>(ServerCode.FAIL, requestId);
   }
 
   public static ResponseResult<ResultCode> fail(ResultCode resultCode, String requestId) {

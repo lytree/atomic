@@ -41,33 +41,26 @@ import top.yang.lang.Assert;
 
 
 /**
- * A {@link BiMap} backed by two hash tables. This implementation allows null keys and values. A {@code HashBiMap} and its inverse are both serializable.
- *
- * <p>This implementation guarantees insertion-based iteration order of its keys.
- *
+ * 一个由两个哈希表支持的{@link BiMap}。该实现允许空键和值。{@code HashBiMap}和它的逆HashBiMap都是可序列化的。该实现保证了其键的基于插入的迭代顺序。
  * <p>See the Guava User Guide article on <a href=
  * "https://github.com/google/guava/wiki/NewCollectionTypesExplained#bimap">{@code BiMap} </a>.
- *
- * @author Louis Wasserman
- * @author Mike Bostock
- * @since 2.0
  */
 
 public final class HashBiMap<K, V>
         extends IteratorBasedAbstractMap<K, V> implements BiMap<K, V>, Serializable {
 
     /**
-     * Returns a new, empty {@code HashBiMap} with the default initial capacity (16).
+     * 返回一个新的空的{@code HashBiMap}，初始容量为默认值(16)。
      */
     public static <K, V> HashBiMap<K, V> create() {
         return create(16);
     }
 
     /**
-     * Constructs a new, empty bimap with the specified expected size.
+     * 使用指定的预期大小构造一个新的空bimap。
      *
-     * @param expectedSize the expected number of entries
-     * @throws IllegalArgumentException if the specified expected size is negative
+     * @param expectedSize 条目的预期数量
+     * @throws IllegalArgumentException 如果指定的预期大小为负
      */
     public static <K, V> HashBiMap<K, V> create(
             int expectedSize) {

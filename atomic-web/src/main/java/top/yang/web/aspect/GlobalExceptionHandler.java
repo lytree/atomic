@@ -15,7 +15,7 @@ import top.yang.spring.constants.GlobalsConstants;
 import top.yang.spring.exception.ResultCode;
 import top.yang.spring.exception.SystemException;
 import top.yang.web.response.ResponseResult;
-import top.yang.web.exception.CommonCode;
+import top.yang.web.exception.ServerCode;
 
 
 /**
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
         methodArgumentNotValidException.printStackTrace();
         //记录日志
         logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
-        return new ResponseResult(CommonCode.INVALID_PARAM, requestId);
+        return new ResponseResult(ServerCode.INVALID_PARAM, requestId);
     }
 
     //捕获ValidationException此类异常
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
         methodArgumentNotValidException.printStackTrace();
         //记录日志
         logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
-        return new ResponseResult(CommonCode.INVALID_PARAM, requestId);
+        return new ResponseResult(ServerCode.INVALID_PARAM, requestId);
     }
 
     //捕获ValidationException此类异常
@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
         validationException.printStackTrace();
         //记录日志
         logger.error("catch exception:{}", validationException.getMessage());
-        return new ResponseResult(CommonCode.INVALID_PARAM, requestId);
+        return new ResponseResult(ServerCode.INVALID_PARAM, requestId);
     }
 
     //捕获Exception此类异常
@@ -82,13 +82,13 @@ public class GlobalExceptionHandler {
             return new ResponseResult(resultCode, requestId);
         } else {
             //返回9999异常
-            return new ResponseResult(CommonCode.FAIL, requestId);
+            return new ResponseResult(ServerCode.FAIL, requestId);
         }
     }
 
 
     static {
         //定义异常类型所对应的错误代码
-        builder.put(HttpMessageNotReadableException.class, CommonCode.SERVER_ERROR);
+        builder.put(HttpMessageNotReadableException.class, ServerCode.SERVER_ERROR);
     }
 }

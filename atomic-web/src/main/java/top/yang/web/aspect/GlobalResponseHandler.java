@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import top.yang.spring.constants.GlobalsConstants;
 import top.yang.web.response.ResponseResult;
-import top.yang.web.exception.CommonCode;
+import top.yang.web.exception.ServerCode;
 
 /**
  * @date 2021/8/30 11:28
@@ -46,7 +46,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice {
             return body;
         }
         if (VOID_VALUE.equals(Objects.requireNonNull(returnType.getMethod()).getReturnType().getName())) {
-            return new ResponseResult(CommonCode.SUCCESS, requestId);
+            return new ResponseResult(ServerCode.SUCCESS, requestId);
         }
         if (body instanceof File) {
             File file = (File) body;
@@ -60,19 +60,19 @@ public class GlobalResponseHandler implements ResponseBodyAdvice {
                 response.flush();
             } catch (IOException e) {
                 e.printStackTrace();
-                return new ResponseResult(CommonCode.FAIL, requestId);
+                return new ResponseResult(ServerCode.FAIL, requestId);
             }
             return null;
         } else if (body instanceof String) {
             try {
-                return objectMapper.writeValueAsString(new ResponseResult(CommonCode.SUCCESS, body, requestId));
+                return objectMapper.writeValueAsString(new ResponseResult(ServerCode.SUCCESS, body, requestId));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
                 logger.error("catch exception:{}", e.getMessage());
-                return new ResponseResult(CommonCode.FAIL, requestId);
+                return new ResponseResult(ServerCode.FAIL, requestId);
             }
         } else {
-            return new ResponseResult(CommonCode.SUCCESS, body, requestId);
+            return new ResponseResult(ServerCode.SUCCESS, body, requestId);
         }
     }
 }

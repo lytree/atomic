@@ -21,7 +21,7 @@ import java.util.Map.Entry;
 import java.util.Objects;
 
 /**
- * Implementation of the {@code equals}, {@code hashCode}, and {@code toString} methods of {@code Entry}.
+ * {@code equals}、{@code hashCode}和{@code toString}方法的实现。
  *
  * @author Jared Levy
  */

@@ -26,10 +26,9 @@ import java.util.Map;
 
 
 /**
- * Provides static methods for serializing collection classes.
+ * 提供用于序列化集合类的静态方法。
  *
- * <p>This class assists the implementation of collection classes. Do not use this class to
- * serialize collections that are defined elsewhere.
+ * <p>这个类帮助集合类的实现。不要使用该类序列化在其他地方定义的集合。
  *
  * @author Jared Levy
  */
@@ -40,20 +39,19 @@ final class Serialization {
     }
 
     /**
-     * Reads a count corresponding to a serialized map, multiset, or multimap. It returns the size of a map serialized by {@link #writeMap(Map, ObjectOutputStream)}, the number of
-     * distinct elements in a multiset serialized by {@link #writeMultiset(Multiset, ObjectOutputStream)}, or the number of distinct keys in a multimap serialized by .
+     * 读取与序列化map、multiset或multimap对应的计数。它返回由{@link #writeMap(map, ObjectOutputStream)}序列化的映射的大小，由{@link #writeMultiset(multiset,
+     * ObjectOutputStream)}序列化的多集中不同元素的数量，或由序列化的multimap中不同键的数量。
      */
     static int readCount(ObjectInputStream stream) throws IOException {
         return stream.readInt();
     }
 
     /**
-     * Stores the contents of a map in an output stream, as part of serialization. It does not support concurrent maps whose content may change while the method is running.
+     * 将映射的内容存储在输出流中，作为序列化的一部分。它不支持在方法运行时内容可能更改的并发映射。
      *
-     * <p>The serialized output consists of the number of entries, first key, first value, second key,
-     * second value, and so on.
+     * <p>序列化的输出包括条目的数量、第一个键、第一个值、第二个键、第二个值，等等.
      */
-    static <K extends Object, V extends Object> void writeMap(
+    static <K, V extends Object> void writeMap(
             Map<K, V> map, ObjectOutputStream stream) throws IOException {
         stream.writeInt(map.size());
         for (Map.Entry<K, V> entry : map.entrySet()) {
@@ -63,19 +61,18 @@ final class Serialization {
     }
 
     /**
-     * Populates a map by reading an input stream, as part of deserialization. See {@link #writeMap} for the data format.
+     * 作为反序列化的一部分，通过读取输入流填充映射。数据格式参见{@link #writeMap}.
      */
-    static <K extends Object, V extends Object> void populateMap(
+    static <K, V extends Object> void populateMap(
             Map<K, V> map, ObjectInputStream stream) throws IOException, ClassNotFoundException {
         int size = stream.readInt();
         populateMap(map, stream, size);
     }
 
     /**
-     * Populates a map by reading an input stream, as part of deserialization. See {@link #writeMap} for the data format. The size is determined by a prior call to {@link
-     * #readCount}.
+     * 作为反序列化的一部分，通过读取输入流填充映射。数据格式参见{@link #writeMap}。大小由之前调用{@link #readCount}决定.
      */
-    static <K extends Object, V extends Object> void populateMap(
+    static <K, V extends Object> void populateMap(
             Map<K, V> map, ObjectInputStream stream, int size)
             throws IOException, ClassNotFoundException {
         for (int i = 0; i < size; i++) {
@@ -88,11 +85,9 @@ final class Serialization {
     }
 
     /**
-     * Stores the contents of a multiset in an output stream, as part of serialization. It does not support concurrent multisets whose content may change while the method is
-     * running.
+     * 将多集的内容存储在输出流中，作为序列化的一部分。它不支持在方法运行时内容可能更改的并发多线程。
      *
-     * <p>The serialized output consists of the number of distinct elements, the first element, its
-     * count, the second element, its count, and so on.
+     * <p>序列化的输出包括不同元素的数量，第一个元素及其计数，第二个元素及其计数，等等。
      */
     static <E extends Object> void writeMultiset(
             Multiset<E> multiset, ObjectOutputStream stream) throws IOException {
@@ -105,19 +100,18 @@ final class Serialization {
     }
 
     /**
-     * Populates a multiset by reading an input stream, as part of deserialization. See {@link #writeMultiset} for the data format.
+     * 作为反序列化的一部分，通过读取输入流填充多个集合。参见{@link #writeMultiset}获取数据格式。
      */
-    static <E extends Object> void populateMultiset(
+    static <E> void populateMultiset(
             Multiset<E> multiset, ObjectInputStream stream) throws IOException, ClassNotFoundException {
         int distinctElements = stream.readInt();
         populateMultiset(multiset, stream, distinctElements);
     }
 
     /**
-     * Populates a multiset by reading an input stream, as part of deserialization. See {@link #writeMultiset} for the data format. The number of distinct elements is determined by
-     * a prior call to {@link #readCount}.
+     * 作为反序列化的一部分，通过读取输入流填充多个集合。参见{@link #writeMultiset}获取数据格式。不同元素的数量由之前调用{@link #readCount}决定。
      */
-    static <E extends Object> void populateMultiset(
+    static <E> void populateMultiset(
             Multiset<E> multiset, ObjectInputStream stream, int distinctElements)
             throws IOException, ClassNotFoundException {
         for (int i = 0; i < distinctElements; i++) {
