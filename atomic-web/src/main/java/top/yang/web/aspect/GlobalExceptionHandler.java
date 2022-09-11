@@ -11,11 +11,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import top.yang.spring.constants.GlobalsConstants;
-import top.yang.spring.exception.ResultCode;
-import top.yang.spring.exception.SystemException;
-import top.yang.web.response.ResponseResult;
-import top.yang.web.exception.ServerCode;
+import top.yang.model.constants.Globals;
+import top.yang.model.exception.exception.ServerException;
+import top.yang.model.exception.result.ResultCode;
+import top.yang.model.exception.result.ServerCode;
+import top.yang.model.response.support.ResponseResult;
 
 
 /**
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public ResponseResult validationException(MethodArgumentNotValidException methodArgumentNotValidException) {
-        String requestId = MDC.get(GlobalsConstants.TRACE_ID);
+        String requestId = MDC.get(Globals.REQUEST_ID);
         methodArgumentNotValidException.printStackTrace();
         //记录日志
         logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     @ResponseBody
     public ResponseResult bindException(BindException methodArgumentNotValidException) {
-        String requestId = MDC.get(GlobalsConstants.TRACE_ID);
+        String requestId = MDC.get(Globals.REQUEST_ID);
         methodArgumentNotValidException.printStackTrace();
         //记录日志
         logger.error("catch exception:{}", methodArgumentNotValidException.getMessage());
@@ -55,10 +55,10 @@ public class GlobalExceptionHandler {
     }
 
     //捕获ValidationException此类异常
-    @ExceptionHandler(SystemException.class)
+    @ExceptionHandler(ServerException.class)
     @ResponseBody
     public ResponseResult systemException(ValidationException validationException) {
-        String requestId = MDC.get(GlobalsConstants.TRACE_ID);
+        String requestId = MDC.get(Globals.REQUEST_ID);
         validationException.printStackTrace();
         //记录日志
         logger.error("catch exception:{}", validationException.getMessage());
@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseResult exception(Exception exception) {
-        String requestId = MDC.get(GlobalsConstants.TRACE_ID);
+        String requestId = MDC.get(Globals.REQUEST_ID);
         exception.printStackTrace();
         //记录日志
         logger.error("catch exception:{}", exception.getMessage());

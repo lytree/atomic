@@ -9,15 +9,10 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.orm.jpa.persistenceunit.MutablePersistenceUnitInfo;
 import org.springframework.orm.jpa.persistenceunit.PersistenceUnitPostProcessor;
 import org.springframework.util.ClassUtils;
-import top.yang.model.enums.support.ValueEnum;
-import top.yang.model.properties.support.PropertyEnum;
+import top.yang.model.enums.ValueEnum;
+import top.yang.model.properties.PropertyEnum;
 
 
-/**
- * Attribute converter persistence unit post processor.
- *
- * @author johnniang
- */
 public class AutoGenerateConverterPersistenceUnitPostProcessor implements PersistenceUnitPostProcessor {
 
     private final String PACKAGE_TO_SCAN;

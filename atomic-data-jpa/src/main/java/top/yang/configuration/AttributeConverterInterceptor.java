@@ -2,7 +2,8 @@ package top.yang.configuration;
 
 import net.bytebuddy.implementation.bind.annotation.FieldValue;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
-import top.yang.model.enums.support.ValueEnum;
+import top.yang.model.enums.ValueEnum;
+
 
 public class AttributeConverterInterceptor {
 

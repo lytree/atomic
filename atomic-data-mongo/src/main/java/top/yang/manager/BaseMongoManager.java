@@ -12,13 +12,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
-import top.yang.domain.pojo.BaseBean;
+import top.yang.model.entity.BaseEntity;
 import top.yang.repository.BaseMongoRepository;
 
 /**
  * @author PrideYang
  */
-public class BaseMongoManager<R extends BaseMongoRepository, T extends BaseBean, ID> {
+public class BaseMongoManager<R extends BaseMongoRepository, T extends BaseEntity, ID> {
 
 
     protected R repository;

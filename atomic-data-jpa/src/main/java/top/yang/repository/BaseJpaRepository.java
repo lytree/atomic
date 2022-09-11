@@ -1,6 +1,5 @@
 package top.yang.repository;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -8,12 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.lang.NonNull;
-import top.yang.domain.pojo.BaseBean;
-import top.yang.model.query.support.BaseQuery;
+import top.yang.model.request.support.BaseQuery;
 
 /**
  * @author Y
@@ -50,11 +46,15 @@ public interface BaseJpaRepository<T, ID> extends JpaRepository<T, ID>, JpaSpeci
     long deleteByIdIn(@NonNull Collection<ID> ids);
 
 
-    Page<T> findByCondition(BaseQuery query, Pageable pageable);
+    Page<T> pageByCondition(BaseQuery query, Pageable pageable);
+
+    List<T> findAllByCondition(BaseQuery queryReq);
 
     T findOneByCondition(BaseQuery query);
 
-    Page<T> findByComplexCondition(BaseQuery queryReq, Pageable pageable);
+    Page<T> pageByComplexCondition(BaseQuery queryReq, Pageable pageable);
+
+    List<T> findAllByComplexCondition(BaseQuery queryReq);
 
     Long countByComplexCondition(BaseQuery queryReq);
 }

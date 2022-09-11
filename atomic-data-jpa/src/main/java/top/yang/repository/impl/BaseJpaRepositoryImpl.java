@@ -23,6 +23,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -40,10 +41,11 @@ import top.yang.annotations.NullHandler;
 import top.yang.annotations.OrderBy;
 import top.yang.annotations.OrderGroup;
 import top.yang.exceptions.UnknownComplexConditionClassException;
-import top.yang.model.query.support.BaseQuery;
 import top.yang.bean.FieldUtils;
+import top.yang.model.exception.exception.ServerException;
+import top.yang.model.exception.result.ServerCode;
+import top.yang.model.request.support.BaseQuery;
 import top.yang.repository.BaseJpaRepository;
-import top.yang.spring.exception.PojoInstanceFailException;
 
 
 public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAIN, ID>
@@ -164,7 +166,7 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
     }
 
     @Override
-    public Page<DOMAIN> findByCondition(BaseQuery query, Pageable pageable) {
+    public Page<DOMAIN> pageByCondition(BaseQuery query, Pageable pageable) {
 
         List<Sort.Order> orders = buildOrder(query);
         pageable.getSortOr(Sort.by(orders));
@@ -178,6 +180,20 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
     }
 
     @Override
+    public List<DOMAIN> findAllByCondition(BaseQuery query) {
+
+        List<Sort.Order> orders = buildOrder(query);
+        Sort sort = Sort.by(orders);
+        DOMAIN queryParams = generatePojo(this.pojoClass);
+
+        BeanUtils.copyProperties(queryParams, query);
+
+        Example<DOMAIN> example = Example.of(queryParams);
+
+        return findAll(example, sort);
+    }
+
+    @Override
     public DOMAIN findOneByCondition(BaseQuery query) {
 
         DOMAIN queryParams = generatePojo(this.pojoClass);
@@ -186,16 +202,24 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
 
         Example<DOMAIN> example = Example.of(queryParams);
 
-        return (DOMAIN) super.findOne(example);
+        return findOne(example).orElse(null);
     }
 
     @Override
-    public Page<DOMAIN> findByComplexCondition(BaseQuery queryReq, Pageable pageable) {
+    public List<DOMAIN> findAllByComplexCondition(BaseQuery query) {
+
+        List<Sort.Order> orders = buildOrder(query);
+        Sort sort = Sort.by(orders);
+        Specification<DOMAIN> complexConditions = Specification.where(new CommonSpecification(query));
+        return findAll(complexConditions, sort);
+    }
+
+    @Override
+    public Page<DOMAIN> pageByComplexCondition(BaseQuery queryReq, Pageable pageable) {
 
         List<Sort.Order> orders = buildOrder(queryReq);
         pageable.getSortOr(Sort.by(orders));
         Specification<DOMAIN> complexConditions = Specification.where(new CommonSpecification(queryReq));
-
         return super.findAll(complexConditions, pageable);
     }
 
@@ -226,7 +250,7 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
             return (DOMAIN) BeanUtils.instantiateClass(pojoClass);
         } catch (Exception e) {
             logger.error("pojo对象初始化异常,对象为：" + pojoClass.getSimpleName(), e);
-            throw new PojoInstanceFailException();
+            throw new ServerException(ServerCode.POJO_INSTANCE_FAIL);
         }
 
     }
@@ -282,7 +306,7 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
 
         private static final long serialVersionUID = 1L;
         private final JpaEntityInformation<DOMAIN, ?> entityInformation;
-        
+
         ParameterExpression<Collection> parameter;
 
         ByIdsSpecification(JpaEntityInformation<DOMAIN, ?> entityInformation) {

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 /**
  * @author pride
  */
-@Component
 public class DateConverterConfig implements Converter<String, LocalDateTime> {
 
     private static final List<String> formarts = new ArrayList<>(4);
@@ -22,6 +21,7 @@ public class DateConverterConfig implements Converter<String, LocalDateTime> {
         formarts.add("yyyy-MM-dd HH:mm");
         formarts.add("yyyy-MM-dd HH:mm:ss");
         formarts.add("yyyy-MM-dd'T'HH:mm:ss");
+        formarts.add("yyyy-MM-dd'T'HH:mm:ss'Z'");
     }
 
 
@@ -40,6 +40,8 @@ public class DateConverterConfig implements Converter<String, LocalDateTime> {
         } else if (source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")) {
             return parseDate(source, formarts.get(3));
         } else if (source.matches("^\\d{4}-\\d{1,2}-\\d{1,2}'T'{1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")) {
+            return parseDate(source, formarts.get(4));
+        } else if (source.matches("^\\d{4}-\\d{1,2}-\\d{1,2}'T'{1}\\d{1,2}:\\d{1,2}:\\d{1,2}'Z'$")) {
             return parseDate(source, formarts.get(4));
         } else {
             throw new IllegalArgumentException("Invalid boolean value '" + source + "'");

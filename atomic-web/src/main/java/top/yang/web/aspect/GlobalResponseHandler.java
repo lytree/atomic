@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-import top.yang.spring.constants.GlobalsConstants;
-import top.yang.web.response.ResponseResult;
-import top.yang.web.exception.ServerCode;
+import top.yang.model.constants.Globals;
+import top.yang.model.exception.result.ServerCode;
+import top.yang.model.response.support.ResponseResult;
 
 /**
  * @date 2021/8/30 11:28
@@ -41,7 +41,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice {
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request,
             ServerHttpResponse response) {
-        String requestId = MDC.get(GlobalsConstants.TRACE_ID);
+        String requestId = MDC.get(Globals.REQUEST_ID);
         if (body instanceof ResponseResult) {
             return body;
         }

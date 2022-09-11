@@ -10,12 +10,18 @@
     <groupId>top.yang</groupId>
     <artifactId>atomic</artifactId>
     <version>1.0</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
   <dependencies>
     <dependency>
       <groupId>top.yang</groupId>
       <artifactId>atomic-spring</artifactId>
-      <version>1.0</version>
+      <version>${atomic.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>top.yang</groupId>
+      <artifactId>atomic-model</artifactId>
+      <version>${atomic.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -24,6 +30,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-commons</artifactId>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>

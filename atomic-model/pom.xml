@@ -9,23 +9,24 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>atomic-system</artifactId>
+  <artifactId>atomic-model</artifactId>
   <version>1.0</version>
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
   </properties>
-  <dependencies>    <!-- 跨平台的系统及硬件信息库 -->
+  <dependencies>
     <dependency>
-      <groupId>com.github.oshi</groupId>
-      <artifactId>oshi-core</artifactId>
-      <version>6.2.2</version>
-      <scope>provided</scope>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
     </dependency>
     <dependency>
-      <groupId>top.yang</groupId>
-      <artifactId>atomic-core</artifactId>
-      <version>${atomic.version}</version>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.persistence</groupId>
+      <artifactId>jakarta.persistence-api</artifactId>
     </dependency>
   </dependencies>
 </project>
