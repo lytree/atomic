@@ -1,7 +1,7 @@
 package top.yang.collections;
 
 
-
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.Iterator;
@@ -268,4 +268,53 @@ public class Maps {
         return (entry == null) ? null : entry.getValue();
     }
 
+    /**
+     * Delegates to {@link Map#containsKey}. Returns {@code false} on {@code ClassCastException} and {@code NullPointerException}.
+     */
+    static boolean safeContainsKey(Map<?, ?> map, Object key) {
+        Assert.notNull(map);
+        try {
+            return map.containsKey(key);
+        } catch (ClassCastException | NullPointerException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Delegates to {@link Map#remove}. Returns {@code null} on {@code ClassCastException} and {@code NullPointerException}.
+     */
+
+    static <V extends Object> V safeRemove(Map<?, V> map, Object key) {
+        Assert.notNull(map);
+        try {
+            return map.remove(key);
+        } catch (ClassCastException | NullPointerException e) {
+            return null;
+        }
+    }
+
+    /**
+     * An admittedly inefficient implementation of {@link Map#containsKey}.
+     */
+    static boolean containsKeyImpl(Map<?, ?> map, Object key) {
+        return Iterators.contains(keyIterator(map.entrySet().iterator()), key);
+    }
+
+    /**
+     * An implementation of {@link Map#containsValue}.
+     */
+    static boolean containsValueImpl(Map<?, ?> map, Object value) {
+        return Iterators.contains(valueIterator(map.entrySet().iterator()), value);
+    }
+
+
+    /**
+     * An implementation of {@link Map#putAll}.
+     */
+    static <K extends Object, V extends Object> void putAllImpl(
+            Map<K, V> self, Map<? extends K, ? extends V> map) {
+        for (Entry<? extends K, ? extends V> entry : map.entrySet()) {
+            self.put(entry.getKey(), entry.getValue());
+        }
+    }
 }

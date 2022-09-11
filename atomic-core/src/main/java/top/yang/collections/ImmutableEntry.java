@@ -16,16 +16,13 @@
 
 package top.yang.collections;
 
-
 import java.io.Serializable;
 
 
 class ImmutableEntry<K extends Object, V extends Object>
         extends AbstractMapEntry<K, V> implements Serializable {
 
-
     final K key;
-
     final V value;
 
     ImmutableEntry(K key, V value) {

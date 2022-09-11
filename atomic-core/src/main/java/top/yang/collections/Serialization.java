@@ -84,43 +84,5 @@ final class Serialization {
         }
     }
 
-    /**
-     * 将多集的内容存储在输出流中，作为序列化的一部分。它不支持在方法运行时内容可能更改的并发多线程。
-     *
-     * <p>序列化的输出包括不同元素的数量，第一个元素及其计数，第二个元素及其计数，等等。
-     */
-    static <E extends Object> void writeMultiset(
-            Multiset<E> multiset, ObjectOutputStream stream) throws IOException {
-        int entryCount = multiset.entrySet().size();
-        stream.writeInt(entryCount);
-        for (Multiset.Entry<E> entry : multiset.entrySet()) {
-            stream.writeObject(entry.getElement());
-            stream.writeInt(entry.getCount());
-        }
-    }
-
-    /**
-     * 作为反序列化的一部分，通过读取输入流填充多个集合。参见{@link #writeMultiset}获取数据格式。
-     */
-    static <E> void populateMultiset(
-            Multiset<E> multiset, ObjectInputStream stream) throws IOException, ClassNotFoundException {
-        int distinctElements = stream.readInt();
-        populateMultiset(multiset, stream, distinctElements);
-    }
-
-    /**
-     * 作为反序列化的一部分，通过读取输入流填充多个集合。参见{@link #writeMultiset}获取数据格式。不同元素的数量由之前调用{@link #readCount}决定。
-     */
-    static <E> void populateMultiset(
-            Multiset<E> multiset, ObjectInputStream stream, int distinctElements)
-            throws IOException, ClassNotFoundException {
-        for (int i = 0; i < distinctElements; i++) {
-            @SuppressWarnings("unchecked") // reading data stored by writeMultiset
-            E element = (E) stream.readObject();
-            int count = stream.readInt();
-            multiset.add(element, count);
-        }
-    }
-
 
 }

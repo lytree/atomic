@@ -104,9 +104,6 @@ public final class Sets {
 
     static boolean removeAllImpl(Set<?> set, Collection<?> collection) {
         Assert.notNull(collection); // for GWT
-        if (collection instanceof Multiset) {
-            collection = ((Multiset<?>) collection).elementSet();
-        }
         /*
          * AbstractSet.removeAll(List) has quadratic behavior if the list size
          * is just more than the set's size.  We augment the test by
@@ -121,5 +118,36 @@ public final class Sets {
         }
     }
 
+    /**
+     * An implementation for {@link Set#hashCode()}.
+     */
+    static int hashCodeImpl(Set<?> s) {
+        int hashCode = 0;
+        for (Object o : s) {
+            hashCode += o != null ? o.hashCode() : 0;
 
+            hashCode = ~~hashCode;
+            // Needed to deal with unusual integer overflow in GWT.
+        }
+        return hashCode;
+    }
+
+    /**
+     * An implementation for {@link Set#equals(Object)}.
+     */
+    static boolean equalsImpl(Set<?> s, Object object) {
+        if (s == object) {
+            return true;
+        }
+        if (object instanceof Set) {
+            Set<?> o = (Set<?>) object;
+
+            try {
+                return s.size() == o.size() && s.containsAll(o);
+            } catch (NullPointerException | ClassCastException ignored) {
+                return false;
+            }
+        }
+        return false;
+    }
 }

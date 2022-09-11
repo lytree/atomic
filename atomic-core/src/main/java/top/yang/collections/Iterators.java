@@ -20,6 +20,7 @@ package top.yang.collections;
 import java.util.Collection;
 import java.util.Iterator;
 import top.yang.lang.Assert;
+import top.yang.math.Ints;
 
 /**
  * 该类包含操作或返回{@link Iterator}类型对象的静态实用程序方法。除了如上所述，每个方法在{@link Iterables}类中都有一个对应的基于{@link Iterable}的方法。
@@ -38,6 +39,38 @@ import top.yang.lang.Assert;
 public final class Iterators {
 
     private Iterators() {
+    }
+
+    /**
+     * Returns the number of elements remaining in {@code iterator}. The iterator will be left exhausted: its {@code hasNext()} method will return {@code false}.
+     */
+    public static int size(Iterator<?> iterator) {
+        long count = 0L;
+        while (iterator.hasNext()) {
+            iterator.next();
+            count++;
+        }
+        return Ints.saturatedCast(count);
+    }
+
+    /**
+     * Returns {@code true} if {@code iterator} contains {@code element}.
+     */
+    public static boolean contains(Iterator<?> iterator, Object element) {
+        if (element == null) {
+            while (iterator.hasNext()) {
+                if (iterator.next() == null) {
+                    return true;
+                }
+            }
+        } else {
+            while (iterator.hasNext()) {
+                if (element.equals(iterator.next())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     // Methods only in Iterators, not in Iterables

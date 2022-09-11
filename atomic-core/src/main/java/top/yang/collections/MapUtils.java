@@ -48,7 +48,7 @@ public class MapUtils {
     private static final String INDENT_STRING = "    ";
 
     /**
-     * Applies the {@code getFunction} and returns its result if non-null, if null returns the result of applying the default function.
+     * 应用{@code getFunction}并返回其结果，如果非null，如果null返回应用默认函数的结果。
      *
      * @param <K>             The key type.
      * @param <R>             The result type.
@@ -64,7 +64,7 @@ public class MapUtils {
     }
 
     /**
-     * Applies the {@code getFunction} and returns its result if non-null, if null returns the result of applying the default function.
+     * 应用{@code getFunction}并返回其结果，如果非null，如果null返回应用默认函数的结果。
      *
      * @param <K>             The key type.
      * @param <R>             The result type.
@@ -86,7 +86,7 @@ public class MapUtils {
     }
 
     /**
-     * Applies the {@code getFunction} and returns its result if non-null, if null returns the {@code defaultValue}.
+     * 应用{@code getFunction}，如果非null返回结果，如果null返回{@code defaultValue}。
      *
      * @param <K>          The key type.
      * @param <R>          The result type.
@@ -104,7 +104,7 @@ public class MapUtils {
 
 
     /**
-     * Returns an immutable empty map if the argument is {@code null}, or the argument itself otherwise.
+     * 如果参数是{@code null}，返回一个不可变的空映射，否则返回参数本身。
      *
      * @param <K> the key type
      * @param <V> the value type
@@ -146,7 +146,7 @@ public class MapUtils {
     }
 
     /**
-     * Looks up the given key in the given map, converting the result into a boolean, using the default value if the conversion fails.
+     * 在给定映射中查找给定的键，将结果转换为布尔值，如果转换失败则使用默认值。
      *
      * @param <K>          the key type
      * @param map          the map whose value to look up
