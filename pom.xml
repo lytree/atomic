@@ -24,9 +24,9 @@
     <kotlin-stdlib.version>1.6.20</kotlin-stdlib.version>
     <okio.version>2.10.0</okio.version>
     <jsoup.version>1.15.3</jsoup.version>
-    <selenium-java.version>3.141.59</selenium-java.version>
-    <htmlunit.version>2.56.0</htmlunit.version>
-    <jsoupxpath.version>2.5.0</jsoupxpath.version>
+    <selenium-java.version>4.4.0</selenium-java.version>
+    <htmlunit.version>2.64.0</htmlunit.version>
+    <jsoupxpath.version>2.5.1</jsoupxpath.version>
     <logstash.version>7.2.0</logstash.version>
     <freemarker.version>2.3.31</freemarker.version>
     <commons-io.version>2.11.0</commons-io.version>
@@ -39,10 +39,10 @@
     <mapstruct.version>1.5.2.Final</mapstruct.version>
     <jjwt.version>0.11.5</jjwt.version>
     <!--        <dubbo.version>3.0.4</dubbo.version>-->
-    <dubbo.version>2.7.15</dubbo.version>
+    <dubbo.version>2.7.17</dubbo.version>
     <lombok.version>1.18.24</lombok.version>
     <guava.version>31.1-jre</guava.version>
-    <redisson.version>3.15.6</redisson.version>
+    <redisson.version>3.16.8</redisson.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
@@ -63,7 +63,7 @@
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
-        <version>2021.0.3</version>
+        <version>2021.0.4</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -258,31 +258,6 @@
           <configuration>
             <source>8</source> <!-- depending on your project -->
             <target>8</target> <!-- depending on your project -->
-            <annotationProcessorPaths>
-              <path>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-              </path>
-              <path>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-processor</artifactId>
-                <version>${mapstruct.version}</version>
-              </path>
-              <!-- other annotation processors -->
-            </annotationProcessorPaths>
-            <showWarnings>true</showWarnings>
-            <compilerArgs>
-              <arg>
-                -Amapstruct.suppressGeneratorTimestamp=true
-              </arg>
-              <arg>
-                -Amapstruct.suppressGeneratorVersionInfoComment=true
-              </arg>
-              <arg>
-                -Amapstruct.verbose=true
-              </arg>
-            </compilerArgs>
           </configuration>
         </plugin>
       </plugins>
