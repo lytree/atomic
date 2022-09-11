@@ -1,7 +1,6 @@
 package top.yang.collections;
 
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.Iterator;
@@ -297,14 +296,14 @@ public class Maps {
      * An admittedly inefficient implementation of {@link Map#containsKey}.
      */
     static boolean containsKeyImpl(Map<?, ?> map, Object key) {
-        return Iterators.contains(keyIterator(map.entrySet().iterator()), key);
+        return IteratorUtils.contains(keyIterator(map.entrySet().iterator()), key);
     }
 
     /**
      * An implementation of {@link Map#containsValue}.
      */
     static boolean containsValueImpl(Map<?, ?> map, Object value) {
-        return Iterators.contains(valueIterator(map.entrySet().iterator()), value);
+        return IteratorUtils.contains(valueIterator(map.entrySet().iterator()), value);
     }
 
 

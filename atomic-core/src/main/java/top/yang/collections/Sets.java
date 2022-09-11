@@ -17,29 +17,11 @@
 package top.yang.collections;
 
 
-import java.io.Serializable;
 import java.util.AbstractSet;
-import java.util.Arrays;
-import java.util.BitSet;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.NavigableSet;
-import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.function.Consumer;
-import java.util.stream.Collector;
-import java.util.stream.Stream;
 import top.yang.lang.Assert;
 
 
@@ -112,7 +94,7 @@ public final class Sets {
          * http://code.google.com/p/guava-libraries/issues/detail?id=1013
          */
         if (collection instanceof Set && collection.size() > set.size()) {
-            return Iterators.removeAll(set.iterator(), collection);
+            return IteratorUtils.removeAll(set.iterator(), collection);
         } else {
             return removeAllImpl(set, collection.iterator());
         }

@@ -27,7 +27,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Optional;
+import top.yang.base.Predicate;
 import top.yang.collections.iterators.ArrayIterator;
 import top.yang.collections.iterators.ArrayListIterator;
 import top.yang.collections.iterators.EmptyIterator;
@@ -44,12 +47,12 @@ import top.yang.collections.iterators.ResettableIterator;
 import top.yang.collections.iterators.ResettableListIterator;
 import top.yang.collections.iterators.SingletonIterator;
 import top.yang.collections.iterators.SingletonListIterator;
+import top.yang.lang.Assert;
+import top.yang.math.Ints;
 
 
 /**
  * Provides static utility methods and decorators for {@link Iterator} instances. The implementations are provided in the iterators subpackage.
- *
- *
  */
 public class IteratorUtils {
     // validation is done in this class in certain cases because the
@@ -554,7 +557,6 @@ public class IteratorUtils {
      *
      * @param iterator the {@link Iterator} to use, may be null
      * @return true if the iterator is exhausted or null, false otherwise
-     *
      */
     public static boolean isEmpty(final Iterator<?> iterator) {
         return iterator == null || !iterator.hasNext();
@@ -570,7 +572,6 @@ public class IteratorUtils {
      * @param index    the index to get
      * @return the object at the specified index
      * @throws IndexOutOfBoundsException if the index is invalid
-     *
      */
     public static <E> E get(final Iterator<E> iterator, final int index) {
         int i = index;
@@ -598,30 +599,9 @@ public class IteratorUtils {
      * @param iterator the iterator to get a value from
      * @return the first object
      * @throws IndexOutOfBoundsException if the request is invalid
-     *
      */
     public static <E> E first(final Iterator<E> iterator) {
         return get(iterator, 0);
-    }
-
-    /**
-     * Returns the number of elements contained in the given iterator.
-     * <p>
-     * A {@code null} or empty iterator returns {@code 0}.
-     *
-     * @param iterator the iterator to check, may be null
-     * @return the number of elements contained in the iterator
-     *
-     */
-    public static int size(final Iterator<?> iterator) {
-        int size = 0;
-        if (iterator != null) {
-            while (iterator.hasNext()) {
-                iterator.next();
-                size++;
-            }
-        }
-        return size;
     }
 
 
@@ -631,7 +611,6 @@ public class IteratorUtils {
      * @param <T>      集合元素类型
      * @param iterable {@link Iterable}
      * @return 第一个元素
-     *
      */
     public static <T> T getFirstNoneNull(Iterable<T> iterable) {
         if (null == iterable) {
@@ -646,7 +625,6 @@ public class IteratorUtils {
      * @param <T>      集合元素类型
      * @param iterator {@link Iterator}
      * @return 第一个非空元素，null表示未找到
-     *
      */
     public static <T> T getFirstNoneNull(Iterator<T> iterator) {
         if (null != iterator) {
@@ -660,4 +638,170 @@ public class IteratorUtils {
         return null;
     }
 
+    /**
+     * Returns the number of elements remaining in {@code iterator}. The iterator will be left exhausted: its {@code hasNext()} method will return {@code false}.
+     */
+    public static int size(Iterator<?> iterator) {
+        long count = 0L;
+        while (iterator.hasNext()) {
+            iterator.next();
+            count++;
+        }
+        return Ints.saturatedCast(count);
+    }
+
+    /**
+     * Returns {@code true} if {@code iterator} contains {@code element}.
+     */
+    public static boolean contains(Iterator<?> iterator, Object element) {
+        if (element == null) {
+            while (iterator.hasNext()) {
+                if (iterator.next() == null) {
+                    return true;
+                }
+            }
+        } else {
+            while (iterator.hasNext()) {
+                if (element.equals(iterator.next())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // Methods only in Iterators, not in Iterables
+    public static boolean removeAll(Iterator<?> removeFrom, Collection<?> elementsToRemove) {
+        Assert.notNull(elementsToRemove);
+        boolean result = false;
+        while (removeFrom.hasNext()) {
+            if (elementsToRemove.contains(removeFrom.next())) {
+                removeFrom.remove();
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Returns {@code true} if one or more elements returned by {@code iterator} satisfy the given predicate.
+     */
+    public static <T> boolean any(
+            Iterator<T> iterator, Predicate<? super T> predicate) {
+        return indexOf(iterator, predicate) != -1;
+    }
+
+    /**
+     * Returns {@code true} if every element returned by {@code iterator} satisfies the given predicate. If {@code iterator} is empty, {@code true} is returned.
+     */
+    public static <T> boolean all(
+            Iterator<T> iterator, Predicate<? super T> predicate) {
+        Assert.notNull(predicate);
+        while (iterator.hasNext()) {
+            T element = iterator.next();
+            if (!predicate.apply(element)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Returns the first element in {@code iterator} that satisfies the given predicate; use this method only when such an element is known to exist. If no such element is found,
+     * the iterator will be left exhausted: its {@code hasNext()} method will return {@code false}. If it is possible that <i>no</i> element will match, use {@link #tryFind} or
+     * {@link #find(Iterator, Predicate, Object)} instead.
+     *
+     * @throws NoSuchElementException if no element in {@code iterator} matches the given predicate
+     */
+
+    public static <T> T find(
+            Iterator<T> iterator, Predicate<? super T> predicate) {
+        Assert.notNull(iterator);
+        Assert.notNull(predicate);
+        while (iterator.hasNext()) {
+            T t = iterator.next();
+            if (predicate.apply(t)) {
+                return t;
+            }
+        }
+        throw new NoSuchElementException();
+    }
+
+    /**
+     * Returns the first element in {@code iterator} that satisfies the given predicate. If no such element is found, {@code defaultValue} will be returned from this method and the
+     * iterator will be left exhausted: its {@code hasNext()} method will return {@code false}. Note that this can usually be handled more naturally using {@code tryFind(iterator,
+     * predicate).or(defaultValue)}.
+     *
+     * @since 7.0
+     */
+    // For discussion of this signature, see the corresponding overload of *Iterables*.find.
+    public static <T> T find(
+            Iterator<? extends T> iterator,
+            Predicate<? super T> predicate,
+            T defaultValue) {
+        Assert.notNull(iterator);
+        Assert.notNull(predicate);
+        while (iterator.hasNext()) {
+            T t = iterator.next();
+            if (predicate.apply(t)) {
+                return t;
+            }
+        }
+        return defaultValue;
+    }
+
+    /**
+     * Returns an {@link Optional} containing the first element in {@code iterator} that satisfies the given predicate, if such an element exists. If no such element is found, an
+     * empty {@link Optional} will be returned from this method and the iterator will be left exhausted: its {@code hasNext()} method will return {@code false}.
+     *
+     * <p><b>Warning:</b> avoid using a {@code predicate} that matches {@code null}. If {@code null}
+     * is matched in {@code iterator}, a NullPointerException will be thrown.
+     *
+     * @since 11.0
+     */
+    public static <T> Optional<T> tryFind(Iterator<T> iterator, Predicate<? super T> predicate) {
+        Assert.notNull(iterator);
+        Assert.notNull(predicate);
+        while (iterator.hasNext()) {
+            T t = iterator.next();
+            if (predicate.apply(t)) {
+                return Optional.of(t);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Returns the index in {@code iterator} of the first element that satisfies the provided {@code predicate}, or {@code -1} if the Iterator has no such elements.
+     *
+     * <p>More formally, returns the lowest index {@code i} such that {@code
+     * predicate.apply(Iterators.get(iterator, i))} returns {@code true}, or {@code -1} if there is no such index.
+     *
+     * <p>If -1 is returned, the iterator will be left exhausted: its {@code hasNext()} method will
+     * return {@code false}. Otherwise, the iterator will be set to the element which satisfies the {@code predicate}.
+     *
+     * @since 2.0
+     */
+    public static <T> int indexOf(
+            Iterator<T> iterator, Predicate<? super T> predicate) {
+        Assert.notNull(predicate, "predicate");
+        for (int i = 0; iterator.hasNext(); i++) {
+            T current = iterator.next();
+            if (predicate.apply(current)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static <T> boolean addAll(
+            Collection<T> addTo, Iterator<? extends T> iterator) {
+        Assert.notNull(addTo);
+        Assert.notNull(iterator);
+        boolean wasModified = false;
+        while (iterator.hasNext()) {
+            wasModified |= addTo.add(iterator.next());
+        }
+        return wasModified;
+    }
 }

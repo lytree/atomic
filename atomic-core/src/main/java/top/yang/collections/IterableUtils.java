@@ -4,6 +4,7 @@ package top.yang.collections;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import top.yang.lang.Assert;
 
 public class IterableUtils {
 
@@ -85,5 +86,15 @@ public class IterableUtils {
         }
         return IteratorUtils.isEmpty(emptyIteratorIfNull(iterable));
     }
+
+    public static <T> boolean addAll(
+            Collection<T> addTo, Iterable<? extends T> elementsToAdd) {
+        if (elementsToAdd instanceof Collection) {
+            Collection<? extends T> c = (Collection<? extends T>) elementsToAdd;
+            return addTo.addAll(c);
+        }
+        return IteratorUtils.addAll(addTo, elementsToAdd.iterator());
+    }
+
 
 }

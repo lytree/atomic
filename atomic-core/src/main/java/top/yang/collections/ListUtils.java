@@ -25,11 +25,16 @@ import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.RandomAccess;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import top.yang.lang.Assert;
 
 
 /**
@@ -543,5 +548,188 @@ public class ListUtils {
         }
         list.sort(c);
         return list;
+    }
+
+    public static <E> LinkedList<E> newLinkedList() {
+        return new LinkedList<>();
+    }
+
+    public static <E> LinkedList<E> newLinkedList(
+            Iterable<? extends E> elements) {
+        LinkedList<E> list = newLinkedList();
+        IterableUtils.addAll(list, elements);
+        return list;
+    }
+
+    /**
+     * Returns a reversed view of the specified list. For example, {@code Lists.reverse(Arrays.asList(1, 2, 3))} returns a list containing {@code 3, 2, 1}. The returned list is
+     * backed by this list, so changes in the returned list are reflected in this list, and vice-versa. The returned list supports all of the optional list operations supported by
+     * this list.
+     *
+     * <p>The returned list is random-access if the specified list is random access.
+     *
+     * @since 7.0
+     */
+    public static <T> List<T> reverse(List<T> list) {
+        if (list instanceof ReverseList) {
+            return ((ReverseList<T>) list).getForwardList();
+        } else if (list instanceof RandomAccess) {
+            return new RandomAccessReverseList<>(list);
+        } else {
+            return new ReverseList<>(list);
+        }
+    }
+
+    private static class ReverseList<T> extends AbstractList<T> {
+
+        private final List<T> forwardList;
+
+        ReverseList(List<T> forwardList) {
+            this.forwardList = Assert.notNull(forwardList);
+        }
+
+        List<T> getForwardList() {
+            return forwardList;
+        }
+
+        private int reverseIndex(int index) {
+            int size = size();
+            Assert.checkIndex(index, size);
+            return (size - 1) - index;
+        }
+
+        private int reversePosition(int index) {
+            int size = size();
+            Assert.checkIndex(index, size);
+            return size - index;
+        }
+
+        @Override
+        public void add(int index, T element) {
+            forwardList.add(reversePosition(index), element);
+        }
+
+        @Override
+        public void clear() {
+            forwardList.clear();
+        }
+
+        @Override
+
+        public T remove(int index) {
+            return forwardList.remove(reverseIndex(index));
+        }
+
+        @Override
+        protected void removeRange(int fromIndex, int toIndex) {
+            subList(fromIndex, toIndex).clear();
+        }
+
+        @Override
+
+        public T set(int index, T element) {
+            return forwardList.set(reverseIndex(index), element);
+        }
+
+        @Override
+
+        public T get(int index) {
+            return forwardList.get(reverseIndex(index));
+        }
+
+        @Override
+        public int size() {
+            return forwardList.size();
+        }
+
+        @Override
+        public List<T> subList(int fromIndex, int toIndex) {
+            Assert.checkIndex(fromIndex, size());
+            Assert.checkIndex(toIndex, size());
+            return reverse(forwardList.subList(reversePosition(toIndex), reversePosition(fromIndex)));
+        }
+
+        @Override
+        public Iterator<T> iterator() {
+            return listIterator();
+        }
+
+        @Override
+        public ListIterator<T> listIterator(int index) {
+            int start = reversePosition(index);
+            final ListIterator<T> forwardIterator = forwardList.listIterator(start);
+            return new ListIterator<T>() {
+
+                boolean canRemoveOrSet;
+
+                @Override
+                public void add(T e) {
+                    forwardIterator.add(e);
+                    forwardIterator.previous();
+                    canRemoveOrSet = false;
+                }
+
+                @Override
+                public boolean hasNext() {
+                    return forwardIterator.hasPrevious();
+                }
+
+                @Override
+                public boolean hasPrevious() {
+                    return forwardIterator.hasNext();
+                }
+
+                @Override
+
+                public T next() {
+                    if (!hasNext()) {
+                        throw new NoSuchElementException();
+                    }
+                    canRemoveOrSet = true;
+                    return forwardIterator.previous();
+                }
+
+                @Override
+                public int nextIndex() {
+                    return reversePosition(forwardIterator.nextIndex());
+                }
+
+                @Override
+
+                public T previous() {
+                    if (!hasPrevious()) {
+                        throw new NoSuchElementException();
+                    }
+                    canRemoveOrSet = true;
+                    return forwardIterator.next();
+                }
+
+                @Override
+                public int previousIndex() {
+                    return nextIndex() - 1;
+                }
+
+                @Override
+                public void remove() {
+                    Assert.isTrue(canRemoveOrSet);
+                    forwardIterator.remove();
+                    canRemoveOrSet = false;
+                }
+
+                @Override
+                public void set(T e) {
+                    Assert.isTrue(canRemoveOrSet);
+                    forwardIterator.set(e);
+                }
+            };
+        }
+    }
+
+    private static class RandomAccessReverseList<T> extends ReverseList<T>
+            implements RandomAccess {
+
+        RandomAccessReverseList(List<T> forwardList) {
+            super(forwardList);
+        }
     }
 }

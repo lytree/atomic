@@ -42,51 +42,6 @@ public final class Iterators {
     }
 
     /**
-     * Returns the number of elements remaining in {@code iterator}. The iterator will be left exhausted: its {@code hasNext()} method will return {@code false}.
-     */
-    public static int size(Iterator<?> iterator) {
-        long count = 0L;
-        while (iterator.hasNext()) {
-            iterator.next();
-            count++;
-        }
-        return Ints.saturatedCast(count);
-    }
-
-    /**
-     * Returns {@code true} if {@code iterator} contains {@code element}.
-     */
-    public static boolean contains(Iterator<?> iterator, Object element) {
-        if (element == null) {
-            while (iterator.hasNext()) {
-                if (iterator.next() == null) {
-                    return true;
-                }
-            }
-        } else {
-            while (iterator.hasNext()) {
-                if (element.equals(iterator.next())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    // Methods only in Iterators, not in Iterables
-    public static boolean removeAll(Iterator<?> removeFrom, Collection<?> elementsToRemove) {
-        Assert.notNull(elementsToRemove);
-        boolean result = false;
-        while (removeFrom.hasNext()) {
-            if (elementsToRemove.contains(removeFrom.next())) {
-                removeFrom.remove();
-                result = true;
-            }
-        }
-        return result;
-    }
-
-    /**
      * Clears the iterator using its remove method.
      */
     static void clear(Iterator<?> iterator) {
