@@ -16,12 +16,11 @@ import org.springframework.data.util.Streamable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 import top.yang.model.entity.BaseEntity;
 import top.yang.model.exception.exception.DataException;
 import top.yang.model.request.support.BaseQuery;
 import top.yang.model.request.support.PageQuery;
-import top.yang.repository.BaseJpaRepository;
+import top.yang.dao.repository.BaseJpaRepository;
 
 public abstract class BaseManager<T extends BaseEntity, ID extends Serializable> {
 

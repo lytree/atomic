@@ -1,4 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   top.yang.configuration.SnowFlakeBeanConfiguration,\
   top.yang.configuration.NamingStrategyConfiguration,\
-  top.yang.configuration.IdConfiguration
+  top.yang.configuration.IdConfiguration,\
+  top.yang.configuration.CustomJdbcTemplate

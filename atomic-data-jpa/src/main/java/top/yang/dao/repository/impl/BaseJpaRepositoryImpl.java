@@ -1,4 +1,4 @@
-package top.yang.repository.impl;
+package top.yang.dao.repository.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -23,14 +23,12 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.data.support.PageableExecutionUtils;
-import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
@@ -45,7 +43,7 @@ import top.yang.bean.FieldUtils;
 import top.yang.model.exception.exception.ServerException;
 import top.yang.model.exception.result.ServerCode;
 import top.yang.model.request.support.BaseQuery;
-import top.yang.repository.BaseJpaRepository;
+import top.yang.dao.repository.BaseJpaRepository;
 
 
 public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAIN, ID>
