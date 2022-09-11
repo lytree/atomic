@@ -23,7 +23,7 @@
     <okhttp.version>4.10.0</okhttp.version>
     <kotlin-stdlib.version>1.6.20</kotlin-stdlib.version>
     <okio.version>2.10.0</okio.version>
-    <jsoup.version>1.14.2</jsoup.version>
+    <jsoup.version>1.15.3</jsoup.version>
     <selenium-java.version>3.141.59</selenium-java.version>
     <htmlunit.version>2.56.0</htmlunit.version>
     <jsoupxpath.version>2.5.0</jsoupxpath.version>
