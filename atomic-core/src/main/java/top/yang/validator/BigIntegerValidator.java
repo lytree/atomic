@@ -65,7 +65,7 @@ import java.util.Locale;
  */
 public class BigIntegerValidator extends AbstractNumberValidator {
 
-    private static final long serialVersionUID = 6713144356347139988L;
+    private static final long serialVersionUID = 1L;
 
     private static final BigIntegerValidator VALIDATOR = new BigIntegerValidator();
 

@@ -9,7 +9,7 @@ import top.yang.model.constants.Globals;
  */
 public abstract class BaseResponse implements Serializable {
 
-    private static final long serialVersionUID = Globals.serialVersionUID;
+    private static final long serialVersionUID = 1L;
 
     String SUCCESS_CODE = "0000";
 

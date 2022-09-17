@@ -88,7 +88,7 @@ public class EmptyFileFilter extends AbstractFileFilter implements Serializable 
      */
     public static final IOFileFilter NOT_EMPTY = EMPTY.negate();
 
-    private static final long serialVersionUID = 3631422087512832211L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Restrictive constructor.

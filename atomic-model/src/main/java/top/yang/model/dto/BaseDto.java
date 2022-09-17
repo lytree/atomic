@@ -9,7 +9,7 @@ import top.yang.model.constants.Globals;
  */
 public class BaseDto implements Serializable {
 
-    private static final long serialVersionUID = Globals.serialVersionUID;
+    private static final long serialVersionUID = 1L;
 
     /**
      *

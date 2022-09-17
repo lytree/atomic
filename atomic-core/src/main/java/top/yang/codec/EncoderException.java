@@ -28,7 +28,7 @@ public class EncoderException extends Exception {
     /**
      * Declares the Serial Version Uid.
      *
-     * @see <a href="http://c2.com/cgi/wiki?AlwaysDeclareSerialVersionUid">Always Declare Serial Version Uid</a>
+     * @see <a href="http://c2.com/cgi/wiki?AlwaysDeclareserialVersionUID = 1L Version Uid</a>
      */
     private static final long serialVersionUID = 1L;
 

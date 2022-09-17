@@ -35,7 +35,7 @@ import java.util.TimeZone;
  */
 public abstract class AbstractCalendarValidator extends AbstractFormatValidator {
 
-    private static final long serialVersionUID = -1410008585975827379L;
+    private static final long serialVersionUID = 1L;
 
     private final int dateStyle;
 

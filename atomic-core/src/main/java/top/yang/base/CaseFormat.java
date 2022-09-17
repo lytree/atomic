@@ -209,7 +209,7 @@ public enum CaseFormat {
             return sourceFormat + ".converterTo(" + targetFormat + ")";
         }
 
-        private static final long serialVersionUID = 0L;
+        private static final long serialVersionUID = 1L;
     }
 
     abstract String normalizeWord(String word);

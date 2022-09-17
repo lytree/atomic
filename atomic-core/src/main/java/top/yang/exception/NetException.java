@@ -4,7 +4,7 @@ import top.yang.lang.StringUtils;
 
 public class NetException extends RuntimeException {
 
-    private static final long serialVersionUID = 8247610319171014183L;
+    private static final long serialVersionUID = 1L;
 
     public NetException(Throwable e) {
         super(ExceptionUtils.getMessage(e), e);

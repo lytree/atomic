@@ -45,7 +45,7 @@ import javax.validation.constraints.NotNull;
 
 public class Money implements Serializable, Comparable<Money> {
 
-    private static final long serialVersionUID = -1004117971993390293L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * 缺省的币种代码，为CNY（人民币）。

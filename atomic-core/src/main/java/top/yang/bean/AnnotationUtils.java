@@ -8,9 +8,58 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
+
+import top.yang.build.ToStringStyle;
 import top.yang.collections.ArrayUtils;
+import top.yang.lang.StringUtils;
 
 public class AnnotationUtils extends org.apache.commons.lang3.AnnotationUtils {
+
+    /**
+     * A style that prints annotations as recommended.
+     */
+    private static final ToStringStyle TO_STRING_STYLE = new ToStringStyle() {
+        /** Serialization version */
+        private static final long serialVersionUID = 1L;
+
+        {
+            setDefaultFullDetail(true);
+            setArrayContentDetail(true);
+            setUseClassName(true);
+            setUseShortClassName(true);
+            setUseIdentityHashCode(false);
+            setContentStart("(");
+            setContentEnd(")");
+            setFieldSeparator(", ");
+            setArrayStart("[");
+            setArrayEnd("]");
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        protected String getShortClassName(final Class<?> cls) {
+            for (final Class<?> iface : ClassUtils.getAllInterfaces(cls)) {
+                if (Annotation.class.isAssignableFrom(iface)) {
+                    return "@" + iface.getName();
+                }
+            }
+            return StringUtils.EMPTY;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        protected void appendDetail(final StringBuffer buffer, final String fieldName, Object value) {
+            if (value instanceof Annotation) {
+                value = org.apache.commons.lang3.AnnotationUtils.toString((Annotation) value);
+            }
+            super.appendDetail(buffer, fieldName, value);
+        }
+
+    };
 
     /**
      * 获取指定注解

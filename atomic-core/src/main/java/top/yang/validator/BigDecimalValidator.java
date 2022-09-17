@@ -69,7 +69,7 @@ import java.util.Locale;
  */
 public class BigDecimalValidator extends AbstractNumberValidator {
 
-    private static final long serialVersionUID = -670320911490506772L;
+    private static final long serialVersionUID = 1L;
 
     private static final BigDecimalValidator VALIDATOR = new BigDecimalValidator();
 

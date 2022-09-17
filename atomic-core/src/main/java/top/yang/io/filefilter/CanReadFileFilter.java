@@ -72,7 +72,7 @@ public class CanReadFileFilter extends AbstractFileFilter implements Serializabl
     /** Singleton instance of <i>read-only</i> filter */
     public static final IOFileFilter READ_ONLY = CAN_READ.and(CanWriteFileFilter.CANNOT_WRITE);
 
-    private static final long serialVersionUID = 3179904805251622989L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Restrictive constructor.

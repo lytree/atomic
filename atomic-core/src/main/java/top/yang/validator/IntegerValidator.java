@@ -64,7 +64,7 @@ import java.util.Locale;
  */
 public class IntegerValidator extends AbstractNumberValidator {
 
-    private static final long serialVersionUID = 422081746310306596L;
+    private static final long serialVersionUID = 1L;
 
     private static final IntegerValidator VALIDATOR = new IntegerValidator();
 

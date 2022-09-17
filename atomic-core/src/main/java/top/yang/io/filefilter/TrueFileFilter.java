@@ -32,7 +32,7 @@ public class TrueFileFilter implements IOFileFilter, Serializable {
 
     private static final String TO_STRING = Boolean.TRUE.toString();
 
-    private static final long serialVersionUID = 8782512160909720199L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Singleton instance of true filter.

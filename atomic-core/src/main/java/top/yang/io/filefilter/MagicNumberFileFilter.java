@@ -97,7 +97,7 @@ public class MagicNumberFileFilter extends AbstractFileFilter implements
     /**
      * The serialization version unique identifier.
      */
-    private static final long serialVersionUID = -547733176983104172L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The magic number to compare against the file's bytes at the provided

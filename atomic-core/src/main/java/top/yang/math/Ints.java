@@ -726,7 +726,7 @@ public final class Ints {
             return Arrays.copyOfRange(array, start, end);
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**

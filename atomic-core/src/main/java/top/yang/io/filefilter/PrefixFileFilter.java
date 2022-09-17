@@ -63,7 +63,7 @@ import top.yang.io.IOCase;
  */
 public class PrefixFileFilter extends AbstractFileFilter implements Serializable {
 
-    private static final long serialVersionUID = 8533897440809599867L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The file name prefixes to search for

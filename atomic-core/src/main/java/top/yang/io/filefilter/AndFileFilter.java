@@ -40,7 +40,7 @@ public class AndFileFilter
         extends AbstractFileFilter
         implements ConditionalFileFilter, Serializable {
 
-    private static final long serialVersionUID = 7215974688563965257L;
+    private static final long serialVersionUID = 1L;
 
     /** The list of file filters. */
     private final List<IOFileFilter> fileFilters;

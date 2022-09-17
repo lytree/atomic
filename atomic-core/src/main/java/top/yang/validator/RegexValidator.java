@@ -69,7 +69,7 @@ import java.util.regex.Matcher;
  */
 public class RegexValidator implements Serializable {
 
-    private static final long serialVersionUID = -8832409930574867162L;
+    private static final long serialVersionUID = 1L;
 
     private final Pattern[] patterns;
 

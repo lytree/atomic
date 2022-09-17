@@ -33,7 +33,7 @@ import java.util.Locale;
  */
 public abstract class AbstractNumberValidator extends AbstractFormatValidator {
 
-    private static final long serialVersionUID = -3088817875906765463L;
+    private static final long serialVersionUID = 1L;
 
     /** Standard <code>NumberFormat</code> type */
     public static final int STANDARD_FORMAT = 0;

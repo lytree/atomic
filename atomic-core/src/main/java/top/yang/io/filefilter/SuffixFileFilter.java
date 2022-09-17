@@ -64,7 +64,7 @@ import top.yang.io.IOCase;
  */
 public class SuffixFileFilter extends AbstractFileFilter implements Serializable {
 
-    private static final long serialVersionUID = -3389157631240246157L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The file name suffixes to search for

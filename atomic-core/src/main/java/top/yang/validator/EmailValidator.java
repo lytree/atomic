@@ -35,7 +35,7 @@ import java.util.regex.Pattern;
  */
 public class EmailValidator implements Serializable {
 
-    private static final long serialVersionUID = 1705927040799295880L;
+    private static final long serialVersionUID = 1L;
 
     private static final String SPECIAL_CHARS = "\\p{Cntrl}\\(\\)<>@,;:'\\\\\\\"\\.\\[\\]";
     private static final String VALID_CHARS = "(\\\\.)|[^\\s" + SPECIAL_CHARS + "]";

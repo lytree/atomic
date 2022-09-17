@@ -84,7 +84,7 @@ import java.util.TimeZone;
  */
 public class DateValidator extends AbstractCalendarValidator {
 
-    private static final long serialVersionUID = -3966328400469953190L;
+    private static final long serialVersionUID = 1L;
 
     private static final DateValidator VALIDATOR = new DateValidator();
 

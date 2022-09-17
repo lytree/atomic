@@ -66,7 +66,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  */
 public class SizeFileFilter extends AbstractFileFilter implements Serializable {
 
-    private static final long serialVersionUID = 7388077430788600069L;
+    private static final long serialVersionUID = 1L;
 
     /** Whether the files accepted will be larger or smaller. */
     private final boolean acceptLarger;

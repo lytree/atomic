@@ -64,7 +64,7 @@ import java.util.Locale;
  */
 public class ByteValidator extends AbstractNumberValidator {
 
-    private static final long serialVersionUID = 7001640945881854649L;
+    private static final long serialVersionUID = 1L;
 
     private static final ByteValidator VALIDATOR = new ByteValidator();
 

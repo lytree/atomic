@@ -66,7 +66,7 @@ public class DomainValidator implements Serializable {
 
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    private static final long serialVersionUID = -4407125112880174009L;
+    private static final long serialVersionUID = 1L;
 
     // Regular expression strings for hostnames (derived from RFC2396 and RFC 1123)
 

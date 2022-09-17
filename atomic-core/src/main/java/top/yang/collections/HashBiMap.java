@@ -808,5 +808,5 @@ public final class HashBiMap<K, V>
 
 
     // Not needed in emulated source
-    private static final long serialVersionUID = 0;
+    private static final long serialVersionUID = 1L;
 }

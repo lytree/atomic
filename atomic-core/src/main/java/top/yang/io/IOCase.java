@@ -61,7 +61,7 @@ public enum IOCase {
     /**
      * Serialization version.
      */
-    private static final long serialVersionUID = -6343169151696340687L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Factory method to create an IOCase from a name.

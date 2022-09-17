@@ -48,5 +48,5 @@ class ImmutableEntry<K extends Object, V extends Object>
         throw new UnsupportedOperationException();
     }
 
-    private static final long serialVersionUID = 0;
+    private static final long serialVersionUID = 1L;
 }

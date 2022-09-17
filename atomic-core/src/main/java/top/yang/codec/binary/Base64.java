@@ -51,7 +51,6 @@ import top.yang.lang.StringUtils;
  * </p>
  *
  * @see <a href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045</a>
- * 
  */
 public class Base64 extends BaseNCodec {
 
@@ -109,18 +108,18 @@ public class Base64 extends BaseNCodec {
     };
 
     /**
-     * Base64 uses 6-bit fields.
+     * Base64使用6位字段。
      */
     /**
-     * Mask used to extract 6 bits, used when encoding
+     * 用于提取6位的掩码，编码时使用
      */
     private static final int MASK_6BITS = 0x3f;
     /**
-     * Mask used to extract 4 bits, used when decoding final trailing character.
+     * 用于提取4位的掩码，在解码最后的尾随字符时使用。
      */
     private static final int MASK_4BITS = 0xf;
     /**
-     * Mask used to extract 2 bits, used when decoding final trailing character.
+     * 用于提取2位的掩码，在解码最后的尾随字符时使用。
      */
     private static final int MASK_2BITS = 0x3;
 
@@ -149,7 +148,6 @@ public class Base64 extends BaseNCodec {
      *
      * @param base64String String containing Base64 data
      * @return Array containing decoded data.
-     * 
      */
     public static byte[] decodeBase64(final String base64String) {
         return new Base64().decode(base64String);
@@ -162,7 +160,6 @@ public class Base64 extends BaseNCodec {
      *
      * @param pArray a byte array containing base64 character data
      * @return A BigInteger
-     * 
      */
     public static BigInteger decodeInteger(final byte[] pArray) {
         return new BigInteger(1, decodeBase64(pArray));
@@ -199,7 +196,6 @@ public class Base64 extends BaseNCodec {
      *                   <b>Note: no padding is added when encoding using the URL-safe alphabet.</b>
      * @return Base64-encoded data.
      * @throws IllegalArgumentException Thrown when the input array needs an output array bigger than {@link Integer#MAX_VALUE}
-     * 
      */
     public static byte[] encodeBase64(final byte[] binaryData, final boolean isChunked, final boolean urlSafe) {
         return encodeBase64(binaryData, isChunked, urlSafe, Integer.MAX_VALUE);
@@ -215,7 +211,6 @@ public class Base64 extends BaseNCodec {
      * @param maxResultSize The maximum result size to accept.
      * @return Base64-encoded data.
      * @throws IllegalArgumentException Thrown when the input array needs an output array bigger than maxResultSize
-     * 
      */
     public static byte[] encodeBase64(final byte[] binaryData, final boolean isChunked,
             final boolean urlSafe, final int maxResultSize) {
@@ -254,7 +249,6 @@ public class Base64 extends BaseNCodec {
      *
      * @param binaryData binary data to encode
      * @return String containing Base64 characters.
-     * 
      */
     public static String encodeBase64String(final byte[] binaryData) {
         return StringUtils.newStringUsAscii(encodeBase64(binaryData, false));
@@ -266,7 +260,6 @@ public class Base64 extends BaseNCodec {
      *
      * @param binaryData binary data to encode
      * @return byte[] containing Base64 characters in their UTF-8 representation.
-     * 
      */
     public static byte[] encodeBase64URLSafe(final byte[] binaryData) {
         return encodeBase64(binaryData, false, true);
@@ -278,7 +271,6 @@ public class Base64 extends BaseNCodec {
      *
      * @param binaryData binary data to encode
      * @return String containing Base64 characters
-     * 
      */
     public static String encodeBase64URLSafeString(final byte[] binaryData) {
         return StringUtils.newStringUsAscii(encodeBase64(binaryData, false, true));
@@ -290,7 +282,6 @@ public class Base64 extends BaseNCodec {
      * @param bigInteger a BigInteger
      * @return A byte array containing base64 character data
      * @throws NullPointerException if null is passed in
-     * 
      */
     public static byte[] encodeInteger(final BigInteger bigInteger) {
         Objects.requireNonNull(bigInteger, "bigInteger");
@@ -298,23 +289,10 @@ public class Base64 extends BaseNCodec {
     }
 
     /**
-     * Tests a given byte array to see if it contains only valid characters within the Base64 alphabet. Currently the method treats whitespace as valid.
-     *
-     * @param arrayOctet byte array to test
-     * @return {@code true} if all bytes are valid characters in the Base64 alphabet or if the byte array is empty; {@code false}, otherwise
-     * @deprecated 1.5 Use {@link #isBase64(byte[])}, will be removed in 2.0.
-     */
-    @Deprecated
-    public static boolean isArrayByteBase64(final byte[] arrayOctet) {
-        return isBase64(arrayOctet);
-    }
-
-    /**
      * Returns whether or not the {@code octet} is in the base 64 alphabet.
      *
      * @param octet The value to test
      * @return {@code true} if the value is defined in the the base 64 alphabet, {@code false} otherwise.
-     * 
      */
     public static boolean isBase64(final byte octet) {
         return octet == PAD_DEFAULT || (octet >= 0 && octet < DECODE_TABLE.length && DECODE_TABLE[octet] != -1);
@@ -325,7 +303,6 @@ public class Base64 extends BaseNCodec {
      *
      * @param arrayOctet byte array to test
      * @return {@code true} if all bytes are valid characters in the Base64 alphabet or if the byte array is empty; {@code false}, otherwise
-     * 
      */
     public static boolean isBase64(final byte[] arrayOctet) {
         for (final byte element : arrayOctet) {
@@ -341,7 +318,6 @@ public class Base64 extends BaseNCodec {
      *
      * @param base64 String to test
      * @return {@code true} if all characters in the String are valid characters in the Base64 alphabet or if the String is empty; {@code false}, otherwise
-     * 
      */
     public static boolean isBase64(final String base64) {
         return isBase64(StringUtils.getBytesUtf8(base64));
@@ -378,8 +354,7 @@ public class Base64 extends BaseNCodec {
     }
 
     /**
-     * Encode table to use: either STANDARD or URL_SAFE. Note: the DECODE_TABLE above remains static because it is able to decode both STANDARD and URL_SAFE streams, but the
-     * encodeTable must be a member variable so we can switch between the two modes.
+     * 编码表使用:标准或URL_SAFE。注意:上面的DECODE_TABLE保持静态，因为它能够解码STANDARD和URL_SAFE流，但是encodeTable必须是一个成员变量，这样我们才能在两种模式之间切换。
      */
     private final byte[] encodeTable;
 
@@ -426,7 +401,6 @@ public class Base64 extends BaseNCodec {
      * </p>
      *
      * @param urlSafe if {@code true}, URL-safe encoding is used. In most cases this should be set to {@code false}.
-     * 
      */
     public Base64(final boolean urlSafe) {
         this(MIME_CHUNK_SIZE, CHUNK_SEPARATOR, urlSafe);
@@ -446,7 +420,6 @@ public class Base64 extends BaseNCodec {
      *
      * @param lineLength Each line of encoded data will be at most of the given length (rounded down to nearest multiple of 4). If lineLength &lt;= 0, then the output will not be
      *                   divided into lines (chunks). Ignored when decoding.
-     * 
      */
     public Base64(final int lineLength) {
         this(lineLength, CHUNK_SEPARATOR);
@@ -468,7 +441,6 @@ public class Base64 extends BaseNCodec {
      *                      be divided into lines (chunks). Ignored when decoding.
      * @param lineSeparator Each line of encoded data will end with this sequence of bytes.
      * @throws IllegalArgumentException Thrown when the provided lineSeparator included some base64 characters.
-     * 
      */
     public Base64(final int lineLength, final byte[] lineSeparator) {
         this(lineLength, lineSeparator, false);
@@ -492,7 +464,6 @@ public class Base64 extends BaseNCodec {
      * @param urlSafe       Instead of emitting '+' and '/' we emit '-' and '_' respectively. urlSafe is only applied to encode operations. Decoding seamlessly handles both modes.
      *                      <b>Note: no padding is added when using the URL-safe alphabet.</b>
      * @throws IllegalArgumentException Thrown when the {@code lineSeparator} contains Base64 characters.
-     * 
      */
     public Base64(final int lineLength, final byte[] lineSeparator, final boolean urlSafe) {
         this(lineLength, lineSeparator, urlSafe, DECODING_POLICY_DEFAULT);
@@ -518,7 +489,6 @@ public class Base64 extends BaseNCodec {
      *                       <b>Note: no padding is added when using the URL-safe alphabet.</b>
      * @param decodingPolicy The decoding policy.
      * @throws IllegalArgumentException Thrown when the {@code lineSeparator} contains Base64 characters.
-     * 
      */
     public Base64(final int lineLength, final byte[] lineSeparator, final boolean urlSafe,
             final CodecPolicy decodingPolicy) {
@@ -731,7 +701,6 @@ public class Base64 extends BaseNCodec {
      * Returns our current encode mode. True if we're URL-SAFE, false otherwise.
      *
      * @return true if we're in URL-SAFE mode, false otherwise.
-     * 
      */
     public boolean isUrlSafe() {
         return this.encodeTable == URL_SAFE_ENCODE_TABLE;

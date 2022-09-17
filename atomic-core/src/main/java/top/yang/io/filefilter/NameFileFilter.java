@@ -65,7 +65,7 @@ import top.yang.io.IOCase;
  */
 public class NameFileFilter extends AbstractFileFilter implements Serializable {
 
-    private static final long serialVersionUID = 176844364689077340L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The file names to search for

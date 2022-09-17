@@ -311,7 +311,7 @@ public final class Predicates {
             return "Predicates.not(" + predicate + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -357,7 +357,7 @@ public final class Predicates {
             return toStringHelper("and", components);
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -403,7 +403,7 @@ public final class Predicates {
             return toStringHelper("or", components);
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     private static String toStringHelper(String methodName, Iterable<?> components) {
@@ -454,7 +454,7 @@ public final class Predicates {
             return "Predicates.equalTo(" + target + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
 
         @SuppressWarnings("unchecked")
             // safe contravariant cast
@@ -500,7 +500,7 @@ public final class Predicates {
             return "Predicates.instanceOf(" + clazz.getName() + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -539,7 +539,7 @@ public final class Predicates {
             return "Predicates.subtypeOf(" + clazz.getName() + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -582,7 +582,7 @@ public final class Predicates {
             return "Predicates.in(" + target + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -624,7 +624,7 @@ public final class Predicates {
             return p + "(" + f + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
 

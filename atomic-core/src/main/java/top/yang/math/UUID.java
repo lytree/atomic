@@ -39,7 +39,7 @@ import top.yang.lang.RandomUtils;
  *
  */
 public class UUID implements java.io.Serializable, Comparable<UUID> {
-    private static final long serialVersionUID = -1185015143654744140L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@link SecureRandom} 的单例

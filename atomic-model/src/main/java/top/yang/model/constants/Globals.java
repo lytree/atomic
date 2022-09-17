@@ -6,7 +6,7 @@ package top.yang.model.constants;
  */
 public class Globals {
 
-    public static final long serialVersionUID = -108907189034815108L;
+    public static final long serialVersionUID = 1L;
     /**
      * 请求Id
      */

@@ -21,14 +21,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Implements a ThreadSafe version of {@link AbstractByteArrayOutputStream} using instance synchronization.
+ * 使用实例同步实现{@link AbstractByteArrayOutputStream}的ThreadSafe版本。
  */
 //@ThreadSafe
 public class ByteArrayOutputStream extends AbstractByteArrayOutputStream {
 
     /**
-     * Fetches entire contents of an {@code InputStream} and represent
-     * same data as result InputStream.
+     * Fetches entire contents of an {@code InputStream} and represent same data as result InputStream.
      * <p>
      * This method is useful where,
      * </p>
@@ -46,7 +45,6 @@ public class ByteArrayOutputStream extends AbstractByteArrayOutputStream {
      * @param input Stream to be fully buffered.
      * @return A fully buffered stream.
      * @throws IOException if an I/O error occurs.
-     *
      */
     public static InputStream toBufferedInputStream(final InputStream input)
             throws IOException {
@@ -54,8 +52,7 @@ public class ByteArrayOutputStream extends AbstractByteArrayOutputStream {
     }
 
     /**
-     * Fetches entire contents of an {@code InputStream} and represent
-     * same data as result InputStream.
+     * Fetches entire contents of an {@code InputStream} and represent same data as result InputStream.
      * <p>
      * This method is useful where,
      * </p>
@@ -71,13 +68,12 @@ public class ByteArrayOutputStream extends AbstractByteArrayOutputStream {
      * {@code BufferedInputStream}.
      *
      * @param input Stream to be fully buffered.
-     * @param size the initial buffer size
+     * @param size  the initial buffer size
      * @return A fully buffered stream.
      * @throws IOException if an I/O error occurs.
-     *
      */
     public static InputStream toBufferedInputStream(final InputStream input, final int size)
-        throws IOException {
+            throws IOException {
         try (ByteArrayOutputStream output = new ByteArrayOutputStream(size)) {
             output.write(input);
             return output.toInputStream();
@@ -85,24 +81,22 @@ public class ByteArrayOutputStream extends AbstractByteArrayOutputStream {
     }
 
     /**
-     * Creates a new byte array output stream. The buffer capacity is
-     * initially {@value AbstractByteArrayOutputStream#DEFAULT_SIZE} bytes, though its size increases if necessary.
+     * Creates a new byte array output stream. The buffer capacity is initially {@value AbstractByteArrayOutputStream#DEFAULT_SIZE} bytes, though its size increases if necessary.
      */
     public ByteArrayOutputStream() {
         this(DEFAULT_SIZE);
     }
 
     /**
-     * Creates a new byte array output stream, with a buffer capacity of
-     * the specified size, in bytes.
+     * Creates a new byte array output stream, with a buffer capacity of the specified size, in bytes.
      *
-     * @param size  the initial size
+     * @param size the initial size
      * @throws IllegalArgumentException if size is negative
      */
     public ByteArrayOutputStream(final int size) {
         if (size < 0) {
             throw new IllegalArgumentException(
-                "Negative initial size: " + size);
+                    "Negative initial size: " + size);
         }
         synchronized (this) {
             needNewBuffer(size);

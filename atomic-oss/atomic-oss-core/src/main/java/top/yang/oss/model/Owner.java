@@ -25,7 +25,7 @@ import java.io.Serializable;
  */
 public class Owner implements Serializable {
 
-    private static final long serialVersionUID = 2202691849132489125L;
+    private static final long serialVersionUID = 1L;
 
     private String displayName;
     private String id;

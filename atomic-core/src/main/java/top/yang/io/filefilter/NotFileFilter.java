@@ -32,7 +32,7 @@ import java.nio.file.attribute.BasicFileAttributes;
  */
 public class NotFileFilter extends AbstractFileFilter implements Serializable {
 
-    private static final long serialVersionUID = 6131563330944994230L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The filter

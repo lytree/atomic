@@ -64,7 +64,7 @@ import java.util.Locale;
  */
 public class FloatValidator extends AbstractNumberValidator {
 
-    private static final long serialVersionUID = -4513245432806414267L;
+    private static final long serialVersionUID = 1L;
 
     private static final FloatValidator VALIDATOR = new FloatValidator();
 

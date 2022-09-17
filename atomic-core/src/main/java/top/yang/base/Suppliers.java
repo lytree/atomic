@@ -89,7 +89,7 @@ public final class Suppliers {
             return "Suppliers.compose(" + function + ", " + supplier + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -153,7 +153,7 @@ public final class Suppliers {
                     + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
 
@@ -277,7 +277,7 @@ public final class Suppliers {
             return "Suppliers.memoizeWithExpiration(" + delegate + ", " + durationNanos + ", NANOS)";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -321,7 +321,7 @@ public final class Suppliers {
             return "Suppliers.ofInstance(" + instance + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -353,7 +353,7 @@ public final class Suppliers {
             return "Suppliers.synchronizedSupplier(" + delegate + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**

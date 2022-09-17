@@ -44,7 +44,7 @@ import java.text.Format;
  */
 public class CurrencyValidator extends BigDecimalValidator {
 
-    private static final long serialVersionUID = -4201640771171486514L;
+    private static final long serialVersionUID = 1L;
 
     private static final CurrencyValidator VALIDATOR = new CurrencyValidator();
 

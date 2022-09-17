@@ -63,7 +63,7 @@ import java.util.Locale;
  */
 public class LongValidator extends AbstractNumberValidator {
 
-    private static final long serialVersionUID = -5117231731027866098L;
+    private static final long serialVersionUID = 1L;
 
     private static final LongValidator VALIDATOR = new LongValidator();
 

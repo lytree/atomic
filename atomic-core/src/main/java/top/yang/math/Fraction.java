@@ -40,7 +40,7 @@ public final class Fraction extends Number implements Comparable<Fraction> {
      *
      * @see java.io.Serializable
      */
-    private static final long serialVersionUID = 65382027393090L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * {@code Fraction} representation of 0.

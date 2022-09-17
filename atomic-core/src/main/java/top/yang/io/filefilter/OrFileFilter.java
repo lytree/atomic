@@ -36,7 +36,7 @@ import java.util.Objects;
  */
 public class OrFileFilter extends AbstractFileFilter implements ConditionalFileFilter, Serializable {
 
-    private static final long serialVersionUID = 5767770777065432721L;
+    private static final long serialVersionUID = 1L;
 
     /** The list of file filters. */
     private final List<IOFileFilter> fileFilters;

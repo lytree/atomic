@@ -365,7 +365,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
             return original + ".reverse()";
         }
 
-        private static final long serialVersionUID = 0L;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -443,7 +443,7 @@ public abstract class Converter<A, B> implements Function<A, B> {
             return first + ".andThen(" + second + ")";
         }
 
-        private static final long serialVersionUID = 0L;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -615,6 +615,6 @@ public abstract class Converter<A, B> implements Function<A, B> {
             return INSTANCE;
         }
 
-        private static final long serialVersionUID = 0L;
+        private static final long serialVersionUID = 1L;
     }
 }

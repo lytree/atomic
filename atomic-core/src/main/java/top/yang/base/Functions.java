@@ -169,7 +169,7 @@ public final class Functions {
             return "Functions.forMap(" + map + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     private static class ForMapWithDefault<K extends Object, V extends Object>
@@ -212,7 +212,7 @@ public final class Functions {
             return "Functions.forMap(" + map + ", defaultValue=" + defaultValue + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -269,7 +269,7 @@ public final class Functions {
             return g + "(" + f + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -321,7 +321,7 @@ public final class Functions {
             return "Functions.forPredicate(" + predicate + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -370,7 +370,7 @@ public final class Functions {
             return "Functions.constant(" + value + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 
     /**
@@ -421,6 +421,6 @@ public final class Functions {
             return "Functions.forSupplier(" + supplier + ")";
         }
 
-        private static final long serialVersionUID = 0;
+        private static final long serialVersionUID = 1L;
     }
 }

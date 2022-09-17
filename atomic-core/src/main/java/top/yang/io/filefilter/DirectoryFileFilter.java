@@ -76,7 +76,7 @@ public class DirectoryFileFilter extends AbstractFileFilter implements Serializa
      */
     public static final IOFileFilter INSTANCE = DIRECTORY;
 
-    private static final long serialVersionUID = -5148237843784525732L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Restrictive constructor.

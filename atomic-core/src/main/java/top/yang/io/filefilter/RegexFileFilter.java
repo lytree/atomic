@@ -67,7 +67,7 @@ import top.yang.io.IOCase;
  */
 public class RegexFileFilter extends AbstractFileFilter implements Serializable {
 
-    private static final long serialVersionUID = 4269646126155225062L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Compiles the given pattern source.

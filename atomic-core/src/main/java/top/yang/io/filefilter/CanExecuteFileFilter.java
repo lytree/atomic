@@ -61,7 +61,7 @@ public class CanExecuteFileFilter extends AbstractFileFilter implements Serializ
     /** Singleton instance of not <i>executable</i> filter */
     public static final IOFileFilter CANNOT_EXECUTE = CAN_EXECUTE.negate();
 
-    private static final long serialVersionUID = 3179904805251622989L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Restrictive constructor.

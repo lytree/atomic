@@ -45,7 +45,7 @@ public class FalseFileFilter implements IOFileFilter, Serializable {
      */
     public static final IOFileFilter INSTANCE = FALSE;
 
-    private static final long serialVersionUID = 6210271677940926200L;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Restrictive constructor.
