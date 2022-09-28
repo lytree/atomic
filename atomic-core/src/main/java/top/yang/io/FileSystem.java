@@ -472,8 +472,8 @@ public enum FileSystem {
      */
     public String toLegalFileName(final String candidate, final char replacement) {
         if (isIllegalFileNameChar(replacement)) {
-            // %s does not work properly with NUL
-            throw new IllegalArgumentException(String.format("The replacement character '%s' cannot be one of the %s illegal characters: %s",
+            // {} does not work properly with NUL
+            throw new IllegalArgumentException(String.format("The replacement character '{}' cannot be one of the {} illegal characters: {}",
                     replacement == '\0' ? "\\0" : replacement, name(), Arrays.toString(illegalFileNameChars)));
         }
         final String truncated = candidate.length() > maxFileNameLength ? candidate.substring(0, maxFileNameLength) : candidate;

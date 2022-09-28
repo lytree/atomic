@@ -29,7 +29,7 @@ import top.yang.base.Converter;
 import top.yang.lang.Assert;
 
 /**
- * Static utility methods pertaining to {@code int} primitives, that are not already found in either {@link Integer} or {@link Arrays}.
+ * 属于{@code int}原语的静态实用程序方法，在{@link Integer}或{@link Arrays}中都没有找到。
  *
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
@@ -249,7 +249,7 @@ public final class Ints {
      */
 
     public static int constrainToRange(int value, int min, int max) {
-        Assert.checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)", min, max);
+        Assert.checkArgument(min <= max, "min ({}) must be less than or equal to max ({})", min, max);
         return Math.min(Math.max(value, min), max);
     }
 
@@ -274,13 +274,6 @@ public final class Ints {
         return result;
     }
 
-    /**
-     * Returns a big-endian representation of {@code value} in a 4-element byte array; equivalent to {@code ByteBuffer.allocate(4).putInt(value).array()}. For example, the input
-     * value {@code 0x12131415} would yield the byte array {@code {0x12, 0x13, 0x14, 0x15}}.
-     *
-     * <p>If you need to convert and concatenate several values (possibly even of different types),
-     * use a shared {@link java.nio.ByteBuffer} instance, or use {@link com.google.common.io.ByteStreams#newDataOutput()} to get a growable buffer.
-     */
     public static byte[] toByteArray(int value) {
         return new byte[]{
                 (byte) (value >> 24), (byte) (value >> 16), (byte) (value >> 8), (byte) value
@@ -769,7 +762,7 @@ public final class Ints {
 
 
     public static Integer tryParse(String string, int radix) {
-        Long result = Longs.tryParse(string, radix);
+        Long result = LongUtils.tryParse(string, radix);
         if (result == null || result.longValue() != result.intValue()) {
             return null;
         } else {

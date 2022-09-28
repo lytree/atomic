@@ -555,7 +555,7 @@ public final class HashBiMap<K, V>
                     if (valueHash == delegate.valueHash && Objects.equals(value, oldValue)) {
                         return value;
                     }
-                    Assert.checkArgument(seekByValue(value, valueHash) == null, "value already present: %s", value);
+                    Assert.checkArgument(seekByValue(value, valueHash) == null, "value already present: {}", value);
                     delete(delegate);
                     BiEntry<K, V> newEntry = new BiEntry<>(delegate.key, delegate.keyHash, value, valueHash);
                     insert(newEntry, delegate);
@@ -735,7 +735,7 @@ public final class HashBiMap<K, V>
                         if (keyHash == delegate.keyHash && Objects.equals(key, oldKey)) {
                             return key;
                         }
-                        Assert.checkArgument(seekByKey(key, keyHash) == null, "value already present: %s", key);
+                        Assert.checkArgument(seekByKey(key, keyHash) == null, "value already present: {}", key);
                         delete(delegate);
                         BiEntry<K, V> newEntry =
                                 new BiEntry<>(key, keyHash, delegate.value, delegate.valueHash);

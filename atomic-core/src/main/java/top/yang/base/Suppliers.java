@@ -18,7 +18,6 @@ import static java.util.Objects.requireNonNull;
 import static top.yang.base.NullnessCasts.uncheckedCastNullableTToT;
 
 
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -32,10 +31,6 @@ import top.yang.lang.Assert;
  * Useful suppliers.
  *
  * <p>All methods return serializable suppliers as long as they're given serializable parameters.
- *
- * @author Laurence Gonsalves
- * @author Harry Heymann
- * @since 2.0
  */
 
 

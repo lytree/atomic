@@ -23,7 +23,7 @@ import top.yang.lang.Assert;
 /**
  * Static utility methods pertaining to {@code long} primitives that interpret values as
  * <i>unsigned</i> (that is, any negative value {@code x} is treated as the positive value {@code
- * 2^64 + x}). The methods for which signedness is not an issue are in {@link Longs}, as well as signed versions of methods for which signedness is an issue.
+ * 2^64 + x}). The methods for which signedness is not an issue are in {@link LongUtils}, as well as signed versions of methods for which signedness is an issue.
  *
  * <p>In addition, this class provides several static methods for converting a {@code long} to a
  * {@code String} and a {@code String} to a {@code long} that treat the {@code long} as an unsigned number.
@@ -67,7 +67,7 @@ public final class UnsignedLongs {
      * @return a negative value if {@code a} is less than {@code b}; a positive value if {@code a} is greater than {@code b}; or zero if they are equal
      */
     public static int compare(long a, long b) {
-        return Longs.compare(flip(a), flip(b));
+        return LongUtils.compare(flip(a), flip(b));
     }
 
     /**
@@ -337,34 +337,7 @@ public final class UnsignedLongs {
         return value;
     }
 
-    /**
-     * Returns the unsigned {@code long} value represented by the given string.
-     *
-     * <p>Accepts a decimal, hexadecimal, or octal number given by specifying the following prefix:
-     *
-     * <ul>
-     *   <li>{@code 0x}<i>HexDigits</i>
-     *   <li>{@code 0X}<i>HexDigits</i>
-     *   <li>{@code #}<i>HexDigits</i>
-     *   <li>{@code 0}<i>OctalDigits</i>
-     * </ul>
-     *
-     * @throws NumberFormatException if the string does not contain a valid unsigned {@code long} value
-     * @since 13.0
-     */
 
-    public static long decode(String stringValue) {
-        ParseRequest request = ParseRequest.fromString(stringValue);
-
-        try {
-            return parseUnsignedLong(request.rawValue, request.radix);
-        } catch (NumberFormatException e) {
-            NumberFormatException decodeException =
-                    new NumberFormatException("Error parsing value: " + stringValue);
-            decodeException.initCause(e);
-            throw decodeException;
-        }
-    }
 
     /*
      * We move the static constants into this class so ProGuard can inline UnsignedLongs entirely

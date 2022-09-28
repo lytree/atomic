@@ -22,10 +22,7 @@ import java.io.Serializable;
 import top.yang.lang.Assert;
 
 /**
- * Utility class for converting between various ASCII case formats. Behavior is undefined for non-ASCII input.
- *
- * @author Mike Bostock
- * @since 1.0
+ * 用于在各种ASCII大小写格式之间转换的实用程序类。对于非ascii输入，行为未定义。
  */
 
 

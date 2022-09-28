@@ -15,7 +15,6 @@
 package top.yang.math;
 
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.Arrays;
@@ -40,9 +39,9 @@ import top.yang.lang.Assert;
  * @since 1.0
  */
 
-public final class Longs {
+public final class LongUtils {
 
-    private Longs() {
+    private LongUtils() {
     }
 
     /**
@@ -175,7 +174,7 @@ public final class Longs {
     }
 
     /**
-     * Returns the least value present in {@code array}.
+     * 返回 {@code array} 中出现的最小值 .
      *
      * @param array a <i>nonempty</i> array of {@code long} values
      * @return the value present in {@code array} that is less than or equal to every other value in the array
@@ -193,7 +192,7 @@ public final class Longs {
     }
 
     /**
-     * Returns the greatest value present in {@code array}.
+     * 返回{@code array}中存在的最大值。
      *
      * @param array a <i>nonempty</i> array of {@code long} values
      * @return the value present in {@code array} that is greater than or equal to every other value in the array
@@ -211,10 +210,11 @@ public final class Longs {
     }
 
     /**
-     * Returns the value nearest to {@code value} which is within the closed range {@code [min..max]}.
+     * 返回关闭范围{@code [min..max]}内最接近{@code value}的值。
      *
-     * <p>If {@code value} is within the range {@code [min..max]}, {@code value} is returned
-     * unchanged. If {@code value} is less than {@code min}, {@code min} is returned, and if {@code value} is greater than {@code max}, {@code max} is returned.
+     * <p>如果{@code value}在{@code [min..Max]范围内}， {@code value}不变返回。
+     * <p>如果{@code value}小于{@code min}则返回{@code min}，
+     * <p>如果{@code value}大于{@code max}则返回{@code max}。
      *
      * @param value the {@code long} value to constrain
      * @param min   the lower bound (inclusive) of the range to constrain {@code value} to
@@ -229,8 +229,7 @@ public final class Longs {
     }
 
     /**
-     * Returns the values from each provided array combined into a single array. For example, {@code concat(new long[] {a, b}, new long[] {}, new long[] {c}} returns the array
-     * {@code {a, b, c}}.
+     * 返回组合成单个数组的每个提供的数组的值。例如， {@code concat(new long[] {a, b}， new long[] {}， new long[] {c}} 返回数组 {@code {a, b, c}}.
      *
      * @param arrays zero or more {@code long} arrays
      * @return a single array containing all the values from the source arrays, in order
@@ -249,13 +248,6 @@ public final class Longs {
         return result;
     }
 
-    /**
-     * Returns a big-endian representation of {@code value} in an 8-element byte array; equivalent to {@code ByteBuffer.allocate(8).putLong(value).array()}. For example, the input
-     * value {@code 0x1213141516171819L} would yield the byte array {@code {0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19}}.
-     *
-     * <p>If you need to convert and concatenate several values (possibly even of different types),
-     * use a shared {@link java.nio.ByteBuffer} instance, or use {@link com.google.common.io.ByteStreams#newDataOutput()} to get a growable buffer.
-     */
     public static byte[] toByteArray(long value) {
         // Note that this code needs to stay compatible with GWT, which has known
         // bugs when narrowing byte casts of long values occur.
@@ -283,8 +275,8 @@ public final class Longs {
     }
 
     /**
-     * Returns the {@code long} value whose byte representation is the given 8 bytes, in big-endian order; equivalent to {@code Longs.fromByteArray(new byte[] {b1, b2, b3, b4, b5,
-     * b6, b7, b8})}.
+     * Returns the {@code long} value whose byte representation is the given 8 bytes, in big-endian order; equivalent to {@code LongUtils.fromByteArray(new byte[] {b1, b2, b3, b4,
+     * b5, b6, b7, b8})}.
      *
      * @since 7.0
      */
@@ -301,7 +293,7 @@ public final class Longs {
     }
 
     /*
-     * Moving asciiDigits into this static holder class lets ProGuard eliminate and inline the Longs
+     * Moving asciiDigits into this static holder class lets ProGuard eliminate and inline the LongUtils
      * class.
      */
     static final class AsciiDigits {
@@ -426,7 +418,7 @@ public final class Longs {
 
         @Override
         public String toString() {
-            return "Longs.stringConverter()";
+            return "LongUtils.stringConverter()";
         }
 
         private Object readResolve() {
@@ -509,7 +501,7 @@ public final class Longs {
         public int compare(long[] left, long[] right) {
             int minLength = Math.min(left.length, right.length);
             for (int i = 0; i < minLength; i++) {
-                int result = Longs.compare(left[i], right[i]);
+                int result = LongUtils.compare(left[i], right[i]);
                 if (result != 0) {
                     return result;
                 }
@@ -519,7 +511,7 @@ public final class Longs {
 
         @Override
         public String toString() {
-            return "Longs.lexicographicalComparator()";
+            return "LongUtils.lexicographicalComparator()";
         }
     }
 
@@ -547,7 +539,7 @@ public final class Longs {
     }
 
     /**
-     * Reverses the elements of {@code array}. This is equivalent to {@code Collections.reverse(Longs.asList(array))}, but is likely to be more efficient.
+     * Reverses the elements of {@code array}. This is equivalent to {@code Collections.reverse(LongUtils.asList(array))}, but is likely to be more efficient.
      *
      * @since 23.1
      */
@@ -558,7 +550,7 @@ public final class Longs {
 
     /**
      * Reverses the elements of {@code array} between {@code fromIndex} inclusive and {@code toIndex} exclusive. This is equivalent to {@code
-     * Collections.reverse(Longs.asList(array).subList(fromIndex, toIndex))}, but is likely to be more efficient.
+     * Collections.reverse(LongUtils.asList(array).subList(fromIndex, toIndex))}, but is likely to be more efficient.
      *
      * @throws IndexOutOfBoundsException if {@code fromIndex < 0}, {@code toIndex > array.length}, or {@code toIndex > fromIndex}
      * @since 23.1
@@ -576,8 +568,8 @@ public final class Longs {
 
     /**
      * Performs a right rotation of {@code array} of "distance" places, so that the first element is moved to index "distance", and the element at index {@code i} ends up at index
-     * {@code (distance + i) mod array.length}. This is equivalent to {@code Collections.rotate(Longs.asList(array), distance)}, but is considerably faster and avoids allocation
-     * and garbage collection.
+     * {@code (distance + i) mod array.length}. This is equivalent to {@code Collections.rotate(LongUtils.asList(array), distance)}, but is considerably faster and avoids
+     * allocation and garbage collection.
      *
      * <p>The provided "distance" may be negative, which will rotate left.
      *
@@ -588,9 +580,8 @@ public final class Longs {
     }
 
     /**
-     * Performs a right rotation of {@code array} between {@code fromIndex} inclusive and {@code toIndex} exclusive. This is equivalent to {@code
-     * Collections.rotate(Longs.asList(array).subList(fromIndex, toIndex), distance)}, but is considerably faster and avoids allocations and garbage collection.
-     *
+     * 在包含{@code fromIndex}和排除{@code toIndex}之间对{@code数组}进行右旋转。这相当于{@code Collections.rotate(LongUtils.asList(array))。subblist (fromIndex, toIndex)，
+     * distance)}，但是速度相当快，并且避免了分配和垃圾收集。
      * <p>The provided "distance" may be negative, which will rotate left.
      *
      * @throws IndexOutOfBoundsException if {@code fromIndex < 0}, {@code toIndex > array.length}, or {@code toIndex > fromIndex}
@@ -647,19 +638,7 @@ public final class Longs {
         return array;
     }
 
-    /**
-     * Returns a fixed-size list backed by the specified array, similar to {@link Arrays#asList(Object[])}. The list supports {@link List#set(int, Object)}, but any attempt to set
-     * a value to {@code null} will result in a {@link NullPointerException}.
-     *
-     * <p>The returned list maintains the values, but not the identities, of {@code Long} objects
-     * written to or read from it. For example, whether {@code list.get(0) == list.get(0)} is true for the returned list is unspecified.
-     *
-     * <p><b>Note:</b> when possible, you should represent your data as an {@link ImmutableLongArray}
-     * instead, which has an {@link ImmutableLongArray#asList asList} view.
-     *
-     * @param backingArray the array to back the list
-     * @return a list view of the array
-     */
+
     public static List<Long> asList(long... backingArray) {
         if (backingArray.length == 0) {
             return Collections.emptyList();
@@ -709,14 +688,14 @@ public final class Longs {
         @Override
         public boolean contains(Object target) {
             // Overridden to prevent a ton of boxing
-            return (target instanceof Long) && Longs.indexOf(array, (Long) target, start, end) != -1;
+            return (target instanceof Long) && LongUtils.indexOf(array, (Long) target, start, end) != -1;
         }
 
         @Override
         public int indexOf(Object target) {
             // Overridden to prevent a ton of boxing
             if (target instanceof Long) {
-                int i = Longs.indexOf(array, (Long) target, start, end);
+                int i = LongUtils.indexOf(array, (Long) target, start, end);
                 if (i >= 0) {
                     return i - start;
                 }
@@ -728,7 +707,7 @@ public final class Longs {
         public int lastIndexOf(Object target) {
             // Overridden to prevent a ton of boxing
             if (target instanceof Long) {
-                int i = Longs.lastIndexOf(array, (Long) target, start, end);
+                int i = LongUtils.lastIndexOf(array, (Long) target, start, end);
                 if (i >= 0) {
                     return i - start;
                 }
@@ -781,7 +760,7 @@ public final class Longs {
         public int hashCode() {
             int result = 1;
             for (int i = start; i < end; i++) {
-                result = 31 * result + Longs.hashCode(array[i]);
+                result = 31 * result + LongUtils.hashCode(array[i]);
             }
             return result;
         }

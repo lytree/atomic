@@ -683,7 +683,7 @@ public class Assert {
      */
     public static <T> T isInstanceOf(Class<?> type, T obj, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
         notNull(type, "Type to check against must not be null");
-        if (false == type.isInstance(obj)) {
+        if (!type.isInstance(obj)) {
             throw new IllegalArgumentException(StringUtils.format(errorMsgTemplate, params));
         }
         return obj;
@@ -738,7 +738,7 @@ public class Assert {
      * @throws IllegalStateException 表达式为 {@code false} 抛出此异常
      */
     public static void state(boolean expression, Supplier<String> errorMsgSupplier) throws IllegalStateException {
-        if (false == expression) {
+        if (!expression) {
             throw new IllegalStateException(errorMsgSupplier.get());
         }
     }
@@ -756,7 +756,7 @@ public class Assert {
      * @throws IllegalStateException 表达式为 {@code false} 抛出此异常
      */
     public static void state(boolean expression, String errorMsgTemplate, Object... params) throws IllegalStateException {
-        if (false == expression) {
+        if (!expression) {
             throw new IllegalStateException(StringUtils.format(errorMsgTemplate, params));
         }
     }
@@ -971,7 +971,7 @@ public class Assert {
     }
 
     /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
+     * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * @param expression a boolean expression
      * @throws IllegalArgumentException if {@code expression} is false
@@ -983,7 +983,7 @@ public class Assert {
     }
 
     /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
+     * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * @param expression   a boolean expression
      * @param errorMessage the exception message to use if the check fails; will be converted to a string using {@link String#valueOf(Object)}
@@ -996,7 +996,7 @@ public class Assert {
     }
 
     /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
+     * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * @param expression           a boolean expression
      * @param errorMessageTemplate a template for the exception message should the check fail. The message is formed by replacing each {@code %s} placeholder in the template with
@@ -1015,46 +1015,20 @@ public class Assert {
     }
 
     /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
+     * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
      *
      * @since 20.0 (varargs overload since 2.0)
      */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, char p1) {
+    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, Object... errorMessageArgs) {
         if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1));
+            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, errorMessageArgs));
         }
     }
 
     /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, int p1) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, long p1) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
+     * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
      *
@@ -1067,209 +1041,9 @@ public class Assert {
         }
     }
 
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, char p1, char p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
 
     /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, char p1, int p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, char p1, long p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(
-            Supplier<Boolean> b, String errorMessageTemplate, char p1, Object p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, int p1, char p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, int p1, int p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, int p1, long p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(
-            Supplier<Boolean> b, String errorMessageTemplate, int p1, Object p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, long p1, char p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, long p1, int p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, long p1, long p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(
-            Supplier<Boolean> b, String errorMessageTemplate, long p1, Object p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(
-            Supplier<Boolean> b, String errorMessageTemplate, Object p1, char p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(
-            Supplier<Boolean> b, String errorMessageTemplate, Object p1, int p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
-     *
-     * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * @since 20.0 (varargs overload since 2.0)
-     */
-    public static void checkArgument(
-            Supplier<Boolean> b, String errorMessageTemplate, Object p1, long p2) {
-        if (!b.get()) {
-            throw new IllegalArgumentException(StringUtils.format(errorMessageTemplate, p1, p2));
-        }
-    }
-
-    /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
+     * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
      *
@@ -1283,7 +1057,7 @@ public class Assert {
     }
 
     /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
+     * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
      *
@@ -1301,7 +1075,7 @@ public class Assert {
     }
 
     /**
-     * Ensures the truth of an expression involving one or more parameters to the calling method.
+     * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
      *

@@ -1,5 +1,6 @@
 package top.yang.build;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -12,7 +13,7 @@ import org.apache.commons.lang3.builder.Builder;
  *
  * @param <T> 泛型类型
  */
-public class ListBuilder<T> implements Builder<List<T>> {
+public class ListBuilder<T> implements Builder<List<T>>, Serializable {
 
     private static final long serialVersionUID = 1L;
 

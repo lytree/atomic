@@ -37,6 +37,8 @@ import top.yang.collections.iterators.EmptyIterator;
 import top.yang.collections.iterators.EmptyListIterator;
 import top.yang.collections.iterators.EmptyMapIterator;
 import top.yang.collections.iterators.EnumerationIterator;
+import top.yang.collections.iterators.FilterIterator;
+import top.yang.collections.iterators.IteratorChain;
 import top.yang.collections.iterators.IteratorEnumeration;
 import top.yang.collections.iterators.IteratorIterable;
 import top.yang.collections.iterators.ListIteratorWrapper;
@@ -803,5 +805,51 @@ public class IteratorUtils {
             wasModified |= addTo.add(iterator.next());
         }
         return wasModified;
+    } // Filtered
+
+    /**
+     * Gets an iterator that filters another iterator.
+     * <p>
+     * The returned iterator will only return objects that match the specified filtering predicate.
+     *
+     * @param <E>       the element type
+     * @param iterator  the iterator to use, not null
+     * @param predicate the predicate to use as a filter, not null
+     * @return a new filtered iterator
+     * @throws NullPointerException if either parameter is null
+     */
+    public static <E> Iterator<E> filteredIterator(final Iterator<? extends E> iterator,
+            final Predicate<? super E> predicate) {
+        Objects.requireNonNull(iterator, "iterator");
+        Objects.requireNonNull(predicate, "predicate");
+        return new FilterIterator<>(iterator, predicate);
+    } // Chained
+
+    /**
+     * Gets an iterator that iterates through two {@link Iterator}s one after another.
+     *
+     * @param <E>       the element type
+     * @param iterator1 the first iterator to use, not null
+     * @param iterator2 the second iterator to use, not null
+     * @return a combination iterator over the iterators
+     * @throws NullPointerException if either iterator is null
+     */
+    public static <E> Iterator<E> chainedIterator(final Iterator<? extends E> iterator1,
+            final Iterator<? extends E> iterator2) {
+        // keep a version with two iterators to avoid the following warning in client code (Java 5 & 6)
+        // "A generic array of E is created for a varargs parameter"
+        return new IteratorChain<>(iterator1, iterator2);
+    }
+
+    /**
+     * Gets an iterator that iterates through an array of {@link Iterator}s one after another.
+     *
+     * @param <E>       the element type
+     * @param iterators the iterators to use, not null or empty or contain nulls
+     * @return a combination iterator over the iterators
+     * @throws NullPointerException if iterators array is null or contains a null
+     */
+    public static <E> Iterator<E> chainedIterator(final Iterator<? extends E>... iterators) {
+        return new IteratorChain<>(iterators);
     }
 }

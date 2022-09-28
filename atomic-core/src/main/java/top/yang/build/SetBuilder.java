@@ -1,81 +1,73 @@
 package top.yang.build;
 
-
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Supplier;
-
 import org.apache.commons.lang3.builder.Builder;
 import top.yang.collections.MapUtils;
+import top.yang.collections.SetUtils;
 import top.yang.lang.StringUtils;
 
-/**
- * Map创建类
- *
- * @param <K> Key类型
- * @param <V> Value类型
- */
-public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
+public class SetBuilder<E> implements Builder<Set<E>>, Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    private final Map<K, V> map;
+    private final Set<E> set;
 
     /**
      * 创建Builder，默认HashMap实现
      *
-     * @param <K> Key类型
-     * @param <V> Value类型
+     * @param <E> Value类型
      * @return MapBuilder
      */
-    public static <K, V> MapBuilder<K, V> create() {
+    public static <E> SetBuilder<E> create() {
         return create(false);
     }
 
     /**
      * 创建Builder
      *
-     * @param <K>      Key类型
-     * @param <V>      Value类型
+     * @param <E>      Value类型
      * @param isLinked true创建LinkedHashMap，false创建HashMap
      * @return MapBuilder
      */
-    public static <K, V> MapBuilder<K, V> create(boolean isLinked) {
-        return create(isLinked ? new LinkedHashMap<>() : new HashMap<>());
+    public static <E> SetBuilder<E> create(boolean isLinked) {
+        return create(isLinked ? new HashSet<E>() : new LinkedHashSet<>());
     }
 
     /**
      * 创建Builder
      *
-     * @param <K> Key类型
-     * @param <V> Value类型
-     * @param map Map实体类
+     * @param <E> Value类型
+     * @param set Map实体类
      * @return MapBuilder
      */
-    public static <K, V> MapBuilder<K, V> create(Map<K, V> map) {
-        return new MapBuilder<>(map);
+    public static <E> SetBuilder<E> create(Set<E> set) {
+        return new SetBuilder<>(set);
     }
 
     /**
      * 链式Map创建类
      *
-     * @param map 要使用的Map实现类
+     * @param set 要使用的Map实现类
      */
-    public MapBuilder(Map<K, V> map) {
-        this.map = map;
+    public SetBuilder(Set<E> set) {
+        this.set = set;
     }
 
     /**
      * 链式Map创建
      *
-     * @param k Key类型
-     * @param v Value类型
+     * @param e Value类型
      * @return 当前类
      */
-    public MapBuilder<K, V> put(K k, V v) {
-        map.put(k, v);
+    public SetBuilder<E> add(E e) {
+        set.add(e);
         return this;
     }
 
@@ -83,13 +75,12 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
      * 链式Map创建
      *
      * @param condition put条件
-     * @param k         Key类型
-     * @param v         Value类型
+     * @param e         Value类型
      * @return 当前类
      */
-    public MapBuilder<K, V> put(boolean condition, K k, V v) {
+    public SetBuilder<E> add(boolean condition, E e) {
         if (condition) {
-            put(k, v);
+            add(e);
         }
         return this;
     }
@@ -98,13 +89,12 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
      * 链式Map创建
      *
      * @param condition put条件
-     * @param k         Key类型
      * @param supplier  Value类型结果提供方
      * @return 当前类
      */
-    public MapBuilder<K, V> put(boolean condition, K k, Supplier<V> supplier) {
+    public SetBuilder<E> add(boolean condition, Supplier<E> supplier) {
         if (condition) {
-            put(k, supplier.get());
+            add(supplier.get());
         }
         return this;
     }
@@ -112,11 +102,11 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
     /**
      * 链式Map创建
      *
-     * @param map 合并map
+     * @param set 合并map
      * @return 当前类
      */
-    public MapBuilder<K, V> putAll(Map<K, V> map) {
-        this.map.putAll(map);
+    public SetBuilder<E> addAll(Set<E> set) {
+        this.set.addAll(set);
         return this;
     }
 
@@ -125,8 +115,8 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
      *
      * @return this
      */
-    public MapBuilder<K, V> clear() {
-        this.map.clear();
+    public SetBuilder<E> clear() {
+        this.set.clear();
         return this;
     }
 
@@ -135,8 +125,8 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
      *
      * @return 创建后的map
      */
-    public Map<K, V> map() {
-        return map;
+    public Set<E> set() {
+        return set;
     }
 
     /**
@@ -145,8 +135,8 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
      * @return 创建后的map
      */
     @Override
-    public Map<K, V> build() {
-        return map();
+    public Set<E> build() {
+        return set();
     }
 
     /**
@@ -157,7 +147,7 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
      * @return 连接字符串
      */
     public String join(String separator, final String keyValueSeparator) {
-        return StringUtils.join(this.map, separator, keyValueSeparator);
+        return StringUtils.join(this.set, separator, keyValueSeparator);
     }
 
     /**
@@ -167,8 +157,8 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
      * @param keyValueSeparator kv之间的连接符
      * @return 连接后的字符串
      */
-    public String joinIgnoreNull(String separator, final String keyValueSeparator) {
-        return MapUtils.joinIgnoreNull(this.map, separator, keyValueSeparator);
+    public String joinIgnoreNull(String separator) {
+        return join(separator, true);
     }
 
     /**
@@ -179,8 +169,9 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
      * @param isIgnoreNull      是否忽略null的键和值
      * @return 连接后的字符串
      */
-    public String join(String separator, final String keyValueSeparator, boolean isIgnoreNull) {
-        return MapUtils.join(this.map, separator, keyValueSeparator, isIgnoreNull);
+    public String join(String separator, boolean isIgnoreNull) {
+        return SetUtils.join(this.set, separator, isIgnoreNull);
     }
+
 
 }

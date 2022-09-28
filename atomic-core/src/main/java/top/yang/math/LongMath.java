@@ -27,21 +27,14 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import top.yang.lang.Assert;
 
-/**
- * A class for arithmetic on values of type {@code long}. Where possible, methods are defined and named analogously to their {@code BigInteger} counterparts.
- *
- * <p>The implementations of many methods in this class are based on material from Henry S. Warren,
- * Jr.'s <i>Hacker's Delight</i>, (Addison Wesley, 2002).
- *
- * <p>Similar functionality for {@code int} and for {@link BigInteger} can be found in {@link
- * IntMath} and {@link BigIntegerMath} respectively. For other common operations on {@code long} values, see {@link com.google.common.primitives.Longs}.
- *
- * @author Louis Wasserman
- * @since 11.0
- */
-
 public final class LongMath {
     // NOTE: Whenever both tests are cheap and functional, it's faster to use &, | instead of &&, ||
+    /**
+     * The number of bytes required to represent a primitive {@code long} value.
+     *
+     * <p><b>Java 8 users:</b> use {@link Long#BYTES} instead.
+     */
+    static final int BYTES = Long.SIZE / Byte.SIZE;
 
     static final long MAX_SIGNED_POWER_OF_TWO = 1L << (Long.SIZE - 2);
 
@@ -288,79 +281,9 @@ public final class LongMath {
         }
     }
 
-    /**
-     * Returns the square root of {@code x}, rounded with the specified rounding mode.
-     *
-     * @throws IllegalArgumentException if {@code x < 0}
-     * @throws ArithmeticException      if {@code mode} is {@link RoundingMode#UNNECESSARY} and {@code sqrt(x)} is not an integer
-     */
-    // TODO
-    @SuppressWarnings("fallthrough")
-    public static long sqrt(long x, RoundingMode mode) {
-        checkNonNegative("x", x);
-        if (fitsInInt(x)) {
-            return IntMath.sqrt((int) x, mode);
-        }
-        /*
-         * Let k be the true value of floor(sqrt(x)), so that
-         *
-         *            k * k <= x          <  (k + 1) * (k + 1)
-         * (double) (k * k) <= (double) x <= (double) ((k + 1) * (k + 1))
-         *          since casting to double is nondecreasing.
-         *          Note that the right-hand inequality is no longer strict.
-         * Math.sqrt(k * k) <= Math.sqrt(x) <= Math.sqrt((k + 1) * (k + 1))
-         *          since Math.sqrt is monotonic.
-         * (long) Math.sqrt(k * k) <= (long) Math.sqrt(x) <= (long) Math.sqrt((k + 1) * (k + 1))
-         *          since casting to long is monotonic
-         * k <= (long) Math.sqrt(x) <= k + 1
-         *          since (long) Math.sqrt(k * k) == k, as checked exhaustively in
-         *          {@link LongMathTest#testSqrtOfPerfectSquareAsDoubleIsPerfect}
-         */
-        long guess = (long) Math.sqrt(x);
-        // Note: guess is always <= FLOOR_SQRT_MAX_LONG.
-        long guessSquared = guess * guess;
-        // Note (2013-2-26): benchmarks indicate that, inscrutably enough, using if statements is
-        // faster here than using lessThanBranchFree.
-        switch (mode) {
-            case UNNECESSARY:
-                checkRoundingUnnecessary(guessSquared == x);
-                return guess;
-            case FLOOR:
-            case DOWN:
-                if (x < guessSquared) {
-                    return guess - 1;
-                }
-                return guess;
-            case CEILING:
-            case UP:
-                if (x > guessSquared) {
-                    return guess + 1;
-                }
-                return guess;
-            case HALF_DOWN:
-            case HALF_UP:
-            case HALF_EVEN:
-                long sqrtFloor = guess - ((x < guessSquared) ? 1 : 0);
-                long halfSquare = sqrtFloor * sqrtFloor + sqrtFloor;
-                /*
-                 * We wish to test whether or not x <= (sqrtFloor + 0.5)^2 = halfSquare + 0.25. Since both x
-                 * and halfSquare are integers, this is equivalent to testing whether or not x <=
-                 * halfSquare. (We have to deal with overflow, though.)
-                 *
-                 * If we treat halfSquare as an unsigned long, we know that
-                 *            sqrtFloor^2 <= x < (sqrtFloor + 1)^2
-                 * halfSquare - sqrtFloor <= x < halfSquare + sqrtFloor + 1
-                 * so |x - halfSquare| <= sqrtFloor.  Therefore, it's safe to treat x - halfSquare as a
-                 * signed long, so lessThanBranchFree is safe for use.
-                 */
-                return sqrtFloor + lessThanBranchFree(halfSquare, x);
-            default:
-                throw new AssertionError();
-        }
-    }
 
     /**
-     * Returns the result of dividing {@code p} by {@code q}, rounding using the specified {@code RoundingMode}.
+     * 返回{@code p}除以{@code q}，使用指定的{@code RoundingMode}舍入的结果。.
      *
      * @throws ArithmeticException if {@code q == 0}, or if {@code mode == UNNECESSARY} and {@code a} is not an integer multiple of {@code b}
      */
@@ -443,7 +366,7 @@ public final class LongMath {
     }
 
     /**
-     * Returns {@code x mod m}, a non-negative value less than {@code m}. This differs from {@code x % m}, which might be negative.
+     * 返回小于{@code m}的非负值{@code x mod m}。这不同于{@code x % m}，后者可能是负数。
      *
      * <p>For example:
      *
@@ -469,7 +392,7 @@ public final class LongMath {
     }
 
     /**
-     * Returns the greatest common divisor of {@code a, b}. Returns {@code 0} if {@code a == 0 && b == 0}.
+     * 返回{@code a, b}的最大公约数。如果{@code a == 0 && b == 0}，返回{@code 0}。
      *
      * @throws IllegalArgumentException if {@code a < 0} or {@code b < 0}
      */
@@ -574,7 +497,7 @@ public final class LongMath {
     }
 
     /**
-     * Returns the {@code b} to the {@code k}th power, provided it does not overflow.
+     * 返回{@code b}的{@code k}次幂，前提是它不溢出。
      *
      * @throws ArithmeticException if {@code b} to the {@code k}th power overflows in signed {@code long} arithmetic
      */
@@ -621,7 +544,7 @@ public final class LongMath {
     }
 
     /**
-     * Returns the sum of {@code a} and {@code b} unless it would overflow or underflow in which case {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is returned, respectively.
+     * 返回{@code a}和{@code b}的和，除非它会溢出或下溢，在这种情况下{@code Long.MAX_VALUE()}或{@code Long.MIN_VALUE}。
      *
      * @since 20.0
      */
@@ -1236,7 +1159,7 @@ public final class LongMath {
         if (roundArbitrarilyAsLong == Long.MAX_VALUE) {
             /*
              * For most values, the conversion from roundArbitrarily to roundArbitrarilyAsLong is
-             * lossless. In that case we can compare x to roundArbitrarily using Longs.compare(x,
+             * lossless. In that case we can compare x to roundArbitrarily using LongUtils.compare(x,
              * roundArbitrarilyAsLong). The exception is for values where the conversion to double rounds
              * up to give roundArbitrarily equal to 2^63, so the conversion back to long overflows and
              * roundArbitrarilyAsLong is Long.MAX_VALUE. (This is the only way this condition can occur as
@@ -1246,7 +1169,7 @@ public final class LongMath {
              */
             cmpXToRoundArbitrarily = -1;
         } else {
-            cmpXToRoundArbitrarily = Longs.compare(x, roundArbitrarilyAsLong);
+            cmpXToRoundArbitrarily = LongUtils.compare(x, roundArbitrarilyAsLong);
         }
 
         switch (mode) {
@@ -1304,7 +1227,7 @@ public final class LongMath {
                     deltaToCeiling++;
                 }
 
-                int diff = Longs.compare(deltaToFloor, deltaToCeiling);
+                int diff = LongUtils.compare(deltaToFloor, deltaToCeiling);
                 if (diff < 0) { // closer to floor
                     return roundFloorAsDouble;
                 } else if (diff > 0) { // closer to ceiling

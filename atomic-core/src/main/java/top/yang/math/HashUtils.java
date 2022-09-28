@@ -9,7 +9,7 @@ import top.yang.codec.digest.CityHash;
  *
  * @author Goodzzp, Looly
  */
-public class HashUtil {
+public class HashUtils {
 
     /**
      * 加法hash

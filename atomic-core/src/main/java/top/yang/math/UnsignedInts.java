@@ -20,17 +20,8 @@ import java.util.Comparator;
 import top.yang.lang.Assert;
 
 /**
- * Static utility methods pertaining to {@code int} primitives that interpret values as
- * <i>unsigned</i> (that is, any negative value {@code x} is treated as the positive value {@code
- * 2^32 + x}). The methods for which signedness is not an issue are in {@link Ints}, as well as signed versions of methods for which signedness is an issue.
- *
- * <p>In addition, this class provides several static methods for converting an {@code int} to a
- * {@code String} and a {@code String} to an {@code int} that treat the {@code int} as an unsigned number.
- *
- * <p>Users of these utilities must be <i>extremely careful</i> not to mix up signed and unsigned
- * {@code int} values. When possible, it is recommended that the {@link UnsignedInteger} wrapper class be used, at a small efficiency penalty, to enforce the distinction in the
- * type system.
- *
+ * 属于{@code int}原语的静态实用程序方法将值解释为<i>unsigned<i>(也就是说，任何负数{@code x}都被视为正值{@code 2^32 + x})。在{@link Ints}中，对于标记性没有问题的方法，以及对于标记性有问题的方法的签名版本。此外，该类还提供了一些静态方法，用于将{@code int}转换为{@code
+ * String}，将{@code String}转换为{@code int}，这些方法将{@code int}视为无符号数。这些实用程序的用户必须非常小心<i> <i>不要混淆有符号和无符号{@code int}值。在可能的情况下，建议使用{@link UnsignedInteger}包装器类，以较低的效率强制类型系统中的区分。
  * <p>See the Guava User Guide article on <a
  * href="https://github.com/google/guava/wiki/PrimitivesExplained#unsigned-support">unsigned primitive utilities</a>.
  *
@@ -276,34 +267,6 @@ public final class UnsignedInts {
         return (int) (toLong(dividend) % toLong(divisor));
     }
 
-    /**
-     * Returns the unsigned {@code int} value represented by the given string.
-     *
-     * <p>Accepts a decimal, hexadecimal, or octal number given by specifying the following prefix:
-     *
-     * <ul>
-     *   <li>{@code 0x}<i>HexDigits</i>
-     *   <li>{@code 0X}<i>HexDigits</i>
-     *   <li>{@code #}<i>HexDigits</i>
-     *   <li>{@code 0}<i>OctalDigits</i>
-     * </ul>
-     *
-     * @throws NumberFormatException if the string does not contain a valid unsigned {@code int} value
-     * @since 13.0
-     */
-
-    public static int decode(String stringValue) {
-        ParseRequest request = ParseRequest.fromString(stringValue);
-
-        try {
-            return parseUnsignedInt(request.rawValue, request.radix);
-        } catch (NumberFormatException e) {
-            NumberFormatException decodeException =
-                    new NumberFormatException("Error parsing value: " + stringValue);
-            decodeException.initCause(e);
-            throw decodeException;
-        }
-    }
 
     /**
      * Returns the unsigned {@code int} value represented by the given decimal string.
