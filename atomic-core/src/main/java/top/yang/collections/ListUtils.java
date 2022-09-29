@@ -33,8 +33,7 @@ import java.util.Objects;
 import java.util.RandomAccess;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
-import java.util.function.Predicate;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 
 /**

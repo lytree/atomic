@@ -20,7 +20,7 @@ import static top.yang.math.UnsignedInts.compare;
 import static top.yang.math.UnsignedInts.toLong;
 
 import java.math.BigInteger;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 /**
  * A wrapper class for unsigned {@code int} values, supporting arithmetic operations.

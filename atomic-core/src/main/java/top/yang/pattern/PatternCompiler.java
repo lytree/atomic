@@ -12,7 +12,7 @@
  * the License.
  */
 
-package top.yang.base;
+package top.yang.pattern;
 
 
 /**
@@ -21,7 +21,7 @@ package top.yang.base;
  */
 
 
-interface PatternCompiler {
+public interface PatternCompiler {
 
     /**
      * Compiles the given pattern.

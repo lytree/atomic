@@ -29,15 +29,13 @@ import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
-import java.util.function.Consumer;
 import top.yang.collections.Maps.IteratorBasedAbstractMap;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 
 /**
@@ -77,7 +75,7 @@ public final class HashBiMap<K, V>
         return bimap;
     }
 
-    private static final class BiEntry<K extends Object, V extends Object>
+    private static final class BiEntry<K, V>
             extends ImmutableEntry<K, V> {
 
         final int keyHash;

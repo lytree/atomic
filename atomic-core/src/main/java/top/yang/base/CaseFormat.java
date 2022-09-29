@@ -19,7 +19,7 @@ import static java.util.Objects.requireNonNull;
 
 
 import java.io.Serializable;
-import top.yang.lang.Assert;
+import top.yang.pattern.CharMatcher;
 
 /**
  * 用于在各种ASCII大小写格式之间转换的实用程序类。对于非ascii输入，行为未定义。

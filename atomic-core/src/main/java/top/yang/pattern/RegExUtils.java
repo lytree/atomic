@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package top.yang.lang;
+package top.yang.pattern;
 
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
@@ -22,6 +22,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.mutable.MutableObject;
+import top.yang.lang.StringUtils;
+import top.yang.pattern.PatternPool;
 
 /**
  * <p>Helpers to process Strings using regular expressions.</p>

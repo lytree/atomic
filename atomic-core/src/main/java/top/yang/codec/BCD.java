@@ -1,6 +1,6 @@
 package top.yang.codec;
 
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 public class BCD {
 

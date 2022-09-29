@@ -49,7 +49,7 @@ import top.yang.collections.iterators.ResettableIterator;
 import top.yang.collections.iterators.ResettableListIterator;
 import top.yang.collections.iterators.SingletonIterator;
 import top.yang.collections.iterators.SingletonListIterator;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 import top.yang.math.Ints;
 
 

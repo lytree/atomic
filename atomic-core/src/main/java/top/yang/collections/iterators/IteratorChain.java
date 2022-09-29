@@ -3,9 +3,8 @@ package top.yang.collections.iterators;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Objects;
 import java.util.Queue;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 public class IteratorChain<E> implements Iterator<E> {
 

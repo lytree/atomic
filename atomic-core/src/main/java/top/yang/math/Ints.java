@@ -26,7 +26,7 @@ import java.util.RandomAccess;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import top.yang.base.Converter;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 /**
  * 属于{@code int}原语的静态实用程序方法，在{@link Integer}或{@link Arrays}中都没有找到。

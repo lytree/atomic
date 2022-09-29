@@ -28,7 +28,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.atomic.LongAdder;
 import top.yang.collections.ArrayUtils;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 import top.yang.lang.StringUtils;
 
 /**

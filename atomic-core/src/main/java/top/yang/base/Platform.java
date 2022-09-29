@@ -21,8 +21,13 @@ import java.util.ServiceConfigurationError;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import top.yang.lang.Assert;
+
 import top.yang.lang.StringUtils;
+import top.yang.pattern.CharMatcher;
+import top.yang.pattern.CommonPattern;
+import top.yang.bean.Enums;
+import top.yang.pattern.JdkPattern;
+import top.yang.pattern.PatternCompiler;
 
 
 /**
@@ -32,7 +37,7 @@ import top.yang.lang.StringUtils;
  */
 
 
-final class Platform {
+final public class Platform {
 
     private static final Logger logger = Logger.getLogger(Platform.class.getName());
     private static final PatternCompiler patternCompiler = loadPatternCompiler();
@@ -44,24 +49,24 @@ final class Platform {
      * Calls {@link System#nanoTime()}.
      */
     @SuppressWarnings("GoodTime") // reading system time without TimeSource
-    static long systemNanoTime() {
+    public static long systemNanoTime() {
         return System.nanoTime();
     }
 
-    static CharMatcher precomputeCharMatcher(CharMatcher matcher) {
+    public static CharMatcher precomputeCharMatcher(CharMatcher matcher) {
         return matcher.precomputedInternal();
     }
 
-    static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
+    public static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
         WeakReference<? extends Enum<?>> ref = Enums.getEnumConstants(enumClass).get(value);
         return ref == null ? Optional.<T>empty() : Optional.of(enumClass.cast(ref.get()));
     }
 
-    static String formatCompact4Digits(double value) {
+    public static String formatCompact4Digits(double value) {
         return String.format(Locale.ROOT, "%.4g", value);
     }
 
-    static boolean stringIsNullOrEmpty(String string) {
+    public static boolean stringIsNullOrEmpty(String string) {
         return string == null || string.isEmpty();
     }
 
@@ -71,7 +76,7 @@ final class Platform {
      * @param string the string to test and possibly return
      * @return {@code string} if it is not null; {@code ""} otherwise
      */
-    static String nullToEmpty(String string) {
+    public static String nullToEmpty(String string) {
         return (string == null) ? "" : string;
     }
 
@@ -82,16 +87,16 @@ final class Platform {
      * @return {@code string} if it is not empty; {@code null} otherwise
      */
 
-    static String emptyToNull(String string) {
+    public static String emptyToNull(String string) {
         return stringIsNullOrEmpty(string) ? null : string;
     }
 
-    static CommonPattern compilePattern(String pattern) {
+    public static CommonPattern compilePattern(String pattern) {
         Assert.notNull(pattern);
         return patternCompiler.compile(pattern);
     }
 
-    static boolean patternCompilerIsPcreLike() {
+    public static boolean patternCompilerIsPcreLike() {
         return patternCompiler.isPcreLike();
     }
 
@@ -116,7 +121,7 @@ final class Platform {
         }
     }
 
-    static void checkGwtRpcEnabled() {
+    public static void checkGwtRpcEnabled() {
         String propertyName = "guava.gwt.emergency_reenable_rpc";
 
         if (!Boolean.parseBoolean(System.getProperty(propertyName, "false"))) {

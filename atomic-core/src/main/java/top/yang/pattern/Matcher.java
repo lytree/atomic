@@ -1,4 +1,4 @@
-package top.yang.base;
+package top.yang.pattern;
 
 /**
  * 匹配接口

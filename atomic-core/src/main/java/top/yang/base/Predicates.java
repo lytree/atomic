@@ -21,7 +21,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
-import top.yang.lang.Assert;
 
 /**
  * Static utility methods pertaining to {@code Predicate} instances.

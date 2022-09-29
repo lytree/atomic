@@ -12,11 +12,11 @@
  * the License.
  */
 
-package top.yang.base;
+package top.yang.pattern;
 
 
 import java.util.BitSet;
-import top.yang.base.CharMatcher.NamedFastMatcher;
+import top.yang.pattern.CharMatcher.NamedFastMatcher;
 
 /**
  * An immutable version of CharMatcher for smallish sets of characters that uses a hash table with linear probing to check for matches.

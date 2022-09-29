@@ -12,7 +12,7 @@
  * the License.
  */
 
-package top.yang.base;
+package top.yang.bean;
 
 
 import java.io.Serializable;
@@ -23,10 +23,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.WeakHashMap;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
+import top.yang.base.Converter;
+import top.yang.base.Platform;
+
 
 /**
- * Utility methods for working with {@link Enum} instances.
+ * 用于使用{@link Enum}实例的实用程序方法。
  *
  * @author Steve McKay
  * @since 9.0
@@ -55,8 +58,8 @@ public final class Enums {
     }
 
     /**
-     * Returns an optional enum constant for the given type, using {@link Enum#valueOf}. If the constant does not exist, {@link Optional#absent} is returned. A common use case is
-     * for parsing user input or falling back to a default enum constant. For example, {@code Enums.getIfPresent(Country.class, countryInput).or(Country.DEFAULT);}
+     * Returns an optional enum constant for the given type, using {@link Enum#valueOf}. If the constant does not exist,  is returned. A common use case is for parsing user input
+     * or falling back to a default enum constant. For example, {@code Enums.getIfPresent(Country.class, countryInput).or(Country.DEFAULT);}
      *
      * @since 12.0
      */
@@ -82,7 +85,7 @@ public final class Enums {
     }
 
 
-    static <T extends Enum<T>> Map<String, WeakReference<? extends Enum<?>>> getEnumConstants(
+    public static <T extends Enum<T>> Map<String, WeakReference<? extends Enum<?>>> getEnumConstants(
             Class<T> enumClass) {
         synchronized (enumConstantCache) {
             Map<String, WeakReference<? extends Enum<?>>> constants = enumConstantCache.get(enumClass);

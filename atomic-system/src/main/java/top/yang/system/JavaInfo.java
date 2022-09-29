@@ -4,7 +4,7 @@ package top.yang.system;
 import java.io.Serializable;
 import java.util.concurrent.ExecutionException;
 import top.yang.lang.StringUtils;
-import top.yang.lang.RegExUtils;
+import top.yang.pattern.RegExUtils;
 
 /**
  * 代表Java Implementation的信息。

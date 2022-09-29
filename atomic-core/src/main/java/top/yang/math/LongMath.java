@@ -25,7 +25,7 @@ import static top.yang.math.MathPreconditions.checkPositive;
 
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 public final class LongMath {
     // NOTE: Whenever both tests are cheap and functional, it's faster to use &, | instead of &&, ||

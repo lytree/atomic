@@ -22,7 +22,7 @@ import static java.lang.Math.max;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 final class CollectSpliterators {
 

@@ -17,10 +17,8 @@
 package top.yang.collections;
 
 
-import java.util.Collection;
 import java.util.Iterator;
-import top.yang.lang.Assert;
-import top.yang.math.Ints;
+import top.yang.base.Assert;
 
 /**
  * 该类包含操作或返回{@link Iterator}类型对象的静态实用程序方法。除了如上所述，每个方法在{@link Iterables}类中都有一个对应的基于{@link Iterable}的方法。

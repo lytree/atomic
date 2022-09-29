@@ -14,6 +14,8 @@
 
 package top.yang.base;
 
+import top.yang.lang.Platform;
+
 /**
  * A time source; returns a time value representing the number of nanoseconds elapsed since some fixed but arbitrary point in time. Note that most users should use {@link
  * Stopwatch} instead of interacting with this class directly.

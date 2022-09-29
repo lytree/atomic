@@ -19,7 +19,7 @@ package top.yang.collections;
 import java.io.Serializable;
 
 
-class ImmutableEntry<K extends Object, V extends Object>
+class ImmutableEntry<K, V>
         extends AbstractMapEntry<K, V> implements Serializable {
 
     final K key;

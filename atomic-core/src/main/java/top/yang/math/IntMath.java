@@ -26,7 +26,7 @@ import static top.yang.math.MathPreconditions.*;
 
 import java.math.BigInteger;
 import java.math.RoundingMode;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 
 public final class IntMath {

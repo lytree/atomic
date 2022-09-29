@@ -12,12 +12,13 @@
  * the License.
  */
 
-package top.yang.base;
+package top.yang.pattern;
 
 import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
+
 
 /**
  * A regex pattern implementation which is backed by the {@link Pattern}.

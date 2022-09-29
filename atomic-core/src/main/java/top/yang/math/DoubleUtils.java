@@ -24,7 +24,7 @@ import static java.lang.Math.getExponent;
 
 
 import java.math.BigInteger;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 /**
  * Utilities for {@code double} primitives.

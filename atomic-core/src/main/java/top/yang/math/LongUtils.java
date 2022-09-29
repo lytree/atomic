@@ -26,7 +26,7 @@ import java.util.RandomAccess;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import top.yang.base.Converter;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 
 /**

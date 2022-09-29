@@ -17,7 +17,7 @@ package top.yang.math;
 
 import java.util.Arrays;
 import java.util.Comparator;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 /**
  * 属于{@code int}原语的静态实用程序方法将值解释为<i>unsigned<i>(也就是说，任何负数{@code x}都被视为正值{@code 2^32 + x})。在{@link Ints}中，对于标记性没有问题的方法，以及对于标记性有问题的方法的签名版本。此外，该类还提供了一些静态方法，用于将{@code int}转换为{@code

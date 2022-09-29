@@ -12,12 +12,15 @@
  * the License.
  */
 
-package top.yang.base;
+package top.yang.pattern;
 
 
 import java.util.Arrays;
 import java.util.BitSet;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
+import top.yang.base.Platform;
+import top.yang.base.Predicate;
+
 
 /**
  * Determines a true or false value for any Java {@code char} value, just as {@link Predicate} does for any {@link Object}. Also offers basic text processing methods based on this
@@ -1256,7 +1259,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     }
 
     /**
-     * Implementation of {@link #digit()}.
+     * Implementation of .
      */
     private static final class Digit extends RangesMatcher {
         // Plug the following UnicodeSet pattern into
@@ -1290,7 +1293,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     }
 
     /**
-     * Implementation of {@link #javaDigit()}.
+     * Implementation of .
      */
     private static final class JavaDigit extends CharMatcher {
 
@@ -1308,7 +1311,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     }
 
     /**
-     * Implementation of {@link #javaLetter()}.
+     * Implementation of .
      */
     private static final class JavaLetter extends CharMatcher {
 
@@ -1326,7 +1329,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     }
 
     /**
-     * Implementation of {@link #javaLetterOrDigit()}.
+     * Implementation of .
      */
     private static final class JavaLetterOrDigit extends CharMatcher {
 
@@ -1344,7 +1347,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     }
 
     /**
-     * Implementation of {@link #javaUpperCase()}.
+     * Implementation of .
      */
     private static final class JavaUpperCase extends CharMatcher {
 
@@ -1362,7 +1365,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     }
 
     /**
-     * Implementation of {@link #javaLowerCase()}.
+     * Implementation of .
      */
     private static final class JavaLowerCase extends CharMatcher {
 

@@ -99,6 +99,11 @@ public class JSONArray extends JSON {
         }
     }
 
+    // 简单地直接用json复制或者转换(Cloneable)
+    public static <T> List<T> jsonCopy(Object obj, Class<T> tClass) {
+        return obj != null ? parseArray(toJSONString(obj), tClass) : null;
+    }
+
     /**
      * 创建一个JSON数组
      *

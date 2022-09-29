@@ -15,9 +15,6 @@
 package top.yang.base;
 
 
-import top.yang.lang.Assert;
-
-
 public final class Ascii {
 
     private Ascii() {

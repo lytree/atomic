@@ -17,7 +17,7 @@ package top.yang.math;
 
 import java.io.Serializable;
 import java.math.BigInteger;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 
 /**

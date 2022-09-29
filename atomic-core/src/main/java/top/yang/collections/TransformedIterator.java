@@ -18,16 +18,16 @@ package top.yang.collections;
 
 
 import java.util.Iterator;
-import top.yang.lang.Assert;
+import java.util.function.Function;
+import top.yang.base.Assert;
 
 /**
- * An iterator that transforms a backing iterator; for internal use. This avoids the object overhead of constructing a {@link com.google.common.base.Function Function} for internal
- * methods.
+ * 转换反向迭代器的迭代器;供内部使用。这避免了为内部方法构造{@link Function Function}的对象开销。
  *
  * @author Louis Wasserman
  */
 
-abstract class TransformedIterator<F extends Object, T extends Object>
+abstract class TransformedIterator<F, T>
         implements Iterator<T> {
 
     final Iterator<? extends F> backingIterator;

@@ -18,7 +18,7 @@ package top.yang.math;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Comparator;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 
 /**
  * Static utility methods pertaining to {@code long} primitives that interpret values as

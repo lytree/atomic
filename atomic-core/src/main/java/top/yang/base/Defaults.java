@@ -15,8 +15,6 @@
 package top.yang.base;
 
 
-import top.yang.lang.Assert;
-
 /**
  * This class provides default values for all Java types, as defined by the JLS.
  *

@@ -52,7 +52,7 @@ import top.yang.collections.ArrayUtils;
 import top.yang.io.FileUtils;
 import top.yang.io.FilenameUtils;
 import top.yang.io.IOUtils;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 import top.yang.lang.RandomUtils;
 import top.yang.lang.StringUtils;
 import top.yang.math.NumberUtils;

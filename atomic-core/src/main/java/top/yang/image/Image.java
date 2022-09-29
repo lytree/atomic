@@ -30,9 +30,8 @@ import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 import top.yang.bean.ObjectUtils;
 import top.yang.io.FilenameUtils;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 import top.yang.lang.StringUtils;
-import top.yang.math.NumberUtils;
 import top.yang.math.NumberUtils;
 
 public class Image implements Serializable {

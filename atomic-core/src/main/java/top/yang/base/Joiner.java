@@ -23,7 +23,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import top.yang.lang.Assert;
 
 /**
  * An object which joins pieces of text (specified as an array, {@link Iterable}, varargs or even a {@link Map}) with a separator. It either appends the results to an {@link

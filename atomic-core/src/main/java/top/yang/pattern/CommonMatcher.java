@@ -12,7 +12,7 @@
  * the License.
  */
 
-package top.yang.base;
+package top.yang.pattern;
 
 
 /**

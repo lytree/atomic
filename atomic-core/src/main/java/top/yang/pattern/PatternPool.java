@@ -1,4 +1,4 @@
-package top.yang.lang;
+package top.yang.pattern;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

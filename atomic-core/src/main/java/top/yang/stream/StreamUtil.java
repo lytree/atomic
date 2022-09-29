@@ -1,18 +1,9 @@
 package top.yang.stream;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Spliterators;
-import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-import top.yang.collections.CollectionUtils;
-import top.yang.lang.Assert;
-import top.yang.lang.CharsetUtils;
+import top.yang.base.Assert;
 
 public class StreamUtil {
 

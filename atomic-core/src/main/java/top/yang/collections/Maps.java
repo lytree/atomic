@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.Consumer;
-import top.yang.lang.Assert;
+import top.yang.base.Assert;
 import top.yang.math.Ints;
 
 public class Maps {
@@ -52,7 +52,7 @@ public class Maps {
         }
     }
 
-    static class KeySet<K extends Object, V extends Object>
+    static class KeySet<K, V>
             extends Sets.ImprovedAbstractSet<K> {
 
         final Map<K, V> map;
@@ -107,7 +107,7 @@ public class Maps {
         }
     }
 
-    abstract static class EntrySet<K extends Object, V extends Object>
+    abstract static class EntrySet<K, V>
             extends Sets.ImprovedAbstractSet<Entry<K, V>> {
 
         abstract Map<K, V> map();

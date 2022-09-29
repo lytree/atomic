@@ -1,4 +1,4 @@
-package top.yang.lang;
+package top.yang.base;
 
 
 import java.util.Collection;
@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import top.yang.collections.ArrayUtils;
 import top.yang.collections.CollectionUtils;
 import top.yang.collections.MapUtils;
+import top.yang.lang.StringUtils;
 
 /**
  * 断言<br> 断言某些对象或值是否符合规定，否则抛出异常。经常用于做变量检查
