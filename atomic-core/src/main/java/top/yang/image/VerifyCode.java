@@ -1,4 +1,4 @@
-package top.yang.lang;
+package top.yang.image;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
