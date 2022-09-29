@@ -26,7 +26,7 @@ import top.yang.base.Assert;
  * href="https://github.com/google/guava/wiki/PrimitivesExplained#unsigned-support">unsigned primitive utilities</a>.
  *
  * @author Louis Wasserman
- * @since 11.0
+ * 
  */
 
 
@@ -69,7 +69,7 @@ public final class UnsignedInts {
      * @param value a value between 0 and 2<sup>32</sup>-1 inclusive
      * @return the {@code int} value that, when treated as unsigned, equals {@code value}
      * @throws IllegalArgumentException if {@code value} is negative or greater than or equal to 2<sup>32</sup>
-     * @since 21.0
+     * 
      */
     public static int checkedCast(long value) {
         Assert.checkArgument((value >> Integer.SIZE) == 0, "out of range: %s", value);
@@ -81,7 +81,7 @@ public final class UnsignedInts {
      *
      * @param value any {@code long} value
      * @return {@code 2^32 - 1} if {@code value >= 2^32}, {@code 0} if {@code value <= 0}, and {@code value} cast to {@code int} otherwise
-     * @since 21.0
+     * 
      */
     public static int saturatedCast(long value) {
         if (value <= 0) {
@@ -188,7 +188,7 @@ public final class UnsignedInts {
     /**
      * Sorts the array, treating its elements as unsigned 32-bit integers.
      *
-     * @since 23.1
+     * 
      */
     public static void sort(int[] array) {
         Assert.notNull(array);
@@ -198,7 +198,7 @@ public final class UnsignedInts {
     /**
      * Sorts the array between {@code fromIndex} inclusive and {@code toIndex} exclusive, treating its elements as unsigned 32-bit integers.
      *
-     * @since 23.1
+     * 
      */
     public static void sort(int[] array, int fromIndex, int toIndex) {
         Assert.notNull(array);
@@ -216,7 +216,7 @@ public final class UnsignedInts {
     /**
      * Sorts the elements of {@code array} in descending order, interpreting them as unsigned 32-bit integers.
      *
-     * @since 23.1
+     * 
      */
     public static void sortDescending(int[] array) {
         Assert.notNull(array);
@@ -226,7 +226,7 @@ public final class UnsignedInts {
     /**
      * Sorts the elements of {@code array} between {@code fromIndex} inclusive and {@code toIndex} exclusive in descending order, interpreting them as unsigned 32-bit integers.
      *
-     * @since 23.1
+     * 
      */
     public static void sortDescending(int[] array, int fromIndex, int toIndex) {
         Assert.notNull(array);

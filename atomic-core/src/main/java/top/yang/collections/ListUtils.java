@@ -567,7 +567,7 @@ public class ListUtils {
      *
      * <p>The returned list is random-access if the specified list is random access.
      *
-     * @since 7.0
+     * 
      */
     public static <T> List<T> reverse(List<T> list) {
         if (list instanceof ReverseList) {

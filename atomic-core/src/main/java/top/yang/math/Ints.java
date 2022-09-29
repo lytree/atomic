@@ -35,7 +35,7 @@ import top.yang.base.Assert;
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
  *
  * @author Kevin Bourrillion
- * @since 1.0
+ * 
  */
 
 public final class Ints {
@@ -53,7 +53,7 @@ public final class Ints {
     /**
      * The largest power of two that can be represented as an {@code int}.
      *
-     * @since 10.0
+     * 
      */
     public static final int MAX_POWER_OF_TWO = 1 << (Integer.SIZE - 2);
 
@@ -245,7 +245,7 @@ public final class Ints {
      * @param min   the lower bound (inclusive) of the range to constrain {@code value} to
      * @param max   the upper bound (inclusive) of the range to constrain {@code value} to
      * @throws IllegalArgumentException if {@code min > max}
-     * @since 21.0
+     * 
      */
 
     public static int constrainToRange(int value, int min, int max) {
@@ -297,7 +297,7 @@ public final class Ints {
     /**
      * Returns the {@code int} value whose byte representation is the given 4 bytes, in big-endian order; equivalent to {@code Ints.fromByteArray(new byte[] {b1, b2, b3, b4})}.
      *
-     * @since 7.0
+     * 
      */
     public static int fromBytes(byte b1, byte b2, byte b3, byte b4) {
         return b1 << 24 | (b2 & 0xFF) << 16 | (b3 & 0xFF) << 8 | (b4 & 0xFF);
@@ -337,7 +337,7 @@ public final class Ints {
      * <p><b>Warning:</b> please see {@link Integer#decode} to understand exactly how strings are
      * parsed. For example, the string {@code "0123"} is treated as <i>octal</i> and converted to the value {@code 83}.
      *
-     * @since 16.0
+     * 
      */
 
     public static Converter<String, Integer> stringConverter() {
@@ -390,7 +390,7 @@ public final class Ints {
      * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
      * support only identity equality), but it is consistent with {@link Arrays#equals(int[], int[])}.
      *
-     * @since 2.0
+     * 
      */
     public static Comparator<int[]> lexicographicalComparator() {
         return LexicographicalComparator.INSTANCE;
@@ -420,7 +420,7 @@ public final class Ints {
     /**
      * Sorts the elements of {@code array} in descending order.
      *
-     * @since 23.1
+     * 
      */
     public static void sortDescending(int[] array) {
         Assert.notNull(array);
@@ -430,7 +430,7 @@ public final class Ints {
     /**
      * Sorts the elements of {@code array} between {@code fromIndex} inclusive and {@code toIndex} exclusive in descending order.
      *
-     * @since 23.1
+     * 
      */
     public static void sortDescending(int[] array, int fromIndex, int toIndex) {
         Assert.notNull(array);
@@ -443,7 +443,7 @@ public final class Ints {
     /**
      * Reverses the elements of {@code array}. This is equivalent to {@code Collections.reverse(Ints.asList(array))}, but is likely to be more efficient.
      *
-     * @since 23.1
+     * 
      */
     public static void reverse(int[] array) {
         Assert.notNull(array);
@@ -455,7 +455,7 @@ public final class Ints {
      * Collections.reverse(Ints.asList(array).subList(fromIndex, toIndex))}, but is likely to be more efficient.
      *
      * @throws IndexOutOfBoundsException if {@code fromIndex < 0}, {@code toIndex > array.length}, or {@code toIndex > fromIndex}
-     * @since 23.1
+     * 
      */
     public static void reverse(int[] array, int fromIndex, int toIndex) {
         Assert.notNull(array);
@@ -475,7 +475,7 @@ public final class Ints {
      *
      * <p>The provided "distance" may be negative, which will rotate left.
      *
-     * @since NEXT
+     * 
      */
     public static void rotate(int[] array, int distance) {
         rotate(array, distance, 0, array.length);
@@ -488,7 +488,7 @@ public final class Ints {
      * <p>The provided "distance" may be negative, which will rotate left.
      *
      * @throws IndexOutOfBoundsException if {@code fromIndex < 0}, {@code toIndex > array.length}, or {@code toIndex > fromIndex}
-     * @since NEXT
+     * 
      */
     public static void rotate(int[] array, int distance, int fromIndex, int toIndex) {
         // There are several well-known algorithms for rotating part of an array (or, equivalently,
@@ -550,7 +550,7 @@ public final class Ints {
      * @param collection a collection of {@code Number} instances
      * @return an array containing the same values as {@code collection}, in the same order, converted to primitives
      * @throws NullPointerException if {@code collection} or any of its elements is null
-     * @since 1.0 (parameter was {@code Collection<Integer>} before 12.0)
+     * 
      */
     public static int[] toArray(Collection<? extends Number> collection) {
         if (collection instanceof IntArrayAsList) {
@@ -734,7 +734,7 @@ public final class Ints {
      * @param string the string representation of an integer value
      * @return the integer value represented by {@code string}, or {@code null} if {@code string} has a length of zero or cannot be parsed as an integer value
      * @throws NullPointerException if {@code string} is {@code null}
-     * @since 11.0
+     * 
      */
 
 
@@ -757,7 +757,7 @@ public final class Ints {
      * @return the integer value represented by {@code string} using {@code radix}, or {@code null} if {@code string} has a length of zero or cannot be parsed as an integer value
      * @throws IllegalArgumentException if {@code radix < Character.MIN_RADIX} or {@code radix > Character.MAX_RADIX}
      * @throws NullPointerException     if {@code string} is {@code null}
-     * @since 19.0
+     * 
      */
 
 

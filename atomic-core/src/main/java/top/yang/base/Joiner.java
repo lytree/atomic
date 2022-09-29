@@ -55,7 +55,7 @@ import java.util.Map.Entry;
  * href="https://github.com/google/guava/wiki/StringsExplained#joiner">{@code Joiner}</a>.
  *
  * @author Kevin Bourrillion
- * @since 2.0
+ * 
  */
 
 
@@ -103,7 +103,7 @@ public class Joiner {
     /**
      * Appends the string representation of each of {@code parts}, using the previously configured separator between each, to {@code appendable}.
      *
-     * @since 11.0
+     * 
      */
 
     public <A extends Appendable> A appendTo(A appendable, Iterator<? extends Object> parts)
@@ -155,7 +155,7 @@ public class Joiner {
      * Appends the string representation of each of {@code parts}, using the previously configured separator between each, to {@code builder}. Identical to {@link
      * #appendTo(Appendable, Iterable)}, except that it does not throw {@link IOException}.
      *
-     * @since 11.0
+     * 
      */
 
     public final StringBuilder appendTo(
@@ -200,7 +200,7 @@ public class Joiner {
     /**
      * Returns a string containing the string representation of each of {@code parts}, using the previously configured separator between each.
      *
-     * @since 11.0
+     * 
      */
     public final String join(Iterator<? extends Object> parts) {
         return appendTo(new StringBuilder(), parts).toString();
@@ -286,7 +286,7 @@ public class Joiner {
     /**
      * Returns a {@code MapJoiner} using the given key-value separator, and the same configuration as this {@code Joiner} otherwise.
      *
-     * @since 20.0
+     * 
      */
     public MapJoiner withKeyValueSeparator(char keyValueSeparator) {
         return withKeyValueSeparator(String.valueOf(keyValueSeparator));
@@ -314,7 +314,7 @@ public class Joiner {
      *       key1=[A, B]&key2=C}.
      * </ul>
      *
-     * @since 2.0
+     * 
      */
     public static final class MapJoiner {
 
@@ -346,7 +346,7 @@ public class Joiner {
         /**
          * Appends the string representation of each entry in {@code entries}, using the previously configured separator and key-value separator, to {@code appendable}.
          *
-         * @since 10.0
+         * 
          */
 
 
@@ -358,7 +358,7 @@ public class Joiner {
         /**
          * Appends the string representation of each entry in {@code entries}, using the previously configured separator and key-value separator, to {@code appendable}.
          *
-         * @since 11.0
+         * 
          */
 
 
@@ -385,7 +385,7 @@ public class Joiner {
          * Appends the string representation of each entry in {@code entries}, using the previously configured separator and key-value separator, to {@code builder}. Identical to
          * {@link #appendTo(Appendable, Iterable)}, except that it does not throw {@link IOException}.
          *
-         * @since 10.0
+         * 
          */
 
 
@@ -397,7 +397,7 @@ public class Joiner {
          * Appends the string representation of each entry in {@code entries}, using the previously configured separator and key-value separator, to {@code builder}. Identical to
          * {@link #appendTo(Appendable, Iterable)}, except that it does not throw {@link IOException}.
          *
-         * @since 11.0
+         * 
          */
 
 
@@ -420,7 +420,7 @@ public class Joiner {
         /**
          * Returns a string containing the string representation of each entry in {@code entries}, using the previously configured separator and key-value separator.
          *
-         * @since 10.0
+         * 
          */
 
         public String join(Iterable<? extends Entry<?, ?>> entries) {
@@ -430,7 +430,7 @@ public class Joiner {
         /**
          * Returns a string containing the string representation of each entry in {@code entries}, using the previously configured separator and key-value separator.
          *
-         * @since 11.0
+         * 
          */
 
         public String join(Iterator<? extends Entry<?, ?>> entries) {

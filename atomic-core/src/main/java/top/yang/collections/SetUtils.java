@@ -209,7 +209,7 @@ public class SetUtils {
      * @param setA the set to subtract from, must not be null
      * @param setB the set to subtract, must not be null
      * @return a view of the relative complement of  of the two sets
-     * @since 4.1
+     * 
      */
     public static <E> SetView<E> difference(final Set<? extends E> setA, final Set<? extends E> setB) {
         Objects.requireNonNull(setA, "setA");
@@ -240,7 +240,7 @@ public class SetUtils {
      * @param setB the second set, must not be null
      * @return a view of the union of the two set
      * @throws NullPointerException if either input set is null
-     * @since 4.1
+     * 
      */
     public static <E> SetView<E> union(final Set<? extends E> setA, final Set<? extends E> setB) {
         Objects.requireNonNull(setA, "setA");

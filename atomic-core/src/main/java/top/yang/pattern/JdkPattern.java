@@ -23,11 +23,11 @@ import top.yang.base.Assert;
 /**
  * A regex pattern implementation which is backed by the {@link Pattern}.
  */
-final class JdkPattern extends CommonPattern implements Serializable {
+public final class JdkPattern extends CommonPattern implements Serializable {
 
     private final Pattern pattern;
 
-    JdkPattern(Pattern pattern) {
+    public JdkPattern(Pattern pattern) {
         this.pattern = Assert.notNull(pattern);
     }
 

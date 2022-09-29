@@ -370,7 +370,7 @@ public final class IntMath {
     /**
      * 返回{@code a}和{@code b}的和，除非它会溢出或下溢，在这种情况下{@code Integer。MAX_VALUE}或{@code整数。返回MIN_VALUE}, respectively.
      *
-     * @since 20.0
+     * 
      */
 
     public static int saturatedAdd(int a, int b) {
@@ -380,7 +380,7 @@ public final class IntMath {
     /**
      * 返回{@code a}和{@code b}的差值，除非它会溢出或下溢，在这种情况下{@code Integer.MAX_VALUE}或{@code Integer.MIN_VALUE}。
      *
-     * @since 20.0
+     * 
      */
 
     public static int saturatedSubtract(int a, int b) {
@@ -390,7 +390,7 @@ public final class IntMath {
     /**
      * 返回{@code a}和{@code b}的乘积，除非它会溢出或下溢，在这种情况下{@code Integer.MAX_VALUE}或{@code Integer.MIN_VALUE}。
      *
-     * @since 20.0
+     * 
      */
 
     public static int saturatedMultiply(int a, int b) {
@@ -400,7 +400,7 @@ public final class IntMath {
     /**
      * 返回{@code b}的{@code k}次幂，除非它会溢出或下溢，在这种情况下{@code Integer.MAX_VALUE}或{@code Integer.MIN_VALUE}。
      *
-     * @since 20.0
+     * 
      */
 
     public static int saturatedPow(int b, int k) {
@@ -533,7 +533,7 @@ public final class IntMath {
     /**
      * 返回{@code x}和{@code y}的算术平均值，四舍五入到负无穷。该方法具有溢出弹性。
      *
-     * @since 14.0
+     * 
      */
     public static int mean(int x, int y) {
         // Efficient method for computing the arithmetic mean.
@@ -548,7 +548,7 @@ public final class IntMath {
      * <p>To test larger numbers, use {@link LongMath#isPrime} or {@link BigInteger#isProbablePrime}.
      *
      * @throws IllegalArgumentException if {@code n} is negative
-     * @since 20.0
+     * 
      */
     // TODO
     public static boolean isPrime(int n) {

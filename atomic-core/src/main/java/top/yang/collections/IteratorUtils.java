@@ -734,7 +734,7 @@ public class IteratorUtils {
      * iterator will be left exhausted: its {@code hasNext()} method will return {@code false}. Note that this can usually be handled more naturally using {@code tryFind(iterator,
      * predicate).or(defaultValue)}.
      *
-     * @since 7.0
+     * 
      */
     // For discussion of this signature, see the corresponding overload of *Iterables*.find.
     public static <T> T find(
@@ -759,7 +759,7 @@ public class IteratorUtils {
      * <p><b>Warning:</b> avoid using a {@code predicate} that matches {@code null}. If {@code null}
      * is matched in {@code iterator}, a NullPointerException will be thrown.
      *
-     * @since 11.0
+     * 
      */
     public static <T> Optional<T> tryFind(Iterator<T> iterator, Predicate<? super T> predicate) {
         Assert.notNull(iterator);
@@ -782,7 +782,7 @@ public class IteratorUtils {
      * <p>If -1 is returned, the iterator will be left exhausted: its {@code hasNext()} method will
      * return {@code false}. Otherwise, the iterator will be set to the element which satisfies the {@code predicate}.
      *
-     * @since 2.0
+     * 
      */
     public static <T> int indexOf(
             Iterator<T> iterator, Predicate<? super T> predicate) {

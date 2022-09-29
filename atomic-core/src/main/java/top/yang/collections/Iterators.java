@@ -31,7 +31,7 @@ import top.yang.base.Assert;
  *
  * @author Kevin Bourrillion
  * @author Jared Levy
- * @since 2.0
+ * 
  */
 
 public final class Iterators {

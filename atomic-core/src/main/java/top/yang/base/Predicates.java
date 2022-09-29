@@ -1,16 +1,4 @@
-/*
- * Copyright (C) 2007 The Guava Authors
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- */
+
 
 package top.yang.base;
 
@@ -22,32 +10,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
-/**
- * Static utility methods pertaining to {@code Predicate} instances.
- *
- * <p>All methods return serializable predicates as long as they're given serializable parameters.
- *
- * <p>See the Guava User Guide article on <a
- * href="https://github.com/google/guava/wiki/FunctionalExplained">the use of {@code Predicate}</a>.
- *
- * @author Kevin Bourrillion
- * @since 2.0
- */
-
 
 public final class Predicates {
 
     private Predicates() {
     }
-
-    // TODO(kevinb): considering having these implement a VisitablePredicate
     // interface which specifies an accept(PredicateVisitor) method.
 
     /**
      * Returns a predicate that always evaluates to {@code true}.
      */
 
-    public static <T extends Object> Predicate<T> alwaysTrue() {
+    public static <T> Predicate<T> alwaysTrue() {
         return ObjectPredicate.ALWAYS_TRUE.withNarrowedType();
     }
 
@@ -55,7 +29,7 @@ public final class Predicates {
      * Returns a predicate that always evaluates to {@code false}.
      */
 
-    public static <T extends Object> Predicate<T> alwaysFalse() {
+    public static <T> Predicate<T> alwaysFalse() {
         return ObjectPredicate.ALWAYS_FALSE.withNarrowedType();
     }
 
@@ -63,7 +37,7 @@ public final class Predicates {
      * Returns a predicate that evaluates to {@code true} if the object reference being tested is null.
      */
 
-    public static <T extends Object> Predicate<T> isNull() {
+    public static <T> Predicate<T> isNull() {
         return ObjectPredicate.IS_NULL.withNarrowedType();
     }
 
@@ -71,14 +45,14 @@ public final class Predicates {
      * Returns a predicate that evaluates to {@code true} if the object reference being tested is not null.
      */
 
-    public static <T extends Object> Predicate<T> notNull() {
+    public static <T> Predicate<T> notNull() {
         return ObjectPredicate.NOT_NULL.withNarrowedType();
     }
 
     /**
      * Returns a predicate that evaluates to {@code true} if the given predicate evaluates to {@code false}.
      */
-    public static <T extends Object> Predicate<T> not(Predicate<T> predicate) {
+    public static <T> Predicate<T> not(Predicate<T> predicate) {
         return new NotPredicate<>(predicate);
     }
 
@@ -87,7 +61,7 @@ public final class Predicates {
      * "short-circuited" as soon as a false predicate is found. It defensively copies the iterable passed in, so future changes to it won't alter the behavior of this predicate. If
      * {@code components} is empty, the returned predicate will always evaluate to {@code true}.
      */
-    public static <T extends Object> Predicate<T> and(
+    public static <T> Predicate<T> and(
             Iterable<? extends Predicate<? super T>> components) {
         return new AndPredicate<>(defensiveCopy(components));
     }
@@ -98,7 +72,7 @@ public final class Predicates {
      * {@code components} is empty, the returned predicate will always evaluate to {@code true}.
      */
     @SafeVarargs
-    public static <T extends Object> Predicate<T> and(Predicate<? super T>... components) {
+    public static <T> Predicate<T> and(Predicate<? super T>... components) {
         return new AndPredicate<T>(defensiveCopy(components));
     }
 
@@ -106,7 +80,7 @@ public final class Predicates {
      * Returns a predicate that evaluates to {@code true} if both of its components evaluate to {@code true}. The components are evaluated in order, and evaluation will be
      * "short-circuited" as soon as a false predicate is found.
      */
-    public static <T extends Object> Predicate<T> and(
+    public static <T> Predicate<T> and(
             Predicate<? super T> first, Predicate<? super T> second) {
         return new AndPredicate<>(Predicates.<T>asList(Assert.notNull(first), Assert.notNull(second)));
     }
@@ -116,7 +90,7 @@ public final class Predicates {
      * "short-circuited" as soon as a true predicate is found. It defensively copies the iterable passed in, so future changes to it won't alter the behavior of this predicate. If
      * {@code components} is empty, the returned predicate will always evaluate to {@code false}.
      */
-    public static <T extends Object> Predicate<T> or(
+    public static <T> Predicate<T> or(
             Iterable<? extends Predicate<? super T>> components) {
         return new OrPredicate<>(defensiveCopy(components));
     }
@@ -127,7 +101,7 @@ public final class Predicates {
      * {@code components} is empty, the returned predicate will always evaluate to {@code false}.
      */
     @SafeVarargs
-    public static <T extends Object> Predicate<T> or(Predicate<? super T>... components) {
+    public static <T> Predicate<T> or(Predicate<? super T>... components) {
         return new OrPredicate<T>(defensiveCopy(components));
     }
 
@@ -135,7 +109,7 @@ public final class Predicates {
      * Returns a predicate that evaluates to {@code true} if either of its components evaluates to {@code true}. The components are evaluated in order, and evaluation will be
      * "short-circuited" as soon as a true predicate is found.
      */
-    public static <T extends Object> Predicate<T> or(
+    public static <T> Predicate<T> or(
             Predicate<? super T> first, Predicate<? super T> second) {
         return new OrPredicate<>(Predicates.<T>asList(Assert.notNull(first), Assert.notNull(second)));
     }
@@ -143,7 +117,7 @@ public final class Predicates {
     /**
      * Returns a predicate that evaluates to {@code true} if the object being tested {@code equals()} the given target or both are null.
      */
-    public static <T extends Object> Predicate<T> equalTo(T target) {
+    public static <T> Predicate<T> equalTo(T target) {
         return (target == null)
                 ? Predicates.<T>isNull()
                 : new IsEqualToPredicate(target).withNarrowedType();
@@ -160,7 +134,7 @@ public final class Predicates {
      * the two equal instances {@code Lists.newArrayList(1)} and {@code Arrays.asList(1)}.
      */
 
-    public static <T extends Object> Predicate<T> instanceOf(Class<?> clazz) {
+    public static <T> Predicate<T> instanceOf(Class<?> clazz) {
         return new InstanceOfPredicate<>(clazz);
     }
 
@@ -175,7 +149,7 @@ public final class Predicates {
      * <p>
      * The code above returns an iterable containing {@code Number.class} and {@code Long.class}.
      *
-     * @since 20.0 (since 10.0 under the incorrect name {@code assignableFrom})
+     * 
      */
 
 
@@ -192,7 +166,7 @@ public final class Predicates {
      *
      * @param target the collection that may contain the function input
      */
-    public static <T extends Object> Predicate<T> in(Collection<? extends T> target) {
+    public static <T> Predicate<T> in(Collection<? extends T> target) {
         return new InPredicate<>(target);
     }
 
@@ -201,7 +175,7 @@ public final class Predicates {
      *
      * @return the composition of the provided function and predicate
      */
-    public static <A extends Object, B extends Object> Predicate<A> compose(
+    public static <A, B> Predicate<A> compose(
             Predicate<B> predicate, Function<A, ? extends B> function) {
         return new CompositionPredicate<>(predicate, function);
     }
@@ -269,7 +243,7 @@ public final class Predicates {
 
         @SuppressWarnings("unchecked")
             // safe contravariant cast
-        <T extends Object> Predicate<T> withNarrowedType() {
+        <T> Predicate<T> withNarrowedType() {
             return (Predicate<T>) this;
         }
     }
@@ -277,7 +251,7 @@ public final class Predicates {
     /**
      * @see Predicates#not(Predicate)
      */
-    private static class NotPredicate<T extends Object>
+    private static class NotPredicate<T>
             implements Predicate<T>, Serializable {
 
         final Predicate<T> predicate;
@@ -316,7 +290,7 @@ public final class Predicates {
     /**
      * @see Predicates#and(Iterable)
      */
-    private static class AndPredicate<T extends Object>
+    private static class AndPredicate<T>
             implements Predicate<T>, Serializable {
 
         private final List<? extends Predicate<? super T>> components;
@@ -328,8 +302,8 @@ public final class Predicates {
         @Override
         public boolean apply(T t) {
             // Avoid using the Iterator to avoid generating garbage (issue 820).
-            for (int i = 0; i < components.size(); i++) {
-                if (!components.get(i).apply(t)) {
+            for (Predicate<? super T> component : components) {
+                if (!component.apply(t)) {
                     return false;
                 }
             }
@@ -362,7 +336,7 @@ public final class Predicates {
     /**
      * @see Predicates#or(Iterable)
      */
-    private static class OrPredicate<T extends Object>
+    private static class OrPredicate<T>
             implements Predicate<T>, Serializable {
 
         private final List<? extends Predicate<? super T>> components;
@@ -374,8 +348,8 @@ public final class Predicates {
         @Override
         public boolean apply(T t) {
             // Avoid using the Iterator to avoid generating garbage (issue 820).
-            for (int i = 0; i < components.size(); i++) {
-                if (components.get(i).apply(t)) {
+            for (Predicate<? super T> component : components) {
+                if (component.apply(t)) {
                     return true;
                 }
             }
@@ -457,7 +431,7 @@ public final class Predicates {
 
         @SuppressWarnings("unchecked")
             // safe contravariant cast
-        <T extends Object> Predicate<T> withNarrowedType() {
+        <T> Predicate<T> withNarrowedType() {
             return (Predicate<T>) this;
         }
     }
@@ -466,7 +440,7 @@ public final class Predicates {
      * @see Predicates#instanceOf(Class)
      */
 
-    private static class InstanceOfPredicate<T extends Object>
+    private static class InstanceOfPredicate<T>
             implements Predicate<T>, Serializable {
 
         private final Class<?> clazz;
@@ -544,7 +518,7 @@ public final class Predicates {
     /**
      * @see Predicates#in(Collection)
      */
-    private static class InPredicate<T extends Object>
+    private static class InPredicate<T>
             implements Predicate<T>, Serializable {
 
         private final Collection<?> target;
@@ -587,7 +561,7 @@ public final class Predicates {
     /**
      * @see Predicates#compose(Predicate, Function)
      */
-    private static class CompositionPredicate<A extends Object, B extends Object>
+    private static class CompositionPredicate<A, B>
             implements Predicate<A>, Serializable {
 
         final Predicate<B> p;
@@ -627,7 +601,7 @@ public final class Predicates {
     }
 
 
-    private static <T extends Object> List<Predicate<? super T>> asList(
+    private static <T> List<Predicate<? super T>> asList(
             Predicate<? super T> first, Predicate<? super T> second) {
         // TODO(kevinb): understand why we still get a warning despite @SafeVarargs!
         return Arrays.<Predicate<? super T>>asList(first, second);

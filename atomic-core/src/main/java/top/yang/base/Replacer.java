@@ -7,7 +7,7 @@ package top.yang.base;
  * @author looly
  *
  * @param <T> 被替换操作的类型
- * @since 4.1.5
+ * 
  */
 @FunctionalInterface
 public interface Replacer<T> {

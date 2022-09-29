@@ -31,7 +31,7 @@ import top.yang.base.Assert;
  *
  * @author Louis Wasserman
  * @author Colin Evans
- * @since 11.0
+ * 
  */
 
 
@@ -59,7 +59,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
      * <p>To represent decimal constants less than {@code 2^63}, consider {@link #valueOf(long)}
      * instead.
      *
-     * @since 14.0
+     * 
      */
     public static UnsignedLong fromLongBits(long bits) {
         // TODO(lowasser): consider caching small values, like Long.valueOf
@@ -70,7 +70,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
      * Returns an {@code UnsignedLong} representing the same value as the specified {@code long}.
      *
      * @throws IllegalArgumentException if {@code value} is negative
-     * @since 14.0
+     * 
      */
 
     public static UnsignedLong valueOf(long value) {
@@ -117,7 +117,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
     /**
      * Returns the result of adding this and {@code val}. If the result would have more than 64 bits, returns the low 64 bits of the result.
      *
-     * @since 14.0
+     * 
      */
     public UnsignedLong plus(UnsignedLong val) {
         return fromLongBits(this.value + Assert.notNull(val).value);
@@ -126,7 +126,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
     /**
      * Returns the result of subtracting this and {@code val}. If the result would have more than 64 bits, returns the low 64 bits of the result.
      *
-     * @since 14.0
+     * 
      */
     public UnsignedLong minus(UnsignedLong val) {
         return fromLongBits(this.value - Assert.notNull(val).value);
@@ -135,7 +135,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
     /**
      * Returns the result of multiplying this and {@code val}. If the result would have more than 64 bits, returns the low 64 bits of the result.
      *
-     * @since 14.0
+     * 
      */
     public UnsignedLong times(UnsignedLong val) {
         return fromLongBits(value * Assert.notNull(val).value);
@@ -144,7 +144,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
     /**
      * Returns the result of dividing this by {@code val}.
      *
-     * @since 14.0
+     * 
      */
     public UnsignedLong dividedBy(UnsignedLong val) {
         return fromLongBits(UnsignedLongs.divide(value, Assert.notNull(val).value));
@@ -153,7 +153,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
     /**
      * Returns this modulo {@code val}.
      *
-     * @since 14.0
+     * 
      */
     public UnsignedLong mod(UnsignedLong val) {
         return fromLongBits(UnsignedLongs.remainder(value, Assert.notNull(val).value));

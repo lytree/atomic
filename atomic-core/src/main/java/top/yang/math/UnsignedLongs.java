@@ -38,7 +38,7 @@ import top.yang.base.Assert;
  * @author Louis Wasserman
  * @author Brian Milch
  * @author Colin Evans
- * @since 10.0
+ * 
  */
 
 
@@ -165,7 +165,7 @@ public final class UnsignedLongs {
     /**
      * Sorts the array, treating its elements as unsigned 64-bit integers.
      *
-     * @since 23.1
+     * 
      */
     public static void sort(long[] array) {
         Assert.notNull(array);
@@ -175,7 +175,7 @@ public final class UnsignedLongs {
     /**
      * Sorts the array between {@code fromIndex} inclusive and {@code toIndex} exclusive, treating its elements as unsigned 64-bit integers.
      *
-     * @since 23.1
+     * 
      */
     public static void sort(long[] array, int fromIndex, int toIndex) {
         Assert.notNull(array);
@@ -193,7 +193,7 @@ public final class UnsignedLongs {
     /**
      * Sorts the elements of {@code array} in descending order, interpreting them as unsigned 64-bit integers.
      *
-     * @since 23.1
+     * 
      */
     public static void sortDescending(long[] array) {
         Assert.notNull(array);
@@ -203,7 +203,7 @@ public final class UnsignedLongs {
     /**
      * Sorts the elements of {@code array} between {@code fromIndex} inclusive and {@code toIndex} exclusive in descending order, interpreting them as unsigned 64-bit integers.
      *
-     * @since 23.1
+     * 
      */
     public static void sortDescending(long[] array, int fromIndex, int toIndex) {
         Assert.notNull(array);
@@ -260,7 +260,7 @@ public final class UnsignedLongs {
      * @param dividend the dividend (numerator)
      * @param divisor  the divisor (denominator)
      * @throws ArithmeticException if divisor is 0
-     * @since 11.0
+     * 
      */
     public static long remainder(long dividend, long divisor) {
         if (divisor < 0) { // i.e., divisor >= 2^63:

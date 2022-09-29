@@ -21,7 +21,7 @@ import top.yang.build.MapBuilder;
  * @param <K> 唯一键类型
  * @param <V> 值对象
  * @author looly
- * @since 5.7.23
+ * 
  */
 public class UniqueKeySet<K, V> extends AbstractSet<V> implements Serializable {
 
@@ -46,7 +46,7 @@ public class UniqueKeySet<K, V> extends AbstractSet<V> implements Serializable {
      *
      * @param uniqueGenerator 唯一键生成规则函数，用于生成对象对应的唯一键
      * @param c               初始化加入的集合
-     * @since 5.8.0
+     * 
      */
     public UniqueKeySet(Function<V, K> uniqueGenerator, Collection<? extends V> c) {
         this(false, uniqueGenerator, c);
@@ -68,7 +68,7 @@ public class UniqueKeySet<K, V> extends AbstractSet<V> implements Serializable {
      * @param isLinked        是否保持加入顺序
      * @param uniqueGenerator 唯一键生成规则函数，用于生成对象对应的唯一键
      * @param c               初始化加入的集合
-     * @since 5.8.0
+     * 
      */
     public UniqueKeySet(boolean isLinked, Function<V, K> uniqueGenerator, Collection<? extends V> c) {
         this(isLinked, uniqueGenerator);

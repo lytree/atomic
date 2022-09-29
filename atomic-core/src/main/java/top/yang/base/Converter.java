@@ -15,126 +15,12 @@
 package top.yang.base;
 
 
-import static top.yang.base.NullnessCasts.uncheckedCastNullableTToT;
-
-
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.function.Function;
-import top.yang.bean.Enums;
-
-/**
- * A function from {@code A} to {@code B} with an associated <i>reverse</i> function from {@code B} to {@code A}; used for converting back and forth between <i>different
- * representations of the same information</i>.
- *
- * <h3>Invertibility</h3>
- *
- * <p>The reverse operation <b>may</b> be a strict <i>inverse</i> (meaning that {@code
- * converter.reverse().convert(converter.convert(a)).equals(a)} is always true). However, it is very common (perhaps <i>more</i> common) for round-trip conversion to be
- * <i>lossy</i>. Consider an example round-trip using {@link com.google.common.primitives.Doubles#stringConverter}:
- *
- * <ol>
- *   <li>{@code stringConverter().convert("1.00")} returns the {@code Double} value {@code 1.0}
- *   <li>{@code stringConverter().reverse().convert(1.0)} returns the string {@code "1.0"} --
- *       <i>not</i> the same string ({@code "1.00"}) we started with
- * </ol>
- *
- * <p>Note that it should still be the case that the round-tripped and original objects are
- * <i>similar</i>.
- *
- * <h3>Nullability</h3>
- *
- * <p>A converter always converts {@code null} to {@code null} and non-null references to non-null
- * references. It would not make sense to consider {@code null} and a non-null reference to be
- * "different representations of the same information", since one is distinguishable from
- * <i>missing</i> information and the other is not. The {@link #convert} method handles this null
- * behavior for all converters; implementations of {@link #doForward} and {@link #doBackward} are
- * guaranteed to never be passed {@code null}, and must never return {@code null}.
- *
- * <h3>Common ways to use</h3>
- *
- * <p>Getting a converter:
- *
- * <ul>
- *   <li>Use a provided converter implementation, such as {@link Enums#stringConverter}, {@link
- *       com.google.common.primitives.Ints#stringConverter Ints.stringConverter} or the {@linkplain
- *       #reverse reverse} views of these.
- *   <li>Convert between specific preset values using {@link
- *       com.google.common.collect.Maps#asConverter Maps.asConverter}. For example, use this to
- *       create a "fake" converter for a unit test. It is unnecessary (and confusing) to <i>mock</i>
- *       the {@code Converter} type using a mocking framework.
- *   <li>Extend this class and implement its {@link #doForward} and {@link #doBackward} methods.
- *   <li><b>Java 8 users:</b> you may prefer to pass two lambda expressions or method references to
- *       the {@link #from from} factory method.
- * </ul>
- *
- * <p>Using a converter:
- *
- * <ul>
- *   <li>Convert one instance in the "forward" direction using {@code converter.convert(a)}.
- *   <li>Convert multiple instances "forward" using {@code converter.convertAll(as)}.
- *   <li>Convert in the "backward" direction using {@code converter.reverse().convert(b)} or {@code
- *       converter.reverse().convertAll(bs)}.
- *   <li>Use {@code converter} or {@code converter.reverse()} anywhere a {@link
- *       java.util.function.Function} is accepted (for example {@link java.util.stream.Stream#map
- *       Stream.map}).
- *   <li><b>Do not</b> call {@link #doForward} or {@link #doBackward} directly; these exist only to
- *       be overridden.
- * </ul>
- *
- * <h3>Example</h3>
- *
- * <pre>
- *   return new Converter&lt;Integer, String&gt;() {
- *     protected String doForward(Integer i) {
- *       return Integer.toHexString(i);
- *     }
- *
- *     protected Integer doBackward(String s) {
- *       return parseUnsignedInt(s, 16);
- *     }
- *   };</pre>
- *
- * <p>An alternative using Java 8:
- *
- * <pre>{@code
- * return Converter.from(
- *     Integer::toHexString,
- *     s -> parseUnsignedInt(s, 16));
- * }</pre>
- *
- * @author Mike Ward
- * @author Kurt Alfred Kluever
- * @author Gregory Kick
- * @since 16.0
- */
 
 
-/*
- * 1. The type parameter is <T> rather than <T extends > so that we can use T in the
- * doForward and doBackward methods to indicate that the parameter cannot be null. (We also take
- * advantage of that for convertAll, as discussed on that method.)
- *
- * 2. The supertype of this class could be `Function< A,  B>`, since
- * Converter.apply (like Converter.convert) is capable of accepting null inputs. However, a
- * supertype of `Function<A, B>` turns out to be massively more useful to callers in practice: They
- * want their output to be non-null in operations like `stream.map(myConverter)`, and we can
- * guarantee that as long as we also require the input type to be non-null[*] (which is a
- * requirement that existing callers already fulfill).
- *
- * Disclaimer: Part of the reason that callers are so well adapted to `Function<A, B>` may be that
- * that is how the signature looked even prior to this comment! So naturally any change can break
- * existing users, but it can't *fix* existing users because any users who needed
- * `Function< A,  B>` already had to find a workaround. Still, there is a *ton* of
- * fallout from trying to switch. I would be shocked if the switch would offer benefits to anywhere
- * near enough users to justify the costs.
- *
- * Fortunately, if anyone does want to use a Converter as a `Function< A,  B>`,
- * it's easy to get one: `converter::convert`.
- *
- * [*] In annotating this class, we're ignoring LegacyConverter.
- */
-public abstract class Converter<A, B> implements Function<A, B> {
+public abstract class Converter<A, B> {
 
     private final boolean handleNullAutomatically;
 
@@ -212,40 +98,14 @@ public abstract class Converter<A, B> implements Function<A, B> {
         }
     }
 
-    /*
-     * LegacyConverter violates the contract of Converter by allowing its doForward and doBackward
-     * methods to accept null. We could avoid having unchecked casts in Converter.java itself if we
-     * could perform a cast to LegacyConverter, but we can't because it's an internal-only class.
-     *
-     * TODO(cpovirk): So make it part of the open-source build, albeit package-private there?
-     *
-     * So we use uncheckedCastNullableTToT here. This is a weird usage of that method: The method is
-     * documented as being for use with type parameters that have parametric nullness. But Converter's
-     * type parameters do not. Still, we use it here so that we can suppress a warning at a smaller
-     * level than the whole method but without performing a runtime null check. That way, we can still
-     * pass null inputs to LegacyConverter, and it can violate the contract of Converter.
-     *
-     * TODO(cpovirk): Could this be simplified if we modified implementations of LegacyConverter to
-     * override methods (probably called "unsafeDoForward" and "unsafeDoBackward") with the same
-     * signatures as the methods below, rather than overriding the same doForward and doBackward
-     * methods as implementations of normal converters do?
-     *
-     * But no matter what we do, it's worth remembering that the resulting code is going to be unsound
-     * in the presence of LegacyConverter, at least in the case of users who view the converter as a
-     * Function<A, B> or who call convertAll (and for any checkers that apply @PolyNull-like semantics
-     * to Converter.convert). So maybe we don't want to think too hard about how to prevent our
-     * checkers from issuing errors related to LegacyConverter, since it turns out that
-     * LegacyConverter does violate the assumptions we make elsewhere.
-     */
-
 
     private B unsafeDoForward(A a) {
-        return doForward(uncheckedCastNullableTToT(a));
+        return doForward(a);
     }
 
 
     private A unsafeDoBackward(B b) {
-        return doBackward(uncheckedCastNullableTToT(b));
+        return doBackward(b);
     }
 
     /**
@@ -447,47 +307,6 @@ public abstract class Converter<A, B> implements Function<A, B> {
     }
 
     /**
-     * @deprecated Provided to satisfy the {@code Function} interface; use {@link #convert} instead.
-     */
-    @Deprecated
-    @Override
-    /*
-     * Even though we implement `Function<A, B>` instead of `Function< A,  B>` (as
-     * discussed in a code comment at the top of the class), we declare our override of Function.apply
-     * to accept and return null. This requires a suppression, but it's safe:
-     *
-     * - Callers who use Converter as a Function<A, B> will neither pass null nor have it returned to
-     *   them. (Or, if they're not using nullness checking, they might be able to pass null and thus
-     *   have null returned to them. But our signature isn't making their existing nullness type error
-     *   any worse.)
-     * - In the relatively unlikely event that anyone calls Converter.apply directly, that caller is
-     *   allowed to pass null but is also forced to deal with a potentially null return.
-     * - Perhaps more important than actual *callers* of this method are various tools that look at
-     *   bytecode. Notably, NullPointerTester expects a method to throw NPE when passed null unless it
-     *   is annotated in a way that identifies its parameter type as potentially including null. (And
-     *   this method does not throw NPE -- nor do we want to enact a dangerous change to make it begin
-     *   doing so.) We can even imagine tools that rewrite bytecode to insert null checks before and
-     *   after calling methods with allegedly non-nullable parameters[*]. If we didn't annotate the
-     *   parameter and return type here, then anyone who used such a tool (and managed to pass null to
-     *   this method, presumably because that user doesn't run a normal nullness checker) could see
-     *   NullPointerException.
-     *
-     * [*] Granted, such tools could conceivably be smart enough to recognize that the apply() method
-     * on a a Function<Foo, Bar> should never allow null inputs and never produce null outputs even if
-     * this specific subclass claims otherwise. Such tools might still produce NPE for calls to this
-     * method. And that is one reason that we should be nervous about "lying" by extending Function<A,
-     * B> in the first place. But for now, we're giving it a try, since extending Function<
-     * A,  B> will cause issues *today*, whereas extending Function<A, B> causes problems in
-     * various hypothetical futures. (Plus, a tool that were that smart would likely already introduce
-     * problems with LegacyConverter.)
-     */
-    @SuppressWarnings("nullness")
-
-    public final B apply(A a) {
-        return convert(a);
-    }
-
-    /**
      * Indicates whether another object is equal to this converter.
      *
      * <p>Most implementations will have no reason to override the behavior of {@link Object#equals}.
@@ -513,8 +332,6 @@ public abstract class Converter<A, B> implements Function<A, B> {
      * return {@code null}. If a value cannot be converted, the function should throw an unchecked exception (typically, but not necessarily, {@link IllegalArgumentException}).
      *
      * <p>The returned converter is serializable if both provided functions are.
-     *
-     * @since 17.0
      */
     public static <A, B> Converter<A, B> from(
             Function<? super A, ? extends B> forwardFunction,

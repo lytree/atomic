@@ -78,7 +78,7 @@ import top.yang.lang.StringUtils;
  * See <a href="https://github.com/google/guava/wiki/ConditionalFailuresExplained">Conditional
  * failures explained</a> in the Guava User Guide for advice on when this class should be used.
  *
- * @since 17.0
+ * 
  */
 
 
@@ -121,7 +121,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, char p1) {
         if (!expression) {
@@ -134,7 +134,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, int p1) {
         if (!expression) {
@@ -147,7 +147,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, long p1) {
         if (!expression) {
@@ -160,7 +160,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(
             boolean expression, String errorMessageTemplate, Object p1) {
@@ -174,7 +174,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, char p1, char p2) {
         if (!expression) {
@@ -187,7 +187,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, int p1, char p2) {
         if (!expression) {
@@ -200,7 +200,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, long p1, char p2) {
         if (!expression) {
@@ -213,7 +213,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(
             boolean expression, String errorMessageTemplate, Object p1, char p2) {
@@ -227,7 +227,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, char p1, int p2) {
         if (!expression) {
@@ -240,7 +240,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, int p1, int p2) {
         if (!expression) {
@@ -253,7 +253,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, long p1, int p2) {
         if (!expression) {
@@ -266,7 +266,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(
             boolean expression, String errorMessageTemplate, Object p1, int p2) {
@@ -280,7 +280,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, char p1, long p2) {
         if (!expression) {
@@ -293,7 +293,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, int p1, long p2) {
         if (!expression) {
@@ -306,7 +306,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(boolean expression, String errorMessageTemplate, long p1, long p2) {
         if (!expression) {
@@ -319,7 +319,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(
             boolean expression, String errorMessageTemplate, Object p1, long p2) {
@@ -333,7 +333,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(
             boolean expression, String errorMessageTemplate, char p1, Object p2) {
@@ -347,7 +347,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(
             boolean expression, String errorMessageTemplate, int p1, Object p2) {
@@ -361,7 +361,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(
             boolean expression, String errorMessageTemplate, long p1, Object p2) {
@@ -375,7 +375,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(
             boolean expression,
@@ -392,7 +392,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(
             boolean expression,
@@ -410,7 +410,7 @@ public final class Verify {
      *
      * <p>See {@link #verify(boolean, String, Object...)} for details.
      *
-     * @since 23.1 (varargs overload since 17.0)
+     * 
      */
     public static void verify(
             boolean expression,

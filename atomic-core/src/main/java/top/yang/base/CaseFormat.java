@@ -160,7 +160,7 @@ public enum CaseFormat {
     /**
      * Returns a {@code Converter} that converts strings from this format to {@code targetFormat}.
      *
-     * @since 16.0
+     * 
      */
     public Converter<String, String> converterTo(CaseFormat targetFormat) {
         return new StringConverter(this, targetFormat);

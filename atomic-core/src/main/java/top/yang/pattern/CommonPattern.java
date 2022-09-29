@@ -22,7 +22,7 @@ import top.yang.base.Platform;
  * {@code Pattern} javadoc for details.
  */
 
-abstract class CommonPattern {
+public abstract class CommonPattern {
 
     public abstract CommonMatcher matcher(CharSequence t);
 

@@ -32,7 +32,7 @@ import top.yang.base.Assert;
  * href="https://github.com/google/guava/wiki/PrimitivesExplained#unsigned-support">unsigned primitive utilities</a>.
  *
  * @author Louis Wasserman
- * @since 11.0
+ * 
  */
 
 
@@ -58,7 +58,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
      *
      * <p>To represent unsigned decimal constants, consider {@link #valueOf(long)} instead.
      *
-     * @since 14.0
+     * 
      */
     public static UnsignedInteger fromIntBits(int bits) {
         return new UnsignedInteger(bits);
@@ -110,7 +110,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
     /**
      * Returns the result of adding this and {@code val}. If the result would have more than 32 bits, returns the low 32 bits of the result.
      *
-     * @since 14.0
+     * 
      */
     public UnsignedInteger plus(UnsignedInteger val) {
         return fromIntBits(this.value + Assert.notNull(val).value);
@@ -119,7 +119,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
     /**
      * Returns the result of subtracting this and {@code val}. If the result would be negative, returns the low 32 bits of the result.
      *
-     * @since 14.0
+     * 
      */
     public UnsignedInteger minus(UnsignedInteger val) {
         return fromIntBits(value - Assert.notNull(val).value);
@@ -128,7 +128,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
     /**
      * Returns the result of multiplying this and {@code val}. If the result would have more than 32 bits, returns the low 32 bits of the result.
      *
-     * @since 14.0
+     * 
      */
     // Does not truncate correctly
     public UnsignedInteger times(UnsignedInteger val) {
@@ -140,7 +140,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
      * Returns the result of dividing this by {@code val}.
      *
      * @throws ArithmeticException if {@code val} is zero
-     * @since 14.0
+     * 
      */
     public UnsignedInteger dividedBy(UnsignedInteger val) {
         return fromIntBits(UnsignedInts.divide(value, Assert.notNull(val).value));
@@ -150,7 +150,7 @@ public final class UnsignedInteger extends Number implements Comparable<Unsigned
      * Returns this mod {@code val}.
      *
      * @throws ArithmeticException if {@code val} is zero
-     * @since 14.0
+     * 
      */
     public UnsignedInteger mod(UnsignedInteger val) {
         return fromIntBits(UnsignedInts.remainder(value, Assert.notNull(val).value));

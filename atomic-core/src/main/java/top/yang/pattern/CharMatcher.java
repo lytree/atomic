@@ -23,8 +23,7 @@ import top.yang.base.Predicate;
 
 
 /**
- * Determines a true or false value for any Java {@code char} value, just as {@link Predicate} does for any {@link Object}. Also offers basic text processing methods based on this
- * function. Implementations are strongly encouraged to be side-effect-free and immutable.
+ * 确定任何Java {@code char}值的true或false值，就像{@link Predicate}对任何{@link Object}所做的一样。还提供了基于此函数的基本文本处理方法。强烈鼓励实现无副作用且不可变。
  *
  * <p>Throughout the documentation of this class, the phrase "matching character" is used to mean
  * "any {@code char} value {@code c} for which {@code this.matches(c)} returns {@code true}".
@@ -52,153 +51,68 @@ import top.yang.base.Predicate;
  * </a>.
  *
  * @author Kevin Bourrillion
- * @since 1.0
  */
 
 
-public abstract class CharMatcher implements Predicate<Character> {
+public abstract class CharMatcher {
 
     // Constant matcher factory methods
 
     /**
-     * Matches any character.
-     *
-     * @since 19.0 (since 1.0 as constant {@code ANY})
+     * 匹配任何字符。
      */
     public static CharMatcher any() {
         return Any.INSTANCE;
     }
 
     /**
-     * Matches no characters.
-     *
-     * @since 19.0 (since 1.0 as constant {@code NONE})
+     * 不匹配任何字符。
      */
     public static CharMatcher none() {
         return None.INSTANCE;
     }
 
     /**
-     * Determines whether a character is whitespace according to the latest Unicode standard, as illustrated <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5Cp%7Bwhitespace%7D">here</a>.
-     * This is not the same definition used by other Java APIs. (See a <a href="https://goo.gl/Y6SLWx">comparison of several definitions of "whitespace"</a>.)
+     * 根据最新的Unicode标准确定字符是否为空格, 如图所示 <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5Cp%7Bwhitespace%7D"></a>. 这与其他Java api使用的定义不同。
+     * <P></>(See a <a href="https://goo.gl/Y6SLWx">“空白”几种定义的比较</a>.)
      *
-     * <p>All Unicode White_Space characters are on the BMP and thus supported by this API.
+     * <p>所有的Unicode空白字符都在BMP上，因此这个API支持。
      *
-     * <p><b>Note:</b> as the Unicode definition evolves, we will modify this matcher to keep it up to
-     * date.
-     *
-     * @since 19.0 (since 1.0 as constant {@code WHITESPACE})
+     * <p><b>注意:</b>随着Unicode定义的发展，我们将修改这个匹配器，使其保持最新。
      */
     public static CharMatcher whitespace() {
         return Whitespace.INSTANCE;
     }
 
     /**
-     * Determines whether a character is a breaking whitespace (that is, a whitespace which can be interpreted as a break between words for formatting purposes). See {@link
-     * #whitespace()} for a discussion of that term.
-     *
-     * @since 19.0 (since 2.0 as constant {@code BREAKING_WHITESPACE})
+     * 确定字符是否为断续空格(也就是说，为了格式化目的，可以将空格解释为单词之间的断续符)。有关该术语的讨论，请参见{@link #whitespace()}。
      */
     public static CharMatcher breakingWhitespace() {
         return BreakingWhitespace.INSTANCE;
     }
 
     /**
-     * Determines whether a character is ASCII, meaning that its code point is less than 128.
-     *
-     * @since 19.0 (since 1.0 as constant {@code ASCII})
+     * 确定字符是否为ASCII，即其码位是否小于128。
      */
     public static CharMatcher ascii() {
         return Ascii.INSTANCE;
     }
 
-//    /**
-//     * Determines whether a character is a BMP digit according to <a href="http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5Cp%7Bdigit%7D">Unicode</a>. If you only care to
-//     * match ASCII digits, you can use {@code inRange('0', '9')}.
-//     *
-//     * @since 19.0 (since 1.0 as constant {@code DIGIT})
-//     * @deprecated Many digits are supplementary characters; see the class documentation.
-//     */
-//    @Deprecated
-//    public static CharMatcher digit() {
-//        return Digit.INSTANCE;
-//    }
-//
-//    /**
-//     * Determines whether a character is a BMP digit according to {@linkplain Character#isDigit(char) Java's definition}. If you only care to match ASCII digits, you can use {@code
-//     * inRange('0', '9')}.
-//     *
-//     * @since 19.0 (since 1.0 as constant {@code JAVA_DIGIT})
-//     * @deprecated Many digits are supplementary characters; see the class documentation.
-//     */
-//    @Deprecated
-//    public static CharMatcher javaDigit() {
-//        return JavaDigit.INSTANCE;
-//    }
-//
-//    /**
-//     * Determines whether a character is a BMP letter according to {@linkplain Character#isLetter(char) Java's definition}. If you only care to match letters of the Latin alphabet,
-//     * you can use {@code inRange('a', 'z').or(inRange('A', 'Z'))}.
-//     *
-//     * @since 19.0 (since 1.0 as constant {@code JAVA_LETTER})
-//     * @deprecated Most letters are supplementary characters; see the class documentation.
-//     */
-//    @Deprecated
-//    public static CharMatcher javaLetter() {
-//        return JavaLetter.INSTANCE;
-//    }
-//
-//    /**
-//     * Determines whether a character is a BMP letter or digit according to {@linkplain Character#isLetterOrDigit(char) Java's definition}.
-//     *
-//     * @since 19.0 (since 1.0 as constant {@code JAVA_LETTER_OR_DIGIT}).
-//     * @deprecated Most letters and digits are supplementary characters; see the class documentation.
-//     */
-//    @Deprecated
-//    public static CharMatcher javaLetterOrDigit() {
-//        return JavaLetterOrDigit.INSTANCE;
-//    }
-//
-//    /**
-//     * Determines whether a BMP character is upper case according to {@linkplain Character#isUpperCase(char) Java's definition}.
-//     *
-//     * @since 19.0 (since 1.0 as constant {@code JAVA_UPPER_CASE})
-//     * @deprecated Some uppercase characters are supplementary characters; see the class documentation.
-//     */
-//    @Deprecated
-//    public static CharMatcher javaUpperCase() {
-//        return JavaUpperCase.INSTANCE;
-//    }
-//
-//    /**
-//     * Determines whether a BMP character is lower case according to {@linkplain Character#isLowerCase(char) Java's definition}.
-//     *
-//     * @since 19.0 (since 1.0 as constant {@code JAVA_LOWER_CASE})
-//     * @deprecated Some lowercase characters are supplementary characters; see the class documentation.
-//     */
-//    @Deprecated
-//    public static CharMatcher javaLowerCase() {
-//        return JavaLowerCase.INSTANCE;
-//    }
 
     /**
-     * Determines whether a character is an ISO control character as specified by {@link Character#isISOControl(char)}.
+     * 确定字符是否是指定的ISO控制字符 {@link Character#isISOControl(char)}.
      *
-     * <p>All ISO control codes are on the BMP and thus supported by this API.
-     *
-     * @since 19.0 (since 1.0 as constant {@code JAVA_ISO_CONTROL})
+     * <p>所有ISO控制代码都在BMP上，因此该API支持。
      */
     public static CharMatcher javaIsoControl() {
         return JavaIsoControl.INSTANCE;
     }
 
     /**
-     * Determines whether a character is invisible; that is, if its Unicode category is any of SPACE_SEPARATOR, LINE_SEPARATOR, PARAGRAPH_SEPARATOR, CONTROL, FORMAT, SURROGATE, and
-     * PRIVATE_USE according to ICU4J.
+     * 确定字符是否不可见;也就是说，如果它的Unicode类别是根据ICU4J的SPACE_SEPARATOR、LINE_SEPARATOR、分段分隔符、CONTROL、FORMAT、代理和PRIVATE_USE中的任何一个。
      *
-     * <p>See also the Unicode Default_Ignorable_Code_Point property (available via ICU).
+     * <p>参见Unicode Default_Ignorable_Code_Point属性(可通过ICU获得)。
      *
-     * @since 19.0 (since 1.0 as constant {@code INVISIBLE})
      * @deprecated Most invisible characters are supplementary characters; see the class documentation.
      */
     @Deprecated
@@ -215,7 +129,6 @@ public abstract class CharMatcher implements Predicate<Character> {
      *
      * <p>See also <a href="http://www.unicode.org/reports/tr11/">UAX #11 East Asian Width</a>.
      *
-     * @since 19.0 (since 1.0 as constant {@code SINGLE_WIDTH})
      * @deprecated Many such characters are supplementary characters; see the class documentation.
      */
     @Deprecated
@@ -303,10 +216,9 @@ public abstract class CharMatcher implements Predicate<Character> {
     // Non-static factories
 
     /**
-     * Returns a matcher that matches any character not matched by this matcher.
+     * 返回一个匹配此匹配器未匹配的任何字符的匹配器。
      */
-    // @Override under Java 8 but not under Java 7
-    @Override
+    // @重写在Java 8下，但不在Java 7
     public CharMatcher negate() {
         return new Negated(this);
     }
@@ -347,7 +259,7 @@ public abstract class CharMatcher implements Predicate<Character> {
      */
 
     // SmallCharMatcher
-    CharMatcher precomputedInternal() {
+    public CharMatcher precomputedInternal() {
         final BitSet table = new BitSet();
         setBits(table);
         int totalCharacters = table.cardinality();
@@ -425,7 +337,6 @@ public abstract class CharMatcher implements Predicate<Character> {
      *
      * @param sequence the character sequence to examine, possibly empty
      * @return {@code true} if this matcher matches at least one character in the sequence
-     * @since 8.0
      */
     public boolean matchesAnyOf(CharSequence sequence) {
         return !matchesNoneOf(sequence);
@@ -815,16 +726,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     }
 
     /**
-     * @deprecated Provided only to satisfy the {@link Predicate} interface; use {@link #matches} instead.
-     */
-    @Deprecated
-    @Override
-    public boolean apply(Character character) {
-        return matches(character);
-    }
-
-    /**
-     * Returns a string representation of this {@code CharMatcher}, such as {@code CharMatcher.or(WHITESPACE, JAVA_DIGIT)}.
+     * 返回其字符串表示形式 {@code CharMatcher},比如 {@code CharMatcher.or(WHITESPACE, JAVA_DIGIT)}.
      */
     @Override
     public String toString() {
@@ -832,7 +734,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     }
 
     /**
-     * Returns the Java Unicode escape sequence for the given {@code char}, in the form "\u12AB" where "12AB" is the four hexadecimal digits representing the 16-bit code unit.
+     * 对象的Java Unicode转义序列 {@code char}, 格式为"\u12AB"，其中"12AB"是四个十六进制数字，表示16位代码单位。
      */
     private static String showCharacter(char c) {
         String hex = "0123456789ABCDEF";
@@ -847,7 +749,7 @@ public abstract class CharMatcher implements Predicate<Character> {
     // Fast matchers
 
     /**
-     * A matcher for which precomputation will not yield any significant benefit.
+     * 预计算不会产生任何显著好处的匹配器。
      */
     abstract static class FastMatcher extends CharMatcher {
 
@@ -1771,12 +1673,6 @@ public abstract class CharMatcher implements Predicate<Character> {
         @Override
         public boolean matches(char c) {
             return predicate.apply(c);
-        }
-
-        @SuppressWarnings("deprecation") // intentional; deprecation is for callers primarily
-        @Override
-        public boolean apply(Character character) {
-            return predicate.apply(Assert.notNull(character));
         }
 
         @Override

@@ -7,7 +7,7 @@ import top.yang.base.Replacer;
  * 抽象字符串替换类<br> 通过实现replace方法实现局部替换逻辑
  *
  * @author looly
- * @since 4.1.5
+ * 
  */
 public abstract class StringReplacer implements Replacer<CharSequence>, Serializable {
 

@@ -16,7 +16,7 @@ import top.yang.text.replacer.ReplacerChain;
  * </pre>
  *
  * @author looly
- * @since 5.7.2
+ * 
  */
 public class XmlEscape extends ReplacerChain {
 	private static final long serialVersionUID = 1L;

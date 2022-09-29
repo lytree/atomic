@@ -43,7 +43,7 @@ public final class LongMath {
      *
      * @throws IllegalArgumentException if {@code x <= 0}
      * @throws ArithmeticException      of the next-higher power of two is not representable as a {@code long}, i.e. when {@code x > 2^62}
-     * @since 20.0
+     * 
      */
 
     public static long ceilingPowerOfTwo(long x) {
@@ -58,7 +58,7 @@ public final class LongMath {
      * Returns the largest power of two less than or equal to {@code x}. This is equivalent to {@code checkedPow(2, log2(x, FLOOR))}.
      *
      * @throws IllegalArgumentException if {@code x <= 0}
-     * @since 20.0
+     * 
      */
 
     public static long floorPowerOfTwo(long x) {
@@ -546,7 +546,7 @@ public final class LongMath {
     /**
      * 返回{@code a}和{@code b}的和，除非它会溢出或下溢，在这种情况下{@code Long.MAX_VALUE()}或{@code Long.MIN_VALUE}。
      *
-     * @since 20.0
+     * 
      */
 
     public static long saturatedAdd(long a, long b) {
@@ -564,7 +564,7 @@ public final class LongMath {
      * Returns the difference of {@code a} and {@code b} unless it would overflow or underflow in which case {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is returned,
      * respectively.
      *
-     * @since 20.0
+     * 
      */
 
     public static long saturatedSubtract(long a, long b) {
@@ -582,7 +582,7 @@ public final class LongMath {
      * Returns the product of {@code a} and {@code b} unless it would overflow or underflow in which case {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is returned,
      * respectively.
      *
-     * @since 20.0
+     * 
      */
 
     public static long saturatedMultiply(long a, long b) {
@@ -612,7 +612,7 @@ public final class LongMath {
      * Returns the {@code b} to the {@code k}th power, unless it would overflow or underflow in which case {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is returned,
      * respectively.
      *
-     * @since 20.0
+     * 
      */
 
     public static long saturatedPow(long b, int k) {
@@ -871,7 +871,7 @@ public final class LongMath {
     /**
      * Returns the arithmetic mean of {@code x} and {@code y}, rounded toward negative infinity. This method is resilient to overflow.
      *
-     * @since 14.0
+     * 
      */
     public static long mean(long x, long y) {
         // Efficient method for computing the arithmetic mean.
@@ -897,7 +897,7 @@ public final class LongMath {
      * <p>To test larger numbers, use {@link BigInteger#isProbablePrime}.
      *
      * @throws IllegalArgumentException if {@code n} is negative
-     * @since 20.0
+     * 
      */
     // TODO
     public static boolean isPrime(long n) {
@@ -1146,7 +1146,7 @@ public final class LongMath {
      * representable values are even integers; this method returns the one that is a multiple of a greater power of two.)
      *
      * @throws ArithmeticException if {@code mode} is {@link RoundingMode#UNNECESSARY} and {@code x} is not precisely representable as a {@code double}
-     * @since 30.0
+     * 
      */
     @SuppressWarnings("deprecation")
 

@@ -10,7 +10,7 @@ import top.yang.base.Chain;
  * 字符串替换链，用于组合多个字符串替换逻辑
  *
  * @author looly
- * @since 4.1.5
+ * 
  */
 public class ReplacerChain extends StringReplacer implements Chain<StringReplacer, ReplacerChain> {
 

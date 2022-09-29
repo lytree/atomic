@@ -34,7 +34,7 @@ import top.yang.base.Assert;
  * @author Kevin Bourrillion
  * @author Jared Levy
  * @author Chris Povirk
- * @since 2.0
+ * 
  */
 
 public final class Sets {

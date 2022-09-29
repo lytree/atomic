@@ -18,7 +18,7 @@ package top.yang.base;
  * Exception thrown upon the failure of a <a href="https://github.com/google/guava/wiki/ConditionalFailuresExplained">verification check</a>, including those performed by the
  * convenience methods of the {@link Verify} class.
  *
- * @since 17.0
+ * 
  */
 
 
@@ -40,7 +40,7 @@ public class VerifyException extends RuntimeException {
     /**
      * Constructs a {@code VerifyException} with the cause {@code cause} and a message that is {@code null} if {@code cause} is null, and {@code cause.toString()} otherwise.
      *
-     * @since 19.0
+     * 
      */
     public VerifyException(Throwable cause) {
         super(cause);
@@ -49,7 +49,7 @@ public class VerifyException extends RuntimeException {
     /**
      * Constructs a {@code VerifyException} with the message {@code message} and the cause {@code cause}.
      *
-     * @since 19.0
+     * 
      */
     public VerifyException(String message, Throwable cause) {
         super(message, cause);

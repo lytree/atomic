@@ -96,7 +96,7 @@ public class MethodUtils extends org.apache.commons.lang3.reflect.MethodUtils {
      * @throws NoSuchMethodException     如果没有这样的通达方法
      * @throws InvocationTargetException 包装由调用的方法引发的异常
      * @throws IllegalAccessException    如果请求的方法不能通过反射访问
-     * @since 3.5
+     * 
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName,
             Object[] args, Class<?>[] parameterTypes)
@@ -163,7 +163,7 @@ public class MethodUtils extends org.apache.commons.lang3.reflect.MethodUtils {
      * @param args                 传递给varags方法的参数数组
      * @param methodParameterTypes 方法参数类型声明的数组
      * @return 传递给方法的可变参数数组
-     * @since 3.5
+     * 
      */
     static Object[] getVarArgs(final Object[] args, final Class<?>[] methodParameterTypes) {
         if (args.length == methodParameterTypes.length && (args[args.length - 1] == null ||

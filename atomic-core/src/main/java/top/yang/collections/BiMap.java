@@ -27,7 +27,7 @@ import java.util.Set;
  * "https://github.com/google/guava/wiki/NewCollectionTypesExplained#bimap">{@code BiMap}</a>.
  *
  * @author Kevin Bourrillion
- * @since 2.0
+ * 
  */
 
 public interface BiMap<K extends Object, V extends Object> extends Map<K, V> {

@@ -168,7 +168,7 @@ public class CharUtils extends org.apache.commons.lang3.CharUtils {
      *
      * @param c 字符
      * @return 是否为16进制规范的字符
-     * @since 4.1.5
+     * 
      */
     public static boolean isHexChar(char c) {
         return isNumber(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');

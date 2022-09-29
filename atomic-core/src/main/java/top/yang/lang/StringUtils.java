@@ -408,7 +408,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param str 被检查的字符串
      * @return 原字符串或者空串
      * @see #defaultIfNull(CharSequence)
-     * @since 4.6.3
+     * 
      */
     public static String emptyIfNull(CharSequence str) {
         return defaultIfNull(str);
@@ -455,7 +455,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param str        要转换的字符串
      * @param defaultStr 默认字符串
      * @return 字符串本身或指定的默认字符串
-     * @since 4.1.0
+     * 
      */
     public static String defaultIfEmpty(CharSequence str, String defaultStr) {
         return isEmpty(str) ? defaultStr : str.toString();
@@ -474,7 +474,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param str        要转换的字符串
      * @param defaultStr 默认字符串
      * @return 字符串本身或指定的默认字符串
-     * @since 4.1.0
+     * 
      */
     public static String defaultIfBlank(CharSequence str, String defaultStr) {
         return isBlank(str) ? defaultStr : str.toString();
@@ -584,7 +584,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param args 字符串数组
      * @return 所有字符串是否都不为为空白
-     * @since 5.3.6
+     * 
      */
     public static boolean isAllNotEmpty(CharSequence... args) {
         return false == hasEmpty(args);
@@ -595,7 +595,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param args 被检查的对象,一个或者多个
      * @return 是否都不为空
-     * @since 5.3.6
+     * 
      */
     public static boolean isAllNotBlank(CharSequence... args) {
         return false == hasBlank(args);
@@ -606,7 +606,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str 被检查的字符串
      * @return 是否为null、“null”、“undefined”
-     * @since 4.0.10
+     * 
      */
     public static boolean isNullOrUndefined(CharSequence str) {
         if (null == str) {
@@ -620,7 +620,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str 被检查的字符串
      * @return 是否为null、“”、“null”、“undefined”
-     * @since 4.0.10
+     * 
      */
     public static boolean isEmptyOrUndefined(CharSequence str) {
         if (isEmpty(str)) {
@@ -634,7 +634,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str 被检查的字符串
      * @return 是否为null、空白串、“null”、“undefined”
-     * @since 4.0.10
+     * 
      */
     public static boolean isBlankOrUndefined(CharSequence str) {
         if (isBlank(str)) {

@@ -1020,7 +1020,7 @@ public class Assert {
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
      *
-     * @since 20.0 (varargs overload since 2.0)
+     * 
      */
     public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, Object... errorMessageArgs) {
         if (!b.get()) {
@@ -1033,7 +1033,7 @@ public class Assert {
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
      *
-     * @since 20.0 (varargs overload since 2.0)
+     * 
      */
     public static void checkArgument(
             Supplier<Boolean> b, String errorMessageTemplate, Object p1) {
@@ -1048,7 +1048,7 @@ public class Assert {
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
      *
-     * @since 20.0 (varargs overload since 2.0)
+     * 
      */
     public static void checkArgument(
             Supplier<Boolean> b, String errorMessageTemplate, Object p1, Object p2) {
@@ -1062,7 +1062,7 @@ public class Assert {
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
      *
-     * @since 20.0 (varargs overload since 2.0)
+     * 
      */
     public static void checkArgument(
             Supplier<Boolean> b,
@@ -1080,7 +1080,7 @@ public class Assert {
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
      *
-     * @since 20.0 (varargs overload since 2.0)
+     * 
      */
     public static void checkArgument(
             Supplier<Boolean> b,

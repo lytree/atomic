@@ -29,7 +29,7 @@ public class AnnotationUtils extends org.apache.commons.lang3.AnnotationUtils {
      * @param annotationEle  {@link AnnotatedElement}，可以是Class、Method、Field、Constructor、ReflectPermission
      * @param annotationType 限定的
      * @return 注解对象数组
-     * @since 5.8.0
+     * 
      */
     public static <T> T[] getAnnotations(AnnotatedElement annotationEle, Class<T> annotationType) {
         final Annotation[] annotations = getAnnotations(annotationEle,
@@ -49,7 +49,7 @@ public class AnnotationUtils extends org.apache.commons.lang3.AnnotationUtils {
      * @param annotationEle {@link AnnotatedElement}，可以是Class、Method、Field、Constructor、ReflectPermission
      * @param predicate     过滤器，{@link Predicate#test(Object)}返回{@code true}保留，否则不保留
      * @return 注解对象
-     * @since 5.8.0
+     * 
      */
     public static Annotation[] getAnnotations(AnnotatedElement annotationEle, Predicate<Annotation> predicate) {
         if (null == annotationEle) {
@@ -81,7 +81,7 @@ public class AnnotationUtils extends org.apache.commons.lang3.AnnotationUtils {
      * @param annotationEle  {@link AnnotatedElement}，可以是Class、Method、Field、Constructor、ReflectPermission
      * @param annotationType 注解类型
      * @return 是否包含指定注解
-     * @since 5.4.2
+     * 
      */
     public static boolean hasAnnotation(AnnotatedElement annotationEle, Class<? extends Annotation> annotationType) {
         return null != getAnnotation(annotationEle, annotationType);

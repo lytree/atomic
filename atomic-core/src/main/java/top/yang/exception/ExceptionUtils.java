@@ -29,7 +29,7 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
      *
      * @param th the throwable to get a message for, null returns empty string
      * @return the message, non-null
-     * @since 2.2
+     * 
      */
     public static String getMessage(final Throwable th) {
         if (th == null) {
@@ -67,7 +67,7 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
      *
      * @param th the throwable to get a message for, null returns empty string
      * @return the message, non-null
-     * @since 2.2
+     * 
      */
     public static String getRootCauseMessage(final Throwable th) {
         Throwable root = getRootCause(th);
@@ -86,7 +86,7 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
      *
      * @param throwable the throwable to examine, may be null
      * @return an array of stack trace frames, never null
-     * @since 2.0
+     * 
      */
     public static String[] getRootCauseStackTrace(final Throwable throwable) {
         if (throwable == null) {
@@ -206,7 +206,7 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
      * @param type  The exception type to test.
      * @return true, if chain is an instance of type or is an UndeclaredThrowableException wrapping a cause.
      * @see #wrapAndThrow(Throwable)
-     * @since 3.5
+     * 
      */
     public static boolean hasCause(Throwable chain,
             final Class<? extends Throwable> type) {
@@ -229,7 +229,7 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
      * requirement that all code paths return a value.
      * @see #rethrow(Throwable)
      * @see #hasCause(Throwable, Class)
-     * @since 3.5
+     * 
      */
     public static <R> R wrapAndThrow(final Throwable throwable) {
         if (throwable instanceof RuntimeException) {

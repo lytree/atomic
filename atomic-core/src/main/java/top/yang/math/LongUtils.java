@@ -36,7 +36,7 @@ import top.yang.base.Assert;
  * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
  *
  * @author Kevin Bourrillion
- * @since 1.0
+ * 
  */
 
 public final class LongUtils {
@@ -54,7 +54,7 @@ public final class LongUtils {
     /**
      * The largest power of two that can be represented as a {@code long}.
      *
-     * @since 10.0
+     * 
      */
     public static final long MAX_POWER_OF_TWO = 1L << (Long.SIZE - 2);
 
@@ -220,7 +220,7 @@ public final class LongUtils {
      * @param min   the lower bound (inclusive) of the range to constrain {@code value} to
      * @param max   the upper bound (inclusive) of the range to constrain {@code value} to
      * @throws IllegalArgumentException if {@code min > max}
-     * @since 21.0
+     * 
      */
 
     public static long constrainToRange(long value, long min, long max) {
@@ -278,7 +278,7 @@ public final class LongUtils {
      * Returns the {@code long} value whose byte representation is the given 8 bytes, in big-endian order; equivalent to {@code LongUtils.fromByteArray(new byte[] {b1, b2, b3, b4,
      * b5, b6, b7, b8})}.
      *
-     * @since 7.0
+     * 
      */
     public static long fromBytes(
             byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
@@ -334,7 +334,7 @@ public final class LongUtils {
      * @param string the string representation of a long value
      * @return the long value represented by {@code string}, or {@code null} if {@code string} has a length of zero or cannot be parsed as a long value
      * @throws NullPointerException if {@code string} is {@code null}
-     * @since 14.0
+     * 
      */
 
 
@@ -356,7 +356,7 @@ public final class LongUtils {
      * @return the long value represented by {@code string} using {@code radix}, or {@code null} if {@code string} has a length of zero or cannot be parsed as a long value
      * @throws IllegalArgumentException if {@code radix < Character.MIN_RADIX} or {@code radix > Character.MAX_RADIX}
      * @throws NullPointerException     if {@code string} is {@code null}
-     * @since 19.0
+     * 
      */
 
 
@@ -435,7 +435,7 @@ public final class LongUtils {
      * <p><b>Warning:</b> please see {@link Long#decode} to understand exactly how strings are parsed.
      * For example, the string {@code "0123"} is treated as <i>octal</i> and converted to the value {@code 83L}.
      *
-     * @since 16.0
+     * 
      */
 
     public static Converter<String, Long> stringConverter() {
@@ -488,7 +488,7 @@ public final class LongUtils {
      * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
      * support only identity equality), but it is consistent with {@link Arrays#equals(long[], long[])}.
      *
-     * @since 2.0
+     * 
      */
     public static Comparator<long[]> lexicographicalComparator() {
         return LexicographicalComparator.INSTANCE;
@@ -518,7 +518,7 @@ public final class LongUtils {
     /**
      * Sorts the elements of {@code array} in descending order.
      *
-     * @since 23.1
+     * 
      */
     public static void sortDescending(long[] array) {
         Assert.notNull(array);
@@ -528,7 +528,7 @@ public final class LongUtils {
     /**
      * Sorts the elements of {@code array} between {@code fromIndex} inclusive and {@code toIndex} exclusive in descending order.
      *
-     * @since 23.1
+     * 
      */
     public static void sortDescending(long[] array, int fromIndex, int toIndex) {
         Assert.notNull(array);
@@ -541,7 +541,7 @@ public final class LongUtils {
     /**
      * Reverses the elements of {@code array}. This is equivalent to {@code Collections.reverse(LongUtils.asList(array))}, but is likely to be more efficient.
      *
-     * @since 23.1
+     * 
      */
     public static void reverse(long[] array) {
         Assert.notNull(array);
@@ -553,7 +553,7 @@ public final class LongUtils {
      * Collections.reverse(LongUtils.asList(array).subList(fromIndex, toIndex))}, but is likely to be more efficient.
      *
      * @throws IndexOutOfBoundsException if {@code fromIndex < 0}, {@code toIndex > array.length}, or {@code toIndex > fromIndex}
-     * @since 23.1
+     * 
      */
     public static void reverse(long[] array, int fromIndex, int toIndex) {
         Assert.notNull(array);
@@ -573,7 +573,7 @@ public final class LongUtils {
      *
      * <p>The provided "distance" may be negative, which will rotate left.
      *
-     * @since NEXT
+     * 
      */
     public static void rotate(long[] array, int distance) {
         rotate(array, distance, 0, array.length);
@@ -585,7 +585,7 @@ public final class LongUtils {
      * <p>The provided "distance" may be negative, which will rotate left.
      *
      * @throws IndexOutOfBoundsException if {@code fromIndex < 0}, {@code toIndex > array.length}, or {@code toIndex > fromIndex}
-     * @since NEXT
+     * 
      */
     public static void rotate(long[] array, int distance, int fromIndex, int toIndex) {
         // See Ints.rotate for more details about possible algorithms here.
@@ -621,7 +621,7 @@ public final class LongUtils {
      * @param collection a collection of {@code Number} instances
      * @return an array containing the same values as {@code collection}, in the same order, converted to primitives
      * @throws NullPointerException if {@code collection} or any of its elements is null
-     * @since 1.0 (parameter was {@code Collection<Long>} before 12.0)
+     * 
      */
     public static long[] toArray(Collection<? extends Number> collection) {
         if (collection instanceof LongArrayAsList) {

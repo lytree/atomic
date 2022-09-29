@@ -32,7 +32,7 @@ import top.yang.base.Platform;
  * 用于使用{@link Enum}实例的实用程序方法。
  *
  * @author Steve McKay
- * @since 9.0
+ * 
  */
 
 
@@ -45,7 +45,7 @@ public final class Enums {
      * Returns the {@link Field} in which {@code enumValue} is defined. For example, to get the {@code Description} annotation on the {@code GOLF} constant of enum {@code Sport},
      * use {@code Enums.getField(Sport.GOLF).getAnnotation(Description.class)}.
      *
-     * @since 12.0
+     * 
      */
 
     public static Field getField(Enum<?> enumValue) {
@@ -61,7 +61,7 @@ public final class Enums {
      * Returns an optional enum constant for the given type, using {@link Enum#valueOf}. If the constant does not exist,  is returned. A common use case is for parsing user input
      * or falling back to a default enum constant. For example, {@code Enums.getIfPresent(Country.class, countryInput).or(Country.DEFAULT);}
      *
-     * @since 12.0
+     * 
      */
     public static <T extends Enum<T>> Optional<T> getIfPresent(Class<T> enumClass, String value) {
         Assert.notNull(enumClass);
@@ -100,7 +100,7 @@ public final class Enums {
      * Returns a converter that converts between strings and {@code enum} values of type {@code enumClass} using {@link Enum#valueOf(Class, String)} and {@link Enum#name()}. The
      * converter will throw an {@code IllegalArgumentException} if the argument is not the name of any enum constant in the specified enum.
      *
-     * @since 16.0
+     * 
      */
     public static <T extends Enum<T>> Converter<String, T> stringConverter(Class<T> enumClass) {
         return new StringConverter<>(enumClass);
