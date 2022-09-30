@@ -1,51 +1,32 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package top.yang.io;
+package top.yang.exception;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import top.yang.lang.StringUtils;
 
 /**
- * An IOException based on a list of Throwable causes.
+ * 基于可抛出原因的List IOException。
  * <p>
  * The first exception in the list is used as this exception's cause and is accessible with the usual {@link #getCause()} while the complete list is accessible with {@link
  * #getCauseList()}.
  * </p>
- *
- *
  */
-public class IOExceptionList extends IOException {
+public class IOListException extends IOException {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * Throws this exception if the list is not null or empty.
+     * 如果列表不为空或空，则抛出此异常。
      *
      * @param causeList The list to test.
      * @param message   The detail message, see {@link #getMessage()}.
-     * @throws IOExceptionList if the list is not null or empty.
-     *
+     * @throws IOListException if the list is not null or empty.
      */
-    public static void checkEmpty(final List<? extends Throwable> causeList, final Object message) throws IOExceptionList {
+    public static void checkEmpty(final List<? extends Throwable> causeList, final Object message) throws IOListException {
         if (!isEmpty(causeList)) {
-            throw new IOExceptionList(Objects.toString(message, null), causeList);
+            throw new IOListException(Objects.toString(message, null), causeList);
         }
     }
 
@@ -54,17 +35,17 @@ public class IOExceptionList extends IOException {
     }
 
     private static String toMessage(final List<? extends Throwable> causeList) {
-        return String.format("%,d exception(s): %s", causeList == null ? 0 : causeList.size(), causeList);
+        return StringUtils.format("{} exception(s): {}", causeList == null ? 0 : causeList.size(), causeList);
     }
 
     private final List<? extends Throwable> causeList;
 
     /**
-     * Creates a new exception caused by a list of exceptions.
+     * 创建由异常列表引起的新异常。
      *
      * @param causeList a list of cause exceptions.
      */
-    public IOExceptionList(final List<? extends Throwable> causeList) {
+    public IOListException(final List<? extends Throwable> causeList) {
         this(toMessage(causeList), causeList);
     }
 
@@ -73,9 +54,8 @@ public class IOExceptionList extends IOException {
      *
      * @param message   The detail message, see {@link #getMessage()}.
      * @param causeList a list of cause exceptions.
-     *
      */
-    public IOExceptionList(final String message, final List<? extends Throwable> causeList) {
+    public IOListException(final String message, final List<? extends Throwable> causeList) {
         super(message != null ? message : toMessage(causeList), isEmpty(causeList) ? null : causeList.get(0));
         this.causeList = causeList == null ? Collections.emptyList() : causeList;
     }

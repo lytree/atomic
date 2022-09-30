@@ -49,6 +49,7 @@ import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
 import java.util.zip.Checksum;
 import top.yang.codec.Charsets;
+import top.yang.exception.FileExistsException;
 import top.yang.io.file.AccumulatorPathVisitor;
 import top.yang.io.file.Counters;
 import top.yang.io.file.PathFilter;

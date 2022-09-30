@@ -86,8 +86,6 @@ import java.util.regex.Pattern;
  * <p>
  * Origin of code: Excalibur, Alexandria, Tomcat, Commons-Utils.
  * </p>
- *
- *
  */
 public class FilenameUtils {
 
@@ -99,15 +97,11 @@ public class FilenameUtils {
 
     /**
      * The extension separator character.
-     *
-     *
      */
     public static final char EXTENSION_SEPARATOR = '.';
 
     /**
      * The extension separator String.
-     *
-     *
      */
     public static final String EXTENSION_SEPARATOR_STR = Character.toString(EXTENSION_SEPARATOR);
 
@@ -146,7 +140,7 @@ public class FilenameUtils {
     private static final Pattern REG_NAME_PART_PATTERN = Pattern.compile("^[a-zA-Z0-9][a-zA-Z0-9-]*$");
 
     /**
-     * Concatenates a fileName to a base path using normal command line style rules.
+     * 使用普通的命令行样式规则将fileName连接到基路径。
      * <p>
      * The effect is equivalent to resultant directory after changing directory to the first argument, followed by changing directory to the second argument.
      * </p>
@@ -209,9 +203,9 @@ public class FilenameUtils {
     }
 
     /**
-     * Determines whether the {@code parent} directory contains the {@code child} element (a file or directory).
+     * 确定{@code 父目录}是否包含{@code 子目录}元素(文件或目录)。
      * <p>
-     * The files names are expected to be normalized.
+     * 文件名应该是规范化的。
      * </p>
      * <p>
      * Edge cases:
@@ -225,7 +219,6 @@ public class FilenameUtils {
      * @param canonicalChild  the file to consider as the child.
      * @return true is the candidate leaf is under by the specified composite. False otherwise.
      * @see FileUtils#directoryContains(File, File)
-     *
      */
     public static boolean directoryContains(final String canonicalParent, final String canonicalChild) {
         if (isEmpty(canonicalParent) || isEmpty(canonicalChild)) {
@@ -243,10 +236,10 @@ public class FilenameUtils {
     }
 
     /**
-     * Does the work of getting the path.
+     * 获取
      *
      * @param fileName         the fileName
-     * @param includeSeparator true to include the end separator
+     * @param includeSeparator 是否包含结束分隔符
      * @return the path
      * @throws IllegalArgumentException if the result path contains the null character ({@code U+0000})
      */
@@ -279,7 +272,7 @@ public class FilenameUtils {
      * Does the work of getting the path.
      *
      * @param fileName     the fileName
-     * @param separatorAdd 0 to omit the end separator, 1 to return it
+     * @param separatorAdd 0表示省略结束分隔符，1表示返回它
      * @return the path
      * @throws IllegalArgumentException if the result path contains the null character ({@code U+0000})
      */
@@ -300,7 +293,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Internal method to perform the normalization.
+     * I内部方法来执行规范化。
      *
      * @param fileName      the fileName
      * @param separator     The separator character to use
@@ -429,7 +422,6 @@ public class FilenameUtils {
      * @param normalized whether to normalize the fileNames
      * @param ioCase     what case sensitivity rule to use, null means case-sensitive
      * @return true if the fileNames are equal, null equals null
-     *
      */
     public static boolean equals(String fileName1, String fileName2, final boolean normalized, final IOCase ioCase) {
 
@@ -603,7 +595,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Gets the full path from a full fileName, which is the prefix + path.
+     * 从完整文件名获取完整路径，该文件名是前缀+路径。
      * <p>
      * This method will handle a file in either Unix or Windows format. The method is entirely text based, and returns the text before and including the last forward or backslash.
      * </p>
@@ -624,7 +616,7 @@ public class FilenameUtils {
      * The output will be the same irrespective of the machine that the code is running on.
      * </p>
      *
-     * @param fileName the fileName to query, null returns null
+     * @param fileName 要查询的文件名，null返回null
      * @return the path of the file, an empty string if none exists, null if invalid
      * @throws IllegalArgumentException if the result path contains the null character ({@code U+0000})
      */
@@ -633,7 +625,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Gets the full path from a full fileName, which is the prefix + path, and also excluding the final directory separator.
+     * 从完整的fileName获取完整路径，它是前缀+路径，也不包括最后的目录分隔符。
      * <p>
      * This method will handle a file in either Unix or Windows format. The method is entirely text based, and returns the text before the last forward or backslash.
      * </p>
@@ -689,7 +681,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Gets the path from a full fileName, which excludes the prefix.
+     * 从完整的fileName获取路径，其中不包含前缀。
      * <p>
      * This method will handle a file in either Unix or Windows format. The method is entirely text based, and returns the text before and including the last forward or backslash.
      * </p>
@@ -716,7 +708,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Gets the path from a full fileName, which excludes the prefix, and also excluding the final directory separator.
+     * 从完整的fileName获取路径，其中不包括前缀，也不包括最后的目录分隔符。
      * <p>
      * This method will handle a file in either Unix or Windows format. The method is entirely text based, and returns the text before the last forward or backslash.
      * </p>
@@ -728,10 +720,10 @@ public class FilenameUtils {
      * a/b/c/       --&gt; a/b/c
      * </pre>
      * <p>
-     * The output will be the same irrespective of the machine that the code is running on.
+     * 不管代码运行在什么机器上，输出都是相同的。
      * </p>
      * <p>
-     * This method drops the prefix from the result. See {@link #getFullPathNoEndSeparator(String)} for the method that retains the prefix.
+     * 此方法从结果中删除前缀. See {@link #getFullPathNoEndSeparator(String)} for the method that retains the prefix.
      * </p>
      *
      * @param fileName the fileName to query, null returns null
@@ -743,7 +735,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Gets the prefix from a full fileName, such as {@code C:/} or {@code ~/}.
+     * 从完整的文件名获取前缀， 例如 {@code C:/} or {@code ~/}.
      * <p>
      * This method will handle a file in either Unix or Windows format. The prefix includes the first slash in the full fileName where applicable.
      * </p>
@@ -764,7 +756,7 @@ public class FilenameUtils {
      * ~user               --&gt; "~user/"    --&gt; named user (slash added)
      * </pre>
      * <p>
-     * The output will be the same irrespective of the machine that the code is running on. ie. both Unix and Windows prefixes are matched regardless.
+     * 不管代码运行在什么机器上，输出都是相同的。ie。Unix和Windows前缀都是匹配的。
      * </p>
      *
      * @param fileName the fileName to query, null returns null
@@ -787,7 +779,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Returns the length of the fileName prefix, such as {@code C:/} or {@code ~/}.
+     * 返回fileName前缀的长度, such as {@code C:/} or {@code ~/}.
      * <p>
      * This method will handle a file in either Unix or Windows format.
      * </p>
@@ -887,7 +879,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Returns the index of the last extension separator character, which is a dot.
+     * 返回最后一个扩展分隔符字符的索引，该字符是一个点。
      * <p>
      * This method also checks that there is no directory separator after the last dot. To do this it uses {@link #indexOfLastSeparator(String)} which will handle a file in either
      * Unix or Windows format.
@@ -922,7 +914,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Returns the index of the last directory separator character.
+     * 返回最后一个目录分隔符字符的索引。
      * <p>
      * This method will handle a file in either Unix or Windows format. The position of the last forward or backslash is returned.
      * <p>
@@ -945,7 +937,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Checks whether the extension of the fileName is one of those specified.
+     * 检查fileName的扩展名是否为指定的扩展名之一。
      * <p>
      * This method obtains the extension as the textual part of the fileName after the last dot. There must be no directory separator after the dot. The extension check is
      * case-sensitive on all platforms.
@@ -974,7 +966,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Checks whether the extension of the fileName is that specified.
+     * 检查fileName的扩展名是否为指定的扩展名。
      * <p>
      * This method obtains the extension as the textual part of the fileName after the last dot. There must be no directory separator after the dot. The extension check is
      * case-sensitive on all platforms.
@@ -997,7 +989,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Checks whether the extension of the fileName is one of those specified.
+     * 检查fileName的扩展名是否为指定的扩展名之一。
      * <p>
      * This method obtains the extension as the textual part of the fileName after the last dot. There must be no directory separator after the dot. The extension check is
      * case-sensitive on all platforms.
@@ -1026,7 +1018,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Checks whether a given string represents a valid IPv4 address.
+     * 检查给定的字符串是否代表有效的IPv4地址。
      *
      * @param name the name to validate
      * @return true if the given name is a valid IPv4 address
@@ -1055,10 +1047,9 @@ public class FilenameUtils {
         return true;
     }
 
-    // copied from org.apache.commons.validator.routines.InetAddressValidator#isValidInet6Address
 
     /**
-     * Checks whether a given string represents a valid IPv6 address.
+     * 检查给定的字符串是否代表有效的IPv6地址。
      *
      * @param inet6Address the name to validate
      * @return true if the given name is a valid IPv6 address
@@ -1124,7 +1115,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Checks whether a given string is a valid host name according to RFC 3986 - not accepting IP addresses.
+     * 根据RFC 3986检查给定字符串是否为有效的主机名——不接受IP地址。
      *
      * @param name the hostname to validate
      * @return true if the given name is a valid host name
@@ -1145,7 +1136,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Checks if the character is a separator.
+     * 检查字符是否为分隔符。
      *
      * @param ch the character to check
      * @return true if it is a separator character
@@ -1155,7 +1146,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Determines if Windows file system is in use.
+     * 确定是否正在使用Windows文件系统。
      *
      * @return true if the system is Windows
      */
@@ -1164,7 +1155,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Checks whether a given string is a valid host name according to RFC 3986.
+     * 根据RFC 3986检查给定字符串是否是有效的主机名。
      *
      * <p>Accepted are IP addresses (v4 and v6) as well as what the
      * RFC calls a "reg-name". Percent encoded names don't seem to be valid names in UNC paths.</p>
@@ -1178,10 +1169,9 @@ public class FilenameUtils {
     }
 
     /**
-     * Normalizes a path, removing double and single dot path steps.
+     * 规范化路径，删除双点和单点路径步骤。
      * <p>
-     * This method normalizes a path to a standard format. The input may contain separators in either Unix or Windows format. The output will contain separators in the format of
-     * the system.
+     * 此方法将路径规范化为标准格式。输入可以包含Unix或Windows格式的分隔符。输出将包含系统格式的分隔符。
      * <p>
      * A trailing slash will be retained. A double slash will be merged to a single slash (but UNC names are handled). A single dot path segment will be removed. A double dot will
      * cause that path segment and the one before to be removed. If the double dot has no parent path segment to work with, {@code null} is returned.
@@ -1217,7 +1207,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Normalizes a path, removing double and single dot path steps.
+     * 规范化路径，删除双点和单点路径步骤。
      * <p>
      * This method normalizes a path to a standard format. The input may contain separators in either Unix or Windows format. The output will contain separators in the format
      * specified.
@@ -1251,14 +1241,13 @@ public class FilenameUtils {
      * @param unixSeparator {@code true} if a unix separator should be used or {@code false} if a windows separator should be used.
      * @return the normalized fileName, or null if invalid
      * @throws IllegalArgumentException if the fileName contains the null character ({@code U+0000})
-     *
      */
     public static String normalize(final String fileName, final boolean unixSeparator) {
         return doNormalize(fileName, toSeparator(unixSeparator), true);
     }
 
     /**
-     * Normalizes a path, removing double and single dot path steps, and removing any final directory separator.
+     * 规范化路径，删除双点和单点路径步骤，并删除任何最终目录分隔符。
      * <p>
      * This method normalizes a path to a standard format. The input may contain separators in either Unix or Windows format. The output will contain separators in the format of
      * the system.
@@ -1297,7 +1286,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Normalizes a path, removing double and single dot path steps, and removing any final directory separator.
+     * 规范化路径，删除双点和单点路径步骤，并删除任何最终目录分隔符。
      * <p>
      * This method normalizes a path to a standard format. The input may contain separators in either Unix or Windows format. The output will contain separators in the format
      * specified.
@@ -1330,14 +1319,13 @@ public class FilenameUtils {
      * @param unixSeparator {@code true} if a unix separator should be used or {@code false} if a windows separator should be used.
      * @return the normalized fileName, or null if invalid
      * @throws IllegalArgumentException if the fileName contains the null character ({@code U+0000})
-     *
      */
     public static String normalizeNoEndSeparator(final String fileName, final boolean unixSeparator) {
         return doNormalize(fileName, toSeparator(unixSeparator), false);
     }
 
     /**
-     * Removes the extension from a fileName.
+     * 从fileName中删除扩展名。
      * <p>
      * This method returns the textual part of the fileName before the last dot. There must be no directory separator after the dot.
      * <pre>
@@ -1367,7 +1355,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Checks the input for null characters ({@code U+0000}), a sign of unsanitized data being passed to to file level functions.
+     * 检查输入是否为空字符 ({@code U+0000}), a sign of unsanitized data being passed to to file level functions.
      * <p>
      * This may be used for poison byte attacks.
      *
@@ -1384,7 +1372,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Converts all separators to the system separator.
+     * 将所有分隔符转换为系统分隔符。
      *
      * @param path the path to be changed, null ignored.
      * @return the updated path.
@@ -1394,7 +1382,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Converts all separators to the Unix separator of forward slash.
+     * 将所有分隔符转换为正斜杠的Unix分隔符。
      *
      * @param path the path to be changed, null ignored.
      * @return the new path.
@@ -1404,7 +1392,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Converts all separators to the Windows separator of backslash.
+     * 将所有分隔符转换为反斜杠的Windows分隔符。
      *
      * @param path the path to be changed, null ignored.
      * @return the updated path.
@@ -1414,7 +1402,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Splits a string into a number of tokens. The text is split by '?' and '*'. Where multiple '*' occur consecutively they are collapsed into a single '*'.
+     * 将字符串拆分为许多标记. 文本被'?'和'*'。当多个'*'连续出现时，它们被分解为一个'*'。
      *
      * @param text the text to split
      * @return the array of tokens, never null
@@ -1455,7 +1443,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Returns '/' if given true, '\\' otherwise.
+     * 如果给定true则返回'/'，否则返回'\\'。
      *
      * @param unixSeparator which separator to return.
      * @return '/' if given true, '\\' otherwise.
@@ -1465,10 +1453,7 @@ public class FilenameUtils {
     }
 
     /**
-     * Checks a fileName to see if it matches the specified wildcard matcher, always testing case-sensitive.
-     * <p>
-     * The wildcard matcher uses the characters '?' and '*' to represent a single or multiple (zero or more) wildcard characters. This is the same as often found on DOS/Unix
-     * command lines. The check is case-sensitive always.
+     * 检查fileName，看它是否匹配指定的通配符匹配器，始终测试区分大小写。< p > 通配符匹配器使用字符的'?'和'*'表示一个或多个(零个或多个)通配符。这与DOSUnix命令行中经常发现的情况相同。Unix总是区分大小写的。
      * <pre>
      * wildcardMatch("c.txt", "*.txt")      --&gt; true
      * wildcardMatch("c.txt", "*.jpg")      --&gt; false
@@ -1488,16 +1473,14 @@ public class FilenameUtils {
     }
 
     /**
-     * Checks a fileName to see if it matches the specified wildcard matcher allowing control over case-sensitivity.
+     * 检查文件名，看它是否与允许对大小写进行控制的指定通配符匹配器相匹配。
      * <p>
-     * The wildcard matcher uses the characters '?' and '*' to represent a single or multiple (zero or more) wildcard characters. N.B. the sequence "*?" does not work properly at
-     * present in match strings.
+     * 通配符匹配器使用字符的'?'和'*'表示一个或多个(零个或多个)通配符. N.B. 序列"*?"目前在匹配字符串中不能正常工作。
      *
      * @param fileName        the fileName to match on
      * @param wildcardMatcher the wildcard string to match against
      * @param ioCase          what case sensitivity rule to use, null means case-sensitive
      * @return true if the fileName matches the wildcard string
-     *
      */
     public static boolean wildcardMatch(final String fileName, final String wildcardMatcher, IOCase ioCase) {
         if (fileName == null && wildcardMatcher == null) {
@@ -1578,10 +1561,9 @@ public class FilenameUtils {
     }
 
     /**
-     * Checks a fileName to see if it matches the specified wildcard matcher using the case rules of the system.
+     * 使用系统的大小写规则检查fileName是否与指定的通配符匹配器匹配。
      * <p>
-     * The wildcard matcher uses the characters '?' and '*' to represent a single or multiple (zero or more) wildcard characters. This is the same as often found on DOS/Unix
-     * command lines. The check is case-sensitive on Unix and case-insensitive on Windows.
+     * 通配符匹配器使用字符的'?'和'*'表示一个或多个(零个或多个)通配符。这与DOSUnix命令行中经常发现的情况相同。在Unix上区分大小写，在Windows上不区分大小写。
      * <pre>
      * wildcardMatch("c.txt", "*.txt")      --&gt; true
      * wildcardMatch("c.txt", "*.jpg")      --&gt; false

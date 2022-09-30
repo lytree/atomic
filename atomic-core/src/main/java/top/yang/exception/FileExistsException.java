@@ -14,8 +14,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package top.yang.exception;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
- * This package defines IO-only related functional interfaces for lambda expressions and method references.
+ * Indicates that a file already exists.
+ *
+ * 
  */
-package top.yang.io.function;
+public class FileExistsException extends IOException {
+
+    /**
+     * Defines the serial version UID.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Default Constructor.
+     */
+    public FileExistsException() {
+    }
+
+    /**
+     * Constructs an instance with the specified file.
+     *
+     * @param file The file that exists
+     */
+    public FileExistsException(final File file) {
+        super("File " + file + " exists");
+    }
+
+    /**
+     * Constructs an instance with the specified message.
+     *
+     * @param message The error message
+     */
+    public FileExistsException(final String message) {
+        super(message);
+    }
+
+}

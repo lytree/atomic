@@ -26,8 +26,8 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
-import top.yang.io.IOExceptionList;
-import top.yang.io.IOIndexedException;
+import top.yang.exception.IOListException;
+import top.yang.exception.IOIndexedException;
 import top.yang.io.function.IOConsumer;
 
 /**
@@ -37,7 +37,7 @@ import top.yang.io.function.IOConsumer;
  * This abstract class provides default methods that pass all requests to the contained writers. Subclasses should likely override some of these methods.
  * </p>
  * <p>
- * The class {@link Writer} defines method signatures with {@code throws} {@link IOException}, which in this class are actually {@link IOExceptionList} containing a list of {@link
+ * The class {@link Writer} defines method signatures with {@code throws} {@link IOException}, which in this class are actually {@link IOListException} containing a list of {@link
  * IOIndexedException}.
  * </p>
  *

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package top.yang.io;
+package top.yang.exception;
 
 import java.io.IOException;
 

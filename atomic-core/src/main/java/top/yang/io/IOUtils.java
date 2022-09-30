@@ -1929,38 +1929,6 @@ public class IOUtils {
         }
         return list;
     }
-
-    /**
-     * Gets the contents of a classpath resource as a byte array.
-     * <p>
-     * It is expected the given {@code name} to be absolute. The behavior is not well-defined otherwise.
-     * </p>
-     *
-     * @param name name of the desired resource
-     * @return the requested byte array
-     * @throws IOException if an I/O error occurs.
-     * 
-     */
-    public static byte[] resourceToByteArray(final String name) throws IOException {
-        return resourceToByteArray(name, null);
-    }
-
-    /**
-     * Gets the contents of a classpath resource as a byte array.
-     * <p>
-     * It is expected the given {@code name} to be absolute. The behavior is not well-defined otherwise.
-     * </p>
-     *
-     * @param name        name of the desired resource
-     * @param classLoader the class loader that the resolution of the resource is delegated to
-     * @return the requested byte array
-     * @throws IOException if an I/O error occurs.
-     * 
-     */
-    public static byte[] resourceToByteArray(final String name, final ClassLoader classLoader) throws IOException {
-        return toByteArray(resourceToURL(name, classLoader));
-    }
-
     /**
      * Gets the contents of a classpath resource as a String using the specified character encoding.
      * <p>
@@ -2286,36 +2254,6 @@ public class IOUtils {
      */
     public static BufferedReader toBufferedReader(final Reader reader, final int size) {
         return reader instanceof BufferedReader ? (BufferedReader) reader : new BufferedReader(reader, size);
-    }
-
-    /**
-     * Gets the contents of a {@code URL} as a {@code byte[]}.
-     *
-     * @param url the {@code URL} to read
-     * @return the requested byte array
-     * @throws NullPointerException if the input is null
-     * @throws IOException          if an I/O exception occurs
-     * 
-     */
-    public static byte[] toByteArray(final URL url) throws IOException {
-        try (CloseableURLConnection urlConnection = CloseableURLConnection.open(url)) {
-            return IOUtils.toByteArray(urlConnection);
-        }
-    }
-
-    /**
-     * Gets the contents of a {@code URLConnection} as a {@code byte[]}.
-     *
-     * @param urlConnection the {@code URLConnection} to read.
-     * @return the requested byte array.
-     * @throws NullPointerException if the urlConn is null.
-     * @throws IOException          if an I/O exception occurs.
-     * 
-     */
-    public static byte[] toByteArray(final URLConnection urlConnection) throws IOException {
-        try (InputStream inputStream = urlConnection.getInputStream()) {
-            return IOUtils.toByteArray(inputStream);
-        }
     }
 
     /**

@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
-import top.yang.io.IOExceptionList;
-import top.yang.io.IOIndexedException;
+import top.yang.exception.IOListException;
+import top.yang.exception.IOIndexedException;
 
 
 /**
@@ -58,10 +58,10 @@ public interface IOConsumer<T> {
      * @param <T>    The element type.
      * @param stream The input to stream.
      * @param action The action to apply to each input element.
-     * @throws IOExceptionList if an I/O error occurs.
+     * @throws IOListException if an I/O error occurs.
      *
      */
-    static <T> void forEachIndexed(final Stream<T> stream, final IOConsumer<T> action) throws IOExceptionList {
+    static <T> void forEachIndexed(final Stream<T> stream, final IOConsumer<T> action) throws IOListException {
         IOStreams.forEachIndexed(stream, action, IOIndexedException::new);
     }
 

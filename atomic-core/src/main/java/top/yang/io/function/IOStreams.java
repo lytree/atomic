@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 import java.util.stream.Stream;
-import top.yang.io.IOExceptionList;
+import top.yang.exception.IOListException;
 
 /**
  * Keeps code package private for now.
@@ -36,7 +36,7 @@ class IOStreams {
     }
 
     static <T> void forEachIndexed(final Stream<T> stream, final IOConsumer<T> action, final BiFunction<Integer, IOException, IOException> exSupplier)
-            throws IOExceptionList {
+            throws IOListException {
         final AtomicReference<List<IOException>> causeList = new AtomicReference<>();
         final AtomicInteger index = new AtomicInteger();
         stream.forEach(e -> {
@@ -50,7 +50,7 @@ class IOStreams {
             }
             index.incrementAndGet();
         });
-        IOExceptionList.checkEmpty(causeList.get(), null);
+        IOListException.checkEmpty(causeList.get(), null);
     }
 
     /**

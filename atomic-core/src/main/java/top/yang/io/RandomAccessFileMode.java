@@ -78,7 +78,7 @@ public enum RandomAccessFileMode {
     }
 
     /**
-     * Creates a random access file stream to read from, and optionally to write to, the file specified by the {@link File} argument.
+     * 创建一个随机访问文件流，从{@link file}参数指定的文件中读取或可选地写入。
      *
      * @param file the file object
      * @return a random access file stream
