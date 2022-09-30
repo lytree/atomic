@@ -1198,7 +1198,7 @@ public class ImageUtils {
 
         final BufferedImage bimage = new BufferedImage(
                 img.getWidth(null), img.getHeight(null), imageType);
-        final Graphics2D bGr = GraphicsUtil.createGraphics(bimage, backgroundColor);
+        final Graphics2D bGr = GraphicsUtils.createGraphics(bimage, backgroundColor);
         bGr.drawImage(img, 0, 0, null);
         bGr.dispose();
 
@@ -1368,7 +1368,7 @@ public class ImageUtils {
      *
      */
     public static Font createFont(File fontFile) throws IOException, FontFormatException {
-        return FontUtil.createFont(fontFile);
+        return FontUtils.createFont(fontFile);
     }
 
     /**
@@ -1379,7 +1379,7 @@ public class ImageUtils {
      *
      */
     public static Font createFont(InputStream fontStream) throws IOException, FontFormatException {
-        return FontUtil.createFont(fontStream);
+        return FontUtils.createFont(fontStream);
     }
 
     /**
@@ -1388,11 +1388,11 @@ public class ImageUtils {
      * @param image {@link BufferedImage}
      * @param color {@link Color}背景颜色以及当前画笔颜色
      * @return {@link Graphics2D}
-     * @see GraphicsUtil#createGraphics(BufferedImage, Color)
+     * @see GraphicsUtils#createGraphics(BufferedImage, Color)
      *
      */
     public static Graphics2D createGraphics(BufferedImage image, Color color) {
-        return GraphicsUtil.createGraphics(image, color);
+        return GraphicsUtils.createGraphics(image, color);
     }
 
     /**

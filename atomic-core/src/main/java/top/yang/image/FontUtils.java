@@ -14,7 +14,7 @@ import java.io.InputStream;
  * @author looly
  *
  */
-public class FontUtil {
+public class FontUtils {
 
     /**
      * 创建默认字体

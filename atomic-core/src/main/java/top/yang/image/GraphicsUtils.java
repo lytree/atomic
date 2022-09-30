@@ -20,7 +20,7 @@ import top.yang.bean.ObjectUtils;
  * @author looly
  *
  */
-public class GraphicsUtil {
+public class GraphicsUtils {
 
     /**
      * 创建{@link Graphics2D}
@@ -139,7 +139,7 @@ public class GraphicsUtil {
         //获取字符串本身的长宽
         Dimension dimension;
         try {
-            dimension = FontUtil.getDimension(g.getFontMetrics(font), str);
+            dimension = FontUtils.getDimension(g.getFontMetrics(font), str);
         } catch (Exception e) {
             // 此处报告bug某些情况下会抛出IndexOutOfBoundsException，在此做容错处理
             dimension = new Dimension(backgroundWidth / 3, backgroundHeight / 3);

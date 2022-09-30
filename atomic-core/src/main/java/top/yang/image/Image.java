@@ -454,7 +454,7 @@ public class Image implements Serializable {
 
         if (null == font) {
             // 默认字体
-            font = FontUtil.createSansSerifFont((int) (targetImage.getHeight() * 0.75));
+            font = FontUtils.createSansSerifFont((int) (targetImage.getHeight() * 0.75));
         }
 
         final Graphics2D g = targetImage.createGraphics();
@@ -464,11 +464,11 @@ public class Image implements Serializable {
         // 绘制
         if (positionBaseCentre) {
             // 基于中心绘制
-            GraphicsUtil.drawString(g, pressText, font, color,
+            GraphicsUtils.drawString(g, pressText, font, color,
                     new Rectangle(point.x, point.y, targetImage.getWidth(), targetImage.getHeight()));
         } else {
             // 基于左上角绘制
-            GraphicsUtil.drawString(g, pressText, font, color, point);
+            GraphicsUtils.drawString(g, pressText, font, color, point);
         }
 
         // 收笔
@@ -496,7 +496,7 @@ public class Image implements Serializable {
 
         if (null == font) {
             // 默认字体
-            font = FontUtil.createSansSerifFont((int) (targetImage.getHeight() * 0.75));
+            font = FontUtils.createSansSerifFont((int) (targetImage.getHeight() * 0.75));
         }
         final int targetHeight = targetImage.getHeight();
         final int targetWidth = targetImage.getWidth();
@@ -511,7 +511,7 @@ public class Image implements Serializable {
         //获取字符串本身的长宽
         Dimension dimension;
         try {
-            dimension = FontUtil.getDimension(g.getFontMetrics(font), pressText);
+            dimension = FontUtils.getDimension(g.getFontMetrics(font), pressText);
         } catch (Exception e) {
             // 此处报告bug某些情况下会抛出IndexOutOfBoundsException，在此做容错处理
             dimension = new Dimension(targetWidth / 3, targetHeight / 3);
@@ -522,7 +522,7 @@ public class Image implements Serializable {
         while (y < targetHeight * 1.5) {
             int x = -targetWidth >> 1;
             while (x < targetWidth * 1.5) {
-                GraphicsUtil.drawString(g, pressText, font, color, new Point(x, y));
+                GraphicsUtils.drawString(g, pressText, font, color, new Point(x, y));
                 x += dimension.width;
             }
             y += intervalHeight;
@@ -726,10 +726,10 @@ public class Image implements Serializable {
      */
     private BufferedImage draw(BufferedImage backgroundImages, java.awt.Image Image, Rectangle rectangle, float alpha) {
         final Graphics2D g = backgroundImages.createGraphics();
-        GraphicsUtil.setAlpha(g, alpha);
+        GraphicsUtils.setAlpha(g, alpha);
 
         fixRectangle(rectangle, backgroundImages.getWidth(), backgroundImages.getHeight());
-        GraphicsUtil.drawImages(g, Image, rectangle);
+        GraphicsUtils.drawImages(g, Image, rectangle);
 
         g.dispose();
         return backgroundImages;
