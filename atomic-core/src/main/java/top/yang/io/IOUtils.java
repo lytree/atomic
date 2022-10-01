@@ -964,28 +964,6 @@ public class IOUtils {
     }
 
     /**
-     * Copies bytes from an {@code InputStream} to chars on a {@code Writer} using the default character encoding of the platform.
-     * <p>
-     * This method buffers the input internally, so there is no need to use a {@code BufferedInputStream}.
-     * </p>
-     * <p>
-     * This method uses {@link InputStreamReader}.
-     * </p>
-     *
-     * @param input  the {@code InputStream} to read from
-     * @param writer the {@code Writer} to write to
-     * @throws NullPointerException if the input or output is null
-     * @throws IOException          if an I/O error occurs
-     * 
-     * @deprecated 2.5 use {@link #copy(InputStream, Writer, Charset)} instead
-     */
-    @Deprecated
-    public static void copy(final InputStream input, final Writer writer)
-            throws IOException {
-        copy(input, writer, Charset.defaultCharset());
-    }
-
-    /**
      * Copies bytes from an {@code InputStream} to chars on a {@code Writer} using the specified character encoding.
      * <p>
      * This method buffers the input internally, so there is no need to use a {@code BufferedInputStream}.
@@ -1849,23 +1827,6 @@ public class IOUtils {
         }
     }
 
-    /**
-     * Gets the contents of an {@code InputStream} as a list of Strings, one entry per line, using the default character encoding of the platform.
-     * <p>
-     * This method buffers the input internally, so there is no need to use a {@code BufferedInputStream}.
-     * </p>
-     *
-     * @param input the {@code InputStream} to read from, not null
-     * @return the list of Strings, never null
-     * @throws NullPointerException if the input is null
-     * @throws IOException          if an I/O error occurs
-     * 
-     * @deprecated 2.5 use {@link #readLines(InputStream, Charset)} instead
-     */
-    @Deprecated
-    public static List<String> readLines(final InputStream input) throws IOException {
-        return readLines(input, Charset.defaultCharset());
-    }
 
     /**
      * Gets the contents of an {@code InputStream} as a list of Strings, one entry per line, using the specified character encoding.
@@ -2333,22 +2294,6 @@ public class IOUtils {
         return toByteArray(input, (int) size);
     }
 
-    /**
-     * Gets the contents of a {@code Reader} as a {@code byte[]} using the default character encoding of the platform.
-     * <p>
-     * This method buffers the input internally, so there is no need to use a {@code BufferedReader}.
-     * </p>
-     *
-     * @param reader the {@code Reader} to read from
-     * @return the requested byte array
-     * @throws NullPointerException if the input is null
-     * @throws IOException          if an I/O error occurs
-     * @deprecated 2.5 use {@link #toByteArray(Reader, Charset)} instead
-     */
-    @Deprecated
-    public static byte[] toByteArray(final Reader reader) throws IOException {
-        return toByteArray(reader, Charset.defaultCharset());
-    }
 
     /**
      * Gets the contents of a {@code Reader} as a {@code byte[]} using the specified character encoding.
@@ -2594,20 +2539,6 @@ public class IOUtils {
     /**
      * Gets the contents at the given URI.
      *
-     * @param uri The URI source.
-     * @return The contents of the URL as a String.
-     * @throws IOException if an I/O exception occurs.
-     * 
-     * @deprecated 2.5 use {@link #toString(URI, Charset)} instead
-     */
-    @Deprecated
-    public static String toString(final URI uri) throws IOException {
-        return toString(uri, Charset.defaultCharset());
-    }
-
-    /**
-     * Gets the contents at the given URI.
-     *
      * @param uri      The URI source.
      * @param encoding The encoding name for the URL contents.
      * @return The contents of the URL as a String.
@@ -2632,19 +2563,7 @@ public class IOUtils {
         return toString(uri, Charsets.toCharset(charsetName));
     }
 
-    /**
-     * Gets the contents at the given URL.
-     *
-     * @param url The URL source.
-     * @return The contents of the URL as a String.
-     * @throws IOException if an I/O exception occurs.
-     * 
-     * @deprecated 2.5 use {@link #toString(URL, Charset)} instead
-     */
-    @Deprecated
-    public static String toString(final URL url) throws IOException {
-        return toString(url, Charset.defaultCharset());
-    }
+
 
     /**
      * Gets the contents at the given URL.
@@ -2788,25 +2707,6 @@ public class IOUtils {
         if (data != null) {
             writer.write(data);
         }
-    }
-
-    /**
-     * Writes chars from a {@code CharSequence} to bytes on an {@code OutputStream} using the default character encoding of the platform.
-     * <p>
-     * This method uses {@link String#getBytes()}.
-     * </p>
-     *
-     * @param data   the {@code CharSequence} to write, null ignored
-     * @param output the {@code OutputStream} to write to
-     * @throws NullPointerException if output is null
-     * @throws IOException          if an I/O error occurs
-     * 
-     * @deprecated 2.5 use {@link #write(CharSequence, OutputStream, Charset)} instead
-     */
-    @Deprecated
-    public static void write(final CharSequence data, final OutputStream output)
-            throws IOException {
-        write(data, output, Charset.defaultCharset());
     }
 
     /**

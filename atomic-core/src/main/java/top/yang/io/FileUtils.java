@@ -65,34 +65,6 @@ import top.yang.io.filefilter.TrueFileFilter;
 import top.yang.io.function.IOConsumer;
 import top.yang.thread.ThreadUtil;
 
-/**
- * General file manipulation utilities.
- * <p>
- * Facilities are provided in the following areas:
- * </p>
- * <ul>
- * <li>writing to a file
- * <li>reading from a file
- * <li>make a directory including parent directories
- * <li>copying files and directories
- * <li>deleting files and directories
- * <li>converting to and from a URL
- * <li>listing files and directories by filter and extension
- * <li>comparing file content
- * <li>file last changed date
- * <li>calculating a checksum
- * </ul>
- * <p>
- * Note that a specific charset should be specified whenever possible. Relying on the platform default means that the
- * code is Locale-dependent. Only use the default if the files are known to always use the platform default.
- * </p>
- * <p>
- * {@link SecurityException} are not documented in the Javadoc.
- * </p>
- * <p>
- * Origin of code: Excalibur, Alexandria, Commons-Utils
- * </p>
- */
 public class FileUtils {
 
     /**
@@ -102,8 +74,6 @@ public class FileUtils {
 
     /**
      * The number of bytes in a kilobyte.
-     *
-     *
      */
     public static final BigInteger ONE_KB_BI = BigInteger.valueOf(ONE_KB);
 
@@ -114,8 +84,6 @@ public class FileUtils {
 
     /**
      * The number of bytes in a megabyte.
-     *
-     *
      */
     public static final BigInteger ONE_MB_BI = ONE_KB_BI.multiply(ONE_KB_BI);
 
@@ -126,8 +94,6 @@ public class FileUtils {
 
     /**
      * The number of bytes in a gigabyte.
-     *
-     *
      */
     public static final BigInteger ONE_GB_BI = ONE_KB_BI.multiply(ONE_MB_BI);
 
@@ -138,8 +104,6 @@ public class FileUtils {
 
     /**
      * The number of bytes in a terabyte.
-     *
-     *
      */
     public static final BigInteger ONE_TB_BI = ONE_KB_BI.multiply(ONE_GB_BI);
 
@@ -150,8 +114,6 @@ public class FileUtils {
 
     /**
      * The number of bytes in a petabyte.
-     *
-     *
      */
     public static final BigInteger ONE_PB_BI = ONE_KB_BI.multiply(ONE_TB_BI);
 
@@ -162,8 +124,6 @@ public class FileUtils {
 
     /**
      * The number of bytes in an exabyte.
-     *
-     *
      */
     public static final BigInteger ONE_EB_BI = ONE_KB_BI.multiply(ONE_PB_BI);
 
@@ -207,9 +167,9 @@ public class FileUtils {
     }
 
     /**
-     * Returns a human-readable version of the file size, where the input represents a specific number of bytes.
+     * 返回文件大小的可读版本，其中输入表示特定的字节数。
      * <p>
-     * If the size is over 1GB, the size is returned as the number of whole GB, i.e. the size is rounded down to the nearest GB boundary.
+     * 如果大小超过1GB，则返回的大小为整个GB的数量，即大小被舍入到最近的GB边界。
      * </p>
      * <p>
      * Similarly for the 1MB and 1KB boundaries.
@@ -219,7 +179,6 @@ public class FileUtils {
      * @return a human-readable display value (includes units - EB, PB, TB, GB, MB, KB or bytes)
      * @throws NullPointerException if the given {@code BigInteger} is {@code null}.
      * @see <a href="https://issues.apache.org/jira/browse/IO-226">IO-226 - should the rounding be changed?</a>
-     *
      */
     // See https://issues.apache.org/jira/browse/IO-226 - should the rounding be changed?
     public static String byteCountToDisplaySize(final BigInteger size) {
@@ -245,9 +204,9 @@ public class FileUtils {
     }
 
     /**
-     * Returns a human-readable version of the file size, where the input represents a specific number of bytes.
+     * 返回文件大小的可读版本，其中输入表示特定的字节数。
      * <p>
-     * If the size is over 1GB, the size is returned as the number of whole GB, i.e. the size is rounded down to the nearest GB boundary.
+     * 如果大小超过1GB，则返回的大小为整个GB的数量，即大小被舍入到最近的GB边界。
      * </p>
      * <p>
      * Similarly for the 1MB and 1KB boundaries.
@@ -263,7 +222,7 @@ public class FileUtils {
     }
 
     /**
-     * Returns a human-readable version of the file size, where the input represents a specific number of bytes.
+     * 返回文件大小的可读版本，其中输入表示特定的字节数。
      * <p>
      * If the size is over 1GB, the size is returned as the number of whole GB, i.e. the size is rounded down to the nearest GB boundary.
      * </p>
@@ -274,7 +233,6 @@ public class FileUtils {
      * @param size the number of bytes
      * @return a human-readable display value (includes units - EB, PB, TB, GB, MB, KB or bytes)
      * @see <a href="https://issues.apache.org/jira/browse/IO-226">IO-226 - should the rounding be changed?</a>
-     *
      */
     // See https://issues.apache.org/jira/browse/IO-226 - should the rounding be changed?
     public static String byteCountToDisplaySize(final Number size) {
@@ -282,8 +240,7 @@ public class FileUtils {
     }
 
     /**
-     * Computes the checksum of a file using the specified checksum object. Multiple files may be checked using one {@code Checksum} instance if desired simply by reusing the same
-     * checksum object. For example:
+     * 使用指定的校验和对象计算文件的校验和。如果需要，可以通过重用相同的校验和对象，使用一个{@code Checksum}实例检查多个文件。例如:
      *
      * <pre>
      * long checksum = FileUtils.checksum(file, new CRC32()).getValue();
@@ -296,7 +253,6 @@ public class FileUtils {
      * @throws NullPointerException     if the given {@code Checksum} is {@code null}.
      * @throws IllegalArgumentException if the given {@code File} does not exist or is not a file.
      * @throws IOException              if an IO error occurs reading the file.
-     *
      */
     public static Checksum checksum(final File file, final Checksum checksum) throws IOException {
         requireExistsChecked(file, "file");
@@ -309,21 +265,20 @@ public class FileUtils {
     }
 
     /**
-     * Computes the checksum of a file using the CRC32 checksum routine. The value of the checksum is returned.
+     * 使用CRC32校验和例程计算文件的校验和。返回校验和的值。
      *
      * @param file the file to checksum, must not be {@code null}
      * @return the checksum value
      * @throws NullPointerException     if the given {@code File} is {@code null}.
      * @throws IllegalArgumentException if the given {@code File} does not exist or is not a file.
      * @throws IOException              if an IO error occurs reading the file.
-     *
      */
     public static long checksumCRC32(final File file) throws IOException {
         return checksum(file, new CRC32()).getValue();
     }
 
     /**
-     * Cleans a directory without deleting it.
+     * 清除目录而不删除目录。
      *
      * @param directory directory to clean
      * @throws NullPointerException     if the given {@code File} is {@code null}.
@@ -336,7 +291,7 @@ public class FileUtils {
     }
 
     /**
-     * Cleans a directory without deleting it.
+     * 清除目录而不删除目录。
      *
      * @param directory directory to clean, must not be {@code null}
      * @throws NullPointerException     if the given {@code File} is {@code null}.
@@ -413,7 +368,6 @@ public class FileUtils {
      * @throws IOException                 in case of an I/O error.
      * @throws UnsupportedCharsetException If the named charset is unavailable (unchecked exception).
      * @see IOUtils#contentEqualsIgnoreEOL(Reader, Reader)
-     *
      */
     public static boolean contentEqualsIgnoreEOL(final File file1, final File file2, final String charsetName)
             throws IOException {
@@ -479,7 +433,6 @@ public class FileUtils {
      * @throws IllegalArgumentException if the source or destination is invalid.
      * @throws FileNotFoundException    if the source does not exist.
      * @throws IOException              if an error occurs or setting the last-modified time didn't succeeded.
-     *
      */
     public static void copyDirectory(final File srcDir, final File destDir) throws IOException {
         copyDirectory(srcDir, destDir, true);
@@ -507,7 +460,6 @@ public class FileUtils {
      * @throws IllegalArgumentException if the source or destination is invalid.
      * @throws FileNotFoundException    if the source does not exist.
      * @throws IOException              if an error occurs or setting the last-modified time didn't succeeded.
-     *
      */
     public static void copyDirectory(final File srcDir, final File destDir, final boolean preserveFileDate)
             throws IOException {
@@ -555,7 +507,6 @@ public class FileUtils {
      * @throws IllegalArgumentException if the source or destination is invalid.
      * @throws FileNotFoundException    if the source does not exist.
      * @throws IOException              if an error occurs or setting the last-modified time didn't succeeded.
-     *
      */
     public static void copyDirectory(final File srcDir, final File destDir, final FileFilter filter)
             throws IOException {
@@ -605,7 +556,6 @@ public class FileUtils {
      * @throws IllegalArgumentException if the source or destination is invalid.
      * @throws FileNotFoundException    if the source does not exist.
      * @throws IOException              if an error occurs or setting the last-modified time didn't succeeded.
-     *
      */
     public static void copyDirectory(final File srcDir, final File destDir, final FileFilter filter, final boolean preserveFileDate) throws IOException {
         copyDirectory(srcDir, destDir, filter, preserveFileDate, StandardCopyOption.REPLACE_EXISTING);
@@ -655,7 +605,6 @@ public class FileUtils {
      * @throws IllegalArgumentException if the source or destination is invalid.
      * @throws FileNotFoundException    if the source does not exist.
      * @throws IOException              if an error occurs or setting the last-modified time didn't succeeded.
-     *
      */
     public static void copyDirectory(final File srcDir, final File destDir, final FileFilter fileFilter, final boolean preserveFileDate,
             final CopyOption... copyOptions) throws IOException {
@@ -700,7 +649,6 @@ public class FileUtils {
      * @throws IllegalArgumentException if the source or destination is invalid.
      * @throws FileNotFoundException    if the source does not exist.
      * @throws IOException              if an error occurs or setting the last-modified time didn't succeeded.
-     *
      */
     public static void copyDirectoryToDirectory(final File sourceDir, final File destinationDir) throws IOException {
         requireDirectoryIfExists(sourceDir, "sourceDir");
@@ -784,7 +732,6 @@ public class FileUtils {
      * @throws IOException              if the output file length is not the same as the input file length after the copy completes.
      * @throws IOException              if an I/O error occurs, or setting the last-modified time didn't succeeded.
      * @see #copyFileToDirectory(File, File, boolean)
-     *
      */
     public static void copyFile(final File srcFile, final File destFile, final boolean preserveFileDate, final CopyOption... copyOptions) throws IOException {
         copyFile(srcFile, destFile, preserveFileDate ? addCopyAttributes(copyOptions) : copyOptions);
@@ -806,7 +753,6 @@ public class FileUtils {
      * @throws IOException              if the output file length is not the same as the input file length after the copy completes.
      * @throws IOException              if an I/O error occurs.
      * @see StandardCopyOption
-     *
      */
     public static void copyFile(final File srcFile, final File destFile, final CopyOption... copyOptions) throws IOException {
         requireFileCopy(srcFile, destFile);
@@ -837,7 +783,6 @@ public class FileUtils {
      * @throws NullPointerException if the File is {@code null}.
      * @throws NullPointerException if the OutputStream is {@code null}.
      * @throws IOException          if an I/O error occurs.
-     *
      */
     public static long copyFile(final File input, final OutputStream output) throws IOException {
         try (InputStream fis = Files.newInputStream(input.toPath())) {
@@ -887,7 +832,6 @@ public class FileUtils {
      * @throws IOException          if an error occurs or setting the last-modified time didn't succeeded.
      * @throws IOException          if the output file length is not the same as the input file length after the copy completes.
      * @see #copyFile(File, File, CopyOption...)
-     *
      */
     public static void copyFileToDirectory(final File sourceFile, final File destinationDir, final boolean preserveFileDate) throws IOException {
         Objects.requireNonNull(sourceFile, "sourceFile");
@@ -911,7 +855,6 @@ public class FileUtils {
      * @throws IOException if {@code destination} cannot be written
      * @throws IOException if {@code destination} needs creating but can't be
      * @throws IOException if an IO error occurs during copying
-     *
      */
     public static void copyInputStreamToFile(final InputStream source, final File destination) throws IOException {
         try (InputStream inputStream = source) {
@@ -942,7 +885,6 @@ public class FileUtils {
      * @throws IOException              if an error occurs or setting the last-modified time didn't succeeded.
      * @see #copyDirectoryToDirectory(File, File)
      * @see #copyFileToDirectory(File, File)
-     *
      */
     public static void copyToDirectory(final File sourceFile, final File destinationDir) throws IOException {
         Objects.requireNonNull(sourceFile, "sourceFile");
@@ -973,7 +915,6 @@ public class FileUtils {
      * @throws IOException          if source or destination is invalid.
      * @throws IOException          if an error occurs or setting the last-modified time didn't succeeded.
      * @see #copyFileToDirectory(File, File)
-     *
      */
     public static void copyToDirectory(final Iterable<File> sourceIterable, final File destinationDir) throws IOException {
         Objects.requireNonNull(sourceIterable, "sourceIterable");
@@ -995,7 +936,6 @@ public class FileUtils {
      * @throws IllegalArgumentException if the file is not writable.
      * @throws IOException              if the directories could not be created.
      * @throws IOException              if an IO error occurs during copying.
-     *
      */
     public static void copyToFile(final InputStream inputStream, final File file) throws IOException {
         try (OutputStream out = newOutputStream(file, false)) {
@@ -1011,7 +951,6 @@ public class FileUtils {
      * @return The parent directory, or {@code null} if the given file does not name a parent
      * @throws IOException if the directory was not created along with all its parent directories.
      * @throws IOException if the given file object is not null and not a directory.
-     *
      */
     public static File createParentDirectories(final File file) throws IOException {
         return mkdirs(getParentFile(file));
@@ -1021,7 +960,6 @@ public class FileUtils {
      * Gets the current directory.
      *
      * @return the current directory.
-     *
      */
     public static File current() {
         return PathUtils.current().toFile();
@@ -1076,7 +1014,6 @@ public class FileUtils {
      * @throws NullPointerException if the parameter is {@code null}
      * @throws IOException          if the file cannot be deleted.
      * @see File#delete()
-     *
      */
     public static File delete(final File file) throws IOException {
         Objects.requireNonNull(file, "file");
@@ -1132,7 +1069,6 @@ public class FileUtils {
      *
      * @param file file or directory to delete, can be {@code null}
      * @return {@code true} if the file or directory was deleted, otherwise {@code false}
-     *
      */
     public static boolean deleteQuietly(final File file) {
         if (file == null) {
@@ -1174,7 +1110,6 @@ public class FileUtils {
      * @throws NullPointerException     if the given {@code File} is {@code null}.
      * @throws IllegalArgumentException if the given {@code File} does not exist or is not a directory.
      * @see FilenameUtils#directoryContains(String, String)
-     *
      */
     public static boolean directoryContains(final File directory, final File child) throws IOException {
         requireDirectoryExists(directory, "directory");
@@ -1223,7 +1158,7 @@ public class FileUtils {
     }
 
     /**
-     * Deletes a file or directory. For a directory, delete it and all sub-directories.
+     * 删除文件或目录。对于一个目录，删除该目录及其所有子目录。
      * <p>
      * The difference between File.delete() and this method are:
      * </p>
@@ -1254,7 +1189,7 @@ public class FileUtils {
     }
 
     /**
-     * Schedules a file to be deleted when JVM exits. If file is directory delete it and all sub-directories.
+     * jvm运行结束后要删除的文件。如果文件是目录，删除它和所有子目录.
      *
      * @param file file or directory to delete, must not be {@code null}.
      * @throws NullPointerException if the file is {@code null}.
@@ -1270,8 +1205,7 @@ public class FileUtils {
     }
 
     /**
-     * Makes a directory, including any necessary but nonexistent parent directories. If a file already exists with specified name but it is not a directory then an IOException is
-     * thrown. If the directory cannot be created (or the file already exists but is not a directory) then an IOException is thrown.
+     * 创建一个目录，其中包括任何必要但不存在的父目录。如果指定名称的文件已经存在，但它不是目录，则抛出IOException。如果无法创建目录(或者文件已经存在但不是目录)，则抛出IOException。
      *
      * @param directory directory to create, may be {@code null}.
      * @throws IOException       if the directory was not created along with all its parent directories.
@@ -1283,12 +1217,11 @@ public class FileUtils {
     }
 
     /**
-     * Makes any necessary but nonexistent parent directories for a given File. If the parent directory cannot be created then an IOException is thrown.
+     * 为给定的文件创建任何必要但不存在的父目录。如果父目录无法创建，则抛出IOException。
      *
      * @param file file with parent to create, must not be {@code null}.
      * @throws NullPointerException if the file is {@code null}.
      * @throws IOException          if the parent directory cannot be created.
-     *
      */
     public static void forceMkdirParent(final File file) throws IOException {
         Objects.requireNonNull(file, "file");
@@ -1296,12 +1229,11 @@ public class FileUtils {
     }
 
     /**
-     * Constructs a file from the set of name elements.
+     * 从name元素集构造一个文件。
      *
      * @param directory the parent directory.
      * @param names     the name elements.
      * @return the new file.
-     *
      */
     public static File getFile(final File directory, final String... names) {
         Objects.requireNonNull(directory, "directory");
@@ -1314,11 +1246,10 @@ public class FileUtils {
     }
 
     /**
-     * Constructs a file from the set of name elements.
+     * 从name元素集构造一个文件。
      *
      * @param names the name elements.
      * @return the file.
-     *
      */
     public static File getFile(final String... names) {
         Objects.requireNonNull(names, "names");
@@ -1334,7 +1265,7 @@ public class FileUtils {
     }
 
     /**
-     * Gets the parent of the given file. The given file may be bull and a file's parent may as well be null.
+     * 获取给定文件的父级。给定的文件可以是bull，文件的父文件也可以是null。
      *
      * @param file The file to query.
      * @return The parent file or {@code null}.
@@ -1344,47 +1275,43 @@ public class FileUtils {
     }
 
     /**
-     * Returns a {@link File} representing the system temporary directory.
+     * 返回一个表示系统临时目录的{@link File}。
      *
      * @return the system temporary directory.
-     *
      */
     public static File getTempDirectory() {
         return new File(getTempDirectoryPath());
     }
 
     /**
-     * Returns the path to the system temporary directory.
+     * 返回系统临时目录的路径。
      *
      * @return the path to the system temporary directory.
-     *
      */
     public static String getTempDirectoryPath() {
         return System.getProperty("java.io.tmpdir");
     }
 
     /**
-     * Returns a {@link File} representing the user's home directory.
+     * 返回一个表示用户主目录的{@link File}。
      *
      * @return the user's home directory.
-     *
      */
     public static File getUserDirectory() {
         return new File(getUserDirectoryPath());
     }
 
     /**
-     * Returns the path to the user's home directory.
+     * 返回用户主目录的路径。
      *
      * @return the path to the user's home directory.
-     *
      */
     public static String getUserDirectoryPath() {
         return System.getProperty("user.home");
     }
 
     /**
-     * Tests whether the specified {@code File} is a directory or not. Implemented as a null-safe delegate to {@code Files.isDirectory(Path path, LinkOption... options)}.
+     * 测试指定的{@code File}是否为目录。 Implemented as a null-safe delegate to {@code Files.isDirectory(Path path, LinkOption... options)}.
      *
      * @param file    the path to the file.
      * @param options options indicating how symbolic links are handled
@@ -1392,28 +1319,26 @@ public class FileUtils {
      * directory or not.
      * @throws SecurityException In the case of the default provider, and a security manager is installed, the {@link SecurityManager#checkRead(String) checkRead} method is invoked
      *                           to check read access to the directory.
-     *
      */
     public static boolean isDirectory(final File file, final LinkOption... options) {
         return file != null && Files.isDirectory(file.toPath(), options);
     }
 
     /**
-     * Tests whether the directory is empty.
+     * 测试目录是否为空。
      *
      * @param directory the directory to query.
      * @return whether the directory is empty.
      * @throws IOException           if an I/O error occurs.
      * @throws NotDirectoryException if the file could not otherwise be opened because it is not a directory
      *                               <i>(optional specific exception)</i>.
-     *
      */
     public static boolean isEmptyDirectory(final File directory) throws IOException {
         return PathUtils.isEmptyDirectory(directory.toPath());
     }
 
     /**
-     * Tests if the specified {@code File} is newer than the specified {@code ChronoLocalDate} at the current time.
+     * 测试当前指定的{@code Flie}是否比指定的{@code ChronoLocalDate}更新。
      *
      * <p>Note: The input date is assumed to be in the system default time-zone with the time
      * part set to the current time. To use a non-default time-zone use the method {@link #isFileNewer(File, ChronoLocalDateTime, ZoneId) isFileNewer(file,
@@ -1423,14 +1348,13 @@ public class FileUtils {
      * @param chronoLocalDate the date reference.
      * @return true if the {@code File} exists and has been modified after the given {@code ChronoLocalDate} at the current time.
      * @throws NullPointerException if the file or local date is {@code null}.
-     *
      */
     public static boolean isFileNewer(final File file, final ChronoLocalDate chronoLocalDate) {
         return isFileNewer(file, chronoLocalDate, LocalTime.now());
     }
 
     /**
-     * Tests if the specified {@code File} is newer than the specified {@code ChronoLocalDate} at the specified time.
+     * 测试指定的{@code File}在指定的时间是否比指定的{@code ChronoLocalDate}更新。
      *
      * <p>Note: The input date and time are assumed to be in the system default time-zone. To use a
      * non-default time-zone use the method {@link #isFileNewer(File, ChronoLocalDateTime, ZoneId) isFileNewer(file, chronoLocalDate.atTime(localTime), zoneId)} where {@code
@@ -1441,7 +1365,6 @@ public class FileUtils {
      * @param localTime       the time reference.
      * @return true if the {@code File} exists and has been modified after the given {@code ChronoLocalDate} at the given time.
      * @throws NullPointerException if the file, local date or zone ID is {@code null}.
-     *
      */
     public static boolean isFileNewer(final File file, final ChronoLocalDate chronoLocalDate, final LocalTime localTime) {
         Objects.requireNonNull(chronoLocalDate, "chronoLocalDate");
@@ -1450,7 +1373,7 @@ public class FileUtils {
     }
 
     /**
-     * Tests if the specified {@code File} is newer than the specified {@code ChronoLocalDateTime} at the system-default time zone.
+     * 测试指定的{@code File}在系统默认时区是否比指定的{@code ChronoLocalDateTime}更新。
      *
      * <p>Note: The input date and time is assumed to be in the system default time-zone. To use a
      * non-default time-zone use the method {@link #isFileNewer(File, ChronoLocalDateTime, ZoneId) isFileNewer(file, chronoLocalDateTime, zoneId)} where {@code zoneId} is a valid
@@ -1460,21 +1383,19 @@ public class FileUtils {
      * @param chronoLocalDateTime the date reference.
      * @return true if the {@code File} exists and has been modified after the given {@code ChronoLocalDateTime} at the system-default time zone.
      * @throws NullPointerException if the file or local date time is {@code null}.
-     *
      */
     public static boolean isFileNewer(final File file, final ChronoLocalDateTime<?> chronoLocalDateTime) {
         return isFileNewer(file, chronoLocalDateTime, ZoneId.systemDefault());
     }
 
     /**
-     * Tests if the specified {@code File} is newer than the specified {@code ChronoLocalDateTime} at the specified {@code ZoneId}.
+     * 测试指定的{@code File}是否比指定的{@code ZoneId}处指定的{@code ChronoLocalDateTime}更新。
      *
      * @param file                the {@code File} of which the modification date must be compared.
      * @param chronoLocalDateTime the date reference.
      * @param zoneId              the time zone.
      * @return true if the {@code File} exists and has been modified after the given {@code ChronoLocalDateTime} at the given {@code ZoneId}.
      * @throws NullPointerException if the file, local date time or zone ID is {@code null}.
-     *
      */
     public static boolean isFileNewer(final File file, final ChronoLocalDateTime<?> chronoLocalDateTime, final ZoneId zoneId) {
         Objects.requireNonNull(chronoLocalDateTime, "chronoLocalDateTime");
@@ -1483,13 +1404,12 @@ public class FileUtils {
     }
 
     /**
-     * Tests if the specified {@code File} is newer than the specified {@code ChronoZonedDateTime}.
+     * 测试指定的{@code File}是否比指定的{@code ChronoZonedDateTime}更新。
      *
      * @param file                the {@code File} of which the modification date must be compared.
      * @param chronoZonedDateTime the date reference.
      * @return true if the {@code File} exists and has been modified after the given {@code ChronoZonedDateTime}.
      * @throws NullPointerException if the file or zoned date time is {@code null}.
-     *
      */
     public static boolean isFileNewer(final File file, final ChronoZonedDateTime<?> chronoZonedDateTime) {
         Objects.requireNonNull(file, "file");
@@ -1498,7 +1418,7 @@ public class FileUtils {
     }
 
     /**
-     * Tests if the specified {@code File} is newer than the specified {@code Date}.
+     * 测试指定的{@code File}是否比指定的{@code日期}更新。
      *
      * @param file the {@code File} of which the modification date must be compared.
      * @param date the date reference.
@@ -1511,7 +1431,7 @@ public class FileUtils {
     }
 
     /**
-     * Tests if the specified {@code File} is newer than the reference {@code File}.
+     * 测试指定的{@code File}是否比引用{@code File}更新。
      *
      * @param file      the {@code File} of which the modification date must be compared.
      * @param reference the {@code File} of which the modification date is used.
@@ -1525,14 +1445,13 @@ public class FileUtils {
     }
 
     /**
-     * Tests if the specified {@code File} is newer than the specified {@code FileTime}.
+     * 测试指定的{@code File}是否比指定的{@code FileTime}更新。
      *
      * @param file     the {@code File} of which the modification date must be compared.
      * @param fileTime the file time reference.
      * @return true if the {@code File} exists and has been modified after the given {@code FileTime}.
      * @throws IOException          if an I/O error occurs.
      * @throws NullPointerException if the file or local date is {@code null}.
-     *
      */
     public static boolean isFileNewer(final File file, final FileTime fileTime) throws IOException {
         Objects.requireNonNull(file, "file");
@@ -1540,13 +1459,12 @@ public class FileUtils {
     }
 
     /**
-     * Tests if the specified {@code File} is newer than the specified {@code Instant}.
+     * 测试指定的{@code File}是否比指定的{@code instant}更新。
      *
      * @param file    the {@code File} of which the modification date must be compared.
      * @param instant the date reference.
      * @return true if the {@code File} exists and has been modified after the given {@code Instant}.
      * @throws NullPointerException if the file or instant is {@code null}.
-     *
      */
     public static boolean isFileNewer(final File file, final Instant instant) {
         Objects.requireNonNull(instant, "instant");
@@ -1554,7 +1472,7 @@ public class FileUtils {
     }
 
     /**
-     * Tests if the specified {@code File} is newer than the specified time reference.
+     * 测试指定的{@code File}是否比指定的时间引用更新。
      *
      * @param file       the {@code File} of which the modification date must be compared.
      * @param timeMillis the time reference measured in milliseconds since the epoch (00:00:00 GMT, January 1, 1970).
@@ -1567,7 +1485,7 @@ public class FileUtils {
     }
 
     /**
-     * Tests if the specified {@code File} is older than the specified {@code ChronoLocalDate} at the current time.
+     * 测试指定的{@code File}在当前时间是否比指定的{@code ChronoLocalDate}旧。
      *
      * <p>Note: The input date is assumed to be in the system default time-zone with the time
      * part set to the current time. To use a non-default time-zone use the method {@link #isFileOlder(File, ChronoLocalDateTime, ZoneId) isFileOlder(file,
@@ -1579,14 +1497,13 @@ public class FileUtils {
      * @throws NullPointerException if the file or local date is {@code null}.
      * @see ZoneId#systemDefault()
      * @see LocalTime#now()
-     *
      */
     public static boolean isFileOlder(final File file, final ChronoLocalDate chronoLocalDate) {
         return isFileOlder(file, chronoLocalDate, LocalTime.now());
     }
 
     /**
-     * Tests if the specified {@code File} is older than the specified {@code ChronoLocalDate} at the specified {@code LocalTime}.
+     * 测试指定的{@code File}是否比指定的{@code LocalTime}指定的{@code ChronoLocalDate}旧。
      *
      * <p>Note: The input date and time are assumed to be in the system default time-zone. To use a
      * non-default time-zone use the method {@link #isFileOlder(File, ChronoLocalDateTime, ZoneId) isFileOlder(file, chronoLocalDate.atTime(localTime), zoneId)} where {@code
@@ -1598,7 +1515,6 @@ public class FileUtils {
      * @return true if the {@code File} exists and has been modified before the given {@code ChronoLocalDate} at the specified time.
      * @throws NullPointerException if the file, local date or local time is {@code null}.
      * @see ZoneId#systemDefault()
-     *
      */
     public static boolean isFileOlder(final File file, final ChronoLocalDate chronoLocalDate, final LocalTime localTime) {
         Objects.requireNonNull(chronoLocalDate, "chronoLocalDate");
@@ -1607,7 +1523,7 @@ public class FileUtils {
     }
 
     /**
-     * Tests if the specified {@code File} is older than the specified {@code ChronoLocalDateTime} at the system-default time zone.
+     * 测试指定的{@code File}是否比系统默认时区指定的{@code ChronoLocalDateTime}旧。
      *
      * <p>Note: The input date and time is assumed to be in the system default time-zone. To use a
      * non-default time-zone use the method {@link #isFileOlder(File, ChronoLocalDateTime, ZoneId) isFileOlder(file, chronoLocalDateTime, zoneId)} where {@code zoneId} is a valid
@@ -1618,7 +1534,6 @@ public class FileUtils {
      * @return true if the {@code File} exists and has been modified before the given {@code ChronoLocalDateTime} at the system-default time zone.
      * @throws NullPointerException if the file or local date time is {@code null}.
      * @see ZoneId#systemDefault()
-     *
      */
     public static boolean isFileOlder(final File file, final ChronoLocalDateTime<?> chronoLocalDateTime) {
         return isFileOlder(file, chronoLocalDateTime, ZoneId.systemDefault());
@@ -1632,7 +1547,6 @@ public class FileUtils {
      * @param zoneId              the time zone.
      * @return true if the {@code File} exists and has been modified before the given {@code ChronoLocalDateTime} at the given {@code ZoneId}.
      * @throws NullPointerException if the file, local date time or zone ID is {@code null}.
-     *
      */
     public static boolean isFileOlder(final File file, final ChronoLocalDateTime<?> chronoLocalDateTime, final ZoneId zoneId) {
         Objects.requireNonNull(chronoLocalDateTime, "chronoLocalDateTime");
@@ -1647,7 +1561,6 @@ public class FileUtils {
      * @param chronoZonedDateTime the date reference.
      * @return true if the {@code File} exists and has been modified before the given {@code ChronoZonedDateTime}.
      * @throws NullPointerException if the file or zoned date time is {@code null}.
-     *
      */
     public static boolean isFileOlder(final File file, final ChronoZonedDateTime<?> chronoZonedDateTime) {
         Objects.requireNonNull(chronoZonedDateTime, "chronoZonedDateTime");
@@ -1689,7 +1602,6 @@ public class FileUtils {
      * @return true if the {@code File} exists and has been modified before the given {@code FileTime}.
      * @throws IOException          if an I/O error occurs.
      * @throws NullPointerException if the file or local date is {@code null}.
-     *
      */
     public static boolean isFileOlder(final File file, final FileTime fileTime) throws IOException {
         Objects.requireNonNull(file, "file");
@@ -1703,7 +1615,6 @@ public class FileUtils {
      * @param instant the date reference.
      * @return true if the {@code File} exists and has been modified before the given {@code Instant}.
      * @throws NullPointerException if the file or instant is {@code null}.
-     *
      */
     public static boolean isFileOlder(final File file, final Instant instant) {
         Objects.requireNonNull(instant, "instant");
@@ -1724,7 +1635,7 @@ public class FileUtils {
     }
 
     /**
-     * Tests whether the specified {@code File} is a regular file or not. Implemented as a null-safe delegate to {@code Files.isRegularFile(Path path, LinkOption... options)}.
+     * 测试指定的{@code File}是否是常规文件。实现为{@code Files的空安全委托。isRegularFile(路径路径,LinkOption……选项)}。
      *
      * @param file    the path to the file.
      * @param options options indicating how symbolic links are handled
@@ -1732,14 +1643,13 @@ public class FileUtils {
      * is a regular file or not.
      * @throws SecurityException In the case of the default provider, and a security manager is installed, the {@link SecurityManager#checkRead(String) checkRead} method is invoked
      *                           to check read access to the directory.
-     *
      */
     public static boolean isRegularFile(final File file, final LinkOption... options) {
         return file != null && Files.isRegularFile(file.toPath(), options);
     }
 
     /**
-     * Tests whether the specified file is a symbolic link rather than an actual file.
+     * 测试指定的文件是否是符号链接而不是实际文件。
      * <p>
      * This method delegates to {@link Files#isSymbolicLink(Path path)}
      * </p>
@@ -1747,14 +1657,13 @@ public class FileUtils {
      * @param file the file to test.
      * @return true if the file is a symbolic link, see {@link Files#isSymbolicLink(Path path)}.
      * @see Files#isSymbolicLink(Path)
-     *
      */
     public static boolean isSymlink(final File file) {
         return file != null && Files.isSymbolicLink(file.toPath());
     }
 
     /**
-     * Iterates over the files in given directory (and optionally its subdirectories).
+     * 迭代给定目录(以及可选的子目录)中的文件。
      * <p>
      * The resulting iterator MUST be consumed in its entirety in order to close its underlying stream.
      * </p>
@@ -1769,14 +1678,13 @@ public class FileUtils {
      * @return an iterator of java.io.File for the matching files
      * @see FileFilterUtils
      * @see NameFileFilter
-     *
      */
     public static Iterator<File> iterateFiles(final File directory, final IOFileFilter fileFilter, final IOFileFilter dirFilter) {
         return listFiles(directory, fileFilter, dirFilter).iterator();
     }
 
     /**
-     * Iterates over the files in a given directory (and optionally its subdirectories) which match an array of extensions.
+     * 迭代匹配扩展数组给定目录(以及可选的其子目录)中的文件。
      * <p>
      * The resulting iterator MUST be consumed in its entirety in order to close its underlying stream.
      * </p>
@@ -1785,14 +1693,13 @@ public class FileUtils {
      * @param extensions an array of extensions, ex. {"java","xml"}. If this parameter is {@code null}, all files are returned.
      * @param recursive  if true all subdirectories are searched as well
      * @return an iterator of java.io.File with the matching files
-     *
      */
     public static Iterator<File> iterateFiles(final File directory, final String[] extensions, final boolean recursive) {
         return UncheckedIO.apply(d -> StreamIterator.iterator(streamFiles(d, recursive, extensions)), directory);
     }
 
     /**
-     * Iterates over the files in given directory (and optionally its subdirectories).
+     * 迭代给定目录(以及可选的子目录)中的文件。
      * <p>
      * The resulting iterator MUST be consumed in its entirety in order to close its underlying stream.
      * </p>
@@ -1810,14 +1717,13 @@ public class FileUtils {
      * @return an iterator of java.io.File for the matching files
      * @see FileFilterUtils
      * @see NameFileFilter
-     *
      */
     public static Iterator<File> iterateFilesAndDirs(final File directory, final IOFileFilter fileFilter, final IOFileFilter dirFilter) {
         return listFilesAndDirs(directory, fileFilter, dirFilter).iterator();
     }
 
     /**
-     * Returns the last modification time in milliseconds via {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
+     * 返回最后修改时间(以毫秒为单位) {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
      * <p>
      * For the best precision, use {@link #lastModifiedFileTime(File)}.
      * </p>
@@ -1830,7 +1736,6 @@ public class FileUtils {
      * @param file The File to query.
      * @return See {@link java.nio.file.attribute.FileTime#toMillis()}.
      * @throws IOException if an I/O error occurs.
-     *
      */
     public static long lastModified(final File file) throws IOException {
         // https://bugs.openjdk.java.net/browse/JDK-8177809
@@ -1840,7 +1745,7 @@ public class FileUtils {
     }
 
     /**
-     * Returns the last modification {@link FileTime} via {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
+     * 返回最后一次修改 {@link FileTime} via {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
      * <p>
      * Use this method to avoid issues with {@link File#lastModified()} like
      * <a href="https://bugs.openjdk.java.net/browse/JDK-8177809">JDK-8177809</a> where {@link File#lastModified()} is
@@ -1850,7 +1755,6 @@ public class FileUtils {
      * @param file The File to query.
      * @return See {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
      * @throws IOException if an I/O error occurs.
-     *
      */
     public static FileTime lastModifiedFileTime(final File file) throws IOException {
         // https://bugs.openjdk.java.net/browse/JDK-8177809
@@ -1860,7 +1764,7 @@ public class FileUtils {
     }
 
     /**
-     * Returns the last modification time in milliseconds via {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
+     * 返回最后修改时间(以毫秒为单位) {@link java.nio.file.Files#getLastModifiedTime(Path, LinkOption...)}.
      * <p>
      * For the best precision, use {@link #lastModifiedFileTime(File)}.
      * </p>
@@ -1873,7 +1777,6 @@ public class FileUtils {
      * @param file The File to query.
      * @return See {@link java.nio.file.attribute.FileTime#toMillis()}.
      * @throws UncheckedIOException if an I/O error occurs.
-     *
      */
     public static long lastModifiedUnchecked(final File file) {
         // https://bugs.openjdk.java.net/browse/JDK-8177809
@@ -1883,7 +1786,7 @@ public class FileUtils {
     }
 
     /**
-     * Returns an Iterator for the lines in a {@code File} using the default encoding for the VM.
+     * 使用虚拟机的默认编码，为{@code File}中的行返回一个迭代器。
      *
      * @param file the file to open for input, must not be {@code null}
      * @return an Iterator of the lines in the file, never {@code null}
@@ -1891,14 +1794,13 @@ public class FileUtils {
      * @throws FileNotFoundException if the file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for reading.
      * @throws IOException           if an I/O error occurs.
      * @see #lineIterator(File, String)
-     *
      */
     public static LineIterator lineIterator(final File file) throws IOException {
         return lineIterator(file, null);
     }
 
     /**
-     * Returns an Iterator for the lines in a {@code File}.
+     * 对象中的行返回迭代器{@code File}.
      * <p>
      * This method opens an {@code InputStream} for the file. When you have finished with the iterator you should close the stream to free internal resources. This can be done by
      * using a try-with-resources block or calling the {@link LineIterator#close()} method.
@@ -1927,7 +1829,6 @@ public class FileUtils {
      * @throws NullPointerException  if file is {@code null}.
      * @throws FileNotFoundException if the file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for reading.
      * @throws IOException           if an I/O error occurs.
-     *
      */
     @SuppressWarnings("resource") // Caller closes the result LineIterator.
     public static LineIterator lineIterator(final File file, final String charsetName) throws IOException {
@@ -1954,7 +1855,7 @@ public class FileUtils {
     }
 
     /**
-     * Lists files in a directory, asserting that the supplied directory exists and is a directory.
+     * 列出目录中的文件，断言所提供的目录存在并且是一个目录。
      *
      * @param directory  The directory to list
      * @param fileFilter Optional file filter, may be null.
@@ -1974,7 +1875,7 @@ public class FileUtils {
     }
 
     /**
-     * Finds files within a given directory (and optionally its subdirectories). All files found are filtered by an IOFileFilter.
+     * 在给定目录(以及可选的子目录)中查找文件。所有找到的文件都通过ifilefilter进行过滤。
      * <p>
      * If your search should recurse into subdirectories you can pass in an IOFileFilter for directories. You don't need to bind a DirectoryFileFilter (via logical AND) to this
      * filter. This method does that for you.
@@ -2002,7 +1903,7 @@ public class FileUtils {
     }
 
     /**
-     * Finds files within a given directory (and optionally its subdirectories) which match an array of extensions.
+     * 查找与扩展名数组匹配的给定目录(以及可选的其子目录)中的文件。
      *
      * @param directory  the directory to search in
      * @param extensions an array of extensions, ex. {"java","xml"}. If this parameter is {@code null}, all files are returned.
@@ -2014,7 +1915,7 @@ public class FileUtils {
     }
 
     /**
-     * Finds files within a given directory (and optionally its subdirectories). All files found are filtered by an IOFileFilter.
+     * 在给定目录(以及可选的子目录)中查找文件。所有找到的文件都通过ifilefilter进行过滤。
      * <p>
      * The resulting collection includes the starting directory and any subdirectories that match the directory filter.
      * </p>
@@ -2027,7 +1928,6 @@ public class FileUtils {
      * @see FileUtils#listFiles
      * @see FileFilterUtils
      * @see NameFileFilter
-     *
      */
     public static Collection<File> listFilesAndDirs(final File directory, final IOFileFilter fileFilter, final IOFileFilter dirFilter) {
         final AccumulatorPathVisitor visitor = UncheckedIO.apply(d -> listAccumulate(d, fileFilter, dirFilter, FileVisitOption.FOLLOW_LINKS),
@@ -2038,7 +1938,7 @@ public class FileUtils {
     }
 
     /**
-     * Calls {@link File#mkdirs()} and throws an exception on failure.
+     * 调用{@link File#mkdirs()}并在失败时抛出异常。
      *
      * @param directory the receiver for {@code mkdirs()}, may be null.
      * @return the given file, may be null.
@@ -2055,9 +1955,9 @@ public class FileUtils {
     }
 
     /**
-     * Moves a directory.
+     * 移动一个目录。
      * <p>
-     * When the destination directory is on another file system, do a "copy and delete".
+     * 当目标目录在另一个文件系统上时，执行“复制和删除”操作。
      * </p>
      *
      * @param srcDir  the directory to be moved.
@@ -2066,7 +1966,6 @@ public class FileUtils {
      * @throws IllegalArgumentException if the source or destination is invalid.
      * @throws FileNotFoundException    if the source does not exist.
      * @throws IOException              if an error occurs or setting the last-modified time didn't succeeded.
-     *
      */
     public static void moveDirectory(final File srcDir, final File destDir) throws IOException {
         validateMoveParameters(srcDir, destDir);
@@ -2086,7 +1985,7 @@ public class FileUtils {
     }
 
     /**
-     * Moves a directory to another directory.
+     * 将一个目录移动到另一个目录。
      *
      * @param source        the file to be moved.
      * @param destDir       the destination file.
@@ -2095,7 +1994,6 @@ public class FileUtils {
      * @throws IllegalArgumentException if the source or destination is invalid.
      * @throws FileNotFoundException    if the source does not exist.
      * @throws IOException              if an error occurs or setting the last-modified time didn't succeeded.
-     *
      */
     public static void moveDirectoryToDirectory(final File source, final File destDir, final boolean createDestDir) throws IOException {
         validateMoveParameters(source, destDir);
@@ -2112,7 +2010,7 @@ public class FileUtils {
     }
 
     /**
-     * Moves a file preserving attributes.
+     * 移动保存属性的文件。
      * <p>
      * Shorthand for {@code moveFile(srcFile, destFile, StandardCopyOption.COPY_ATTRIBUTES)}.
      * </p>
@@ -2127,16 +2025,15 @@ public class FileUtils {
      * @throws FileNotFoundException if the source file does not exist.
      * @throws IOException           if source or destination is invalid.
      * @throws IOException           if an error occurs.
-     *
      */
     public static void moveFile(final File srcFile, final File destFile) throws IOException {
         moveFile(srcFile, destFile, StandardCopyOption.COPY_ATTRIBUTES);
     }
 
     /**
-     * Moves a file.
+     * 移动一个文件。
      * <p>
-     * When the destination file is on another file system, do a "copy and delete".
+     * 当目标文件在另一个文件系统上时，执行“复制和删除”操作。
      * </p>
      *
      * @param srcFile     the file to be moved.
@@ -2147,7 +2044,6 @@ public class FileUtils {
      * @throws FileNotFoundException if the source file does not exist.
      * @throws IOException           if source or destination is invalid.
      * @throws IOException           if an error occurs or setting the last-modified time didn't succeeded.
-     *
      */
     public static void moveFile(final File srcFile, final File destFile, final CopyOption... copyOptions) throws IOException {
         validateMoveParameters(srcFile, destFile);
@@ -2164,7 +2060,7 @@ public class FileUtils {
     }
 
     /**
-     * Moves a file to a directory.
+     * 将文件移动到目录。
      *
      * @param srcFile       the file to be moved.
      * @param destDir       the destination file.
@@ -2174,7 +2070,6 @@ public class FileUtils {
      * @throws FileNotFoundException if the source file does not exist.
      * @throws IOException           if source or destination is invalid.
      * @throws IOException           if an error occurs or setting the last-modified time didn't succeeded.
-     *
      */
     public static void moveFileToDirectory(final File srcFile, final File destDir, final boolean createDestDir) throws IOException {
         validateMoveParameters(srcFile, destDir);
@@ -2187,9 +2082,9 @@ public class FileUtils {
     }
 
     /**
-     * Moves a file or directory to the destination directory.
+     * 将文件或目录移动到目标目录。
      * <p>
-     * When the destination is on another file system, do a "copy and delete".
+     * 当目标在另一个文件系统上时，执行“复制和删除”操作。
      * </p>
      *
      * @param src           the file or directory to be moved.
@@ -2200,7 +2095,6 @@ public class FileUtils {
      * @throws FileNotFoundException if the source file does not exist.
      * @throws IOException           if source or destination is invalid.
      * @throws IOException           if an error occurs or setting the last-modified time didn't succeeded.
-     *
      */
     public static void moveToDirectory(final File src, final File destDir, final boolean createDestDir) throws IOException {
         validateMoveParameters(src, destDir);
@@ -2212,23 +2106,22 @@ public class FileUtils {
     }
 
     /**
-     * Creates a new OutputStream by opening or creating a file, returning an output stream that may be used to write bytes to the file.
+     * 通过打开或创建文件创建新的OutputStream，返回可用于向文件写入字节的输出流。
      *
      * @param append Whether or not to append.
      * @param file   the File.
      * @return a new OutputStream.
      * @throws IOException if an I/O error occurs.
      * @see PathUtils#newOutputStream(Path, boolean)
-     *
      */
     public static OutputStream newOutputStream(final File file, final boolean append) throws IOException {
         return PathUtils.newOutputStream(Objects.requireNonNull(file, "file").toPath(), append);
     }
 
     /**
-     * Opens a {@link FileInputStream} for the specified file, providing better error messages than simply calling {@code new FileInputStream(file)}.
+     * 为指定的文件打开{@link FileInputStream}，提供比简单调用{@code new FileInputStream(file)}更好的错误消息。
      * <p>
-     * At the end of the method either the stream will be successfully opened, or an exception will have been thrown.
+     * 在方法的最后，流要么被成功打开，要么抛出异常。
      * </p>
      * <p>
      * An exception is thrown if the file does not exist. An exception is thrown if the file object exists but is a directory. An exception is thrown if the file exists but cannot
@@ -2240,7 +2133,6 @@ public class FileUtils {
      * @throws NullPointerException  if file is {@code null}.
      * @throws FileNotFoundException if the file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for reading.
      * @throws IOException           See FileNotFoundException above, FileNotFoundException is a subclass of IOException.
-     *
      */
     public static FileInputStream openInputStream(final File file) throws IOException {
         Objects.requireNonNull(file, "file");
@@ -2248,9 +2140,9 @@ public class FileUtils {
     }
 
     /**
-     * Opens a {@link FileOutputStream} for the specified file, checking and creating the parent directory if it does not exist.
+     * 为指定的文件打开{@link FileOutputStream}，如果父目录不存在，则检查并创建父目录。
      * <p>
-     * At the end of the method either the stream will be successfully opened, or an exception will have been thrown.
+     * 在方法的最后，流要么被成功打开，要么抛出异常。
      * </p>
      * <p>
      * The parent directory will be created if it does not exist. The file will be created if it does not exist. An exception is thrown if the file object exists but is a
@@ -2263,16 +2155,15 @@ public class FileUtils {
      * @throws IllegalArgumentException if the file object is a directory
      * @throws IllegalArgumentException if the file is not writable.
      * @throws IOException              if the directories could not be created.
-     *
      */
     public static FileOutputStream openOutputStream(final File file) throws IOException {
         return openOutputStream(file, false);
     }
 
     /**
-     * Opens a {@link FileOutputStream} for the specified file, checking and creating the parent directory if it does not exist.
+     * 为指定的文件打开{@link FileOutputStream}，如果父目录不存在，则检查并创建父目录。
      * <p>
-     * At the end of the method either the stream will be successfully opened, or an exception will have been thrown.
+     * 在方法的最后，流要么被成功打开，要么抛出异常。
      * </p>
      * <p>
      * The parent directory will be created if it does not exist. The file will be created if it does not exist. An exception is thrown if the file object exists but is a
@@ -2286,7 +2177,6 @@ public class FileUtils {
      * @throws IllegalArgumentException if the file object is a directory
      * @throws IllegalArgumentException if the file is not writable.
      * @throws IOException              if the directories could not be created.
-     *
      */
     public static FileOutputStream openOutputStream(final File file, final boolean append) throws IOException {
         Objects.requireNonNull(file, "file");
@@ -2300,14 +2190,13 @@ public class FileUtils {
     }
 
     /**
-     * Reads the contents of a file into a byte array. The file is always closed.
+     * 将文件的内容读入字节数组。文件总是关闭的。
      *
      * @param file the file to read, must not be {@code null}
      * @return the file contents, never {@code null}
      * @throws NullPointerException  if file is {@code null}.
      * @throws FileNotFoundException if the file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for reading.
      * @throws IOException           if an I/O error occurs.
-     *
      */
     public static byte[] readFileToByteArray(final File file) throws IOException {
         Objects.requireNonNull(file, "file");
@@ -2316,7 +2205,7 @@ public class FileUtils {
 
 
     /**
-     * Reads the contents of a file into a String. The file is always closed.
+     * 将文件的内容读入String。文件总是关闭的。
      *
      * @param file        the file to read, must not be {@code null}
      * @param charsetName the name of the requested charset, {@code null} means platform default
@@ -2324,7 +2213,6 @@ public class FileUtils {
      * @throws NullPointerException  if file is {@code null}.
      * @throws FileNotFoundException if the file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for reading.
      * @throws IOException           if an I/O error occurs.
-     *
      */
     public static String readFileToString(final File file, final Charset charsetName) throws IOException {
         try (InputStream inputStream = Files.newInputStream(file.toPath())) {
@@ -2333,7 +2221,7 @@ public class FileUtils {
     }
 
     /**
-     * Reads the contents of a file into a String. The file is always closed.
+     * 将文件的内容读入String。文件总是关闭的。
      *
      * @param file        the file to read, must not be {@code null}
      * @param charsetName the name of the requested charset, {@code null} means platform default
@@ -2343,7 +2231,6 @@ public class FileUtils {
      *                                                      reading.
      * @throws IOException                                  if an I/O error occurs.
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the named charset is unavailable.
-     *
      */
     public static String readFileToString(final File file, final String charsetName) throws IOException {
         return readFileToString(file, Charsets.toCharset(charsetName));
@@ -2351,7 +2238,7 @@ public class FileUtils {
 
 
     /**
-     * Reads the contents of a file line by line to a List of Strings. The file is always closed.
+     * 将文件的内容逐行读取到字符串列表中。文件总是关闭的。
      *
      * @param file    the file to read, must not be {@code null}
      * @param charset the charset to use, {@code null} means platform default
@@ -2359,7 +2246,6 @@ public class FileUtils {
      * @throws NullPointerException  if file is {@code null}.
      * @throws FileNotFoundException if the file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for reading.
      * @throws IOException           if an I/O error occurs.
-     *
      */
     public static List<String> readLines(final File file, final Charset charset) throws IOException {
         return Files.readAllLines(file.toPath(), charset);
@@ -2367,7 +2253,7 @@ public class FileUtils {
 
 
     /**
-     * Reads the contents of a file line by line to a List of Strings. The file is always closed.
+     * 将文件的内容逐行读取到字符串列表中。文件总是关闭的。
      *
      * @param file        the file to read, must not be {@code null}
      * @param charsetName the name of the requested charset, {@code null} means platform default
@@ -2377,7 +2263,6 @@ public class FileUtils {
      *                                                      reading.
      * @throws IOException                                  if an I/O error occurs.
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the named charset is unavailable.
-     *
      */
     public static List<String> readLines(final File file, final String charsetName) throws IOException {
         return readLines(file, Charsets.toCharset(charsetName));
@@ -2390,7 +2275,7 @@ public class FileUtils {
     }
 
     /**
-     * Throws IllegalArgumentException if the given files' canonical representations are equal.
+     * 如果给定文件的规范表示相等，抛出IllegalArgumentException异常。
      *
      * @param file1 The first file to compare.
      * @param file2 The second file to compare.
@@ -2406,7 +2291,7 @@ public class FileUtils {
     }
 
     /**
-     * Throws an {@link IllegalArgumentException} if the file is not writable. This provides a more precise exception message than a plain access denied.
+     * 如果文件不可写，抛出{@link IllegalArgumentException}。这提供了比拒绝普通访问更精确的异常消息。
      *
      * @param file The file to test.
      * @param name The parameter name to use in the exception message.
@@ -2421,7 +2306,7 @@ public class FileUtils {
     }
 
     /**
-     * Requires that the given {@code File} is a directory.
+     * 要求给定的{@code File}是一个目录。
      *
      * @param directory The {@code File} to check.
      * @param name      The parameter name to use in the exception message in case of null input or if the file is not a directory.
@@ -2438,7 +2323,7 @@ public class FileUtils {
     }
 
     /**
-     * Requires that the given {@code File} exists and is a directory.
+     * 要求给定的{@code File}存在并且是一个目录。
      *
      * @param directory The {@code File} to check.
      * @param name      The parameter name to use in the exception message in case of null input.
@@ -2453,7 +2338,7 @@ public class FileUtils {
     }
 
     /**
-     * Requires that the given {@code File} is a directory if it exists.
+     * 要求给定的{@code File}是一个目录(如果它存在的话)。
      *
      * @param directory The {@code File} to check.
      * @param name      The parameter name to use in the exception message in case of null input.
@@ -2470,7 +2355,7 @@ public class FileUtils {
     }
 
     /**
-     * Requires that two file lengths are equal.
+     * 要求两个文件长度相等。
      *
      * @param srcFile  Source file.
      * @param destFile Destination file.
@@ -2486,7 +2371,7 @@ public class FileUtils {
     }
 
     /**
-     * Requires that the given {@code File} exists and throws an {@link IllegalArgumentException} if it doesn't.
+     * 要求给定的{@code File}存在，如果不存在则抛出{@link IllegalArgumentException}。
      *
      * @param file          The {@code File} to check.
      * @param fileParamName The parameter name to use in the exception message in case of {@code null} input.
@@ -2504,7 +2389,7 @@ public class FileUtils {
     }
 
     /**
-     * Requires that the given {@code File} exists and throws an {@link FileNotFoundException} if it doesn't.
+     * 要求给定的{@code File}存在，如果不存在则抛出{@link FileNotFoundException}。
      *
      * @param file          The {@code File} to check.
      * @param fileParamName The parameter name to use in the exception message in case of {@code null} input.
@@ -2522,7 +2407,7 @@ public class FileUtils {
     }
 
     /**
-     * Requires that the given {@code File} is a file.
+     * 要求给定的{@code File}是一个文件。
      *
      * @param file The {@code File} to check.
      * @param name The parameter name to use in the exception message.
@@ -2539,7 +2424,7 @@ public class FileUtils {
     }
 
     /**
-     * Requires parameter attributes for a file copy operation.
+     * 需要文件复制操作的参数属性。
      *
      * @param source      the source file
      * @param destination the destination
@@ -2552,7 +2437,7 @@ public class FileUtils {
     }
 
     /**
-     * Requires that the given {@code File} is a file if it exists.
+     * 要求给定的{@code File}是一个文件(如果它存在)。
      *
      * @param file The {@code File} to check.
      * @param name The parameter name to use in the exception message in case of null input.
@@ -2566,7 +2451,7 @@ public class FileUtils {
     }
 
     /**
-     * Sets the given {@code targetFile}'s last modified date to the value from {@code sourceFile}.
+     * 将给定的{@code targetFile}的最后修改日期设置为{@code sourceFile}的值。
      *
      * @param sourceFile The source file to query.
      * @param targetFile The target file or directory to set.
@@ -2585,7 +2470,7 @@ public class FileUtils {
     }
 
     /**
-     * Sets the given {@code targetFile}'s last modified date to the given value.
+     * 将给定的{@code targetFile}的最后修改日期设置为给定值。
      *
      * @param file       The source file to query.
      * @param timeMillis The new last-modified time, measured in milliseconds since the epoch 01-01-1970 GMT.
@@ -2600,8 +2485,7 @@ public class FileUtils {
     }
 
     /**
-     * Returns the size of the specified file or directory. If the provided {@link File} is a regular file, then the file's length is returned. If the argument is a directory, then
-     * the size of the directory is calculated recursively. If a directory or subdirectory is security restricted, its size will not be included.
+     * 返回指定文件或目录的大小。如果提供的{@link File}是一个常规文件，则返回文件的长度。如果参数是一个目录，则递归计算目录的大小。如果目录或子目录受到安全限制，则其大小将不包括在内。
      * <p>
      * Note that overflow is not detected, and the return value may be negative if overflow occurs. See {@link #sizeOfAsBigInteger(File)} for an alternative method that does not
      * overflow.
@@ -2612,7 +2496,6 @@ public class FileUtils {
      * @throws NullPointerException     if the file is {@code null}.
      * @throws IllegalArgumentException if the file does not exist.
      * @throws UncheckedIOException     if an IO error occurs.
-     *
      */
     public static long sizeOf(final File file) {
         requireExists(file, "file");
@@ -2620,15 +2503,13 @@ public class FileUtils {
     }
 
     /**
-     * Returns the size of the specified file or directory. If the provided {@link File} is a regular file, then the file's length is returned. If the argument is a directory, then
-     * the size of the directory is calculated recursively. If a directory or subdirectory is security restricted, its size will not be included.
+     * 返回指定文件或目录的大小。如果提供的{@link File}是一个常规文件，则返回文件的长度。如果参数是一个目录，则递归计算目录的大小。如果目录或子目录受到安全限制，则其大小将不包括在内。D
      *
      * @param file the regular file or directory to return the size of (must not be {@code null}).
      * @return the length of the file, or recursive size of the directory, provided (in bytes).
      * @throws NullPointerException     if the file is {@code null}.
      * @throws IllegalArgumentException if the file does not exist.
      * @throws UncheckedIOException     if an IO error occurs.
-     *
      */
     public static BigInteger sizeOfAsBigInteger(final File file) {
         requireExists(file, "file");
@@ -2636,10 +2517,9 @@ public class FileUtils {
     }
 
     /**
-     * Counts the size of a directory recursively (sum of the length of all files).
+     * 递归地计算目录的大小(所有文件的长度之和)。
      * <p>
-     * Note that overflow is not detected, and the return value may be negative if overflow occurs. See {@link #sizeOfDirectoryAsBigInteger(File)} for an alternative method that
-     * does not overflow.
+     * 注意，没有检测到溢出，如果发生溢出，返回值可能为负数. See {@link #sizeOfDirectoryAsBigInteger(File)} for an alternative method that does not overflow.
      * </p>
      *
      * @param directory directory to inspect, must not be {@code null}.
@@ -2653,13 +2533,12 @@ public class FileUtils {
     }
 
     /**
-     * Counts the size of a directory recursively (sum of the length of all files).
+     * 递归地计算目录的大小(所有文件的长度之和)。
      *
      * @param directory directory to inspect, must not be {@code null}.
      * @return size of directory in bytes, 0 if directory is security restricted.
      * @throws NullPointerException if the directory is {@code null}.
      * @throws UncheckedIOException if an IO error occurs.
-     *
      */
     public static BigInteger sizeOfDirectoryAsBigInteger(final File directory) {
         requireDirectoryExists(directory, "directory");
@@ -2667,14 +2546,13 @@ public class FileUtils {
     }
 
     /**
-     * Streams over the files in a given directory (and optionally its subdirectories) which match an array of extensions.
+     * 在与扩展名数组匹配的给定目录(以及可选的其子目录)中的文件上的流。
      *
      * @param directory  the directory to search in
      * @param recursive  if true all subdirectories are searched as well
      * @param extensions an array of extensions, ex. {"java","xml"}. If this parameter is {@code null}, all files are returned.
      * @return an iterator of java.io.File with the matching files
      * @throws IOException if an I/O error is thrown when accessing the starting file.
-     *
      */
     public static Stream<File> streamFiles(final File directory, final boolean recursive, final String... extensions) throws IOException {
         // @formatter:off
@@ -2686,7 +2564,7 @@ public class FileUtils {
     }
 
     /**
-     * Converts from a {@code URL} to a {@code File}.
+     * 从{@code URL}转换为{@code File}。
      * <p>
      * From version 1.1 this method will decode the URL. Syntax such as {@code file:///my%20docs/file.txt} will be correctly decoded to {@code /my docs/file.txt}. Starting with
      * version 1.5, this method uses UTF-8 to decode percent-encoded octets to characters. Additionally, malformed percent-encoded octets are handled leniently by passing them
@@ -2705,7 +2583,7 @@ public class FileUtils {
     }
 
     /**
-     * Converts each of an array of {@code URL} to a {@code File}.
+     * 将{@code URL}数组中的每一个转换为{@code File}。
      * <p>
      * Returns an array of the same size as the input. If the input is {@code null}, an empty array is returned. If the input contains {@code null}, the output array contains
      * {@code null} at the same index.
@@ -2718,7 +2596,6 @@ public class FileUtils {
      * @return a non-{@code null} array of Files matching the input, with a {@code null} item if there was a {@code null} at that index in the input array
      * @throws IllegalArgumentException if any file is not a URL file
      * @throws IllegalArgumentException if any file is incorrectly encoded
-     *
      */
     public static File[] toFiles(final URL... urls) {
         if (IOUtils.length(urls) == 0) {
@@ -2742,7 +2619,7 @@ public class FileUtils {
     }
 
     /**
-     * Converts whether or not to recurse into a recursion max depth.
+     * 将是否递归转换为递归最大深度。
      *
      * @param recursive whether or not to recurse
      * @return the recursion depth
@@ -2768,7 +2645,7 @@ public class FileUtils {
     }
 
     /**
-     * Implements behavior similar to the Unix "touch" utility. Creates a new file with size 0, or, if the file exists, just updates the file's modified time.
+     * 实现类似Unix "touch"实用程序的行为。创建一个大小为0的新文件，或者，如果文件存在，则更新文件的修改时间。
      * <p>
      * NOTE: As from v1.3, this method throws an IOException if the last modified date of the file cannot be set. Also, as from v1.3 this method creates parent directories if they
      * do not exist.
@@ -2783,9 +2660,9 @@ public class FileUtils {
     }
 
     /**
-     * Converts each of an array of {@code File} to a {@code URL}.
+     * 将{@code File}的每个数组转换为{@code URL}。
      * <p>
-     * Returns an array of the same size as the input.
+     * 返回与输入大小相同的数组。
      * </p>
      *
      * @param files the files to convert, must not be {@code null}
@@ -2803,7 +2680,7 @@ public class FileUtils {
     }
 
     /**
-     * Validates the given arguments.
+     * 验证给定的参数。
      * <ul>
      * <li>Throws {@link NullPointerException} if {@code source} is null</li>
      * <li>Throws {@link NullPointerException} if {@code destination} is null</li>
@@ -2823,7 +2700,7 @@ public class FileUtils {
     }
 
     /**
-     * Waits for the file system to propagate a file creation, with a timeout.
+     * 等待文件系统传播创建的文件，并设置超时。
      * <p>
      * This method repeatedly tests {@link Files#exists(Path, LinkOption...)} until it returns true up to the maximum time specified in seconds.
      * </p>
@@ -2841,41 +2718,38 @@ public class FileUtils {
     // Private method, must be invoked will a directory parameter
 
     /**
-     * Writes a CharSequence to a file creating the file if it does not exist.
+     * 写入一个CharSequence到一个文件，如果该文件不存在则创建该文件。
      *
      * @param file    the file to write
      * @param data    the content to write to the file
      * @param charset the name of the requested charset, {@code null} means platform default
      * @throws IOException in case of an I/O error
-     *
      */
     public static void write(final File file, final CharSequence data, final Charset charset) throws IOException {
         write(file, data, charset, false);
     }
 
     /**
-     * Writes a CharSequence to a file creating the file if it does not exist.
+     * 写入一个CharSequence到一个文件，如果该文件不存在则创建该文件。
      *
      * @param file    the file to write
      * @param data    the content to write to the file
      * @param charset the charset to use, {@code null} means platform default
      * @param append  if {@code true}, then the data will be added to the end of the file rather than overwriting
      * @throws IOException in case of an I/O error
-     *
      */
     public static void write(final File file, final CharSequence data, final Charset charset, final boolean append) throws IOException {
         writeStringToFile(file, Objects.toString(data, null), charset, append);
     }
 
     /**
-     * Writes a CharSequence to a file creating the file if it does not exist.
+     *写入一个CharSequence到一个文件，如果该文件不存在则创建该文件。
      *
      * @param file        the file to write
      * @param data        the content to write to the file
      * @param charsetName the name of the requested charset, {@code null} means platform default
      * @throws IOException                          in case of an I/O error
      * @throws java.io.UnsupportedEncodingException if the encoding is not supported by the VM
-     *
      */
     public static void write(final File file, final CharSequence data, final String charsetName) throws IOException {
         write(file, data, charsetName, false);
@@ -2884,7 +2758,7 @@ public class FileUtils {
     // Must be called with a directory
 
     /**
-     * Writes a CharSequence to a file creating the file if it does not exist.
+     * 写入一个CharSequence到一个文件，如果该文件不存在则创建该文件。
      *
      * @param file        the file to write
      * @param data        the content to write to the file
@@ -2893,56 +2767,52 @@ public class FileUtils {
      * @throws IOException                                  in case of an I/O error
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported by the
      *                                                      VM
-     *
      */
     public static void write(final File file, final CharSequence data, final String charsetName, final boolean append) throws IOException {
         write(file, data, Charsets.toCharset(charsetName), append);
     }
 
     /**
-     * Writes a byte array to a file creating the file if it does not exist.
+     * 将字节数组写入文件，如果文件不存在则创建该文件。
      * <p>
-     * NOTE: As from v1.3, the parent directories of the file will be created if they do not exist.
+     * 注意:从v1.3开始，如果文件的父目录不存在，就会创建它们。
      * </p>
      *
      * @param file the file to write to
      * @param data the content to write to the file
      * @throws IOException in case of an I/O error
-     *
      */
     public static void writeByteArrayToFile(final File file, final byte[] data) throws IOException {
         writeByteArrayToFile(file, data, false);
     }
 
     /**
-     * Writes a byte array to a file creating the file if it does not exist.
+     * 将字节数组写入文件，如果文件不存在则创建该文件。
      *
      * @param file   the file to write to
      * @param data   the content to write to the file
      * @param append if {@code true}, then bytes will be added to the end of the file rather than overwriting
      * @throws IOException in case of an I/O error
-     *
      */
     public static void writeByteArrayToFile(final File file, final byte[] data, final boolean append) throws IOException {
         writeByteArrayToFile(file, data, 0, data.length, append);
     }
 
     /**
-     * Writes {@code len} bytes from the specified byte array starting at offset {@code off} to a file, creating the file if it does not exist.
+     * 将从offset {@code off}开始的指定字节数组中的{@code len}字节写入文件，如果文件不存在则创建该文件。
      *
      * @param file the file to write to
      * @param data the content to write to the file
      * @param off  the start offset in the data
      * @param len  the number of bytes to write
      * @throws IOException in case of an I/O error
-     *
      */
     public static void writeByteArrayToFile(final File file, final byte[] data, final int off, final int len) throws IOException {
         writeByteArrayToFile(file, data, off, len, false);
     }
 
     /**
-     * Writes {@code len} bytes from the specified byte array starting at offset {@code off} to a file, creating the file if it does not exist.
+     * 将从offset {@code off}开始的指定字节数组中的{@code len}字节写入文件，如果文件不存在则创建该文件。
      *
      * @param file   the file to write to
      * @param data   the content to write to the file
@@ -2950,7 +2820,6 @@ public class FileUtils {
      * @param len    the number of bytes to write
      * @param append if {@code true}, then bytes will be added to the end of the file rather than overwriting
      * @throws IOException in case of an I/O error
-     *
      */
     public static void writeByteArrayToFile(final File file, final byte[] data, final int off, final int len, final boolean append) throws IOException {
         try (OutputStream out = newOutputStream(file, append)) {
@@ -2959,13 +2828,11 @@ public class FileUtils {
     }
 
     /**
-     * Writes the {@code toString()} value of each item in a collection to the specified {@code File} line by line. The default VM encoding and the default line ending will be
-     * used.
+     *将集合中每个项的{@code toString()}值逐行写入指定的{@code File}。将使用默认的VM编码和默认行结束。
      *
      * @param file  the file to write to
      * @param lines the lines to write, {@code null} entries produce blank lines
      * @throws IOException in case of an I/O error
-     *
      */
     public static void writeLines(final File file, final Collection<?> lines) throws IOException {
         writeLines(file, null, lines, null, false);
@@ -2973,51 +2840,44 @@ public class FileUtils {
 
 
     /**
-     * Writes the {@code toString()} value of each item in a collection to the specified {@code File} line by line. The default VM encoding and the default line ending will be
-     * used.
+     *将集合中每个项的{@code toString()}值逐行写入指定的{@code File}。将使用默认的VM编码和默认行结束。
      *
      * @param file   the file to write to
      * @param lines  the lines to write, {@code null} entries produce blank lines
      * @param append if {@code true}, then the lines will be added to the end of the file rather than overwriting
      * @throws IOException in case of an I/O error
-     *
      */
     public static void writeLines(final File file, final Collection<?> lines, final boolean append) throws IOException {
         writeLines(file, null, lines, null, append);
     }
 
     /**
-     * Writes the {@code toString()} value of each item in a collection to the specified {@code File} line by line. The default VM encoding and the specified line ending will be
-     * used.
+     * 将集合中每个项的{@code toString()}值逐行写入指定的{@code File}。将使用默认的VM编码和指定的行结束。
      *
      * @param file       the file to write to
      * @param lines      the lines to write, {@code null} entries produce blank lines
      * @param lineEnding the line separator to use, {@code null} is system default
      * @throws IOException in case of an I/O error
-     *
      */
     public static void writeLines(final File file, final Collection<?> lines, final String lineEnding) throws IOException {
         writeLines(file, null, lines, lineEnding, false);
     }
 
     /**
-     * Writes the {@code toString()} value of each item in a collection to the specified {@code File} line by line. The default VM encoding and the specified line ending will be
-     * used.
+     * 将集合中每个项的{@code toString()}值逐行写入指定的{@code File}。将使用默认的VM编码和指定的行结束。
      *
      * @param file       the file to write to
      * @param lines      the lines to write, {@code null} entries produce blank lines
      * @param lineEnding the line separator to use, {@code null} is system default
      * @param append     if {@code true}, then the lines will be added to the end of the file rather than overwriting
      * @throws IOException in case of an I/O error
-     *
      */
     public static void writeLines(final File file, final Collection<?> lines, final String lineEnding, final boolean append) throws IOException {
         writeLines(file, null, lines, lineEnding, append);
     }
 
     /**
-     * Writes the {@code toString()} value of each item in a collection to the specified {@code File} line by line. The specified character encoding and the default line ending
-     * will be used.
+     * 将集合中每个项的{@code toString()}值逐行写入指定的{@code File}。将使用指定的字符编码和默认行结束。
      * <p>
      * NOTE: As from v1.3, the parent directories of the file will be created if they do not exist.
      * </p>
@@ -3027,15 +2887,13 @@ public class FileUtils {
      * @param lines       the lines to write, {@code null} entries produce blank lines
      * @throws IOException                          in case of an I/O error
      * @throws java.io.UnsupportedEncodingException if the encoding is not supported by the VM
-     *
      */
     public static void writeLines(final File file, final String charsetName, final Collection<?> lines) throws IOException {
         writeLines(file, charsetName, lines, null, false);
     }
 
     /**
-     * Writes the {@code toString()} value of each item in a collection to the specified {@code File} line by line, optionally appending. The specified character encoding and the
-     * default line ending will be used.
+     * 将集合中每个项的{@code toString()}值逐行写入指定的{@code File}，可选追加。将使用指定的字符编码和默认行结束。
      *
      * @param file        the file to write to
      * @param charsetName the name of the requested charset, {@code null} means platform default
@@ -3043,15 +2901,13 @@ public class FileUtils {
      * @param append      if {@code true}, then the lines will be added to the end of the file rather than overwriting
      * @throws IOException                          in case of an I/O error
      * @throws java.io.UnsupportedEncodingException if the encoding is not supported by the VM
-     *
      */
     public static void writeLines(final File file, final String charsetName, final Collection<?> lines, final boolean append) throws IOException {
         writeLines(file, charsetName, lines, null, append);
     }
 
     /**
-     * Writes the {@code toString()} value of each item in a collection to the specified {@code File} line by line. The specified character encoding and the line ending will be
-     * used.
+     * 将集合中每个项的{@code toString()}值逐行写入指定的{@code File}。将使用指定的字符编码和行结束。
      * <p>
      * NOTE: As from v1.3, the parent directories of the file will be created if they do not exist.
      * </p>
@@ -3062,15 +2918,13 @@ public class FileUtils {
      * @param lineEnding  the line separator to use, {@code null} is system default
      * @throws IOException                          in case of an I/O error
      * @throws java.io.UnsupportedEncodingException if the encoding is not supported by the VM
-     *
      */
     public static void writeLines(final File file, final String charsetName, final Collection<?> lines, final String lineEnding) throws IOException {
         writeLines(file, charsetName, lines, lineEnding, false);
     }
 
     /**
-     * Writes the {@code toString()} value of each item in a collection to the specified {@code File} line by line. The specified character encoding and the line ending will be
-     * used.
+     * 将集合中每个项的{@code toString()}值逐行写入指定的{@code File}。将使用指定的字符编码和行结束。
      *
      * @param file        the file to write to
      * @param charsetName the name of the requested charset, {@code null} means platform default
@@ -3079,7 +2933,6 @@ public class FileUtils {
      * @param append      if {@code true}, then the lines will be added to the end of the file rather than overwriting
      * @throws IOException                          in case of an I/O error
      * @throws java.io.UnsupportedEncodingException if the encoding is not supported by the VM
-     *
      */
     public static void writeLines(final File file, final String charsetName, final Collection<?> lines, final String lineEnding, final boolean append)
             throws IOException {
@@ -3089,9 +2942,9 @@ public class FileUtils {
     }
 
     /**
-     * Writes a String to a file creating the file if it does not exist.
+     * 将字符串写入文件，如果文件不存在则创建该文件。
      * <p>
-     * NOTE: As from v1.3, the parent directories of the file will be created if they do not exist.
+     * 注意:从v1.3开始，如果文件的父目录不存在，就会创建它们。
      * </p>
      *
      * @param file    the file to write
@@ -3099,21 +2952,19 @@ public class FileUtils {
      * @param charset the charset to use, {@code null} means platform default
      * @throws IOException                          in case of an I/O error
      * @throws java.io.UnsupportedEncodingException if the encoding is not supported by the VM
-     *
      */
     public static void writeStringToFile(final File file, final String data, final Charset charset) throws IOException {
         writeStringToFile(file, data, charset, false);
     }
 
     /**
-     * Writes a String to a file creating the file if it does not exist.
+     * 将字符串写入文件，如果文件不存在则创建该文件。
      *
      * @param file    the file to write
      * @param data    the content to write to the file
      * @param charset the charset to use, {@code null} means platform default
      * @param append  if {@code true}, then the String will be added to the end of the file rather than overwriting
      * @throws IOException in case of an I/O error
-     *
      */
     public static void writeStringToFile(final File file, final String data, final Charset charset, final boolean append) throws IOException {
         try (OutputStream out = newOutputStream(file, append)) {
@@ -3122,7 +2973,7 @@ public class FileUtils {
     }
 
     /**
-     * Writes a String to a file creating the file if it does not exist.
+     * 将字符串写入文件，如果文件不存在则创建该文件。
      * <p>
      * NOTE: As from v1.3, the parent directories of the file will be created if they do not exist.
      * </p>
@@ -3138,7 +2989,7 @@ public class FileUtils {
     }
 
     /**
-     * Writes a String to a file creating the file if it does not exist.
+     *将字符串写入文件，如果文件不存在则创建该文件。
      *
      * @param file        the file to write
      * @param data        the content to write to the file
@@ -3147,7 +2998,6 @@ public class FileUtils {
      * @throws IOException                                  in case of an I/O error
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported by the
      *                                                      VM
-     *
      */
     public static void writeStringToFile(final File file, final String data, final String charsetName, final boolean append) throws IOException {
         writeStringToFile(file, data, Charsets.toCharset(charsetName), append);
@@ -3200,7 +3050,6 @@ public class FileUtils {
      * @param sleepMillis 线程等待的毫秒数
      * @return true表示创建成功，false表示创建失败
      * @author z8g
-     *
      */
     public static boolean mkdirsSafely(File dir, int tryCount, long sleepMillis) {
         if (dir == null) {
