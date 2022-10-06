@@ -5,9 +5,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>atomic-core</artifactId>
-  <version>${atomic.version}</version>
+  <version>1.0</version>
   <parent>
-    <groupId>top.yang</groupId>
+    <groupId>top.lytree</groupId>
     <artifactId>atomic</artifactId>
     <version>1.0</version>
   </parent>

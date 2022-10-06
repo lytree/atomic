@@ -7,7 +7,7 @@
   <artifactId>atomic-data-jpa</artifactId>
   <version>1.0</version>
   <parent>
-    <groupId>top.yang</groupId>
+    <groupId>top.lytree</groupId>
     <artifactId>atomic</artifactId>
     <version>1.0</version>
   </parent>
@@ -17,17 +17,17 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>top.yang</groupId>
+      <groupId>top.lytree</groupId>
       <artifactId>atomic-core</artifactId>
       <version>${atomic.version}</version>
     </dependency>
     <dependency>
-      <groupId>top.yang</groupId>
+      <groupId>top.lytree</groupId>
       <artifactId>atomic-spring</artifactId>
       <version>${atomic.version}</version>
     </dependency>
     <dependency>
-      <groupId>top.yang</groupId>
+      <groupId>top.lytree</groupId>
       <artifactId>atomic-model</artifactId>
       <version>${atomic.version}</version>
     </dependency>
