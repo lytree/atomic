@@ -7,7 +7,7 @@
   <artifactId>atomic-data-mongo</artifactId>
   <version>1.0</version>
   <parent>
-    <groupId>top.yang</groupId>
+    <groupId>top.lytree</groupId>
     <artifactId>atomic</artifactId>
     <version>1.0</version>
   </parent>
@@ -21,7 +21,7 @@
       <artifactId>spring-boot-starter-data-mongodb</artifactId>
     </dependency>
     <dependency>
-      <groupId>top.yang</groupId>
+      <groupId>top.lytree</groupId>
       <artifactId>atomic-model</artifactId>
       <version>1.0</version>
     </dependency>

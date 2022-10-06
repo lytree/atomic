@@ -1,6 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  top.yang.web.aspect.GlobalResponseHandler,\
-  top.yang.web.aspect.OperationLogAspect,\
-  top.yang.web.configuration.DateConverterConfig,\
-  top.yang.web.configuration.PageJacksonSerializer,\
-  top.yang.web.configuration.StringToEnumConverterFactory
+  topweb.aspect.GlobalResponseHandler,\
+  topweb.aspect.OperationLogAspect,\
+  topweb.configuration.DateConverterConfig,\
+  topweb.configuration.PageJacksonSerializer,\
+  topweb.configuration.StringToEnumConverterFactory
