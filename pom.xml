@@ -45,7 +45,6 @@
     <redisson.version>3.16.8</redisson.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <project.groupId>top</project.groupId>
   </properties>
   <modules>
     <module>atomic-core</module>
