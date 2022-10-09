@@ -212,7 +212,7 @@ public enum IOCase {
     }
 
     /**
-     * Checks if one string starts with another using the case-sensitivity rule.
+     * 使用区分大小写规则 检查一个字符串是否以另一个字符串开头。
      * <p>
      * This method mimics {@link String#startsWith(String)} but takes case-sensitivity into account.
      * </p>
@@ -226,7 +226,7 @@ public enum IOCase {
     }
 
     /**
-     * Gets the name of the constant.
+     * 获取常量的名称。
      *
      * @return the name of the constant
      */
@@ -235,7 +235,7 @@ public enum IOCase {
     }
 
     /**
-     * Does the object represent case sensitive comparison.
+     * 对象是否表示区分大小写的比较。
      *
      * @return true if case sensitive
      */
@@ -244,7 +244,7 @@ public enum IOCase {
     }
 
     /**
-     * Replaces the enumeration from the stream with a real one. This ensures that the correct flag is set for SYSTEM.
+     * 将流中的枚举替换为实枚举。这确保为SYSTEM设置了正确的标志。
      *
      * @return the resolved object
      */
