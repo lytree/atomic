@@ -13,7 +13,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
+
 
 public class CustomNamedParameterJdbcTemplate extends NamedParameterJdbcTemplate {
 
