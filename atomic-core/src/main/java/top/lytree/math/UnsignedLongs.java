@@ -23,7 +23,7 @@ import top.lytree.base.Assert;
 /**
  * Static utility methods pertaining to {@code long} primitives that interpret values as
  * <i>unsigned</i> (that is, any negative value {@code x} is treated as the positive value {@code
- * 2^64 + x}). The methods for which signedness is not an issue are in {@link LongUtils}, as well as signed versions of methods for which signedness is an issue.
+ * 2^64 + x}). The methods for which signedness is not an issue are in {@link Longs}, as well as signed versions of methods for which signedness is an issue.
  *
  * <p>In addition, this class provides several static methods for converting a {@code long} to a
  * {@code String} and a {@code String} to a {@code long} that treat the {@code long} as an unsigned number.
@@ -67,7 +67,7 @@ public final class UnsignedLongs {
      * @return a negative value if {@code a} is less than {@code b}; a positive value if {@code a} is greater than {@code b}; or zero if they are equal
      */
     public static int compare(long a, long b) {
-        return LongUtils.compare(flip(a), flip(b));
+        return Longs.compare(flip(a), flip(b));
     }
 
     /**

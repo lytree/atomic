@@ -32,9 +32,9 @@ import top.lytree.base.Assert;
  * @author Louis Wasserman
  */
 
-final class DoubleUtils {
+public final class Doubles {
 
-    private DoubleUtils() {
+    private Doubles() {
     }
 
     static double nextDown(double d) {

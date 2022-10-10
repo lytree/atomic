@@ -1159,7 +1159,7 @@ public final class LongMath {
         if (roundArbitrarilyAsLong == Long.MAX_VALUE) {
             /*
              * For most values, the conversion from roundArbitrarily to roundArbitrarilyAsLong is
-             * lossless. In that case we can compare x to roundArbitrarily using LongUtils.compare(x,
+             * lossless. In that case we can compare x to roundArbitrarily using Longs.compare(x,
              * roundArbitrarilyAsLong). The exception is for values where the conversion to double rounds
              * up to give roundArbitrarily equal to 2^63, so the conversion back to long overflows and
              * roundArbitrarilyAsLong is Long.MAX_VALUE. (This is the only way this condition can occur as
@@ -1169,7 +1169,7 @@ public final class LongMath {
              */
             cmpXToRoundArbitrarily = -1;
         } else {
-            cmpXToRoundArbitrarily = LongUtils.compare(x, roundArbitrarilyAsLong);
+            cmpXToRoundArbitrarily = Longs.compare(x, roundArbitrarilyAsLong);
         }
 
         switch (mode) {
@@ -1179,14 +1179,14 @@ public final class LongMath {
             case FLOOR:
                 return (cmpXToRoundArbitrarily >= 0)
                         ? roundArbitrarily
-                        : DoubleUtils.nextDown(roundArbitrarily);
+                        : Doubles.nextDown(roundArbitrarily);
             case CEILING:
                 return (cmpXToRoundArbitrarily <= 0) ? roundArbitrarily : Math.nextUp(roundArbitrarily);
             case DOWN:
                 if (x >= 0) {
                     return (cmpXToRoundArbitrarily >= 0)
                             ? roundArbitrarily
-                            : DoubleUtils.nextDown(roundArbitrarily);
+                            : Doubles.nextDown(roundArbitrarily);
                 } else {
                     return (cmpXToRoundArbitrarily <= 0) ? roundArbitrarily : Math.nextUp(roundArbitrarily);
                 }
@@ -1196,7 +1196,7 @@ public final class LongMath {
                 } else {
                     return (cmpXToRoundArbitrarily >= 0)
                             ? roundArbitrarily
-                            : DoubleUtils.nextDown(roundArbitrarily);
+                            : Doubles.nextDown(roundArbitrarily);
                 }
             case HALF_DOWN:
             case HALF_UP:
@@ -1214,7 +1214,7 @@ public final class LongMath {
                 } else {
                     roundCeilingAsDouble = roundArbitrarily;
                     roundCeiling = roundArbitrarilyAsLong;
-                    roundFloorAsDouble = DoubleUtils.nextDown(roundArbitrarily);
+                    roundFloorAsDouble = Doubles.nextDown(roundArbitrarily);
                     roundFloor = (long) Math.floor(roundFloorAsDouble);
                 }
 
@@ -1227,7 +1227,7 @@ public final class LongMath {
                     deltaToCeiling++;
                 }
 
-                int diff = LongUtils.compare(deltaToFloor, deltaToCeiling);
+                int diff = Longs.compare(deltaToFloor, deltaToCeiling);
                 if (diff < 0) { // closer to floor
                     return roundFloorAsDouble;
                 } else if (diff > 0) { // closer to ceiling
@@ -1236,7 +1236,7 @@ public final class LongMath {
                 // halfway between the representable values; do the half-whatever logic
                 switch (mode) {
                     case HALF_EVEN:
-                        return ((DoubleUtils.getSignificand(roundFloorAsDouble) & 1L) == 0)
+                        return ((Doubles.getSignificand(roundFloorAsDouble) & 1L) == 0)
                                 ? roundFloorAsDouble
                                 : roundCeilingAsDouble;
                     case HALF_DOWN:

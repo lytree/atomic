@@ -226,7 +226,7 @@ public final class UnsignedLong extends Number implements Comparable<UnsignedLon
 
     @Override
     public int hashCode() {
-        return LongUtils.hashCode(value);
+        return Longs.hashCode(value);
     }
 
     @Override

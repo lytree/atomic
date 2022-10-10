@@ -39,9 +39,9 @@ import top.lytree.base.Assert;
  * 
  */
 
-public final class LongUtils {
+public final class Longs {
 
-    private LongUtils() {
+    private Longs() {
     }
 
     /**
@@ -275,7 +275,7 @@ public final class LongUtils {
     }
 
     /**
-     * Returns the {@code long} value whose byte representation is the given 8 bytes, in big-endian order; equivalent to {@code LongUtils.fromByteArray(new byte[] {b1, b2, b3, b4,
+     * Returns the {@code long} value whose byte representation is the given 8 bytes, in big-endian order; equivalent to {@code Longs.fromByteArray(new byte[] {b1, b2, b3, b4,
      * b5, b6, b7, b8})}.
      *
      * 
@@ -293,7 +293,7 @@ public final class LongUtils {
     }
 
     /*
-     * Moving asciiDigits into this static holder class lets ProGuard eliminate and inline the LongUtils
+     * Moving asciiDigits into this static holder class lets ProGuard eliminate and inline the Longs
      * class.
      */
     static final class AsciiDigits {
@@ -418,7 +418,7 @@ public final class LongUtils {
 
         @Override
         public String toString() {
-            return "LongUtils.stringConverter()";
+            return "Longs.stringConverter()";
         }
 
         private Object readResolve() {
@@ -501,7 +501,7 @@ public final class LongUtils {
         public int compare(long[] left, long[] right) {
             int minLength = Math.min(left.length, right.length);
             for (int i = 0; i < minLength; i++) {
-                int result = LongUtils.compare(left[i], right[i]);
+                int result = Longs.compare(left[i], right[i]);
                 if (result != 0) {
                     return result;
                 }
@@ -511,7 +511,7 @@ public final class LongUtils {
 
         @Override
         public String toString() {
-            return "LongUtils.lexicographicalComparator()";
+            return "Longs.lexicographicalComparator()";
         }
     }
 
@@ -539,7 +539,7 @@ public final class LongUtils {
     }
 
     /**
-     * Reverses the elements of {@code array}. This is equivalent to {@code Collections.reverse(LongUtils.asList(array))}, but is likely to be more efficient.
+     * Reverses the elements of {@code array}. This is equivalent to {@code Collections.reverse(Longs.asList(array))}, but is likely to be more efficient.
      *
      * 
      */
@@ -550,7 +550,7 @@ public final class LongUtils {
 
     /**
      * Reverses the elements of {@code array} between {@code fromIndex} inclusive and {@code toIndex} exclusive. This is equivalent to {@code
-     * Collections.reverse(LongUtils.asList(array).subList(fromIndex, toIndex))}, but is likely to be more efficient.
+     * Collections.reverse(Longs.asList(array).subList(fromIndex, toIndex))}, but is likely to be more efficient.
      *
      * @throws IndexOutOfBoundsException if {@code fromIndex < 0}, {@code toIndex > array.length}, or {@code toIndex > fromIndex}
      * 
@@ -568,7 +568,7 @@ public final class LongUtils {
 
     /**
      * Performs a right rotation of {@code array} of "distance" places, so that the first element is moved to index "distance", and the element at index {@code i} ends up at index
-     * {@code (distance + i) mod array.length}. This is equivalent to {@code Collections.rotate(LongUtils.asList(array), distance)}, but is considerably faster and avoids
+     * {@code (distance + i) mod array.length}. This is equivalent to {@code Collections.rotate(Longs.asList(array), distance)}, but is considerably faster and avoids
      * allocation and garbage collection.
      *
      * <p>The provided "distance" may be negative, which will rotate left.
@@ -580,7 +580,7 @@ public final class LongUtils {
     }
 
     /**
-     * 在包含{@code fromIndex}和排除{@code toIndex}之间对{@code数组}进行右旋转。这相当于{@code Collections.rotate(LongUtils.asList(array))。subblist (fromIndex, toIndex)，
+     * 在包含{@code fromIndex}和排除{@code toIndex}之间对{@code数组}进行右旋转。这相当于{@code Collections.rotate(Longs.asList(array))。subblist (fromIndex, toIndex)，
      * distance)}，但是速度相当快，并且避免了分配和垃圾收集。
      * <p>The provided "distance" may be negative, which will rotate left.
      *
@@ -688,14 +688,14 @@ public final class LongUtils {
         @Override
         public boolean contains(Object target) {
             // Overridden to prevent a ton of boxing
-            return (target instanceof Long) && LongUtils.indexOf(array, (Long) target, start, end) != -1;
+            return (target instanceof Long) && Longs.indexOf(array, (Long) target, start, end) != -1;
         }
 
         @Override
         public int indexOf(Object target) {
             // Overridden to prevent a ton of boxing
             if (target instanceof Long) {
-                int i = LongUtils.indexOf(array, (Long) target, start, end);
+                int i = Longs.indexOf(array, (Long) target, start, end);
                 if (i >= 0) {
                     return i - start;
                 }
@@ -707,7 +707,7 @@ public final class LongUtils {
         public int lastIndexOf(Object target) {
             // Overridden to prevent a ton of boxing
             if (target instanceof Long) {
-                int i = LongUtils.lastIndexOf(array, (Long) target, start, end);
+                int i = Longs.lastIndexOf(array, (Long) target, start, end);
                 if (i >= 0) {
                     return i - start;
                 }
@@ -760,7 +760,7 @@ public final class LongUtils {
         public int hashCode() {
             int result = 1;
             for (int i = start; i < end; i++) {
-                result = 31 * result + LongUtils.hashCode(array[i]);
+                result = 31 * result + Longs.hashCode(array[i]);
             }
             return result;
         }
