@@ -10,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
-import top.lytree.model.entity.BaseEntity;
+import top.lytree.oss.model.entity.BaseEntity;
 import top.lytree.dao.repository.BaseMongoRepository;
 
 /**

@@ -3,7 +3,7 @@ package top.lytree.dao.repository;
 import java.io.Serializable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.NoRepositoryBean;
-import top.lytree.model.entity.BaseEntity;
+import top.lytree.oss.model.entity.BaseEntity;
 
 /**
  * @author Y

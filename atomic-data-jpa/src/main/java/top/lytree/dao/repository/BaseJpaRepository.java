@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.lang.NonNull;
-import top.lytree.model.request.support.BaseQuery;
+import top.lytree.oss.model.request.support.BaseQuery;
 
 /**
  * @author Y

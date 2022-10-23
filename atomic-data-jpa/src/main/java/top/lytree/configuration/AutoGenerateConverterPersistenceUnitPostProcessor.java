@@ -9,8 +9,8 @@ import org.springframework.core.type.filter.AssignableTypeFilter;
 import org.springframework.orm.jpa.persistenceunit.MutablePersistenceUnitInfo;
 import org.springframework.orm.jpa.persistenceunit.PersistenceUnitPostProcessor;
 import org.springframework.util.ClassUtils;
-import top.lytree.model.enums.ValueEnum;
-import top.lytree.model.properties.PropertyEnum;
+import top.lytree.oss.model.enums.ValueEnum;
+import top.lytree.oss.model.properties.PropertyEnum;
 
 
 public class AutoGenerateConverterPersistenceUnitPostProcessor implements PersistenceUnitPostProcessor {

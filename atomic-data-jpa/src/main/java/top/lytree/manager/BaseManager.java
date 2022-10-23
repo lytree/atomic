@@ -16,10 +16,10 @@ import org.springframework.data.util.Streamable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
-import top.lytree.model.entity.BaseEntity;
-import top.lytree.model.exception.exception.DataException;
-import top.lytree.model.request.support.BaseQuery;
-import top.lytree.model.request.support.PageQuery;
+import top.lytree.oss.model.entity.BaseEntity;
+import top.lytree.oss.model.exception.exception.DataException;
+import top.lytree.oss.model.request.support.BaseQuery;
+import top.lytree.oss.model.request.support.PageQuery;
 import top.lytree.dao.repository.BaseJpaRepository;
 
 public abstract class BaseManager<T extends BaseEntity, ID extends Serializable> {

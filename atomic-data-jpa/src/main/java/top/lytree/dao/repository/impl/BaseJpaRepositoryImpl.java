@@ -40,9 +40,9 @@ import top.lytree.annotations.OrderBy;
 import top.lytree.annotations.OrderGroup;
 import top.lytree.exceptions.UnknownComplexConditionClassException;
 import top.lytree.bean.FieldUtils;
-import top.lytree.model.exception.exception.ServerException;
-import top.lytree.model.exception.result.ServerCode;
-import top.lytree.model.request.support.BaseQuery;
+import top.lytree.oss.model.exception.exception.ServerException;
+import top.lytree.oss.model.exception.result.ServerCode;
+import top.lytree.oss.model.request.support.BaseQuery;
 import top.lytree.dao.repository.BaseJpaRepository;
 
 

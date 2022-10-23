@@ -18,6 +18,13 @@
   <dependencies><dependency>
     <groupId>com.qcloud</groupId>
     <artifactId>cos_api</artifactId>
-    <version>5.6.89</version>
-  </dependency></dependencies>
+    <version>5.6.106</version>
+  </dependency>
+    <dependency>
+      <groupId>top.lytree</groupId>
+      <artifactId>atomic-oss-api</artifactId>
+      <version>1.0</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
 </project>
