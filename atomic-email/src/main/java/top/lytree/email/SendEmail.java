@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 /**
  * @author PrideYang
  */
-@Component
 public class SendEmail {
 
     private static final Logger logger = LoggerFactory.getLogger(SendEmail.class);
