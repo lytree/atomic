@@ -39,7 +39,6 @@ import top.lytree.bean.ObjectUtils;
  * </p>
  * </ul>
  */
-@SuppressWarnings("deprecation")
 public class MapUtils {
 
     /**
