@@ -369,8 +369,6 @@ public final class IntMath {
 
     /**
      * 返回{@code a}和{@code b}的和，除非它会溢出或下溢，在这种情况下{@code Integer。MAX_VALUE}或{@code整数。返回MIN_VALUE}, respectively.
-     *
-     * 
      */
 
     public static int saturatedAdd(int a, int b) {
@@ -379,8 +377,6 @@ public final class IntMath {
 
     /**
      * 返回{@code a}和{@code b}的差值，除非它会溢出或下溢，在这种情况下{@code Integer.MAX_VALUE}或{@code Integer.MIN_VALUE}。
-     *
-     * 
      */
 
     public static int saturatedSubtract(int a, int b) {
@@ -389,8 +385,6 @@ public final class IntMath {
 
     /**
      * 返回{@code a}和{@code b}的乘积，除非它会溢出或下溢，在这种情况下{@code Integer.MAX_VALUE}或{@code Integer.MIN_VALUE}。
-     *
-     * 
      */
 
     public static int saturatedMultiply(int a, int b) {
@@ -399,8 +393,6 @@ public final class IntMath {
 
     /**
      * 返回{@code b}的{@code k}次幂，除非它会溢出或下溢，在这种情况下{@code Integer.MAX_VALUE}或{@code Integer.MIN_VALUE}。
-     *
-     * 
      */
 
     public static int saturatedPow(int b, int k) {
@@ -532,8 +524,6 @@ public final class IntMath {
 
     /**
      * 返回{@code x}和{@code y}的算术平均值，四舍五入到负无穷。该方法具有溢出弹性。
-     *
-     * 
      */
     public static int mean(int x, int y) {
         // Efficient method for computing the arithmetic mean.
@@ -542,18 +532,6 @@ public final class IntMath {
         return (x & y) + ((x ^ y) >> 1);
     }
 
-    /**
-     * 如果{@code n}是<a href="http:mathworld. wolfram.comprimennumber .html">素数 <a>:一个整数<i>大于1 <i>不能分解为<i>小于<i>的正整数的乘积。如果{@code n}是0、1或合数(<i>可以<i>被分解成更小的正整数)，则返回{@code false}。
-     *
-     * <p>To test larger numbers, use {@link LongMath#isPrime} or {@link BigInteger#isProbablePrime}.
-     *
-     * @throws IllegalArgumentException if {@code n} is negative
-     * 
-     */
-    // TODO
-    public static boolean isPrime(int n) {
-        return LongMath.isPrime(n);
-    }
 
     private IntMath() {
     }

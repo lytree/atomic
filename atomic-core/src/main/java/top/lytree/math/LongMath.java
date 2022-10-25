@@ -43,7 +43,6 @@ public final class LongMath {
      *
      * @throws IllegalArgumentException if {@code x <= 0}
      * @throws ArithmeticException      of the next-higher power of two is not representable as a {@code long}, i.e. when {@code x > 2^62}
-     * 
      */
 
     public static long ceilingPowerOfTwo(long x) {
@@ -58,7 +57,6 @@ public final class LongMath {
      * Returns the largest power of two less than or equal to {@code x}. This is equivalent to {@code checkedPow(2, log2(x, FLOOR))}.
      *
      * @throws IllegalArgumentException if {@code x <= 0}
-     * 
      */
 
     public static long floorPowerOfTwo(long x) {
@@ -545,8 +543,6 @@ public final class LongMath {
 
     /**
      * 返回{@code a}和{@code b}的和，除非它会溢出或下溢，在这种情况下{@code Long.MAX_VALUE()}或{@code Long.MIN_VALUE}。
-     *
-     * 
      */
 
     public static long saturatedAdd(long a, long b) {
@@ -563,8 +559,6 @@ public final class LongMath {
     /**
      * Returns the difference of {@code a} and {@code b} unless it would overflow or underflow in which case {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is returned,
      * respectively.
-     *
-     * 
      */
 
     public static long saturatedSubtract(long a, long b) {
@@ -581,8 +575,6 @@ public final class LongMath {
     /**
      * Returns the product of {@code a} and {@code b} unless it would overflow or underflow in which case {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is returned,
      * respectively.
-     *
-     * 
      */
 
     public static long saturatedMultiply(long a, long b) {
@@ -611,8 +603,6 @@ public final class LongMath {
     /**
      * Returns the {@code b} to the {@code k}th power, unless it would overflow or underflow in which case {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is returned,
      * respectively.
-     *
-     * 
      */
 
     public static long saturatedPow(long b, int k) {
@@ -870,8 +860,6 @@ public final class LongMath {
 
     /**
      * Returns the arithmetic mean of {@code x} and {@code y}, rounded toward negative infinity. This method is resilient to overflow.
-     *
-     * 
      */
     public static long mean(long x, long y) {
         // Efficient method for computing the arithmetic mean.
@@ -889,69 +877,6 @@ public final class LongMath {
             ~((1 << 1) | (1 << 7) | (1 << 11) | (1 << 13) | (1 << 17) | (1 << 19) | (1 << 23)
                     | (1 << 29));
 
-    /**
-     * Returns {@code true} if {@code n} is a <a href="http://mathworld.wolfram.com/PrimeNumber.html">prime number</a>: an integer <i>greater than one</i> that cannot be factored
-     * into a product of <i>smaller</i> positive integers. Returns {@code false} if {@code n} is zero, one, or a composite number (one which <i>can</i> be factored into smaller
-     * positive integers).
-     *
-     * <p>To test larger numbers, use {@link BigInteger#isProbablePrime}.
-     *
-     * @throws IllegalArgumentException if {@code n} is negative
-     * 
-     */
-    // TODO
-    public static boolean isPrime(long n) {
-        if (n < 2) {
-            checkNonNegative("n", n);
-            return false;
-        }
-        if (n < 66) {
-            // Encode all primes less than 66 into mask without 0 and 1.
-            long mask =
-                    (1L << (2 - 2))
-                            | (1L << (3 - 2))
-                            | (1L << (5 - 2))
-                            | (1L << (7 - 2))
-                            | (1L << (11 - 2))
-                            | (1L << (13 - 2))
-                            | (1L << (17 - 2))
-                            | (1L << (19 - 2))
-                            | (1L << (23 - 2))
-                            | (1L << (29 - 2))
-                            | (1L << (31 - 2))
-                            | (1L << (37 - 2))
-                            | (1L << (41 - 2))
-                            | (1L << (43 - 2))
-                            | (1L << (47 - 2))
-                            | (1L << (53 - 2))
-                            | (1L << (59 - 2))
-                            | (1L << (61 - 2));
-            // Look up n within the mask.
-            return ((mask >> ((int) n - 2)) & 1) != 0;
-        }
-
-        if ((SIEVE_30 & (1 << (n % 30))) != 0) {
-            return false;
-        }
-        if (n % 7 == 0 || n % 11 == 0 || n % 13 == 0) {
-            return false;
-        }
-        if (n < 17 * 17) {
-            return true;
-        }
-
-        for (long[] baseSet : millerRabinBaseSets) {
-            if (n <= baseSet[0]) {
-                for (int i = 1; i < baseSet.length; i++) {
-                    if (!MillerRabinTester.test(baseSet[i], n)) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-        }
-        throw new AssertionError();
-    }
 
     /*
      * If n <= millerRabinBases[i][0], then testing n against bases millerRabinBases[i][1..] suffices
@@ -985,157 +910,6 @@ public final class LongMath {
             {Long.MAX_VALUE, 2, 325, 9375, 28178, 450775, 9780504, 1795265022}
     };
 
-    private enum MillerRabinTester {
-        /**
-         * Works for inputs ≤ FLOOR_SQRT_MAX_LONG.
-         */
-        SMALL {
-            @Override
-            long mulMod(long a, long b, long m) {
-                /*
-                 * lowasser, 2015-Feb-12: Benchmarks suggest that changing this to UnsignedLongs.remainder
-                 * and increasing the threshold to 2^32 doesn't pay for itself, and adding another enum
-                 * constant hurts performance further -- I suspect because bimorphic implementation is a
-                 * sweet spot for the JVM.
-                 */
-                return (a * b) % m;
-            }
-
-            @Override
-            long squareMod(long a, long m) {
-                return (a * a) % m;
-            }
-        },
-        /**
-         * Works for all nonnegative signed longs.
-         */
-        LARGE {
-            /** Returns (a + b) mod m. Precondition: {@code 0 <= a}, {@code b < m < 2^63}. */
-            private long plusMod(long a, long b, long m) {
-                return (a >= m - b) ? (a + b - m) : (a + b);
-            }
-
-            /** Returns (a * 2^32) mod m. a may be any unsigned long. */
-            private long times2ToThe32Mod(long a, long m) {
-                int remainingPowersOf2 = 32;
-                do {
-                    int shift = Math.min(remainingPowersOf2, Long.numberOfLeadingZeros(a));
-                    // shift is either the number of powers of 2 left to multiply a by, or the biggest shift
-                    // possible while keeping a in an unsigned long.
-                    a = UnsignedLongs.remainder(a << shift, m);
-                    remainingPowersOf2 -= shift;
-                } while (remainingPowersOf2 > 0);
-                return a;
-            }
-
-            @Override
-            long mulMod(long a, long b, long m) {
-                long aHi = a >>> 32; // < 2^31
-                long bHi = b >>> 32; // < 2^31
-                long aLo = a & 0xFFFFFFFFL; // < 2^32
-                long bLo = b & 0xFFFFFFFFL; // < 2^32
-
-                /*
-                 * a * b == aHi * bHi * 2^64 + (aHi * bLo + aLo * bHi) * 2^32 + aLo * bLo.
-                 *       == (aHi * bHi * 2^32 + aHi * bLo + aLo * bHi) * 2^32 + aLo * bLo
-                 *
-                 * We carry out this computation in modular arithmetic. Since times2ToThe32Mod accepts any
-                 * unsigned long, we don't have to do a mod on every operation, only when intermediate
-                 * results can exceed 2^63.
-                 */
-                long result = times2ToThe32Mod(aHi * bHi /* < 2^62 */, m); // < m < 2^63
-                result += aHi * bLo; // aHi * bLo < 2^63, result < 2^64
-                if (result < 0) {
-                    result = UnsignedLongs.remainder(result, m);
-                }
-                // result < 2^63 again
-                result += aLo * bHi; // aLo * bHi < 2^63, result < 2^64
-                result = times2ToThe32Mod(result, m); // result < m < 2^63
-                return plusMod(result, UnsignedLongs.remainder(aLo * bLo /* < 2^64 */, m), m);
-            }
-
-            @Override
-            long squareMod(long a, long m) {
-                long aHi = a >>> 32; // < 2^31
-                long aLo = a & 0xFFFFFFFFL; // < 2^32
-
-                /*
-                 * a^2 == aHi^2 * 2^64 + aHi * aLo * 2^33 + aLo^2
-                 *     == (aHi^2 * 2^32 + aHi * aLo * 2) * 2^32 + aLo^2
-                 * We carry out this computation in modular arithmetic.  Since times2ToThe32Mod accepts any
-                 * unsigned long, we don't have to do a mod on every operation, only when intermediate
-                 * results can exceed 2^63.
-                 */
-                long result = times2ToThe32Mod(aHi * aHi /* < 2^62 */, m); // < m < 2^63
-                long hiLo = aHi * aLo * 2;
-                if (hiLo < 0) {
-                    hiLo = UnsignedLongs.remainder(hiLo, m);
-                }
-                // hiLo < 2^63
-                result += hiLo; // result < 2^64
-                result = times2ToThe32Mod(result, m); // result < m < 2^63
-                return plusMod(result, UnsignedLongs.remainder(aLo * aLo /* < 2^64 */, m), m);
-            }
-        };
-
-        static boolean test(long base, long n) {
-            // Since base will be considered % n, it's okay if base > FLOOR_SQRT_MAX_LONG,
-            // so long as n <= FLOOR_SQRT_MAX_LONG.
-            return ((n <= FLOOR_SQRT_MAX_LONG) ? SMALL : LARGE).testWitness(base, n);
-        }
-
-        /**
-         * Returns a * b mod m.
-         */
-        abstract long mulMod(long a, long b, long m);
-
-        /**
-         * Returns a^2 mod m.
-         */
-        abstract long squareMod(long a, long m);
-
-        /**
-         * Returns a^p mod m.
-         */
-        private long powMod(long a, long p, long m) {
-            long res = 1;
-            for (; p != 0; p >>= 1) {
-                if ((p & 1) != 0) {
-                    res = mulMod(res, a, m);
-                }
-                a = squareMod(a, m);
-            }
-            return res;
-        }
-
-        /**
-         * Returns true if n is a strong probable prime relative to the specified base.
-         */
-        private boolean testWitness(long base, long n) {
-            int r = Long.numberOfTrailingZeros(n - 1);
-            long d = (n - 1) >> r;
-            base %= n;
-            if (base == 0) {
-                return true;
-            }
-            // Calculate a := base^d mod n.
-            long a = powMod(base, d, n);
-            // n passes this test if
-            //    base^d = 1 (mod n)
-            // or base^(2^j * d) = -1 (mod n) for some 0 <= j < r.
-            if (a == 1) {
-                return true;
-            }
-            int j = 0;
-            while (a != n - 1) {
-                if (++j == r) {
-                    return false;
-                }
-                a = squareMod(a, n);
-            }
-            return true;
-        }
-    }
 
     /**
      * Returns {@code x}, rounded to a {@code double} with the specified rounding mode. If {@code x} is precisely representable as a {@code double}, its {@code double} value will
@@ -1146,7 +920,6 @@ public final class LongMath {
      * representable values are even integers; this method returns the one that is a multiple of a greater power of two.)
      *
      * @throws ArithmeticException if {@code mode} is {@link RoundingMode#UNNECESSARY} and {@code x} is not precisely representable as a {@code double}
-     * 
      */
     @SuppressWarnings("deprecation")
 
