@@ -44,6 +44,7 @@ public class MurmurHash implements Serializable {
      * Murmur3 32-bit Hash值计算
      *
      * @param data 数据
+     *
      * @return Hash值
      */
     public static int hash32(String data) {
@@ -54,6 +55,7 @@ public class MurmurHash implements Serializable {
      * Murmur3 32-bit Hash值计算
      *
      * @param data 数据
+     *
      * @return Hash值
      */
     public static int hash32(byte[] data) {
@@ -66,6 +68,7 @@ public class MurmurHash implements Serializable {
      * @param data   数据
      * @param length 长度
      * @param seed   种子，默认0
+     *
      * @return Hash值
      */
     public static int hash32(byte[] data, int length, int seed) {
@@ -121,6 +124,7 @@ public class MurmurHash implements Serializable {
      * Murmur3 64-bit Hash值计算
      *
      * @param data 数据
+     *
      * @return Hash值
      */
     public static long hash64(String data) {
@@ -131,6 +135,7 @@ public class MurmurHash implements Serializable {
      * Murmur3 64-bit 算法<br> This is essentially MSB 8 bytes of Murmur3 128-bit variant.
      *
      * @param data 数据
+     *
      * @return Hash值
      */
     public static long hash64(byte[] data) {
@@ -143,6 +148,7 @@ public class MurmurHash implements Serializable {
      * @param data   数据
      * @param length 长度
      * @param seed   种子，默认0
+     *
      * @return Hash值
      */
     public static long hash64(byte[] data, int length, int seed) {
@@ -204,6 +210,7 @@ public class MurmurHash implements Serializable {
      * Murmur3 128-bit Hash值计算
      *
      * @param data 数据
+     *
      * @return Hash值 (2 longs)
      */
     public static long[] hash128(String data) {
@@ -214,6 +221,7 @@ public class MurmurHash implements Serializable {
      * Murmur3 128-bit 算法.
      *
      * @param data -数据
+     *
      * @return Hash值 (2 longs)
      */
     public static long[] hash128(byte[] data) {
@@ -226,6 +234,7 @@ public class MurmurHash implements Serializable {
      * @param data   数据
      * @param length 长度
      * @param seed   种子，默认0
+     *
      * @return Hash值(2 longs)
      */
     public static long[] hash128(byte[] data, int length, int seed) {
