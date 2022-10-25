@@ -26,7 +26,7 @@ public class AliyunOSSService extends AbstractClientService<OSS> implements OSSS
             buildBucketList(bucketList, clientBucket);
         }
         // 关闭客户端
-        client.shutdown();
+        
     }
 
     @Override
@@ -37,7 +37,7 @@ public class AliyunOSSService extends AbstractClientService<OSS> implements OSSS
             buildBucketList(bucketList, bucket);
         }
         // 关闭客户端
-        client.shutdown();
+        
         return bucketList;
     }
 
@@ -48,15 +48,14 @@ public class AliyunOSSService extends AbstractClientService<OSS> implements OSSS
             client.deleteBucket(bucket);
         }
         // 关闭客户端
-        client.shutdown();
+        
     }
 
     @Override
     public Boolean doesBucketExist(String bucketName) {
-        boolean doesBucketExist = client.doesBucketExist(bucketName);
         // 关闭客户端
-        client.shutdown();
-        return doesBucketExist;
+        
+        return client.doesBucketExist(bucketName);
     }
 
 
@@ -65,7 +64,7 @@ public class AliyunOSSService extends AbstractClientService<OSS> implements OSSS
         PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, localFile);
         PutObjectResult putObjectResult = client.putObject(putObjectRequest);
         // 关闭客户端
-        client.shutdown();
+        
     }
 
     private void buildBucketList(ArrayList<top.lytree.oss.model.Bucket> bucketList, Bucket bucket) {
