@@ -14,18 +14,9 @@
 
 package top.lytree.base;
 
-import java.lang.ref.WeakReference;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.ServiceConfigurationError;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
-
-import top.lytree.lang.StringUtils;
 import top.lytree.pattern.CharMatcher;
 import top.lytree.pattern.CommonPattern;
-import top.lytree.bean.Enums;
 import top.lytree.pattern.JdkPattern;
 import top.lytree.pattern.PatternCompiler;
 
@@ -44,13 +35,6 @@ final public class Platform {
     private Platform() {
     }
 
-    /**
-     * Calls {@link System#nanoTime()}.
-     */
-    @SuppressWarnings("GoodTime") // reading system time without TimeSource
-    public static long systemNanoTime() {
-        return System.nanoTime();
-    }
 
     public static CharMatcher precomputeCharMatcher(CharMatcher matcher) {
         return matcher.precomputedInternal();
