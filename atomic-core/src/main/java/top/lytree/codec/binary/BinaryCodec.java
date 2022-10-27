@@ -37,7 +37,7 @@ import top.lytree.codec.EncoderException;
  */
 public class BinaryCodec implements BinaryDecoder, BinaryEncoder {
     /*
-     * tried to avoid using ArrayUtils to minimize dependencies while using these empty arrays - dep is just not worth
+     * tried to avoid using ArraysUtils to minimize dependencies while using these empty arrays - dep is just not worth
      * it.
      */
     /**

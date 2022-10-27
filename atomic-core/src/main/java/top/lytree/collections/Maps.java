@@ -3,18 +3,24 @@ package top.lytree.collections;
 
 import java.util.AbstractMap;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.Consumer;
 import top.lytree.base.Assert;
+import top.lytree.bean.ObjectUtils;
+import top.lytree.collections.MapDifference.ValueDifference;
+import top.lytree.collections.comparator.Ordering;
 import top.lytree.math.Ints;
 
-public class Maps {
+public final class Maps {
 
     private Maps() {
     }
@@ -43,7 +49,7 @@ public class Maps {
      * Delegates to {@link Map#get}. Returns {@code null} on {@code ClassCastException} and {@code NullPointerException}.
      */
 
-    static <V extends Object> V safeGet(Map<?, V> map, Object key) {
+    static <V> V safeGet(Map<?, V> map, Object key) {
         Assert.isNull(map);
         try {
             return map.get(key);
@@ -232,6 +238,189 @@ public class Maps {
         }
     }
 
+    private static <K, V> Map<K, V> unmodifiableMap(
+            Map<K, ? extends V> map) {
+        if (map instanceof SortedMap) {
+            return Collections.unmodifiableSortedMap((SortedMap<K, ? extends V>) map);
+        } else {
+            return Collections.unmodifiableMap(map);
+        }
+    }
+
+    static class MapDifferenceImpl<K, V>
+            implements MapDifference<K, V> {
+
+        final Map<K, V> onlyOnLeft;
+        final Map<K, V> onlyOnRight;
+        final Map<K, V> onBoth;
+        final Map<K, ValueDifference<V>> differences;
+
+        MapDifferenceImpl(
+                Map<K, V> onlyOnLeft,
+                Map<K, V> onlyOnRight,
+                Map<K, V> onBoth,
+                Map<K, ValueDifference<V>> differences) {
+            this.onlyOnLeft = unmodifiableMap(onlyOnLeft);
+            this.onlyOnRight = unmodifiableMap(onlyOnRight);
+            this.onBoth = unmodifiableMap(onBoth);
+            this.differences = unmodifiableMap(differences);
+        }
+
+        @Override
+        public boolean areEqual() {
+            return onlyOnLeft.isEmpty() && onlyOnRight.isEmpty() && differences.isEmpty();
+        }
+
+        @Override
+        public Map<K, V> entriesOnlyOnLeft() {
+            return onlyOnLeft;
+        }
+
+        @Override
+        public Map<K, V> entriesOnlyOnRight() {
+            return onlyOnRight;
+        }
+
+        @Override
+        public Map<K, V> entriesInCommon() {
+            return onBoth;
+        }
+
+        @Override
+        public Map<K, ValueDifference<V>> entriesDiffering() {
+            return differences;
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            if (object == this) {
+                return true;
+            }
+            if (object instanceof MapDifference) {
+                MapDifference<?, ?> other = (MapDifference<?, ?>) object;
+                return entriesOnlyOnLeft().equals(other.entriesOnlyOnLeft())
+                        && entriesOnlyOnRight().equals(other.entriesOnlyOnRight())
+                        && entriesInCommon().equals(other.entriesInCommon())
+                        && entriesDiffering().equals(other.entriesDiffering());
+            }
+            return false;
+        }
+
+        @Override
+        public int hashCode() {
+            return ObjectUtils.hashCode(
+                    entriesOnlyOnLeft(), entriesOnlyOnRight(), entriesInCommon(), entriesDiffering());
+        }
+
+        @Override
+        public String toString() {
+            if (areEqual()) {
+                return "equal";
+            }
+
+            StringBuilder result = new StringBuilder("not equal");
+            if (!onlyOnLeft.isEmpty()) {
+                result.append(": only on left=").append(onlyOnLeft);
+            }
+            if (!onlyOnRight.isEmpty()) {
+                result.append(": only on right=").append(onlyOnRight);
+            }
+            if (!differences.isEmpty()) {
+                result.append(": value differences=").append(differences);
+            }
+            return result.toString();
+        }
+    }
+
+    static class ValueDifferenceImpl<V>
+            implements MapDifference.ValueDifference<V> {
+
+
+        private final V left;
+
+        private final V right;
+
+        static <V> ValueDifference<V> create(
+                V left, V right) {
+            return new ValueDifferenceImpl<V>(left, right);
+        }
+
+        private ValueDifferenceImpl(V left, V right) {
+            this.left = left;
+            this.right = right;
+        }
+
+        @Override
+        public V leftValue() {
+            return left;
+        }
+
+        @Override
+        public V rightValue() {
+            return right;
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            if (object instanceof MapDifference.ValueDifference) {
+                MapDifference.ValueDifference<?> that = (MapDifference.ValueDifference<?>) object;
+                return ObjectUtils.equal(this.left, that.leftValue())
+                        && ObjectUtils.equal(this.right, that.rightValue());
+            }
+            return false;
+        }
+
+        @Override
+        public int hashCode() {
+            return ObjectUtils.hashCode(left, right);
+        }
+
+        @Override
+        public String toString() {
+            return "(" + left + ", " + right + ")";
+        }
+    }
+
+    static class SortedMapDifferenceImpl<K, V>
+            extends MapDifferenceImpl<K, V> implements SortedMapDifference<K, V> {
+
+        SortedMapDifferenceImpl(
+                SortedMap<K, V> onlyOnLeft,
+                SortedMap<K, V> onlyOnRight,
+                SortedMap<K, V> onBoth,
+                SortedMap<K, ValueDifference<V>> differences) {
+            super(onlyOnLeft, onlyOnRight, onBoth, differences);
+        }
+
+        @Override
+        public SortedMap<K, ValueDifference<V>> entriesDiffering() {
+            return (SortedMap<K, ValueDifference<V>>) super.entriesDiffering();
+        }
+
+        @Override
+        public SortedMap<K, V> entriesInCommon() {
+            return (SortedMap<K, V>) super.entriesInCommon();
+        }
+
+        @Override
+        public SortedMap<K, V> entriesOnlyOnLeft() {
+            return (SortedMap<K, V>) super.entriesOnlyOnLeft();
+        }
+
+        @Override
+        public SortedMap<K, V> entriesOnlyOnRight() {
+            return (SortedMap<K, V>) super.entriesOnlyOnRight();
+        }
+    }
+
+    static <E> Comparator<? super E> orNaturalOrder(
+            Comparator<? super E> comparator) {
+        if (comparator != null) { // can't use ? : because of javac bug 5080917
+            return comparator;
+        }
+        return (Comparator<E>) Ordering.natural();
+    }
+
     /**
      * Returns a capacity that is sufficient to keep the map from being resized as long as it grows no larger than expectedSize and the load factor is ≥ its default (0.75).
      */
@@ -283,7 +472,7 @@ public class Maps {
      * Delegates to {@link Map#remove}. Returns {@code null} on {@code ClassCastException} and {@code NullPointerException}.
      */
 
-    static <V extends Object> V safeRemove(Map<?, V> map, Object key) {
+    static <V> V safeRemove(Map<?, V> map, Object key) {
         Assert.notNull(map);
         try {
             return map.remove(key);
@@ -310,7 +499,7 @@ public class Maps {
     /**
      * An implementation of {@link Map#putAll}.
      */
-    static <K extends Object, V extends Object> void putAllImpl(
+    static <K, V> void putAllImpl(
             Map<K, V> self, Map<? extends K, ? extends V> map) {
         for (Entry<? extends K, ? extends V> entry : map.entrySet()) {
             self.put(entry.getKey(), entry.getValue());

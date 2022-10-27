@@ -2,6 +2,7 @@ package top.lytree.bean;
 
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * @author PrideYang
@@ -15,6 +16,7 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
      * </pre>
      *
      * @param method 方法
+     *
      * @return 方法唯一键
      */
     public static String getUniqueKey(Method method) {
@@ -31,6 +33,14 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
             sb.append(parameters[i].getName());
         }
         return sb.toString();
+    }
+
+    public static boolean equal(Object a, Object b) {
+        return a == b || (a != null && a.equals(b));
+    }
+
+    public static int hashCode(Object... objects) {
+        return Arrays.hashCode(objects);
     }
 
 }

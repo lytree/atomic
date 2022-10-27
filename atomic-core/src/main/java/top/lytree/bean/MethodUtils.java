@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang3.ClassUtils;
 import top.lytree.base.Filter;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.collections.ArraysUtils;
 import top.lytree.collections.UniqueKeySet;
 import top.lytree.base.Assert;
 
@@ -29,7 +29,7 @@ public class MethodUtils extends org.apache.commons.lang3.reflect.MethodUtils {
         if (null == clazz) {
             return null;
         }
-        return ArrayUtils.filter(getMethods(clazz), filter);
+        return ArraysUtils.filter(getMethods(clazz), filter);
     }
 
     /**

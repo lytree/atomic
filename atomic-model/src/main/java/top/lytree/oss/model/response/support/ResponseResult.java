@@ -43,7 +43,7 @@ public class ResponseResult<T> extends BaseResponse {
     }
 
     public static ResponseResult<Void> success(String requestId) {
-        return new ResponseResult(ServerCode.SUCCESS, requestId);
+        return new ResponseResult<Void>(ServerCode.SUCCESS, requestId);
     }
 
     public static <T> ResponseResult<T> success(T data, String requestId) {

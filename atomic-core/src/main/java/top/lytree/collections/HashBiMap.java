@@ -58,6 +58,7 @@ public final class HashBiMap<K, V>
      * 使用指定的预期大小构造一个新的空bimap。
      *
      * @param expectedSize 条目的预期数量
+     *
      * @throws IllegalArgumentException 如果指定的预期大小为负
      */
     public static <K, V> HashBiMap<K, V> create(
@@ -269,6 +270,7 @@ public final class HashBiMap<K, V>
      * faster-than-linear time.
      *
      * @param value the object to search for in the values of this BiMap
+     *
      * @return true if a mapping exists from a key to the specified value
      */
     @Override

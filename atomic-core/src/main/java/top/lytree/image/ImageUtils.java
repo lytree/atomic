@@ -48,7 +48,7 @@ import javax.swing.ImageIcon;
 import top.lytree.bean.ObjectUtils;
 import top.lytree.codec.binary.Base64;
 import top.lytree.codec.net.UrlUtils;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.collections.ArraysUtils;
 import top.lytree.io.FileUtils;
 import top.lytree.io.FilenameUtils;
 import top.lytree.io.IOUtils;
@@ -1895,7 +1895,7 @@ public class ImageUtils {
                 final Integer r = Integer.parseInt(rgb[0]);
                 final Integer g = Integer.parseInt(rgb[1]);
                 final Integer b = Integer.parseInt(rgb[2]);
-                if (!ArrayUtils.hasNull(r, g, b)) {
+                if (!ArraysUtils.hasNull(r, g, b)) {
                     return new Color(r, g, b);
                 }
             } else {

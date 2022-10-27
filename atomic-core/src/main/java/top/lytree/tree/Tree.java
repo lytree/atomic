@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import top.lytree.bean.ObjectUtils;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.collections.ArraysUtils;
 
 /**
  * 通过转换器将你的实体转化为TreeNodeMap节点实体 属性都存在此处,属性有序，可支持排序
@@ -176,7 +176,7 @@ public class Tree<T> extends LinkedHashMap<String, Object> implements Node<T> {
      */
     @SafeVarargs
     public final Tree<T> addChildren(Tree<T>... children) {
-        if (ArrayUtils.isNotEmpty(children)) {
+        if (ArraysUtils.isNotEmpty(children)) {
             List<Tree<T>> childrenList = this.getChildren();
             if (null == childrenList) {
                 childrenList = new ArrayList<>();

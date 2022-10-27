@@ -2,7 +2,7 @@ package top.lytree.bean;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.collections.ArraysUtils;
 
 /**
  * @author pride
@@ -81,7 +81,7 @@ public class TypeUtils extends org.apache.commons.lang3.reflect.TypeUtils {
             if (null == genericSuper || Object.class.equals(genericSuper)) {
                 // 如果类没有父类，而是实现一些定义好的泛型接口，则取接口的Type
                 final Type[] genericInterfaces = clazz.getGenericInterfaces();
-                if (ArrayUtils.isNotEmpty(genericInterfaces)) {
+                if (ArraysUtils.isNotEmpty(genericInterfaces)) {
                     // 默认取第一个实现接口的泛型Type
                     genericSuper = genericInterfaces[0];
                 }

@@ -23,7 +23,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import top.lytree.base.Filter;
 import top.lytree.bean.ObjectUtils;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.collections.ArraysUtils;
 import top.lytree.text.StringFormatter;
 
 
@@ -296,7 +296,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 是否包含空字符串
      */
     public static boolean hasBlank(CharSequence... strs) {
-        if (ArrayUtils.isEmpty(strs)) {
+        if (ArraysUtils.isEmpty(strs)) {
             return true;
         }
 
@@ -331,7 +331,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 所有字符串是否为空白
      */
     public static boolean isAllBlank(CharSequence... strs) {
-        if (ArrayUtils.isEmpty(strs)) {
+        if (ArraysUtils.isEmpty(strs)) {
             return true;
         }
 
@@ -511,7 +511,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 是否包含空字符串
      */
     public static boolean hasEmpty(CharSequence... strs) {
-        if (ArrayUtils.isEmpty(strs)) {
+        if (ArraysUtils.isEmpty(strs)) {
             return true;
         }
 
@@ -547,7 +547,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 所有字符串是否为空白
      */
     public static boolean isAllEmpty(CharSequence... strs) {
-        if (ArrayUtils.isEmpty(strs)) {
+        if (ArraysUtils.isEmpty(strs)) {
             return true;
         }
 
@@ -808,7 +808,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 任何字符的索引，如果没有匹配或输入为空，则为-1
      */
     public static int indexOfAny(final CharSequence cs, final char... searchChars) {
-        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
+        if (isEmpty(cs) || ArraysUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
         final int csLen = cs.length();
@@ -932,7 +932,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 任何字符的索引，如果没有匹配或输入为空，则为-1
      */
     public static int indexOfAnyBut(final CharSequence cs, final char... searchChars) {
-        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
+        if (isEmpty(cs) || ArraysUtils.isEmpty(searchChars)) {
             return INDEX_NOT_FOUND;
         }
         final int csLen = cs.length();
@@ -1028,7 +1028,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 字符串开始不同的索引;-1如果它们都相等
      */
     public static int indexOfDifference(final CharSequence... css) {
-        if (ArrayUtils.getLength(css) <= 1) {
+        if (ArraysUtils.getLength(css) <= 1) {
             return INDEX_NOT_FOUND;
         }
         boolean anyStringNull = false;
@@ -1765,8 +1765,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             return toString((Byte[]) obj, charset);
         } else if (obj instanceof ByteBuffer) {
             return toString((ByteBuffer) obj, charset);
-        } else if (ArrayUtils.isArray(obj)) {
-            return ArrayUtils.toString(obj);
+        } else if (ArraysUtils.isArray(obj)) {
+            return ArraysUtils.toString(obj);
         }
 
         return obj.toString();

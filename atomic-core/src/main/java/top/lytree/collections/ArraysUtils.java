@@ -20,8 +20,10 @@ package top.lytree.collections;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import top.lytree.base.Assert;
 import top.lytree.base.Filter;
 import top.lytree.bean.ObjectUtils;
+import top.lytree.math.Ints;
 
 
 /**
@@ -34,12 +36,13 @@ import top.lytree.bean.ObjectUtils;
  *
  * <p>#ThreadSafe#
  */
-public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
+public class ArraysUtils extends org.apache.commons.lang3.ArrayUtils {
 
     /**
      * 数组是否为空<br> 此方法会匹配单一对象，如果此对象为{@code null}则返回true<br> 如果此对象为非数组，理解为此对象为数组的第一个元素，则返回false<br> 如果此对象为数组对象，数组长度大于0情况下返回false，否则返回true
      *
      * @param array 数组
+     *
      * @return 是否为空
      */
     public static boolean isEmpty(Object array) {
@@ -56,6 +59,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * 对象是否为数组对象
      *
      * @param obj 对象
+     *
      * @return 是否为数组对象，如果为{@code null} 返回false
      */
     public static boolean isArray(Object obj) {
@@ -75,6 +79,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param dest    目标数组
      * @param destPos 目标数组开始位置
      * @param length  拷贝数组长度
+     *
      * @return 目标数组
      */
     public static Object copy(Object src, int srcPos, Object dest, int destPos, int length) {
@@ -89,6 +94,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param src    源数组
      * @param dest   目标数组
      * @param length 拷贝数组长度
+     *
      * @return 目标数组
      */
     public static Object copy(Object src, Object dest, int length) {
@@ -101,6 +107,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * 数组或集合转String
      *
      * @param obj 集合或数组对象
+     *
      * @return 数组字符串，与集合转字符串格式相同
      */
     public static String toString(Object obj) {
@@ -142,6 +149,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param <T>           数组元素类型
      * @param componentType 元素类型
      * @param newSize       大小
+     *
      * @return 空数组
      */
     @SuppressWarnings("unchecked")
@@ -153,6 +161,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * 新建一个空数组
      *
      * @param newSize 大小
+     *
      * @return 空数组
      */
     public static Object[] newArray(int newSize) {
@@ -164,6 +173,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      *
      * @param <T>   数组元素类型
      * @param array 被检查的数组
+     *
      * @return 是否包含{@code null}元素
      */
     @SuppressWarnings("unchecked")
@@ -175,6 +185,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * 获取数组对象的元素类型
      *
      * @param array 数组对象
+     *
      * @return 元素类型
      */
     public static Class<?> getComponentType(Object array) {
@@ -185,6 +196,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * 获取数组对象的元素类型
      *
      * @param arrayClass 数组类
+     *
      * @return 元素类型
      */
     public static Class<?> getComponentType(Class<?> arrayClass) {
@@ -195,6 +207,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * 根据数组元素类型，获取数组的类型<br> 方法是通过创建一个空数组从而获取其类型
      *
      * @param componentType 数组元素类型
+     *
      * @return 数组类型
      */
     public static Class<?> getArrayType(Class<?> componentType) {
@@ -208,6 +221,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param data          原数组
      * @param newSize       新的数组大小
      * @param componentType 数组元素类型
+     *
      * @return 调整后的新数组
      */
     public static <T> T[] resize(T[] data, int newSize, Class<?> componentType) {
@@ -227,6 +241,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      *
      * @param array   原数组
      * @param newSize 新的数组大小
+     *
      * @return 调整后的新数组
      */
     public static Object resize(Object array, int newSize) {
@@ -251,6 +266,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param <T>     数组元素类型
      * @param buffer  原数组
      * @param newSize 新的数组大小
+     *
      * @return 调整后的新数组
      */
     public static <T> T[] resize(T[] buffer, int newSize) {
@@ -269,6 +285,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param <T>    数组元素类型
      * @param array  数组
      * @param editor 编辑器接口，{@code null}返回原集合
+     *
      * @return 编辑后的数组
      */
     public static <T> T[] edit(T[] array, Editor<T> editor) {
@@ -298,6 +315,7 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
      * @param <T>    数组元素类型
      * @param array  数组
      * @param filter 过滤器接口，用于定义过滤规则，{@code null}返回原集合
+     *
      * @return 过滤后的数组
      */
     public static <T> T[] filter(T[] array, Filter<T> filter) {
@@ -311,14 +329,15 @@ public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
         return Arrays.hashCode(objects);
     }
 
+
     /**
-     * <p>ArrayUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code ArrayUtils.clone(new int[] {2})}.
+     * <p>ArraysUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as {@code ArraysUtils.clone(new int[] {2})}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.
      */
-    private ArrayUtils() {
+    private ArraysUtils() {
     }
 
 }

@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.atomic.LongAdder;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.collections.ArraysUtils;
 import top.lytree.base.Assert;
 import top.lytree.lang.StringUtils;
 
@@ -179,7 +179,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @return 和
      */
     public static BigDecimal add(Number... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -202,7 +202,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @return 和
      */
     public static BigDecimal add(String... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -225,7 +225,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @return 和
      */
     public static BigDecimal add(BigDecimal... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -321,7 +321,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @return 差
      */
     public static BigDecimal sub(Number... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -344,7 +344,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @return 差
      */
     public static BigDecimal sub(String... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -367,7 +367,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @return 差
      */
     public static BigDecimal sub(BigDecimal... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -463,7 +463,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @return 积
      */
     public static BigDecimal mul(Number... values) {
-        if (ArrayUtils.isEmpty(values) || ArrayUtils.hasNull(values)) {
+        if (ArraysUtils.isEmpty(values) || ArraysUtils.hasNull(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -496,7 +496,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @return 积
      */
     public static BigDecimal mul(String... values) {
-        if (ArrayUtils.isEmpty(values) || ArrayUtils.hasNull(values)) {
+        if (ArraysUtils.isEmpty(values) || ArraysUtils.hasNull(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -516,7 +516,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @return 积
      */
     public static BigDecimal mul(BigDecimal... values) {
-        if (ArrayUtils.isEmpty(values) || ArrayUtils.hasNull(values)) {
+        if (ArraysUtils.isEmpty(values) || ArraysUtils.hasNull(values)) {
             return BigDecimal.ZERO;
         }
 

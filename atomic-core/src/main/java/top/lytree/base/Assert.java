@@ -4,7 +4,7 @@ package top.lytree.base;
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.Supplier;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.collections.ArraysUtils;
 import top.lytree.collections.CollectionUtils;
 import top.lytree.collections.MapUtils;
 import top.lytree.lang.StringUtils;
@@ -29,6 +29,7 @@ public class Assert {
      * @param <X>        异常类型
      * @param expression 布尔值
      * @param supplier   指定断言不通过时抛出的异常
+     *
      * @throws X if expression is {@code false}
      */
     public static <X extends Throwable> void isTrue(boolean expression, Supplier<? extends X> supplier) throws X {
@@ -47,6 +48,7 @@ public class Assert {
      * @param expression       布尔值
      * @param errorMsgTemplate 错误抛出异常附带的消息模板，变量用{}代替
      * @param params           参数列表
+     *
      * @throws IllegalArgumentException if expression is {@code false}
      */
     public static void isTrue(boolean expression, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
@@ -61,6 +63,7 @@ public class Assert {
      * </pre>
      *
      * @param expression 布尔值
+     *
      * @throws IllegalArgumentException if expression is {@code false}
      */
     public static void isTrue(boolean expression) throws IllegalArgumentException {
@@ -79,6 +82,7 @@ public class Assert {
      * @param <X>           异常类型
      * @param expression    布尔值
      * @param errorSupplier 指定断言不通过时抛出的异常
+     *
      * @throws X if expression is {@code false}
      */
     public static <X extends Throwable> void isFalse(boolean expression, Supplier<X> errorSupplier) throws X {
@@ -97,6 +101,7 @@ public class Assert {
      * @param expression       布尔值
      * @param errorMsgTemplate 错误抛出异常附带的消息模板，变量用{}代替
      * @param params           参数列表
+     *
      * @throws IllegalArgumentException if expression is {@code false}
      */
     public static void isFalse(boolean expression, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
@@ -111,6 +116,7 @@ public class Assert {
      * </pre>
      *
      * @param expression 布尔值
+     *
      * @throws IllegalArgumentException if expression is {@code false}
      */
     public static void isFalse(boolean expression) throws IllegalArgumentException {
@@ -129,6 +135,7 @@ public class Assert {
      * @param <X>           异常类型
      * @param object        被检查的对象
      * @param errorSupplier 错误抛出异常附带的消息生产接口
+     *
      * @throws X if the object is not {@code null}
      */
     public static <X extends Throwable> void isNull(Object object, Supplier<X> errorSupplier) throws X {
@@ -147,6 +154,7 @@ public class Assert {
      * @param object           被检查的对象
      * @param errorMsgTemplate 消息模板，变量使用{}表示
      * @param params           参数列表
+     *
      * @throws IllegalArgumentException if the object is not {@code null}
      */
     public static void isNull(Object object, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
@@ -161,6 +169,7 @@ public class Assert {
      * </pre>
      *
      * @param object 被检查对象
+     *
      * @throws IllegalArgumentException if the object is not {@code null}
      */
     public static void isNull(Object object) throws IllegalArgumentException {
@@ -182,7 +191,9 @@ public class Assert {
      * @param <X>           异常类型
      * @param object        被检查对象
      * @param errorSupplier 错误抛出异常附带的消息生产接口
+     *
      * @return 被检查后的对象
+     *
      * @throws X if the object is {@code null}
      */
     public static <T, X extends Throwable> T notNull(T object, Supplier<X> errorSupplier) throws X {
@@ -203,7 +214,9 @@ public class Assert {
      * @param object           被检查对象
      * @param errorMsgTemplate 错误消息模板，变量使用{}表示
      * @param params           参数
+     *
      * @return 被检查后的对象
+     *
      * @throws IllegalArgumentException if the object is {@code null}
      */
     public static <T> T notNull(T object, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
@@ -219,7 +232,9 @@ public class Assert {
      *
      * @param <T>    被检查对象类型
      * @param object 被检查对象
+     *
      * @return 非空对象
+     *
      * @throws IllegalArgumentException if the object is {@code null}
      */
     public static <T> T notNull(T object) throws IllegalArgumentException {
@@ -241,7 +256,9 @@ public class Assert {
      * @param <T>           字符串类型
      * @param text          被检查字符串
      * @param errorSupplier 错误抛出异常附带的消息生产接口
+     *
      * @return 非空字符串
+     *
      * @throws X 被检查字符串为空抛出此异常
      * @see StringUtils#isNotEmpty(CharSequence)
      */
@@ -263,7 +280,9 @@ public class Assert {
      * @param text             被检查字符串
      * @param errorMsgTemplate 错误消息模板，变量使用{}表示
      * @param params           参数
+     *
      * @return 非空字符串
+     *
      * @throws IllegalArgumentException 被检查字符串为空
      * @see StringUtils#isNotEmpty(CharSequence)
      */
@@ -280,7 +299,9 @@ public class Assert {
      *
      * @param <T>  字符串类型
      * @param text 被检查字符串
+     *
      * @return 被检查的字符串
+     *
      * @throws IllegalArgumentException 被检查字符串为空
      * @see StringUtils#isNotEmpty(CharSequence)
      */
@@ -301,7 +322,9 @@ public class Assert {
      * @param <T>              字符串类型
      * @param text             被检查字符串
      * @param errorMsgSupplier 错误抛出异常附带的消息生产接口
+     *
      * @return 非空字符串
+     *
      * @throws X 被检查字符串为空白
      * @see StringUtils#isNotBlank(CharSequence)
      */
@@ -323,7 +346,9 @@ public class Assert {
      * @param text             被检查字符串
      * @param errorMsgTemplate 错误消息模板，变量使用{}表示
      * @param params           参数
+     *
      * @return 非空字符串
+     *
      * @throws IllegalArgumentException 被检查字符串为空白
      * @see StringUtils#isNotBlank(CharSequence)
      */
@@ -340,7 +365,9 @@ public class Assert {
      *
      * @param <T>  字符串类型
      * @param text 被检查字符串
+     *
      * @return 非空字符串
+     *
      * @throws IllegalArgumentException 被检查字符串为空白
      * @see StringUtils#isNotBlank(CharSequence)
      */
@@ -362,7 +389,9 @@ public class Assert {
      * @param textToSearch  被搜索的字符串
      * @param substring     被检查的子串
      * @param errorSupplier 错误抛出异常附带的消息生产接口
+     *
      * @return 被检查的子串
+     *
      * @throws X 非子串抛出异常
      * @see StringUtils#contains(CharSequence, CharSequence)
      */
@@ -384,7 +413,9 @@ public class Assert {
      * @param substring        被检查的子串
      * @param errorMsgTemplate 异常时的消息模板
      * @param params           参数列表
+     *
      * @return 被检查的子串
+     *
      * @throws IllegalArgumentException 非子串抛出异常
      */
     public static String notContain(String textToSearch, String substring, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
@@ -400,7 +431,9 @@ public class Assert {
      *
      * @param textToSearch 被搜索的字符串
      * @param substring    被检查的子串
+     *
      * @return 被检查的子串
+     *
      * @throws IllegalArgumentException 非子串抛出异常
      */
     public static String notContain(String textToSearch, String substring) throws IllegalArgumentException {
@@ -421,12 +454,14 @@ public class Assert {
      * @param <X>           异常类型
      * @param array         被检查的数组
      * @param errorSupplier 错误抛出异常附带的消息生产接口
+     *
      * @return 被检查的数组
+     *
      * @throws X if the object array is {@code null} or has no elements
-     * @see ArrayUtils#isNotEmpty(Object[])
+     * @see ArraysUtils#isNotEmpty(Object[])
      */
     public static <T, X extends Throwable> T[] notEmpty(T[] array, Supplier<X> errorSupplier) throws X {
-        if (ArrayUtils.isEmpty(array)) {
+        if (ArraysUtils.isEmpty(array)) {
             throw errorSupplier.get();
         }
         return array;
@@ -443,7 +478,9 @@ public class Assert {
      * @param array            被检查的数组
      * @param errorMsgTemplate 异常时的消息模板
      * @param params           参数列表
+     *
      * @return 被检查的数组
+     *
      * @throws IllegalArgumentException if the object array is {@code null} or has no elements
      */
     public static <T> T[] notEmpty(T[] array, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
@@ -459,7 +496,9 @@ public class Assert {
      *
      * @param <T>   数组元素类型
      * @param array 被检查的数组
+     *
      * @return 被检查的数组
+     *
      * @throws IllegalArgumentException if the object array is {@code null} or has no elements
      */
     public static <T> T[] notEmpty(T[] array) throws IllegalArgumentException {
@@ -479,12 +518,14 @@ public class Assert {
      * @param <X>           异常类型
      * @param array         被检查的数组
      * @param errorSupplier 错误抛出异常附带的消息生产接口
+     *
      * @return 被检查的数组
+     *
      * @throws X if the object array contains a {@code null} element
-     * @see ArrayUtils#hasNull(Object[])
+     * @see ArraysUtils#hasNull(Object[])
      */
     public static <T, X extends Throwable> T[] noNullElements(T[] array, Supplier<X> errorSupplier) throws X {
-        if (ArrayUtils.hasNull(array)) {
+        if (ArraysUtils.hasNull(array)) {
             throw errorSupplier.get();
         }
         return array;
@@ -501,7 +542,9 @@ public class Assert {
      * @param array            被检查的数组
      * @param errorMsgTemplate 异常时的消息模板
      * @param params           参数列表
+     *
      * @return 被检查的数组
+     *
      * @throws IllegalArgumentException if the object array contains a {@code null} element
      */
     public static <T> T[] noNullElements(T[] array, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
@@ -517,7 +560,9 @@ public class Assert {
      *
      * @param <T>   数组元素类型
      * @param array 被检查的数组
+     *
      * @return 被检查的数组
+     *
      * @throws IllegalArgumentException if the object array contains a {@code null} element
      */
     public static <T> T[] noNullElements(T[] array) throws IllegalArgumentException {
@@ -538,7 +583,9 @@ public class Assert {
      * @param <X>           异常类型
      * @param collection    被检查的集合
      * @param errorSupplier 错误抛出异常附带的消息生产接口
+     *
      * @return 非空集合
+     *
      * @throws X if the collection is {@code null} or has no elements
      */
     public static <E, T extends Iterable<E>, X extends Throwable> Collection<T> notEmpty(Collection<T> collection, Supplier<X> errorSupplier) throws X {
@@ -560,7 +607,9 @@ public class Assert {
      * @param collection       被检查的集合
      * @param errorMsgTemplate 异常时的消息模板
      * @param params           参数列表
+     *
      * @return 非空集合
+     *
      * @throws IllegalArgumentException if the collection is {@code null} or has no elements
      */
     public static <E, T extends Iterable<E>> Collection<T> notEmpty(Collection<T> collection, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
@@ -577,7 +626,9 @@ public class Assert {
      * @param <E>        集合元素类型
      * @param <T>        集合类型
      * @param collection 被检查的集合
+     *
      * @return 被检查集合
+     *
      * @throws IllegalArgumentException if the collection is {@code null} or has no elements
      */
     public static <E, T extends Iterable<E>> Collection<T> notEmpty(Collection<T> collection) throws IllegalArgumentException {
@@ -599,7 +650,9 @@ public class Assert {
      * @param <X>           异常类型
      * @param map           被检查的Map
      * @param errorSupplier 错误抛出异常附带的消息生产接口
+     *
      * @return 被检查的Map
+     *
      * @throws X if the map is {@code null} or has no entries
      * @see MapUtils#isNotEmpty(Map)
      */
@@ -623,7 +676,9 @@ public class Assert {
      * @param map              被检查的Map
      * @param errorMsgTemplate 异常时的消息模板
      * @param params           参数列表
+     *
      * @return 被检查的Map
+     *
      * @throws IllegalArgumentException if the map is {@code null} or has no entries
      */
     public static <K, V, T extends Map<K, V>> T notEmpty(T map, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
@@ -641,7 +696,9 @@ public class Assert {
      * @param <V> Value类型
      * @param <T> Map类型
      * @param map 被检查的Map
+     *
      * @return 被检查的Map
+     *
      * @throws IllegalArgumentException if the map is {@code null} or has no entries
      */
     public static <K, V, T extends Map<K, V>> T notEmpty(T map) throws IllegalArgumentException {
@@ -658,7 +715,9 @@ public class Assert {
      * @param <T>  被检查对象泛型类型
      * @param type 被检查对象匹配的类型
      * @param obj  被检查对象
+     *
      * @return 被检查的对象
+     *
      * @throws IllegalArgumentException if the object is not an instance of clazz
      * @see Class#isInstance(Object)
      */
@@ -678,7 +737,9 @@ public class Assert {
      * @param obj              被检查对象
      * @param errorMsgTemplate 异常时的消息模板
      * @param params           参数列表
+     *
      * @return 被检查对象
+     *
      * @throws IllegalArgumentException if the object is not an instance of clazz
      * @see Class#isInstance(Object)
      */
@@ -699,6 +760,7 @@ public class Assert {
      *
      * @param superType 需要检查的父类或接口
      * @param subType   需要检查的子类
+     *
      * @throws IllegalArgumentException 如果子类非继承父类，抛出此异常
      */
     public static void isAssignable(Class<?> superType, Class<?> subType) throws IllegalArgumentException {
@@ -716,6 +778,7 @@ public class Assert {
      * @param subType          需要检查的子类
      * @param errorMsgTemplate 异常时的消息模板
      * @param params           参数列表
+     *
      * @throws IllegalArgumentException 如果子类非继承父类，抛出此异常
      */
     public static void isAssignable(Class<?> superType, Class<?> subType, String errorMsgTemplate, Object... params) throws IllegalArgumentException {
@@ -736,6 +799,7 @@ public class Assert {
      *
      * @param expression       boolean 表达式
      * @param errorMsgSupplier 错误抛出异常附带的消息生产接口
+     *
      * @throws IllegalStateException 表达式为 {@code false} 抛出此异常
      */
     public static void state(boolean expression, Supplier<String> errorMsgSupplier) throws IllegalStateException {
@@ -754,6 +818,7 @@ public class Assert {
      * @param expression       boolean 表达式
      * @param errorMsgTemplate 异常时的消息模板
      * @param params           参数列表
+     *
      * @throws IllegalStateException 表达式为 {@code false} 抛出此异常
      */
     public static void state(boolean expression, String errorMsgTemplate, Object... params) throws IllegalStateException {
@@ -770,10 +835,26 @@ public class Assert {
      * </pre>
      *
      * @param expression boolean 表达式
+     *
      * @throws IllegalStateException 表达式为 {@code false} 抛出此异常
      */
     public static void state(boolean expression) throws IllegalStateException {
         state(expression, "[Assertion failed] - this state invariant must be true");
+    }
+
+    /**
+     * 检查 value 不能为负数
+     *
+     * @param value 受检值
+     * @param name  受检属性名
+     *
+     * @return 检查后的值
+     */
+    public static int checkNonNegative(int value, String name) {
+        if (value < 0) {
+            throw new IllegalArgumentException(name + " cannot be negative but was: " + value);
+        }
+        return value;
     }
 
     /**
@@ -785,7 +866,9 @@ public class Assert {
      *
      * @param index 下标
      * @param size  长度
+     *
      * @return 检查后的下标
+     *
      * @throws IllegalArgumentException  如果size &lt; 0 抛出此异常
      * @throws IndexOutOfBoundsException 如果index &lt; 0或者 index &ge; size 抛出此异常
      */
@@ -804,7 +887,9 @@ public class Assert {
      * @param size             长度
      * @param errorMsgTemplate 异常时的消息模板
      * @param params           参数列表
+     *
      * @return 检查后的下标
+     *
      * @throws IllegalArgumentException  如果size &lt; 0 抛出此异常
      * @throws IndexOutOfBoundsException 如果index &lt; 0或者 index &ge; size 抛出此异常
      */
@@ -823,7 +908,9 @@ public class Assert {
      * @param min           最小值（包含）
      * @param max           最大值（包含）
      * @param errorSupplier 错误抛出异常附带的消息生产接口
+     *
      * @return 经过检查后的值
+     *
      * @throws X if value is out of bound
      */
     public static <X extends Throwable> int checkBetween(int value, int min, int max, Supplier<? extends X> errorSupplier) throws X {
@@ -842,6 +929,7 @@ public class Assert {
      * @param max              最大值（包含）
      * @param errorMsgTemplate 异常信息模板，类似于"aa{}bb{}cc"
      * @param params           异常信息参数，用于替换"{}"占位符
+     *
      * @return 经过检查后的值
      */
     public static int checkBetween(int value, int min, int max, String errorMsgTemplate, Object... params) {
@@ -854,6 +942,7 @@ public class Assert {
      * @param value 值
      * @param min   最小值（包含）
      * @param max   最大值（包含）
+     *
      * @return 检查后的长度值
      */
     public static int checkBetween(int value, int min, int max) {
@@ -868,7 +957,9 @@ public class Assert {
      * @param min           最小值（包含）
      * @param max           最大值（包含）
      * @param errorSupplier 错误抛出异常附带的消息生产接口
+     *
      * @return 经过检查后的值
+     *
      * @throws X if value is out of bound
      */
     public static <X extends Throwable> long checkBetween(long value, long min, long max, Supplier<? extends X> errorSupplier) throws X {
@@ -887,6 +978,7 @@ public class Assert {
      * @param max              最大值（包含）
      * @param errorMsgTemplate 异常信息模板，类似于"aa{}bb{}cc"
      * @param params           异常信息参数，用于替换"{}"占位符
+     *
      * @return 经过检查后的值
      */
     public static long checkBetween(long value, long min, long max, String errorMsgTemplate, Object... params) {
@@ -899,6 +991,7 @@ public class Assert {
      * @param value 值
      * @param min   最小值（包含）
      * @param max   最大值（包含）
+     *
      * @return 检查后的长度值
      */
     public static long checkBetween(long value, long min, long max) {
@@ -913,7 +1006,9 @@ public class Assert {
      * @param min           最小值（包含）
      * @param max           最大值（包含）
      * @param errorSupplier 错误抛出异常附带的消息生产接口
+     *
      * @return 经过检查后的值
+     *
      * @throws X if value is out of bound
      */
     public static <X extends Throwable> double checkBetween(double value, double min, double max, Supplier<? extends X> errorSupplier) throws X {
@@ -932,6 +1027,7 @@ public class Assert {
      * @param max              最大值（包含）
      * @param errorMsgTemplate 异常信息模板，类似于"aa{}bb{}cc"
      * @param params           异常信息参数，用于替换"{}"占位符
+     *
      * @return 经过检查后的值
      */
     public static double checkBetween(double value, double min, double max, String errorMsgTemplate, Object... params) {
@@ -944,6 +1040,7 @@ public class Assert {
      * @param value 值
      * @param min   最小值（包含）
      * @param max   最大值（包含）
+     *
      * @return 检查后的长度值
      */
     public static double checkBetween(double value, double min, double max) {
@@ -956,6 +1053,7 @@ public class Assert {
      * @param value 值
      * @param min   最小值（包含）
      * @param max   最大值（包含）
+     *
      * @return 检查后的长度值
      */
     public static Number checkBetween(Number value, Number min, Number max) {
@@ -975,6 +1073,7 @@ public class Assert {
      * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * @param expression a boolean expression
+     *
      * @throws IllegalArgumentException if {@code expression} is false
      */
     public static void checkArgument(boolean expression) {
@@ -988,6 +1087,7 @@ public class Assert {
      *
      * @param expression   a boolean expression
      * @param errorMessage the exception message to use if the check fails; will be converted to a string using {@link String#valueOf(Object)}
+     *
      * @throws IllegalArgumentException if {@code expression} is false
      */
     public static void checkArgument(boolean expression, Object errorMessage) {
@@ -1004,6 +1104,7 @@ public class Assert {
      *                             an argument. These are matched by position - the first {@code %s} gets {@code errorMessageArgs[0]}, etc. Unmatched arguments will be appended to
      *                             the formatted message in square braces. Unmatched placeholders will be left as-is.
      * @param errorMessageArgs     the arguments to be substituted into the message template. Arguments are converted to strings using {@link String#valueOf(Object)}.
+     *
      * @throws IllegalArgumentException if {@code expression} is false
      */
     public static void checkArgument(
@@ -1019,8 +1120,6 @@ public class Assert {
      * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * 
      */
     public static void checkArgument(Supplier<Boolean> b, String errorMessageTemplate, Object... errorMessageArgs) {
         if (!b.get()) {
@@ -1032,8 +1131,6 @@ public class Assert {
      * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * 
      */
     public static void checkArgument(
             Supplier<Boolean> b, String errorMessageTemplate, Object p1) {
@@ -1047,8 +1144,6 @@ public class Assert {
      * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * 
      */
     public static void checkArgument(
             Supplier<Boolean> b, String errorMessageTemplate, Object p1, Object p2) {
@@ -1061,8 +1156,6 @@ public class Assert {
      * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * 
      */
     public static void checkArgument(
             Supplier<Boolean> b,
@@ -1079,8 +1172,6 @@ public class Assert {
      * 确保包含调用方法的一个或多个参数的表达式的真实性。
      *
      * <p>See {@link #checkArgument(boolean, String, Object...)} for details.
-     *
-     * 
      */
     public static void checkArgument(
             Supplier<Boolean> b,
@@ -1103,6 +1194,7 @@ public class Assert {
      * @param size   长度
      * @param desc   异常时的消息模板
      * @param params 参数列表
+     *
      * @return 消息
      */
     private static String badIndexMsg(int index, int size, String desc, Object... params) {

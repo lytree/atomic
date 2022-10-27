@@ -17,6 +17,8 @@
 package top.lytree.collections;
 
 
+import static top.lytree.collections.Maps.orNaturalOrder;
+
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.io.PrintStream;
 import java.text.NumberFormat;
@@ -26,7 +28,9 @@ import java.util.Map.Entry;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import top.lytree.base.Assert;
 import top.lytree.bean.ObjectUtils;
+import top.lytree.collections.Maps.MapDifferenceImpl;
 
 
 /**
@@ -55,6 +59,7 @@ public class MapUtils {
      * @param key             The key into the map.
      * @param getFunction     The get function.
      * @param defaultFunction The function to provide a default value.
+     *
      * @return The result of applying a function.
      */
     private static <K, R> R applyDefaultFunction(final Map<? super K, ?> map, final K key,
@@ -72,6 +77,7 @@ public class MapUtils {
      * @param getFunction     The get function.
      * @param defaultFunction The function to provide a default value.
      * @param defaultValue    The default value.
+     *
      * @return The result of applying a function.
      */
     private static <K, R> R applyDefaultFunction(final Map<? super K, ?> map, final K key,
@@ -93,6 +99,7 @@ public class MapUtils {
      * @param key          The key into the map.
      * @param getFunction  The get function.
      * @param defaultValue The default value.
+     *
      * @return The result of applying a function.
      */
     private static <K, R> R applyDefaultValue(final Map<? super K, ?> map, final K key,
@@ -108,6 +115,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param <V> the value type
      * @param map the map, possibly {@code null}
+     *
      * @return an empty map if the argument is {@code null}
      */
     public static <K, V> Map<K, V> emptyIfNull(final Map<K, V> map) {
@@ -123,6 +131,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a Boolean, {@code null} if null map input
      */
     public static <K> Boolean getBoolean(final Map<? super K, ?> map, final K key) {
@@ -151,6 +160,7 @@ public class MapUtils {
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
+     *
      * @return the value in the map as a boolean, or defaultValue if the original value is null, the map is null or the boolean conversion fails
      */
     public static <K> Boolean getBoolean(final Map<? super K, ?> map, final K key, final Boolean defaultValue) {
@@ -164,6 +174,7 @@ public class MapUtils {
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
+     *
      * @return the value in the map as a boolean, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the boolean conversion fails
      */
     public static <K> Boolean getBoolean(final Map<? super K, ?> map, final K key,
@@ -184,6 +195,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a Boolean, {@code false} if null map input
      */
     public static <K> boolean getBooleanValue(final Map<? super K, ?> map, final K key) {
@@ -204,6 +216,7 @@ public class MapUtils {
      * @param map          the map to use
      * @param key          the key to look up
      * @param defaultValue return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a Boolean, {@code defaultValue} if null map input
      */
     public static <K> boolean getBooleanValue(final Map<? super K, ?> map, final K key, final boolean defaultValue) {
@@ -222,6 +235,7 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a Boolean, default value produced by the {@code defaultFunction} if null map input
      */
     public static <K> boolean getBooleanValue(final Map<? super K, ?> map, final K key,
@@ -238,6 +252,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a Byte, {@code null} if null map input
      */
     public static <K> Byte getByte(final Map<? super K, ?> map, final K key) {
@@ -258,6 +273,7 @@ public class MapUtils {
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Byte getByte(final Map<? super K, ?> map, final K key, final Byte defaultValue) {
@@ -271,6 +287,7 @@ public class MapUtils {
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Byte getByte(final Map<? super K, ?> map, final K key, final Function<K, Byte> defaultFunction) {
@@ -286,6 +303,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a byte, {@code 0} if null map input
      */
     public static <K> byte getByteValue(final Map<? super K, ?> map, final K key) {
@@ -302,6 +320,7 @@ public class MapUtils {
      * @param map          the map to use
      * @param key          the key to look up
      * @param defaultValue return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a byte, {@code defaultValue} if null map input
      */
     public static <K> byte getByteValue(final Map<? super K, ?> map, final K key, final byte defaultValue) {
@@ -318,6 +337,7 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a byte, default value produced by the {@code defaultFunction} if null map input
      */
     public static <K> byte getByteValue(final Map<? super K, ?> map, final K key,
@@ -334,6 +354,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a Double, {@code null} if null map input
      */
     public static <K> Double getDouble(final Map<? super K, ?> map, final K key) {
@@ -354,6 +375,7 @@ public class MapUtils {
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Double getDouble(final Map<? super K, ?> map, final K key, final Double defaultValue) {
@@ -367,6 +389,7 @@ public class MapUtils {
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Double getDouble(final Map<? super K, ?> map, final K key,
@@ -383,6 +406,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a double, {@code 0.0} if null map input
      */
     public static <K> double getDoubleValue(final Map<? super K, ?> map, final K key) {
@@ -399,6 +423,7 @@ public class MapUtils {
      * @param map          the map to use
      * @param key          the key to look up
      * @param defaultValue return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a double, {@code defaultValue} if null map input
      */
     public static <K> double getDoubleValue(final Map<? super K, ?> map, final K key, final double defaultValue) {
@@ -415,6 +440,7 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a double, default value produced by the {@code defaultFunction} if null map input
      */
     public static <K> double getDoubleValue(final Map<? super K, ?> map, final K key,
@@ -431,6 +457,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a Float, {@code null} if null map input
      */
     public static <K> Float getFloat(final Map<? super K, ?> map, final K key) {
@@ -451,6 +478,7 @@ public class MapUtils {
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Float getFloat(final Map<? super K, ?> map, final K key, final Float defaultValue) {
@@ -464,6 +492,7 @@ public class MapUtils {
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Float getFloat(final Map<? super K, ?> map, final K key,
@@ -480,6 +509,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a float, {@code 0.0F} if null map input
      */
     public static <K> float getFloatValue(final Map<? super K, ?> map, final K key) {
@@ -496,6 +526,7 @@ public class MapUtils {
      * @param map          the map to use
      * @param key          the key to look up
      * @param defaultValue return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a float, {@code defaultValue} if null map input
      */
     public static <K> float getFloatValue(final Map<? super K, ?> map, final K key, final float defaultValue) {
@@ -512,6 +543,7 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a float, default value produced by the {@code defaultFunction} if null map input
      */
     public static <K> float getFloatValue(final Map<? super K, ?> map, final K key,
@@ -528,6 +560,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a Integer, {@code null} if null map input
      */
     public static <K> Integer getInteger(final Map<? super K, ?> map, final K key) {
@@ -548,6 +581,7 @@ public class MapUtils {
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Integer getInteger(final Map<? super K, ?> map, final K key,
@@ -562,6 +596,7 @@ public class MapUtils {
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Integer getInteger(final Map<? super K, ?> map, final K key, final Integer defaultValue) {
@@ -577,6 +612,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as an int, {@code 0} if null map input
      */
     public static <K> int getIntValue(final Map<? super K, ?> map, final K key) {
@@ -593,6 +629,7 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as an int, default value produced by the {@code defaultFunction} if null map input
      */
     public static <K> int getIntValue(final Map<? super K, ?> map, final K key,
@@ -610,6 +647,7 @@ public class MapUtils {
      * @param map          the map to use
      * @param key          the key to look up
      * @param defaultValue return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as an int, {@code defaultValue} if null map input
      */
     public static <K> int getIntValue(final Map<? super K, ?> map, final K key, final int defaultValue) {
@@ -625,6 +663,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a Long, {@code null} if null map input
      */
     public static <K> Long getLong(final Map<? super K, ?> map, final K key) {
@@ -645,6 +684,7 @@ public class MapUtils {
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Long getLong(final Map<? super K, ?> map, final K key, final Function<K, Long> defaultFunction) {
@@ -658,6 +698,7 @@ public class MapUtils {
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Long getLong(final Map<? super K, ?> map, final K key, final Long defaultValue) {
@@ -673,6 +714,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a long, {@code 0L} if null map input
      */
     public static <K> long getLongValue(final Map<? super K, ?> map, final K key) {
@@ -689,6 +731,7 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a long, default value produced by the {@code defaultFunction} if null map input
      */
     public static <K> long getLongValue(final Map<? super K, ?> map, final K key,
@@ -706,6 +749,7 @@ public class MapUtils {
      * @param map          the map to use
      * @param key          the key to look up
      * @param defaultValue return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a long, {@code defaultValue} if null map input
      */
     public static <K> long getLongValue(final Map<? super K, ?> map, final K key, final long defaultValue) {
@@ -721,6 +765,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a Map, {@code null} if null map input
      */
     public static <K> Map<?, ?> getMap(final Map<? super K, ?> map, final K key) {
@@ -740,6 +785,7 @@ public class MapUtils {
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the map conversion fails
      */
     public static <K> Map<?, ?> getMap(final Map<? super K, ?> map, final K key,
@@ -754,6 +800,7 @@ public class MapUtils {
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the map conversion fails
      */
     public static <K> Map<?, ?> getMap(final Map<? super K, ?> map, final K key, final Map<?, ?> defaultValue) {
@@ -770,6 +817,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a Number, {@code null} if null map input
      */
     public static <K> Number getNumber(final Map<? super K, ?> map, final K key) {
@@ -799,6 +847,7 @@ public class MapUtils {
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Number getNumber(final Map<? super K, ?> map, final K key,
@@ -813,6 +862,7 @@ public class MapUtils {
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Number getNumber(final Map<? super K, ?> map, final K key, final Number defaultValue) {
@@ -828,6 +878,7 @@ public class MapUtils {
      * @param <V> the value type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map, {@code null} if null map input
      */
     public static <K, V> V getObject(final Map<? super K, V> map, final K key) {
@@ -847,6 +898,7 @@ public class MapUtils {
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null
+     *
      * @return the value in the map, or defaultValue if the original value is null or the map is null
      */
     public static <K, V> V getObject(final Map<K, V> map, final K key, final V defaultValue) {
@@ -868,6 +920,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a Short, {@code null} if null map input
      */
     public static <K> Short getShort(final Map<? super K, ?> map, final K key) {
@@ -888,6 +941,7 @@ public class MapUtils {
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Short getShort(final Map<? super K, ?> map, final K key,
@@ -902,6 +956,7 @@ public class MapUtils {
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
+     *
      * @return the value in the map as a number, or defaultValue if the original value is null, the map is null or the number conversion fails
      */
     public static <K> Short getShort(final Map<? super K, ?> map, final K key, final Short defaultValue) {
@@ -917,6 +972,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a short, {@code 0} if null map input
      */
     public static <K> short getShortValue(final Map<? super K, ?> map, final K key) {
@@ -933,6 +989,7 @@ public class MapUtils {
      * @param map             the map to use
      * @param key             the key to look up
      * @param defaultFunction produce the default value to return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a short, default value produced by the {@code defaultFunction} if null map input
      */
     public static <K> short getShortValue(final Map<? super K, ?> map, final K key,
@@ -950,6 +1007,7 @@ public class MapUtils {
      * @param map          the map to use
      * @param key          the key to look up
      * @param defaultValue return if the value is null or if the conversion fails
+     *
      * @return the value in the Map as a short, {@code defaultValue} if null map input
      */
     public static <K> short getShortValue(final Map<? super K, ?> map, final K key, final short defaultValue) {
@@ -965,6 +1023,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param map the map to use
      * @param key the key to look up
+     *
      * @return the value in the Map as a String, {@code null} if null map input
      */
     public static <K> String getString(final Map<? super K, ?> map, final K key) {
@@ -984,6 +1043,7 @@ public class MapUtils {
      * @param map             the map whose value to look up
      * @param key             the key of the value to look up in that map
      * @param defaultFunction what to produce the default value if the value is null or if the conversion fails
+     *
      * @return the value in the map as a string, or defaultValue produced by the defaultFunction if the original value is null, the map is null or the string conversion fails
      */
     public static <K> String getString(final Map<? super K, ?> map, final K key,
@@ -998,6 +1058,7 @@ public class MapUtils {
      * @param map          the map whose value to look up
      * @param key          the key of the value to look up in that map
      * @param defaultValue what to return if the value is null or if the conversion fails
+     *
      * @return the value in the map as a string, or defaultValue if the original value is null, the map is null or the string conversion fails
      */
     public static <K> String getString(final Map<? super K, ?> map, final K key, final String defaultValue) {
@@ -1017,7 +1078,9 @@ public class MapUtils {
      * @param <K> the key type
      * @param <V> the value type
      * @param map the map to invert, must not be null
+     *
      * @return a new HashMap containing the inverted data
+     *
      * @throws NullPointerException if the map is null
      */
     public static <K, V> Map<V, K> invertMap(final Map<K, V> map) {
@@ -1036,6 +1099,7 @@ public class MapUtils {
      * </p>
      *
      * @param map the map to check, may be null
+     *
      * @return true if empty or null
      */
     public static boolean isEmpty(final Map<?, ?> map) {
@@ -1050,6 +1114,7 @@ public class MapUtils {
      * </p>
      *
      * @param map the map to check, may be null
+     *
      * @return true if non-null and non-empty
      */
     public static boolean isNotEmpty(final Map<?, ?> map) {
@@ -1111,7 +1176,9 @@ public class MapUtils {
      * @param <V>   the value type
      * @param map   the map to populate, must not be null
      * @param array an array to populate from, null ignored
+     *
      * @return the input map
+     *
      * @throws NullPointerException     if map is null
      * @throws IllegalArgumentException if sub-array or entry matching used and an entry is invalid
      * @throws ClassCastException       if the array contents is mixed
@@ -1164,6 +1231,7 @@ public class MapUtils {
      * @param map   the map to add to, must not be null
      * @param key   the key
      * @param value the value, null converted to ""
+     *
      * @throws NullPointerException if the map is null
      */
     public static <K> void safeAddToMap(final Map<? super K, Object> map, final K key, final Object value)
@@ -1176,6 +1244,7 @@ public class MapUtils {
      * Gets the given map size or 0 if the map is null
      *
      * @param map a Map or null
+     *
      * @return the given map size or 0 if the map is null
      */
     public static int size(final Map<?, ?> map) {
@@ -1208,6 +1277,7 @@ public class MapUtils {
      * @param <K> the key type
      * @param <V> the value type
      * @param map the map to synchronize, must not be null
+     *
      * @return a synchronized map backed by the given map
      */
     public static <K, V> Map<K, V> synchronizedMap(final Map<K, V> map) {
@@ -1240,7 +1310,9 @@ public class MapUtils {
      * @param <K> the key type
      * @param <V> the value type
      * @param map the map to synchronize, must not be null
+     *
      * @return a synchronized map backed by the given map
+     *
      * @throws NullPointerException if the map is null
      */
     public static <K, V> SortedMap<K, V> synchronizedSortedMap(final SortedMap<K, V> map) {
@@ -1251,7 +1323,9 @@ public class MapUtils {
      * Creates a new HashMap using data copied from a ResourceBundle.
      *
      * @param resourceBundle the resource bundle to convert, must not be null
+     *
      * @return the HashMap containing the data
+     *
      * @throws NullPointerException if the bundle is null
      */
     public static Map<String, Object> toMap(final ResourceBundle resourceBundle) {
@@ -1280,7 +1354,9 @@ public class MapUtils {
      * @param <K> the key type
      * @param <V> the value type
      * @param map the map to convert to a Properties object
+     *
      * @return the properties object
+     *
      * @throws NullPointerException if a key or value in the provided map is {@code null}
      */
     public static <K, V> Properties toProperties(final Map<K, V> map) {
@@ -1302,6 +1378,7 @@ public class MapUtils {
      * @param maps
      * @param <K>
      * @param <V>
+     *
      * @return Map
      */
     @SafeVarargs
@@ -1316,6 +1393,7 @@ public class MapUtils {
      * @param maps
      * @param <K>
      * @param <V>
+     *
      * @return
      */
     @SafeVarargs
@@ -1325,12 +1403,89 @@ public class MapUtils {
     }
 
     /**
+     * Creates a <i>mutable</i>, empty {@code HashMap} instance.
+     *
+     * <p><b>Note:</b> if mutability is not required, use {@link ImmutableMap#of()} instead.
+     *
+     * <p><b>Note:</b> if {@code K} is an {@code enum} type, use {@link #newEnumMap} instead.
+     *
+     * <p><b>Note:</b> this method is now unnecessary and should be treated as deprecated. Instead,
+     * use the {@code HashMap} constructor directly, taking advantage of <a
+     * href="http://goo.gl/iz2Wi">"diamond" syntax</a>.
+     *
+     * @return a new, empty {@code HashMap}
+     */
+    public static <K, V> HashMap<K, V> newHashMap() {
+        return new HashMap<>();
+    }
+
+    /**
+     * Creates a <i>mutable</i> {@code HashMap} instance with the same mappings as the specified map.
+     *
+     * <p><b>Note:</b> if mutability is not required, use {@link ImmutableMap#copyOf(Map)} instead.
+     *
+     * <p><b>Note:</b> if {@code K} is an {@link Enum} type, use {@link #newEnumMap} instead.
+     *
+     * <p><b>Note:</b> this method is now unnecessary and should be treated as deprecated. Instead,
+     * use the {@code HashMap} constructor directly, taking advantage of <a
+     * href="http://goo.gl/iz2Wi">"diamond" syntax</a>.
+     *
+     * @param map the mappings to be placed in the new map
+     *
+     * @return a new {@code HashMap} initialized with the mappings from {@code map}
+     */
+    public static <K, V> HashMap<K, V> newHashMap(Map<? extends K, ? extends V> map) {
+        return new HashMap<>(map);
+    }
+
+    /**
+     * Creates a <i>mutable</i>, empty, insertion-ordered {@code LinkedHashMap} instance.
+     *
+     * <p><b>Note:</b> if mutability is not required, use {@link ImmutableMap#of()} instead.
+     *
+     * <p><b>Note:</b> this method is now unnecessary and should be treated as deprecated. Instead,
+     * use the {@code LinkedHashMap} constructor directly, taking advantage of <a
+     * href="http://goo.gl/iz2Wi">"diamond" syntax</a>.
+     *
+     * @return a new, empty {@code LinkedHashMap}
+     */
+    public static <K, V>
+    LinkedHashMap<K, V> newLinkedHashMap() {
+        return new LinkedHashMap<>();
+    }
+
+    /**
+     * Creates a <i>mutable</i>, insertion-ordered {@code LinkedHashMap} instance with the same
+     * mappings as the specified map.
+     *
+     * <p><b>Note:</b> if mutability is not required, use {@link ImmutableMap#copyOf(Map)} instead.
+     *
+     * <p><b>Note:</b> this method is now unnecessary and should be treated as deprecated. Instead,
+     * use the {@code LinkedHashMap} constructor directly, taking advantage of <a
+     * href="http://goo.gl/iz2Wi">"diamond" syntax</a>.
+     *
+     * @param map the mappings to be placed in the new map
+     *
+     * @return a new, {@code LinkedHashMap} initialized with the mappings from {@code map}
+     */
+    public static <K, V>
+    LinkedHashMap<K, V> newLinkedHashMap(Map<? extends K, ? extends V> map) {
+        return new LinkedHashMap<>(map);
+    }
+
+
+    public static <K extends Comparable, V> TreeMap<K, V> newTreeMap() {
+        return new TreeMap<>();
+    }
+
+    /**
      * 按照值排序，可选是否倒序
      *
      * @param map    需要对值排序的map
      * @param <K>    键类型
      * @param <V>    值类型
      * @param isDesc 是否倒序
+     *
      * @return 排序后新的Map
      */
     public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map, boolean isDesc) {
@@ -1343,6 +1498,182 @@ public class MapUtils {
         return result;
     }
 
+    /**
+     * Computes the difference between two maps. This difference is an immutable snapshot of the state
+     * of the maps at the time this method is called. It will never change, even if the maps change at
+     * a later time.
+     *
+     * <p>Since this method uses {@code HashMap} instances internally, the keys of the supplied maps
+     * must be well-behaved with respect to {@link Object#equals} and {@link Object#hashCode}.
+     *
+     * <p><b>Note:</b>If you only need to know whether two maps have the same mappings, call {@code
+     * left.equals(right)} instead of this method.
+     *
+     * @param left  the map to treat as the "left" map for purposes of comparison
+     * @param right the map to treat as the "right" map for purposes of comparison
+     *
+     * @return the difference between the two maps
+     */
+    @SuppressWarnings("unchecked")
+    public static <K, V>
+    MapDifference<K, V> difference(
+            Map<? extends K, ? extends V> left, Map<? extends K, ? extends V> right) {
+        if (left instanceof SortedMap) {
+            SortedMap<K, ? extends V> sortedLeft = (SortedMap<K, ? extends V>) left;
+            return difference(sortedLeft, right);
+        }
+        /*
+         * This cast is safe: The Equivalence-accepting overload of difference() (which we call below)
+         * has a weird signature because Equivalence is itself a little weird. Still, we know that
+         * Equivalence.equals() can handle all inputs, and we know that the resulting MapDifference will
+         * contain only Ks and Vs (as opposed to possibly containing  objects even when K and V
+         * are *not* ).
+         *
+         * An alternative to suppressing the warning would be to inline the body of the other
+         * difference() method into this one.
+         */
+        @SuppressWarnings("nullness")
+        MapDifference<K, V> result =
+                (MapDifference<K, V>) difference(left, right, Equivalence.equals());
+        return result;
+    }
+
+    /**
+     * Computes the difference between two maps. This difference is an immutable snapshot of the state
+     * of the maps at the time this method is called. It will never change, even if the maps change at
+     * a later time.
+     *
+     * <p>Since this method uses {@code HashMap} instances internally, the keys of the supplied maps
+     * must be well-behaved with respect to {@link Object#equals} and {@link Object#hashCode}.
+     *
+     * @param left             the map to treat as the "left" map for purposes of comparison
+     * @param right            the map to treat as the "right" map for purposes of comparison
+     * @param valueEquivalence the equivalence relationship to use to compare values
+     *
+     * @return the difference between the two maps
+     *
+     * @since 10.0
+     */
+    /*
+     * This method should really be annotated to accept maps with  value types. Fortunately,
+     * no existing Google callers appear to pass null values (much less pass null values *and* run a
+     * nullness checker).
+     *
+     * Still, if we decide that we want to make that work, we'd need to introduce a new type parameter
+     * for the Equivalence input type:
+     *
+     * <E, K, V extends  E> ... difference(..., Equivalence<E> ...)
+     *
+     * Maybe we should, even though it will break source compatibility.
+     *
+     * Alternatively, this is a case in which it would be useful to be able to express Equivalence<?
+     * super @Nonnull T>).
+     *
+     * As things stand now, though, we have to either:
+     *
+     * - require non-null inputs so that we can guarantee non-null outputs
+     *
+     * - accept nullable inputs but force users to cope with nullable outputs
+     *
+     * And the non-null option is far more useful to existing users.
+     *
+     * (Vaguely related: Another thing we could consider is an overload that accepts a BiPredicate:
+     * https://github.com/google/guava/issues/3913)
+     */
+    public static <K, V> MapDifference<K, V> difference(
+            Map<? extends K, ? extends V> left,
+            Map<? extends K, ? extends V> right,
+            Equivalence<? super V> valueEquivalence) {
+        Assert.notNull(valueEquivalence);
+
+        Map<K, V> onlyOnLeft = newLinkedHashMap();
+        Map<K, V> onlyOnRight = new LinkedHashMap<>(right); // will whittle it down
+        Map<K, V> onBoth = newLinkedHashMap();
+        Map<K, MapDifference.ValueDifference<V>> differences = newLinkedHashMap();
+        doDifference(left, right, valueEquivalence, onlyOnLeft, onlyOnRight, onBoth, differences);
+        return new MapDifferenceImpl<>(onlyOnLeft, onlyOnRight, onBoth, differences);
+    }
+
+    /**
+     * Computes the difference between two sorted maps, using the comparator of the left map, or
+     * {@code Ordering.natural()} if the left map uses the natural ordering of its elements. This
+     * difference is an immutable snapshot of the state of the maps at the time this method is called.
+     * It will never change, even if the maps change at a later time.
+     *
+     * <p>Since this method uses {@code TreeMap} instances internally, the keys of the right map must
+     * all compare as distinct according to the comparator of the left map.
+     *
+     * <p><b>Note:</b>If you only need to know whether two sorted maps have the same mappings, call
+     * {@code left.equals(right)} instead of this method.
+     *
+     * @param left  the map to treat as the "left" map for purposes of comparison
+     * @param right the map to treat as the "right" map for purposes of comparison
+     *
+     * @return the difference between the two maps
+     *
+     * @since 11.0
+     */
+    public static <K, V> SortedMapDifference<K, V> difference(
+            SortedMap<K, ? extends V> left, Map<? extends K, ? extends V> right) {
+        Assert.notNull(left);
+        Assert.notNull(right);
+        Comparator<? super K> comparator = orNaturalOrder(left.comparator());
+        SortedMap<K, V> onlyOnLeft = Maps.newTreeMap(comparator);
+        SortedMap<K, V> onlyOnRight = Maps.newTreeMap(comparator);
+        onlyOnRight.putAll(right); // will whittle it down
+        SortedMap<K, V> onBoth = Maps.newTreeMap(comparator);
+        SortedMap<K, MapDifference.ValueDifference<V>> differences = Maps.newTreeMap(comparator);
+
+        /*
+         * V is a possibly nullable type, but we decided to declare Equivalence with a type parameter
+         * that is restricted to non-nullable types. Still, this code is safe: We made that decision
+         * about Equivalence not because Equivalence is null-hostile but because *every* Equivalence can
+         * handle null inputs -- and thus it would be meaningless for the type system to distinguish
+         * between "an Equivalence for nullable Foo" and "an Equivalence for non-nullable Foo."
+         *
+         * (And the unchecked cast is safe because Equivalence is contravariant.)
+         */
+        @SuppressWarnings({"nullness", "unchecked"})
+        Equivalence<V> equalsEquivalence = (Equivalence<V>) Equivalence.equals();
+
+        doDifference(left, right, equalsEquivalence, onlyOnLeft, onlyOnRight, onBoth, differences);
+        return new SortedMapDifferenceImpl<>(onlyOnLeft, onlyOnRight, onBoth, differences);
+    }
+
+    private static <K, V> void doDifference(
+            Map<? extends K, ? extends V> left,
+            Map<? extends K, ? extends V> right,
+            Equivalence<? super V> valueEquivalence,
+            Map<K, V> onlyOnLeft,
+            Map<K, V> onlyOnRight,
+            Map<K, V> onBoth,
+            Map<K, MapDifference.ValueDifference<V>> differences) {
+        for (Entry<? extends K, ? extends V> entry : left.entrySet()) {
+            K leftKey = entry.getKey();
+            V leftValue = entry.getValue();
+            if (right.containsKey(leftKey)) {
+                /*
+                 * The cast is safe because onlyOnRight contains all the keys of right.
+                 *
+                 * TODO(cpovirk): Consider checking onlyOnRight.containsKey instead of right.containsKey.
+                 * That could change behavior if the input maps use different equivalence relations (and so
+                 * a key that appears once in `right` might appear multiple times in `left`). We don't
+                 * guarantee behavior in that case, anyway, and the current behavior is likely undesirable.
+                 * So that's either a reason to feel free to change it or a reason to not bother thinking
+                 * further about this.
+                 */
+                V rightValue = uncheckedCastNullableTToT(onlyOnRight.remove(leftKey));
+                if (valueEquivalence.equivalent(leftValue, rightValue)) {
+                    onBoth.put(leftKey, leftValue);
+                } else {
+                    differences.put(leftKey, ValueDifferenceImpl.create(leftValue, rightValue));
+                }
+            } else {
+                onlyOnLeft.put(leftKey, leftValue);
+            }
+        }
+    }
+
 
     /**
      * 过滤Map保留指定键值对，如果键不存在跳过
@@ -1351,6 +1682,7 @@ public class MapUtils {
      * @param <V>  Value类型
      * @param map  原始Map
      * @param keys 键列表，{@code null}返回原Map
+     *
      * @return Map 结果，结果的Map类型与原Map保持一致
      */
     @SuppressWarnings("unchecked")
@@ -1388,6 +1720,7 @@ public class MapUtils {
      * @param <K> key的类型
      * @param <V> value的类型
      * @param map Map
+     *
      * @return TreeMap
      */
     public static <K, V> TreeMap<K, V> sort(Map<K, V> map) {
@@ -1401,6 +1734,7 @@ public class MapUtils {
      * @param <V>        value的类型
      * @param map        Map，为null返回null
      * @param comparator Key比较器
+     *
      * @return TreeMap，map为null返回null
      */
     public static <K, V> TreeMap<K, V> sort(Map<K, V> map, Comparator<? super K> comparator) {
@@ -1430,6 +1764,7 @@ public class MapUtils {
      * @param separator         entry之间的连接符
      * @param keyValueSeparator kv之间的连接符
      * @param otherParams       其它附加参数字符串（例如密钥）
+     *
      * @return 连接字符串
      */
     public static <K, V> String join(Map<K, V> map, String separator, String keyValueSeparator, String... otherParams) {
@@ -1444,6 +1779,7 @@ public class MapUtils {
      * @param keyValueSeparator kv之间的连接符
      * @param isIgnoreNull      是否忽略null的键和值
      * @param otherParams       其它附加参数字符串（例如密钥）
+     *
      * @return 签名字符串
      */
     public static String sortJoin(Map<?, ?> params, String separator, String keyValueSeparator, boolean isIgnoreNull,
@@ -1460,6 +1796,7 @@ public class MapUtils {
      * @param separator         entry之间的连接符
      * @param keyValueSeparator kv之间的连接符
      * @param otherParams       其它附加参数字符串（例如密钥）
+     *
      * @return 连接后的字符串
      */
     public static <K, V> String joinIgnoreNull(Map<K, V> map, String separator, String keyValueSeparator, String... otherParams) {
@@ -1476,6 +1813,7 @@ public class MapUtils {
      * @param keyValueSeparator kv之间的连接符
      * @param isIgnoreNull      是否忽略null的键和值
      * @param otherParams       其它附加参数字符串（例如密钥）
+     *
      * @return 连接后的字符串，map和otherParams为空返回""
      */
     public static <K, V> String join(Map<K, V> map, String separator, String keyValueSeparator, boolean isIgnoreNull, String... otherParams) {
@@ -1494,7 +1832,7 @@ public class MapUtils {
             }
         }
         // 补充其它字符串到末尾，默认无分隔符
-        if (ArrayUtils.isNotEmpty(otherParams)) {
+        if (ArraysUtils.isNotEmpty(otherParams)) {
             for (String otherParam : otherParams) {
                 strBuilder.append(otherParam);
             }
@@ -1508,6 +1846,7 @@ public class MapUtils {
      * @param map Map
      * @param <K> 键类型
      * @param <V> 值类型
+     *
      * @return 不修改Map
      */
     public static <K, V> Map<K, V> unmodifiable(Map<K, V> map) {

@@ -17,6 +17,8 @@
 package top.lytree.collections;
 
 
+import static top.lytree.collections.Lists.computeArrayListCapacity;
+
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,6 +36,9 @@ import java.util.RandomAccess;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
 import top.lytree.base.Assert;
+import top.lytree.collections.Lists.RandomAccessReverseList;
+import top.lytree.collections.Lists.ReverseList;
+import top.lytree.math.Ints;
 
 
 /**
@@ -54,6 +59,7 @@ public class ListUtils {
      *
      * @param <T>  the element type
      * @param list the list, possibly {@code null}
+     *
      * @return an empty list if the argument is {@code null}
      */
     public static <T> List<T> emptyIfNull(final List<T> list) {
@@ -66,6 +72,7 @@ public class ListUtils {
      * @param <T>         元素类型
      * @param list        列表,可能为{@code null}
      * @param defaultList the returned values if list is {@code null}
+     *
      * @return an empty list if the argument is {@code null}
      */
     public static <T> List<T> defaultIfNull(final List<T> list, final List<T> defaultList) {
@@ -78,7 +85,9 @@ public class ListUtils {
      * @param <E>   the element type
      * @param list1 the first list
      * @param list2 the second list
+     *
      * @return the intersection of those two lists
+     *
      * @throws NullPointerException if either list is null
      */
     public static <E> List<E> intersection(final List<? extends E> list1, final List<? extends E> list2) {
@@ -108,7 +117,9 @@ public class ListUtils {
      * @param <E>   the element type
      * @param list1 the first list
      * @param list2 the second list
+     *
      * @return a new list containing the union of those lists
+     *
      * @throws NullPointerException if either list is null
      */
     public static <E> List<E> union(final List<? extends E> list1, final List<? extends E> list2) {
@@ -138,7 +149,9 @@ public class ListUtils {
      *
      * @param list1 the first list, may be null
      * @param list2 the second list, may be null
+     *
      * @return whether the lists are equal by value comparison
+     *
      * @see List
      */
     public static boolean isEqualList(final Collection<?> list1, final Collection<?> list2) {
@@ -173,7 +186,9 @@ public class ListUtils {
      * List implementation algorithm.
      *
      * @param list the list to generate the hashCode for, may be null
+     *
      * @return the hash code
+     *
      * @see List#hashCode()
      */
     public static int hashCodeForList(final Collection<?> list) {
@@ -203,7 +218,9 @@ public class ListUtils {
      * @param <E>        the element type
      * @param collection the collection whose contents are the target of the #retailAll operation
      * @param retain     the collection containing the elements to be retained in the returned collection
+     *
      * @return a {@code List} containing all the elements of {@code c} that occur at least once in {@code retain}.
+     *
      * @throws NullPointerException if either parameter is null
      */
     public static <E> List<E> retainAll(final Collection<E> collection, final Collection<?> retain) {
@@ -230,7 +247,9 @@ public class ListUtils {
      * @param <E>        the element type
      * @param collection the collection from which items are removed (in the returned collection)
      * @param remove     the items to be removed from the returned {@code collection}
+     *
      * @return a {@code List} containing all the elements of {@code c} except any elements that also occur in {@code remove}.
+     *
      * @throws NullPointerException if either parameter is null
      */
     public static <E> List<E> removeAll(final Collection<E> collection, final Collection<?> remove) {
@@ -251,6 +270,7 @@ public class ListUtils {
      * @param collection 原集合
      * @param func       编辑函数
      * @param ignoreNull 是否忽略空值，这里的空值包括函数处理前和处理后的null值
+     *
      * @return 抽取后的新列表
      */
     public static <T, R> List<R> map(Iterable<T> collection, Function<? super T, ? extends R> func, boolean ignoreNull) {
@@ -310,7 +330,9 @@ public class ListUtils {
      * @param <T>  the element type
      * @param list the list to return consecutive sublists of
      * @param size the desired size of each sublist (the last may be smaller)
+     *
      * @return a list of consecutive sublists
+     *
      * @throws NullPointerException     if list is null
      * @throws IllegalArgumentException if size is not strictly positive
      */
@@ -366,11 +388,12 @@ public class ListUtils {
      *
      * @param <T>    集合元素类型
      * @param values 数组
+     *
      * @return ArrayList对象
      */
     @SafeVarargs
     public static <T> ArrayList<T> toList(T... values) {
-        return (ArrayList<T>) list(false, values);
+        return (ArrayList<T>) newArrayList(false, values);
     }
 
     /**
@@ -378,11 +401,12 @@ public class ListUtils {
      *
      * @param ts  对象
      * @param <T> 对象类型
+     *
      * @return 不可修改List
      */
     @SafeVarargs
     public static <T> List<T> of(T... ts) {
-        if (ArrayUtils.isEmpty(ts)) {
+        if (ArraysUtils.isEmpty(ts)) {
             return Collections.emptyList();
         }
         return Collections.unmodifiableList(toList(ts));
@@ -393,6 +417,7 @@ public class ListUtils {
      *
      * @param <T>        集合元素类型
      * @param collection 集合
+     *
      * @return {@link CopyOnWriteArrayList}
      */
     public static <T> CopyOnWriteArrayList<T> toCopyOnWriteArrayList(Collection<T> collection) {
@@ -400,56 +425,13 @@ public class ListUtils {
     }
 
     /**
-     * 新建一个ArrayList
-     *
-     * @param <T>        集合元素类型
-     * @param collection 集合
-     * @return ArrayList对象
-     */
-    public static <T> ArrayList<T> toList(Collection<T> collection) {
-        return (ArrayList<T>) list(false, collection);
-    }
-
-    /**
-     * 新建一个ArrayList<br> 提供的参数为null时返回空{@link ArrayList}
-     *
-     * @param <T>      集合元素类型
-     * @param iterable {@link Iterable}
-     * @return ArrayList对象
-     */
-    public static <T> ArrayList<T> toList(Iterable<T> iterable) {
-        return (ArrayList<T>) list(false, iterable);
-    }
-
-    /**
-     * 新建一个ArrayList<br> 提供的参数为null时返回空{@link ArrayList}
-     *
-     * @param <T>      集合元素类型
-     * @param iterator {@link Iterator}
-     * @return ArrayList对象
-     */
-    public static <T> ArrayList<T> toList(Iterator<T> iterator) {
-        return (ArrayList<T>) list(false, iterator);
-    }
-
-    /**
-     * 新建一个ArrayList<br> 提供的参数为null时返回空{@link ArrayList}
-     *
-     * @param <T>         集合元素类型
-     * @param enumeration {@link Enumeration}
-     * @return ArrayList对象
-     */
-    public static <T> ArrayList<T> toList(Enumeration<T> enumeration) {
-        return (ArrayList<T>) list(false, enumeration);
-    }
-
-    /**
      * 新建一个空List
      *
      * @param <T> 集合元素类型
+     *
      * @return List对象
      */
-    public static <T> List<T> list() {
+    public static <T> List<T> newArrayList() {
         return new ArrayList<>();
     }
 
@@ -458,14 +440,16 @@ public class ListUtils {
      *
      * @param <T>    集合元素类型
      * @param values 数组
+     *
      * @return List对象
      */
     @SafeVarargs
-    public static <T> List<T> list(T... values) {
-        if (ArrayUtils.isEmpty(values)) {
-            return list();
+    public static <T> List<T> newArrayList(T... values) {
+        if (ArraysUtils.isEmpty(values)) {
+            return newArrayList();
         }
-        final List<T> arrayList = new ArrayList<>(values.length);
+        int capacity = computeArrayListCapacity(values.length);
+        final List<T> arrayList = new ArrayList<>(capacity);
         Collections.addAll(arrayList, values);
         return arrayList;
     }
@@ -475,11 +459,12 @@ public class ListUtils {
      *
      * @param <T>        集合元素类型
      * @param collection 集合
+     *
      * @return List对象
      */
-    public static <T> List<T> list(Collection<T> collection) {
+    public static <T> List<T> newArrayList(Collection<T> collection) {
         if (null == collection) {
-            return list();
+            return newArrayList();
         }
         return new ArrayList<>(collection);
     }
@@ -489,13 +474,14 @@ public class ListUtils {
      *
      * @param <T>      集合元素类型
      * @param iterable {@link Iterable}
+     *
      * @return List对象
      */
-    public static <T> List<T> list(Iterable<T> iterable) {
+    public static <T> List<T> newArrayList(Iterable<T> iterable) {
         if (null == iterable) {
-            return list();
+            return newArrayList();
         }
-        return list(iterable.iterator());
+        return newArrayList(iterable.iterator());
     }
 
     /**
@@ -503,10 +489,11 @@ public class ListUtils {
      *
      * @param <T>  集合元素类型
      * @param iter {@link Iterator}
+     *
      * @return ArrayList对象
      */
-    public static <T> List<T> list(Iterator<T> iter) {
-        final List<T> list = list();
+    public static <T> List<T> newArrayList(Iterator<T> iter) {
+        final List<T> list = newArrayList();
         if (null != iter) {
             while (iter.hasNext()) {
                 list.add(iter.next());
@@ -520,10 +507,11 @@ public class ListUtils {
      *
      * @param <T>        集合元素类型
      * @param enumration {@link Enumeration}
+     *
      * @return ArrayList对象
      */
-    public static <T> List<T> list(Enumeration<T> enumration) {
-        final List<T> list = list();
+    public static <T> List<T> newArrayList(Enumeration<T> enumration) {
+        final List<T> list = newArrayList();
         if (null != enumration) {
             while (enumration.hasMoreElements()) {
                 list.add(enumration.nextElement());
@@ -538,7 +526,9 @@ public class ListUtils {
      * @param <T>  元素类型
      * @param list 被排序的List
      * @param c    {@link Comparator}
+     *
      * @return 原list
+     *
      * @see Collections#sort(List, Comparator)
      */
     public static <T> List<T> sort(List<T> list, Comparator<? super T> c) {
@@ -566,8 +556,6 @@ public class ListUtils {
      * this list.
      *
      * <p>The returned list is random-access if the specified list is random access.
-     *
-     * 
      */
     public static <T> List<T> reverse(List<T> list) {
         if (list instanceof ReverseList) {
@@ -579,156 +567,5 @@ public class ListUtils {
         }
     }
 
-    private static class ReverseList<T> extends AbstractList<T> {
 
-        private final List<T> forwardList;
-
-        ReverseList(List<T> forwardList) {
-            this.forwardList = Assert.notNull(forwardList);
-        }
-
-        List<T> getForwardList() {
-            return forwardList;
-        }
-
-        private int reverseIndex(int index) {
-            int size = size();
-            Assert.checkIndex(index, size);
-            return (size - 1) - index;
-        }
-
-        private int reversePosition(int index) {
-            int size = size();
-            Assert.checkIndex(index, size);
-            return size - index;
-        }
-
-        @Override
-        public void add(int index, T element) {
-            forwardList.add(reversePosition(index), element);
-        }
-
-        @Override
-        public void clear() {
-            forwardList.clear();
-        }
-
-        @Override
-
-        public T remove(int index) {
-            return forwardList.remove(reverseIndex(index));
-        }
-
-        @Override
-        protected void removeRange(int fromIndex, int toIndex) {
-            subList(fromIndex, toIndex).clear();
-        }
-
-        @Override
-
-        public T set(int index, T element) {
-            return forwardList.set(reverseIndex(index), element);
-        }
-
-        @Override
-
-        public T get(int index) {
-            return forwardList.get(reverseIndex(index));
-        }
-
-        @Override
-        public int size() {
-            return forwardList.size();
-        }
-
-        @Override
-        public List<T> subList(int fromIndex, int toIndex) {
-            Assert.checkIndex(fromIndex, size());
-            Assert.checkIndex(toIndex, size());
-            return reverse(forwardList.subList(reversePosition(toIndex), reversePosition(fromIndex)));
-        }
-
-        @Override
-        public Iterator<T> iterator() {
-            return listIterator();
-        }
-
-        @Override
-        public ListIterator<T> listIterator(int index) {
-            int start = reversePosition(index);
-            final ListIterator<T> forwardIterator = forwardList.listIterator(start);
-            return new ListIterator<T>() {
-
-                boolean canRemoveOrSet;
-
-                @Override
-                public void add(T e) {
-                    forwardIterator.add(e);
-                    forwardIterator.previous();
-                    canRemoveOrSet = false;
-                }
-
-                @Override
-                public boolean hasNext() {
-                    return forwardIterator.hasPrevious();
-                }
-
-                @Override
-                public boolean hasPrevious() {
-                    return forwardIterator.hasNext();
-                }
-
-                @Override
-
-                public T next() {
-                    if (!hasNext()) {
-                        throw new NoSuchElementException();
-                    }
-                    canRemoveOrSet = true;
-                    return forwardIterator.previous();
-                }
-
-                @Override
-                public int nextIndex() {
-                    return reversePosition(forwardIterator.nextIndex());
-                }
-
-                @Override
-
-                public T previous() {
-                    if (!hasPrevious()) {
-                        throw new NoSuchElementException();
-                    }
-                    canRemoveOrSet = true;
-                    return forwardIterator.next();
-                }
-
-                @Override
-                public int previousIndex() {
-                    return nextIndex() - 1;
-                }
-
-                @Override
-                public void remove() {
-                    Assert.isTrue(canRemoveOrSet);
-                    forwardIterator.remove();
-                    canRemoveOrSet = false;
-                }
-
-                @Override
-                public void set(T e) {
-                    Assert.isTrue(canRemoveOrSet);
-                    forwardIterator.set(e);
-                }
-            };
-        }
-    }
-
-    private static class RandomAccessReverseList<T> extends ReverseList<T>
-            implements RandomAccess {
-
-        RandomAccessReverseList(List<T> forwardList) {
-            super(forwardList);
-        }
-    }
 }
