@@ -39,7 +39,6 @@ import top.lytree.pattern.PatternCompiler;
 
 final public class Platform {
 
-    private static final Logger logger = Logger.getLogger(Platform.class.getName());
     private static final PatternCompiler patternCompiler = loadPatternCompiler();
 
     private Platform() {
@@ -57,39 +56,6 @@ final public class Platform {
         return matcher.precomputedInternal();
     }
 
-    public static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
-        WeakReference<? extends Enum<?>> ref = Enums.getEnumConstants(enumClass).get(value);
-        return ref == null ? Optional.<T>empty() : Optional.of(enumClass.cast(ref.get()));
-    }
-
-    public static String formatCompact4Digits(double value) {
-        return String.format(Locale.ROOT, "%.4g", value);
-    }
-
-    public static boolean stringIsNullOrEmpty(String string) {
-        return string == null || string.isEmpty();
-    }
-
-    /**
-     * Returns the string if it is not null, or an empty string otherwise.
-     *
-     * @param string the string to test and possibly return
-     * @return {@code string} if it is not null; {@code ""} otherwise
-     */
-    public static String nullToEmpty(String string) {
-        return (string == null) ? "" : string;
-    }
-
-    /**
-     * Returns the string if it is not empty, or a null string otherwise.
-     *
-     * @param string the string to test and possibly return
-     * @return {@code string} if it is not empty; {@code null} otherwise
-     */
-
-    public static String emptyToNull(String string) {
-        return stringIsNullOrEmpty(string) ? null : string;
-    }
 
     public static CommonPattern compilePattern(String pattern) {
         Assert.notNull(pattern);
@@ -102,10 +68,6 @@ final public class Platform {
 
     private static PatternCompiler loadPatternCompiler() {
         return new JdkPatternCompiler();
-    }
-
-    private static void logPatternCompilerError(ServiceConfigurationError e) {
-        logger.log(Level.WARNING, "Error loading regex compiler, falling back to next option", e);
     }
 
     private static final class JdkPatternCompiler implements PatternCompiler {
@@ -121,24 +83,5 @@ final public class Platform {
         }
     }
 
-    public static void checkGwtRpcEnabled() {
-        String propertyName = "guava.gwt.emergency_reenable_rpc";
 
-        if (!Boolean.parseBoolean(System.getProperty(propertyName, "false"))) {
-            throw new UnsupportedOperationException(
-                    StringUtils.format(
-                            "We are removing GWT-RPC support for Guava types. You can temporarily reenable"
-                                    + " support by setting the system property {} to true. For more about system"
-                                    + " properties, see {}. For more about Guava's GWT-RPC support, see {}.",
-                            propertyName,
-                            "https://stackoverflow.com/q/5189914/28465",
-                            "https://groups.google.com/d/msg/guava-announce/zHZTFg7YF3o/rQNnwdHeEwAJ"));
-        }
-        logger.log(
-                Level.WARNING,
-                "Later in 2020, we will remove GWT-RPC support for Guava types. You are seeing this"
-                        + " warning because you are sending a Guava type over GWT-RPC, which will break. You"
-                        + " can identify which type by looking at the class name in the attached stack trace.",
-                new Throwable());
-    }
 }
