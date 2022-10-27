@@ -17,8 +17,6 @@
 package top.lytree.collections;
 
 
-import static top.lytree.collections.Maps.orNaturalOrder;
-
 import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.io.PrintStream;
 import java.text.NumberFormat;
@@ -30,7 +28,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import top.lytree.base.Assert;
 import top.lytree.bean.ObjectUtils;
-import top.lytree.collections.Maps.MapDifferenceImpl;
+
 
 
 /**
@@ -1497,183 +1495,6 @@ public class MapUtils {
         map.entrySet().stream().sorted(entryComparator).forEachOrdered(e -> result.put(e.getKey(), e.getValue()));
         return result;
     }
-
-    /**
-     * Computes the difference between two maps. This difference is an immutable snapshot of the state
-     * of the maps at the time this method is called. It will never change, even if the maps change at
-     * a later time.
-     *
-     * <p>Since this method uses {@code HashMap} instances internally, the keys of the supplied maps
-     * must be well-behaved with respect to {@link Object#equals} and {@link Object#hashCode}.
-     *
-     * <p><b>Note:</b>If you only need to know whether two maps have the same mappings, call {@code
-     * left.equals(right)} instead of this method.
-     *
-     * @param left  the map to treat as the "left" map for purposes of comparison
-     * @param right the map to treat as the "right" map for purposes of comparison
-     *
-     * @return the difference between the two maps
-     */
-    @SuppressWarnings("unchecked")
-    public static <K, V>
-    MapDifference<K, V> difference(
-            Map<? extends K, ? extends V> left, Map<? extends K, ? extends V> right) {
-        if (left instanceof SortedMap) {
-            SortedMap<K, ? extends V> sortedLeft = (SortedMap<K, ? extends V>) left;
-            return difference(sortedLeft, right);
-        }
-        /*
-         * This cast is safe: The Equivalence-accepting overload of difference() (which we call below)
-         * has a weird signature because Equivalence is itself a little weird. Still, we know that
-         * Equivalence.equals() can handle all inputs, and we know that the resulting MapDifference will
-         * contain only Ks and Vs (as opposed to possibly containing  objects even when K and V
-         * are *not* ).
-         *
-         * An alternative to suppressing the warning would be to inline the body of the other
-         * difference() method into this one.
-         */
-        @SuppressWarnings("nullness")
-        MapDifference<K, V> result =
-                (MapDifference<K, V>) difference(left, right, Equivalence.equals());
-        return result;
-    }
-
-    /**
-     * Computes the difference between two maps. This difference is an immutable snapshot of the state
-     * of the maps at the time this method is called. It will never change, even if the maps change at
-     * a later time.
-     *
-     * <p>Since this method uses {@code HashMap} instances internally, the keys of the supplied maps
-     * must be well-behaved with respect to {@link Object#equals} and {@link Object#hashCode}.
-     *
-     * @param left             the map to treat as the "left" map for purposes of comparison
-     * @param right            the map to treat as the "right" map for purposes of comparison
-     * @param valueEquivalence the equivalence relationship to use to compare values
-     *
-     * @return the difference between the two maps
-     *
-     * @since 10.0
-     */
-    /*
-     * This method should really be annotated to accept maps with  value types. Fortunately,
-     * no existing Google callers appear to pass null values (much less pass null values *and* run a
-     * nullness checker).
-     *
-     * Still, if we decide that we want to make that work, we'd need to introduce a new type parameter
-     * for the Equivalence input type:
-     *
-     * <E, K, V extends  E> ... difference(..., Equivalence<E> ...)
-     *
-     * Maybe we should, even though it will break source compatibility.
-     *
-     * Alternatively, this is a case in which it would be useful to be able to express Equivalence<?
-     * super @Nonnull T>).
-     *
-     * As things stand now, though, we have to either:
-     *
-     * - require non-null inputs so that we can guarantee non-null outputs
-     *
-     * - accept nullable inputs but force users to cope with nullable outputs
-     *
-     * And the non-null option is far more useful to existing users.
-     *
-     * (Vaguely related: Another thing we could consider is an overload that accepts a BiPredicate:
-     * https://github.com/google/guava/issues/3913)
-     */
-    public static <K, V> MapDifference<K, V> difference(
-            Map<? extends K, ? extends V> left,
-            Map<? extends K, ? extends V> right,
-            Equivalence<? super V> valueEquivalence) {
-        Assert.notNull(valueEquivalence);
-
-        Map<K, V> onlyOnLeft = newLinkedHashMap();
-        Map<K, V> onlyOnRight = new LinkedHashMap<>(right); // will whittle it down
-        Map<K, V> onBoth = newLinkedHashMap();
-        Map<K, MapDifference.ValueDifference<V>> differences = newLinkedHashMap();
-        doDifference(left, right, valueEquivalence, onlyOnLeft, onlyOnRight, onBoth, differences);
-        return new MapDifferenceImpl<>(onlyOnLeft, onlyOnRight, onBoth, differences);
-    }
-
-    /**
-     * Computes the difference between two sorted maps, using the comparator of the left map, or
-     * {@code Ordering.natural()} if the left map uses the natural ordering of its elements. This
-     * difference is an immutable snapshot of the state of the maps at the time this method is called.
-     * It will never change, even if the maps change at a later time.
-     *
-     * <p>Since this method uses {@code TreeMap} instances internally, the keys of the right map must
-     * all compare as distinct according to the comparator of the left map.
-     *
-     * <p><b>Note:</b>If you only need to know whether two sorted maps have the same mappings, call
-     * {@code left.equals(right)} instead of this method.
-     *
-     * @param left  the map to treat as the "left" map for purposes of comparison
-     * @param right the map to treat as the "right" map for purposes of comparison
-     *
-     * @return the difference between the two maps
-     *
-     * @since 11.0
-     */
-    public static <K, V> SortedMapDifference<K, V> difference(
-            SortedMap<K, ? extends V> left, Map<? extends K, ? extends V> right) {
-        Assert.notNull(left);
-        Assert.notNull(right);
-        Comparator<? super K> comparator = orNaturalOrder(left.comparator());
-        SortedMap<K, V> onlyOnLeft = Maps.newTreeMap(comparator);
-        SortedMap<K, V> onlyOnRight = Maps.newTreeMap(comparator);
-        onlyOnRight.putAll(right); // will whittle it down
-        SortedMap<K, V> onBoth = Maps.newTreeMap(comparator);
-        SortedMap<K, MapDifference.ValueDifference<V>> differences = Maps.newTreeMap(comparator);
-
-        /*
-         * V is a possibly nullable type, but we decided to declare Equivalence with a type parameter
-         * that is restricted to non-nullable types. Still, this code is safe: We made that decision
-         * about Equivalence not because Equivalence is null-hostile but because *every* Equivalence can
-         * handle null inputs -- and thus it would be meaningless for the type system to distinguish
-         * between "an Equivalence for nullable Foo" and "an Equivalence for non-nullable Foo."
-         *
-         * (And the unchecked cast is safe because Equivalence is contravariant.)
-         */
-        @SuppressWarnings({"nullness", "unchecked"})
-        Equivalence<V> equalsEquivalence = (Equivalence<V>) Equivalence.equals();
-
-        doDifference(left, right, equalsEquivalence, onlyOnLeft, onlyOnRight, onBoth, differences);
-        return new SortedMapDifferenceImpl<>(onlyOnLeft, onlyOnRight, onBoth, differences);
-    }
-
-    private static <K, V> void doDifference(
-            Map<? extends K, ? extends V> left,
-            Map<? extends K, ? extends V> right,
-            Equivalence<? super V> valueEquivalence,
-            Map<K, V> onlyOnLeft,
-            Map<K, V> onlyOnRight,
-            Map<K, V> onBoth,
-            Map<K, MapDifference.ValueDifference<V>> differences) {
-        for (Entry<? extends K, ? extends V> entry : left.entrySet()) {
-            K leftKey = entry.getKey();
-            V leftValue = entry.getValue();
-            if (right.containsKey(leftKey)) {
-                /*
-                 * The cast is safe because onlyOnRight contains all the keys of right.
-                 *
-                 * TODO(cpovirk): Consider checking onlyOnRight.containsKey instead of right.containsKey.
-                 * That could change behavior if the input maps use different equivalence relations (and so
-                 * a key that appears once in `right` might appear multiple times in `left`). We don't
-                 * guarantee behavior in that case, anyway, and the current behavior is likely undesirable.
-                 * So that's either a reason to feel free to change it or a reason to not bother thinking
-                 * further about this.
-                 */
-                V rightValue = uncheckedCastNullableTToT(onlyOnRight.remove(leftKey));
-                if (valueEquivalence.equivalent(leftValue, rightValue)) {
-                    onBoth.put(leftKey, leftValue);
-                } else {
-                    differences.put(leftKey, ValueDifferenceImpl.create(leftValue, rightValue));
-                }
-            } else {
-                onlyOnLeft.put(leftKey, leftValue);
-            }
-        }
-    }
-
 
     /**
      * 过滤Map保留指定键值对，如果键不存在跳过
