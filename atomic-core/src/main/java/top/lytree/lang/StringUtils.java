@@ -225,7 +225,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * </ul>
      *
      * @param str 被检测的字符串
+     *
      * @return 若为空白，则返回 true
+     *
      * @see #isEmpty(CharSequence)
      */
     public static boolean isBlank(CharSequence str) {
@@ -266,7 +268,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * <p>建议：仅对于客户端（或第三方接口）传入的参数使用该方法。</p>
      *
      * @param str 被检测的字符串
+     *
      * @return 是否为非空
+     *
      * @see #isBlank(CharSequence)
      */
     public static boolean isNotBlank(CharSequence str) {
@@ -293,6 +297,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * </ul>
      *
      * @param strs 字符串列表
+     *
      * @return 是否包含空字符串
      */
     public static boolean hasBlank(CharSequence... strs) {
@@ -328,6 +333,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * </ul>
      *
      * @param strs 字符串列表
+     *
      * @return 所有字符串是否为空白
      */
     public static boolean isAllBlank(CharSequence... strs) {
@@ -366,7 +372,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * </ul>
      *
      * @param str 被检测的字符串
+     *
      * @return 是否为空
+     *
      * @see #isBlank(CharSequence)
      */
     public static boolean isEmpty(CharSequence str) {
@@ -392,7 +400,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * <p>建议：该方法建议用于工具类或任何可以预期的方法参数的校验中。</p>
      *
      * @param str 被检测的字符串
+     *
      * @return 是否为非空
+     *
      * @see #isEmpty(CharSequence)
      */
     public static boolean isNotEmpty(CharSequence str) {
@@ -403,9 +413,10 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 当给定字符串为null时，转换为Empty
      *
      * @param str 被检查的字符串
+     *
      * @return 原字符串或者空串
+     *
      * @see #defaultIfNull(CharSequence)
-     * 
      */
     public static String emptyIfNull(CharSequence str) {
         return defaultIfNull(str);
@@ -415,6 +426,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 当给定字符串为null时，转换为Empty
      *
      * @param str 被转换的字符串
+     *
      * @return 转换后的字符串
      */
     public static String defaultIfNull(CharSequence str) {
@@ -433,6 +445,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str        要转换的字符串
      * @param defaultStr 默认字符串
+     *
      * @return 字符串本身或指定的默认字符串
      */
     public static String defaultIfNull(CharSequence str, String defaultStr) {
@@ -451,8 +464,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str        要转换的字符串
      * @param defaultStr 默认字符串
+     *
      * @return 字符串本身或指定的默认字符串
-     * 
      */
     public static String defaultIfEmpty(CharSequence str, String defaultStr) {
         return isEmpty(str) ? defaultStr : str.toString();
@@ -470,8 +483,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str        要转换的字符串
      * @param defaultStr 默认字符串
+     *
      * @return 字符串本身或指定的默认字符串
-     * 
      */
     public static String defaultIfBlank(CharSequence str, String defaultStr) {
         return isBlank(str) ? defaultStr : str.toString();
@@ -481,6 +494,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 当给定字符串为空字符串时，转换为{@code null}
      *
      * @param str 被转换的字符串
+     *
      * @return 转换后的字符串
      */
     public static String nullIfEmpty(CharSequence str) {
@@ -508,6 +522,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * </ul>
      *
      * @param strs 字符串列表
+     *
      * @return 是否包含空字符串
      */
     public static boolean hasEmpty(CharSequence... strs) {
@@ -544,6 +559,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * </ul>
      *
      * @param strs 字符串列表
+     *
      * @return 所有字符串是否为空白
      */
     public static boolean isAllEmpty(CharSequence... strs) {
@@ -580,8 +596,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * </ul>
      *
      * @param args 字符串数组
+     *
      * @return 所有字符串是否都不为为空白
-     * 
      */
     public static boolean isAllNotEmpty(CharSequence... args) {
         return false == hasEmpty(args);
@@ -591,8 +607,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 是否存都不为{@code null}或空对象或空白符的对象，通过{@link #hasBlank(CharSequence...)} 判断元素
      *
      * @param args 被检查的对象,一个或者多个
+     *
      * @return 是否都不为空
-     * 
      */
     public static boolean isAllNotBlank(CharSequence... args) {
         return false == hasBlank(args);
@@ -602,8 +618,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 检查字符串是否为null、“null”、“undefined”
      *
      * @param str 被检查的字符串
+     *
      * @return 是否为null、“null”、“undefined”
-     * 
      */
     public static boolean isNullOrUndefined(CharSequence str) {
         if (null == str) {
@@ -616,8 +632,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 检查字符串是否为null、“”、“null”、“undefined”
      *
      * @param str 被检查的字符串
+     *
      * @return 是否为null、“”、“null”、“undefined”
-     * 
      */
     public static boolean isEmptyOrUndefined(CharSequence str) {
         if (isEmpty(str)) {
@@ -630,8 +646,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 检查字符串是否为null、空白串、“null”、“undefined”
      *
      * @param str 被检查的字符串
+     *
      * @return 是否为null、空白串、“null”、“undefined”
-     * 
      */
     public static boolean isBlankOrUndefined(CharSequence str) {
         if (isBlank(str)) {
@@ -644,6 +660,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 是否为“null”、“undefined”，不做空指针检查
      *
      * @param str 字符串
+     *
      * @return 是否为“null”、“undefined”
      */
     private static boolean isNullOrUndefinedStr(CharSequence str) {
@@ -671,6 +688,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param seq       要检查的CharSequence，可以为空
      * @param searchSeq 查找的CharSequence可能为空
+     *
      * @return 搜索CharSequence的第一个索引，如果没有匹配或{@code null}字符串输入，则为-1
      */
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq) {
@@ -703,6 +721,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param seq       要检查的CharSequence，可以为空
      * @param searchSeq 查找的CharSequence可能为空
      * @param startPos  起始位置，负的作为零
+     *
      * @return CharSequence的第一个索引(总是 & ge ; startPos)， -1如果没有匹配或{@code null}字符串输入
      */
     public static int indexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
@@ -736,6 +755,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param seq        要检查的CharSequence，可以为空
      * @param searchChar 要找的角色
+     *
      * @return 搜索字符的第一个索引，如果没有匹配或{@code null}字符串输入，则为-1
      */
     public static int indexOf(final CharSequence seq, final int searchChar) {
@@ -779,6 +799,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param seq        要检查的CharSequence，可以为空
      * @param searchChar 要找的角色
      * @param startPos   起始位置，负的作为零
+     *
      * @return 搜索字符的第一个索引(总是 & ge ; startPos)， -1如果没有匹配或{@code null}字符串输入
      */
     public static int indexOf(final CharSequence seq, final int searchChar, final int startPos) {
@@ -805,6 +826,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param cs          要检查的CharSequence，可以为空
      * @param searchChars 要搜索的字符可能为空
+     *
      * @return 任何字符的索引，如果没有匹配或输入为空，则为-1
      */
     public static int indexOfAny(final CharSequence cs, final char... searchChars) {
@@ -855,6 +877,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str        要检查的CharSequence，可以为空
      * @param searchStrs 要搜索的charsequence可以为空
+     *
      * @return str中所有搜索字符串的第一个索引，如果没有匹配，则为-1
      */
     public static int indexOfAny(final CharSequence str, final CharSequence... searchStrs) {
@@ -901,6 +924,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param cs          要检查的CharSequence，可以为空
      * @param searchChars 要搜索的字符可能为空
+     *
      * @return 任何字符的索引，如果没有匹配或输入为空，则为-1
      */
     public static int indexOfAny(final CharSequence cs, final String searchChars) {
@@ -929,6 +953,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param cs          要检查的CharSequence，可以为空
      * @param searchChars 要搜索的字符可能为空
+     *
      * @return 任何字符的索引，如果没有匹配或输入为空，则为-1
      */
     public static int indexOfAnyBut(final CharSequence cs, final char... searchChars) {
@@ -976,6 +1001,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param seq         要检查的CharSequence，可以为空
      * @param searchChars 要搜索的字符可能为空
+     *
      * @return 任何字符的索引，如果没有匹配或输入为空，则为-1
      */
     public static int indexOfAnyBut(final CharSequence seq, final CharSequence searchChars) {
@@ -1025,6 +1051,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * </pre>
      *
      * @param css charsequence数组，条目可以为空
+     *
      * @return 字符串开始不同的索引;-1如果它们都相等
      */
     public static int indexOfDifference(final CharSequence... css) {
@@ -1104,6 +1131,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param cs1 第一个CharSequence，可以为空
      * @param cs2 第二个CharSequence，可以为空
+     *
      * @return cs1和cs2开始不同的索引;如果相等-1
      */
     public static int indexOfDifference(final CharSequence cs1, final CharSequence cs2) {
@@ -1144,6 +1172,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str       要检查的CharSequence，可以为空
      * @param searchStr 查找的CharSequence可能为空
+     *
      * @return 搜索CharSequence的第一个索引，如果没有匹配或{@code null}字符串输入，则为-1
      */
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
@@ -1173,6 +1202,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param str       要检查的CharSequence，可以为空
      * @param searchStr 查找的CharSequence可能为空
      * @param startPos  起始位置，负的作为零
+     *
      * @return CharSequence的第一个索引(总是 & ge ; startPos)， -1如果没有匹配或{@code null}字符串输入
      */
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, int startPos) {
@@ -1214,6 +1244,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param seq       要检查的CharSequence，可以为空
      * @param searchSeq 查找的CharSequence可能为空
+     *
      * @return 搜索字符串的最后一个索引，如果没有匹配或{@code null}字符串输入，则为-1
      */
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq) {
@@ -1250,6 +1281,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param seq       要检查的CharSequence，可以为空
      * @param searchSeq 查找的CharSequence可能为空
      * @param startPos  起始位置，负的作为零
+     *
      * @return CharSequence(总是 & le ; startPos)， -1如果没有匹配或{@code null}字符串输入
      */
     public static int lastIndexOf(final CharSequence seq, final CharSequence searchSeq, final int startPos) {
@@ -1278,6 +1310,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param seq        {@code CharSequence}检查，可以为空
      * @param searchChar 要找的角色
+     *
      * @return 搜索字符的最后一个索引，如果没有匹配或{@code null}字符串输入，则为-1
      */
     public static int lastIndexOf(final CharSequence seq, final int searchChar) {
@@ -1316,6 +1349,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param seq        要检查的CharSequence，可以为空
      * @param searchChar 要找的角色
      * @param startPos   一开始的位置
+     *
      * @return 搜索字符的最后一个索引(总是 & le ; startPos)， -1如果没有匹配或{@code null}字符串输入
      */
     public static int lastIndexOf(final CharSequence seq, final int searchChar, final int startPos) {
@@ -1345,6 +1379,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str        要检查的CharSequence，可以为空
      * @param searchStrs 要搜索的charsequence可以为空
+     *
      * @return 任何charsequence的最后一个索引，如果不匹配，则为-1
      */
     public static int lastIndexOfAny(final CharSequence str, final CharSequence... searchStrs) {
@@ -1380,6 +1415,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str       要检查的CharSequence，可以为空
      * @param searchStr 查找的CharSequence可能为空
+     *
      * @return 搜索CharSequence的第一个索引，如果没有匹配或{@code null}字符串输入，则为-1
      */
     public static int lastIndexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
@@ -1409,6 +1445,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param str       要检查的CharSequence，可以为空
      * @param searchStr 查找的CharSequence可能为空
      * @param startPos  一开始的位置
+     *
      * @return CharSequence(总是 & le ; startPos)， -1如果没有匹配或{@code null}输入
      */
     public static int lastIndexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, int startPos) {
@@ -1463,6 +1500,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param str       要检查的CharSequence，可以为空
      * @param searchStr 查找的CharSequence可能为空
      * @param ordinal   最后找到的第n个{@code searchStr}
+     *
      * @return 搜索 CharSequence的最后n个索引，如果没有匹配或输入{@code null}字符串，则为{@code -1} ({@code INDEX_NOT_FOUND})
      */
     public static int lastOrdinalIndexOf(final CharSequence str, final CharSequence searchStr, final int ordinal) {
@@ -1509,6 +1547,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param str       要检查的CharSequence，可以为空
      * @param searchStr 查找的CharSequence可能为空
      * @param ordinal   要查找的第n个{@code searchStr
+     *
      * @return 搜索 CharSequence的第n个索引，如果没有匹配或输入{@code null}字符串，则为{@code -1} ({@code INDEX_NOT_FOUND})
      */
     public static int ordinalIndexOf(final CharSequence str, final CharSequence searchStr, final int ordinal) {
@@ -1524,6 +1563,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param searchStr 查找的CharSequence可能为空
      * @param ordinal   第n个{@code searchStr}查找重叠匹配是允许的。
      * @param lastIndex 如果lastOrdinalIndexOf()为真，如果ordinalIndexOf()为假
+     *
      * @return 搜索CharSequence的第n个索引，如果没有匹配或输入{@code null}字符串，则为{@code -1} ({@code INDEX_NOT_FOUND})
      */
     // Shared code between ordinalIndexOf(String, String, int) and lastOrdinalIndexOf(String, String, int)
@@ -1558,6 +1598,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str       被处理的字符串
      * @param preString 添加的首部
+     *
      * @return 处理后的字符串
      */
     public static String upperFirstAndAddPre(String str, String preString) {
@@ -1571,6 +1612,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 大写首字母<br> 例如：str = name, return Name
      *
      * @param str 字符串
+     *
      * @return 字符串
      */
     public static String upperFirst(String str) {
@@ -1590,6 +1632,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 小写首字母<br> 例如：str = Name, return name
      *
      * @param str 字符串
+     *
      * @return 字符串
      */
     public static String lowerFirst(String str) {
@@ -1611,6 +1654,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param template 文本模板，被替换的部分用 {} 表示
      * @param params   参数值
+     *
      * @return 格式化后的文本
      */
     public static String format(String template, Object... params) {
@@ -1632,7 +1676,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * </pre>
      *
      * @param str 受检查参数
+     *
      * @return {@code true}如果{@code CharSequence}不是{@code null}，它的长度大于0，并且不只包含空格
+     *
      * @see #hasText(String)
      * @see #isEmpty(CharSequence)
      * @see Character#isWhitespace
@@ -1647,6 +1693,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str     字符串
      * @param charset 编码
+     *
      * @return byteBuffer
      */
     public static ByteBuffer byteBuffer(String str, Charset charset) {
@@ -1660,6 +1707,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param data    字符串
      * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
+     *
      * @return 解码后的字符串
      */
     public static String toString(byte[] data, Charset charset) {
@@ -1679,6 +1727,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param data    字符串
      * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
+     *
      * @return 解码后的字符串
      */
     public static String toString(Byte[] data, Charset charset) {
@@ -1701,6 +1750,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param data    数据
      * @param charset 字符集，如果为空使用当前系统字符集
+     *
      * @return 字符串
      */
     public static String toString(ByteBuffer data, String charset) {
@@ -1716,6 +1766,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param data    数据
      * @param charset 字符集，如果为空使用当前系统字符集
+     *
      * @return 字符串
      */
     public static String toString(ByteBuffer data, Charset charset) {
@@ -1734,6 +1785,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * </pre>
      *
      * @param obj 对象
+     *
      * @return 字符串
      */
     public static String toString(Object obj) {
@@ -1750,6 +1802,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param obj     对象
      * @param charset 字符集
+     *
      * @return 字符串
      */
     public static String toString(Object obj, Charset charset) {
@@ -1777,6 +1830,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str  验证字符串
      * @param strs 字符串组
+     *
      * @return 包含返回true
      */
     public static boolean inStringIgnoreCase(String str, String... strs) {
@@ -1795,6 +1849,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param string  The string to encode (if null, return null).
      * @param charset The {@link Charset} to encode the {@code String}
+     *
      * @return the encoded bytes
      */
     private static ByteBuffer getByteBuffer(final String string, final Charset charset) {
@@ -1808,7 +1863,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 使用UTF-8字符集将给定字符串编码到字节缓冲区，并将结果存储到新的字节数组中。
      *
      * @param string 要编码的字符串，可以是{@code null}
+     *
      * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
+     *
      * @see #getBytesUnchecked(String, String)
      */
     public static ByteBuffer getByteBufferUtf8(final String string) {
@@ -1820,7 +1877,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 使用ISO-8859-1字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
      *
      * @param string 要编码的字符串，可以是{@code null}
+     *
      * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
+     *
      * @see #getBytesUnchecked(String, String)
      */
     public static byte[] getBytesIso8859_1(final String string) {
@@ -1833,7 +1892,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param string      要编码的字符串，可以是{@code null}
      * @param charsetName 所需的名称{@link java.nio.charset.Charset}
+     *
      * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
+     *
      * @see String#getBytes(String)
      */
     public static byte[] getBytesUnchecked(final String string, final String charsetName) {
@@ -1851,7 +1912,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 使用US-ASCII字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
      *
      * @param string 编码的字符串，可以是{@code null}
+     *
      * @return 已编码的字节，如果输入字符串为{@code null}，则为{@code null}
+     *
      * @see #getBytesUnchecked(String, String)
      */
     public static byte[] getBytesUsAscii(final String string) {
@@ -1862,7 +1925,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 使用UTF-16字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
      *
      * @param string the String to encode, may be {@code null}
+     *
      * @return encoded bytes, or {@code null} if the input string was {@code null}
+     *
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
@@ -1876,7 +1941,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 使用UTF-16BE字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中
      *
      * @param string the String to encode, may be {@code null}
+     *
      * @return encoded bytes, or {@code null} if the input string was {@code null}
+     *
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16BE} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
@@ -1890,7 +1957,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 使用UTF-16LE字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
      *
      * @param string the String to encode, may be {@code null}
+     *
      * @return encoded bytes, or {@code null} if the input string was {@code null}
+     *
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16LE} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
@@ -1904,7 +1973,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 使用UTF-8字符集将给定字符串编码为字节序列，并将结果存储到新的字节数组中。
      *
      * @param string the String to encode, may be {@code null}
+     *
      * @return encoded bytes, or {@code null} if the input string was {@code null}
+     *
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_8} is not initialized, which should never happen since it is required by the Java platform specification.
      * @see <a href="http://download.oracle.com/javase/7/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
      * @see #getBytesUnchecked(String, String)
@@ -1919,7 +1990,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param bytes   The bytes to be decoded into characters
      * @param charset The {@link Charset} to encode the {@code String}; not {@code null}
+     *
      * @return A new {@code String} decoded from the specified array of bytes using the given charset, or {@code null} if the input byte array was {@code null}.
+     *
      * @throws NullPointerException Thrown if charset is {@code null}
      */
     private static String newString(final byte[] bytes, final Charset charset) {
@@ -1935,7 +2008,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param bytes       The bytes to be decoded into characters, may be {@code null}
      * @param charsetName The name of a required {@link java.nio.charset.Charset}
+     *
      * @return A new {@code String} decoded from the specified array of bytes using the given charset, or {@code null} if the input byte array was {@code null}.
+     *
      * @throws IllegalStateException Thrown when a {@link UnsupportedEncodingException} is caught, which should never happen for a required charset name.
      * @see String#String(byte[], String)
      */
@@ -1954,7 +2029,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 通过使用ISO-8859-1字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters, may be {@code null}
+     *
      * @return A new {@code String} decoded from the specified array of bytes using the ISO-8859-1 charset, or {@code null} if the input byte array was {@code null}.
+     *
      * @throws NullPointerException Thrown if {@link StandardCharsets#ISO_8859_1} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
      */
@@ -1966,7 +2043,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 通过使用US-ASCII字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters
+     *
      * @return A new {@code String} decoded from the specified array of bytes using the US-ASCII charset, or {@code null} if the input byte array was {@code null}.
+     *
      * @throws NullPointerException Thrown if {@link StandardCharsets#US_ASCII} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
      */
@@ -1978,7 +2057,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 通过使用UTF-16字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters
+     *
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-16 charset or {@code null} if the input byte array was {@code null}.
+     *
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
      */
@@ -1990,7 +2071,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 通过使用UTF-16BE字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters
+     *
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-16BE charset, or {@code null} if the input byte array was {@code null}.
+     *
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16BE} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
      */
@@ -2002,7 +2085,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 通过使用UTF-16LE字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters
+     *
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-16LE charset, or {@code null} if the input byte array was {@code null}.
+     *
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_16LE} is not initialized, which should never happen since it is required by the Java platform
      *                              specification.
      */
@@ -2014,7 +2099,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 通过使用UTF-8字符集解码指定的字节数组来构造一个新的{@code String}。
      *
      * @param bytes The bytes to be decoded into characters
+     *
      * @return A new {@code String} decoded from the specified array of bytes using the UTF-8 charset, or {@code null} if the input byte array was {@code null}.
+     *
      * @throws NullPointerException Thrown if {@link StandardCharsets#UTF_8} is not initialized, which should never happen since it is required by the Java platform specification.
      */
     public static String newStringUtf8(final byte[] bytes) {
@@ -2025,6 +2112,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 清理空白字符
      *
      * @param str 被清理的字符串
+     *
      * @return 清理后的字符串
      */
     public static String cleanBlank(String str) {
@@ -2037,6 +2125,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      *
      * @param str    字符串
      * @param filter 过滤器，{@link Filter#accept(Object)}返回为{@code true}的保留字符
+     *
      * @return 过滤后的字符串
      */
     public static String filter(CharSequence str, final Filter<Character> filter) {

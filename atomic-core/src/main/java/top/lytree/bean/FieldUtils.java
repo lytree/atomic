@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import top.lytree.collections.ArraysUtils;
+import top.lytree.lang.StringUtils;
 
 /**
  * @author pride
@@ -92,6 +93,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      *
      * @param clazz         类
      * @param modifierTypes 修饰符枚举
+     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Class<?> clazz, ModifierType... modifierTypes) {
@@ -106,6 +108,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      *
      * @param constructor   构造方法
      * @param modifierTypes 修饰符枚举
+     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Constructor<?> constructor, ModifierType... modifierTypes) {
@@ -120,6 +123,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      *
      * @param method        方法
      * @param modifierTypes 修饰符枚举
+     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Method method, ModifierType... modifierTypes) {
@@ -134,6 +138,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      *
      * @param field         字段
      * @param modifierTypes 修饰符枚举
+     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Field field, ModifierType... modifierTypes) {
@@ -147,6 +152,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 是否是Public字段
      *
      * @param field 字段
+     *
      * @return 是否是Public
      */
     public static boolean isPublic(Field field) {
@@ -157,6 +163,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 是否是Public方法
      *
      * @param method 方法
+     *
      * @return 是否是Public
      */
     public static boolean isPublic(Method method) {
@@ -167,6 +174,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 是否是Public类
      *
      * @param clazz 类
+     *
      * @return 是否是Public
      */
     public static boolean isPublic(Class<?> clazz) {
@@ -177,6 +185,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 是否是Public构造
      *
      * @param constructor 构造
+     *
      * @return 是否是Public
      */
     public static boolean isPublic(Constructor<?> constructor) {
@@ -187,6 +196,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 是否是static字段
      *
      * @param field 字段
+     *
      * @return 是否是static
      */
     public static boolean isStatic(Field field) {
@@ -197,6 +207,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 是否是static方法
      *
      * @param method 方法
+     *
      * @return 是否是static
      */
     public static boolean isStatic(Method method) {
@@ -207,6 +218,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 是否是static类
      *
      * @param clazz 类
+     *
      * @return 是否是static
      */
     public static boolean isStatic(Class<?> clazz) {
@@ -217,6 +229,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 是否是合成字段（由java编译器生成的）
      *
      * @param field 字段
+     *
      * @return 是否是合成字段
      */
     public static boolean isSynthetic(Field field) {
@@ -227,6 +240,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 是否是合成方法（由java编译器生成的）
      *
      * @param method 方法
+     *
      * @return 是否是合成方法
      */
     public static boolean isSynthetic(Method method) {
@@ -237,6 +251,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 是否是合成类（由java编译器生成的）
      *
      * @param clazz 类
+     *
      * @return 是否是合成
      */
     public static boolean isSynthetic(Class<?> clazz) {
@@ -247,10 +262,77 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 是否抽象方法
      *
      * @param method 方法
+     *
      * @return 是否抽象方法
      */
     public static boolean isAbstract(Method method) {
         return hasModifier(method, ModifierType.ABSTRACT);
+    }
+
+    /**
+     * 获取字段值
+     *
+     * @param obj       对象，如果static字段，此处为类
+     * @param fieldName 字段名
+     *
+     * @return 字段值
+     *
+     * @throws IllegalAccessException 包装IllegalAccessException异常
+     */
+    public static Object getFieldValue(final Object obj, final String fieldName) throws IllegalAccessException {
+        if (null == obj || StringUtils.isBlank(fieldName)) {
+            return null;
+        }
+        return getFieldValue(obj, getField(obj instanceof Class ? (Class<?>) obj : obj.getClass(), fieldName));
+    }
+
+    /**
+     * 获取静态字段值
+     *
+     * @param field 字段
+     *
+     * @return 字段值
+     *
+     * @throws IllegalAccessException 包装IllegalAccessException异常
+     * @since 5.1.0
+     */
+    public static Object getStaticFieldValue(final Field field) throws IllegalAccessException {
+        return getFieldValue(null, field);
+    }
+
+    /**
+     * 获取字段值
+     *
+     * @param obj   对象，static字段则此字段为null
+     * @param field 字段
+     *
+     * @return 字段值
+     *
+     * @throws IllegalAccessException 包装IllegalAccessException异常
+     */
+    public static Object getFieldValue(Object obj, final Field field) throws IllegalAccessException {
+        if (null == field) {
+            return null;
+        }
+        if (obj instanceof Class) {
+            // 静态字段获取时对象为null
+            obj = null;
+        }
+        return field.get(obj);
+    }
+
+    /**
+     * 是否为父类引用字段<br>
+     * 当字段所在类是对象子类时（对象中定义的非static的class），会自动生成一个以"this$0"为名称的字段，指向父类对象
+     *
+     * @param field 字段
+     *
+     * @return 是否为父类引用字段
+     *
+     * @since 5.7.20
+     */
+    public static boolean isOuterClassField(final Field field) {
+        return "this$0".equals(field.getName());
     }
     //-------------------------------------------------------------------------------------------------------- Private method start
 
@@ -258,6 +340,7 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
      * 多个修饰符做“与”操作，表示同时存在多个修饰符
      *
      * @param modifierTypes 修饰符列表，元素不能为空
+     *
      * @return “与”之后的修饰符
      */
     private static int modifiersToInt(ModifierType... modifierTypes) {

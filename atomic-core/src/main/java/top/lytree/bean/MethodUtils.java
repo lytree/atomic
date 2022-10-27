@@ -22,7 +22,9 @@ public class MethodUtils extends org.apache.commons.lang3.reflect.MethodUtils {
      *
      * @param clazz  查找方法的类
      * @param filter 过滤器
+     *
      * @return 过滤后的方法列表
+     *
      * @throws SecurityException 安全异常
      */
     public static Method[] getMethods(Class<?> clazz, Filter<Method> filter) throws SecurityException {
@@ -36,7 +38,9 @@ public class MethodUtils extends org.apache.commons.lang3.reflect.MethodUtils {
      * 获得一个类中所有方法列表，包括其父类中的方法
      *
      * @param beanClass 类，非{@code null}
+     *
      * @return 方法列表
+     *
      * @throws SecurityException 安全检查异常
      */
     public static Method[] getMethods(Class<?> beanClass) throws SecurityException {
@@ -55,7 +59,9 @@ public class MethodUtils extends org.apache.commons.lang3.reflect.MethodUtils {
      * @param beanClass            类或接口
      * @param withSupers           是否包括父类或接口的方法列表
      * @param withMethodFromObject 是否包括Object中的方法
+     *
      * @return 方法列表
+     *
      * @throws SecurityException 安全检查异常
      */
     public static Method[] getMethodsDirectly(Class<?> beanClass, boolean withSupers, boolean withMethodFromObject) throws SecurityException {
@@ -92,11 +98,12 @@ public class MethodUtils extends org.apache.commons.lang3.reflect.MethodUtils {
      * @param methodName     使用此名称获取方法
      * @param args           使用这些参数-将null视为空数组
      * @param parameterTypes 匹配这些参数-将null视为空数组
+     *
      * @return 被调用方法返回的值
+     *
      * @throws NoSuchMethodException     如果没有这样的通达方法
      * @throws InvocationTargetException 包装由调用的方法引发的异常
      * @throws IllegalAccessException    如果请求的方法不能通过反射访问
-     * 
      */
     public static Object invokeMethod(final Object object, final boolean forceAccess, final String methodName,
             Object[] args, Class<?>[] parameterTypes)
@@ -134,13 +141,14 @@ public class MethodUtils extends org.apache.commons.lang3.reflect.MethodUtils {
      * 获取类对应接口中的非抽象方法（default方法）
      *
      * @param clazz 类
+     *
      * @return 方法列表
      */
     private static List<Method> getDefaultMethodsFromInterface(Class<?> clazz) {
         List<Method> result = new ArrayList<>();
         for (Class<?> ifc : clazz.getInterfaces()) {
             for (Method m : ifc.getMethods()) {
-                if (!ModifierUtil.isAbstract(m)) {
+                if (!ModifierUtils.isAbstract(m)) {
                     result.add(m);
                 }
             }
@@ -162,8 +170,8 @@ public class MethodUtils extends org.apache.commons.lang3.reflect.MethodUtils {
      *
      * @param args                 传递给varags方法的参数数组
      * @param methodParameterTypes 方法参数类型声明的数组
+     *
      * @return 传递给方法的可变参数数组
-     * 
      */
     static Object[] getVarArgs(final Object[] args, final Class<?>[] methodParameterTypes) {
         if (args.length == methodParameterTypes.length && (args[args.length - 1] == null ||
@@ -196,5 +204,47 @@ public class MethodUtils extends org.apache.commons.lang3.reflect.MethodUtils {
 
         // Return the canonical varargs array.
         return newArgs;
+    }
+
+    /**
+     * 检查给定方法是否为Getter或者Setter方法，规则为：<br>
+     * <ul>
+     *     <li>方法参数必须为0个或1个</li>
+     *     <li>方法名称不能是getClass</li>
+     *     <li>如果是无参方法，则判断是否以“get”或“is”开头</li>
+     *     <li>如果方法参数1个，则判断是否以“set”开头</li>
+     * </ul>
+     *
+     * @param method     方法
+     * @param ignoreCase 是否忽略方法名的大小写
+     *
+     * @return 是否为Getter或者Setter方法
+     *
+     * @since 5.7.20
+     */
+    public static boolean isGetterOrSetter(final Method method) {
+        if (null == method) {
+            return false;
+        }
+
+        // 参数个数必须为0或1
+        final int parameterCount = method.getParameterCount();
+        if (parameterCount > 1) {
+            return false;
+        }
+
+        String name = method.getName();
+        // 跳过getClass这个特殊方法
+        if ("getClass".equals(name)) {
+            return false;
+        }
+        switch (parameterCount) {
+            case 0:
+                return name.startsWith("get") || name.startsWith("is");
+            case 1:
+                return name.startsWith("set");
+            default:
+                return false;
+        }
     }
 }

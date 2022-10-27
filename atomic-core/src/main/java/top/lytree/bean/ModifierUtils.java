@@ -10,15 +10,13 @@ import top.lytree.collections.ArraysUtils;
  * 修饰符工具类
  *
  * @author looly
- * 
  */
-public class ModifierUtil {
+public class ModifierUtils {
 
     /**
      * 修饰符枚举
      *
      * @author looly
-     * 
      */
     public enum ModifierType {
         /**
@@ -96,6 +94,7 @@ public class ModifierUtil {
      *
      * @param clazz         类
      * @param modifierTypes 修饰符枚举
+     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Class<?> clazz, ModifierType... modifierTypes) {
@@ -110,6 +109,7 @@ public class ModifierUtil {
      *
      * @param constructor   构造方法
      * @param modifierTypes 修饰符枚举
+     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Constructor<?> constructor, ModifierType... modifierTypes) {
@@ -124,6 +124,7 @@ public class ModifierUtil {
      *
      * @param method        方法
      * @param modifierTypes 修饰符枚举
+     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Method method, ModifierType... modifierTypes) {
@@ -138,6 +139,7 @@ public class ModifierUtil {
      *
      * @param field         字段
      * @param modifierTypes 修饰符枚举
+     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Field field, ModifierType... modifierTypes) {
@@ -151,6 +153,7 @@ public class ModifierUtil {
      * 是否是Public字段
      *
      * @param field 字段
+     *
      * @return 是否是Public
      */
     public static boolean isPublic(Field field) {
@@ -161,6 +164,7 @@ public class ModifierUtil {
      * 是否是Public方法
      *
      * @param method 方法
+     *
      * @return 是否是Public
      */
     public static boolean isPublic(Method method) {
@@ -171,6 +175,7 @@ public class ModifierUtil {
      * 是否是Public类
      *
      * @param clazz 类
+     *
      * @return 是否是Public
      */
     public static boolean isPublic(Class<?> clazz) {
@@ -181,6 +186,7 @@ public class ModifierUtil {
      * 是否是Public构造
      *
      * @param constructor 构造
+     *
      * @return 是否是Public
      */
     public static boolean isPublic(Constructor<?> constructor) {
@@ -191,8 +197,8 @@ public class ModifierUtil {
      * 是否是static字段
      *
      * @param field 字段
+     *
      * @return 是否是static
-     * 
      */
     public static boolean isStatic(Field field) {
         return hasModifier(field, ModifierType.STATIC);
@@ -202,8 +208,8 @@ public class ModifierUtil {
      * 是否是static方法
      *
      * @param method 方法
+     *
      * @return 是否是static
-     * 
      */
     public static boolean isStatic(Method method) {
         return hasModifier(method, ModifierType.STATIC);
@@ -213,8 +219,8 @@ public class ModifierUtil {
      * 是否是static类
      *
      * @param clazz 类
+     *
      * @return 是否是static
-     * 
      */
     public static boolean isStatic(Class<?> clazz) {
         return hasModifier(clazz, ModifierType.STATIC);
@@ -224,8 +230,8 @@ public class ModifierUtil {
      * 是否是合成字段（由java编译器生成的）
      *
      * @param field 字段
+     *
      * @return 是否是合成字段
-     * 
      */
     public static boolean isSynthetic(Field field) {
         return field.isSynthetic();
@@ -235,8 +241,8 @@ public class ModifierUtil {
      * 是否是合成方法（由java编译器生成的）
      *
      * @param method 方法
+     *
      * @return 是否是合成方法
-     * 
      */
     public static boolean isSynthetic(Method method) {
         return method.isSynthetic();
@@ -246,8 +252,8 @@ public class ModifierUtil {
      * 是否是合成类（由java编译器生成的）
      *
      * @param clazz 类
+     *
      * @return 是否是合成
-     * 
      */
     public static boolean isSynthetic(Class<?> clazz) {
         return clazz.isSynthetic();
@@ -257,8 +263,8 @@ public class ModifierUtil {
      * 是否抽象方法
      *
      * @param method 方法
+     *
      * @return 是否抽象方法
-     * 
      */
     public static boolean isAbstract(Method method) {
         return hasModifier(method, ModifierType.ABSTRACT);
@@ -269,6 +275,7 @@ public class ModifierUtil {
      * 多个修饰符做“与”操作，表示同时存在多个修饰符
      *
      * @param modifierTypes 修饰符列表，元素不能为空
+     *
      * @return “与”之后的修饰符
      */
     private static int modifiersToInt(ModifierType... modifierTypes) {
