@@ -15,8 +15,6 @@
 package top.lytree.pattern;
 
 
-import top.lytree.base.Platform;
-
 /**
  * The subset of the {@link java.util.regex.Pattern} API which is used by this package, and also shared with the {@code re2j} library. For internal use only. Please refer to the
  * {@code Pattern} javadoc for details.
