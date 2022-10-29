@@ -11,9 +11,6 @@ import java.time.temporal.UnsupportedTemporalTypeException;
 
 /**
  * {@link TemporalAccessor} 工具类封装
- *
- * @author looly
- * 
  */
 public class TemporalAccessorUtil extends TemporalUtil {
 
@@ -22,6 +19,7 @@ public class TemporalAccessorUtil extends TemporalUtil {
      *
      * @param temporalAccessor 需要获取的时间对象
      * @param field            需要获取的属性
+     *
      * @return 时间的值，如果无法获取则默认为 0
      */
     public static int get(TemporalAccessor temporalAccessor, TemporalField field) {
@@ -37,8 +35,8 @@ public class TemporalAccessorUtil extends TemporalUtil {
      *
      * @param time      {@link TemporalAccessor}
      * @param formatter 日期格式化器，预定义的格式见：{@link DateTimeFormatter}
+     *
      * @return 格式化后的字符串
-     * 
      */
     public static String format(TemporalAccessor time, DateTimeFormatter formatter) {
         if (null == time) {
@@ -68,8 +66,8 @@ public class TemporalAccessorUtil extends TemporalUtil {
      *
      * @param time   {@link TemporalAccessor}
      * @param format 日期格式
+     *
      * @return 格式化后的字符串
-     * 
      */
     public static String format(TemporalAccessor time, String format) {
         if (null == time) {
@@ -86,8 +84,8 @@ public class TemporalAccessorUtil extends TemporalUtil {
      * {@link TemporalAccessor}转换为 时间戳（从1970-01-01T00:00:00Z开始的毫秒数）
      *
      * @param temporalAccessor Date对象
+     *
      * @return {@link Instant}对象
-     * 
      */
     public static long toEpochMilli(TemporalAccessor temporalAccessor) {
         return toInstant(temporalAccessor).toEpochMilli();
@@ -97,8 +95,8 @@ public class TemporalAccessorUtil extends TemporalUtil {
      * {@link TemporalAccessor}转换为 {@link Instant}对象
      *
      * @param temporalAccessor Date对象
+     *
      * @return {@link Instant}对象
-     * 
      */
     public static Instant toInstant(TemporalAccessor temporalAccessor) {
         if (null == temporalAccessor) {
