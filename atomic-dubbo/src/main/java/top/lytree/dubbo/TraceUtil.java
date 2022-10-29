@@ -3,7 +3,7 @@ package top.lytree.dubbo;
 import org.apache.dubbo.rpc.RpcContext;
 import org.slf4j.MDC;
 import org.springframework.util.StringUtils;
-import top.lytree.model.constants.Globals;
+import top.lytree.oss.model.constants.Globals;
 
 
 public class TraceUtil {

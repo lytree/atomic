@@ -36,7 +36,7 @@ public class CustomJdbcTemplate extends JdbcTemplate {
     }
 
 
-    public static <T> T requiredSingleResult(Collection<T> results) throws IncorrectResultSizeDataAccessException {
+    private static <T> T requiredSingleResult(Collection<T> results) throws IncorrectResultSizeDataAccessException {
         int size = (results != null ? results.size() : 0);
         if (size == 0) {
             return null;

@@ -159,8 +159,6 @@ public enum CaseFormat {
 
     /**
      * Returns a {@code Converter} that converts strings from this format to {@code targetFormat}.
-     *
-     * 
      */
     public Converter<String, String> converterTo(CaseFormat targetFormat) {
         return new StringConverter(this, targetFormat);

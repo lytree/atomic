@@ -54,33 +54,33 @@ import top.lytree.math.Ints;
 
 
 /**
- * Provides static utility methods and decorators for {@link Iterator} instances. The implementations are provided in the iterators subpackage.
+ * 为{@link Iterator}实例提供静态实用程序方法和装饰器。实现在iterators子包中提供。
  */
 public class IteratorUtils {
     // validation is done in this class in certain cases because the
     // public classes allow invalid states
 
     /**
-     * An iterator over no elements.
+     * 没有元素的迭代器。
      */
     @SuppressWarnings("rawtypes")
     public static final ResettableIterator EMPTY_ITERATOR = EmptyIterator.RESETTABLE_INSTANCE;
 
     /**
-     * A list iterator over no elements.
+     * 不包含任何元素的列表迭代器。
      */
     @SuppressWarnings("rawtypes")
     public static final ResettableListIterator EMPTY_LIST_ITERATOR = EmptyListIterator.RESETTABLE_INSTANCE;
 
 
     /**
-     * A map iterator over no elements.
+     * 没有元素的映射迭代器。
      */
     @SuppressWarnings("rawtypes")
     public static final MapIterator EMPTY_MAP_ITERATOR = EmptyMapIterator.INSTANCE;
 
     /**
-     * Default delimiter used to delimit elements while converting an Iterator to its String representation.
+     * 在将迭代器转换为其字符串表示形式时，用于分隔元素的默认分隔符。
      */
     private static final String DEFAULT_TOSTRING_DELIMITER = ", ";
 
@@ -94,7 +94,7 @@ public class IteratorUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * Gets an empty iterator.
+     * 获取一个空迭代器。
      * <p>
      * This iterator is a valid iterator object that will iterate over nothing.
      *
@@ -106,7 +106,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets an empty list iterator.
+     * 获取一个空的列表迭代器。
      * <p>
      * This iterator is a valid list iterator object that will iterate over nothing.
      *
@@ -119,7 +119,7 @@ public class IteratorUtils {
 
 
     /**
-     * Gets an empty map iterator.
+     * 获取一个空的映射迭代器。
      * <p>
      * This iterator is a valid map iterator object that will iterate over nothing.
      *
@@ -135,7 +135,7 @@ public class IteratorUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * Gets a singleton iterator.
+     *获取一个单例迭代器。
      * <p>
      * This iterator is a valid iterator object that will iterate over the specified object.
      *
@@ -148,7 +148,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets a singleton list iterator.
+     * 获取单例列表迭代器。
      * <p>
      * This iterator is a valid list iterator object that will iterate over the specified object.
      *
@@ -164,19 +164,20 @@ public class IteratorUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * Gets an iterator over an object array.
+     *获取对象数组上的迭代器。
      *
      * @param <E>   the element type
      * @param array the array over which to iterate
      * @return an iterator over the array
      * @throws NullPointerException if array is null
      */
+    @SafeVarargs
     public static <E> ResettableIterator<E> arrayIterator(final E... array) {
         return new ObjectArrayIterator<>(array);
     }
 
     /**
-     * Gets an iterator over an object or primitive array.
+     * 获取对象或原语数组上的迭代器。
      * <p>
      * This method will handle primitive arrays as well as object arrays. The primitives will be wrapped in the appropriate wrapper class.
      *
@@ -191,7 +192,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets an iterator over the end part of an object array.
+     * 获取对象数组末尾的迭代器。
      *
      * @param <E>   the element type
      * @param array the array over which to iterate
@@ -205,9 +206,9 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets an iterator over the end part of an object or primitive array.
+     * 获取对象或原语数组结束部分上的迭代器。
      * <p>
-     * This method will handle primitive arrays as well as object arrays. The primitives will be wrapped in the appropriate wrapper class.
+     * 此方法将处理基本数组和对象数组。原语将被包装在适当的包装器类中。
      *
      * @param <E>   the element type
      * @param array the array over which to iterate
@@ -222,7 +223,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets an iterator over part of an object array.
+     * 获取对象数组部分上的迭代器。
      *
      * @param <E>   the element type
      * @param array the array over which to iterate
@@ -238,10 +239,9 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets an iterator over part of an object or primitive array.
+     * 获取对象或基元数组部分上的迭代器。
      * <p>
-     * This method will handle primitive arrays as well as object arrays. The primitives will be wrapped in the appropriate wrapper class.
-     *
+     * 此方法将处理基本数组和对象数组。原语将被包装在适当的包装器类中。
      * @param <E>   the element type
      * @param array the array over which to iterate
      * @param start the index to start iterating at
@@ -265,6 +265,7 @@ public class IteratorUtils {
      * @return a list iterator over the array
      * @throws NullPointerException if array is null
      */
+    @SafeVarargs
     public static <E> ResettableListIterator<E> arrayListIterator(final E... array) {
         return new ObjectArrayListIterator<>(array);
     }
@@ -352,7 +353,7 @@ public class IteratorUtils {
     //-----------------------------------------------------------------------
 
     /**
-     * Gets an iterator that provides an iterator view of the given enumeration.
+     * 获取一个迭代器，该迭代器提供给定枚举的迭代器视图。
      *
      * @param <E>         the element type
      * @param enumeration the enumeration to use, may not be null
@@ -364,7 +365,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets an iterator that provides an iterator view of the given enumeration that will remove elements from the specified collection.
+     * 获取一个迭代器，该迭代器提供给定枚举的迭代器视图，该枚举将从指定集合中删除元素。
      *
      * @param <E>              the element type
      * @param enumeration      the enumeration to use, may not be null
@@ -379,7 +380,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets an enumeration that wraps an iterator.
+     * 获取封装迭代器的枚举。
      *
      * @param <E>      the element type
      * @param iterator the iterator to use, may not be null
@@ -391,7 +392,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets an {@link Iterable} that wraps an iterator.  The returned {@link Iterable} can be used for a single iteration.
+     * 获取封装迭代器的{@link Iterable}。返回的{@link Iterable}可以用于单个迭代。
      *
      * @param <E>      the element type
      * @param iterator the iterator to use, may not be null
@@ -404,7 +405,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets a list iterator based on a simple iterator.
+     * 获取基于简单迭代器的列表迭代器。
      * <p>
      * As the wrapped Iterator is traversed, a LinkedList of its values is cached, permitting all required operations of ListIterator.
      *
@@ -419,7 +420,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets an array based on an iterator.
+     * 获取基于迭代器的数组。
      * <p>
      * As the wrapped Iterator is traversed, an ArrayList of its values is created. At the end, this is converted to an array.
      *
@@ -434,7 +435,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets an array based on an iterator.
+     * 获取基于迭代器的数组。
      * <p>
      * As the wrapped Iterator is traversed, an ArrayList of its values is created. At the end, this is converted to an array.
      *
@@ -454,7 +455,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets a list based on an iterator.
+     * 获取基于迭代器的列表。
      * <p>
      * As the wrapped Iterator is traversed, an ArrayList of its values is created. At the end, the list is returned.
      *
@@ -468,7 +469,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets a list based on an iterator.
+     * 获取基于迭代器的列表。
      * <p>
      * As the wrapped Iterator is traversed, an ArrayList of its values is created. At the end, the list is returned.
      *
@@ -492,7 +493,7 @@ public class IteratorUtils {
     }
 
     /**
-     * Gets a suitable Iterator for the given object.
+     * 获取给定对象的合适迭代器。
      * <p>
      * This method can handle objects as follows
      * <ul>

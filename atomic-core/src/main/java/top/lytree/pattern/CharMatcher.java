@@ -18,7 +18,6 @@ package top.lytree.pattern;
 import java.util.Arrays;
 import java.util.BitSet;
 import top.lytree.base.Assert;
-import top.lytree.base.Platform;
 import top.lytree.base.Predicate;
 
 
@@ -336,6 +335,7 @@ public abstract class CharMatcher {
      * character, until this returns {@code true} or the end is reached.
      *
      * @param sequence the character sequence to examine, possibly empty
+     *
      * @return {@code true} if this matcher matches at least one character in the sequence
      */
     public boolean matchesAnyOf(CharSequence sequence) {
@@ -349,6 +349,7 @@ public abstract class CharMatcher {
      * character, until this returns {@code false} or the end is reached.
      *
      * @param sequence the character sequence to examine, possibly empty
+     *
      * @return {@code true} if this matcher matches every character in the sequence, including when the sequence is empty
      */
     public boolean matchesAllOf(CharSequence sequence) {
@@ -367,6 +368,7 @@ public abstract class CharMatcher {
      * character, until this returns {@code true} or the end is reached.
      *
      * @param sequence the character sequence to examine, possibly empty
+     *
      * @return {@code true} if this matcher matches no characters in the sequence, including when the sequence is empty
      */
     public boolean matchesNoneOf(CharSequence sequence) {
@@ -380,6 +382,7 @@ public abstract class CharMatcher {
      * #matches} for each character.
      *
      * @param sequence the character sequence to examine from the beginning
+     *
      * @return an index, or {@code -1} if no character matches
      */
     public int indexIn(CharSequence sequence) {
@@ -394,7 +397,9 @@ public abstract class CharMatcher {
      *
      * @param sequence the character sequence to examine
      * @param start    the first index to examine; must be nonnegative and no greater than {@code sequence.length()}
+     *
      * @return the index of the first matching character, guaranteed to be no less than {@code start}, or {@code -1} if no character matches
+     *
      * @throws IndexOutOfBoundsException if start is negative or greater than {@code sequence.length()}
      */
     public int indexIn(CharSequence sequence, int start) {
@@ -415,6 +420,7 @@ public abstract class CharMatcher {
      * #matches} for each character.
      *
      * @param sequence the character sequence to examine from the end
+     *
      * @return an index, or {@code -1} if no character matches
      */
     public int lastIndexIn(CharSequence sequence) {
@@ -506,6 +512,7 @@ public abstract class CharMatcher {
      *
      * @param sequence    the character sequence to replace matching characters in
      * @param replacement the character to append to the result string in place of each matching character in {@code sequence}
+     *
      * @return the new string
      */
     public String replaceFrom(CharSequence sequence, char replacement) {
@@ -538,6 +545,7 @@ public abstract class CharMatcher {
      *
      * @param sequence    the character sequence to replace matching characters in
      * @param replacement the characters to append to the result string in place of each matching character in {@code sequence}
+     *
      * @return the new string
      */
     public String replaceFrom(CharSequence sequence, CharSequence replacement) {
@@ -658,6 +666,7 @@ public abstract class CharMatcher {
      *
      * @param sequence    the character sequence to replace matching groups of characters in
      * @param replacement the character to append to the result string in place of each group of matching characters in {@code sequence}
+     *
      * @return the new string
      */
     public String collapseFrom(CharSequence sequence, char replacement) {

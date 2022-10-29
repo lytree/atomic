@@ -25,14 +25,12 @@ import java.util.Optional;
 import java.util.WeakHashMap;
 import top.lytree.base.Assert;
 import top.lytree.base.Converter;
-import top.lytree.base.Platform;
 
 
 /**
  * 用于使用{@link Enum}实例的实用程序方法。
  *
  * @author Steve McKay
- * 
  */
 
 
@@ -44,8 +42,6 @@ public final class Enums {
     /**
      * Returns the {@link Field} in which {@code enumValue} is defined. For example, to get the {@code Description} annotation on the {@code GOLF} constant of enum {@code Sport},
      * use {@code Enums.getField(Sport.GOLF).getAnnotation(Description.class)}.
-     *
-     * 
      */
 
     public static Field getField(Enum<?> enumValue) {
@@ -60,30 +56,18 @@ public final class Enums {
     /**
      * Returns an optional enum constant for the given type, using {@link Enum#valueOf}. If the constant does not exist,  is returned. A common use case is for parsing user input
      * or falling back to a default enum constant. For example, {@code Enums.getIfPresent(Country.class, countryInput).or(Country.DEFAULT);}
-     *
-     * 
      */
     public static <T extends Enum<T>> Optional<T> getIfPresent(Class<T> enumClass, String value) {
         Assert.notNull(enumClass);
         Assert.notNull(value);
-        return Platform.getEnumIfPresent(enumClass, value);
+        return getEnumIfPresent(enumClass, value);
     }
 
 
-    private static final Map<Class<? extends Enum<?>>, Map<String, WeakReference<? extends Enum<?>>>>
-            enumConstantCache = new WeakHashMap<>();
-
-
-    private static <T extends Enum<T>> Map<String, WeakReference<? extends Enum<?>>> populateCache(
-            Class<T> enumClass) {
-        Map<String, WeakReference<? extends Enum<?>>> result = new HashMap<>();
-        for (T enumInstance : EnumSet.allOf(enumClass)) {
-            result.put(enumInstance.name(), new WeakReference<Enum<?>>(enumInstance));
-        }
-        enumConstantCache.put(enumClass, result);
-        return result;
+    public static <T extends Enum<T>> Optional<T> getEnumIfPresent(Class<T> enumClass, String value) {
+        WeakReference<? extends Enum<?>> ref = Enums.getEnumConstants(enumClass).get(value);
+        return ref == null ? Optional.<T>empty() : Optional.of(enumClass.cast(ref.get()));
     }
-
 
     public static <T extends Enum<T>> Map<String, WeakReference<? extends Enum<?>>> getEnumConstants(
             Class<T> enumClass) {
@@ -99,8 +83,6 @@ public final class Enums {
     /**
      * Returns a converter that converts between strings and {@code enum} values of type {@code enumClass} using {@link Enum#valueOf(Class, String)} and {@link Enum#name()}. The
      * converter will throw an {@code IllegalArgumentException} if the argument is not the name of any enum constant in the specified enum.
-     *
-     * 
      */
     public static <T extends Enum<T>> Converter<String, T> stringConverter(Class<T> enumClass) {
         return new StringConverter<>(enumClass);
@@ -145,5 +127,19 @@ public final class Enums {
         }
 
         private static final long serialVersionUID = 1L;
+    }
+
+    private static final Map<Class<? extends Enum<?>>, Map<String, WeakReference<? extends Enum<?>>>>
+            enumConstantCache = new WeakHashMap<>();
+
+
+    private static <T extends Enum<T>> Map<String, WeakReference<? extends Enum<?>>> populateCache(
+            Class<T> enumClass) {
+        Map<String, WeakReference<? extends Enum<?>>> result = new HashMap<>();
+        for (T enumInstance : EnumSet.allOf(enumClass)) {
+            result.put(enumInstance.name(), new WeakReference<Enum<?>>(enumInstance));
+        }
+        enumConstantCache.put(enumClass, result);
+        return result;
     }
 }

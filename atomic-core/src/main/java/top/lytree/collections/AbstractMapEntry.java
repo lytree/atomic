@@ -26,7 +26,7 @@ import java.util.Objects;
  * @author Jared Levy
  */
 
-abstract class AbstractMapEntry<K extends Object, V extends Object>
+abstract class AbstractMapEntry<K, V>
         implements Entry<K, V> {
 
     @Override

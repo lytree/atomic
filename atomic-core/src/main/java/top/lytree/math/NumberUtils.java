@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.concurrent.atomic.LongAdder;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.collections.ArraysUtils;
 import top.lytree.base.Assert;
 import top.lytree.lang.StringUtils;
 
@@ -59,6 +59,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param num1 数字1
      * @param num2 数字2
+     *
      * @return 是否相等
      */
     public static boolean equals(double num1, double num2) {
@@ -70,6 +71,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param num1 数字1
      * @param num2 数字2
+     *
      * @return 是否相等
      */
     public static boolean equals(float num1, float num2) {
@@ -81,6 +83,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param bigNum1 数字1
      * @param bigNum2 数字2
+     *
      * @return 是否相等
      */
     public static boolean equals(BigDecimal bigNum1, BigDecimal bigNum2) {
@@ -100,6 +103,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被加数
      * @param v2 加数
+     *
      * @return 和
      */
     public static double add(float v1, float v2) {
@@ -111,6 +115,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被加数
      * @param v2 加数
+     *
      * @return 和
      */
     public static double add(float v1, double v2) {
@@ -122,6 +127,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被加数
      * @param v2 加数
+     *
      * @return 和
      */
     public static double add(double v1, float v2) {
@@ -133,6 +139,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被加数
      * @param v2 加数
+     *
      * @return 和
      */
     public static double add(double v1, double v2) {
@@ -144,6 +151,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被加数
      * @param v2 加数
+     *
      * @return 和
      */
     public static double add(Double v1, Double v2) {
@@ -156,6 +164,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被加数
      * @param v2 加数
+     *
      * @return 和
      */
     public static BigDecimal add(Number v1, Number v2) {
@@ -166,10 +175,11 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 提供精确的加法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被加值
+     *
      * @return 和
      */
     public static BigDecimal add(Number... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -188,10 +198,11 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 提供精确的加法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被加值
+     *
      * @return 和
      */
     public static BigDecimal add(String... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -210,10 +221,11 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 提供精确的加法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被加值
+     *
      * @return 和
      */
     public static BigDecimal add(BigDecimal... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -233,6 +245,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被减数
      * @param v2 减数
+     *
      * @return 差
      */
     public static double sub(float v1, float v2) {
@@ -244,6 +257,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被减数
      * @param v2 减数
+     *
      * @return 差
      */
     public static double sub(float v1, double v2) {
@@ -255,6 +269,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被减数
      * @param v2 减数
+     *
      * @return 差
      */
     public static double sub(double v1, float v2) {
@@ -266,6 +281,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被减数
      * @param v2 减数
+     *
      * @return 差
      */
     public static double sub(double v1, double v2) {
@@ -277,6 +293,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被减数
      * @param v2 减数
+     *
      * @return 差
      */
     public static double sub(Double v1, Double v2) {
@@ -289,6 +306,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被减数
      * @param v2 减数
+     *
      * @return 差
      */
     public static BigDecimal sub(Number v1, Number v2) {
@@ -299,10 +317,11 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 提供精确的减法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被减值
+     *
      * @return 差
      */
     public static BigDecimal sub(Number... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -321,10 +340,11 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 提供精确的减法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被减值
+     *
      * @return 差
      */
     public static BigDecimal sub(String... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -343,10 +363,11 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 提供精确的减法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被减值
+     *
      * @return 差
      */
     public static BigDecimal sub(BigDecimal... values) {
-        if (ArrayUtils.isEmpty(values)) {
+        if (ArraysUtils.isEmpty(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -366,6 +387,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
+     *
      * @return 积
      */
     public static double mul(float v1, float v2) {
@@ -377,6 +399,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
+     *
      * @return 积
      */
     public static double mul(float v1, double v2) {
@@ -388,6 +411,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
+     *
      * @return 积
      */
     public static double mul(double v1, float v2) {
@@ -399,6 +423,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
+     *
      * @return 积
      */
     public static double mul(double v1, double v2) {
@@ -410,6 +435,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
+     *
      * @return 积
      */
     public static double mul(Double v1, Double v2) {
@@ -422,6 +448,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
+     *
      * @return 积
      */
     public static BigDecimal mul(Number v1, Number v2) {
@@ -432,10 +459,11 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 提供精确的乘法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被乘值
+     *
      * @return 积
      */
     public static BigDecimal mul(Number... values) {
-        if (ArrayUtils.isEmpty(values) || ArrayUtils.hasNull(values)) {
+        if (ArraysUtils.isEmpty(values) || ArraysUtils.hasNull(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -453,6 +481,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
+     *
      * @return 积
      */
     public static BigDecimal mul(String v1, String v2) {
@@ -463,10 +492,11 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 提供精确的乘法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被乘值
+     *
      * @return 积
      */
     public static BigDecimal mul(String... values) {
-        if (ArrayUtils.isEmpty(values) || ArrayUtils.hasNull(values)) {
+        if (ArraysUtils.isEmpty(values) || ArraysUtils.hasNull(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -482,10 +512,11 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 提供精确的乘法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被乘值
+     *
      * @return 积
      */
     public static BigDecimal mul(BigDecimal... values) {
-        if (ArrayUtils.isEmpty(values) || ArrayUtils.hasNull(values)) {
+        if (ArraysUtils.isEmpty(values) || ArraysUtils.hasNull(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -501,6 +532,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被除数
      * @param v2 除数
+     *
      * @return 两个参数的商
      */
     public static double div(float v1, float v2) {
@@ -512,6 +544,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被除数
      * @param v2 除数
+     *
      * @return 两个参数的商
      */
     public static double div(float v1, double v2) {
@@ -523,6 +556,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被除数
      * @param v2 除数
+     *
      * @return 两个参数的商
      */
     public static double div(double v1, float v2) {
@@ -534,6 +568,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被除数
      * @param v2 除数
+     *
      * @return 两个参数的商
      */
     public static double div(double v1, double v2) {
@@ -545,6 +580,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被除数
      * @param v2 除数
+     *
      * @return 两个参数的商
      */
     public static double div(Double v1, Double v2) {
@@ -556,6 +592,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被除数
      * @param v2 除数
+     *
      * @return 两个参数的商
      */
     public static BigDecimal div(Number v1, Number v2) {
@@ -567,6 +604,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被除数
      * @param v2 除数
+     *
      * @return 两个参数的商
      */
     public static BigDecimal div(String v1, String v2) {
@@ -579,6 +617,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
+     *
      * @return 两个参数的商
      */
     public static double div(float v1, float v2, int scale) {
@@ -591,6 +630,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
+     *
      * @return 两个参数的商
      */
     public static double div(float v1, double v2, int scale) {
@@ -603,6 +643,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
+     *
      * @return 两个参数的商
      */
     public static double div(double v1, float v2, int scale) {
@@ -615,6 +656,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
+     *
      * @return 两个参数的商
      */
     public static double div(double v1, double v2, int scale) {
@@ -627,6 +669,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
+     *
      * @return 两个参数的商
      */
     public static double div(Double v1, Double v2, int scale) {
@@ -639,6 +682,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
+     *
      * @return 两个参数的商
      */
     public static BigDecimal div(Number v1, Number v2, int scale) {
@@ -651,6 +695,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
+     *
      * @return 两个参数的商
      */
     public static BigDecimal div(String v1, String v2, int scale) {
@@ -664,6 +709,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
+     *
      * @return 两个参数的商
      */
     public static double div(float v1, float v2, int scale, RoundingMode roundingMode) {
@@ -677,6 +723,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
+     *
      * @return 两个参数的商
      */
     public static double div(float v1, double v2, int scale, RoundingMode roundingMode) {
@@ -690,6 +737,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
+     *
      * @return 两个参数的商
      */
     public static double div(double v1, float v2, int scale, RoundingMode roundingMode) {
@@ -703,6 +751,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
+     *
      * @return 两个参数的商
      */
     public static double div(double v1, double v2, int scale, RoundingMode roundingMode) {
@@ -716,6 +765,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
+     *
      * @return 两个参数的商
      */
     public static double div(Double v1, Double v2, int scale, RoundingMode roundingMode) {
@@ -730,6 +780,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
+     *
      * @return 两个参数的商
      */
     public static BigDecimal div(Number v1, Number v2, int scale, RoundingMode roundingMode) {
@@ -746,6 +797,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
+     *
      * @return 两个参数的商
      */
     public static BigDecimal div(String v1, String v2, int scale, RoundingMode roundingMode) {
@@ -759,6 +811,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
+     *
      * @return 两个参数的商
      */
     public static BigDecimal div(BigDecimal v1, BigDecimal v2, int scale, RoundingMode roundingMode) {
@@ -777,6 +830,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v1 被除数
      * @param v2 除数
+     *
      * @return 两个参数的商
      */
     public static int ceilDiv(int v1, int v2) {
@@ -790,6 +844,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v     值
      * @param scale 保留小数位数
+     *
      * @return 新值
      */
     public static BigDecimal round(double v, int scale) {
@@ -801,6 +856,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param v     值
      * @param scale 保留小数位数
+     *
      * @return 新值
      */
     public static String roundStr(double v, int scale) {
@@ -812,6 +868,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param numberStr 数字值的字符串表现形式
      * @param scale     保留小数位数
+     *
      * @return 新值
      */
     public static BigDecimal round(String numberStr, int scale) {
@@ -823,6 +880,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param number 数字值
      * @param scale  保留小数位数
+     *
      * @return 新值
      */
     public static BigDecimal round(BigDecimal number, int scale) {
@@ -834,6 +892,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param numberStr 数字值的字符串表现形式
      * @param scale     保留小数位数
+     *
      * @return 新值
      */
     public static String roundStr(String numberStr, int scale) {
@@ -846,6 +905,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v            值
      * @param scale        保留小数位数
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
+     *
      * @return 新值
      */
     public static BigDecimal round(double v, int scale, RoundingMode roundingMode) {
@@ -858,6 +918,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param v            值
      * @param scale        保留小数位数
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
+     *
      * @return 新值
      */
     public static String roundStr(double v, int scale, RoundingMode roundingMode) {
@@ -870,6 +931,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param numberStr    数字值的字符串表现形式
      * @param scale        保留小数位数，如果传入小于0，则默认0
      * @param roundingMode 保留小数的模式 {@link RoundingMode}，如果传入null则默认四舍五入
+     *
      * @return 新值
      */
     public static BigDecimal round(String numberStr, int scale, RoundingMode roundingMode) {
@@ -886,6 +948,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param number       数字值
      * @param scale        保留小数位数，如果传入小于0，则默认0
      * @param roundingMode 保留小数的模式 {@link RoundingMode}，如果传入null则默认四舍五入
+     *
      * @return 新值
      */
     public static BigDecimal round(BigDecimal number, int scale, RoundingMode roundingMode) {
@@ -908,6 +971,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param numberStr    数字值的字符串表现形式
      * @param scale        保留小数位数
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
+     *
      * @return 新值
      */
     public static String roundStr(String numberStr, int scale, RoundingMode roundingMode) {
@@ -931,6 +995,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *                <li>光速大小为每秒,###米 =》 将格式嵌入文本</li>
      *                </ul>
      * @param value   值
+     *
      * @return 格式化后的值
      */
     public static String decimalFormat(String pattern, double value) {
@@ -953,6 +1018,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *                <li>光速大小为每秒,###米 =》 将格式嵌入文本</li>
      *                </ul>
      * @param value   值
+     *
      * @return 格式化后的值
      */
     public static String decimalFormat(String pattern, long value) {
@@ -974,6 +1040,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *                <li>光速大小为每秒,###米 =》 将格式嵌入文本</li>
      *                </ul>
      * @param value   值，支持BigDecimal、BigInteger、Number等类型
+     *
      * @return 格式化后的值
      */
     public static String decimalFormat(String pattern, Object value) {
@@ -996,6 +1063,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *                     </ul>
      * @param value        值，支持BigDecimal、BigInteger、Number等类型
      * @param roundingMode 保留小数的方式枚举
+     *
      * @return 格式化后的值
      */
     public static String decimalFormat(String pattern, Object value, RoundingMode roundingMode) {
@@ -1013,6 +1081,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 检查是否为有效的数字<br> 检查Double和Float是否为无限大，或者Not a Number<br> 非数字类型和Null将返回true
      *
      * @param number 被检查类型
+     *
      * @return 检查结果，非数字类型和Null将返回true
      */
     public static boolean isValidNumber(Number number) {
@@ -1028,6 +1097,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 检查是否为有效的数字<br> 检查double否为无限大，或者Not a Number（NaN）<br>
      *
      * @param number 被检查double
+     *
      * @return 检查结果
      */
     public static boolean isValid(double number) {
@@ -1038,6 +1108,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 检查是否为有效的数字<br> 检查double否为无限大，或者Not a Number（NaN）<br>
      *
      * @param number 被检查double
+     *
      * @return 检查结果
      */
     public static boolean isValid(float number) {
@@ -1048,6 +1119,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 格式化金额输出，每三位用逗号分隔
      *
      * @param value 金额
+     *
      * @return 格式化后的值
      */
     public static String decimalFormatMoney(double value) {
@@ -1059,6 +1131,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param number 值
      * @param scale  保留小数位数
+     *
      * @return 百分比
      */
     public static String formatPercent(double number, int scale) {
@@ -1072,6 +1145,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * int转byte
      *
      * @param intValue int值
+     *
      * @return byte值
      */
     public static byte intToByte(int intValue) {
@@ -1082,6 +1156,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * byte转无符号int
      *
      * @param byteValue byte值
+     *
      * @return 无符号int值
      */
     public static int byteToUnsignedInt(byte byteValue) {
@@ -1093,6 +1168,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * byte数组转short<br> 默认以小端序转换
      *
      * @param bytes byte数组
+     *
      * @return short值
      */
     public static short bytesToShort(byte[] bytes) {
@@ -1104,6 +1180,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param bytes     byte数组，长度必须为2
      * @param byteOrder 端序
+     *
      * @return short值
      */
     public static short bytesToShort(byte[] bytes, ByteOrder byteOrder) {
@@ -1119,6 +1196,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * short转byte数组<br> 默认以小端序转换
      *
      * @param shortValue short值
+     *
      * @return byte数组
      */
     public static byte[] shortToBytes(short shortValue) {
@@ -1130,6 +1208,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param shortValue short值
      * @param byteOrder  端序
+     *
      * @return byte数组
      */
     public static byte[] shortToBytes(short shortValue, ByteOrder byteOrder) {
@@ -1148,6 +1227,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * byte[]转int值<br> 默认以小端序转换
      *
      * @param bytes byte数组
+     *
      * @return int值
      */
     public static int bytesToInt(byte[] bytes) {
@@ -1159,6 +1239,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param bytes     byte数组
      * @param byteOrder 端序
+     *
      * @return int值
      */
     public static int bytesToInt(byte[] bytes, ByteOrder byteOrder) {
@@ -1171,6 +1252,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param bytes     byte数组
      * @param start     开始位置（包含）
      * @param byteOrder 端序
+     *
      * @return int值
      */
     public static int bytesToInt(byte[] bytes, int start, ByteOrder byteOrder) {
@@ -1192,6 +1274,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * int转byte数组<br> 默认以小端序转换
      *
      * @param intValue int值
+     *
      * @return byte数组
      */
     public static byte[] intToBytes(int intValue) {
@@ -1203,6 +1286,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param intValue  int值
      * @param byteOrder 端序
+     *
      * @return byte数组
      */
     public static byte[] intToBytes(int intValue, ByteOrder byteOrder) {
@@ -1230,6 +1314,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * long转byte数组<br> 默认以小端序转换<br> from: https://stackoverflow.com/questions/4485128/how-do-i-convert-long-to-byte-and-back-in-java
      *
      * @param longValue long值
+     *
      * @return byte数组
      */
     public static byte[] longToBytes(long longValue) {
@@ -1241,6 +1326,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param longValue long值
      * @param byteOrder 端序
+     *
      * @return byte数组
      */
     public static byte[] longToBytes(long longValue, ByteOrder byteOrder) {
@@ -1263,6 +1349,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * byte数组转long<br> 默认以小端序转换<br> from: https://stackoverflow.com/questions/4485128/how-do-i-convert-long-to-byte-and-back-in-java
      *
      * @param bytes byte数组
+     *
      * @return long值
      */
     public static long bytesToLong(byte[] bytes) {
@@ -1274,6 +1361,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param bytes     byte数组
      * @param byteOrder 端序
+     *
      * @return long值
      */
     public static long bytesToLong(byte[] bytes, ByteOrder byteOrder) {
@@ -1286,6 +1374,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param bytes     byte数组
      * @param start     计算数组开始位置
      * @param byteOrder 端序
+     *
      * @return long值
      */
     public static long bytesToLong(byte[] bytes, int start, ByteOrder byteOrder) {
@@ -1309,6 +1398,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * float转byte数组，默认以小端序转换<br>
      *
      * @param floatValue float值
+     *
      * @return byte数组
      */
     public static byte[] floatToBytes(float floatValue) {
@@ -1320,6 +1410,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param floatValue float值
      * @param byteOrder  端序
+     *
      * @return byte数组
      */
     public static byte[] floatToBytes(float floatValue, ByteOrder byteOrder) {
@@ -1330,6 +1421,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * byte数组转float<br> 默认以小端序转换<br>
      *
      * @param bytes byte数组
+     *
      * @return float值
      */
     public static double bytesToFloat(byte[] bytes) {
@@ -1341,6 +1433,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param bytes     byte数组
      * @param byteOrder 端序
+     *
      * @return float值
      */
     public static float bytesToFloat(byte[] bytes, ByteOrder byteOrder) {
@@ -1351,6 +1444,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * double转byte数组<br> 默认以小端序转换<br>
      *
      * @param doubleValue double值
+     *
      * @return byte数组
      */
     public static byte[] doubleToBytes(double doubleValue) {
@@ -1362,6 +1456,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param doubleValue double值
      * @param byteOrder   端序
+     *
      * @return byte数组
      */
     public static byte[] doubleToBytes(double doubleValue, ByteOrder byteOrder) {
@@ -1372,6 +1467,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * byte数组转Double<br> 默认以小端序转换<br>
      *
      * @param bytes byte数组
+     *
      * @return long值
      */
     public static double bytesToDouble(byte[] bytes) {
@@ -1383,6 +1479,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param bytes     byte数组
      * @param byteOrder 端序
+     *
      * @return long值
      */
     public static double bytesToDouble(byte[] bytes, ByteOrder byteOrder) {
@@ -1393,6 +1490,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * 将{@link Number}转换为
      *
      * @param number 数字
+     *
      * @return bytes
      */
     public static byte[] numberToBytes(Number number) {
@@ -1404,6 +1502,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param number    数字
      * @param byteOrder 端序
+     *
      * @return bytes
      */
     public static byte[] numberToBytes(Number number, ByteOrder byteOrder) {
@@ -1429,7 +1528,9 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param bytes       byte数组
      * @param targetClass 目标数字类型
      * @param byteOrder   端序
+     *
      * @return 转换后的数字
+     *
      * @throws IllegalArgumentException 不支持的数字类型，如用户自定义数字类型
      */
     @SuppressWarnings("unchecked")
@@ -1481,6 +1582,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * </p>
      *
      * @param n 阶乘起始
+     *
      * @return 结果
      */
     public static BigInteger factorial(BigInteger n) {
@@ -1498,6 +1600,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param start 阶乘起始（包含）
      * @param end   阶乘结束，必须小于起始（不包括）
+     *
      * @return 结果
      */
     public static BigInteger factorial(BigInteger start, BigInteger end) {
@@ -1532,6 +1635,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param start 阶乘起始（包含）
      * @param end   阶乘结束，必须小于起始（不包括）
+     *
      * @return 结果
      */
     public static long factorial(long start, long end) {
@@ -1553,6 +1657,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param a 乘数
      * @param b 被乘数
+     *
      * @return 如果 a * b的结果没有溢出直接返回，否则抛出异常
      */
     private static long factorialMultiplyAndCheck(long a, long b) {
@@ -1569,6 +1674,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * </p>
      *
      * @param n 阶乘起始
+     *
      * @return 结果
      */
     public static long factorial(long n) {
@@ -1583,6 +1689,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      *
      * @param total     总数
      * @param partCount 份数
+     *
      * @return 每份的个数
      */
     public static int partValue(int total, int partCount) {
@@ -1595,6 +1702,7 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
      * @param total               总数
      * @param partCount           份数
      * @param isPlusOneWhenHasRem 在有余数时是否每份+1
+     *
      * @return 每份的个数
      */
     public static int partValue(int total, int partCount, boolean isPlusOneWhenHasRem) {

@@ -762,7 +762,7 @@ public final class Ints {
 
 
     public static Integer tryParse(String string, int radix) {
-        Long result = LongUtils.tryParse(string, radix);
+        Long result = Longs.tryParse(string, radix);
         if (result == null || result.longValue() != result.intValue()) {
             return null;
         } else {

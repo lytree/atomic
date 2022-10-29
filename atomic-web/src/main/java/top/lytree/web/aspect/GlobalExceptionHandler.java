@@ -11,11 +11,11 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import top.lytree.model.constants.Globals;
-import top.lytree.model.exception.exception.ServerException;
-import top.lytree.model.exception.result.ResultCode;
-import top.lytree.model.exception.result.ServerCode;
-import top.lytree.model.response.support.ResponseResult;
+import top.lytree.oss.model.constants.Globals;
+import top.lytree.oss.model.exception.exception.ServerException;
+import top.lytree.oss.model.exception.result.ResultCode;
+import top.lytree.oss.model.exception.result.ServerCode;
+import top.lytree.oss.model.response.support.ResponseResult;
 
 
 /**

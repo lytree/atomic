@@ -30,30 +30,28 @@ import java.util.Objects;
  * <p>
  * Wherever possible, you should use the {@code check} methods in this class to compare file names.
  * </p>
- *
- *
  */
 public enum IOCase {
 
     /**
-     * The constant for case sensitive regardless of operating system.
+     * 对于区分大小写的常量，无论操作系统是什么。
      */
     SENSITIVE("Sensitive", true),
 
     /**
-     * The constant for case insensitive regardless of operating system.
+     * 无论操作系统是什么，该常数都不区分大小写。
      */
     INSENSITIVE("Insensitive", false),
 
     /**
-     * The constant for case sensitivity determined by the current operating system. Windows is case-insensitive when comparing file names, Unix is case-sensitive.
+     * 由当前操作系统确定的区分大小写的常数。在比较文件名时，Windows是不区分大小写的，Unix是区分大小写的。
      * <p>
      * <strong>Note:</strong> This only caters for Windows and Unix. Other operating
      * systems (e.g. OSX and OpenVMS) are treated as case sensitive if they use the Unix file separator and case-insensitive if they use the Windows file separator (see {@link
      * java.io.File#separatorChar}).
      * </p>
      * <p>
-     * If you serialize this constant on Windows, and deserialize on Unix, or vice versa, then the value of the case-sensitivity flag will change.
+     * 如果你在Windows上序列化这个常量，在Unix上反序列化这个常量，反之亦然，那么区分大小写标志的值将会改变。
      * </p>
      */
     SYSTEM("System", !FilenameUtils.isSystemWindows());
@@ -64,7 +62,7 @@ public enum IOCase {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Factory method to create an IOCase from a name.
+     * 工厂方法从名称创建IOCase。
      *
      * @param name the name to find
      * @return the IOCase object
@@ -84,31 +82,29 @@ public enum IOCase {
      *
      * @param ioCase an IOCase.
      * @return true if the input is non-null and {@link #isCaseSensitive()}.
-     *
      */
     public static boolean isCaseSensitive(final IOCase ioCase) {
         return ioCase != null && ioCase.isCaseSensitive();
     }
 
     /**
-     * Returns the given value if not-null, the defaultValue if null.
+     * 如果不为空，则返回给定值，如果为空，则返回defaultValue。
      *
      * @param value        the value to test.
      * @param defaultValue the default value.
      * @return the given value if not-null, the defaultValue if null.
-     *
      */
     public static IOCase value(final IOCase value, final IOCase defaultValue) {
         return value != null ? value : defaultValue;
     }
 
     /**
-     * The enumeration name.
+     * 枚举的名字。
      */
     private final String name;
 
     /**
-     * The sensitivity flag.
+     * 不进行序列化
      */
     private final transient boolean sensitive;
 
@@ -124,7 +120,7 @@ public enum IOCase {
     }
 
     /**
-     * Compares two strings using the case-sensitivity rule.
+     * 比较两个字符串 区分大小写规则。
      * <p>
      * This method mimics {@link String#compareTo} but takes case-sensitivity into account.
      * </p>
@@ -141,7 +137,7 @@ public enum IOCase {
     }
 
     /**
-     * Checks if one string ends with another using the case-sensitivity rule.
+     * 使用区分大小写规则 检查一个字符串是否以另一个字符串结尾。
      * <p>
      * This method mimics {@link String#endsWith} but takes case-sensitivity into account.
      * </p>
@@ -159,7 +155,7 @@ public enum IOCase {
     }
 
     /**
-     * Compares two strings using the case-sensitivity rule.
+     * 使用区分大小写规则 比较两个字符串。
      * <p>
      * This method mimics {@link String#equals} but takes case-sensitivity into account.
      * </p>
@@ -176,7 +172,7 @@ public enum IOCase {
     }
 
     /**
-     * Checks if one string contains another starting at a specific index using the case-sensitivity rule.
+     * 使用区分大小写规则 检查一个字符串是否包含从特定索引开始的另一个字符串。
      * <p>
      * This method mimics parts of {@link String#indexOf(String, int)} but takes case-sensitivity into account.
      * </p>
@@ -186,7 +182,6 @@ public enum IOCase {
      * @param search        the start to search for, not null
      * @return the first index of the search String, -1 if no match or {@code null} string input
      * @throws NullPointerException if either string is null
-     *
      */
     public int checkIndexOf(final String str, final int strStartIndex, final String search) {
         final int endIndex = str.length() - search.length();
@@ -201,7 +196,7 @@ public enum IOCase {
     }
 
     /**
-     * Checks if one string contains another at a specific index using the case-sensitivity rule.
+     * 使用区分大小写规则 检查一个字符串在特定索引处是否包含另一个字符串。
      * <p>
      * This method mimics parts of {@link String#regionMatches(boolean, int, String, int, int)} but takes case-sensitivity into account.
      * </p>
@@ -217,7 +212,7 @@ public enum IOCase {
     }
 
     /**
-     * Checks if one string starts with another using the case-sensitivity rule.
+     * 使用区分大小写规则 检查一个字符串是否以另一个字符串开头。
      * <p>
      * This method mimics {@link String#startsWith(String)} but takes case-sensitivity into account.
      * </p>
@@ -231,7 +226,7 @@ public enum IOCase {
     }
 
     /**
-     * Gets the name of the constant.
+     * 获取常量的名称。
      *
      * @return the name of the constant
      */
@@ -240,7 +235,7 @@ public enum IOCase {
     }
 
     /**
-     * Does the object represent case sensitive comparison.
+     * 对象是否表示区分大小写的比较。
      *
      * @return true if case sensitive
      */
@@ -249,7 +244,7 @@ public enum IOCase {
     }
 
     /**
-     * Replaces the enumeration from the stream with a real one. This ensures that the correct flag is set for SYSTEM.
+     * 将流中的枚举替换为实枚举。这确保为SYSTEM设置了正确的标志。
      *
      * @return the resolved object
      */

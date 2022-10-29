@@ -35,8 +35,6 @@ import java.util.Date;
  * Several methods are provided for adding to {@code Date} objects, of the form {@code addXXX(Date date, int amount)}. It is important to note these methods use a {@code Calendar}
  * internally (with default time zone and locale) and may be affected by changes to daylight saving time (DST).
  * </p>
- *
- *
  */
 public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 
@@ -54,9 +52,16 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
      * 当前时间的时间戳（秒）
      *
      * @return 当前时间秒数
-     *
      */
     public static long currentSeconds() {
         return System.currentTimeMillis() / 1000;
+    }
+
+    /**
+     * Calls {@link System#nanoTime()}.
+     */
+    @SuppressWarnings("GoodTime") // reading system time without TimeSource
+    public static long systemNanoTime() {
+        return System.nanoTime();
     }
 }

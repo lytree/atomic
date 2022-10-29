@@ -26,15 +26,7 @@ import top.lytree.base.Assert;
 
 
 /**
- * Static utility methods pertaining to {@link Set} instances. Also see this class's counterparts {@link Lists}, {@link Maps} and {@link Queues}.
  *
- * <p>See the Guava User Guide article on <a href=
- * "https://github.com/google/guava/wiki/CollectionUtilitiesExplained#sets">{@code Sets}</a>.
- *
- * @author Kevin Bourrillion
- * @author Jared Levy
- * @author Chris Povirk
- * 
  */
 
 public final class Sets {
@@ -49,7 +41,9 @@ public final class Sets {
      * <p>This behavior can't be broadly guaranteed, but has been tested with OpenJDK 1.7 and 1.8.
      *
      * @param expectedSize the number of elements you expect to add to the returned set
+     *
      * @return a new, empty hash set with enough capacity to hold {@code expectedSize} elements without resizing
+     *
      * @throws IllegalArgumentException if {@code expectedSize} is negative
      */
     public static <E> HashSet<E> newHashSetWithExpectedSize(
@@ -60,7 +54,7 @@ public final class Sets {
     /**
      * {@link AbstractSet} substitute without the potentially-quadratic {@code removeAll} implementation.
      */
-    abstract static class ImprovedAbstractSet<E extends Object> extends AbstractSet<E> {
+    abstract static class ImprovedAbstractSet<E> extends AbstractSet<E> {
 
         @Override
         public boolean removeAll(Collection<?> c) {

@@ -3,18 +3,21 @@ package top.lytree.collections;
 
 import java.util.AbstractMap;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.Consumer;
 import top.lytree.base.Assert;
+import top.lytree.bean.ObjectUtils;
 import top.lytree.math.Ints;
 
-public class Maps {
+public final class Maps {
 
     private Maps() {
     }
@@ -43,7 +46,7 @@ public class Maps {
      * Delegates to {@link Map#get}. Returns {@code null} on {@code ClassCastException} and {@code NullPointerException}.
      */
 
-    static <V extends Object> V safeGet(Map<?, V> map, Object key) {
+    static <V> V safeGet(Map<?, V> map, Object key) {
         Assert.isNull(map);
         try {
             return map.get(key);
@@ -232,6 +235,16 @@ public class Maps {
         }
     }
 
+    private static <K, V> Map<K, V> unmodifiableMap(
+            Map<K, ? extends V> map) {
+        if (map instanceof SortedMap) {
+            return Collections.unmodifiableSortedMap((SortedMap<K, ? extends V>) map);
+        } else {
+            return Collections.unmodifiableMap(map);
+        }
+    }
+
+
     /**
      * Returns a capacity that is sufficient to keep the map from being resized as long as it grows no larger than expectedSize and the load factor is ≥ its default (0.75).
      */
@@ -283,7 +296,7 @@ public class Maps {
      * Delegates to {@link Map#remove}. Returns {@code null} on {@code ClassCastException} and {@code NullPointerException}.
      */
 
-    static <V extends Object> V safeRemove(Map<?, V> map, Object key) {
+    static <V> V safeRemove(Map<?, V> map, Object key) {
         Assert.notNull(map);
         try {
             return map.remove(key);
@@ -310,7 +323,7 @@ public class Maps {
     /**
      * An implementation of {@link Map#putAll}.
      */
-    static <K extends Object, V extends Object> void putAllImpl(
+    static <K, V> void putAllImpl(
             Map<K, V> self, Map<? extends K, ? extends V> map) {
         for (Entry<? extends K, ? extends V> entry : map.entrySet()) {
             self.put(entry.getKey(), entry.getValue());

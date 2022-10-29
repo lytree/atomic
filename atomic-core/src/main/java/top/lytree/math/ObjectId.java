@@ -23,7 +23,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 参考：http://blog.csdn.net/qxc1281/article/details/54021882
  *
  * @author looly
- * 
  */
 public class ObjectId {
 
@@ -40,6 +39,7 @@ public class ObjectId {
      * 给定的字符串是否为有效的ObjectId
      *
      * @param s 字符串
+     *
      * @return 是否为有效的ObjectId
      */
     public static boolean isValid(String s) {
@@ -73,7 +73,6 @@ public class ObjectId {
      * 获取一个objectId的bytes表现形式
      *
      * @return objectId
-     * 
      */
     public static byte[] nextBytes() {
         final ByteBuffer bb = ByteBuffer.wrap(new byte[12]);
@@ -97,6 +96,7 @@ public class ObjectId {
      * 获取一个objectId
      *
      * @param withHyphen 是否包含分隔符
+     *
      * @return objectId
      */
     public static String next(boolean withHyphen) {

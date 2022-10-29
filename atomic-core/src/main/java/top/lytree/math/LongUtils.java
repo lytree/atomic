@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 The Guava Authors
+ * Copyright (C) 2011 The Guava Authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -15,770 +15,1014 @@
 package top.lytree.math;
 
 
-import java.io.Serializable;
-import java.util.AbstractList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.RandomAccess;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import top.lytree.base.Converter;
+import static java.lang.Math.abs;
+import static java.lang.Math.min;
+import static java.math.RoundingMode.HALF_EVEN;
+import static java.math.RoundingMode.HALF_UP;
+import static top.lytree.math.MathPreconditions.*;
+import static top.lytree.math.MathPreconditions.checkPositive;
+
+
+import java.math.RoundingMode;
 import top.lytree.base.Assert;
 
-
-/**
- * Static utility methods pertaining to {@code long} primitives, that are not already found in either {@link Long} or {@link Arrays}.
- *
- * <p>See the Guava User Guide article on <a
- * href="https://github.com/google/guava/wiki/PrimitivesExplained">primitive utilities</a>.
- *
- * @author Kevin Bourrillion
- * 
- */
-
 public final class LongUtils {
-
-    private LongUtils() {
-    }
-
+    // NOTE: Whenever both tests are cheap and functional, it's faster to use &, | instead of &&, ||
     /**
      * The number of bytes required to represent a primitive {@code long} value.
      *
      * <p><b>Java 8 users:</b> use {@link Long#BYTES} instead.
      */
-    public static final int BYTES = Long.SIZE / Byte.SIZE;
+    static final int BYTES = Long.SIZE / Byte.SIZE;
+
+    static final long MAX_SIGNED_POWER_OF_TWO = 1L << (Long.SIZE - 2);
 
     /**
-     * The largest power of two that can be represented as a {@code long}.
+     * Returns the smallest power of two greater than or equal to {@code x}. This is equivalent to {@code checkedPow(2, log2(x, CEILING))}.
      *
-     * 
+     * @throws IllegalArgumentException if {@code x <= 0}
+     * @throws ArithmeticException      of the next-higher power of two is not representable as a {@code long}, i.e. when {@code x > 2^62}
      */
-    public static final long MAX_POWER_OF_TWO = 1L << (Long.SIZE - 2);
 
-    /**
-     * Returns a hash code for {@code value}; equal to the result of invoking {@code ((Long) value).hashCode()}.
-     *
-     * <p>This method always return the value specified by {@link Long#hashCode()} in java, which
-     * might be different from {@code ((Long) value).hashCode()} in GWT because {@link Long#hashCode()} in GWT does not obey the JRE contract.
-     *
-     * <p><b>Java 8 users:</b> use {@link Long#hashCode(long)} instead.
-     *
-     * @param value a primitive {@code long} value
-     * @return a hash code for the value
-     */
-    public static int hashCode(long value) {
-        return (int) (value ^ (value >>> 32));
+    public static long ceilingPowerOfTwo(long x) {
+        checkPositive("x", x);
+        if (x > MAX_SIGNED_POWER_OF_TWO) {
+            throw new ArithmeticException("ceilingPowerOfTwo(" + x + ") is not representable as a long");
+        }
+        return 1L << -Long.numberOfLeadingZeros(x - 1);
     }
 
     /**
-     * Compares the two specified {@code long} values. The sign of the value returned is the same as that of {@code ((Long) a).compareTo(b)}.
+     * Returns the largest power of two less than or equal to {@code x}. This is equivalent to {@code checkedPow(2, log2(x, FLOOR))}.
      *
-     * <p><b>Note for Java 7 and later:</b> this method should be treated as deprecated; use the
-     * equivalent {@link Long#compare} method instead.
-     *
-     * @param a the first {@code long} to compare
-     * @param b the second {@code long} to compare
-     * @return a negative value if {@code a} is less than {@code b}; a positive value if {@code a} is greater than {@code b}; or zero if they are equal
+     * @throws IllegalArgumentException if {@code x <= 0}
      */
-    public static int compare(long a, long b) {
-        return (a < b) ? -1 : ((a > b) ? 1 : 0);
+
+    public static long floorPowerOfTwo(long x) {
+        checkPositive("x", x);
+
+        // Long.highestOneBit was buggy on GWT.  We've fixed it, but I'm not certain when the fix will
+        // be released.
+        return 1L << ((Long.SIZE - 1) - Long.numberOfLeadingZeros(x));
     }
 
     /**
-     * Returns {@code true} if {@code target} is present as an element anywhere in {@code array}.
+     * Returns {@code true} if {@code x} represents a power of two.
      *
-     * @param array  an array of {@code long} values, possibly empty
-     * @param target a primitive {@code long} value
-     * @return {@code true} if {@code array[i] == target} for some value of {@code i}
+     * <p>This differs from {@code Long.bitCount(x) == 1}, because {@code
+     * Long.bitCount(Long.MIN_VALUE) == 1}, but {@link Long#MIN_VALUE} is not a power of two.
      */
-    public static boolean contains(long[] array, long target) {
-        for (long value : array) {
-            if (value == target) {
-                return true;
+    public static boolean isPowerOfTwo(long x) {
+        return x > 0 & (x & (x - 1)) == 0;
+    }
+
+    /**
+     * Returns 1 if {@code x < y} as unsigned longs, and 0 otherwise. Assumes that x - y fits into a signed long. The implementation is branch-free, and benchmarks suggest it is
+     * measurably faster than the straightforward ternary expression.
+     */
+
+    static int lessThanBranchFree(long x, long y) {
+        // Returns the sign bit of x - y.
+        return (int) (~~(x - y) >>> (Long.SIZE - 1));
+    }
+
+    /**
+     * Returns the base-2 logarithm of {@code x}, rounded according to the specified rounding mode.
+     *
+     * @throws IllegalArgumentException if {@code x <= 0}
+     * @throws ArithmeticException      if {@code mode} is {@link RoundingMode#UNNECESSARY} and {@code x} is not a power of two
+     */
+    @SuppressWarnings("fallthrough")
+    // TODO(kevinb): remove after this warning is disabled globally
+    public static int log2(long x, RoundingMode mode) {
+        checkPositive("x", x);
+        switch (mode) {
+            case UNNECESSARY:
+                checkRoundingUnnecessary(isPowerOfTwo(x));
+                // fall through
+            case DOWN:
+            case FLOOR:
+                return (Long.SIZE - 1) - Long.numberOfLeadingZeros(x);
+
+            case UP:
+            case CEILING:
+                return Long.SIZE - Long.numberOfLeadingZeros(x - 1);
+
+            case HALF_DOWN:
+            case HALF_UP:
+            case HALF_EVEN:
+                // Since sqrt(2) is irrational, log2(x) - logFloor cannot be exactly 0.5
+                int leadingZeros = Long.numberOfLeadingZeros(x);
+                long cmp = MAX_POWER_OF_SQRT2_UNSIGNED >>> leadingZeros;
+                // floor(2^(logFloor + 0.5))
+                int logFloor = (Long.SIZE - 1) - leadingZeros;
+                return logFloor + lessThanBranchFree(cmp, x);
+
+            default:
+                throw new AssertionError("impossible");
+        }
+    }
+
+    /**
+     * The biggest half power of two that fits into an unsigned long
+     */
+
+    static final long MAX_POWER_OF_SQRT2_UNSIGNED = 0xB504F333F9DE6484L;
+
+    /**
+     * Returns the base-10 logarithm of {@code x}, rounded according to the specified rounding mode.
+     *
+     * @throws IllegalArgumentException if {@code x <= 0}
+     * @throws ArithmeticException      if {@code mode} is {@link RoundingMode#UNNECESSARY} and {@code x} is not a power of ten
+     */
+    // TODO
+    @SuppressWarnings("fallthrough")
+    // TODO(kevinb): remove after this warning is disabled globally
+    public static int log10(long x, RoundingMode mode) {
+        checkPositive("x", x);
+        int logFloor = log10Floor(x);
+        long floorPow = powersOf10[logFloor];
+        switch (mode) {
+            case UNNECESSARY:
+                checkRoundingUnnecessary(x == floorPow);
+                // fall through
+            case FLOOR:
+            case DOWN:
+                return logFloor;
+            case CEILING:
+            case UP:
+                return logFloor + lessThanBranchFree(floorPow, x);
+            case HALF_DOWN:
+            case HALF_UP:
+            case HALF_EVEN:
+                // sqrt(10) is irrational, so log10(x)-logFloor is never exactly 0.5
+                return logFloor + lessThanBranchFree(halfPowersOf10[logFloor], x);
+            default:
+                throw new AssertionError();
+        }
+    }
+
+    // TODO
+    static int log10Floor(long x) {
+        /*
+         * Based on Hacker's Delight Fig. 11-5, the two-table-lookup, branch-free implementation.
+         *
+         * The key idea is that based on the number of leading zeros (equivalently, floor(log2(x))), we
+         * can narrow the possible floor(log10(x)) values to two. For example, if floor(log2(x)) is 6,
+         * then 64 <= x < 128, so floor(log10(x)) is either 1 or 2.
+         */
+        int y = maxLog10ForLeadingZeros[Long.numberOfLeadingZeros(x)];
+        /*
+         * y is the higher of the two possible values of floor(log10(x)). If x < 10^y, then we want the
+         * lower of the two possible values, or y - 1, otherwise, we want y.
+         */
+        return y - lessThanBranchFree(x, powersOf10[y]);
+    }
+
+    // maxLog10ForLeadingZeros[i] == floor(log10(2^(Long.SIZE - i)))
+
+    static final byte[] maxLog10ForLeadingZeros = {
+            19, 18, 18, 18, 18, 17, 17, 17, 16, 16, 16, 15, 15, 15, 15, 14, 14, 14, 13, 13, 13, 12, 12, 12,
+            12, 11, 11, 11, 10, 10, 10, 9, 9, 9, 9, 8, 8, 8, 7, 7, 7, 6, 6, 6, 6, 5, 5, 5, 4, 4, 4, 3, 3, 3,
+            3, 2, 2, 2, 1, 1, 1, 0, 0, 0
+    };
+
+    // TODO
+
+    static final long[] powersOf10 = {
+            1L,
+            10L,
+            100L,
+            1000L,
+            10000L,
+            100000L,
+            1000000L,
+            10000000L,
+            100000000L,
+            1000000000L,
+            10000000000L,
+            100000000000L,
+            1000000000000L,
+            10000000000000L,
+            100000000000000L,
+            1000000000000000L,
+            10000000000000000L,
+            100000000000000000L,
+            1000000000000000000L
+    };
+
+    // halfPowersOf10[i] = largest long less than 10^(i + 0.5)
+    // TODO
+
+    static final long[] halfPowersOf10 = {
+            3L,
+            31L,
+            316L,
+            3162L,
+            31622L,
+            316227L,
+            3162277L,
+            31622776L,
+            316227766L,
+            3162277660L,
+            31622776601L,
+            316227766016L,
+            3162277660168L,
+            31622776601683L,
+            316227766016837L,
+            3162277660168379L,
+            31622776601683793L,
+            316227766016837933L,
+            3162277660168379331L
+    };
+
+    /**
+     * Returns {@code b} to the {@code k}th power. Even if the result overflows, it will be equal to {@code BigInteger.valueOf(b).pow(k).longValue()}. This implementation runs in
+     * {@code O(log k)} time.
+     *
+     * @throws IllegalArgumentException if {@code k < 0}
+     */
+    // TODO
+    public static long pow(long b, int k) {
+        checkNonNegative("exponent", k);
+        if (-2 <= b && b <= 2) {
+            switch ((int) b) {
+                case 0:
+                    return (k == 0) ? 1 : 0;
+                case 1:
+                    return 1;
+                case (-1):
+                    return ((k & 1) == 0) ? 1 : -1;
+                case 2:
+                    return (k < Long.SIZE) ? 1L << k : 0;
+                case (-2):
+                    if (k < Long.SIZE) {
+                        return ((k & 1) == 0) ? 1L << k : -(1L << k);
+                    } else {
+                        return 0;
+                    }
+                default:
+                    throw new AssertionError();
             }
         }
-        return false;
-    }
-
-    /**
-     * Returns the index of the first appearance of the value {@code target} in {@code array}.
-     *
-     * @param array  an array of {@code long} values, possibly empty
-     * @param target a primitive {@code long} value
-     * @return the least index {@code i} for which {@code array[i] == target}, or {@code -1} if no such index exists.
-     */
-    public static int indexOf(long[] array, long target) {
-        return indexOf(array, target, 0, array.length);
-    }
-
-    // TODO(kevinb): consider making this public
-    private static int indexOf(long[] array, long target, int start, int end) {
-        for (int i = start; i < end; i++) {
-            if (array[i] == target) {
-                return i;
+        for (long accum = 1; ; k >>= 1) {
+            switch (k) {
+                case 0:
+                    return accum;
+                case 1:
+                    return accum * b;
+                default:
+                    accum *= ((k & 1) == 0) ? 1 : b;
+                    b *= b;
             }
         }
-        return -1;
     }
 
+
     /**
-     * Returns the start position of the first occurrence of the specified {@code target} within {@code array}, or {@code -1} if there is no such occurrence.
+     * 返回{@code p}除以{@code q}，使用指定的{@code RoundingMode}舍入的结果。.
      *
-     * <p>More formally, returns the lowest index {@code i} such that {@code Arrays.copyOfRange(array,
-     * i, i + target.length)} contains exactly the same elements as {@code target}.
-     *
-     * @param array  the array to search for the sequence {@code target}
-     * @param target the array to search for as a sub-sequence of {@code array}
+     * @throws ArithmeticException if {@code q == 0}, or if {@code mode == UNNECESSARY} and {@code a} is not an integer multiple of {@code b}
      */
-    public static int indexOf(long[] array, long[] target) {
-        Assert.notNull(array, "array");
-        Assert.notNull(target, "target");
-        if (target.length == 0) {
-            return 0;
+    // TODO
+    @SuppressWarnings("fallthrough")
+    public static long divide(long p, long q, RoundingMode mode) {
+        Assert.notNull(mode);
+        long div = p / q; // throws if q == 0
+        long rem = p - q * div; // equals p % q
+
+        if (rem == 0) {
+            return div;
         }
 
-        outer:
-        for (int i = 0; i < array.length - target.length + 1; i++) {
-            for (int j = 0; j < target.length; j++) {
-                if (array[i + j] != target[j]) {
-                    continue outer;
+        /*
+         * Normal Java division rounds towards 0, consistently with RoundingMode.DOWN. We just have to
+         * deal with the cases where rounding towards 0 is wrong, which typically depends on the sign of
+         * p / q.
+         *
+         * signum is 1 if p and q are both nonnegative or both negative, and -1 otherwise.
+         */
+        int signum = 1 | (int) ((p ^ q) >> (Long.SIZE - 1));
+        boolean increment;
+        switch (mode) {
+            case UNNECESSARY:
+                checkRoundingUnnecessary(rem == 0);
+                // fall through
+            case DOWN:
+                increment = false;
+                break;
+            case UP:
+                increment = true;
+                break;
+            case CEILING:
+                increment = signum > 0;
+                break;
+            case FLOOR:
+                increment = signum < 0;
+                break;
+            case HALF_EVEN:
+            case HALF_DOWN:
+            case HALF_UP:
+                long absRem = abs(rem);
+                long cmpRemToHalfDivisor = absRem - (abs(q) - absRem);
+                // subtracting two nonnegative longs can't overflow
+                // cmpRemToHalfDivisor has the same sign as compare(abs(rem), abs(q) / 2).
+                if (cmpRemToHalfDivisor == 0) { // exactly on the half mark
+                    increment = (mode == HALF_UP || (mode == HALF_EVEN && (div & 1) != 0));
+                } else {
+                    increment = cmpRemToHalfDivisor > 0; // closer to the UP value
                 }
-            }
-            return i;
+                break;
+            default:
+                throw new AssertionError();
         }
-        return -1;
+        return increment ? div + signum : div;
     }
 
     /**
-     * Returns the index of the last appearance of the value {@code target} in {@code array}.
+     * Returns {@code x mod m}, a non-negative value less than {@code m}. This differs from {@code x % m}, which might be negative.
      *
-     * @param array  an array of {@code long} values, possibly empty
-     * @param target a primitive {@code long} value
-     * @return the greatest index {@code i} for which {@code array[i] == target}, or {@code -1} if no such index exists.
-     */
-    public static int lastIndexOf(long[] array, long target) {
-        return lastIndexOf(array, target, 0, array.length);
-    }
-
-    // TODO(kevinb): consider making this public
-    private static int lastIndexOf(long[] array, long target, int start, int end) {
-        for (int i = end - 1; i >= start; i--) {
-            if (array[i] == target) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * 返回 {@code array} 中出现的最小值 .
+     * <p>For example:
      *
-     * @param array a <i>nonempty</i> array of {@code long} values
-     * @return the value present in {@code array} that is less than or equal to every other value in the array
-     * @throws IllegalArgumentException if {@code array} is empty
+     * <pre>{@code
+     * mod(7, 4) == 3
+     * mod(-7, 4) == 1
+     * mod(-1, 4) == 3
+     * mod(-8, 4) == 0
+     * mod(8, 4) == 0
+     * }</pre>
+     *
+     * @throws ArithmeticException if {@code m <= 0}
+     * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.17.3">
+     * Remainder Operator</a>
      */
-    public static long min(long... array) {
-        Assert.checkArgument(array.length > 0);
-        long min = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] < min) {
-                min = array[i];
-            }
-        }
-        return min;
+    // TODO
+    public static int mod(long x, int m) {
+        // Cast is safe because the result is guaranteed in the range [0, m)
+        return (int) mod(x, (long) m);
     }
 
     /**
-     * 返回{@code array}中存在的最大值。
+     * 返回小于{@code m}的非负值{@code x mod m}。这不同于{@code x % m}，后者可能是负数。
      *
-     * @param array a <i>nonempty</i> array of {@code long} values
-     * @return the value present in {@code array} that is greater than or equal to every other value in the array
-     * @throws IllegalArgumentException if {@code array} is empty
+     * <p>For example:
+     *
+     * <pre>{@code
+     * mod(7, 4) == 3
+     * mod(-7, 4) == 1
+     * mod(-1, 4) == 3
+     * mod(-8, 4) == 0
+     * mod(8, 4) == 0
+     * }</pre>
+     *
+     * @throws ArithmeticException if {@code m <= 0}
+     * @see <a href="http://docs.oracle.com/javase/specs/jls/se7/html/jls-15.html#jls-15.17.3">
+     * Remainder Operator</a>
      */
-    public static long max(long... array) {
-        Assert.checkArgument(array.length > 0);
-        long max = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] > max) {
-                max = array[i];
-            }
+    // TODO
+    public static long mod(long x, long m) {
+        if (m <= 0) {
+            throw new ArithmeticException("Modulus must be positive");
         }
-        return max;
+        long result = x % m;
+        return (result >= 0) ? result : result + m;
     }
 
     /**
-     * 返回关闭范围{@code [min..max]}内最接近{@code value}的值。
+     * 返回{@code a, b}的最大公约数。如果{@code a == 0 && b == 0}，返回{@code 0}。
      *
-     * <p>如果{@code value}在{@code [min..Max]范围内}， {@code value}不变返回。
-     * <p>如果{@code value}小于{@code min}则返回{@code min}，
-     * <p>如果{@code value}大于{@code max}则返回{@code max}。
-     *
-     * @param value the {@code long} value to constrain
-     * @param min   the lower bound (inclusive) of the range to constrain {@code value} to
-     * @param max   the upper bound (inclusive) of the range to constrain {@code value} to
-     * @throws IllegalArgumentException if {@code min > max}
-     * 
+     * @throws IllegalArgumentException if {@code a < 0} or {@code b < 0}
      */
+    public static long gcd(long a, long b) {
+        /*
+         * The reason we require both arguments to be >= 0 is because otherwise, what do you return on
+         * gcd(0, Long.MIN_VALUE)? BigInteger.gcd would return positive 2^63, but positive 2^63 isn't an
+         * int.
+         */
+        checkNonNegative("a", a);
+        checkNonNegative("b", b);
+        if (a == 0) {
+            // 0 % b == 0, so b divides a, but the converse doesn't hold.
+            // BigInteger.gcd is consistent with this decision.
+            return b;
+        } else if (b == 0) {
+            return a; // similar logic
+        }
+        /*
+         * Uses the binary GCD algorithm; see http://en.wikipedia.org/wiki/Binary_GCD_algorithm. This is
+         * >60% faster than the Euclidean algorithm in benchmarks.
+         */
+        int aTwos = Long.numberOfTrailingZeros(a);
+        a >>= aTwos; // divide out all 2s
+        int bTwos = Long.numberOfTrailingZeros(b);
+        b >>= bTwos; // divide out all 2s
+        while (a != b) { // both a, b are odd
+            // The key to the binary GCD algorithm is as follows:
+            // Both a and b are odd. Assume a > b; then gcd(a - b, b) = gcd(a, b).
+            // But in gcd(a - b, b), a - b is even and b is odd, so we can divide out powers of two.
 
-    public static long constrainToRange(long value, long min, long max) {
-        Assert.checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)", min, max);
-        return Math.min(Math.max(value, min), max);
+            // We bend over backwards to avoid branching, adapting a technique from
+            // http://graphics.stanford.edu/~seander/bithacks.html#IntegerMinOrMax
+
+            long delta = a - b; // can't overflow, since a and b are nonnegative
+
+            long minDeltaOrZero = delta & (delta >> (Long.SIZE - 1));
+            // equivalent to Math.min(delta, 0)
+
+            a = delta - minDeltaOrZero - minDeltaOrZero; // sets a to Math.abs(a - b)
+            // a is now nonnegative and even
+
+            b += minDeltaOrZero; // sets b to min(old a, b)
+            a >>= Long.numberOfTrailingZeros(a); // divide out all 2s, since 2 doesn't divide b
+        }
+        return a << min(aTwos, bTwos);
     }
 
     /**
-     * 返回组合成单个数组的每个提供的数组的值。例如， {@code concat(new long[] {a, b}， new long[] {}， new long[] {c}} 返回数组 {@code {a, b, c}}.
+     * Returns the sum of {@code a} and {@code b}, provided it does not overflow.
      *
-     * @param arrays zero or more {@code long} arrays
-     * @return a single array containing all the values from the source arrays, in order
+     * @throws ArithmeticException if {@code a + b} overflows in signed {@code long} arithmetic
      */
-    public static long[] concat(long[]... arrays) {
-        int length = 0;
-        for (long[] array : arrays) {
-            length += array.length;
-        }
-        long[] result = new long[length];
-        int pos = 0;
-        for (long[] array : arrays) {
-            System.arraycopy(array, 0, result, pos, array.length);
-            pos += array.length;
-        }
+    public static long checkedAdd(long a, long b) {
+        long result = a + b;
+        checkNoOverflow((a ^ b) < 0 | (a ^ result) >= 0, "checkedAdd", a, b);
         return result;
     }
 
-    public static byte[] toByteArray(long value) {
-        // Note that this code needs to stay compatible with GWT, which has known
-        // bugs when narrowing byte casts of long values occur.
-        byte[] result = new byte[8];
-        for (int i = 7; i >= 0; i--) {
-            result[i] = (byte) (value & 0xffL);
-            value >>= 8;
-        }
+    /**
+     * Returns the difference of {@code a} and {@code b}, provided it does not overflow.
+     *
+     * @throws ArithmeticException if {@code a - b} overflows in signed {@code long} arithmetic
+     */
+    // TODO
+    public static long checkedSubtract(long a, long b) {
+        long result = a - b;
+        checkNoOverflow((a ^ b) >= 0 | (a ^ result) >= 0, "checkedSubtract", a, b);
         return result;
     }
 
     /**
-     * Returns the {@code long} value whose big-endian representation is stored in the first 8 bytes of {@code bytes}; equivalent to {@code ByteBuffer.wrap(bytes).getLong()}. For
-     * example, the input byte array {@code {0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19}} would yield the {@code long} value {@code 0x1213141516171819L}.
+     * Returns the product of {@code a} and {@code b}, provided it does not overflow.
      *
-     * <p>Arguably, it's preferable to use {@link java.nio.ByteBuffer}; that library exposes much more
-     * flexibility at little cost in readability.
-     *
-     * @throws IllegalArgumentException if {@code bytes} has fewer than 8 elements
+     * @throws ArithmeticException if {@code a * b} overflows in signed {@code long} arithmetic
      */
-    public static long fromByteArray(byte[] bytes) {
-        Assert.checkArgument(bytes.length >= BYTES, "array too small: %s < %s", bytes.length, BYTES);
-        return fromBytes(
-                bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]);
+    public static long checkedMultiply(long a, long b) {
+        // Hacker's Delight, Section 2-12
+        int leadingZeros =
+                Long.numberOfLeadingZeros(a)
+                        + Long.numberOfLeadingZeros(~a)
+                        + Long.numberOfLeadingZeros(b)
+                        + Long.numberOfLeadingZeros(~b);
+        /*
+         * If leadingZeros > Long.SIZE + 1 it's definitely fine, if it's < Long.SIZE it's definitely
+         * bad. We do the leadingZeros check to avoid the division below if at all possible.
+         *
+         * Otherwise, if b == Long.MIN_VALUE, then the only allowed values of a are 0 and 1. We take
+         * care of all a < 0 with their own check, because in particular, the case a == -1 will
+         * incorrectly pass the division check below.
+         *
+         * In all other cases, we check that either a is 0 or the result is consistent with division.
+         */
+        if (leadingZeros > Long.SIZE + 1) {
+            return a * b;
+        }
+        checkNoOverflow(leadingZeros >= Long.SIZE, "checkedMultiply", a, b);
+        checkNoOverflow(a >= 0 | b != Long.MIN_VALUE, "checkedMultiply", a, b);
+        long result = a * b;
+        checkNoOverflow(a == 0 || result / a == b, "checkedMultiply", a, b);
+        return result;
     }
 
     /**
-     * Returns the {@code long} value whose byte representation is the given 8 bytes, in big-endian order; equivalent to {@code LongUtils.fromByteArray(new byte[] {b1, b2, b3, b4,
-     * b5, b6, b7, b8})}.
+     * 返回{@code b}的{@code k}次幂，前提是它不溢出。
      *
-     * 
+     * @throws ArithmeticException if {@code b} to the {@code k}th power overflows in signed {@code long} arithmetic
      */
-    public static long fromBytes(
-            byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
-        return (b1 & 0xFFL) << 56
-                | (b2 & 0xFFL) << 48
-                | (b3 & 0xFFL) << 40
-                | (b4 & 0xFFL) << 32
-                | (b5 & 0xFFL) << 24
-                | (b6 & 0xFFL) << 16
-                | (b7 & 0xFFL) << 8
-                | (b8 & 0xFFL);
+    // TODO
+    public static long checkedPow(long b, int k) {
+        checkNonNegative("exponent", k);
+        if (b >= -2 & b <= 2) {
+            switch ((int) b) {
+                case 0:
+                    return (k == 0) ? 1 : 0;
+                case 1:
+                    return 1;
+                case (-1):
+                    return ((k & 1) == 0) ? 1 : -1;
+                case 2:
+                    checkNoOverflow(k < Long.SIZE - 1, "checkedPow", b, k);
+                    return 1L << k;
+                case (-2):
+                    checkNoOverflow(k < Long.SIZE, "checkedPow", b, k);
+                    return ((k & 1) == 0) ? (1L << k) : (-1L << k);
+                default:
+                    throw new AssertionError();
+            }
+        }
+        long accum = 1;
+        while (true) {
+            switch (k) {
+                case 0:
+                    return accum;
+                case 1:
+                    return checkedMultiply(accum, b);
+                default:
+                    if ((k & 1) != 0) {
+                        accum = checkedMultiply(accum, b);
+                    }
+                    k >>= 1;
+                    if (k > 0) {
+                        checkNoOverflow(
+                                -FLOOR_SQRT_MAX_LONG <= b && b <= FLOOR_SQRT_MAX_LONG, "checkedPow", b, k);
+                        b *= b;
+                    }
+            }
+        }
+    }
+
+    /**
+     * 返回{@code a}和{@code b}的和，除非它会溢出或下溢，在这种情况下{@code Long.MAX_VALUE()}或{@code Long.MIN_VALUE}。
+     */
+
+    public static long saturatedAdd(long a, long b) {
+        long naiveSum = a + b;
+        if ((a ^ b) < 0 | (a ^ naiveSum) >= 0) {
+            // If a and b have different signs or a has the same sign as the result then there was no
+            // overflow, return.
+            return naiveSum;
+        }
+        // we did over/under flow, if the sign is negative we should return MAX otherwise MIN
+        return Long.MAX_VALUE + ((naiveSum >>> (Long.SIZE - 1)) ^ 1);
+    }
+
+    /**
+     * Returns the difference of {@code a} and {@code b} unless it would overflow or underflow in which case {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is returned,
+     * respectively.
+     */
+
+    public static long saturatedSubtract(long a, long b) {
+        long naiveDifference = a - b;
+        if ((a ^ b) >= 0 | (a ^ naiveDifference) >= 0) {
+            // If a and b have the same signs or a has the same sign as the result then there was no
+            // overflow, return.
+            return naiveDifference;
+        }
+        // we did over/under flow
+        return Long.MAX_VALUE + ((naiveDifference >>> (Long.SIZE - 1)) ^ 1);
+    }
+
+    /**
+     * Returns the product of {@code a} and {@code b} unless it would overflow or underflow in which case {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is returned,
+     * respectively.
+     */
+
+    public static long saturatedMultiply(long a, long b) {
+        // see checkedMultiply for explanation
+        int leadingZeros =
+                Long.numberOfLeadingZeros(a)
+                        + Long.numberOfLeadingZeros(~a)
+                        + Long.numberOfLeadingZeros(b)
+                        + Long.numberOfLeadingZeros(~b);
+        if (leadingZeros > Long.SIZE + 1) {
+            return a * b;
+        }
+        // the return value if we will overflow (which we calculate by overflowing a long :) )
+        long limit = Long.MAX_VALUE + ((a ^ b) >>> (Long.SIZE - 1));
+        if (leadingZeros < Long.SIZE | (a < 0 & b == Long.MIN_VALUE)) {
+            // overflow
+            return limit;
+        }
+        long result = a * b;
+        if (a == 0 || result / a == b) {
+            return result;
+        }
+        return limit;
+    }
+
+    /**
+     * Returns the {@code b} to the {@code k}th power, unless it would overflow or underflow in which case {@code Long.MAX_VALUE} or {@code Long.MIN_VALUE} is returned,
+     * respectively.
+     */
+
+    public static long saturatedPow(long b, int k) {
+        checkNonNegative("exponent", k);
+        if (b >= -2 & b <= 2) {
+            switch ((int) b) {
+                case 0:
+                    return (k == 0) ? 1 : 0;
+                case 1:
+                    return 1;
+                case (-1):
+                    return ((k & 1) == 0) ? 1 : -1;
+                case 2:
+                    if (k >= Long.SIZE - 1) {
+                        return Long.MAX_VALUE;
+                    }
+                    return 1L << k;
+                case (-2):
+                    if (k >= Long.SIZE) {
+                        return Long.MAX_VALUE + (k & 1);
+                    }
+                    return ((k & 1) == 0) ? (1L << k) : (-1L << k);
+                default:
+                    throw new AssertionError();
+            }
+        }
+        long accum = 1;
+        // if b is negative and k is odd then the limit is MIN otherwise the limit is MAX
+        long limit = Long.MAX_VALUE + ((b >>> Long.SIZE - 1) & (k & 1));
+        while (true) {
+            switch (k) {
+                case 0:
+                    return accum;
+                case 1:
+                    return saturatedMultiply(accum, b);
+                default:
+                    if ((k & 1) != 0) {
+                        accum = saturatedMultiply(accum, b);
+                    }
+                    k >>= 1;
+                    if (k > 0) {
+                        if (-FLOOR_SQRT_MAX_LONG > b | b > FLOOR_SQRT_MAX_LONG) {
+                            return limit;
+                        }
+                        b *= b;
+                    }
+            }
+        }
+    }
+
+
+    static final long FLOOR_SQRT_MAX_LONG = 3037000499L;
+
+    /**
+     * Returns {@code n!}, that is, the product of the first {@code n} positive integers, {@code 1} if {@code n == 0}, or {@link Long#MAX_VALUE} if the result does not fit in a
+     * {@code long}.
+     *
+     * @throws IllegalArgumentException if {@code n < 0}
+     */
+    // TODO
+    public static long factorial(int n) {
+        checkNonNegative("n", n);
+        return (n < factorials.length) ? factorials[n] : Long.MAX_VALUE;
+    }
+
+    static final long[] factorials = {
+            1L,
+            1L,
+            1L * 2,
+            1L * 2 * 3,
+            1L * 2 * 3 * 4,
+            1L * 2 * 3 * 4 * 5,
+            1L * 2 * 3 * 4 * 5 * 6,
+            1L * 2 * 3 * 4 * 5 * 6 * 7,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17 * 18,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17 * 18 * 19,
+            1L * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10 * 11 * 12 * 13 * 14 * 15 * 16 * 17 * 18 * 19 * 20
+    };
+
+    /**
+     * Returns {@code n} choose {@code k}, also known as the binomial coefficient of {@code n} and {@code k}, or {@link Long#MAX_VALUE} if the result does not fit in a {@code
+     * long}.
+     *
+     * @throws IllegalArgumentException if {@code n < 0}, {@code k < 0}, or {@code k > n}
+     */
+    public static long binomial(int n, int k) {
+        checkNonNegative("n", n);
+        checkNonNegative("k", k);
+        Assert.checkArgument(k <= n, "k (%s) > n (%s)", k, n);
+        if (k > (n >> 1)) {
+            k = n - k;
+        }
+        switch (k) {
+            case 0:
+                return 1;
+            case 1:
+                return n;
+            default:
+                if (n < factorials.length) {
+                    return factorials[n] / (factorials[k] * factorials[n - k]);
+                } else if (k >= biggestBinomials.length || n > biggestBinomials[k]) {
+                    return Long.MAX_VALUE;
+                } else if (k < biggestSimpleBinomials.length && n <= biggestSimpleBinomials[k]) {
+                    // guaranteed not to overflow
+                    long result = n--;
+                    for (int i = 2; i <= k; n--, i++) {
+                        result *= n;
+                        result /= i;
+                    }
+                    return result;
+                } else {
+                    int nBits = LongUtils.log2(n, RoundingMode.CEILING);
+
+                    long result = 1;
+                    long numerator = n--;
+                    long denominator = 1;
+
+                    int numeratorBits = nBits;
+                    // This is an upper bound on log2(numerator, ceiling).
+
+                    /*
+                     * We want to do this in long math for speed, but want to avoid overflow. We adapt the
+                     * technique previously used by BigIntegerMath: maintain separate numerator and
+                     * denominator accumulators, multiplying the fraction into result when near overflow.
+                     */
+                    for (int i = 2; i <= k; i++, n--) {
+                        if (numeratorBits + nBits < Long.SIZE - 1) {
+                            // It's definitely safe to multiply into numerator and denominator.
+                            numerator *= n;
+                            denominator *= i;
+                            numeratorBits += nBits;
+                        } else {
+                            // It might not be safe to multiply into numerator and denominator,
+                            // so multiply (numerator / denominator) into result.
+                            result = multiplyFraction(result, numerator, denominator);
+                            numerator = n;
+                            denominator = i;
+                            numeratorBits = nBits;
+                        }
+                    }
+                    return multiplyFraction(result, numerator, denominator);
+                }
+        }
+    }
+
+    /**
+     * Returns (x * numerator / denominator), which is assumed to come out to an integral value.
+     */
+    static long multiplyFraction(long x, long numerator, long denominator) {
+        if (x == 1) {
+            return numerator / denominator;
+        }
+        long commonDivisor = gcd(x, denominator);
+        x /= commonDivisor;
+        denominator /= commonDivisor;
+        // We know gcd(x, denominator) = 1, and x * numerator / denominator is exact,
+        // so denominator must be a divisor of numerator.
+        return x * (numerator / denominator);
     }
 
     /*
-     * Moving asciiDigits into this static holder class lets ProGuard eliminate and inline the LongUtils
-     * class.
+     * binomial(biggestBinomials[k], k) fits in a long, but not binomial(biggestBinomials[k] + 1, k).
      */
-    static final class AsciiDigits {
+    static final int[] biggestBinomials = {
+            Integer.MAX_VALUE,
+            Integer.MAX_VALUE,
+            Integer.MAX_VALUE,
+            3810779,
+            121977,
+            16175,
+            4337,
+            1733,
+            887,
+            534,
+            361,
+            265,
+            206,
+            169,
+            143,
+            125,
+            111,
+            101,
+            94,
+            88,
+            83,
+            79,
+            76,
+            74,
+            72,
+            70,
+            69,
+            68,
+            67,
+            67,
+            66,
+            66,
+            66,
+            66
+    };
 
-        private AsciiDigits() {
-        }
+    /*
+     * binomial(biggestSimpleBinomials[k], k) doesn't need to use the slower GCD-based impl, but
+     * binomial(biggestSimpleBinomials[k] + 1, k) does.
+     */
 
-        private static final byte[] asciiDigits;
+    static final int[] biggestSimpleBinomials = {
+            Integer.MAX_VALUE,
+            Integer.MAX_VALUE,
+            Integer.MAX_VALUE,
+            2642246,
+            86251,
+            11724,
+            3218,
+            1313,
+            684,
+            419,
+            287,
+            214,
+            169,
+            139,
+            119,
+            105,
+            95,
+            87,
+            81,
+            76,
+            73,
+            70,
+            68,
+            66,
+            64,
+            63,
+            62,
+            62,
+            61,
+            61,
+            61
+    };
+    // These values were generated by using checkedMultiply to see when the simple multiply/divide
+    // algorithm would lead to an overflow.
 
-        static {
-            byte[] result = new byte[128];
-            Arrays.fill(result, (byte) -1);
-            for (int i = 0; i < 10; i++) {
-                result['0' + i] = (byte) i;
-            }
-            for (int i = 0; i < 26; i++) {
-                result['A' + i] = (byte) (10 + i);
-                result['a' + i] = (byte) (10 + i);
-            }
-            asciiDigits = result;
-        }
-
-        static int digit(char c) {
-            return (c < 128) ? asciiDigits[c] : -1;
-        }
+    static boolean fitsInInt(long x) {
+        return (int) x == x;
     }
 
     /**
-     * Parses the specified string as a signed decimal long value. The ASCII character {@code '-'} (
-     * <code>'&#92;u002D'</code>) is recognized as the minus sign.
-     *
-     * <p>Unlike {@link Long#parseLong(String)}, this method returns {@code null} instead of throwing
-     * an exception if parsing fails. Additionally, this method only accepts ASCII digits, and returns {@code null} if non-ASCII digits are present in the string.
-     *
-     * <p>Note that strings prefixed with ASCII {@code '+'} are rejected, even under JDK 7, despite
-     * the change to {@link Long#parseLong(String)} for that version.
-     *
-     * @param string the string representation of a long value
-     * @return the long value represented by {@code string}, or {@code null} if {@code string} has a length of zero or cannot be parsed as a long value
-     * @throws NullPointerException if {@code string} is {@code null}
-     * 
+     * Returns the arithmetic mean of {@code x} and {@code y}, rounded toward negative infinity. This method is resilient to overflow.
      */
-
-
-    public static Long tryParse(String string) {
-        return tryParse(string, 10);
+    public static long mean(long x, long y) {
+        // Efficient method for computing the arithmetic mean.
+        // The alternative (x + y) / 2 fails for large values.
+        // The alternative (x + y) >>> 1 fails for negative values.
+        return (x & y) + ((x ^ y) >> 1);
     }
 
-    /**
-     * Parses the specified string as a signed long value using the specified radix. The ASCII character {@code '-'} (<code>'&#92;u002D'</code>) is recognized as the minus sign.
-     *
-     * <p>Unlike {@link Long#parseLong(String, int)}, this method returns {@code null} instead of
-     * throwing an exception if parsing fails. Additionally, this method only accepts ASCII digits, and returns {@code null} if non-ASCII digits are present in the string.
-     *
-     * <p>Note that strings prefixed with ASCII {@code '+'} are rejected, even under JDK 7, despite
-     * the change to {@link Long#parseLong(String, int)} for that version.
-     *
-     * @param string the string representation of an long value
-     * @param radix  the radix to use when parsing
-     * @return the long value represented by {@code string} using {@code radix}, or {@code null} if {@code string} has a length of zero or cannot be parsed as a long value
-     * @throws IllegalArgumentException if {@code radix < Character.MIN_RADIX} or {@code radix > Character.MAX_RADIX}
-     * @throws NullPointerException     if {@code string} is {@code null}
-     * 
+    /*
+     * This bitmask is used as an optimization for cheaply testing for divisiblity by 2, 3, or 5.
+     * Each bit is set to 1 for all remainders that indicate divisibility by 2, 3, or 5, so
+     * 1, 7, 11, 13, 17, 19, 23, 29 are set to 0. 30 and up don't matter because they won't be hit.
      */
+    private static final int SIEVE_30 =
+            ~((1 << 1) | (1 << 7) | (1 << 11) | (1 << 13) | (1 << 17) | (1 << 19) | (1 << 23)
+                    | (1 << 29));
 
 
-    public static Long tryParse(String string, int radix) {
-        if (Assert.notNull(string).isEmpty()) {
-            return null;
-        }
-        if (radix < Character.MIN_RADIX || radix > Character.MAX_RADIX) {
-            throw new IllegalArgumentException(
-                    "radix must be between MIN_RADIX and MAX_RADIX but was " + radix);
-        }
-        boolean negative = string.charAt(0) == '-';
-        int index = negative ? 1 : 0;
-        if (index == string.length()) {
-            return null;
-        }
-        int digit = AsciiDigits.digit(string.charAt(index++));
-        if (digit < 0 || digit >= radix) {
-            return null;
-        }
-        long accum = -digit;
+    /*
+     * If n <= millerRabinBases[i][0], then testing n against bases millerRabinBases[i][1..] suffices
+     * to prove its primality. Values from miller-rabin.appspot.com.
+     *
+     * NOTE: We could get slightly better bases that would be treated as unsigned, but benchmarks
+     * showed negligible performance improvements.
+     */
+    private static final long[][] millerRabinBaseSets = {
+            {291830, 126401071349994536L},
+            {885594168, 725270293939359937L, 3569819667048198375L},
+            {273919523040L, 15, 7363882082L, 992620450144556L},
+            {47636622961200L, 2, 2570940, 211991001, 3749873356L},
+            {
+                    7999252175582850L,
+                    2,
+                    4130806001517L,
+                    149795463772692060L,
+                    186635894390467037L,
+                    3967304179347715805L
+            },
+            {
+                    585226005592931976L,
+                    2,
+                    123635709730000L,
+                    9233062284813009L,
+                    43835965440333360L,
+                    761179012939631437L,
+                    1263739024124850375L
+            },
+            {Long.MAX_VALUE, 2, 325, 9375, 28178, 450775, 9780504, 1795265022}
+    };
 
-        long cap = Long.MIN_VALUE / radix;
 
-        while (index < string.length()) {
-            digit = AsciiDigits.digit(string.charAt(index++));
-            if (digit < 0 || digit >= radix || accum < cap) {
-                return null;
-            }
-            accum *= radix;
-            if (accum < Long.MIN_VALUE + digit) {
-                return null;
-            }
-            accum -= digit;
-        }
+    /**
+     * Returns {@code x}, rounded to a {@code double} with the specified rounding mode. If {@code x} is precisely representable as a {@code double}, its {@code double} value will
+     * be returned; otherwise, the rounding will choose between the two nearest representable values with {@code mode}.
+     *
+     * <p>For the case of {@link RoundingMode#HALF_EVEN}, this implementation uses the IEEE 754
+     * default rounding mode: if the two nearest representable values are equally near, the one with the least significant bit zero is chosen. (In such cases, both of the nearest
+     * representable values are even integers; this method returns the one that is a multiple of a greater power of two.)
+     *
+     * @throws ArithmeticException if {@code mode} is {@link RoundingMode#UNNECESSARY} and {@code x} is not precisely representable as a {@code double}
+     */
+    @SuppressWarnings("deprecation")
 
-        if (negative) {
-            return accum;
-        } else if (accum == Long.MIN_VALUE) {
-            return null;
+    public static double roundToDouble(long x, RoundingMode mode) {
+        // Logic adapted from ToDoubleRounder.
+        double roundArbitrarily = (double) x;
+        long roundArbitrarilyAsLong = (long) roundArbitrarily;
+        int cmpXToRoundArbitrarily;
+
+        if (roundArbitrarilyAsLong == Long.MAX_VALUE) {
+            /*
+             * For most values, the conversion from roundArbitrarily to roundArbitrarilyAsLong is
+             * lossless. In that case we can compare x to roundArbitrarily using Longs.compare(x,
+             * roundArbitrarilyAsLong). The exception is for values where the conversion to double rounds
+             * up to give roundArbitrarily equal to 2^63, so the conversion back to long overflows and
+             * roundArbitrarilyAsLong is Long.MAX_VALUE. (This is the only way this condition can occur as
+             * otherwise the conversion back to long pads with zero bits.) In this case we know that
+             * roundArbitrarily > x. (This is important when x == Long.MAX_VALUE ==
+             * roundArbitrarilyAsLong.)
+             */
+            cmpXToRoundArbitrarily = -1;
         } else {
-            return -accum;
-        }
-    }
-
-    private static final class LongConverter extends Converter<String, Long> implements Serializable {
-
-        static final LongConverter INSTANCE = new LongConverter();
-
-        @Override
-        protected Long doForward(String value) {
-            return Long.decode(value);
+            cmpXToRoundArbitrarily = Longs.compare(x, roundArbitrarilyAsLong);
         }
 
-        @Override
-        protected String doBackward(Long value) {
-            return value.toString();
-        }
+        switch (mode) {
+            case UNNECESSARY:
+                checkRoundingUnnecessary(cmpXToRoundArbitrarily == 0);
+                return roundArbitrarily;
+            case FLOOR:
+                return (cmpXToRoundArbitrarily >= 0)
+                        ? roundArbitrarily
+                        : Doubles.nextDown(roundArbitrarily);
+            case CEILING:
+                return (cmpXToRoundArbitrarily <= 0) ? roundArbitrarily : Math.nextUp(roundArbitrarily);
+            case DOWN:
+                if (x >= 0) {
+                    return (cmpXToRoundArbitrarily >= 0)
+                            ? roundArbitrarily
+                            : Doubles.nextDown(roundArbitrarily);
+                } else {
+                    return (cmpXToRoundArbitrarily <= 0) ? roundArbitrarily : Math.nextUp(roundArbitrarily);
+                }
+            case UP:
+                if (x >= 0) {
+                    return (cmpXToRoundArbitrarily <= 0) ? roundArbitrarily : Math.nextUp(roundArbitrarily);
+                } else {
+                    return (cmpXToRoundArbitrarily >= 0)
+                            ? roundArbitrarily
+                            : Doubles.nextDown(roundArbitrarily);
+                }
+            case HALF_DOWN:
+            case HALF_UP:
+            case HALF_EVEN: {
+                long roundFloor;
+                double roundFloorAsDouble;
+                long roundCeiling;
+                double roundCeilingAsDouble;
 
-        @Override
-        public String toString() {
-            return "LongUtils.stringConverter()";
-        }
+                if (cmpXToRoundArbitrarily >= 0) {
+                    roundFloorAsDouble = roundArbitrarily;
+                    roundFloor = roundArbitrarilyAsLong;
+                    roundCeilingAsDouble = Math.nextUp(roundArbitrarily);
+                    roundCeiling = (long) Math.ceil(roundCeilingAsDouble);
+                } else {
+                    roundCeilingAsDouble = roundArbitrarily;
+                    roundCeiling = roundArbitrarilyAsLong;
+                    roundFloorAsDouble = Doubles.nextDown(roundArbitrarily);
+                    roundFloor = (long) Math.floor(roundFloorAsDouble);
+                }
 
-        private Object readResolve() {
-            return INSTANCE;
-        }
+                long deltaToFloor = x - roundFloor;
+                long deltaToCeiling = roundCeiling - x;
 
-        private static final long serialVersionUID = 1;
-    }
+                if (roundCeiling == Long.MAX_VALUE) {
+                    // correct for Long.MAX_VALUE as discussed above: roundCeilingAsDouble must be 2^63, but
+                    // roundCeiling is 2^63-1.
+                    deltaToCeiling++;
+                }
 
-    /**
-     * Returns a serializable converter object that converts between strings and longs using {@link Long#decode} and {@link Long#toString()}. The returned converter throws {@link
-     * NumberFormatException} if the input string is invalid.
-     *
-     * <p><b>Warning:</b> please see {@link Long#decode} to understand exactly how strings are parsed.
-     * For example, the string {@code "0123"} is treated as <i>octal</i> and converted to the value {@code 83L}.
-     *
-     * 
-     */
-
-    public static Converter<String, Long> stringConverter() {
-        return LongConverter.INSTANCE;
-    }
-
-    /**
-     * Returns an array containing the same values as {@code array}, but guaranteed to be of a specified minimum length. If {@code array} already has a length of at least {@code
-     * minLength}, it is returned directly. Otherwise, a new array of size {@code minLength + padding} is returned, containing the values of {@code array}, and zeroes in the
-     * remaining places.
-     *
-     * @param array     the source array
-     * @param minLength the minimum length the returned array must guarantee
-     * @param padding   an extra amount to "grow" the array by if growth is necessary
-     * @return an array containing the values of {@code array}, with guaranteed minimum length {@code minLength}
-     * @throws IllegalArgumentException if {@code minLength} or {@code padding} is negative
-     */
-    public static long[] ensureCapacity(long[] array, int minLength, int padding) {
-        Assert.checkArgument(minLength >= 0, "Invalid minLength: %s", minLength);
-        Assert.checkArgument(padding >= 0, "Invalid padding: %s", padding);
-        return (array.length < minLength) ? Arrays.copyOf(array, minLength + padding) : array;
-    }
-
-    /**
-     * Returns a string containing the supplied {@code long} values separated by {@code separator}. For example, {@code join("-", 1L, 2L, 3L)} returns the string {@code "1-2-3"}.
-     *
-     * @param separator the text that should appear between consecutive values in the resulting string (but not at the start or end)
-     * @param array     an array of {@code long} values, possibly empty
-     */
-    public static String join(String separator, long... array) {
-        Assert.notNull(separator);
-        if (array.length == 0) {
-            return "";
-        }
-
-        // For pre-sizing a builder, just get the right order of magnitude
-        StringBuilder builder = new StringBuilder(array.length * 10);
-        builder.append(array[0]);
-        for (int i = 1; i < array.length; i++) {
-            builder.append(separator).append(array[i]);
-        }
-        return builder.toString();
-    }
-
-    /**
-     * Returns a comparator that compares two {@code long} arrays <a href="http://en.wikipedia.org/wiki/Lexicographical_order">lexicographically</a>. That is, it compares, using
-     * {@link #compare(long, long)}), the first pair of values that follow any common prefix, or when one array is a prefix of the other, treats the shorter array as the lesser.
-     * For example, {@code [] < [1L] < [1L, 2L] < [2L]}.
-     *
-     * <p>The returned comparator is inconsistent with {@link Object#equals(Object)} (since arrays
-     * support only identity equality), but it is consistent with {@link Arrays#equals(long[], long[])}.
-     *
-     * 
-     */
-    public static Comparator<long[]> lexicographicalComparator() {
-        return LexicographicalComparator.INSTANCE;
-    }
-
-    private enum LexicographicalComparator implements Comparator<long[]> {
-        INSTANCE;
-
-        @Override
-        public int compare(long[] left, long[] right) {
-            int minLength = Math.min(left.length, right.length);
-            for (int i = 0; i < minLength; i++) {
-                int result = LongUtils.compare(left[i], right[i]);
-                if (result != 0) {
-                    return result;
+                int diff = Longs.compare(deltaToFloor, deltaToCeiling);
+                if (diff < 0) { // closer to floor
+                    return roundFloorAsDouble;
+                } else if (diff > 0) { // closer to ceiling
+                    return roundCeilingAsDouble;
+                }
+                // halfway between the representable values; do the half-whatever logic
+                switch (mode) {
+                    case HALF_EVEN:
+                        return ((Doubles.getSignificand(roundFloorAsDouble) & 1L) == 0)
+                                ? roundFloorAsDouble
+                                : roundCeilingAsDouble;
+                    case HALF_DOWN:
+                        return (x >= 0) ? roundFloorAsDouble : roundCeilingAsDouble;
+                    case HALF_UP:
+                        return (x >= 0) ? roundCeilingAsDouble : roundFloorAsDouble;
+                    default:
+                        throw new AssertionError("impossible");
                 }
             }
-            return left.length - right.length;
         }
-
-        @Override
-        public String toString() {
-            return "LongUtils.lexicographicalComparator()";
-        }
+        throw new AssertionError("impossible");
     }
 
-    /**
-     * Sorts the elements of {@code array} in descending order.
-     *
-     * 
-     */
-    public static void sortDescending(long[] array) {
-        Assert.notNull(array);
-        sortDescending(array, 0, array.length);
-    }
-
-    /**
-     * Sorts the elements of {@code array} between {@code fromIndex} inclusive and {@code toIndex} exclusive in descending order.
-     *
-     * 
-     */
-    public static void sortDescending(long[] array, int fromIndex, int toIndex) {
-        Assert.notNull(array);
-        Assert.checkIndex(fromIndex, array.length);
-        Assert.checkIndex(toIndex, array.length);
-        Arrays.sort(array, fromIndex, toIndex);
-        reverse(array, fromIndex, toIndex);
-    }
-
-    /**
-     * Reverses the elements of {@code array}. This is equivalent to {@code Collections.reverse(LongUtils.asList(array))}, but is likely to be more efficient.
-     *
-     * 
-     */
-    public static void reverse(long[] array) {
-        Assert.notNull(array);
-        reverse(array, 0, array.length);
-    }
-
-    /**
-     * Reverses the elements of {@code array} between {@code fromIndex} inclusive and {@code toIndex} exclusive. This is equivalent to {@code
-     * Collections.reverse(LongUtils.asList(array).subList(fromIndex, toIndex))}, but is likely to be more efficient.
-     *
-     * @throws IndexOutOfBoundsException if {@code fromIndex < 0}, {@code toIndex > array.length}, or {@code toIndex > fromIndex}
-     * 
-     */
-    public static void reverse(long[] array, int fromIndex, int toIndex) {
-        Assert.notNull(array);
-        Assert.checkIndex(fromIndex, array.length);
-        Assert.checkIndex(toIndex, array.length);
-        for (int i = fromIndex, j = toIndex - 1; i < j; i++, j--) {
-            long tmp = array[i];
-            array[i] = array[j];
-            array[j] = tmp;
-        }
-    }
-
-    /**
-     * Performs a right rotation of {@code array} of "distance" places, so that the first element is moved to index "distance", and the element at index {@code i} ends up at index
-     * {@code (distance + i) mod array.length}. This is equivalent to {@code Collections.rotate(LongUtils.asList(array), distance)}, but is considerably faster and avoids
-     * allocation and garbage collection.
-     *
-     * <p>The provided "distance" may be negative, which will rotate left.
-     *
-     * 
-     */
-    public static void rotate(long[] array, int distance) {
-        rotate(array, distance, 0, array.length);
-    }
-
-    /**
-     * 在包含{@code fromIndex}和排除{@code toIndex}之间对{@code数组}进行右旋转。这相当于{@code Collections.rotate(LongUtils.asList(array))。subblist (fromIndex, toIndex)，
-     * distance)}，但是速度相当快，并且避免了分配和垃圾收集。
-     * <p>The provided "distance" may be negative, which will rotate left.
-     *
-     * @throws IndexOutOfBoundsException if {@code fromIndex < 0}, {@code toIndex > array.length}, or {@code toIndex > fromIndex}
-     * 
-     */
-    public static void rotate(long[] array, int distance, int fromIndex, int toIndex) {
-        // See Ints.rotate for more details about possible algorithms here.
-        Assert.notNull(array);
-        Assert.checkIndex(fromIndex, array.length);
-        Assert.checkIndex(toIndex, array.length);
-        if (array.length <= 1) {
-            return;
-        }
-
-        int length = toIndex - fromIndex;
-        // Obtain m = (-distance mod length), a non-negative value less than "length". This is how many
-        // places left to rotate.
-        int m = -distance % length;
-        m = (m < 0) ? m + length : m;
-        // The current index of what will become the first element of the rotated section.
-        int newFirstIndex = m + fromIndex;
-        if (newFirstIndex == fromIndex) {
-            return;
-        }
-
-        reverse(array, fromIndex, newFirstIndex);
-        reverse(array, newFirstIndex, toIndex);
-        reverse(array, fromIndex, toIndex);
-    }
-
-    /**
-     * Returns an array containing each value of {@code collection}, converted to a {@code long} value in the manner of {@link Number#longValue}.
-     *
-     * <p>Elements are copied from the argument collection as if by {@code collection.toArray()}.
-     * Calling this method is as thread-safe as calling that method.
-     *
-     * @param collection a collection of {@code Number} instances
-     * @return an array containing the same values as {@code collection}, in the same order, converted to primitives
-     * @throws NullPointerException if {@code collection} or any of its elements is null
-     * 
-     */
-    public static long[] toArray(Collection<? extends Number> collection) {
-        if (collection instanceof LongArrayAsList) {
-            return ((LongArrayAsList) collection).toLongArray();
-        }
-
-        Object[] boxedArray = collection.toArray();
-        int len = boxedArray.length;
-        long[] array = new long[len];
-        for (int i = 0; i < len; i++) {
-            // Assert.notNull for GWT (do not optimize)
-            array[i] = ((Number) Assert.notNull(boxedArray[i])).longValue();
-        }
-        return array;
-    }
-
-
-    public static List<Long> asList(long... backingArray) {
-        if (backingArray.length == 0) {
-            return Collections.emptyList();
-        }
-        return new LongArrayAsList(backingArray);
-    }
-
-
-    private static class LongArrayAsList extends AbstractList<Long>
-            implements RandomAccess, Serializable {
-
-        final long[] array;
-        final int start;
-        final int end;
-
-        LongArrayAsList(long[] array) {
-            this(array, 0, array.length);
-        }
-
-        LongArrayAsList(long[] array, int start, int end) {
-            this.array = array;
-            this.start = start;
-            this.end = end;
-        }
-
-        @Override
-        public int size() {
-            return end - start;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public Long get(int index) {
-            Assert.checkIndex(index, size());
-            return array[start + index];
-        }
-
-        @Override
-        public Spliterator.OfLong spliterator() {
-            return Spliterators.spliterator(array, start, end, 0);
-        }
-
-        @Override
-        public boolean contains(Object target) {
-            // Overridden to prevent a ton of boxing
-            return (target instanceof Long) && LongUtils.indexOf(array, (Long) target, start, end) != -1;
-        }
-
-        @Override
-        public int indexOf(Object target) {
-            // Overridden to prevent a ton of boxing
-            if (target instanceof Long) {
-                int i = LongUtils.indexOf(array, (Long) target, start, end);
-                if (i >= 0) {
-                    return i - start;
-                }
-            }
-            return -1;
-        }
-
-        @Override
-        public int lastIndexOf(Object target) {
-            // Overridden to prevent a ton of boxing
-            if (target instanceof Long) {
-                int i = LongUtils.lastIndexOf(array, (Long) target, start, end);
-                if (i >= 0) {
-                    return i - start;
-                }
-            }
-            return -1;
-        }
-
-        @Override
-        public Long set(int index, Long element) {
-            Assert.checkIndex(index, size());
-            long oldValue = array[start + index];
-            // Assert.notNull for GWT (do not optimize)
-            array[start + index] = Assert.notNull(element);
-            return oldValue;
-        }
-
-        @Override
-        public List<Long> subList(int fromIndex, int toIndex) {
-            int size = size();
-            Assert.checkIndex(fromIndex, size);
-            Assert.checkIndex(toIndex, size);
-            if (fromIndex == toIndex) {
-                return Collections.emptyList();
-            }
-            return new LongArrayAsList(array, start + fromIndex, start + toIndex);
-        }
-
-        @Override
-        public boolean equals(Object object) {
-            if (object == this) {
-                return true;
-            }
-            if (object instanceof LongArrayAsList) {
-                LongArrayAsList that = (LongArrayAsList) object;
-                int size = size();
-                if (that.size() != size) {
-                    return false;
-                }
-                for (int i = 0; i < size; i++) {
-                    if (array[start + i] != that.array[that.start + i]) {
-                        return false;
-                    }
-                }
-                return true;
-            }
-            return super.equals(object);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = 1;
-            for (int i = start; i < end; i++) {
-                result = 31 * result + LongUtils.hashCode(array[i]);
-            }
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder builder = new StringBuilder(size() * 10);
-            builder.append('[').append(array[start]);
-            for (int i = start + 1; i < end; i++) {
-                builder.append(", ").append(array[i]);
-            }
-            return builder.append(']').toString();
-        }
-
-        long[] toLongArray() {
-            return Arrays.copyOfRange(array, start, end);
-        }
-
-        private static final long serialVersionUID = 1L;
+    private LongUtils() {
     }
 }

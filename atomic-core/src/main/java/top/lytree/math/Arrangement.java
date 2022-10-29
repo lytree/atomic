@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.collections.ArraysUtils;
 
 /**
  * 排列A(n, m)<br> 排列组合相关类 参考：http://cgs1999.iteye.com/blog/2327664
@@ -118,7 +118,7 @@ public class Arrangement implements Serializable {
         // 递归选择下一个
         for (int i = 0; i < datas.length; i++) {
             resultList[resultIndex] = datas[i];
-            select(ArrayUtils.remove(datas, i), resultList, resultIndex + 1, result);
+            select(ArraysUtils.remove(datas, i), resultList, resultIndex + 1, result);
         }
     }
 }
