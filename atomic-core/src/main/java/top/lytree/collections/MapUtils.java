@@ -26,7 +26,6 @@ import java.util.Map.Entry;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import top.lytree.base.Assert;
 import top.lytree.bean.ObjectUtils;
 
 
@@ -1653,7 +1652,7 @@ public class MapUtils {
             }
         }
         // 补充其它字符串到末尾，默认无分隔符
-        if (ArraysUtils.isNotEmpty(otherParams)) {
+        if (ArrayUtils.isNotEmpty(otherParams)) {
             for (String otherParam : otherParams) {
                 strBuilder.append(otherParam);
             }

@@ -29,16 +29,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.RandomAccess;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
-import top.lytree.base.Assert;
 import top.lytree.collections.Lists.RandomAccessReverseList;
 import top.lytree.collections.Lists.ReverseList;
-import top.lytree.math.Ints;
 
 
 /**
@@ -406,7 +402,7 @@ public class ListUtils {
      */
     @SafeVarargs
     public static <T> List<T> of(T... ts) {
-        if (ArraysUtils.isEmpty(ts)) {
+        if (ArrayUtils.isEmpty(ts)) {
             return Collections.emptyList();
         }
         return Collections.unmodifiableList(toList(ts));
@@ -445,7 +441,7 @@ public class ListUtils {
      */
     @SafeVarargs
     public static <T> List<T> newArrayList(T... values) {
-        if (ArraysUtils.isEmpty(values)) {
+        if (ArrayUtils.isEmpty(values)) {
             return newArrayList();
         }
         int capacity = computeArrayListCapacity(values.length);

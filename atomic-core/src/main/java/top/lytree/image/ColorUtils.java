@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import top.lytree.collections.ArraysUtils;
+import top.lytree.collections.ArrayUtils;
 import top.lytree.lang.RandomUtils;
 import top.lytree.lang.StringUtils;
 
@@ -115,7 +115,7 @@ public class ColorUtils {
                 final Integer r = Integer.parseInt(rgb.get(0));
                 final Integer g = Integer.parseInt(rgb.get(1));
                 final Integer b = Integer.parseInt(rgb.get(2));
-                if (false == ArraysUtils.hasNull(r, g, b)) {
+                if (false == ArrayUtils.hasNull(r, g, b)) {
                     return new Color(r, g, b);
                 }
             } else {

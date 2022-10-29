@@ -147,16 +147,16 @@ public class Calculator {
         BigDecimal result;
         switch (currentOp) {
             case '+':
-                result = NumberUtils.add(firstValue, secondValue);
+                result = MathUtils.add(firstValue, secondValue);
                 break;
             case '-':
-                result = NumberUtils.sub(firstValue, secondValue);
+                result = MathUtils.sub(firstValue, secondValue);
                 break;
             case '*':
-                result = NumberUtils.mul(firstValue, secondValue);
+                result = MathUtils.mul(firstValue, secondValue);
                 break;
             case '/':
-                result = NumberUtils.div(firstValue, secondValue);
+                result = MathUtils.div(firstValue, secondValue);
                 break;
             case '%':
                 result = new BigDecimal(firstValue).remainder(new BigDecimal(secondValue));

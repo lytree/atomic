@@ -23,6 +23,7 @@ import java.util.Arrays;
 import top.lytree.base.Assert;
 import top.lytree.base.Filter;
 import top.lytree.bean.ObjectUtils;
+import top.lytree.lang.StringUtils;
 import top.lytree.math.Ints;
 
 
@@ -36,7 +37,7 @@ import top.lytree.math.Ints;
  *
  * <p>#ThreadSafe#
  */
-public class ArraysUtils extends org.apache.commons.lang3.ArrayUtils {
+public class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
 
     /**
      * 数组是否为空<br> 此方法会匹配单一对象，如果此对象为{@code null}则返回true<br> 如果此对象为非数组，理解为此对象为数组的第一个元素，则返回false<br> 如果此对象为数组对象，数组长度大于0情况下返回false，否则返回true
@@ -329,15 +330,35 @@ public class ArraysUtils extends org.apache.commons.lang3.ArrayUtils {
         return Arrays.hashCode(objects);
     }
 
+    /**
+     * 返回数组中指定元素所在位置，忽略大小写，未找到返回{@link #INDEX_NOT_FOUND}
+     *
+     * @param array 数组
+     * @param value 被检查的元素
+     *
+     * @return 数组中指定元素所在位置，未找到返回{@link #INDEX_NOT_FOUND}
+     *
+     * @since 3.1.2
+     */
+    public static int indexOfIgnoreCase(final CharSequence[] array, final CharSequence value) {
+        if (null != array) {
+            for (int i = 0; i < array.length; i++) {
+                if (StringUtils.equalsIgnoreCase(array[i], value)) {
+                    return i;
+                }
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
 
     /**
-     * <p>ArraysUtils instances should NOT be constructed in standard programming.
-     * Instead, the class should be used as {@code ArraysUtils.clone(new int[] {2})}.
+     * <p>ArrayUtils instances should NOT be constructed in standard programming.
+     * Instead, the class should be used as {@code ArrayUtils.clone(new int[] {2})}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean instance
      * to operate.
      */
-    private ArraysUtils() {
+    private ArrayUtils() {
     }
 
 }

@@ -286,7 +286,7 @@ public class CollectionUtils {
         Objects.requireNonNull(coll2, "coll2");
         if (coll1.size() < coll2.length) {
             for (final Object aColl1 : coll1) {
-                if (ArraysUtils.contains(coll2, aColl1)) {
+                if (ArrayUtils.contains(coll2, aColl1)) {
                     return true;
                 }
             }

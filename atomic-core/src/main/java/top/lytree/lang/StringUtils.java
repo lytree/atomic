@@ -23,7 +23,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import top.lytree.base.Filter;
 import top.lytree.bean.ObjectUtils;
-import top.lytree.collections.ArraysUtils;
+import top.lytree.collections.ArrayUtils;
 import top.lytree.text.StringFormatter;
 
 
@@ -277,7 +277,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 是否包含空字符串
      */
     public static boolean hasEmpty(CharSequence... strs) {
-        if (ArraysUtils.isEmpty(strs)) {
+        if (ArrayUtils.isEmpty(strs)) {
             return true;
         }
 
@@ -313,7 +313,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 是否包含空字符串
      */
     public static boolean hasBlank(CharSequence... strs) {
-        if (ArraysUtils.isEmpty(strs)) {
+        if (ArrayUtils.isEmpty(strs)) {
             return true;
         }
 
@@ -617,8 +617,8 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             return toString((Byte[]) obj, charset);
         } else if (obj instanceof ByteBuffer) {
             return toString((ByteBuffer) obj, charset);
-        } else if (ArraysUtils.isArray(obj)) {
-            return ArraysUtils.toString(obj);
+        } else if (ArrayUtils.isArray(obj)) {
+            return ArrayUtils.toString(obj);
         }
 
         return obj.toString();

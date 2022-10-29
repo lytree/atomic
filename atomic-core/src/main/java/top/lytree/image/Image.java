@@ -32,6 +32,7 @@ import top.lytree.bean.ObjectUtils;
 import top.lytree.io.FilenameUtils;
 import top.lytree.base.Assert;
 import top.lytree.lang.StringUtils;
+import top.lytree.math.MathUtils;
 import top.lytree.math.NumberUtils;
 
 public class Image implements Serializable {
@@ -218,9 +219,9 @@ public class Image implements Serializable {
                     ImageUtils.toBufferedImage(srcImage, this.targetImageType));
         } else {
             // 缩放后的图片宽
-            final int width = NumberUtils.mul((Number) srcImage.getWidth(null), scale).intValue();
+            final int width = MathUtils.mul((Number) srcImage.getWidth(null), scale).intValue();
             // 缩放后的图片高
-            final int height = NumberUtils.mul((Number) srcImage.getHeight(null), scale).intValue();
+            final int height = MathUtils.mul((Number) srcImage.getHeight(null), scale).intValue();
             scale(width, height);
         }
         return this;
@@ -259,8 +260,8 @@ public class Image implements Serializable {
 
         if (ImageUtils.IMAGE_TYPE_PNG.equals(this.targetImageType)) {
             // png特殊处理，借助AffineTransform可以实现透明度保留
-            final double sx = NumberUtils.div(width, srcWidth);// 宽度缩放比
-            final double sy = NumberUtils.div(height, srcHeight); // 高度缩放比
+            final double sx = MathUtils.div(width, srcWidth);// 宽度缩放比
+            final double sy = MathUtils.div(height, srcHeight); // 高度缩放比
             this.targetImage = ImageUtils.transform(AffineTransform.getScaleInstance(sx, sy),
                     ImageUtils.toBufferedImage(srcImage, this.targetImageType));
         } else {
@@ -282,8 +283,8 @@ public class Image implements Serializable {
         java.awt.Image srcImage = getValidSrcImages();
         int srcHeight = srcImage.getHeight(null);
         int srcWidth = srcImage.getWidth(null);
-        double heightRatio = NumberUtils.div(height, srcHeight);
-        double widthRatio = NumberUtils.div(width, srcWidth);
+        double heightRatio = MathUtils.div(height, srcHeight);
+        double widthRatio = MathUtils.div(width, srcWidth);
 
         // 浮点数之间的等值判断,基本数据类型不能用==比较,包装数据类型不能用equals来判断。
         if (NumberUtils.equals(heightRatio, widthRatio)) {
@@ -389,7 +390,7 @@ public class Image implements Serializable {
         final int height = srcImage.getHeight(null);
 
         // 通过弧度占比计算弧度
-        arc = NumberUtils.mul(arc, Math.min(width, height));
+        arc = MathUtils.mul(arc, Math.min(width, height));
 
         final BufferedImage targetImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         final Graphics2D g2 = targetImage.createGraphics();

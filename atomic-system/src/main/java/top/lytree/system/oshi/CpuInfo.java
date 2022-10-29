@@ -3,6 +3,7 @@ package top.lytree.system.oshi;
 import oshi.hardware.CentralProcessor;
 
 import java.text.DecimalFormat;
+import top.lytree.math.MathUtils;
 import top.lytree.math.NumberUtils;
 
 /**
@@ -161,7 +162,7 @@ public class CpuInfo {
 	 * @return 总CPU使用率
 	 */
 	public double getUsed() {
-		return NumberUtils.sub(100, this.free);
+		return MathUtils.sub(100, this.free);
 	}
 
 	@Override

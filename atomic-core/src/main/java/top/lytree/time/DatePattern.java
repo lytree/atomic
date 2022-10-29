@@ -19,8 +19,6 @@ public class DatePattern {
      *     yyyy-MM-dd HH:mm
      *     yyyy-MM-dd
      * </pre>
-     *
-     *
      */
     public static final Pattern REGEX_NORM = Pattern.compile("\\d{4}-\\d{1,2}-\\d{1,2}(\\s\\d{1,2}:\\d{1,2}(:\\d{1,2})?)?(.\\d{1,3})?");
 
@@ -115,6 +113,7 @@ public class DatePattern {
      * 标准日期格式：yyyyMMddHHmmssSSS
      */
     public static final String PURE_DATETIME_MS_PATTERN = "yyyyMMddHHmmssSSS";
+
     //-------------------------------------------------------------------------------------------------------------------------------- Others
     /**
      * HTTP头中日期时间格式：EEE, dd MMM yyyy HH:mm:ss z
