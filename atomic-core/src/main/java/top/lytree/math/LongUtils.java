@@ -23,11 +23,10 @@ import static top.lytree.math.MathPreconditions.*;
 import static top.lytree.math.MathPreconditions.checkPositive;
 
 
-import java.math.BigInteger;
 import java.math.RoundingMode;
 import top.lytree.base.Assert;
 
-public final class LongMath {
+public final class LongUtils {
     // NOTE: Whenever both tests are cheap and functional, it's faster to use &, | instead of &&, ||
     /**
      * The number of bytes required to represent a primitive {@code long} value.
@@ -724,7 +723,7 @@ public final class LongMath {
                     }
                     return result;
                 } else {
-                    int nBits = LongMath.log2(n, RoundingMode.CEILING);
+                    int nBits = LongUtils.log2(n, RoundingMode.CEILING);
 
                     long result = 1;
                     long numerator = n--;
@@ -1024,6 +1023,6 @@ public final class LongMath {
         throw new AssertionError("impossible");
     }
 
-    private LongMath() {
+    private LongUtils() {
     }
 }

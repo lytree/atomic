@@ -24,8 +24,8 @@ import java.math.RoundingMode;
  * <p>The implementations of many methods in this class are based on material from Henry S. Warren,
  * Jr.'s <i>Hacker's Delight</i>, (Addison Wesley, 2002).
  *
- * <p>Similar functionality for {@code int} and for {@code long} can be found in {@link IntMath} and
- * {@link LongMath} respectively.
+ * <p>Similar functionality for {@code int} and for {@code long} can be found in {@link IntUtils} and
+ * {@link LongUtils} respectively.
  *
  * @author Louis Wasserman
  * @since 11.0
@@ -76,7 +76,7 @@ public final class BigIntegerMath {
 
         @Override
         BigInteger toX(double d, RoundingMode mode) {
-            return DoubleMath.roundToBigInteger(d, mode);
+            return DoubleUtils.roundToBigInteger(d, mode);
         }
 
         @Override

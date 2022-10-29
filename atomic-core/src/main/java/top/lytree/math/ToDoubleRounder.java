@@ -21,7 +21,7 @@ import java.math.RoundingMode;
 import top.lytree.base.Assert;
 
 /**
- * Helper type to implement rounding {@code X} to a representable {@code double} value according to
+ * 实现将{@code X}舍入为可表示的{@code double}值的Helper类型
  * a {@link RoundingMode}.
  */
 

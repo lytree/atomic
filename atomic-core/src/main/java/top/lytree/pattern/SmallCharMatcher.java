@@ -19,7 +19,7 @@ import java.util.BitSet;
 import top.lytree.pattern.CharMatcher.NamedFastMatcher;
 
 /**
- * An immutable version of CharMatcher for smallish sets of characters that uses a hash table with linear probing to check for matches.
+ * CharMatcher的一个不可变版本，用于小字符集，使用带有线性探测的哈希表检查匹配。
  *
  * @author Christopher Swenson
  */

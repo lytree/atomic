@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import top.lytree.base.Assert;
-import top.lytree.lang.BooleanUtils;
+import top.lytree.math.BooleanUtils;
 import top.lytree.lang.StringUtils;
 
 

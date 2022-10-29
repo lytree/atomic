@@ -1,4 +1,4 @@
-package top.lytree.lang;
+package top.lytree.math;
 
 public class BooleanUtils extends org.apache.commons.lang3.BooleanUtils {
 

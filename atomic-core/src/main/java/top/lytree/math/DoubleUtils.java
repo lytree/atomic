@@ -19,7 +19,7 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import top.lytree.base.Assert;
 
-public class DoubleMath {
+public class DoubleUtils {
 
     /*
      * This method returns a value y such that rounding y DOWN (towards zero) gives the same result as
@@ -368,6 +368,6 @@ public class DoubleMath {
         return argument;
     }
 
-    private DoubleMath() {
+    private DoubleUtils() {
     }
 }

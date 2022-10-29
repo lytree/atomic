@@ -29,7 +29,7 @@ import java.math.RoundingMode;
 import top.lytree.base.Assert;
 
 
-public final class IntMath {
+public final class IntUtils {
     // NOTE: Whenever both tests are cheap and functional, it's faster to use &, | instead of &&, ||
 
 
@@ -533,6 +533,6 @@ public final class IntMath {
     }
 
 
-    private IntMath() {
+    private IntUtils() {
     }
 }
