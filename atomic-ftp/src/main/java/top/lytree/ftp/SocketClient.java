@@ -50,10 +50,11 @@ import javax.net.SocketFactory;
  * them by directly invoking a constructor.  By honoring this contract
  * you guarantee that a user will always be able to provide his own
  * Socket implementations by substituting his own SocketFactory.
+ *
  * @see SocketFactory
  */
-public abstract class SocketClient
-{
+public abstract class SocketClient {
+
     /**
      * The end of line character sequence used by most IETF protocols.  That
      * is a carriage return followed by a newline: "\r\n"
@@ -124,8 +125,7 @@ public abstract class SocketClient
      * and _socketFactory_ to a shared instance of
      * {@link org.apache.commons.net.DefaultSocketFactory}.
      */
-    public SocketClient()
-    {
+    public SocketClient() {
         _socket_ = null;
         _hostname_ = null;
         _input_ = null;
@@ -139,8 +139,7 @@ public abstract class SocketClient
 
     // helper method to allow code to be shared with connect(String,...) methods
     private void _connect(final InetAddress host, final int port, final InetAddress localAddr, final int localPort)
-        throws SocketException, IOException
-    {
+            throws SocketException, IOException {
         _socket_ = _socketFactory_.createSocket();
         if (receiveBufferSize != -1) {
             _socket_.setReceiveBufferSize(receiveBufferSize);
@@ -170,10 +169,10 @@ public abstract class SocketClient
      * Subclasses overriding this method should start by calling
      * <code> super._connectAction_() </code> first to ensure the
      * initialization of the aforementioned protected variables.
+     *
      * @throws IOException (SocketException) if a problem occurs with the socket
      */
-    protected void _connectAction_() throws IOException
-    {
+    protected void _connectAction_() throws IOException {
         applySocketAttributes();
         _input_ = _socket_.getInputStream();
         _output_ = _socket_.getOutputStream();
@@ -182,7 +181,8 @@ public abstract class SocketClient
     /**
      * Adds a ProtocolCommandListener.
      *
-     * @param listener  The ProtocolCommandListener to add.
+     * @param listener The ProtocolCommandListener to add.
+     *
      * @since 3.0
      */
     public void addProtocolCommandListener(final ProtocolCommandListener listener) {
@@ -200,8 +200,8 @@ public abstract class SocketClient
     }
 
 
-    private void closeQuietly(final Closeable close){
-        if (close != null){
+    private void closeQuietly(final Closeable close) {
+        if (close != null) {
             try {
                 close.close();
             } catch (final IOException e) {
@@ -211,7 +211,7 @@ public abstract class SocketClient
     }
 
     private void closeQuietly(final Socket socket) {
-        if (socket != null){
+        if (socket != null) {
             try {
                 socket.close();
             } catch (final IOException e) {
@@ -226,14 +226,14 @@ public abstract class SocketClient
      * Before returning, {@link #_connectAction_  _connectAction_() }
      * is called to perform connection initialization actions.
      *
-     * @param host  The remote host.
+     * @param host The remote host.
+     *
      * @throws SocketException If the socket timeout could not be set.
-     * @throws IOException If the socket could not be opened.  In most
-     *  cases you will only want to catch IOException since SocketException is
-     *  derived from it.
+     * @throws IOException     If the socket could not be opened.  In most
+     *                         cases you will only want to catch IOException since SocketException is
+     *                         derived from it.
      */
-    public void connect(final InetAddress host) throws SocketException, IOException
-    {
+    public void connect(final InetAddress host) throws SocketException, IOException {
         _hostname_ = null;
         connect(host, _defaultPort_);
     }
@@ -245,16 +245,16 @@ public abstract class SocketClient
      * Before returning, {@link #_connectAction_  _connectAction_() }
      * is called to perform connection initialization actions.
      *
-     * @param host  The remote host.
-     * @param port  The port to connect to on the remote host.
+     * @param host The remote host.
+     * @param port The port to connect to on the remote host.
+     *
      * @throws SocketException If the socket timeout could not be set.
-     * @throws IOException If the socket could not be opened.  In most
-     *  cases you will only want to catch IOException since SocketException is
-     *  derived from it.
+     * @throws IOException     If the socket could not be opened.  In most
+     *                         cases you will only want to catch IOException since SocketException is
+     *                         derived from it.
      */
     public void connect(final InetAddress host, final int port)
-    throws SocketException, IOException
-    {
+            throws SocketException, IOException {
         _hostname_ = null;
         _connect(host, port, null, -1);
     }
@@ -266,19 +266,19 @@ public abstract class SocketClient
      * Before returning, {@link #_connectAction_  _connectAction_() }
      * is called to perform connection initialization actions.
      *
-     * @param host  The remote host.
-     * @param port  The port to connect to on the remote host.
-     * @param localAddr  The local address to use.
-     * @param localPort  The local port to use.
+     * @param host      The remote host.
+     * @param port      The port to connect to on the remote host.
+     * @param localAddr The local address to use.
+     * @param localPort The local port to use.
+     *
      * @throws SocketException If the socket timeout could not be set.
-     * @throws IOException If the socket could not be opened.  In most
-     *  cases you will only want to catch IOException since SocketException is
-     *  derived from it.
+     * @throws IOException     If the socket could not be opened.  In most
+     *                         cases you will only want to catch IOException since SocketException is
+     *                         derived from it.
      */
     public void connect(final InetAddress host, final int port,
-                        final InetAddress localAddr, final int localPort)
-    throws SocketException, IOException
-    {
+            final InetAddress localAddr, final int localPort)
+            throws SocketException, IOException {
         _hostname_ = null;
         _connect(host, port, localAddr, localPort);
     }
@@ -290,15 +290,15 @@ public abstract class SocketClient
      * Before returning, {@link #_connectAction_  _connectAction_() }
      * is called to perform connection initialization actions.
      *
-     * @param hostname  The name of the remote host.
-     * @throws SocketException If the socket timeout could not be set.
-     * @throws IOException If the socket could not be opened.  In most
-     *  cases you will only want to catch IOException since SocketException is
-     *  derived from it.
+     * @param hostname The name of the remote host.
+     *
+     * @throws SocketException               If the socket timeout could not be set.
+     * @throws IOException                   If the socket could not be opened.  In most
+     *                                       cases you will only want to catch IOException since SocketException is
+     *                                       derived from it.
      * @throws java.net.UnknownHostException If the hostname cannot be resolved.
      */
-    public void connect(final String hostname) throws SocketException, IOException
-    {
+    public void connect(final String hostname) throws SocketException, IOException {
         connect(hostname, _defaultPort_);
     }
 
@@ -308,17 +308,17 @@ public abstract class SocketClient
      * Before returning, {@link #_connectAction_  _connectAction_() }
      * is called to perform connection initialization actions.
      *
-     * @param hostname  The name of the remote host.
-     * @param port  The port to connect to on the remote host.
-     * @throws SocketException If the socket timeout could not be set.
-     * @throws IOException If the socket could not be opened.  In most
-     *  cases you will only want to catch IOException since SocketException is
-     *  derived from it.
+     * @param hostname The name of the remote host.
+     * @param port     The port to connect to on the remote host.
+     *
+     * @throws SocketException               If the socket timeout could not be set.
+     * @throws IOException                   If the socket could not be opened.  In most
+     *                                       cases you will only want to catch IOException since SocketException is
+     *                                       derived from it.
      * @throws java.net.UnknownHostException If the hostname cannot be resolved.
      */
     public void connect(final String hostname, final int port)
-    throws SocketException, IOException
-    {
+            throws SocketException, IOException {
         _hostname_ = hostname;
         _connect(InetAddress.getByName(hostname), port, null, -1);
     }
@@ -330,26 +330,27 @@ public abstract class SocketClient
      * is called to perform connection initialization actions.
      *
      * @param hostname  The name of the remote host.
-     * @param port  The port to connect to on the remote host.
-     * @param localAddr  The local address to use.
-     * @param localPort  The local port to use.
-     * @throws SocketException If the socket timeout could not be set.
-     * @throws IOException If the socket could not be opened.  In most
-     *  cases you will only want to catch IOException since SocketException is
-     *  derived from it.
+     * @param port      The port to connect to on the remote host.
+     * @param localAddr The local address to use.
+     * @param localPort The local port to use.
+     *
+     * @throws SocketException               If the socket timeout could not be set.
+     * @throws IOException                   If the socket could not be opened.  In most
+     *                                       cases you will only want to catch IOException since SocketException is
+     *                                       derived from it.
      * @throws java.net.UnknownHostException If the hostname cannot be resolved.
      */
     public void connect(final String hostname, final int port,
-                        final InetAddress localAddr, final int localPort)
-    throws SocketException, IOException
-    {
+            final InetAddress localAddr, final int localPort)
+            throws SocketException, IOException {
         _hostname_ = hostname;
-       _connect(InetAddress.getByName(hostname), port, localAddr, localPort);
+        _connect(InetAddress.getByName(hostname), port, localAddr, localPort);
     }
+
     /**
      * Create the CommandSupport instance if required
      */
-    protected void createCommandSupport(){
+    protected void createCommandSupport() {
         commandSupport = new ProtocolCommandSupport(this);
     }
 
@@ -361,10 +362,9 @@ public abstract class SocketClient
      * again.  _isConnected_ is set to false, _socket_ is set to null,
      * _input_ is set to null, and _output_ is set to null.
      *
-     * @throws IOException  If there is an error closing the socket.
+     * @throws IOException If there is an error closing the socket.
      */
-    public void disconnect() throws IOException
-    {
+    public void disconnect() throws IOException {
         closeQuietly(_socket_);
         closeQuietly(_input_);
         closeQuietly(_output_);
@@ -379,6 +379,7 @@ public abstract class SocketClient
      *
      * @param command the command name
      * @param message the complete message, including command name
+     *
      * @since 3.0
      */
     protected void fireCommandSent(final String command, final String message) {
@@ -391,7 +392,8 @@ public abstract class SocketClient
      * If there are any listeners, send them the reply details.
      *
      * @param replyCode the code extracted from the reply
-     * @param reply the full reply text
+     * @param reply     the full reply text
+     *
      * @since 3.0
      */
     protected void fireReplyReceived(final int replyCode, final String reply) {
@@ -405,6 +407,7 @@ public abstract class SocketClient
      * Gets the charset.
      *
      * @return the charset.
+     *
      * @since 3.3
      */
     public Charset getCharset() {
@@ -416,6 +419,7 @@ public abstract class SocketClient
      * Gets the charset name.
      *
      * @return the charset.
+     *
      * @since 3.3
      * @deprecated Since the code now requires Java 1.6 as a mininmum
      */
@@ -430,6 +434,7 @@ public abstract class SocketClient
      * instance field for backwards compatibilty.
      *
      * @return the CommandSupport instance, may be {@code null}
+     *
      * @since 3.0
      */
     protected ProtocolCommandSupport getCommandSupport() {
@@ -439,7 +444,9 @@ public abstract class SocketClient
 
     /**
      * Get the underlying socket connection timeout.
+     *
      * @return timeout (in ms)
+     *
      * @since 2.0
      */
     public int getConnectTimeout() {
@@ -452,8 +459,7 @@ public abstract class SocketClient
      *
      * @return The current value of the default port.
      */
-    public int getDefaultPort()
-    {
+    public int getDefaultPort() {
         return _defaultPort_;
     }
 
@@ -462,18 +468,19 @@ public abstract class SocketClient
      * opening a socket.
      *
      * @return The default timeout in milliseconds that is used when
-     *         opening a socket.
+     * opening a socket.
      */
-    public int getDefaultTimeout()
-    {
+    public int getDefaultTimeout() {
         return _timeout_;
     }
 
     /**
      * Returns the current value of the SO_KEEPALIVE flag on the currently opened socket.
      * Delegates to {@link Socket#getKeepAlive()}
+     *
      * @return True if SO_KEEPALIVE is enabled.
-     * @throws SocketException if there is a problem with the socket
+     *
+     * @throws SocketException      if there is a problem with the socket
      * @throws NullPointerException if the socket is not currently open
      * @since 2.2
      */
@@ -486,10 +493,10 @@ public abstract class SocketClient
      * Delegates to {@link Socket#getLocalAddress()}
      *
      * @return The local address to which the client's socket is bound.
+     *
      * @throws NullPointerException if the socket is not currently open
      */
-    public InetAddress getLocalAddress()
-    {
+    public InetAddress getLocalAddress() {
         return _socket_.getLocalAddress();
     }
 
@@ -499,17 +506,18 @@ public abstract class SocketClient
      * Delegates to {@link Socket#getLocalPort()}
      *
      * @return The port number of the open socket on the local host used
-     *         for the connection.
+     * for the connection.
+     *
      * @throws NullPointerException if the socket is not currently open
      */
-    public int getLocalPort()
-    {
+    public int getLocalPort() {
         return _socket_.getLocalPort();
     }
 
 
     /**
      * Gets the proxy for use with all the connections.
+     *
      * @return the current proxy for connections.
      */
     public Proxy getProxy() {
@@ -518,20 +526,22 @@ public abstract class SocketClient
 
     /**
      * Get the current receivedBuffer size
+     *
      * @return the size, or -1 if not initialized
+     *
      * @since 3.0
      */
-    protected int getReceiveBufferSize(){
+    protected int getReceiveBufferSize() {
         return receiveBufferSize;
     }
 
     /**
      * @return The remote address to which the client is connected.
      * Delegates to {@link Socket#getInetAddress()}
+     *
      * @throws NullPointerException if the socket is not currently open
      */
-    public InetAddress getRemoteAddress()
-    {
+    public InetAddress getRemoteAddress() {
         return _socket_.getInetAddress();
     }
 
@@ -541,28 +551,32 @@ public abstract class SocketClient
      * Delegates to {@link Socket#getPort()}
      *
      * @return The port number of the remote host to which the client is
-     *         connected.
+     * connected.
+     *
      * @throws NullPointerException if the socket is not currently open
      */
-    public int getRemotePort()
-    {
+    public int getRemotePort() {
         return _socket_.getPort();
     }
 
 
     /**
      * Get the current sendBuffer size
+     *
      * @return the size, or -1 if not initialized
+     *
      * @since 3.0
      */
-    protected int getSendBufferSize(){
+    protected int getSendBufferSize() {
         return sendBufferSize;
     }
 
 
     /**
      * Get the underlying {@link ServerSocketFactory}
+     *
      * @return The server socket factory
+     *
      * @since 2.2
      */
     public ServerSocketFactory getServerSocketFactory() {
@@ -574,12 +588,12 @@ public abstract class SocketClient
      * Returns the current SO_LINGER timeout of the currently opened socket.
      *
      * @return The current SO_LINGER timeout.  If SO_LINGER is disabled returns
-     *         -1.
-     * @throws SocketException If the operation fails.
+     * -1.
+     *
+     * @throws SocketException      If the operation fails.
      * @throws NullPointerException if the socket is not currently open
      */
-    public int getSoLinger() throws SocketException
-    {
+    public int getSoLinger() throws SocketException {
         return _socket_.getSoLinger();
     }
 
@@ -587,11 +601,11 @@ public abstract class SocketClient
      * Returns the timeout in milliseconds of the currently opened socket.
      *
      * @return The timeout in milliseconds of the currently opened socket.
-     * @throws SocketException If the operation fails.
+     *
+     * @throws SocketException      If the operation fails.
      * @throws NullPointerException if the socket is not currently open
      */
-    public int getSoTimeout() throws SocketException
-    {
+    public int getSoTimeout() throws SocketException {
         return _socket_.getSoTimeout();
     }
 
@@ -601,12 +615,12 @@ public abstract class SocketClient
      * socket.
      *
      * @return True if Nagle's algorithm is enabled on the currently opened
-     *        socket, false otherwise.
-     * @throws SocketException If the operation fails.
+     * socket, false otherwise.
+     *
+     * @throws SocketException      If the operation fails.
      * @throws NullPointerException if the socket is not currently open
      */
-    public boolean getTcpNoDelay() throws SocketException
-    {
+    public boolean getTcpNoDelay() throws SocketException {
         return _socket_.getTcpNoDelay();
     }
 
@@ -615,15 +629,16 @@ public abstract class SocketClient
      * Make various checks on the socket to test if it is available for use.
      * Note that the only sure test is to use it, but these checks may help
      * in some cases.
-     * @see <a href="https://issues.apache.org/jira/browse/NET-350">NET-350</a>
+     *
      * @return {@code true} if the socket appears to be available for use
+     *
+     * @see <a href="https://issues.apache.org/jira/browse/NET-350">NET-350</a>
      * @since 3.0
      */
     @SuppressWarnings("resource")
-    public boolean isAvailable(){
+    public boolean isAvailable() {
         if (isConnected()) {
-            try
-            {
+            try {
                 if (_socket_.getInetAddress() == null) {
                     return false;
                 }
@@ -650,9 +665,7 @@ public abstract class SocketClient
                 _socket_.getInputStream();
                 // No need to close
                 _socket_.getOutputStream();
-            }
-            catch (final IOException ioex)
-            {
+            } catch (final IOException ioex) {
                 return false;
             }
             return true;
@@ -663,13 +676,13 @@ public abstract class SocketClient
 
     /**
      * Returns true if the client is currently connected to a server.
-     *
+     * <p>
      * Delegates to {@link Socket#isConnected()}
+     *
      * @return True if the client is currently connected to a server,
-     *         false otherwise.
+     * false otherwise.
      */
-    public boolean isConnected()
-    {
+    public boolean isConnected() {
         if (_socket_ == null) {
             return false;
         }
@@ -680,7 +693,8 @@ public abstract class SocketClient
     /**
      * Removes a ProtocolCommandListener.
      *
-     * @param listener  The ProtocolCommandListener to remove.
+     * @param listener The ProtocolCommandListener to remove.
+     *
      * @since 3.0
      */
     public void removeProtocolCommandListener(final ProtocolCommandListener listener) {
@@ -691,6 +705,7 @@ public abstract class SocketClient
      * Sets the charset.
      *
      * @param charset the charset.
+     *
      * @since 3.3
      */
     public void setCharset(final Charset charset) {
@@ -700,7 +715,9 @@ public abstract class SocketClient
     /**
      * Sets the connection timeout in milliseconds, which will be passed to the {@link Socket} object's
      * connect() method.
+     *
      * @param connectTimeout The connection timeout to use (in ms)
+     *
      * @since 2.0
      */
     public void setConnectTimeout(final int connectTimeout) {
@@ -713,10 +730,9 @@ public abstract class SocketClient
      * variable stores this value.  If never set, the default port is equal
      * to zero.
      *
-     * @param port  The default port to set.
+     * @param port The default port to set.
      */
-    public void setDefaultPort(final int port)
-    {
+    public void setDefaultPort(final int port) {
         _defaultPort_ = port;
     }
 
@@ -729,23 +745,24 @@ public abstract class SocketClient
      * which operates on an the currently opened socket.  _timeout_ contains
      * the new timeout value.
      *
-     * @param timeout  The timeout in milliseconds to use for the socket
-     *                 connection.
+     * @param timeout The timeout in milliseconds to use for the socket
+     *                connection.
      */
-    public void setDefaultTimeout(final int timeout)
-    {
+    public void setDefaultTimeout(final int timeout) {
         _timeout_ = timeout;
     }
 
     /**
      * Sets the SO_KEEPALIVE flag on the currently opened socket.
-     *
+     * <p>
      * From the Javadocs, the default keepalive time is 2 hours (although this is
      * implementation  dependent). It looks as though the Windows WSA sockets implementation
      * allows a specific keepalive value to be set, although this seems not to be the case on
      * other systems.
-     * @param  keepAlive If true, keepAlive is turned on
-     * @throws SocketException if there is a problem with the socket
+     *
+     * @param keepAlive If true, keepAlive is turned on
+     *
+     * @throws SocketException      if there is a problem with the socket
      * @throws NullPointerException if the socket is not currently open
      * @since 2.2
      */
@@ -759,6 +776,7 @@ public abstract class SocketClient
      * call to this method.
      *
      * @param proxy the new proxy for connections.
+     *
      * @since 3.2
      */
     public void setProxy(final Proxy proxy) {
@@ -770,10 +788,11 @@ public abstract class SocketClient
      * Sets the underlying socket receive buffer size.
      *
      * @param size The size of the buffer in bytes.
+     *
      * @throws SocketException never (but subclasses may wish to do so)
      * @since 2.0
      */
-    public void setReceiveBufferSize(final int size) throws SocketException  {
+    public void setReceiveBufferSize(final int size) throws SocketException {
         receiveBufferSize = size;
     }
 
@@ -781,6 +800,7 @@ public abstract class SocketClient
      * Set the underlying socket send buffer size.
      *
      * @param size The size of the buffer in bytes.
+     *
      * @throws SocketException never thrown, but subclasses might want to do so
      * @since 2.0
      */
@@ -794,7 +814,8 @@ public abstract class SocketClient
      * factory is used (only do this to reset the factory after having
      * previously altered it).
      *
-     * @param factory  The new ServerSocketFactory the SocketClient should use.
+     * @param factory The new ServerSocketFactory the SocketClient should use.
+     *
      * @since 2.0
      */
     public void setServerSocketFactory(final ServerSocketFactory factory) {
@@ -812,10 +833,9 @@ public abstract class SocketClient
      * previously altered it).
      * Any proxy setting is discarded.
      *
-     * @param factory  The new SocketFactory the SocketClient should use.
+     * @param factory The new SocketFactory the SocketClient should use.
      */
-    public void setSocketFactory(final SocketFactory factory)
-    {
+    public void setSocketFactory(final SocketFactory factory) {
         if (factory == null) {
             _socketFactory_ = DEFAULT_SOCKET_FACTORY;
         } else {
@@ -832,11 +852,11 @@ public abstract class SocketClient
      *
      * @param on  True if linger is to be enabled, false if not.
      * @param val The linger timeout (in hundredths of a second?)
-     * @throws SocketException If the operation fails.
+     *
+     * @throws SocketException      If the operation fails.
      * @throws NullPointerException if the socket is not currently open
      */
-    public void setSoLinger(final boolean on, final int val) throws SocketException
-    {
+    public void setSoLinger(final boolean on, final int val) throws SocketException {
         _socket_.setSoLinger(on, val);
     }
 
@@ -847,13 +867,13 @@ public abstract class SocketClient
      * <p>
      * To set the initial timeout, use {@link #setDefaultTimeout(int)} instead.
      *
-     * @param timeout  The timeout in milliseconds to use for the currently
-     *                 open socket connection.
-     * @throws SocketException If the operation fails.
+     * @param timeout The timeout in milliseconds to use for the currently
+     *                open socket connection.
+     *
+     * @throws SocketException      If the operation fails.
      * @throws NullPointerException if the socket is not currently open
      */
-    public void setSoTimeout(final int timeout) throws SocketException
-    {
+    public void setSoTimeout(final int timeout) throws SocketException {
         _socket_.setSoTimeout(timeout);
     }
 
@@ -861,12 +881,12 @@ public abstract class SocketClient
      * Enables or disables the Nagle's algorithm (TCP_NODELAY) on the
      * currently opened socket.
      *
-     * @param on  True if Nagle's algorithm is to be enabled, false if not.
-     * @throws SocketException If the operation fails.
+     * @param on True if Nagle's algorithm is to be enabled, false if not.
+     *
+     * @throws SocketException      If the operation fails.
      * @throws NullPointerException if the socket is not currently open
      */
-    public void setTcpNoDelay(final boolean on) throws SocketException
-    {
+    public void setTcpNoDelay(final boolean on) throws SocketException {
         _socket_.setTcpNoDelay(on);
     }
 
@@ -878,10 +898,10 @@ public abstract class SocketClient
      * a BSD R command standard error stream.
      *
      * @param socket the item to check against
+     *
      * @return True if the remote hosts are the same, false if not.
      */
-    public boolean verifyRemote(final Socket socket)
-    {
+    public boolean verifyRemote(final Socket socket) {
         final InetAddress host1;
         final InetAddress host2;
 
