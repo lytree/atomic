@@ -38,8 +38,7 @@
     <elasticjob.version>3.0.1</elasticjob.version>
     <mapstruct.version>1.5.2.Final</mapstruct.version>
     <jjwt.version>0.11.5</jjwt.version>
-    <!--        <dubbo.version>3.0.4</dubbo.version>-->
-    <dubbo.version>2.7.15</dubbo.version>
+    <dubbo.version>3.1.2</dubbo.version>
     <lombok.version>1.18.24</lombok.version>
     <guava.version>31.1-jre</guava.version>
     <redisson.version>3.15.6</redisson.version>
