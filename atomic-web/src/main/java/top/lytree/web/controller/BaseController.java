@@ -22,7 +22,7 @@ public class BaseController {
     protected final String tempPath = System.getProperty("java.io.tmpdir").contains("\\") ? System.getProperty("java.io.tmpdir") : System.getProperty("java.io.tmpdir") + "/";
 
     public String requestId() {
-        return MDC.get(Globals.REQUEST_ID);
+        return MDC.get(Globals.TRACE_ID);
     }
 
     /**

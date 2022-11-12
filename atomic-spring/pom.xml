@@ -12,11 +12,6 @@
     <version>1.0</version>
   </parent>
   <dependencies>
-    <dependency>
-      <groupId>top.lytree</groupId>
-      <artifactId>atomic-model</artifactId>
-      <version>${atomic.version}</version>
-    </dependency>
     <!-- Spring Context Support -->
     <dependency>
       <groupId>org.springframework</groupId>

@@ -79,33 +79,31 @@ public class ConsulServiceDiscovery extends AbstractServiceDiscovery {
     private static final String QUERY_TAG = "consul_query_tag";
     private static final String REGISTER_TAG = "consul_register_tag";
 
-    private List<String> registeringTags = new ArrayList<>();
-    private String tag;
-    private ConsulClient client;
-    private ExecutorService notifierExecutor = newCachedThreadPool(
+    private final List<String> registeringTags = new ArrayList<>();
+    private final String tag;
+    private final ConsulClient client;
+    private final ExecutorService notifierExecutor = newCachedThreadPool(
         new NamedThreadFactory("dubbo-service-discovery-consul-notifier", true));
-    private Map<String, ConsulNotifier> notifiers = new ConcurrentHashMap<>();
-    private TtlScheduler ttlScheduler;
-    private long checkPassInterval;
-    private URL url;
+    private final Map<String, ConsulNotifier> notifiers = new ConcurrentHashMap<>();
+    private final TtlScheduler ttlScheduler;
+    private final long checkPassInterval;
+    private final URL url;
 
-    private String aclToken;
+    private final String aclToken;
 
-    private List<String> tags;
+    private final List<String> tags;
 
-    private ConsistencyMode consistencyMode;
-
-    private String defaultZoneMetadataName;
+    private final String defaultZoneMetadataName;
 
     /**
      * Service instance zone.
      */
-    private String instanceZone;
+    private final String instanceZone;
 
     /**
      * Service instance group.
      */
-    private String instanceGroup;
+    private final String instanceGroup;
 
     public ConsulServiceDiscovery(ApplicationModel applicationModel, URL registryURL) {
         super(applicationModel, registryURL);
@@ -119,7 +117,6 @@ public class ConsulServiceDiscovery extends AbstractServiceDiscovery {
         this.registeringTags.addAll(getRegisteringTags(url));
         this.aclToken = ACL_TOKEN.getValue(registryURL);
         this.tags = getTags(registryURL);
-        this.consistencyMode = getConsistencyMode(registryURL);
         this.defaultZoneMetadataName = DEFAULT_ZONE_METADATA_NAME.getValue(registryURL);
         this.instanceZone = INSTANCE_ZONE.getValue(registryURL);
         this.instanceGroup = INSTANCE_GROUP.getValue(registryURL);
