@@ -77,11 +77,10 @@ public class DubboTraceFilter implements Filter {
     }
 
     private void handleTraceId() {
-        RpcContext context = RpcContext.getContext();
-        if (context.isConsumerSide()) {
-            TraceUtil.putTraceInto(context);
-        } else if (context.isProviderSide()) {
-            TraceUtil.getTraceFrom(context);
+        if (RpcContext.getServerContext().isProviderSide()) {
+            TraceUtil.getTraceFrom(RpcContext.getServerContext());
+        } else {
+            TraceUtil.putTraceInto(RpcContext.getServerContext());
         }
     }
 
