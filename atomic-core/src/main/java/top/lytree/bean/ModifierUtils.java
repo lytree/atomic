@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import top.lytree.collections.ArraysUtils;
+import top.lytree.collections.ArrayUtils;
 
 /**
  * 修饰符工具类
@@ -98,7 +98,7 @@ public class ModifierUtils {
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Class<?> clazz, ModifierType... modifierTypes) {
-        if (null == clazz || ArraysUtils.isEmpty(modifierTypes)) {
+        if (null == clazz || ArrayUtils.isEmpty(modifierTypes)) {
             return false;
         }
         return 0 != (clazz.getModifiers() & modifiersToInt(modifierTypes));
@@ -113,7 +113,7 @@ public class ModifierUtils {
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Constructor<?> constructor, ModifierType... modifierTypes) {
-        if (null == constructor || ArraysUtils.isEmpty(modifierTypes)) {
+        if (null == constructor || ArrayUtils.isEmpty(modifierTypes)) {
             return false;
         }
         return 0 != (constructor.getModifiers() & modifiersToInt(modifierTypes));
@@ -128,7 +128,7 @@ public class ModifierUtils {
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Method method, ModifierType... modifierTypes) {
-        if (null == method || ArraysUtils.isEmpty(modifierTypes)) {
+        if (null == method || ArrayUtils.isEmpty(modifierTypes)) {
             return false;
         }
         return 0 != (method.getModifiers() & modifiersToInt(modifierTypes));
@@ -143,7 +143,7 @@ public class ModifierUtils {
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Field field, ModifierType... modifierTypes) {
-        if (null == field || ArraysUtils.isEmpty(modifierTypes)) {
+        if (null == field || ArrayUtils.isEmpty(modifierTypes)) {
             return false;
         }
         return 0 != (field.getModifiers() & modifiersToInt(modifierTypes));

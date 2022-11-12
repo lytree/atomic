@@ -48,13 +48,14 @@ import javax.swing.ImageIcon;
 import top.lytree.bean.ObjectUtils;
 import top.lytree.codec.binary.Base64;
 import top.lytree.codec.net.UrlUtils;
-import top.lytree.collections.ArraysUtils;
+import top.lytree.collections.ArrayUtils;
 import top.lytree.io.FileUtils;
 import top.lytree.io.FilenameUtils;
 import top.lytree.io.IOUtils;
 import top.lytree.base.Assert;
 import top.lytree.lang.RandomUtils;
 import top.lytree.lang.StringUtils;
+import top.lytree.math.MathUtils;
 import top.lytree.math.NumberUtils;
 
 public class ImageUtils {
@@ -91,7 +92,6 @@ public class ImageUtils {
      * @param srcStream  源图像来源流
      * @param destStream 缩放后的图像写出到的流
      * @param scale      缩放比例。比例大于1时为放大，小于1大于0为缩小
-     *
      */
     public static void scale(InputStream srcStream, OutputStream destStream, float scale) throws IOException {
         scale(read(srcStream), destStream, scale);
@@ -103,7 +103,6 @@ public class ImageUtils {
      * @param srcStream  源图像来源流
      * @param destStream 缩放后的图像写出到的流
      * @param scale      缩放比例。比例大于1时为放大，小于1大于0为缩小
-     *
      */
     public static void scale(ImageInputStream srcStream, ImageOutputStream destStream, float scale) throws IOException {
         scale(read(srcStream), destStream, scale);
@@ -115,8 +114,8 @@ public class ImageUtils {
      * @param srcImg   源图像来源流
      * @param destFile 缩放后的图像写出到的流
      * @param scale    缩放比例。比例大于1时为放大，小于1大于0为缩小
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void scale(Image srcImg, File destFile, float scale) throws IOException {
         top.lytree.image.Image.from(srcImg).setTargetImageType(FilenameUtils.getExtension(destFile)).scale(scale).write(destFile);
@@ -128,8 +127,8 @@ public class ImageUtils {
      * @param srcImg 源图像来源流
      * @param out    缩放后的图像写出到的流
      * @param scale  缩放比例。比例大于1时为放大，小于1大于0为缩小
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void scale(Image srcImg, OutputStream out, float scale) throws IOException {
         scale(srcImg, getImageOutputStream(out), scale);
@@ -141,8 +140,8 @@ public class ImageUtils {
      * @param srcImg          源图像来源流
      * @param destImageStream 缩放后的图像写出到的流
      * @param scale           缩放比例。比例大于1时为放大，小于1大于0为缩小
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void scale(Image srcImg, ImageOutputStream destImageStream, float scale) throws IOException {
         writeJpg(scale(srcImg, scale), destImageStream);
@@ -153,8 +152,8 @@ public class ImageUtils {
      *
      * @param srcImg 源图像来源流
      * @param scale  缩放比例。比例大于1时为放大，小于1大于0为缩小
-     * @return {@link Image}
      *
+     * @return {@link Image}
      */
     public static Image scale(Image srcImg, float scale) {
         return top.lytree.image.Image.from(srcImg).scale(scale).getImages();
@@ -166,8 +165,8 @@ public class ImageUtils {
      * @param srcImg 源图像来源流
      * @param width  目标宽度
      * @param height 目标高度
-     * @return {@link Image}
      *
+     * @return {@link Image}
      */
     public static Image scale(Image srcImg, int width, int height) {
         return top.lytree.image.Image.from(srcImg).scale(width, height).getImages();
@@ -181,6 +180,7 @@ public class ImageUtils {
      * @param width         缩放后的宽度
      * @param height        缩放后的高度
      * @param fixedColor    补充的颜色，不补充为{@code null}
+     *
      * @throws IOException IO异常
      */
     public static void scale(File srcImageFile, File destImageFile, int width, int height, Color fixedColor) throws IOException {
@@ -198,6 +198,7 @@ public class ImageUtils {
      * @param width      缩放后的宽度
      * @param height     缩放后的高度
      * @param fixedColor 比例不对时补充的颜色，不补充为{@code null}
+     *
      * @throws IOException IO异常
      */
     public static void scale(InputStream srcStream, OutputStream destStream, int width, int height, Color fixedColor) throws IOException {
@@ -212,6 +213,7 @@ public class ImageUtils {
      * @param width      缩放后的宽度
      * @param height     缩放后的高度
      * @param fixedColor 比例不对时补充的颜色，不补充为{@code null}
+     *
      * @throws IOException IO异常
      */
     public static void scale(ImageInputStream srcStream, ImageOutputStream destStream, int width, int height, Color fixedColor) throws IOException {
@@ -226,6 +228,7 @@ public class ImageUtils {
      * @param width           缩放后的宽度
      * @param height          缩放后的高度
      * @param fixedColor      比例不对时补充的颜色，不补充为{@code null}
+     *
      * @throws IOException IO异常
      */
     public static void scale(Image srcImage, ImageOutputStream destImageStream, int width, int height, Color fixedColor) throws IOException {
@@ -239,6 +242,7 @@ public class ImageUtils {
      * @param width      缩放后的宽度
      * @param height     缩放后的高度
      * @param fixedColor 比例不对时补充的颜色，不补充为{@code null}
+     *
      * @return {@link Image}
      */
     public static Image scale(Image srcImage, int width, int height, Color fixedColor) {
@@ -253,7 +257,6 @@ public class ImageUtils {
      * @param srcImgFile  源图像文件
      * @param destImgFile 切片后的图像文件
      * @param rectangle   矩形对象，表示矩形区域的x，y，width，height
-     *
      */
     public static void cut(File srcImgFile, File destImgFile, Rectangle rectangle) throws IOException {
         cut(read(srcImgFile), destImgFile, rectangle);
@@ -265,7 +268,6 @@ public class ImageUtils {
      * @param srcStream  源图像流
      * @param destStream 切片后的图像输出流
      * @param rectangle  矩形对象，表示矩形区域的x，y，width，height
-     *
      */
     public static void cut(InputStream srcStream, OutputStream destStream, Rectangle rectangle) throws IOException {
         cut(read(srcStream), destStream, rectangle);
@@ -277,7 +279,6 @@ public class ImageUtils {
      * @param srcStream  源图像流
      * @param destStream 切片后的图像输出流
      * @param rectangle  矩形对象，表示矩形区域的x，y，width，height
-     *
      */
     public static void cut(ImageInputStream srcStream, ImageOutputStream destStream, Rectangle rectangle) throws IOException {
         cut(read(srcStream), destStream, rectangle);
@@ -289,8 +290,8 @@ public class ImageUtils {
      * @param srcImage  源图像
      * @param destFile  输出的文件
      * @param rectangle 矩形对象，表示矩形区域的x，y，width，height
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void cut(Image srcImage, File destFile, Rectangle rectangle) throws IOException {
         write(cut(srcImage, rectangle), destFile);
@@ -302,8 +303,8 @@ public class ImageUtils {
      * @param srcImage  源图像
      * @param out       切片后的图像输出流
      * @param rectangle 矩形对象，表示矩形区域的x，y，width，height
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void cut(Image srcImage, OutputStream out, Rectangle rectangle) throws IOException {
         cut(srcImage, getImageOutputStream(out), rectangle);
@@ -315,8 +316,8 @@ public class ImageUtils {
      * @param srcImage        源图像
      * @param destImageStream 切片后的图像输出流
      * @param rectangle       矩形对象，表示矩形区域的x，y，width，height
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void cut(Image srcImage, ImageOutputStream destImageStream, Rectangle rectangle) throws IOException {
         writeJpg(cut(srcImage, rectangle), destImageStream);
@@ -327,8 +328,8 @@ public class ImageUtils {
      *
      * @param srcImage  源图像
      * @param rectangle 矩形对象，表示矩形区域的x，y，width，height
-     * @return {@link BufferedImage}
      *
+     * @return {@link BufferedImage}
      */
     public static Image cut(Image srcImage, Rectangle rectangle) {
         return top.lytree.image.Image.from(srcImage).setPositionBaseCentre(false).cut(rectangle).getImages();
@@ -340,8 +341,8 @@ public class ImageUtils {
      * @param srcImage 源图像
      * @param x        原图的x坐标起始位置
      * @param y        原图的y坐标起始位置
-     * @return {@link Image}
      *
+     * @return {@link Image}
      */
     public static Image cut(Image srcImage, int x, int y) {
         return cut(srcImage, x, y, -1);
@@ -354,8 +355,8 @@ public class ImageUtils {
      * @param x        原图的x坐标起始位置
      * @param y        原图的y坐标起始位置
      * @param radius   半径，小于0表示填充满整个图片（直径取长宽最小值）
-     * @return {@link Image}
      *
+     * @return {@link Image}
      */
     public static Image cut(Image srcImage, int x, int y, int radius) {
         return top.lytree.image.Image.from(srcImage).cut(x, y, radius).getImages();
@@ -464,8 +465,8 @@ public class ImageUtils {
         int srcWidth = bi.getWidth(); // 源图宽度
         int srcHeight = bi.getHeight(); // 源图高度
 
-        int destWidth = NumberUtils.partValue(srcWidth, cols); // 每张切片的宽度
-        int destHeight = NumberUtils.partValue(srcHeight, rows); // 每张切片的高度
+        int destWidth = MathUtils.partValue(srcWidth, cols); // 每张切片的宽度
+        int destHeight = MathUtils.partValue(srcHeight, rows); // 每张切片的高度
 
         // 循环建立切片
         Image tag;
@@ -514,7 +515,6 @@ public class ImageUtils {
      * @param srcStream  源图像流
      * @param formatName 包含格式非正式名称的 String：如JPG、JPEG、GIF等
      * @param destStream 目标图像输出流
-     *
      */
     public static void convert(InputStream srcStream, String formatName, OutputStream destStream) throws IOException {
         write(read(srcStream), formatName, getImageOutputStream(destStream));
@@ -527,7 +527,6 @@ public class ImageUtils {
      * @param formatName      包含格式非正式名称的 String：如JPG、JPEG、GIF等
      * @param destImageStream 目标图像输出流
      * @param isSrcPng        源图片是否为PNG格式
-     *
      */
     public static void convert(Image srcImage, String formatName, ImageOutputStream destImageStream, boolean isSrcPng) throws IOException {
 
@@ -552,7 +551,6 @@ public class ImageUtils {
      *
      * @param srcStream  源图像流
      * @param destStream 目标图像流
-     *
      */
     public static void gray(InputStream srcStream, OutputStream destStream) throws IOException {
         gray(read(srcStream), getImageOutputStream(destStream));
@@ -563,7 +561,6 @@ public class ImageUtils {
      *
      * @param srcStream  源图像流
      * @param destStream 目标图像流
-     *
      */
     public static void gray(ImageInputStream srcStream, ImageOutputStream destStream) throws IOException {
         gray(read(srcStream), destStream);
@@ -574,7 +571,6 @@ public class ImageUtils {
      *
      * @param srcImage 源图像流
      * @param outFile  目标文件
-     *
      */
     public static void gray(Image srcImage, File outFile) throws IOException {
         write(gray(srcImage), outFile);
@@ -585,7 +581,6 @@ public class ImageUtils {
      *
      * @param srcImage 源图像流
      * @param out      目标图像流
-     *
      */
     public static void gray(Image srcImage, OutputStream out) throws IOException {
         gray(srcImage, getImageOutputStream(out));
@@ -596,8 +591,8 @@ public class ImageUtils {
      *
      * @param srcImage        源图像流
      * @param destImageStream 目标图像流
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void gray(Image srcImage, ImageOutputStream destImageStream) throws IOException {
         writeJpg(gray(srcImage), destImageStream);
@@ -607,8 +602,8 @@ public class ImageUtils {
      * 彩色转为黑白
      *
      * @param srcImage 源图像流
-     * @return {@link Image}灰度后的图片
      *
+     * @return {@link Image}灰度后的图片
      */
     public static Image gray(Image srcImage) {
         return top.lytree.image.Image.from(srcImage).gray().getImages();
@@ -632,7 +627,6 @@ public class ImageUtils {
      * @param srcStream  源图像流
      * @param destStream 目标图像流
      * @param imageType  图片格式(扩展名)
-     *
      */
     public static void binary(InputStream srcStream, OutputStream destStream, String imageType) throws IOException {
         binary(read(srcStream), getImageOutputStream(destStream), imageType);
@@ -644,7 +638,6 @@ public class ImageUtils {
      * @param srcStream  源图像流
      * @param destStream 目标图像流
      * @param imageType  图片格式(扩展名)
-     *
      */
     public static void binary(ImageInputStream srcStream, ImageOutputStream destStream, String imageType) throws IOException {
         binary(read(srcStream), destStream, imageType);
@@ -655,7 +648,6 @@ public class ImageUtils {
      *
      * @param srcImage 源图像流
      * @param outFile  目标文件
-     *
      */
     public static void binary(Image srcImage, File outFile) throws IOException {
         write(binary(srcImage), outFile);
@@ -667,7 +659,6 @@ public class ImageUtils {
      * @param srcImage  源图像流
      * @param out       目标图像流
      * @param imageType 图片格式(扩展名)
-     *
      */
     public static void binary(Image srcImage, OutputStream out, String imageType) throws IOException {
         binary(srcImage, getImageOutputStream(out), imageType);
@@ -679,8 +670,8 @@ public class ImageUtils {
      * @param srcImage        源图像流
      * @param destImageStream 目标图像流
      * @param imageType       图片格式(扩展名)
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void binary(Image srcImage, ImageOutputStream destImageStream, String imageType) throws IOException {
         write(binary(srcImage), imageType, destImageStream);
@@ -690,8 +681,8 @@ public class ImageUtils {
      * 彩色转为黑白二值化图片
      *
      * @param srcImage 源图像流
-     * @return {@link Image}二值化后的图片
      *
+     * @return {@link Image}二值化后的图片
      */
     public static Image binary(Image srcImage) {
         return top.lytree.image.Image.from(srcImage).binary().getImages();
@@ -758,8 +749,8 @@ public class ImageUtils {
      * @param x         修正值。 默认在中间，偏移量相对于中间偏移
      * @param y         修正值。 默认在中间，偏移量相对于中间偏移
      * @param alpha     透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void pressText(Image srcImage, File destFile, String pressText, Color color, Font font, int x, int y, float alpha) throws IOException {
         write(pressText(srcImage, pressText, color, font, x, y, alpha), destFile);
@@ -776,8 +767,8 @@ public class ImageUtils {
      * @param x         修正值。 默认在中间，偏移量相对于中间偏移
      * @param y         修正值。 默认在中间，偏移量相对于中间偏移
      * @param alpha     透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void pressText(Image srcImage, OutputStream to, String pressText, Color color, Font font, int x, int y, float alpha) throws IOException {
         pressText(srcImage, getImageOutputStream(to), pressText, color, font, x, y, alpha);
@@ -794,6 +785,7 @@ public class ImageUtils {
      * @param x               修正值。 默认在中间，偏移量相对于中间偏移
      * @param y               修正值。 默认在中间，偏移量相对于中间偏移
      * @param alpha           透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
+     *
      * @throws IOException IO异常
      */
     public static void pressText(Image srcImage, ImageOutputStream destImageStream, String pressText, Color color, Font font, int x, int y, float alpha) throws IOException {
@@ -810,8 +802,8 @@ public class ImageUtils {
      * @param x         修正值。 默认在中间，偏移量相对于中间偏移
      * @param y         修正值。 默认在中间，偏移量相对于中间偏移
      * @param alpha     透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
-     * @return 处理后的图像
      *
+     * @return 处理后的图像
      */
     public static Image pressText(Image srcImage, String pressText, Color color, Font font, int x, int y, float alpha) {
         return top.lytree.image.Image.from(srcImage).pressText(pressText, color, font, x, y, alpha).getImages();
@@ -854,6 +846,7 @@ public class ImageUtils {
      * @param x          修正值。 默认在中间，偏移量相对于中间偏移
      * @param y          修正值。 默认在中间，偏移量相对于中间偏移
      * @param alpha      透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
+     *
      * @throws IOException IO异常
      */
     public static void pressImage(ImageInputStream srcStream, ImageOutputStream destStream, Image pressImg, int x, int y, float alpha) throws IOException {
@@ -869,8 +862,8 @@ public class ImageUtils {
      * @param x        修正值。 默认在中间，偏移量相对于中间偏移
      * @param y        修正值。 默认在中间，偏移量相对于中间偏移
      * @param alpha    透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void pressImage(Image srcImage, File outFile, Image pressImg, int x, int y, float alpha) throws IOException {
         write(pressImage(srcImage, pressImg, x, y, alpha), outFile);
@@ -885,8 +878,8 @@ public class ImageUtils {
      * @param x        修正值。 默认在中间，偏移量相对于中间偏移
      * @param y        修正值。 默认在中间，偏移量相对于中间偏移
      * @param alpha    透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void pressImage(Image srcImage, OutputStream out, Image pressImg, int x, int y, float alpha) throws IOException {
         pressImage(srcImage, getImageOutputStream(out), pressImg, x, y, alpha);
@@ -901,6 +894,7 @@ public class ImageUtils {
      * @param x               修正值。 默认在中间，偏移量相对于中间偏移
      * @param y               修正值。 默认在中间，偏移量相对于中间偏移
      * @param alpha           透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
+     *
      * @throws IOException IO异常
      */
     public static void pressImage(Image srcImage, ImageOutputStream destImageStream, Image pressImg, int x, int y, float alpha) throws IOException {
@@ -915,6 +909,7 @@ public class ImageUtils {
      * @param x        修正值。 默认在中间，偏移量相对于中间偏移
      * @param y        修正值。 默认在中间，偏移量相对于中间偏移
      * @param alpha    透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
+     *
      * @return 结果图片
      */
     public static Image pressImage(Image srcImage, Image pressImg, int x, int y, float alpha) {
@@ -928,8 +923,8 @@ public class ImageUtils {
      * @param pressImg  水印图片，可以使用{@link ImageIO#read(File)}方法读取文件
      * @param rectangle 矩形对象，表示矩形区域的x，y，width，height，x,y从背景图片中心计算
      * @param alpha     透明度：alpha 必须是范围 [0.0, 1.0] 之内（包含边界值）的一个浮点数字
-     * @return 结果图片
      *
+     * @return 结果图片
      */
     public static Image pressImage(Image srcImage, Image pressImg, Rectangle rectangle, float alpha) {
         return top.lytree.image.Image.from(srcImage).pressImage(pressImg, rectangle, alpha).getImages();
@@ -943,8 +938,8 @@ public class ImageUtils {
      * @param imageFile 被旋转图像文件
      * @param degree    旋转角度
      * @param outFile   输出文件
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void rotate(File imageFile, int degree, File outFile) throws IOException {
         rotate(read(imageFile), degree, outFile);
@@ -956,8 +951,8 @@ public class ImageUtils {
      * @param image   目标图像
      * @param degree  旋转角度
      * @param outFile 输出文件
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void rotate(Image image, int degree, File outFile) throws IOException {
         write(rotate(image, degree), outFile);
@@ -969,8 +964,8 @@ public class ImageUtils {
      * @param image  目标图像
      * @param degree 旋转角度
      * @param out    输出流
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void rotate(Image image, int degree, OutputStream out) throws IOException {
         writeJpg(rotate(image, degree), getImageOutputStream(out));
@@ -982,8 +977,8 @@ public class ImageUtils {
      * @param image  目标图像
      * @param degree 旋转角度
      * @param out    输出图像流
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void rotate(Image image, int degree, ImageOutputStream out) throws IOException {
         writeJpg(rotate(image, degree), out);
@@ -994,8 +989,8 @@ public class ImageUtils {
      *
      * @param image  目标图像
      * @param degree 旋转角度
-     * @return 旋转后的图片
      *
+     * @return 旋转后的图片
      */
     public static Image rotate(Image image, int degree) {
         return top.lytree.image.Image.from(image).rotate(degree).getImages();
@@ -1008,8 +1003,8 @@ public class ImageUtils {
      *
      * @param imageFile 图像文件
      * @param outFile   输出文件
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void flip(File imageFile, File outFile) throws IOException {
         flip(read(imageFile), outFile);
@@ -1020,8 +1015,8 @@ public class ImageUtils {
      *
      * @param image   图像
      * @param outFile 输出文件
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void flip(Image image, File outFile) throws IOException {
         write(flip(image), outFile);
@@ -1032,8 +1027,8 @@ public class ImageUtils {
      *
      * @param image 图像
      * @param out   输出
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void flip(Image image, OutputStream out) throws IOException {
         flip(image, getImageOutputStream(out));
@@ -1044,8 +1039,8 @@ public class ImageUtils {
      *
      * @param image 图像
      * @param out   输出
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void flip(Image image, ImageOutputStream out) throws IOException {
         writeJpg(flip(image), out);
@@ -1055,8 +1050,8 @@ public class ImageUtils {
      * 水平翻转图像
      *
      * @param image 图像
-     * @return 翻转后的图片
      *
+     * @return 翻转后的图片
      */
     public static Image flip(Image image) {
         return top.lytree.image.Image.from(image).flip().getImages();
@@ -1070,8 +1065,8 @@ public class ImageUtils {
      * @param imageFile 图像文件
      * @param outFile   输出文件，只支持jpg文件
      * @param quality   压缩比例，必须为0~1
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void compress(File imageFile, File outFile, float quality) throws IOException {
         top.lytree.image.Image.from(imageFile).setQuality(quality).write(outFile);
@@ -1083,8 +1078,8 @@ public class ImageUtils {
      * {@link Image} 转 {@link RenderedImage}<br> 首先尝试强转，否则新建一个{@link BufferedImage}后重新绘制，使用 {@link BufferedImage#TYPE_INT_RGB} 模式。
      *
      * @param img {@link Image}
-     * @return {@link BufferedImage}
      *
+     * @return {@link BufferedImage}
      */
     public static RenderedImage toRenderedImage(Image img) {
         if (img instanceof RenderedImage) {
@@ -1098,6 +1093,7 @@ public class ImageUtils {
      * {@link Image} 转 {@link BufferedImage}<br> 首先尝试强转，否则新建一个{@link BufferedImage}后重新绘制，使用 {@link BufferedImage#TYPE_INT_RGB} 模式
      *
      * @param img {@link Image}
+     *
      * @return {@link BufferedImage}
      */
     public static BufferedImage toBufferedImage(Image img) {
@@ -1113,8 +1109,8 @@ public class ImageUtils {
      *
      * @param image     {@link Image}
      * @param imageType 目标图片类型，例如jpg或png等
-     * @return {@link BufferedImage}
      *
+     * @return {@link BufferedImage}
      */
     public static BufferedImage toBufferedImage(Image image, String imageType) {
         final int type = IMAGE_TYPE_PNG.equalsIgnoreCase(imageType)
@@ -1128,8 +1124,8 @@ public class ImageUtils {
      *
      * @param image     {@link Image}
      * @param imageType 目标图片类型，{@link BufferedImage}中的常量，例如黑白等
-     * @return {@link BufferedImage}
      *
+     * @return {@link BufferedImage}
      */
     public static BufferedImage toBufferedImage(Image image, int imageType) {
         BufferedImage bufferedImage;
@@ -1150,7 +1146,9 @@ public class ImageUtils {
      *
      * @param img       {@link Image}
      * @param imageType 目标图片类型，{@link BufferedImage}中的常量，例如黑白等
+     *
      * @return {@link BufferedImage}
+     *
      * @see BufferedImage#TYPE_INT_RGB
      * @see BufferedImage#TYPE_INT_ARGB
      * @see BufferedImage#TYPE_INT_ARGB_PRE
@@ -1175,7 +1173,9 @@ public class ImageUtils {
      * @param img             {@link Image}
      * @param imageType       目标图片类型，{@link BufferedImage}中的常量，例如黑白等
      * @param backgroundColor 背景色，{@code null} 表示默认背景色（黑色或者透明）
+     *
      * @return {@link BufferedImage}
+     *
      * @see BufferedImage#TYPE_INT_RGB
      * @see BufferedImage#TYPE_INT_ARGB
      * @see BufferedImage#TYPE_INT_ARGB_PRE
@@ -1189,7 +1189,6 @@ public class ImageUtils {
      * @see BufferedImage#TYPE_BYTE_INDEXED
      * @see BufferedImage#TYPE_USHORT_565_RGB
      * @see BufferedImage#TYPE_USHORT_555_RGB
-     *
      */
     public static BufferedImage copyImage(Image img, int imageType, Color backgroundColor) {
         // ensures that all the pixels loaded
@@ -1211,8 +1210,8 @@ public class ImageUtils {
      * @param width        宽度
      * @param height       高度
      * @param transparency 透明模式，见 {@link java.awt.Transparency}
-     * @return {@link BufferedImage}
      *
+     * @return {@link BufferedImage}
      */
     public static BufferedImage createCompatibleImage(int width, int height, int transparency) throws HeadlessException {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -1225,7 +1224,9 @@ public class ImageUtils {
      * 将Base64编码的图像信息转为 {@link BufferedImage}
      *
      * @param base64 图像的Base64表示
+     *
      * @return {@link BufferedImage}
+     *
      * @throws IOException IO异常
      */
     public static BufferedImage toImage(String base64) throws IOException {
@@ -1236,7 +1237,9 @@ public class ImageUtils {
      * 将的图像bytes转为 {@link BufferedImage}
      *
      * @param imageBytes 图像bytes
+     *
      * @return {@link BufferedImage}
+     *
      * @throws IOException IO异常
      */
     public static BufferedImage toImage(byte[] imageBytes) throws IOException {
@@ -1248,8 +1251,8 @@ public class ImageUtils {
      *
      * @param image     图片对象
      * @param imageType 图片类型
-     * @return Base64的字符串表现形式
      *
+     * @return Base64的字符串表现形式
      */
     public static ByteArrayInputStream toStream(Image image, String imageType) throws IOException {
         return IOUtils.toStream(toBytes(image, imageType));
@@ -1260,8 +1263,8 @@ public class ImageUtils {
      *
      * @param image     图片对象
      * @param imageType 图片类型
-     * @return Base64的字符串表现形式
      *
+     * @return Base64的字符串表现形式
      */
     public static String toBase64DataUri(Image image, String imageType) throws IOException {
         return UrlUtils.getDataUri(
@@ -1274,8 +1277,8 @@ public class ImageUtils {
      *
      * @param image     图片对象
      * @param imageType 图片类型
-     * @return Base64的字符串表现形式
      *
+     * @return Base64的字符串表现形式
      */
     public static String toBase64(Image image, String imageType) throws IOException {
         return new Base64().encodeAsString(toBytes(image, imageType));
@@ -1286,8 +1289,8 @@ public class ImageUtils {
      *
      * @param image     图片对象
      * @param imageType 图片类型
-     * @return Base64的字符串表现形式
      *
+     * @return Base64的字符串表现形式
      */
     public static byte[] toBytes(Image image, String imageType) throws IOException {
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -1303,6 +1306,7 @@ public class ImageUtils {
      * @param backgroundColor 背景颜色，默认透明
      * @param fontColor       字体颜色，默认黑色
      * @param out             图片输出地
+     *
      * @throws IOException IO异常
      */
     public static void createImage(String str, Font font, Color backgroundColor, Color fontColor, ImageOutputStream out) throws IOException {
@@ -1317,6 +1321,7 @@ public class ImageUtils {
      * @param backgroundColor 背景颜色，默认透明
      * @param fontColor       字体颜色，默认黑色
      * @param imageType       图片类型，见：{@link BufferedImage}
+     *
      * @return 图片
      */
     public static BufferedImage createImage(String str, Font font, Color backgroundColor, Color fontColor, int imageType) {
@@ -1350,8 +1355,8 @@ public class ImageUtils {
      *
      * @param str  字符串，必须非空
      * @param font 字体，必须非空
-     * @return {@link Rectangle2D}
      *
+     * @return {@link Rectangle2D}
      */
     public static Rectangle2D getRectangle(String str, Font font) {
         return font.getStringBounds(str,
@@ -1364,8 +1369,8 @@ public class ImageUtils {
      * 根据文件创建字体<br> 首先尝试创建{@link Font#TRUETYPE_FONT}字体，此类字体无效则创建{@link Font#TYPE1_FONT}
      *
      * @param fontFile 字体文件
-     * @return {@link Font}
      *
+     * @return {@link Font}
      */
     public static Font createFont(File fontFile) throws IOException, FontFormatException {
         return FontUtils.createFont(fontFile);
@@ -1375,8 +1380,8 @@ public class ImageUtils {
      * 根据文件创建字体<br> 首先尝试创建{@link Font#TRUETYPE_FONT}字体，此类字体无效则创建{@link Font#TYPE1_FONT}
      *
      * @param fontStream 字体流
-     * @return {@link Font}
      *
+     * @return {@link Font}
      */
     public static Font createFont(InputStream fontStream) throws IOException, FontFormatException {
         return FontUtils.createFont(fontStream);
@@ -1387,9 +1392,10 @@ public class ImageUtils {
      *
      * @param image {@link BufferedImage}
      * @param color {@link Color}背景颜色以及当前画笔颜色
-     * @return {@link Graphics2D}
-     * @see GraphicsUtils#createGraphics(BufferedImage, Color)
      *
+     * @return {@link Graphics2D}
+     *
+     * @see GraphicsUtils#createGraphics(BufferedImage, Color)
      */
     public static Graphics2D createGraphics(BufferedImage image, Color color) {
         return GraphicsUtils.createGraphics(image, color);
@@ -1400,6 +1406,7 @@ public class ImageUtils {
      *
      * @param image           {@link Image}
      * @param destImageStream 写出到的目标流
+     *
      * @throws IOException IO异常
      */
     public static void writeJpg(Image image, ImageOutputStream destImageStream) throws IOException {
@@ -1411,6 +1418,7 @@ public class ImageUtils {
      *
      * @param image           {@link Image}
      * @param destImageStream 写出到的目标流
+     *
      * @throws IOException IO异常
      */
     public static void writePng(Image image, ImageOutputStream destImageStream) throws IOException {
@@ -1422,8 +1430,8 @@ public class ImageUtils {
      *
      * @param image {@link Image}
      * @param out   写出到的目标流
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void writeJpg(Image image, OutputStream out) throws IOException {
         write(image, IMAGE_TYPE_JPG, out);
@@ -1434,8 +1442,8 @@ public class ImageUtils {
      *
      * @param image {@link Image}
      * @param out   写出到的目标流
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void writePng(Image image, OutputStream out) throws IOException {
         write(image, IMAGE_TYPE_PNG, out);
@@ -1447,7 +1455,6 @@ public class ImageUtils {
      * @param srcStream  源图像流
      * @param formatName 包含格式非正式名称的 String：如JPG、JPEG、GIF等
      * @param destStream 目标图像输出流
-     *
      */
     public static void write(ImageInputStream srcStream, String formatName, ImageOutputStream destStream) throws IOException {
         write(read(srcStream), formatName, destStream);
@@ -1459,8 +1466,8 @@ public class ImageUtils {
      * @param image     {@link Image}
      * @param imageType 图片类型（图片扩展名）
      * @param out       写出到的目标流
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void write(Image image, String imageType, OutputStream out) throws IOException {
         write(image, imageType, getImageOutputStream(out));
@@ -1472,9 +1479,10 @@ public class ImageUtils {
      * @param image           {@link Image}
      * @param imageType       图片类型（图片扩展名）
      * @param destImageStream 写出到的目标流
-     * @return 是否成功写出，如果返回false表示未找到合适的Writer
-     * @throws IOException IO异常
      *
+     * @return 是否成功写出，如果返回false表示未找到合适的Writer
+     *
+     * @throws IOException IO异常
      */
     public static boolean write(Image image, String imageType, ImageOutputStream destImageStream) throws IOException {
         return write(image, imageType, destImageStream, 1);
@@ -1487,9 +1495,10 @@ public class ImageUtils {
      * @param imageType       图片类型（图片扩展名）
      * @param destImageStream 写出到的目标流
      * @param quality         质量，数字为0~1（不包括0和1）表示质量压缩比，除此数字外设置表示不压缩
-     * @return 是否成功写出，如果返回false表示未找到合适的Writer
-     * @throws IOException IO异常
      *
+     * @return 是否成功写出，如果返回false表示未找到合适的Writer
+     *
+     * @throws IOException IO异常
      */
     public static boolean write(Image image, String imageType, ImageOutputStream destImageStream, float quality) throws IOException {
         if (StringUtils.isBlank(imageType)) {
@@ -1506,8 +1515,8 @@ public class ImageUtils {
      *
      * @param image      {@link Image}
      * @param targetFile 目标文件
-     * @throws IOException IO异常
      *
+     * @throws IOException IO异常
      */
     public static void write(Image image, File targetFile) throws IOException {
         FileUtils.touch(targetFile);
@@ -1527,8 +1536,8 @@ public class ImageUtils {
      * @param writer  {@link ImageWriter}
      * @param output  输出的Image流{@link ImageOutputStream}
      * @param quality 质量，数字为0~1（不包括0和1）表示质量压缩比，除此数字外设置表示不压缩
-     * @return 是否成功写出
      *
+     * @return 是否成功写出
      */
     public static boolean write(Image image, ImageWriter writer, ImageOutputStream output, float quality) throws IOException {
         if (writer == null) {
@@ -1568,6 +1577,7 @@ public class ImageUtils {
      * 获得{@link ImageReader}
      *
      * @param type 图片文件类型，例如 "jpeg" 或 "tiff"
+     *
      * @return {@link ImageReader}
      */
     public static ImageReader getReader(String type) {
@@ -1582,8 +1592,8 @@ public class ImageUtils {
      * 从文件中读取图片，请使用绝对路径，使用相对路径会相对于ClassPath
      *
      * @param imageFilePath 图片文件路径
-     * @return 图片
      *
+     * @return 图片
      */
     public static BufferedImage read(String imageFilePath) throws IOException {
         return read(FileUtils.getFile(imageFilePath));
@@ -1593,8 +1603,8 @@ public class ImageUtils {
      * 从文件中读取图片
      *
      * @param imageFile 图片文件
-     * @return 图片
      *
+     * @return 图片
      */
     public static BufferedImage read(File imageFile) throws IOException {
 
@@ -1611,8 +1621,8 @@ public class ImageUtils {
      * 从URL中获取或读取图片对象
      *
      * @param url URL
-     * @return {@link Image}
      *
+     * @return {@link Image}
      */
     public static Image getImage(URL url) {
         return Toolkit.getDefaultToolkit().getImage(url);
@@ -1623,8 +1633,8 @@ public class ImageUtils {
      * 从流中读取图片
      *
      * @param imageStream 图片文件
-     * @return 图片
      *
+     * @return 图片
      */
     public static BufferedImage read(InputStream imageStream) throws IOException {
 
@@ -1641,8 +1651,8 @@ public class ImageUtils {
      * 从图片流中读取图片
      *
      * @param imageStream 图片文件
-     * @return 图片
      *
+     * @return 图片
      */
     public static BufferedImage read(ImageInputStream imageStream) throws IOException {
 
@@ -1659,8 +1669,8 @@ public class ImageUtils {
      * 从URL中读取图片
      *
      * @param imageUrl 图片文件
-     * @return 图片
      *
+     * @return 图片
      */
     public static BufferedImage read(URL imageUrl) throws IOException {
 
@@ -1677,9 +1687,10 @@ public class ImageUtils {
      * 获取{@link ImageOutputStream}
      *
      * @param out {@link OutputStream}
-     * @return {@link ImageOutputStream}
-     * @throws IOException IO异常
      *
+     * @return {@link ImageOutputStream}
+     *
+     * @throws IOException IO异常
      */
     public static ImageOutputStream getImageOutputStream(OutputStream out) throws IOException {
         ImageOutputStream result;
@@ -1700,9 +1711,10 @@ public class ImageUtils {
      * 获取{@link ImageOutputStream}
      *
      * @param outFile {@link File}
-     * @return {@link ImageOutputStream}
-     * @throws IOException IO异常
      *
+     * @return {@link ImageOutputStream}
+     *
+     * @throws IOException IO异常
      */
     public static ImageOutputStream getImageOutputStream(File outFile) throws IOException {
         ImageOutputStream result;
@@ -1723,9 +1735,10 @@ public class ImageUtils {
      * 获取{@link ImageInputStream}
      *
      * @param in {@link InputStream}
-     * @return {@link ImageInputStream}
-     * @throws IOException IO异常
      *
+     * @return {@link ImageInputStream}
+     *
+     * @throws IOException IO异常
      */
     public static ImageInputStream getImageInputStream(InputStream in) throws IOException {
         ImageOutputStream result;
@@ -1747,8 +1760,8 @@ public class ImageUtils {
      *
      * @param img        {@link Image}
      * @param formatName 图片格式，例如"jpg"、"png"
-     * @return {@link ImageWriter}
      *
+     * @return {@link ImageWriter}
      */
     public static ImageWriter getWriter(Image img, String formatName) {
         final ImageTypeSpecifier type = ImageTypeSpecifier.createFromRenderedImage(toBufferedImage(img, formatName));
@@ -1760,8 +1773,8 @@ public class ImageUtils {
      * 根据给定的图片格式或者扩展名获取{@link ImageWriter}，如果未找到合适的Writer，返回null
      *
      * @param formatName 图片格式或扩展名，例如"jpg"、"png"
-     * @return {@link ImageWriter}
      *
+     * @return {@link ImageWriter}
      */
     public static ImageWriter getWriter(String formatName) {
         ImageWriter writer = null;
@@ -1785,8 +1798,8 @@ public class ImageUtils {
      * Color对象转16进制表示，例如#fcf6d6
      *
      * @param color {@link Color}
-     * @return 16进制的颜色值，例如#fcf6d6
      *
+     * @return 16进制的颜色值，例如#fcf6d6
      */
     public static String toHex(Color color) {
         return toHex(color.getRed(), color.getGreen(), color.getBlue());
@@ -1798,6 +1811,7 @@ public class ImageUtils {
      * @param r 红(R)
      * @param g 绿(G)
      * @param b 蓝(B)
+     *
      * @return 返回字符串形式的 十六进制颜色码 如
      */
     public static String toHex(int r, int g, int b) {
@@ -1812,8 +1826,8 @@ public class ImageUtils {
      * 16进制的颜色值转换为Color对象，例如#fcf6d6
      *
      * @param hex 16进制的颜色值，例如#fcf6d6
-     * @return {@link Color}
      *
+     * @return {@link Color}
      */
     public static Color hexToColor(String hex) {
         return getColor(Integer.parseInt(StringUtils.removeStart(hex, "#"), 16));
@@ -1823,8 +1837,8 @@ public class ImageUtils {
      * 获取一个RGB值对应的颜色
      *
      * @param rgb RGB值
-     * @return {@link Color}
      *
+     * @return {@link Color}
      */
     public static Color getColor(int rgb) {
         return new Color(rgb);
@@ -1842,8 +1856,8 @@ public class ImageUtils {
      * 方法来自：com.lnwazg.kit
      *
      * @param colorName 颜色的英文名，16进制表示或RGB表示
-     * @return {@link Color}
      *
+     * @return {@link Color}
      */
     public static Color getColor(String colorName) {
         if (StringUtils.isBlank(colorName)) {
@@ -1895,7 +1909,7 @@ public class ImageUtils {
                 final Integer r = Integer.parseInt(rgb[0]);
                 final Integer g = Integer.parseInt(rgb[1]);
                 final Integer b = Integer.parseInt(rgb[2]);
-                if (!ArraysUtils.hasNull(r, g, b)) {
+                if (!ArrayUtils.hasNull(r, g, b)) {
                     return new Color(r, g, b);
                 }
             } else {
@@ -1909,7 +1923,6 @@ public class ImageUtils {
      * 生成随机颜色
      *
      * @return 随机颜色
-     *
      */
     public static Color randomColor() {
         return randomColor(null);
@@ -1919,8 +1932,8 @@ public class ImageUtils {
      * 生成随机颜色
      *
      * @param random 随机对象 {@link Random}
-     * @return 随机颜色
      *
+     * @return 随机颜色
      */
     public static Color randomColor(Random random) {
         if (null == random) {
@@ -1935,8 +1948,8 @@ public class ImageUtils {
      * @param rectangle        矩形
      * @param backgroundWidth  参考宽（背景宽）
      * @param backgroundHeight 参考高（背景高）
-     * @return 修正后的{@link Point}
      *
+     * @return 修正后的{@link Point}
      */
     public static Point getPointBaseCentre(Rectangle rectangle, int backgroundWidth, int backgroundHeight) {
         return new Point(
@@ -1950,8 +1963,8 @@ public class ImageUtils {
      *
      * @param image      {@link BufferedImage}
      * @param rgbFilters 过滤多种颜色
-     * @return {@link String} #ffffff
      *
+     * @return {@link String} #ffffff
      */
     public static String getMainColor(BufferedImage image, int[]... rgbFilters) {
         int r, g, b;
@@ -1999,6 +2012,7 @@ public class ImageUtils {
      * @param g          G
      * @param b          B
      * @param rgbFilters 颜色过滤器
+     *
      * @return 是否匹配
      */
     private static boolean matchFilters(int r, int g, int b, int[]... rgbFilters) {
@@ -2018,8 +2032,8 @@ public class ImageUtils {
      *
      * @param colorSpace 颜色模式，如灰度等
      * @param image      被转换的图片
-     * @return 转换后的图片
      *
+     * @return 转换后的图片
      */
     public static BufferedImage colorConvert(ColorSpace colorSpace, BufferedImage image) {
         return filter(new ColorConvertOp(colorSpace, null), image);
@@ -2030,8 +2044,8 @@ public class ImageUtils {
      *
      * @param xform 2D仿射变换，它执行从 2D 坐标到其他 2D 坐标的线性映射，保留了线的“直线性”和“平行性”。
      * @param image 被转换的图片
-     * @return 转换后的图片
      *
+     * @return 转换后的图片
      */
     public static BufferedImage transform(AffineTransform xform, BufferedImage image) {
         return filter(new AffineTransformOp(xform, null), image);
@@ -2042,8 +2056,8 @@ public class ImageUtils {
      *
      * @param op    过滤操作实现，如二维转换可传入{@link AffineTransformOp}
      * @param image 原始图片
-     * @return 过滤后的图片
      *
+     * @return 过滤后的图片
      */
     public static BufferedImage filter(BufferedImageOp op, BufferedImage image) {
         return op.filter(image, null);
@@ -2054,8 +2068,8 @@ public class ImageUtils {
      *
      * @param filter 滤镜实现
      * @param image  图片
-     * @return 滤镜后的图片
      *
+     * @return 滤镜后的图片
      */
     public static Image filter(ImageFilter filter, Image image) {
         return Toolkit.getDefaultToolkit().createImage(
@@ -2119,6 +2133,7 @@ public class ImageUtils {
      * 计算text的长度（一个中文算两个字符）
      *
      * @param text
+     *
      * @return
      */
     public static int getLength(String text) {

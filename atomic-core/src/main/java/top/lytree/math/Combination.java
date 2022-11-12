@@ -10,7 +10,6 @@ import top.lytree.lang.StringUtils;
  * 组合，即C(n, m)<br> 排列组合相关类 参考：http://cgs1999.iteye.com/blog/2327664
  *
  * @author looly
- * 
  */
 public class Combination implements Serializable {
 
@@ -32,19 +31,21 @@ public class Combination implements Serializable {
      *
      * @param n 总数
      * @param m 选择的个数
+     *
      * @return 组合数
      */
     public static long count(int n, int m) {
         if (0 == m || n == m) {
             return 1;
         }
-        return (n > m) ? NumberUtils.factorial(n, n - m) / NumberUtils.factorial(m) : 0;
+        return (n > m) ? MathUtils.factorial(n, n - m) / MathUtils.factorial(m) : 0;
     }
 
     /**
      * 计算组合总数，即C(n, 1) + C(n, 2) + C(n, 3)...
      *
      * @param n 总数
+     *
      * @return 组合数
      */
     public static long countAll(int n) {
@@ -58,6 +59,7 @@ public class Combination implements Serializable {
      * 组合选择（从列表中选择m个组合）
      *
      * @param m 选择个数
+     *
      * @return 组合结果
      */
     public List<String[]> select(int m) {

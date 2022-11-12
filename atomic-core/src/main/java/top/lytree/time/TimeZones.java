@@ -20,12 +20,12 @@ package top.lytree.time;
 import static top.lytree.time.ZoneIdEnum.CTT;
 
 import java.time.ZoneId;
+import java.util.TimeZone;
 
 /**
  * Helps to deal with {@link java.util.TimeZone}s.
  *
  * @author pride
- *
  */
 public class TimeZones {
 
@@ -48,4 +48,34 @@ public class TimeZones {
      * 上海时区  Asia/Shanghai
      */
     public static final ZoneId SHANGHAI_ZONE = ZoneId.of(SHANGHAI_ZONE_ID);
+
+    /**
+     * {@link ZoneId}转换为{@link TimeZone}，{@code null}则返回系统默认值
+     *
+     * @param zoneId {@link ZoneId}，{@code null}则返回系统默认值
+     *
+     * @return {@link TimeZone}
+     */
+    public static TimeZone toTimeZone(final ZoneId zoneId) {
+        if (null == zoneId) {
+            return TimeZone.getDefault();
+        }
+
+        return TimeZone.getTimeZone(zoneId);
+    }
+
+    /**
+     * {@link TimeZone}转换为{@link ZoneId}，{@code null}则返回系统默认值
+     *
+     * @param timeZone {@link TimeZone}，{@code null}则返回系统默认值
+     *
+     * @return {@link ZoneId}
+     */
+    public static ZoneId toZoneId(final TimeZone timeZone) {
+        if (null == timeZone) {
+            return ZoneId.systemDefault();
+        }
+
+        return timeZone.toZoneId();
+    }
 }

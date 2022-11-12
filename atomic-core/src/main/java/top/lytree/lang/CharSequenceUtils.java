@@ -1,7 +1,7 @@
 package top.lytree.lang;
 
 
-import top.lytree.collections.ArraysUtils;
+import top.lytree.collections.ArrayUtils;
 
 /**
  * @author PrideYang
@@ -261,7 +261,7 @@ public class CharSequenceUtils {
     public static char[] toCharArray(final CharSequence source) {
         final int len = StringUtils.length(source);
         if (len == 0) {
-            return ArraysUtils.EMPTY_CHAR_ARRAY;
+            return ArrayUtils.EMPTY_CHAR_ARRAY;
         }
         if (source instanceof String) {
             return ((String) source).toCharArray();

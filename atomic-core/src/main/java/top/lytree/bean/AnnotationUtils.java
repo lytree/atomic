@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
-import top.lytree.collections.ArraysUtils;
+import top.lytree.collections.ArrayUtils;
 
 public class AnnotationUtils extends org.apache.commons.lang3.AnnotationUtils {
 
@@ -36,7 +36,7 @@ public class AnnotationUtils extends org.apache.commons.lang3.AnnotationUtils {
         final Annotation[] annotations = getAnnotations(annotationEle,
                 (annotation -> null == annotationType || annotationType.isAssignableFrom(annotation.getClass())));
 
-        final T[] result = ArraysUtils.newArray(annotationType, annotations.length);
+        final T[] result = ArrayUtils.newArray(annotationType, annotations.length);
         for (int i = 0; i < annotations.length; i++) {
             //noinspection unchecked
             result[i] = (T) annotations[i];
@@ -61,7 +61,7 @@ public class AnnotationUtils extends org.apache.commons.lang3.AnnotationUtils {
         if (null == predicate) {
             return result;
         }
-        return ArraysUtils.filter(result, predicate::test);
+        return ArrayUtils.filter(result, predicate::test);
     }
 
     /**
@@ -141,7 +141,7 @@ public class AnnotationUtils extends org.apache.commons.lang3.AnnotationUtils {
         }
 
         final Method[] methods = MethodUtils.getMethods(annotationType, t -> {
-            if (ArraysUtils.isEmpty(t.getParameterTypes())) {
+            if (ArrayUtils.isEmpty(t.getParameterTypes())) {
                 // 只读取无参方法
                 final String name = t.getName();
                 // 跳过自有的几个方法

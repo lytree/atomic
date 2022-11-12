@@ -102,7 +102,7 @@ abstract class JSON {
      * @param object javaBean
      * @return jsonString json字符串
      */
-    public static byte[] toJsonAsBytes(Object object) {
+    public static byte[] toJSONBytes(Object object) {
         try {
             return getObjectMapper().writeValueAsBytes(object);
         } catch (JsonProcessingException e) {

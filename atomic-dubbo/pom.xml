@@ -23,6 +23,15 @@
     </dependency>
     <dependency>
       <groupId>org.apache.dubbo</groupId>
+      <artifactId>dubbo-registry-api</artifactId>
+      <version>${dubbo.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.ecwid.consul</groupId>
+      <artifactId>consul-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.dubbo</groupId>
       <artifactId>dubbo</artifactId>
     </dependency>
   </dependencies>

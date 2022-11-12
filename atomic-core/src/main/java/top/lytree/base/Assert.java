@@ -4,7 +4,7 @@ package top.lytree.base;
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.Supplier;
-import top.lytree.collections.ArraysUtils;
+import top.lytree.collections.ArrayUtils;
 import top.lytree.collections.CollectionUtils;
 import top.lytree.collections.MapUtils;
 import top.lytree.lang.StringUtils;
@@ -458,10 +458,10 @@ public class Assert {
      * @return 被检查的数组
      *
      * @throws X if the object array is {@code null} or has no elements
-     * @see ArraysUtils#isNotEmpty(Object[])
+     * @see ArrayUtils#isNotEmpty(Object[])
      */
     public static <T, X extends Throwable> T[] notEmpty(T[] array, Supplier<X> errorSupplier) throws X {
-        if (ArraysUtils.isEmpty(array)) {
+        if (ArrayUtils.isEmpty(array)) {
             throw errorSupplier.get();
         }
         return array;
@@ -522,10 +522,10 @@ public class Assert {
      * @return 被检查的数组
      *
      * @throws X if the object array contains a {@code null} element
-     * @see ArraysUtils#hasNull(Object[])
+     * @see ArrayUtils#hasNull(Object[])
      */
     public static <T, X extends Throwable> T[] noNullElements(T[] array, Supplier<X> errorSupplier) throws X {
-        if (ArraysUtils.hasNull(array)) {
+        if (ArrayUtils.hasNull(array)) {
             throw errorSupplier.get();
         }
         return array;
