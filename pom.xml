@@ -58,7 +58,6 @@
     <module>atomic-system</module>
     <module>atomic-model</module>
     <module>atomic-http</module>
-    <module>atomic-oss</module>
     <module>atomic-ftp</module>
   </modules>
   <dependencyManagement>
