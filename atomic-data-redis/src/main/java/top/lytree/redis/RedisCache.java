@@ -1,4 +1,4 @@
-package top.lytree.redis.common;
+package top.lytree.redis;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,11 +15,11 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RedisUtils {
+public class RedisCache {
 
     private final RedisTemplate redisTemplate;
 
-    public RedisUtils(@Qualifier("redisTemplate") RedisTemplate redisTemplate) {
+    public RedisCache(@Qualifier("redisTemplate") RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 

@@ -1,4 +1,4 @@
-package top.lytree.redis.configure;
+package top.lytree.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -21,7 +21,7 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-public class RedisConfig extends CachingConfigurerSupport {
+public class RedisCachingConfig extends CachingConfigurerSupport {
 
     @Bean
     @SuppressWarnings(value = {"unchecked", "rawtypes"})

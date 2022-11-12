@@ -1,15 +1,14 @@
-package top.lytree.redis.string;
+package top.lytree.redis;
 
 import java.util.Set;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
-@Component
-public class RedisSet {
+public class RedisStringSet {
 
     private final StringRedisTemplate stringRedisTemplate;
 
-    public RedisSet(StringRedisTemplate stringRedisTemplate) {
+    public RedisStringSet(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 

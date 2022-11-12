@@ -74,14 +74,13 @@ public class ConsulRegistry extends FailbackRegistry {
 
     private final ConsulClient client;
     private final long checkPassInterval;
-    private final ExecutorService notifierExecutor = newCachedThreadPool(
-            new NamedThreadFactory("dubbo-consul-notifier", true));
-    private ConcurrentMap<URL, ConsulNotifier> notifiers = new ConcurrentHashMap<>();
-    private ScheduledExecutorService ttlConsulCheckExecutor;
+    private final ExecutorService notifierExecutor = newCachedThreadPool(new NamedThreadFactory("dubbo-consul-notifier", true));
+    private final ConcurrentMap<URL, ConsulNotifier> notifiers = new ConcurrentHashMap<>();
+    private final ScheduledExecutorService ttlConsulCheckExecutor;
     /**
      * The ACL token
      */
-    private String token;
+    private final String token;
 
     private static final int CONSUL_CORE_THREAD_SIZE = 1;
 

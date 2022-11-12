@@ -1,19 +1,24 @@
-package top.lytree.redis.string;
+package top.lytree.redis;
 
 import java.util.List;
 import java.util.Map;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Component;
+
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
 
-@Component
-public class RedisHash {
+public class RedisStringHash extends AbstractRedis<String> {
 
 
-    private final StringRedisTemplate stringRedisTemplate;
+    public RedisStringHash(RedisTemplate<String, String> redisTemplate) {
+        super(redisTemplate);
+    }
 
-    public RedisHash(StringRedisTemplate stringRedisTemplate) {
-        this.stringRedisTemplate = stringRedisTemplate;
+    public RedisStringHash(String host, Integer port) {
+        super(host, port);
+    }
+
+    public RedisStringHash(String host, Integer port, String password) {
+        super(host, port, password);
     }
 
     /**
@@ -24,7 +29,7 @@ public class RedisHash {
      * @param hv  hash中的值
      */
     public void hPut(String key, String hk, String hv) {
-        stringRedisTemplate.<String, String>opsForHash().put(key, hk, hv);
+        template.<String, String>opsForHash().put(key, hk, hv);
     }
 
     /**
@@ -34,7 +39,7 @@ public class RedisHash {
      * @param map 需要保存的Map
      */
     public void hPut(String key, Map<String, String> map) {
-        stringRedisTemplate.<String, String>opsForHash().putAll(key, map);
+        template.<String, String>opsForHash().putAll(key, map);
     }
 
     /**
@@ -45,7 +50,7 @@ public class RedisHash {
      * @return 返回key对应value
      */
     public String hGet(String key, String field) {
-        return stringRedisTemplate.<String, String>opsForHash().get(key, field);
+        return template.<String, String>opsForHash().get(key, field);
     }
 
     /**
@@ -56,7 +61,7 @@ public class RedisHash {
      * @return 返回key对应value
      */
     public String hGetOrDefault(String key, String field, String defaultValue) {
-        String value = stringRedisTemplate.<String, String>opsForHash().get(key, field);
+        String value = template.<String, String>opsForHash().get(key, field);
         if (StringUtils.hasText(value)) {
             return value;
         }
@@ -67,7 +72,7 @@ public class RedisHash {
      * 删除hash中field这一对kv
      */
     public void hDel(String key, String field) {
-        stringRedisTemplate.opsForHash().delete(key, field);
+        template.opsForHash().delete(key, field);
     }
 
     /**
@@ -77,7 +82,7 @@ public class RedisHash {
      * @return 所有键值对
      */
     public Map<String, String> hGetAll(String key) {
-        return stringRedisTemplate.<String, String>opsForHash().entries(key);
+        return template.<String, String>opsForHash().entries(key);
     }
 
     /**
@@ -87,7 +92,7 @@ public class RedisHash {
      * @return 所有键值对
      */
     public Map<String, String> hGetAllOrDefault(String key, Map<String, String> defaultMap) {
-        Map<String, String> entries = stringRedisTemplate.<String, String>opsForHash().entries(key);
+        Map<String, String> entries = template.<String, String>opsForHash().entries(key);
         if (null == entries || entries.isEmpty()) {
             return defaultMap;
         }
@@ -101,7 +106,7 @@ public class RedisHash {
      * @return hash中的所有值
      */
     public List<String> hGetAllValue(String key) {
-        return stringRedisTemplate.<String, String>opsForHash().values(key);
+        return template.<String, String>opsForHash().values(key);
     }
 
     /**
@@ -112,7 +117,7 @@ public class RedisHash {
      * @return 对应的value值
      */
     public List<String> hmGet(String key, List<String> fields) {
-        return stringRedisTemplate.<String, String>opsForHash().multiGet(key, fields);
+        return template.<String, String>opsForHash().multiGet(key, fields);
     }
 
     /**
@@ -124,7 +129,7 @@ public class RedisHash {
      * @return 返回加减后的值
      */
     public long hIncr(String key, String field, long value) {
-        return stringRedisTemplate.opsForHash().increment(key, field, value);
+        return template.opsForHash().increment(key, field, value);
     }
 
 }

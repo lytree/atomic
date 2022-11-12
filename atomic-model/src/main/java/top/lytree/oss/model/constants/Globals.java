@@ -10,7 +10,7 @@ public class Globals {
     /**
      * 请求Id
      */
-    public static final String REQUEST_ID = "RequestId";
+    public static final String TRACE_ID = "traceId";
 
     public static final String TEXT_JSON_CHARSET_UTF_8 = "text/json;charset=utf-8";
     /**

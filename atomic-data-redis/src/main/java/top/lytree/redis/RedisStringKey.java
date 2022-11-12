@@ -1,4 +1,4 @@
-package top.lytree.redis.string;
+package top.lytree.redis;
 
 import java.util.concurrent.TimeUnit;
 import org.springframework.data.redis.core.RedisCallback;
@@ -6,12 +6,11 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-@Component
-public class RedisKey {
+public class RedisStringKey {
 
     private final StringRedisTemplate stringRedisTemplate;
 
-    public RedisKey(StringRedisTemplate stringRedisTemplate) {
+    public RedisStringKey(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 

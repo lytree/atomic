@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  topredis.configure.RedisConfig
+  top.lytree.redis.RedisCachingConfig

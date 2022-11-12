@@ -1,4 +1,4 @@
-package top.lytree.redis.bitmap;
+package top.lytree.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisStringCommands;

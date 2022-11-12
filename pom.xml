@@ -51,6 +51,7 @@
     <module>atomic-email</module>
     <module>atomic-spring</module>
     <module>atomic-web</module>
+    <module>atomic-dubbo</module>
     <module>atomic-data-jpa</module>
     <module>atomic-data-mongo</module>
     <module>atomic-data-redis</module>
