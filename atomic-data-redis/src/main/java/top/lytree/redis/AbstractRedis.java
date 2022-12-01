@@ -14,6 +14,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractRedis<T> {
 
@@ -30,6 +31,11 @@ public abstract class AbstractRedis<T> {
 
     public AbstractRedis(String host, Integer port, String password) {
         template = new RedisTemplate<>();
+        init(host, port, password);
+
+    }
+
+    protected void init(String host, Integer port, String password) {
         RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration(host, port);
         if (StringUtils.hasText(password)) {
             configuration.setPassword(password);
@@ -50,11 +56,68 @@ public abstract class AbstractRedis<T> {
         lettuceConnectionFactory.afterPropertiesSet();
         template.setConnectionFactory(lettuceConnectionFactory);
         template.afterPropertiesSet();
-
     }
 
+    /**
+     * 获取redis中的key
+     *
+     * @return
+     */
+    public List<String> getAllKey(String pattern) {
+        return new ArrayList<>(template.keys(pattern));
+    }
+
+    /**
+     * 获取redis中的所有key
+     *
+     * @return
+     */
     public List<String> getAllKey() {
         return new ArrayList<>(template.keys("*"));
+    }
+
+    /**
+     * 指定缓存失效时间
+     *
+     * @param key  键
+     * @param time 时间(秒)
+     * @return
+     */
+    public boolean expire(String key, long time) {
+        try {
+            if (time > 0) {
+                template.expire(key, time, TimeUnit.SECONDS);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 根据key 获取过期时间
+     *
+     * @param key 键 不能为null
+     * @return 时间(秒) 返回0代表为永久有效
+     */
+    public long getExpire(String key) {
+        return template.getExpire(key, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 判断key是否存在
+     *
+     * @param key 键
+     * @return true 存在 false不存在
+     */
+    public boolean hasKey(String key) {
+        try {
+            return template.hasKey(key);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**

@@ -6,11 +6,12 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-@Component
 public class RedisBitmap {
+    public RedisBitmap(RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
-    @Autowired
-    private RedisTemplate redisTemplate;
+    private final RedisTemplate redisTemplate;
 
     public Boolean setBit(String key, Integer index, Boolean tag) {
         return (Boolean) redisTemplate.execute((RedisCallback<Boolean>) con -> con.setBit(key.getBytes(), index, tag));
