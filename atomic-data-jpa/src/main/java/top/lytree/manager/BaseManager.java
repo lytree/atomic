@@ -20,7 +20,7 @@ import top.lytree.oss.model.entity.BaseEntity;
 import top.lytree.oss.model.exception.exception.DataException;
 import top.lytree.oss.model.request.support.BaseQuery;
 import top.lytree.oss.model.request.support.PageQuery;
-import top.lytree.dao.repository.BaseJpaRepository;
+import top.lytree.repository.BaseJpaRepository;
 
 public abstract class BaseManager<T extends BaseEntity, ID extends Serializable> {
 

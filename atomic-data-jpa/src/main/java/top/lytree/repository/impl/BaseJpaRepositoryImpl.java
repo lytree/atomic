@@ -1,4 +1,4 @@
-package top.lytree.dao.repository.impl;
+package top.lytree.repository.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -43,7 +43,7 @@ import top.lytree.bean.FieldUtils;
 import top.lytree.oss.model.exception.exception.ServerException;
 import top.lytree.oss.model.exception.result.ServerCode;
 import top.lytree.oss.model.request.support.BaseQuery;
-import top.lytree.dao.repository.BaseJpaRepository;
+import top.lytree.repository.BaseJpaRepository;
 
 
 public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAIN, ID>

@@ -1,4 +1,4 @@
-package top.lytree.dao.repository;
+package top.lytree.repository;
 
 import java.io.Serializable;
 import org.springframework.data.mongodb.repository.MongoRepository;

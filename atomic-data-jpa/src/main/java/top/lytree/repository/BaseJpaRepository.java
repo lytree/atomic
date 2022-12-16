@@ -1,4 +1,4 @@
-package top.lytree.dao.repository;
+package top.lytree.repository;
 
 import java.util.Collection;
 import java.util.List;
