@@ -1,26 +1,17 @@
 package top.lytree.redis;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Component;
 
-@Component
-public class RedisCache {
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
-    private final RedisTemplate redisTemplate;
+public class RedisCache extends AbstractRedis<Object> {
 
-    public RedisCache(@Qualifier("redisTemplate") RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
+
+    public RedisCache(String host, Integer port) {
+        super(host, port);
     }
 
     /****************** common start ****************/
@@ -30,8 +21,8 @@ public class RedisCache {
      * @param key   缓存的键值
      * @param value 缓存的值
      */
-    public <T> void setCacheObject(final String key, final T value) {
-        redisTemplate.opsForValue().set(key, value);
+    public void setCacheObject(final String key, final Object value) {
+        template.opsForValue().set(key, value);
     }
 
     /**
@@ -42,8 +33,8 @@ public class RedisCache {
      * @param timeout  时间
      * @param timeUnit 时间颗粒度
      */
-    public <T> void setCacheObject(final String key, final T value, final Long timeout, final TimeUnit timeUnit) {
-        redisTemplate.opsForValue().set(key, value, timeout, timeUnit);
+    public  void setCacheObject(final String key, final Object value, final Long timeout, final TimeUnit timeUnit) {
+        template.opsForValue().set(key, value, timeout, timeUnit);
     }
 
     /**
@@ -52,8 +43,8 @@ public class RedisCache {
      * @param key 缓存键值
      * @return 缓存键值对应的数据
      */
-    public <T> T getCacheObject(final String key) {
-        ValueOperations<String, T> operation = redisTemplate.opsForValue();
+    public Object getCacheObject(final String key) {
+        ValueOperations<String, Object> operation = template.opsForValue();
         return operation.get(key);
     }
 
@@ -63,7 +54,7 @@ public class RedisCache {
      * @param key
      */
     public boolean deleteObject(final String key) {
-        return redisTemplate.delete(key);
+        return template.delete(key);
     }
 
     /**
@@ -73,7 +64,7 @@ public class RedisCache {
      * @return
      */
     public long deleteObject(final Collection collection) {
-        return redisTemplate.delete(collection);
+        return template.delete(collection);
     }
 
     /**
@@ -83,7 +74,7 @@ public class RedisCache {
      * @return
      */
     public long deleteObject(final String... collection) {
-        return redisTemplate.delete(Arrays.asList(collection));
+        return template.delete(Arrays.asList(collection));
     }
 
     /**
@@ -94,7 +85,7 @@ public class RedisCache {
      * @return 缓存的对象
      */
     public <T> long setCacheList(final String key, final List<T> dataList) {
-        Long count = redisTemplate.opsForList().rightPushAll(key, dataList);
+        Long count = template.opsForList().rightPushAll(key, dataList);
         return count == null ? 0 : count;
     }
 
@@ -104,8 +95,8 @@ public class RedisCache {
      * @param key 缓存的键值
      * @return 缓存键值对应的数据
      */
-    public <T> List<T> getCacheList(final String key) {
-        return redisTemplate.opsForList().range(key, 0, -1);
+    public List<Object> getCacheList(final String key) {
+        return template.opsForList().range(key, 0, -1);
     }
 
     /**
@@ -115,9 +106,9 @@ public class RedisCache {
      * @param dataSet 缓存的数据
      * @return 缓存数据的对象
      */
-    public <T> BoundSetOperations<String, T> setCacheSet(final String key, final Set<T> dataSet) {
-        BoundSetOperations<String, T> setOperation = redisTemplate.boundSetOps(key);
-        Iterator<T> it = dataSet.iterator();
+    public BoundSetOperations<String, Object> setCacheSet(final String key, final Set<Object> dataSet) {
+        BoundSetOperations<String, Object> setOperation = template.boundSetOps(key);
+        Iterator<Object> it = dataSet.iterator();
         while (it.hasNext()) {
             setOperation.add(it.next());
         }
@@ -130,8 +121,8 @@ public class RedisCache {
      * @param key
      * @return
      */
-    public <T> Set<T> getCacheSet(final String key) {
-        return redisTemplate.opsForSet().members(key);
+    public Set<Object> getCacheSet(final String key) {
+        return template.opsForSet().members(key);
     }
 
     /**
@@ -142,7 +133,7 @@ public class RedisCache {
      */
     public <T> void setCacheMap(final String key, final Map<String, T> dataMap) {
         if (dataMap != null) {
-            redisTemplate.opsForHash().putAll(key, dataMap);
+            template.opsForHash().putAll(key, dataMap);
         }
     }
 
@@ -152,8 +143,8 @@ public class RedisCache {
      * @param key
      * @return
      */
-    public <T> Map<String, T> getCacheMap(final String key) {
-        return redisTemplate.opsForHash().entries(key);
+    public Map<Object, Object> getCacheMap(final String key) {
+        return template.opsForHash().entries(key);
     }
 
     /**
@@ -163,8 +154,8 @@ public class RedisCache {
      * @param hKey  Hash键
      * @param value 值
      */
-    public <T> void setCacheMapValue(final String key, final String hKey, final T value) {
-        redisTemplate.opsForHash().put(key, hKey, value);
+    public void setCacheMapValue(final String key, final String hKey, final Object value) {
+        template.opsForHash().put(key, hKey, value);
     }
 
     /**
@@ -175,7 +166,7 @@ public class RedisCache {
      * @return Hash中的对象
      */
     public <T> T getCacheMapValue(final String key, final String hKey) {
-        HashOperations<String, String, T> opsForHash = redisTemplate.opsForHash();
+        HashOperations<String, String, T> opsForHash = template.opsForHash();
         return opsForHash.get(key, hKey);
     }
 
@@ -186,8 +177,8 @@ public class RedisCache {
      * @param hKeys Hash键集合
      * @return Hash对象集合
      */
-    public <T> List<T> getMultiCacheMapValue(final String key, final Collection<Object> hKeys) {
-        return redisTemplate.opsForHash().multiGet(key, hKeys);
+    public List<Object> getMultiCacheMapValue(final String key, final Collection<Object> hKeys) {
+        return template.opsForHash().multiGet(key, hKeys);
     }
 
     /**
@@ -197,50 +188,7 @@ public class RedisCache {
      * @return 对象列表
      */
     public Collection<String> keys(final String pattern) {
-        return redisTemplate.keys(pattern);
+        return template.keys(pattern);
     }
 
-    /**
-     * 指定缓存失效时间
-     *
-     * @param key  键
-     * @param time 时间(秒)
-     * @return
-     */
-    public boolean expire(String key, long time) {
-        try {
-            if (time > 0) {
-                redisTemplate.expire(key, time, TimeUnit.SECONDS);
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * 根据key 获取过期时间
-     *
-     * @param key 键 不能为null
-     * @return 时间(秒) 返回0代表为永久有效
-     */
-    public long getExpire(String key) {
-        return redisTemplate.getExpire(key, TimeUnit.SECONDS);
-    }
-
-    /**
-     * 判断key是否存在
-     *
-     * @param key 键
-     * @return true 存在 false不存在
-     */
-    public boolean hasKey(String key) {
-        try {
-            return redisTemplate.hasKey(key);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 }

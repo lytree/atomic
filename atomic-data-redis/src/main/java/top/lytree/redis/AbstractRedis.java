@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -40,8 +41,8 @@ public abstract class AbstractRedis<T> {
         if (StringUtils.hasText(password)) {
             configuration.setPassword(password);
         }
-        RedisSerializer serializer = getRedisSerializer();
-        LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(configuration);
+        RedisSerializer<Object> serializer = getRedisSerializer();
+        RedisConnectionFactory redisConnectionFactory = getConnectionFactory(configuration);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         mapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
@@ -53,10 +54,11 @@ public abstract class AbstractRedis<T> {
         // Hash的key也采用StringRedisSerializer的序列化方式
         template.setHashKeySerializer(new StringRedisSerializer());
         template.setHashValueSerializer(serializer);
-        lettuceConnectionFactory.afterPropertiesSet();
-        template.setConnectionFactory(lettuceConnectionFactory);
+
+        template.setConnectionFactory(redisConnectionFactory);
         template.afterPropertiesSet();
     }
+
 
     /**
      * 获取redis中的key
@@ -64,7 +66,7 @@ public abstract class AbstractRedis<T> {
      * @return
      */
     public List<String> getAllKey(String pattern) {
-        return new ArrayList<>(template.keys(pattern));
+        return Utils.buildList(template.keys(pattern));
     }
 
     /**
@@ -73,7 +75,7 @@ public abstract class AbstractRedis<T> {
      * @return
      */
     public List<String> getAllKey() {
-        return new ArrayList<>(template.keys("*"));
+        return Utils.buildList(template.keys("*"));
     }
 
     /**
@@ -102,7 +104,7 @@ public abstract class AbstractRedis<T> {
      * @return 时间(秒) 返回0代表为永久有效
      */
     public long getExpire(String key) {
-        return template.getExpire(key, TimeUnit.SECONDS);
+        return Optional.ofNullable(template.getExpire(key, TimeUnit.SECONDS)).orElse(-1L);
     }
 
     /**
@@ -113,7 +115,7 @@ public abstract class AbstractRedis<T> {
      */
     public boolean hasKey(String key) {
         try {
-            return template.hasKey(key);
+            return Boolean.TRUE.equals(template.hasKey(key));
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -131,5 +133,11 @@ public abstract class AbstractRedis<T> {
 
     protected RedisSerializer<Object> getRedisSerializer() {
         return new Jackson2JsonRedisSerializer<>(Object.class);
+    }
+
+    protected static RedisConnectionFactory getConnectionFactory(RedisStandaloneConfiguration configuration) {
+        LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(configuration);
+        lettuceConnectionFactory.afterPropertiesSet();
+        return lettuceConnectionFactory;
     }
 }

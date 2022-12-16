@@ -3,13 +3,11 @@ package top.lytree.redis;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class BaseRedis<T> extends AbstractRedis<T> {
@@ -288,7 +286,7 @@ public class BaseRedis<T> extends AbstractRedis<T> {
      */
     public Map<String, T> hGetAllOrDefault(String key, Map<String, T> defaultMap) {
         Map<String, T> entries = template.<String, T>opsForHash().entries(key);
-        if (null == entries || entries.isEmpty()) {
+        if (CollectionUtils.isEmpty(entries)) {
             return defaultMap;
         }
         return entries;
@@ -336,7 +334,7 @@ public class BaseRedis<T> extends AbstractRedis<T> {
      * @param value
      */
     public long sAdd(String key, T value) {
-        return template.opsForSet().add(key, value);
+        return Optional.ofNullable(template.opsForSet().add(key, value)).orElse(-1L);
     }
 
     /**

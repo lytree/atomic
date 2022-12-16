@@ -6,19 +6,26 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-public class RedisBitmap {
-    public RedisBitmap(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
+public class RedisBitmap extends AbstractRedis<Object> {
+
+    public RedisBitmap(String host, Integer port) {
+        super(host, port);
     }
 
-    private final RedisTemplate redisTemplate;
+    public RedisBitmap(RedisTemplate<String, Object> redisTemplate) {
+        super(redisTemplate);
+    }
+
+    public RedisBitmap(String host, Integer port, String password) {
+        super(host, port, password);
+    }
 
     public Boolean setBit(String key, Integer index, Boolean tag) {
-        return (Boolean) redisTemplate.execute((RedisCallback<Boolean>) con -> con.setBit(key.getBytes(), index, tag));
+        return (Boolean) template.execute((RedisCallback<Boolean>) con -> con.setBit(key.getBytes(), index, tag));
     }
 
     public Boolean getBit(String key, Integer index) {
-        return (Boolean) redisTemplate.execute((RedisCallback<Boolean>) con -> con.getBit(key.getBytes(), index));
+        return (Boolean) template.execute((RedisCallback<Boolean>) con -> con.getBit(key.getBytes(), index));
     }
 
     /**
@@ -28,11 +35,11 @@ public class RedisBitmap {
      * @return
      */
     public Long bitCount(String key) {
-        return (Long) redisTemplate.execute((RedisCallback<Long>) con -> con.bitCount(key.getBytes()));
+        return (Long) template.execute((RedisCallback<Long>) con -> con.bitCount(key.getBytes()));
     }
 
     public Long bitCount(String key, int start, int end) {
-        return (Long) redisTemplate.execute((RedisCallback<Long>) con -> con.bitCount(key.getBytes(), start, end));
+        return (Long) template.execute((RedisCallback<Long>) con -> con.bitCount(key.getBytes(), start, end));
     }
 
     public Long bitOp(RedisStringCommands.BitOperation op, String saveKey, String... desKey) {
@@ -40,7 +47,7 @@ public class RedisBitmap {
         for (int i = 0; i < desKey.length; i++) {
             bytes[i] = desKey[i].getBytes();
         }
-        return (Long) redisTemplate.execute((RedisCallback<Long>) con -> con.bitOp(op, saveKey.getBytes(), bytes));
+        return (Long) template.execute((RedisCallback<Long>) con -> con.bitOp(op, saveKey.getBytes(), bytes));
     }
 
     /**
@@ -51,6 +58,6 @@ public class RedisBitmap {
      * @return
      */
     public Boolean container(String key, long offest) {
-        return redisTemplate.opsForValue().getBit(key, offest);
+        return template.opsForValue().getBit(key, offest);
     }
 }

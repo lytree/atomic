@@ -54,7 +54,7 @@ public class RedisCachingConfig extends CachingConfigurerSupport {
     @Bean
     @ConditionalOnClass({RedisClient.class})
     public CacheManager redisCacheManager(RedisConnectionFactory connectionFactory) {
-        RedisSerializationContext.SerializationPair serializationPair =
+        RedisSerializationContext.SerializationPair<Object> serializationPair =
                 RedisSerializationContext.SerializationPair.fromSerializer(getRedisSerializer());
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofSeconds(30))
@@ -65,7 +65,7 @@ public class RedisCachingConfig extends CachingConfigurerSupport {
     }
 
     private Jackson2JsonRedisSerializer<Object> getRedisSerializer() {
-        return new Jackson2JsonRedisSerializer(Object.class);
+        return new Jackson2JsonRedisSerializer<>(Object.class);
     }
 
 
