@@ -12,6 +12,9 @@ import top.lytree.math.BooleanUtils;
 import top.lytree.lang.StringUtils;
 
 
+/**
+ * 获取  java bean 详细信息
+ */
 public class BeanDesc implements Serializable {
 
     private static final long serialVersionUID = 1L;

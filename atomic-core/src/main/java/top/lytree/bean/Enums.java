@@ -40,8 +40,9 @@ public final class Enums {
     }
 
     /**
-     * Returns the {@link Field} in which {@code enumValue} is defined. For example, to get the {@code Description} annotation on the {@code GOLF} constant of enum {@code Sport},
-     * use {@code Enums.getField(Sport.GOLF).getAnnotation(Description.class)}.
+     * 返回在其中定义 {@code enumValue} 的 {@link 字段}。
+     * 例如，要获取枚举 {@code Sport} 的 {@code GOLF} 常量的 {@code Description} 注释，
+     * 请使用 {@code Enums.getField（Sport.GOLF）.getAnnotation（Description.class）}。
      */
 
     public static Field getField(Enum<?> enumValue) {
