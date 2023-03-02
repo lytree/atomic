@@ -1,6 +1,3 @@
 [submodule "atomic-example"]
-	path = atomic-example
-	url = https://github.com/lytree/atomic-demo.git
-[submodule "atomic-datastructure"]
-	path = atomic-datastructure
-	url = https://github.com/lytree/atomic-datastructure.git
+path = atomic-example
+url = https://github.com/lytree/atomic-demo.git
