@@ -36,6 +36,13 @@ import top.lytree.lang.StringUtils;
  */
 public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
 
+    /**
+     * 在int 范围内 2的最大次幂
+     *
+     * @since 10.0
+     */
+    public static final int MAX_POWER_OF_TWO_INT = 1 << (Integer.SIZE - 2);
+
 
     public static final ByteOrder DEFAULT_ORDER = ByteOrder.LITTLE_ENDIAN;
     /**
@@ -86,7 +93,6 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
         return 0 == bigNum1.compareTo(bigNum2);
 
     }
-
 
     // ------------------------------------------------------------------------------------------- round
 
@@ -826,5 +832,23 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
         return (T) number;
     }
 
+    /**
+     * Returns the {@code int} nearest in value to {@code value}.
+     *
+     * @param value any {@code long} value
+     *
+     * @return the same value cast to {@code int} if it is in the range of the {@code int} type,
+     * {@link Integer#MAX_VALUE} if it is too large, or {@link Integer#MIN_VALUE} if it is too
+     * small
+     */
+    public static int saturatedCast(long value) {
+        if (value > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+        if (value < Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        }
+        return (int) value;
+    }
 
 }

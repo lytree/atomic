@@ -29,7 +29,7 @@ import java.nio.charset.CharsetEncoder;
 import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
 import java.util.Objects;
-import top.lytree.codec.Charsets;
+import top.lytree.lang.CharsetUtils;
 
 
 /**
@@ -74,7 +74,7 @@ public class CharSequenceInputStream extends InputStream {
      */
     public CharSequenceInputStream(final CharSequence cs, final Charset charset, final int bufferSize) {
         // @formatter:off
-        this.charsetEncoder = Charsets.toCharset(charset).newEncoder()
+        this.charsetEncoder = CharsetUtils.toCharset(charset).newEncoder()
                 .onMalformedInput(CodingErrorAction.REPLACE)
                 .onUnmappableCharacter(CodingErrorAction.REPLACE);
         // @formatter:on
@@ -106,7 +106,7 @@ public class CharSequenceInputStream extends InputStream {
      * @throws IllegalArgumentException if the buffer is not large enough to hold a complete character.
      */
     public CharSequenceInputStream(final CharSequence cs, final String charset, final int bufferSize) {
-        this(cs, Charsets.toCharset(charset), bufferSize);
+        this(cs, CharsetUtils.toCharset(charset), bufferSize);
     }
 
     /**

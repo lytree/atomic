@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package top.lytree.lang;
 
 import java.nio.charset.Charset;
@@ -23,7 +22,40 @@ import java.nio.charset.UnsupportedCharsetException;
 import org.apache.commons.lang3.CharSetUtils;
 
 /**
- * Charset 工具
+ * CharsetUtils required of every implementation of the Java platform.
+ * <p>
+ * From the Java documentation <a href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard
+ * charsets</a>:
+ * <p>
+ * <cite>Every implementation of the Java platform is required to support the following character encodings. Consult the
+ * release documentation for your implementation to see if any other encodings are supported. Consult the release
+ * documentation for your implementation to see if any other encodings are supported. </cite>
+ * </p>
+ *
+ * <ul>
+ * <li>{@code US-ASCII}<p>
+ * Seven-bit ASCII, a.k.a. ISO646-US, a.k.a. the Basic Latin block of the Unicode character set.</p></li>
+ * <li>{@code ISO-8859-1}<p>
+ * ISO Latin Alphabet No. 1, a.k.a. ISO-LATIN-1.</p></li>
+ * <li>{@code UTF-8}<p>
+ * Eight-bit Unicode Transformation Format.</p></li>
+ * <li>{@code UTF-16BE}<p>
+ * Sixteen-bit Unicode Transformation Format, big-endian byte order.</p></li>
+ * <li>{@code UTF-16LE}<p>
+ * Sixteen-bit Unicode Transformation Format, little-endian byte order.</p></li>
+ * <li>{@code UTF-16}<p>
+ * Sixteen-bit Unicode Transformation Format, byte order specified by a mandatory initial byte-order mark (either order
+ * accepted on input, big-endian used on output.)</p></li>
+ * </ul>
+ * <p>
+ * This perhaps would best belong in the Commons Lang project. Even if a similar class is defined in Commons Lang, it is
+ * not foreseen that Commons Codec would be made to depend on Commons Lang.
+ *
+ * <p>
+ * This class is immutable and thread-safe.
+ * </p>
+ *
+ * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
  */
 public class CharsetUtils extends CharSetUtils {
 
@@ -70,6 +102,7 @@ public class CharsetUtils extends CharSetUtils {
      * 返回给定的{ @code字符集 }，如果{ @code字符集 }为空则返回默认的字符集。
      *
      * @param charset 一个Charset或null。
+     *
      * @return 给定的{ @code字符集 }或默认的字符集，如果{ @code字符集 }为空。
      */
     public static Charset toCharset(final Charset charset) {
@@ -80,6 +113,7 @@ public class CharsetUtils extends CharSetUtils {
      * 返回给定的{ @code字符集 }，如果{ @code字符集 }为空则返回默认的字符集。
      *
      * @param charsetName 一个Charset或null。
+     *
      * @return 给定的{ @code字符集 }或默认的字符集，如果{ @code字符集 }为空
      */
     public static Charset toCharset(final String charsetName) {
@@ -90,6 +124,7 @@ public class CharsetUtils extends CharSetUtils {
      * 返回给定的{ @code字符集 }，如果{ @code字符集 }为空则返回默认的字符集。
      *
      * @param charsetName 一个Charset或null。
+     *
      * @return 给定的{ @code字符集 }或默认的字符集，如果{ @code字符集 }为空。
      */
     public static String toCharsetName(final String charsetName) {

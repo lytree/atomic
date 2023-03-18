@@ -53,7 +53,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
-import top.lytree.codec.Charsets;
+import top.lytree.lang.CharsetUtils;
 import top.lytree.io.function.IOConsumer;
 import top.lytree.io.output.AppendableWriter;
 import top.lytree.io.output.ByteArrayOutputStream;
@@ -981,7 +981,7 @@ public class IOUtils {
      */
     public static void copy(final InputStream input, final Writer writer, final Charset inputCharset)
             throws IOException {
-        final InputStreamReader reader = new InputStreamReader(input, Charsets.toCharset(inputCharset));
+        final InputStreamReader reader = new InputStreamReader(input, CharsetUtils.toCharset(inputCharset));
         copy(reader, writer);
     }
 
@@ -1008,7 +1008,7 @@ public class IOUtils {
      */
     public static void copy(final InputStream input, final Writer writer, final String inputCharsetName)
             throws IOException {
-        copy(input, writer, Charsets.toCharset(inputCharsetName));
+        copy(input, writer, CharsetUtils.toCharset(inputCharsetName));
     }
 
     /**
@@ -1103,7 +1103,7 @@ public class IOUtils {
      */
     public static void copy(final Reader reader, final OutputStream output, final Charset outputCharset)
             throws IOException {
-        final OutputStreamWriter writer = new OutputStreamWriter(output, Charsets.toCharset(outputCharset));
+        final OutputStreamWriter writer = new OutputStreamWriter(output, CharsetUtils.toCharset(outputCharset));
         copy(reader, writer);
         // XXX Unless anyone is planning on rewriting OutputStreamWriter,
         // we have to flush here.
@@ -1136,7 +1136,7 @@ public class IOUtils {
      */
     public static void copy(final Reader reader, final OutputStream output, final String outputCharsetName)
             throws IOException {
-        copy(reader, output, Charsets.toCharset(outputCharsetName));
+        copy(reader, output, CharsetUtils.toCharset(outputCharsetName));
     }
 
     /**
@@ -1531,7 +1531,7 @@ public class IOUtils {
      * 
      */
     public static LineIterator lineIterator(final InputStream input, final Charset charset) {
-        return new LineIterator(new InputStreamReader(input, Charsets.toCharset(charset)));
+        return new LineIterator(new InputStreamReader(input, CharsetUtils.toCharset(charset)));
     }
 
     /**
@@ -1563,7 +1563,7 @@ public class IOUtils {
      * 
      */
     public static LineIterator lineIterator(final InputStream input, final String charsetName) {
-        return lineIterator(input, Charsets.toCharset(charsetName));
+        return lineIterator(input, CharsetUtils.toCharset(charsetName));
     }
 
     /**
@@ -1842,7 +1842,7 @@ public class IOUtils {
      * 
      */
     public static List<String> readLines(final InputStream input, final Charset charset) throws IOException {
-        final InputStreamReader reader = new InputStreamReader(input, Charsets.toCharset(charset));
+        final InputStreamReader reader = new InputStreamReader(input, CharsetUtils.toCharset(charset));
         return readLines(reader);
     }
 
@@ -1865,7 +1865,7 @@ public class IOUtils {
      * 
      */
     public static List<String> readLines(final InputStream input, final String charsetName) throws IOException {
-        return readLines(input, Charsets.toCharset(charsetName));
+        return readLines(input, CharsetUtils.toCharset(charsetName));
     }
 
     /**
@@ -2334,7 +2334,7 @@ public class IOUtils {
      * 
      */
     public static byte[] toByteArray(final Reader reader, final String charsetName) throws IOException {
-        return toByteArray(reader, Charsets.toCharset(charsetName));
+        return toByteArray(reader, CharsetUtils.toCharset(charsetName));
     }
 
 
@@ -2377,7 +2377,7 @@ public class IOUtils {
      * 
      */
     public static char[] toCharArray(final InputStream inputStream, final String charsetName) throws IOException {
-        return toCharArray(inputStream, Charsets.toCharset(charsetName));
+        return toCharArray(inputStream, CharsetUtils.toCharset(charsetName));
     }
 
     /**
@@ -2425,7 +2425,7 @@ public class IOUtils {
      * 
      */
     public static InputStream toInputStream(final CharSequence input, final String charsetName) {
-        return toInputStream(input, Charsets.toCharset(charsetName));
+        return toInputStream(input, CharsetUtils.toCharset(charsetName));
     }
 
 
@@ -2438,7 +2438,7 @@ public class IOUtils {
      * 
      */
     public static InputStream toInputStream(final String input, final Charset charset) {
-        return new ByteArrayInputStream(input.getBytes(Charsets.toCharset(charset)));
+        return new ByteArrayInputStream(input.getBytes(CharsetUtils.toCharset(charset)));
     }
 
     /**
@@ -2455,7 +2455,7 @@ public class IOUtils {
      * 
      */
     public static InputStream toInputStream(final String input, final String charsetName) {
-        return new ByteArrayInputStream(input.getBytes(Charsets.toCharset(charsetName)));
+        return new ByteArrayInputStream(input.getBytes(CharsetUtils.toCharset(charsetName)));
     }
 
 
@@ -2472,7 +2472,7 @@ public class IOUtils {
      * @throws NullPointerException if the input is null
      */
     public static String toString(final byte[] input, final String charsetName) {
-        return new String(input, Charsets.toCharset(charsetName));
+        return new String(input, CharsetUtils.toCharset(charsetName));
     }
 
 
@@ -2515,7 +2515,7 @@ public class IOUtils {
      */
     public static String toString(final InputStream input, final String charsetName)
             throws IOException {
-        return toString(input, Charsets.toCharset(charsetName));
+        return toString(input, CharsetUtils.toCharset(charsetName));
     }
 
     /**
@@ -2546,7 +2546,7 @@ public class IOUtils {
      * 
      */
     public static String toString(final URI uri, final Charset encoding) throws IOException {
-        return toString(uri.toURL(), Charsets.toCharset(encoding));
+        return toString(uri.toURL(), CharsetUtils.toCharset(encoding));
     }
 
     /**
@@ -2560,7 +2560,7 @@ public class IOUtils {
      * 
      */
     public static String toString(final URI uri, final String charsetName) throws IOException {
-        return toString(uri, Charsets.toCharset(charsetName));
+        return toString(uri, CharsetUtils.toCharset(charsetName));
     }
 
 
@@ -2591,7 +2591,7 @@ public class IOUtils {
      * 
      */
     public static String toString(final URL url, final String charsetName) throws IOException {
-        return toString(url, Charsets.toCharset(charsetName));
+        return toString(url, CharsetUtils.toCharset(charsetName));
     }
 
     /**
@@ -2626,7 +2626,7 @@ public class IOUtils {
      */
     public static void write(final byte[] data, final Writer writer, final Charset charset) throws IOException {
         if (data != null) {
-            writer.write(new String(data, Charsets.toCharset(charset)));
+            writer.write(new String(data, CharsetUtils.toCharset(charset)));
         }
     }
 
@@ -2649,7 +2649,7 @@ public class IOUtils {
      * 
      */
     public static void write(final byte[] data, final Writer writer, final String charsetName) throws IOException {
-        write(data, writer, Charsets.toCharset(charsetName));
+        write(data, writer, CharsetUtils.toCharset(charsetName));
     }
 
     /**
@@ -2691,7 +2691,7 @@ public class IOUtils {
      */
     public static void write(final char[] data, final OutputStream output, final String charsetName)
             throws IOException {
-        write(data, output, Charsets.toCharset(charsetName));
+        write(data, output, CharsetUtils.toCharset(charsetName));
     }
 
     /**
@@ -2749,7 +2749,7 @@ public class IOUtils {
      */
     public static void write(final CharSequence data, final OutputStream output, final String charsetName)
             throws IOException {
-        write(data, output, Charsets.toCharset(charsetName));
+        write(data, output, CharsetUtils.toCharset(charsetName));
     }
 
     /**
@@ -2787,7 +2787,7 @@ public class IOUtils {
             // Use Charset#encode(String), since calling String#getBytes(Charset) might result in
             // NegativeArraySizeException or OutOfMemoryError.
             // The underlying OutputStream should not be closed, so the channel is not closed.
-            Channels.newChannel(output).write(Charsets.toCharset(charset).encode(data));
+            Channels.newChannel(output).write(CharsetUtils.toCharset(charset).encode(data));
         }
     }
 
@@ -2811,7 +2811,7 @@ public class IOUtils {
      */
     public static void write(final String data, final OutputStream output, final String charsetName)
             throws IOException {
-        write(data, output, Charsets.toCharset(charsetName));
+        write(data, output, CharsetUtils.toCharset(charsetName));
     }
 
     /**
@@ -2898,7 +2898,7 @@ public class IOUtils {
         if (lineEnding == null) {
             lineEnding = System.lineSeparator();
         }
-        final Charset cs = Charsets.toCharset(charset);
+        final Charset cs = CharsetUtils.toCharset(charset);
         final byte[] eolBytes = lineEnding.getBytes(cs);
         for (final Object line : lines) {
             if (line != null) {
@@ -2927,7 +2927,7 @@ public class IOUtils {
      */
     public static void writeLines(final Collection<?> lines, final String lineEnding,
             final OutputStream output, final String charsetName) throws IOException {
-        writeLines(lines, lineEnding, output, Charsets.toCharset(charsetName));
+        writeLines(lines, lineEnding, output, CharsetUtils.toCharset(charsetName));
     }
 
     /**

@@ -4,7 +4,10 @@ import top.lytree.lang.StringUtils;
 
 public class DateException extends RuntimeException {
 
-    private static final long serialVersionUID = 8247610319171014183L;
+    /**
+     * Defines the serial version UID.
+     */
+    private static final long serialVersionUID = 1L;
 
     public DateException(final Throwable e) {
         super(ExceptionUtils.getMessage(e), e);

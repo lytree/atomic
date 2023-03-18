@@ -5,12 +5,11 @@ import java.io.StringWriter;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 
-public class ExceptionUtils extends org.apache.commons.lang3.exception.ExceptionUtils {
+public class ExceptionUtils {
 
     private static final int NOT_FOUND = -1;
     /**
@@ -23,13 +22,11 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
 //-----------------------------------------------------------------------
 
     /**
-     * Gets a short message summarising the exception.
-     * <p>
-     * The message returned is of the form {ClassNameWithoutPackage}: {ThrowableMessage}
+     * 获得完整消息，包括异常名，消息格式为：{SimpleClassName}: {ThrowableMessage}
      *
-     * @param th the throwable to get a message for, null returns empty string
-     * @return the message, non-null
-     * 
+     * @param th 异常
+     *
+     * @return 完整消息
      */
     public static String getMessage(final Throwable th) {
         if (th == null) {
@@ -41,17 +38,16 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
     }
 
     /**
-     * <p>Introspects the {@code Throwable} to obtain the root cause.</p>
+     * 获取异常链中最尾端的异常，即异常最早发生的异常对象。<br>
+     * 此方法通过调用{@link Throwable#getCause()} 直到没有cause为止，如果异常本身没有cause，返回异常本身<br>
+     * 传入null返回也为null
      *
-     * <p>This method walks through the exception chain to the last element,
-     * "root" of the tree, using {@link Throwable#getCause()}, and returns that exception.</p>
+     * <p>
+     * 此方法来自Apache-Commons-Lang3
+     * </p>
      *
-     * <p>From version 2.2, this method handles recursive cause structures
-     * that might otherwise cause infinite loops. If the throwable parameter has a cause of itself, then null will be returned. If the throwable parameter cause chain loops, the
-     * last element in the chain before the loop is returned.</p>
-     *
-     * @param throwable the throwable to get the root cause for, may be null
-     * @return the root cause of the {@code Throwable}, {@code null} if null throwable input
+     * @param throwable 异常对象，可能为null
+     * @return 最尾端异常，传入null参数返回也为null
      */
     public static Throwable getRootCause(final Throwable throwable) {
         final List<Throwable> list = getThrowableList(throwable);
@@ -61,13 +57,10 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
     //-----------------------------------------------------------------------
 
     /**
-     * Gets a short message summarising the root cause exception.
-     * <p>
-     * The message returned is of the form {ClassNameWithoutPackage}: {ThrowableMessage}
+     * 获取异常链中最尾端的异常的消息，消息格式为：{SimpleClassName}: {ThrowableMessage}
      *
-     * @param th the throwable to get a message for, null returns empty string
-     * @return the message, non-null
-     * 
+     * @param th 异常
+     * @return 消息
      */
     public static String getRootCauseMessage(final Throwable th) {
         Throwable root = getRootCause(th);
@@ -78,119 +71,10 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
     //-----------------------------------------------------------------------
 
     /**
-     * <p>Creates a compact stack trace for the root cause of the supplied
-     * {@code Throwable}.</p>
+     * 堆栈转为完整字符串
      *
-     * <p>The output of this method is consistent across JDK versions.
-     * It consists of the root exception followed by each of its wrapping exceptions separated by '[wrapped]'. Note that this is the opposite order to the JDK1.4 display.</p>
-     *
-     * @param throwable the throwable to examine, may be null
-     * @return an array of stack trace frames, never null
-     * 
-     */
-    public static String[] getRootCauseStackTrace(final Throwable throwable) {
-        if (throwable == null) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
-        }
-        final Throwable[] throwables = getThrowables(throwable);
-        final int count = throwables.length;
-        final List<String> frames = new ArrayList<>();
-        List<String> nextTrace = getStackFrameList(throwables[count - 1]);
-        for (int i = count; --i >= 0; ) {
-            final List<String> trace = nextTrace;
-            if (i != 0) {
-                nextTrace = getStackFrameList(throwables[i - 1]);
-                removeCommonFrames(trace, nextTrace);
-            }
-            if (i == count - 1) {
-                frames.add(throwables[i].toString());
-            } else {
-                frames.add(WRAPPED_MARKER + throwables[i].toString());
-            }
-            frames.addAll(trace);
-        }
-        return frames.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
-    }
-
-    /**
-     * <p>Produces a {@code List} of stack frames - the message
-     * is not included. Only the trace of the specified exception is returned, any caused by trace is stripped.</p>
-     *
-     * <p>This works in most cases - it will only fail if the exception
-     * message contains a line that starts with: {@code &quot;&nbsp;&nbsp;&nbsp;at&quot;.}</p>
-     *
-     * @param t is any throwable
-     * @return List of stack frames
-     */
-    static List<String> getStackFrameList(final Throwable t) {
-        final String stackTrace = getStackTrace(t);
-        final String linebreak = System.lineSeparator();
-        final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        final List<String> list = new ArrayList<>();
-        boolean traceStarted = false;
-        while (frames.hasMoreTokens()) {
-            final String token = frames.nextToken();
-            // Determine if the line starts with <whitespace>at
-            final int at = token.indexOf("at");
-            if (at != NOT_FOUND && token.substring(0, at).trim().isEmpty()) {
-                traceStarted = true;
-                list.add(token);
-            } else if (traceStarted) {
-                break;
-            }
-        }
-        return list;
-    }
-
-    //-----------------------------------------------------------------------
-
-    /**
-     * <p>Returns an array where each element is a line from the argument.</p>
-     *
-     * <p>The end of line is determined by the value of {@link System#lineSeparator()}.</p>
-     *
-     * @param stackTrace a stack trace String
-     * @return an array where each element is a line from the argument
-     */
-    static String[] getStackFrames(final String stackTrace) {
-        final String linebreak = System.lineSeparator();
-        final StringTokenizer frames = new StringTokenizer(stackTrace, linebreak);
-        final List<String> list = new ArrayList<>();
-        while (frames.hasMoreTokens()) {
-            list.add(frames.nextToken());
-        }
-        return list.toArray(ArrayUtils.EMPTY_STRING_ARRAY);
-    }
-
-    /**
-     * <p>Captures the stack trace associated with the specified
-     * {@code Throwable} object, decomposing it into a list of stack frames.</p>
-     *
-     * <p>The result of this method vary by JDK version as this method
-     * uses {@link Throwable#printStackTrace(java.io.PrintWriter)}. On JDK1.3 and earlier, the cause exception will not be shown unless the specified throwable alters
-     * printStackTrace.</p>
-     *
-     * @param throwable the {@code Throwable} to examine, may be null
-     * @return an array of strings describing each stack frame, never null
-     */
-    public static String[] getStackFrames(final Throwable throwable) {
-        if (throwable == null) {
-            return ArrayUtils.EMPTY_STRING_ARRAY;
-        }
-        return getStackFrames(getStackTrace(throwable));
-    }
-
-    //-----------------------------------------------------------------------
-
-    /**
-     * <p>Gets the stack trace from a Throwable as a String.</p>
-     *
-     * <p>The result of this method vary by JDK version as this method
-     * uses {@link Throwable#printStackTrace(java.io.PrintWriter)}. On JDK1.3 and earlier, the cause exception will not be shown unless the specified throwable alters
-     * printStackTrace.</p>
-     *
-     * @param throwable the {@code Throwable} to be examined
-     * @return the stack trace as generated by the exception's {@code printStackTrace(PrintWriter)} method
+     * @param throwable 异常对象
+     * @return 堆栈转为的字符串
      */
     public static String getStackTrace(final Throwable throwable) {
         final StringWriter sw = new StringWriter();
@@ -199,15 +83,6 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
         return sw.getBuffer().toString();
     }
 
-    /**
-     * Does the throwable's causal chain have an immediate or wrapped exception of the given type?
-     *
-     * @param chain The root of a Throwable causal chain.
-     * @param type  The exception type to test.
-     * @return true, if chain is an instance of type or is an UndeclaredThrowableException wrapping a cause.
-     * @see #wrapAndThrow(Throwable)
-     * 
-     */
     public static boolean hasCause(Throwable chain,
             final Class<? extends Throwable> type) {
         if (chain instanceof UndeclaredThrowableException) {
@@ -217,19 +92,10 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
     }
 
     /**
-     * Throw a checked exception without adding the exception to the throws clause of the calling method. For checked exceptions, this method throws an UndeclaredThrowableException
-     * wrapping the checked exception. For Errors and RuntimeExceptions, the original exception is rethrown.
-     * <p>
-     * The downside to using this approach is that invoking code which needs to handle specific checked exceptions must sniff up the exception chain to determine if the caught
-     * exception was caused by the checked exception.
+     * 包装异常并重新抛出此异常<br>
+     * {@link RuntimeException} 和{@link Error} 直接抛出，其它检查异常包装为{@link UndeclaredThrowableException} 后抛出
      *
-     * @param throwable The throwable to rethrow.
-     * @param <R>       The type of the returned value.
-     * @return Never actually returned, this generic type matches any type which the calling site requires. "Returning" the results of this method will satisfy the java compiler
-     * requirement that all code paths return a value.
-     * @see #rethrow(Throwable)
-     * @see #hasCause(Throwable, Class)
-     * 
+     * @param throwable 异常
      */
     public static <R> R wrapAndThrow(final Throwable throwable) {
         if (throwable instanceof RuntimeException) {
@@ -240,4 +106,52 @@ public class ExceptionUtils extends org.apache.commons.lang3.exception.Exception
         }
         throw new UndeclaredThrowableException(throwable);
     }
+
+    /**
+     * 获取异常链上所有异常的集合，如果{@link Throwable} 对象没有cause，返回只有一个节点的List<br>
+     * 如果传入null，返回空集合
+     *
+     * <p>
+     * 此方法来自Apache-Commons-Lang3
+     * </p>
+     *
+     * @param throwable 异常对象，可以为null
+     * @return 异常链中所有异常集合
+     *
+     */
+    public static List<Throwable> getThrowableList(Throwable throwable) {
+        final List<Throwable> list = new ArrayList<>();
+        while (throwable != null && !list.contains(throwable)) {
+            list.add(throwable);
+            throwable = throwable.getCause();
+        }
+        return list;
+    }
+    /**
+     * 获取异常链上所有异常的集合，如果{@link Throwable} 对象没有cause，返回只有一个节点的List<br>
+     * 如果传入null，返回空集合
+     *
+     * <p>
+     * 此方法来自Apache-Commons-Lang3
+     * </p>
+     *
+     * @param throwable 异常对象，可以为null
+     * @return 异常链中所有异常数组
+     */
+    public static Throwable[] getThrowables(final Throwable throwable) {
+        final List<Throwable> list = getThrowableList(throwable);
+        return list.toArray(ArrayUtils.EMPTY_THROWABLE_ARRAY);
+    }
+
+
+    public static <R> R rethrow(final Throwable throwable) {
+        // claim that the typeErasure invocation throws a RuntimeException
+        return ExceptionUtils.typeErasure(throwable);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <R, T extends Throwable> R typeErasure(final Throwable throwable) throws T {
+        throw (T) throwable;
+    }
+
 }

@@ -22,9 +22,9 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import top.lytree.codec.BinaryDecoder;
 import top.lytree.codec.BinaryEncoder;
-import top.lytree.codec.CharEncoding;
 import top.lytree.codec.DecoderException;
 import top.lytree.codec.EncoderException;
+import top.lytree.lang.CharsetUtils;
 
 /**
  * Converts hexadecimal Strings. The Charset used for certain operation can be set, the default is set in {@link #DEFAULT_CHARSET_NAME}
@@ -43,11 +43,11 @@ public class Hex implements BinaryEncoder, BinaryDecoder {
     public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
     /**
-     * Default charset name is {@link CharEncoding#UTF_8}.
+     * Default charset name is {@link CharsetUtils#UTF_8}.
      *
      *
      */
-    public static final String DEFAULT_CHARSET_NAME = CharEncoding.UTF_8;
+    public static final String DEFAULT_CHARSET_NAME = CharsetUtils.UTF_8;
 
     /**
      * Used to build output as hex.

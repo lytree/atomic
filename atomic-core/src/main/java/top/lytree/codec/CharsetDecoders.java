@@ -15,24 +15,24 @@
  * limitations under the License.
  */
 
-package top.lytree.lang;
+package top.lytree.codec;
 
 import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
+import java.nio.charset.CharsetDecoder;
 
 /**
- * Works with {@link CharsetEncoder}.
+ * Works with {@link CharsetDecoder}.
  */
-public class CharsetEncoders {
+public class CharsetDecoders {
 
     /**
-     * 返回给定的非空CharsetEncoder或新的默认CharsetEncoder。
+     * 返回给定的非空CharsetDecoder或新的默认CharsetDecoder。
      *
-     * @param charsetEncoder The CharsetEncoder to test.
-     * @return 给定的非空CharsetEncoder或新的默认CharsetEncoder
+     * @param charsetDecoder The CharsetDecoder to test.
+     * @return 定的非空CharsetDecoder或新的默认CharsetDecoder
      */
-    public static CharsetEncoder toCharsetEncoder(final CharsetEncoder charsetEncoder) {
-        return charsetEncoder != null ? charsetEncoder : Charset.defaultCharset().newEncoder();
+    public static CharsetDecoder toCharsetDecoder(final CharsetDecoder charsetDecoder) {
+        return charsetDecoder != null ? charsetDecoder : Charset.defaultCharset().newDecoder();
     }
 
 }

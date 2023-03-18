@@ -17,7 +17,7 @@
 package top.lytree.collections;
 
 
-import top.lytree.math.Ints;
+import top.lytree.math.NumberUtils;
 
 /**
  * 用于实现基于散列的集合的静态方法。
@@ -51,7 +51,7 @@ final class Hashing {
         return smear((o == null) ? 0 : o.hashCode());
     }
 
-    private static final int MAX_TABLE_SIZE = Ints.MAX_POWER_OF_TWO;
+    private static final int MAX_TABLE_SIZE = NumberUtils.MAX_POWER_OF_TWO_INT;
 
     static int closedTableSize(int expectedEntries, double loadFactor) {
         // Get the recommended table size.

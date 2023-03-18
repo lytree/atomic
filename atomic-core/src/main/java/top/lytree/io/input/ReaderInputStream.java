@@ -28,9 +28,9 @@ import java.nio.charset.CharsetEncoder;
 import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
 import java.util.Objects;
-import top.lytree.codec.Charsets;
+import top.lytree.lang.CharsetUtils;
 import top.lytree.io.output.WriterOutputStream;
-import top.lytree.lang.CharsetEncoders;
+import top.lytree.codec.CharsetEncoders;
 
 /**
  * {@link InputStream} implementation that reads a character stream from a {@link Reader} and transforms it to a byte stream using a specified charset encoding. The stream is
@@ -134,7 +134,7 @@ public class ReaderInputStream extends InputStream {
     public ReaderInputStream(final Reader reader, final Charset charset, final int bufferSize) {
         // @formatter:off
         this(reader,
-                Charsets.toCharset(charset).newEncoder()
+                CharsetUtils.toCharset(charset).newEncoder()
                         .onMalformedInput(CodingErrorAction.REPLACE)
                         .onUnmappableCharacter(CodingErrorAction.REPLACE),
                 bufferSize);
@@ -205,7 +205,7 @@ public class ReaderInputStream extends InputStream {
      * @param bufferSize  the size of the input buffer in number of characters
      */
     public ReaderInputStream(final Reader reader, final String charsetName, final int bufferSize) {
-        this(reader, Charsets.toCharset(charsetName), bufferSize);
+        this(reader, CharsetUtils.toCharset(charsetName), bufferSize);
     }
 
     /**

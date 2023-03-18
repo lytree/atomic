@@ -2,8 +2,14 @@ package top.lytree.exception;
 
 import top.lytree.lang.StringUtils;
 
+/**
+ * 网络异常
+ */
 public class NetException extends RuntimeException {
 
+    /**
+     * Defines the serial version UID.
+     */
     private static final long serialVersionUID = 1L;
 
     public NetException(Throwable e) {

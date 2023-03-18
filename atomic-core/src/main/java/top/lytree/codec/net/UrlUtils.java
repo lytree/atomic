@@ -18,7 +18,7 @@ import top.lytree.lang.StringUtils;
 /**
  * url and html utils.
  *
- * @author code4crafter@gmail.com <br>
+ *
  * 
  */
 public class UrlUtils {
@@ -82,8 +82,6 @@ public class UrlUtils {
 
     /**
      * canonicalizeUrl
-     * <br>
-     * Borrowed from Jsoup.
      *
      * @param url   url
      * @param refer refer

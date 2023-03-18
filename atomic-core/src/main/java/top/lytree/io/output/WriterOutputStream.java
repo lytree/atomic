@@ -25,9 +25,9 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
-import top.lytree.codec.Charsets;
+import top.lytree.lang.CharsetUtils;
 import top.lytree.io.input.ReaderInputStream;
-import top.lytree.lang.CharsetDecoders;
+import top.lytree.codec.CharsetDecoders;
 
 /**
  * {@link OutputStream} implementation that transforms a byte stream to a character stream using a specified charset encoding and writes the resulting stream to a {@link Writer}.
@@ -139,7 +139,7 @@ public class WriterOutputStream extends OutputStream {
     public WriterOutputStream(final Writer writer, final Charset charset, final int bufferSize, final boolean writeImmediately) {
         // @formatter:off
         this(writer,
-                Charsets.toCharset(charset).newDecoder()
+                CharsetUtils.toCharset(charset).newDecoder()
                         .onMalformedInput(CodingErrorAction.REPLACE)
                         .onUnmappableCharacter(CodingErrorAction.REPLACE)
                         .replaceWith("?"),
@@ -202,7 +202,7 @@ public class WriterOutputStream extends OutputStream {
      */
     public WriterOutputStream(final Writer writer, final String charsetName, final int bufferSize,
             final boolean writeImmediately) {
-        this(writer, Charsets.toCharset(charsetName), bufferSize, writeImmediately);
+        this(writer, CharsetUtils.toCharset(charsetName), bufferSize, writeImmediately);
     }
 
     /**

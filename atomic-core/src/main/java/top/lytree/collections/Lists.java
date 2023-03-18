@@ -10,7 +10,7 @@ import java.util.ListIterator;
 import java.util.NoSuchElementException;
 import java.util.RandomAccess;
 import top.lytree.base.Assert;
-import top.lytree.math.Ints;
+import top.lytree.math.NumberUtils;
 
 public class Lists {
 
@@ -165,7 +165,7 @@ public class Lists {
 
     static int computeArrayListCapacity(int arraySize) {
         Assert.checkNonNegative(arraySize, "arraySize");
-        return Ints.saturatedCast(5L + arraySize + (arraySize / 10));
+        return NumberUtils.saturatedCast(5L + arraySize + (arraySize / 10));
     }
 
     static class RandomAccessReverseList<T> extends ReverseList<T>

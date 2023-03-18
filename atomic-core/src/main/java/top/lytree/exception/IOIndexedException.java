@@ -20,18 +20,18 @@ package top.lytree.exception;
 import java.io.IOException;
 
 /**
- * A IOException associated with a source index.
- *
- *
+ * IO 读取下标异常
  */
 public class IOIndexedException extends IOException {
 
     private static final long serialVersionUID = 1L;
+
     /**
      * Converts input to a suitable String for exception message.
      *
      * @param index An index into a source collection.
      * @param cause A cause.
+     *
      * @return A message.
      */
     protected static String toMessage(final int index, final Throwable cause) {

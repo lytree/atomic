@@ -48,7 +48,7 @@ import java.util.stream.Stream;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
 import java.util.zip.Checksum;
-import top.lytree.codec.Charsets;
+import top.lytree.lang.CharsetUtils;
 import top.lytree.exception.FileExistsException;
 import top.lytree.io.file.AccumulatorPathVisitor;
 import top.lytree.io.file.Counters;
@@ -395,7 +395,7 @@ public class FileUtils {
             return true;
         }
 
-        final Charset charset = Charsets.toCharset(charsetName);
+        final Charset charset = CharsetUtils.toCharset(charsetName);
         try (Reader input1 = new InputStreamReader(Files.newInputStream(file1.toPath()), charset);
                 Reader input2 = new InputStreamReader(Files.newInputStream(file2.toPath()), charset)) {
             return IOUtils.contentEqualsIgnoreEOL(input1, input2);
@@ -2216,7 +2216,7 @@ public class FileUtils {
      */
     public static String readFileToString(final File file, final Charset charsetName) throws IOException {
         try (InputStream inputStream = Files.newInputStream(file.toPath())) {
-            return IOUtils.toString(inputStream, Charsets.toCharset(charsetName));
+            return IOUtils.toString(inputStream, CharsetUtils.toCharset(charsetName));
         }
     }
 
@@ -2233,7 +2233,7 @@ public class FileUtils {
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the named charset is unavailable.
      */
     public static String readFileToString(final File file, final String charsetName) throws IOException {
-        return readFileToString(file, Charsets.toCharset(charsetName));
+        return readFileToString(file, CharsetUtils.toCharset(charsetName));
     }
 
 
@@ -2265,7 +2265,7 @@ public class FileUtils {
      * @throws java.nio.charset.UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the named charset is unavailable.
      */
     public static List<String> readLines(final File file, final String charsetName) throws IOException {
-        return readLines(file, Charsets.toCharset(charsetName));
+        return readLines(file, CharsetUtils.toCharset(charsetName));
     }
 
     private static void requireAbsent(final File file, final String name) throws FileExistsException {
@@ -2769,7 +2769,7 @@ public class FileUtils {
      *                                                      VM
      */
     public static void write(final File file, final CharSequence data, final String charsetName, final boolean append) throws IOException {
-        write(file, data, Charsets.toCharset(charsetName), append);
+        write(file, data, CharsetUtils.toCharset(charsetName), append);
     }
 
     /**
@@ -3000,7 +3000,7 @@ public class FileUtils {
      *                                                      VM
      */
     public static void writeStringToFile(final File file, final String data, final String charsetName, final boolean append) throws IOException {
-        writeStringToFile(file, data, Charsets.toCharset(charsetName), append);
+        writeStringToFile(file, data, CharsetUtils.toCharset(charsetName), append);
     }
 
 

@@ -20,9 +20,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Indicates that a file already exists.
- *
- * 
+ * 文件不存在异常
  */
 public class FileExistsException extends IOException {
 

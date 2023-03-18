@@ -22,11 +22,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.BitSet;
 import top.lytree.codec.BinaryDecoder;
 import top.lytree.codec.BinaryEncoder;
-import top.lytree.codec.CharEncoding;
 import top.lytree.codec.DecoderException;
 import top.lytree.codec.EncoderException;
 import top.lytree.codec.StringDecoder;
 import top.lytree.codec.StringEncoder;
+import top.lytree.lang.CharsetUtils;
 import top.lytree.lang.StringUtils;
 
 /**
@@ -86,7 +86,7 @@ public class URLCodec implements BinaryEncoder, BinaryDecoder, StringEncoder, St
      * Default constructor.
      */
     public URLCodec() {
-        this(CharEncoding.UTF_8);
+        this(CharsetUtils.UTF_8);
     }
 
     /**

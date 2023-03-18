@@ -15,6 +15,9 @@ import top.lytree.lang.StringUtils;
  */
 public class IOListException extends IOException {
 
+    /**
+     * Defines the serial version UID.
+     */
     private static final long serialVersionUID = 1L;
 
     /**

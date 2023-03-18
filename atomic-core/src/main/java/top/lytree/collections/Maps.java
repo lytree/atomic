@@ -14,8 +14,7 @@ import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.function.Consumer;
 import top.lytree.base.Assert;
-import top.lytree.bean.ObjectUtils;
-import top.lytree.math.Ints;
+import top.lytree.math.NumberUtils;
 
 public final class Maps {
 
@@ -253,7 +252,7 @@ public final class Maps {
             // todo checkNonnegative(expectedSize, "expectedSize");
             return expectedSize + 1;
         }
-        if (expectedSize < Ints.MAX_POWER_OF_TWO) {
+        if (expectedSize < NumberUtils.MAX_POWER_OF_TWO_INT) {
             // This seems to be consistent across JDKs. The capacity argument to HashMap and LinkedHashMap
             // ends up being used to compute a "threshold" size, beyond which the internal table
             // will be resized. That threshold is ceilingPowerOfTwo(capacity*loadFactor), where

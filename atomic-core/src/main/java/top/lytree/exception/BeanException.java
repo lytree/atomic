@@ -4,7 +4,10 @@ import top.lytree.text.StringFormatter;
 
 public class BeanException extends RuntimeException {
 
-    private static final long serialVersionUID = -8096998667745023423L;
+    /**
+     * Defines the serial version UID.
+     */
+    private static final long serialVersionUID = 1L;
 
     public BeanException(final Throwable e) {
         super(ExceptionUtils.getMessage(e), e);

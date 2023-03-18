@@ -47,7 +47,7 @@ import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import top.lytree.codec.Charsets;
+import top.lytree.lang.CharsetUtils;
 import top.lytree.io.FileUtils;
 import top.lytree.io.IOUtils;
 import top.lytree.io.UncheckedIO;
@@ -1119,7 +1119,7 @@ public final class PathUtils {
      * @see Files#readAllBytes(Path)
      */
     public static String readString(final Path path, final Charset charset) throws IOException {
-        return new String(Files.readAllBytes(path), Charsets.toCharset(charset));
+        return new String(Files.readAllBytes(path), CharsetUtils.toCharset(charset));
     }
 
     /**
@@ -1537,7 +1537,7 @@ public final class PathUtils {
         // Check the text is not null before opening file.
         Objects.requireNonNull(path, "path");
         Objects.requireNonNull(charSequence, "charSequence");
-        Files.write(path, String.valueOf(charSequence).getBytes(Charsets.toCharset(charset)), openOptions);
+        Files.write(path, String.valueOf(charSequence).getBytes(CharsetUtils.toCharset(charset)), openOptions);
         return path;
     }
 

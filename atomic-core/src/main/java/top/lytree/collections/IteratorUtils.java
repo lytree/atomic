@@ -50,7 +50,7 @@ import top.lytree.collections.iterators.ResettableListIterator;
 import top.lytree.collections.iterators.SingletonIterator;
 import top.lytree.collections.iterators.SingletonListIterator;
 import top.lytree.base.Assert;
-import top.lytree.math.Ints;
+import top.lytree.math.NumberUtils;
 
 
 /**
@@ -650,7 +650,7 @@ public class IteratorUtils {
             iterator.next();
             count++;
         }
-        return Ints.saturatedCast(count);
+        return NumberUtils.saturatedCast(count);
     }
 
     /**

@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
-import top.lytree.codec.Charsets;
+import top.lytree.lang.CharsetUtils;
 import top.lytree.io.FileUtils;
 
 /**
@@ -136,7 +136,7 @@ public class LockableFileWriter extends Writer {
      */
     public LockableFileWriter(final File file, final String charsetName, final boolean append,
             final String lockDir) throws IOException {
-        this(file, Charsets.toCharset(charsetName), append, lockDir);
+        this(file, CharsetUtils.toCharset(charsetName), append, lockDir);
     }
 
 
@@ -190,7 +190,7 @@ public class LockableFileWriter extends Writer {
     private Writer initWriter(final File file, final Charset charset, final boolean append) throws IOException {
         final boolean fileExistedAlready = file.exists();
         try {
-            return new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath(), append), Charsets.toCharset(charset));
+            return new OutputStreamWriter(new FileOutputStream(file.getAbsolutePath(), append), CharsetUtils.toCharset(charset));
 
         } catch (final IOException | RuntimeException ex) {
             FileUtils.deleteQuietly(lockFile);
