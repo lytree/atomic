@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package top.lytree.codec;
+package top.lytree.io;
 
 import java.io.InputStream;
 
