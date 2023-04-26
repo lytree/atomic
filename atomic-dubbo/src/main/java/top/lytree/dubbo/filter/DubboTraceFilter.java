@@ -1,9 +1,10 @@
 package top.lytree.dubbo.filter;
 
-import com.alibaba.fastjson.JSON;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Arrays;
+
+import com.alibaba.fastjson2.JSON;
 import org.apache.dubbo.common.extension.Activate;
 import org.apache.dubbo.registry.Constants;
 import org.apache.dubbo.rpc.Filter;
