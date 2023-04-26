@@ -2,8 +2,9 @@ package top.lytree.email;
 
 import java.io.File;
 import java.util.Objects;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
@@ -61,7 +62,7 @@ public class SendEmail {
             minehelper.setText(content, true);
             mailSender.send(message);
             return true;
-        } catch (MessagingException | MailException e) {
+        } catch (MailException | MessagingException e) {
             e.printStackTrace();
             logger.error("发送HTML邮件失败 错误信息:{}", e.getMessage());
             return false;

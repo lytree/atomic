@@ -1,5 +1,6 @@
 package top.lytree.codec.net.url;
 
+import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
@@ -7,7 +8,6 @@ import java.util.Map;
 import top.lytree.codec.FormUrlencoded;
 import top.lytree.codec.PercentCodec;
 import top.lytree.codec.RFC3986;
-import top.lytree.codec.URLDecoder;
 import top.lytree.collections.MapUtils;
 import top.lytree.lang.StringUtils;
 
@@ -360,11 +360,11 @@ public class UrlQuery {
      */
     private void addParam(String key, String value, Charset charset) {
         if (null != key) {
-            final String actualKey = URLDecoder.decode(key, charset, isFormUrlEncoded);
-            this.query.put(actualKey, StringUtils.stripToEmpty(URLDecoder.decode(value, charset, isFormUrlEncoded)));
+            final String actualKey = URLDecoder.decode(key, charset);
+            this.query.put(actualKey, StringUtils.stripToEmpty(URLDecoder.decode(value, charset)));
         } else if (null != value) {
             // name为空，value作为name，value赋值null
-            this.query.put(URLDecoder.decode(value, charset, isFormUrlEncoded), null);
+            this.query.put(URLDecoder.decode(value, charset), null);
         }
     }
 }

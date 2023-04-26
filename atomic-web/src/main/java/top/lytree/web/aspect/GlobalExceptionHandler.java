@@ -2,7 +2,8 @@ package top.lytree.web.aspect;
 
 import com.google.common.collect.ImmutableMap;
 import java.net.BindException;
-import javax.validation.ValidationException;
+
+import jakarta.validation.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;

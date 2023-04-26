@@ -1,8 +1,9 @@
 package top.lytree.web.utils;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author PrideYang

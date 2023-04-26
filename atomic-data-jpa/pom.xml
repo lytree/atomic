@@ -5,31 +5,35 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>atomic-data-jpa</artifactId>
-  <version>1.0</version>
+  <version>2.0</version>
   <parent>
     <groupId>top.lytree</groupId>
     <artifactId>atomic</artifactId>
-    <version>1.0</version>
+    <version>2.0</version>
   </parent>
   <properties>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
   </properties>
   <dependencies>
     <dependency>
       <groupId>top.lytree</groupId>
       <artifactId>atomic-core</artifactId>
-      <version>${atomic.version}</version>
+      <version>2.0</version>
     </dependency>
     <dependency>
       <groupId>top.lytree</groupId>
       <artifactId>atomic-spring</artifactId>
-      <version>${atomic.version}</version>
+      <version>2.0</version>
     </dependency>
     <dependency>
       <groupId>top.lytree</groupId>
       <artifactId>atomic-model</artifactId>
-      <version>${atomic.version}</version>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>

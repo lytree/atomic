@@ -1,21 +1,22 @@
 package top.lytree.configuration;
 
-import static net.bytebuddy.description.annotation.AnnotationDescription.Builder.ofType;
-import static net.bytebuddy.description.type.TypeDescription.Generic.Builder.parameterizedType;
-import static net.bytebuddy.implementation.FieldAccessor.ofField;
-import static net.bytebuddy.implementation.MethodDelegation.to;
-import static net.bytebuddy.matcher.ElementMatchers.isDefaultConstructor;
-import static net.bytebuddy.matcher.ElementMatchers.named;
-
-import java.lang.reflect.Modifier;
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.NamingStrategy;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.MethodCall;
 import org.apache.commons.lang3.StringUtils;
+
+import java.lang.reflect.Modifier;
+
+import static net.bytebuddy.description.annotation.AnnotationDescription.Builder.ofType;
+import static net.bytebuddy.description.type.TypeDescription.Generic.Builder.parameterizedType;
+import static net.bytebuddy.implementation.FieldAccessor.ofField;
+import static net.bytebuddy.implementation.MethodDelegation.to;
+import static net.bytebuddy.matcher.ElementMatchers.isDefaultConstructor;
+import static net.bytebuddy.matcher.ElementMatchers.named;
 
 public class AttributeConverterAutoGenerator {
 

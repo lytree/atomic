@@ -2,10 +2,9 @@ package top.lytree.web.utils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import jakarta.servlet.http.HttpServletRequest;
 
 public class RequestUtil {
   private final Logger logger = LoggerFactory.getLogger(RequestUtil.class);

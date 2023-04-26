@@ -5,23 +5,26 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>atomic-web</artifactId>
-  <version>1.0</version>
+  <version>2.0</version>
   <parent>
     <groupId>top.lytree</groupId>
     <artifactId>atomic</artifactId>
-    <version>1.0</version>
-    <relativePath>../pom.xml</relativePath>
+    <version>2.0</version>
   </parent>
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>top.lytree</groupId>
       <artifactId>atomic-spring</artifactId>
-      <version>${atomic.version}</version>
+      <version>2.0</version>
     </dependency>
     <dependency>
       <groupId>top.lytree</groupId>
       <artifactId>atomic-model</artifactId>
-      <version>${atomic.version}</version>
+      <version>2.0</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -60,6 +63,16 @@
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjweaver</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>6.0.0</version>
     </dependency>
   </dependencies>
 </project>

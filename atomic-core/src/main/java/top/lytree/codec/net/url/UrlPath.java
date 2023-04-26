@@ -1,10 +1,10 @@
 package top.lytree.codec.net.url;
 
+import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.List;
 import top.lytree.codec.RFC3986;
-import top.lytree.codec.URLDecoder;
 import top.lytree.collections.CollectionUtils;
 import top.lytree.base.Assert;
 import top.lytree.lang.StringUtils;
@@ -106,7 +106,7 @@ public class UrlPath {
             if (StringUtils.isNotEmpty(path)) {
                 final String[] split = StringUtils.split(path, '/');
                 for (String seg : split) {
-                    addInternal(URLDecoder.decodeForPath(seg, charset), false);
+                    addInternal(URLDecoder.decode(seg, charset), false);
                 }
             }
         }

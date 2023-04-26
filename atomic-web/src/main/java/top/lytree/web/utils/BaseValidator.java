@@ -1,9 +1,9 @@
 package top.lytree.web.utils;
 
+import jakarta.validation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.validation.*;
 import java.util.Set;
 
 /**
