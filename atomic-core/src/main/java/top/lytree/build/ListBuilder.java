@@ -1,11 +1,11 @@
 package top.lytree.build;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import org.apache.commons.lang3.builder.Builder;
 
 
 /**
@@ -13,11 +13,10 @@ import org.apache.commons.lang3.builder.Builder;
  *
  * @param <T> 泛型类型
  */
-public class ListBuilder<T> implements Builder<List<T>>, Serializable {
+public record ListBuilder<T>(List<T> list) implements Builder<List<T>>, Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
-
-    private final List<T> list;
 
     /**
      * 创建Builder 默认ArrayList 实现
@@ -56,8 +55,7 @@ public class ListBuilder<T> implements Builder<List<T>>, Serializable {
      *
      * @param list 要使用的List实现类
      */
-    public ListBuilder(List<T> list) {
-        this.list = list;
+    public ListBuilder {
     }
 
     /**
@@ -120,6 +118,7 @@ public class ListBuilder<T> implements Builder<List<T>>, Serializable {
      *
      * @return 创建后的list
      */
+    @Override
     public List<T> list() {
         return this.list;
     }

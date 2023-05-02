@@ -1,13 +1,13 @@
 package top.lytree.build;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import org.apache.commons.lang3.builder.Builder;
 import top.lytree.collections.MapUtils;
 import top.lytree.lang.StringUtils;
 
@@ -17,11 +17,10 @@ import top.lytree.lang.StringUtils;
  * @param <K> Key类型
  * @param <V> Value类型
  */
-public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
+public record MapBuilder<K, V>(Map<K, V> map) implements Builder<Map<K, V>>, Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
-
-    private final Map<K, V> map;
 
     /**
      * 创建Builder，默认HashMap实现
@@ -63,8 +62,7 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
      *
      * @param map 要使用的Map实现类
      */
-    public MapBuilder(Map<K, V> map) {
-        this.map = map;
+    public MapBuilder {
     }
 
     /**
@@ -135,6 +133,7 @@ public class MapBuilder<K, V> implements Builder<Map<K, V>>, Serializable {
      *
      * @return 创建后的map
      */
+    @Override
     public Map<K, V> map() {
         return map;
     }

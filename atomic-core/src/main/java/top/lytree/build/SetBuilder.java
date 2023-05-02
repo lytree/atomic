@@ -1,18 +1,18 @@
 package top.lytree.build;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.function.Supplier;
-import org.apache.commons.lang3.builder.Builder;
 import top.lytree.collections.SetUtils;
 import top.lytree.lang.StringUtils;
 
-public class SetBuilder<E> implements Builder<Set<E>>, Serializable {
+public record SetBuilder<E>(Set<E> set) implements Builder<Set<E>>, Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
-    private final Set<E> set;
 
     /**
      * 创建Builder，默认HashMap实现
@@ -51,8 +51,7 @@ public class SetBuilder<E> implements Builder<Set<E>>, Serializable {
      *
      * @param set 要使用的Map实现类
      */
-    public SetBuilder(Set<E> set) {
-        this.set = set;
+    public SetBuilder {
     }
 
     /**
@@ -120,6 +119,7 @@ public class SetBuilder<E> implements Builder<Set<E>>, Serializable {
      *
      * @return 创建后的map
      */
+    @Override
     public Set<E> set() {
         return set;
     }

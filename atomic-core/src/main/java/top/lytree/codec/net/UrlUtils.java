@@ -1,19 +1,15 @@
 package top.lytree.codec.net;
 
+import top.lytree.exception.NetException;
+import top.lytree.lang.StringUtils;
+
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.net.URLStreamHandler;
+import java.net.*;
 import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import top.lytree.exception.NetException;
-import top.lytree.bean.ClassLoaderUtils;
-import top.lytree.lang.StringUtils;
+
 
 /**
  * url and html utils.
@@ -343,7 +339,7 @@ public class UrlUtils {
         // 兼容Spring的ClassPath路径
         if (url.startsWith(CLASSPATH_URL_PREFIX)) {
             url = url.substring(CLASSPATH_URL_PREFIX.length());
-            return ClassLoaderUtils.getClassLoader().getResource(url);
+            return Thread.currentThread().getContextClassLoader().getResource(url);
         }
 
         try {

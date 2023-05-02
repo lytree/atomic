@@ -1,6 +1,7 @@
 package top.lytree.bean;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -17,6 +18,7 @@ import top.lytree.lang.StringUtils;
  */
 public class BeanDesc implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -126,7 +128,7 @@ public class BeanDesc implements Serializable {
         PropDesc prop;
         for (final Field field : FieldUtils.getAllFields(this.beanClass)) {
             // 排除静态属性和对象子类
-            if (false == ModifierUtils.isStatic(field) && false == FieldUtils.isOuterClassField(field)) {
+            if (!ModifierUtils.isStatic(field) && !FieldUtils.isOuterClassField(field)) {
                 prop = createProp(field, gettersAndSetters);
                 // 只有不存在时才放入，防止父类属性覆盖子类属性
                 this.propMap.putIfAbsent(prop.getFieldName(), prop);
@@ -290,7 +292,7 @@ public class BeanDesc implements Serializable {
         }
 
         // 非标准Setter方法跳过
-        if (false == methodName.startsWith("set")) {
+        if (!methodName.startsWith("set")) {
             return false;
         }
 

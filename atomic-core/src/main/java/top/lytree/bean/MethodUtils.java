@@ -118,7 +118,7 @@ public class MethodUtils extends org.apache.commons.lang3.reflect.MethodUtils {
             messagePrefix = "No such method: ";
             method = getMatchingMethod(object.getClass(),
                     methodName, parameterTypes);
-            if (method != null && !method.isAccessible()) {
+            if (method != null && !method.canAccess(object)) {
                 method.setAccessible(true);
             }
         } else {
