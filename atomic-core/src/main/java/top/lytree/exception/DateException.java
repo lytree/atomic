@@ -2,11 +2,14 @@ package top.lytree.exception;
 
 import top.lytree.lang.StringUtils;
 
+import java.io.Serial;
+
 public class DateException extends RuntimeException {
 
     /**
      * Defines the serial version UID.
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public DateException(final Throwable e) {

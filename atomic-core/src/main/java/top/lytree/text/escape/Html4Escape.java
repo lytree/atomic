@@ -3,6 +3,8 @@ package top.lytree.text.escape;
 
 import top.lytree.text.replacer.LookupReplacer;
 
+import java.io.Serial;
+
 /**
  * HTML4的ESCAPE 参考：Commons Lang3
  *
@@ -10,6 +12,7 @@ import top.lytree.text.replacer.LookupReplacer;
  */
 public class Html4Escape extends XmlEscape {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     protected static final String[][] ISO8859_1_ESCAPE = { //

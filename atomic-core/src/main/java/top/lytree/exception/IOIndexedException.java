@@ -18,12 +18,14 @@
 package top.lytree.exception;
 
 import java.io.IOException;
+import java.io.Serial;
 
 /**
  * IO 读取下标异常
  */
 public class IOIndexedException extends IOException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

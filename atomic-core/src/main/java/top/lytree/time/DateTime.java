@@ -1,6 +1,7 @@
 package top.lytree.time;
 
 
+import java.io.Serial;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,6 +32,7 @@ import top.lytree.lang.StringUtils;
  */
 public class DateTime extends Date {
 
+    @Serial
     private static final long serialVersionUID = -5395712593979185936L;
 
     private static boolean useJdkToStringStyle = false;

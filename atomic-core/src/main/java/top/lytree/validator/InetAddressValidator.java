@@ -17,6 +17,7 @@
 
 package top.lytree.validator;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +45,7 @@ public class InetAddressValidator implements Serializable {
 
     private static final int BASE_16 = 16;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final String IPV4_REGEX =

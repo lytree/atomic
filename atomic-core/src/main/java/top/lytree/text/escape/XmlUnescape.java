@@ -4,6 +4,8 @@ package top.lytree.text.escape;
 import top.lytree.text.replacer.LookupReplacer;
 import top.lytree.text.replacer.ReplacerChain;
 
+import java.io.Serial;
+
 /**
  * XML的UNESCAPE
  *
@@ -12,6 +14,7 @@ import top.lytree.text.replacer.ReplacerChain;
  */
 public class XmlUnescape extends ReplacerChain {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     protected static final String[][] BASIC_UNESCAPE = InternalEscapeUtil.invert(XmlEscape.BASIC_ESCAPE);

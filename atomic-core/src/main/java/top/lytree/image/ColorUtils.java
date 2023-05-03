@@ -115,7 +115,7 @@ public class ColorUtils {
                 final Integer r = Integer.parseInt(rgb.get(0));
                 final Integer g = Integer.parseInt(rgb.get(1));
                 final Integer b = Integer.parseInt(rgb.get(2));
-                if (false == ArrayUtils.hasNull(r, g, b)) {
+                if (!ArrayUtils.hasNull(r, g, b)) {
                     return new Color(r, g, b);
                 }
             } else {

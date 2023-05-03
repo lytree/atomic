@@ -1,7 +1,7 @@
 package top.lytree.time;
 
 
-import top.lytree.validator.Validate;
+import top.lytree.base.Assert;
 import top.lytree.bean.ObjectUtils;
 import top.lytree.pattern.RegExUtils;
 import top.lytree.lang.StringUtils;
@@ -526,7 +526,7 @@ public class LocalDateTimeUtils {
     }
 
     private static void validateDateNotNull(final LocalDateTime localDateTime) {
-        Validate.notNull(localDateTime, "localDateTime");
+        Assert.notNull(localDateTime, "localDateTime is not null");
     }
 
 

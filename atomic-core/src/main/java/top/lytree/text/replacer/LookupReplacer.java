@@ -1,5 +1,6 @@
 package top.lytree.text.replacer;
 
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -12,6 +13,7 @@ import java.util.Set;
  * 
  */
 public class LookupReplacer extends StringReplacer {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private final Map<String, String> lookupMap;

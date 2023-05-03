@@ -2,11 +2,14 @@ package top.lytree.exception;
 
 import top.lytree.text.StringFormatter;
 
+import java.io.Serial;
+
 public class BeanException extends RuntimeException {
 
     /**
      * Defines the serial version UID.
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public BeanException(final Throwable e) {

@@ -16,6 +16,7 @@
  */
 package top.lytree.validator;
 
+import java.io.Serial;
 import java.text.Format;
 import java.text.ParsePosition;
 import java.util.Locale;
@@ -32,6 +33,7 @@ import java.io.Serializable;
  */
 public abstract class AbstractFormatValidator implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final boolean strict;

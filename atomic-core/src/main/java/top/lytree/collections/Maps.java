@@ -23,7 +23,7 @@ public final class Maps {
 
     static <K, V> Iterator<K> keyIterator(
             Iterator<Entry<K, V>> entryIterator) {
-        return new TransformedIterator<Entry<K, V>, K>(entryIterator) {
+        return new TransformedIterator<>(entryIterator) {
             @Override
             K transform(Entry<K, V> entry) {
                 return entry.getKey();
@@ -126,8 +126,7 @@ public final class Maps {
 
         @Override
         public boolean contains(Object o) {
-            if (o instanceof Entry) {
-                Entry<?, ?> entry = (Entry<?, ?>) o;
+            if (o instanceof Entry<?, ?> entry) {
                 Object key = entry.getKey();
                 V value = Maps.safeGet(map(), key);
                 return Objects.equals(value, entry.getValue()) && (value != null || map().containsKey(key));
@@ -146,8 +145,7 @@ public final class Maps {
              * `o instanceof Entry` is guaranteed by `contains`, but we check it here to satisfy our
              * nullness checker.
              */
-            if (contains(o) && o instanceof Entry) {
-                Entry<?, ?> entry = (Entry<?, ?>) o;
+            if (contains(o) && o instanceof Entry<?, ?> entry) {
                 return map().keySet().remove(entry.getKey());
             }
             return false;
@@ -175,8 +173,7 @@ public final class Maps {
                      * `o instanceof Entry` is guaranteed by `contains`, but we check it here to satisfy our
                      * nullness checker.
                      */
-                    if (contains(o) && o instanceof Entry) {
-                        Entry<?, ?> entry = (Entry<?, ?>) o;
+                    if (contains(o) && o instanceof Entry<?, ?> entry) {
                         keys.add(entry.getKey());
                     }
                 }
@@ -324,8 +321,6 @@ public final class Maps {
      */
     static <K, V> void putAllImpl(
             Map<K, V> self, Map<? extends K, ? extends V> map) {
-        for (Entry<? extends K, ? extends V> entry : map.entrySet()) {
-            self.put(entry.getKey(), entry.getValue());
-        }
+        self.putAll(map);
     }
 }

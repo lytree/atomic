@@ -2,6 +2,7 @@ package top.lytree.math;
 
 import top.lytree.time.SystemClock;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -25,6 +26,7 @@ import java.util.Date;
  * 参考：http://www.cnblogs.com/relucent/p/4955340.html
  */
 public class Snowflake implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final long twepoch;

@@ -2,6 +2,8 @@ package top.lytree.exception;
 
 import top.lytree.lang.StringUtils;
 
+import java.io.Serial;
+
 /**
  * 网络异常
  */
@@ -10,6 +12,7 @@ public class NetException extends RuntimeException {
     /**
      * Defines the serial version UID.
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public NetException(Throwable e) {

@@ -15,6 +15,7 @@
 package top.lytree.base;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.function.Function;
@@ -126,29 +127,24 @@ public abstract class Converter<A, B> {
      */
     public Iterable<B> convertAll(Iterable<? extends A> fromIterable) {
         Assert.notNull(fromIterable, "fromIterable");
-        return new Iterable<B>() {
+        return () -> new Iterator<>() {
+            private final Iterator<? extends A> fromIterator = fromIterable.iterator();
+
             @Override
-            public Iterator<B> iterator() {
-                return new Iterator<B>() {
-                    private final Iterator<? extends A> fromIterator = fromIterable.iterator();
+            public boolean hasNext() {
+                return fromIterator.hasNext();
+            }
 
-                    @Override
-                    public boolean hasNext() {
-                        return fromIterator.hasNext();
-                    }
+            @Override
+            @SuppressWarnings("nullness") // See code comments on convertAll and Converter.apply.
 
-                    @Override
-                    @SuppressWarnings("nullness") // See code comments on convertAll and Converter.apply.
+            public B next() {
+                return convert(fromIterator.next());
+            }
 
-                    public B next() {
-                        return convert(fromIterator.next());
-                    }
-
-                    @Override
-                    public void remove() {
-                        fromIterator.remove();
-                    }
-                };
+            @Override
+            public void remove() {
+                fromIterator.remove();
             }
         };
     }
@@ -225,6 +221,7 @@ public abstract class Converter<A, B> {
             return original + ".reverse()";
         }
 
+        @Serial
         private static final long serialVersionUID = 1L;
     }
 
@@ -286,8 +283,7 @@ public abstract class Converter<A, B> {
 
         @Override
         public boolean equals(Object object) {
-            if (object instanceof ConverterComposition) {
-                ConverterComposition<?, ?, ?> that = (ConverterComposition<?, ?, ?>) object;
+            if (object instanceof ConverterComposition<?, ?, ?> that) {
                 return this.first.equals(that.first) && this.second.equals(that.second);
             }
             return false;
@@ -303,6 +299,7 @@ public abstract class Converter<A, B> {
             return first + ".andThen(" + second + ")";
         }
 
+        @Serial
         private static final long serialVersionUID = 1L;
     }
 
@@ -364,8 +361,7 @@ public abstract class Converter<A, B> {
 
         @Override
         public boolean equals(Object object) {
-            if (object instanceof FunctionBasedConverter) {
-                FunctionBasedConverter<?, ?> that = (FunctionBasedConverter<?, ?>) object;
+            if (object instanceof FunctionBasedConverter<?, ?> that) {
                 return this.forwardFunction.equals(that.forwardFunction)
                         && this.backwardFunction.equals(that.backwardFunction);
             }
@@ -428,10 +424,12 @@ public abstract class Converter<A, B> {
             return "Converter.identity()";
         }
 
+        @Serial
         private Object readResolve() {
             return INSTANCE;
         }
 
+        @Serial
         private static final long serialVersionUID = 1L;
     }
 }

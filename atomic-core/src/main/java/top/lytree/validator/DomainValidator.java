@@ -16,6 +16,7 @@
  */
 package top.lytree.validator;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.net.IDN;
 import java.util.Arrays;
@@ -66,6 +67,7 @@ public class DomainValidator implements Serializable {
 
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     // Regular expression strings for hostnames (derived from RFC2396 and RFC 1123)

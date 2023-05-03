@@ -16,6 +16,7 @@
  */
 package top.lytree.validator;
 
+import java.io.Serial;
 import java.text.DateFormatSymbols;
 import java.text.Format;
 import java.text.DateFormat;
@@ -35,6 +36,7 @@ import java.util.TimeZone;
  */
 public abstract class AbstractCalendarValidator extends AbstractFormatValidator {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final int dateStyle;

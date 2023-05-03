@@ -18,6 +18,7 @@ package top.lytree.exception;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serial;
 
 /**
  * 文件不存在异常
@@ -27,6 +28,7 @@ public class FileExistsException extends IOException {
     /**
      * Defines the serial version UID.
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

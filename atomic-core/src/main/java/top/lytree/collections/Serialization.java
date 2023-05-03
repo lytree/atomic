@@ -49,7 +49,7 @@ final class Serialization {
      *
      * <p>序列化的输出包括条目的数量、第一个键、第一个值、第二个键、第二个值，等等.
      */
-    static <K, V extends Object> void writeMap(
+    static <K, V> void writeMap(
             Map<K, V> map, ObjectOutputStream stream) throws IOException {
         stream.writeInt(map.size());
         for (Map.Entry<K, V> entry : map.entrySet()) {
@@ -61,7 +61,7 @@ final class Serialization {
     /**
      * 作为反序列化的一部分，通过读取输入流填充映射。数据格式参见{@link #writeMap}.
      */
-    static <K, V extends Object> void populateMap(
+    static <K, V> void populateMap(
             Map<K, V> map, ObjectInputStream stream) throws IOException, ClassNotFoundException {
         int size = stream.readInt();
         populateMap(map, stream, size);
@@ -70,7 +70,7 @@ final class Serialization {
     /**
      * 作为反序列化的一部分，通过读取输入流填充映射。数据格式参见{@link #writeMap}。大小由之前调用{@link #readCount}决定.
      */
-    static <K, V extends Object> void populateMap(
+    static <K, V> void populateMap(
             Map<K, V> map, ObjectInputStream stream, int size)
             throws IOException, ClassNotFoundException {
         for (int i = 0; i < size; i++) {

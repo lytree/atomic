@@ -193,7 +193,6 @@ public class Lists {
                             return backingList.listIterator(index);
                         }
 
-                        private static final long serialVersionUID = 0;
                     };
         } else {
             wrapper =
@@ -203,7 +202,6 @@ public class Lists {
                             return backingList.listIterator(index);
                         }
 
-                        private static final long serialVersionUID = 0;
                     };
         }
         return wrapper.subList(fromIndex, toIndex);

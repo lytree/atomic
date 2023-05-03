@@ -16,6 +16,7 @@
  */
 package top.lytree.validator;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.text.Format;
 import java.util.Locale;
@@ -65,6 +66,7 @@ import java.util.Locale;
  */
 public class BigIntegerValidator extends AbstractNumberValidator {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final BigIntegerValidator VALIDATOR = new BigIntegerValidator();

@@ -1,6 +1,7 @@
 package top.lytree.collections;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.AbstractSet;
 import java.util.Collection;
@@ -25,6 +26,7 @@ import top.lytree.build.MapBuilder;
  */
 public class UniqueKeySet<K, V> extends AbstractSet<V> implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private Map<K, V> map;

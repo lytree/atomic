@@ -17,11 +17,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.CropImageFilter;
 import java.awt.image.ImageFilter;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.nio.file.Path;
@@ -37,6 +33,7 @@ import top.lytree.math.NumberUtils;
 
 public class Image implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     private final BufferedImage srcImage;
     private java.awt.Image targetImage;

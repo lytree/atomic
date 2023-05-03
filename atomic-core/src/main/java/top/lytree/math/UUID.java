@@ -1,5 +1,6 @@
 package top.lytree.math;
 
+import java.io.Serial;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -39,6 +40,7 @@ import top.lytree.lang.RandomUtils;
  *
  */
 public class UUID implements java.io.Serializable, Comparable<UUID> {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

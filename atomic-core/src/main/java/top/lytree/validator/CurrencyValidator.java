@@ -16,6 +16,7 @@
  */
 package top.lytree.validator;
 
+import java.io.Serial;
 import java.text.DecimalFormat;
 import java.text.Format;
 
@@ -44,6 +45,7 @@ import java.text.Format;
  */
 public class CurrencyValidator extends BigDecimalValidator {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final CurrencyValidator VALIDATOR = new CurrencyValidator();

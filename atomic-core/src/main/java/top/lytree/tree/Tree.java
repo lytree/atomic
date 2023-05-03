@@ -1,5 +1,6 @@
 package top.lytree.tree;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import top.lytree.collections.ArrayUtils;
  */
 public class Tree<T> extends LinkedHashMap<String, Object> implements Node<T> {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final TreeNodeConfig treeNodeConfig;

@@ -23,13 +23,13 @@ public class VerifyCode {
   private Random r = new Random();
   //  字体
 //  private String[] fontNames = { "宋体", "华文楷体", "黑体", "华文新魏", "华文隶书", "微软雅黑", "楷体_GB2312" };
-  private String[] fontNames = {"宋体", "黑体", "微软雅黑"};
+  private final String[] fontNames = {"宋体", "黑体", "微软雅黑"};
 
   // 可选字符
-  private String codes = "23456789abcdefghjkmnopqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ";
+  private final String codes = "23456789abcdefghjkmnopqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ";
 
   // 背景色,白色
-  private Color bgColor = new Color(255, 255, 255);
+  private final Color bgColor = new Color(255, 255, 255);
 
   // 验证码上的文本
   private String text;
@@ -188,7 +188,7 @@ public class VerifyCode {
     StringBuilder sb = new StringBuilder();// 用来装载生成的验证码文本
     // 向图片中画4个字符
     for (int i = 0; i < NUMBER_CNT; i++) {// 循环四次，每次生成一个字符
-      String s = randomChar() + "";// 随机生成一个字母
+      String s = String.valueOf(randomChar());// 随机生成一个字母
       sb.append(s); // 把字母添加到sb中
       float x = i * 1.0F * CAPTCHA_WIDTH / NUMBER_CNT; // 设置当前字符的x轴坐标
       g2.setFont(randomFont()); // 设置随机字体

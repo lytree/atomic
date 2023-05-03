@@ -3,6 +3,7 @@ package top.lytree.math;
 
 import top.lytree.lang.StringUtils;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -17,6 +18,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class MurmurHash implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     // Constants for 32 bit variant

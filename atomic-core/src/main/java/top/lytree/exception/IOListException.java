@@ -1,6 +1,7 @@
 package top.lytree.exception;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +19,7 @@ public class IOListException extends IOException {
     /**
      * Defines the serial version UID.
      */
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

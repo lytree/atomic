@@ -1,5 +1,6 @@
 package top.lytree.text.replacer;
 
+import java.io.Serial;
 import java.io.Serializable;
 import top.lytree.base.Replacer;
 
@@ -11,6 +12,7 @@ import top.lytree.base.Replacer;
  */
 public abstract class StringReplacer implements Replacer<CharSequence>, Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

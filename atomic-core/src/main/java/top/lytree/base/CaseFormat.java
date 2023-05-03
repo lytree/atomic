@@ -18,6 +18,7 @@ package top.lytree.base;
 import static java.util.Objects.requireNonNull;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 import top.lytree.pattern.CharMatcher;
 
@@ -187,8 +188,7 @@ public enum CaseFormat {
 
         @Override
         public boolean equals(Object object) {
-            if (object instanceof StringConverter) {
-                StringConverter that = (StringConverter) object;
+            if (object instanceof StringConverter that) {
                 return sourceFormat.equals(that.sourceFormat) && targetFormat.equals(that.targetFormat);
             }
             return false;
@@ -204,6 +204,7 @@ public enum CaseFormat {
             return sourceFormat + ".converterTo(" + targetFormat + ")";
         }
 
+        @Serial
         private static final long serialVersionUID = 1L;
     }
 

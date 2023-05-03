@@ -1,6 +1,7 @@
 package top.lytree.text.replacer;
 
 
+import java.io.Serial;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,7 @@ import top.lytree.base.Chain;
  */
 public class ReplacerChain extends StringReplacer implements Chain<StringReplacer, ReplacerChain> {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final List<StringReplacer> replacers = new LinkedList<>();

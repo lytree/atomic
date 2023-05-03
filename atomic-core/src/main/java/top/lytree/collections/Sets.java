@@ -115,8 +115,7 @@ public final class Sets {
         if (s == object) {
             return true;
         }
-        if (object instanceof Set) {
-            Set<?> o = (Set<?>) object;
+        if (object instanceof Set<?> o) {
 
             try {
                 return s.size() == o.size() && s.containsAll(o);

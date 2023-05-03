@@ -158,18 +158,15 @@ public abstract class CharMatcher {
      * characters.
      */
     public static CharMatcher anyOf(final CharSequence sequence) {
-        switch (sequence.length()) {
-            case 0:
-                return none();
-            case 1:
-                return is(sequence.charAt(0));
-            case 2:
-                return isEither(sequence.charAt(0), sequence.charAt(1));
-            default:
+        return switch (sequence.length()) {
+            case 0 -> none();
+            case 1 -> is(sequence.charAt(0));
+            case 2 -> isEither(sequence.charAt(0), sequence.charAt(1));
+            default ->
                 // TODO(lowasser): is it potentially worth just going ahead and building a precomputed
                 // matcher?
-                return new AnyOf(sequence);
-        }
+                    new AnyOf(sequence);
+        };
     }
 
     /**
@@ -291,18 +288,22 @@ public abstract class CharMatcher {
     private static CharMatcher precomputedPositive(
             int totalCharacters, BitSet table, String description) {
         switch (totalCharacters) {
-            case 0:
+            case 0 -> {
                 return none();
-            case 1:
+            }
+            case 1 -> {
                 return is((char) table.nextSetBit(0));
-            case 2:
+            }
+            case 2 -> {
                 char c1 = (char) table.nextSetBit(0);
                 char c2 = (char) table.nextSetBit(c1 + 1);
                 return isEither(c1, c2);
-            default:
+            }
+            default -> {
                 return isSmall(totalCharacters, table.length())
                         ? SmallCharMatcher.from(table, description)
                         : new BitSetMatcher(table, description);
+            }
         }
     }
 

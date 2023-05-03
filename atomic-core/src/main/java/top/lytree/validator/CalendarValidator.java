@@ -16,6 +16,7 @@
  */
 package top.lytree.validator;
 
+import java.io.Serial;
 import java.text.DateFormat;
 import java.text.Format;
 import java.util.Calendar;
@@ -87,6 +88,7 @@ import java.util.TimeZone;
  */
 public class CalendarValidator extends AbstractCalendarValidator {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final CalendarValidator VALIDATOR = new CalendarValidator();

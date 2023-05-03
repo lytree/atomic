@@ -16,6 +16,7 @@
  */
 package top.lytree.validator;
 
+import java.io.Serial;
 import java.text.DecimalFormatSymbols;
 import java.text.Format;
 import java.text.NumberFormat;
@@ -33,6 +34,7 @@ import java.util.Locale;
  */
 public abstract class AbstractNumberValidator extends AbstractFormatValidator {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** Standard <code>NumberFormat</code> type */

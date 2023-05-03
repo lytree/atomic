@@ -142,6 +142,7 @@ public class SetUtils {
      * @param items the elements that make up the new set
      * @return a set
      */
+    @SafeVarargs
     public static <E> HashSet<E> hashSet(final E... items) {
         if (items == null) {
             return null;
@@ -275,7 +276,7 @@ public class SetUtils {
         boolean isFirst = true;
         if (isNotEmpty(set)) {
             for (E entry : set) {
-                if (false == isIgnoreNull || entry != null) {
+                if (!isIgnoreNull || entry != null) {
                     if (isFirst) {
                         isFirst = false;
                     } else {

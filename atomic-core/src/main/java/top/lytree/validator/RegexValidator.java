@@ -16,6 +16,7 @@
  */
 package top.lytree.validator;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -69,6 +70,7 @@ import java.util.regex.Matcher;
  */
 public class RegexValidator implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private final Pattern[] patterns;

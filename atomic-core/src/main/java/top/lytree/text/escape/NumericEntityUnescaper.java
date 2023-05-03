@@ -4,6 +4,8 @@ package top.lytree.text.escape;
 import top.lytree.lang.CharUtils;
 import top.lytree.text.replacer.StringReplacer;
 
+import java.io.Serial;
+
 /**
  * 形如&#39;的反转义器
  *
@@ -11,6 +13,7 @@ import top.lytree.text.replacer.StringReplacer;
  */
 public class NumericEntityUnescaper extends StringReplacer {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Override

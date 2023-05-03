@@ -16,6 +16,7 @@
  */
 package top.lytree.validator;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.Format;
@@ -69,6 +70,7 @@ import java.util.Locale;
  */
 public class BigDecimalValidator extends AbstractNumberValidator {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final BigDecimalValidator VALIDATOR = new BigDecimalValidator();

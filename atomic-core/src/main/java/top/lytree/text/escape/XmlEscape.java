@@ -3,6 +3,8 @@ package top.lytree.text.escape;
 import top.lytree.text.replacer.LookupReplacer;
 import top.lytree.text.replacer.ReplacerChain;
 
+import java.io.Serial;
+
 /**
  * XML特殊字符转义<br>
  * 见：https://stackoverflow.com/questions/1091945/what-characters-do-i-need-to-escape-in-xml-documents<br>
@@ -19,6 +21,7 @@ import top.lytree.text.replacer.ReplacerChain;
  * 
  */
 public class XmlEscape extends ReplacerChain {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	protected static final String[][] BASIC_ESCAPE = { //

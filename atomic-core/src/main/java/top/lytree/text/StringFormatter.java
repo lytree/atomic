@@ -169,7 +169,7 @@ public final class StringFormatter {
             String oAsString = o.toString();
             sbuf.append(oAsString);
         } catch (Throwable t) {
-            sbuf.append("[" + o.getClass().getName() + " FAILED toString()]");
+            sbuf.append("[").append(o.getClass().getName()).append(" FAILED toString()]");
         }
     }
 

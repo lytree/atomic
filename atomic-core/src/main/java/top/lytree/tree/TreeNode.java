@@ -1,6 +1,7 @@
 package top.lytree.tree;
 
 
+import java.io.Serial;
 import java.util.Map;
 import java.util.Objects;
 
@@ -13,6 +14,7 @@ import java.util.Objects;
  * @author liangbaikai
  */
 public class TreeNode<T> implements Node<T> {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**

@@ -18,8 +18,6 @@ import top.lytree.tree.parser.NodeParser;
  */
 public class TreeBuilder<E> {
 
-    private static final long serialVersionUID = 1L;
-
     private final Tree<E> root;
     private final Map<E, Tree<E>> idTreeMap;
     private boolean isBuild;

@@ -3,6 +3,7 @@ package top.lytree.math;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.File;
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -46,6 +47,7 @@ import java.util.Currency;
 
 public class Money implements Serializable, Comparable<Money> {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

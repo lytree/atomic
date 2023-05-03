@@ -16,6 +16,7 @@
  */
 package top.lytree.validator;
 
+import java.io.Serial;
 import java.text.Format;
 import java.util.Locale;
 
@@ -63,6 +64,7 @@ import java.util.Locale;
  */
 public class LongValidator extends AbstractNumberValidator {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final LongValidator VALIDATOR = new LongValidator();
