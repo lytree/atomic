@@ -1,5 +1,6 @@
 package top.lytree.oss.model.request.support;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -7,5 +8,6 @@ import java.io.Serializable;
  */
 public class BaseParam implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 }

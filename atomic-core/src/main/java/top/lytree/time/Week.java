@@ -4,7 +4,7 @@ package top.lytree.time;
 import java.time.DayOfWeek;
 import java.util.Calendar;
 import top.lytree.base.Assert;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.array.ArrayUtils;
 
 /**
  * 星期枚举<br>

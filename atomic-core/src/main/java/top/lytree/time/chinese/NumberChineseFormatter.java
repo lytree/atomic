@@ -4,10 +4,9 @@ package top.lytree.time.chinese;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import top.lytree.base.Assert;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.array.ArrayUtils;
 import top.lytree.lang.StringUtils;
 import top.lytree.math.MathUtils;
-import top.lytree.math.NumberUtils;
 
 /**
  * 数字转中文类<br>

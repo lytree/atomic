@@ -1,7 +1,7 @@
 package top.lytree.lang;
 
 
-import top.lytree.collections.ArrayUtils;
+import top.lytree.array.ArrayUtils;
 
 /**
  * @author PrideYang

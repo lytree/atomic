@@ -17,18 +17,11 @@
 package top.lytree.collections;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Function;
 import java.util.function.Supplier;
+
+import top.lytree.array.ArrayUtils;
 import top.lytree.base.Filter;
 import top.lytree.pattern.Matcher;
 
@@ -37,35 +30,25 @@ public class CollectionUtils {
 
     /**
      * The index value when an element is not found in a collection or array: {@code -1}.
-     *
-     *
      */
     public static final int INDEX_NOT_FOUND = -1;
 
     /**
      * Default prefix used while converting an Iterator to its String representation.
-     *
-     *
      */
     public static final String DEFAULT_TOSTRING_PREFIX = "[";
 
     /**
      * Default suffix used while converting an Iterator to its String representation.
-     *
-     *
      */
     public static final String DEFAULT_TOSTRING_SUFFIX = "]";
 
     /**
      * A String for Colon  (":").
-     *
-     *
      */
     public static final String COLON = ":";
     /**
      * A String for Comma (",").
-     *
-     *
      */
     public static final String COMMA = ",";
 
@@ -225,7 +208,6 @@ public class CollectionUtils {
      * @param <T> the element type
      * @return immutable empty collection
      * @see #EMPTY_COLLECTION
-     *
      */
     @SuppressWarnings("unchecked") // OK, empty collection is compatible with any type
     public static <T> Collection<T> emptyCollection() {
@@ -439,10 +421,9 @@ public class CollectionUtils {
      * @param equator    the equator used for generate hashCode
      * @return the hash code of the input collection using the hash method of an equator
      * @throws NullPointerException if the equator is {@code null}
-     *
      */
     public static <E> int hashCode(final Collection<? extends E> collection,
-            final Equator<? super E> equator) {
+                                   final Equator<? super E> equator) {
         Objects.requireNonNull(equator, "equator");
         if (null == collection) {
             return 0;
@@ -461,7 +442,6 @@ public class CollectionUtils {
      * </p>
      *
      * @param <O> the element type
-     *
      */
     private static class EquatorWrapper<O> {
 
@@ -501,7 +481,6 @@ public class CollectionUtils {
      * @param object     the object to add, if null it will not be added
      * @return true if the collection changed
      * @throws NullPointerException if the collection is null
-     *
      */
     public static <T> boolean addIgnoreNull(final Collection<T> collection, final T object) {
         Objects.requireNonNull(collection, "collection");
@@ -693,7 +672,6 @@ public class CollectionUtils {
      * @param object the object to get the size of, may be null
      * @return the size of the specified collection or 0 if the object was null
      * @throws IllegalArgumentException thrown if object is not recognized
-     *
      */
     public static int size(final Object object) {
         if (object == null) {
@@ -746,7 +724,6 @@ public class CollectionUtils {
      * @param object the object to get the size of, may be null
      * @return true if empty or null
      * @throws IllegalArgumentException thrown if object is not recognized
-     *
      */
     public static boolean sizeIsEmpty(final Object object) {
         if (object == null) {
@@ -787,7 +764,6 @@ public class CollectionUtils {
      *
      * @param coll the collection to check, may be null
      * @return true if empty or null
-     *
      */
     public static boolean isEmpty(Collection<?> coll) {
         return coll == null || coll.isEmpty();
@@ -811,7 +787,6 @@ public class CollectionUtils {
      *
      * @param coll the collection to check, may be null
      * @return true if non-null and non-empty
-     *
      */
     public static boolean isNotEmpty(final Collection<?> coll) {
         return !isEmpty(coll);
@@ -825,7 +800,6 @@ public class CollectionUtils {
      * @param collection        集合
      * @param defaultCollection 默认数组
      * @return 非空（empty）的原集合或默认集合
-     *
      */
     public static <T extends Collection<E>, E> T defaultIfEmpty(T collection, T defaultCollection) {
         return isEmpty(collection) ? defaultCollection : collection;
@@ -839,7 +813,6 @@ public class CollectionUtils {
      * @param collection 集合
      * @param supplier   默认值懒加载函数
      * @return 非空（empty）的原集合或默认集合
-     *
      */
     public static <T extends Collection<E>, E> T defaultIfEmpty(T collection, Supplier<? extends T> supplier) {
         return isEmpty(collection) ? supplier.get() : collection;
@@ -883,7 +856,6 @@ public class CollectionUtils {
      * @param retain     the collection containing the elements to be retained in the returned collection
      * @return a {@code Collection} containing all the elements of {@code collection} that occur at least once in {@code retain}.
      * @throws NullPointerException if either parameter is null
-     *
      */
     public static <C> Collection<C> retainAll(final Collection<C> collection, final Collection<?> retain) {
         Objects.requireNonNull(collection, "collection");
@@ -900,7 +872,6 @@ public class CollectionUtils {
      * @param endIndex   the end index (exclusive) to remove, must not be less than startIndex
      * @return collection of elements that removed from the input collection
      * @throws NullPointerException if input is null
-     *
      */
     public static <E> Collection<E> removeRange(final Collection<E> input, final int startIndex, final int endIndex) {
         Objects.requireNonNull(input, "input");
@@ -922,7 +893,6 @@ public class CollectionUtils {
      * @param count      the specified number to remove, can't be less than 1
      * @return collection of elements that removed from the input collection
      * @throws NullPointerException if input is null
-     *
      */
     public static <E> Collection<E> removeCount(final Collection<E> input, int startIndex, int count) {
         Objects.requireNonNull(input, "input");
@@ -968,7 +938,6 @@ public class CollectionUtils {
      * @param remove     the items to be removed from the returned {@code collection}
      * @return a {@code Collection} containing all the elements of {@code collection} except any elements that also occur in {@code remove}.
      * @throws NullPointerException if either parameter is null
-     *
      */
     public static <E> Collection<E> removeAll(final Collection<E> collection, final Collection<?> remove) {
         return ListUtils.removeAll(collection, remove);
@@ -982,7 +951,6 @@ public class CollectionUtils {
      * @param collection 集合
      * @param filter     过滤器
      * @return 处理后的集合
-     *
      */
     public static <T extends Collection<E>, E> T filter(T collection, final Filter<E> filter) {
         return filter(collection, filter);
@@ -1000,7 +968,6 @@ public class CollectionUtils {
      * @param iter   集合
      * @param filter 过滤器接口
      * @return 编辑后的集合
-     *
      */
     public static <T extends Iterable<E>, E> T filter(T iter, Filter<E> filter) {
         if (null == iter) {
@@ -1023,7 +990,6 @@ public class CollectionUtils {
      * @param iter   集合
      * @param filter 过滤器接口，删除{@link Filter#accept(Object)}为{@code false}的元素
      * @return 编辑后的集合
-     *
      */
     public static <E> Iterator<E> filter(Iterator<E> iter, Filter<E> filter) {
         if (null == iter || null == filter) {
@@ -1065,7 +1031,6 @@ public class CollectionUtils {
      * @param collection 集合
      * @param matcher    匹配器，为空则全部匹配
      * @return 第一个位置
-     *
      */
     public static <T> int indexOf(Collection<T> collection, Matcher<T> matcher) {
         if (isNotEmpty(collection)) {
@@ -1087,7 +1052,6 @@ public class CollectionUtils {
      * @param collection 集合
      * @param matcher    匹配器，为空则全部匹配
      * @return 最后一个位置
-     *
      */
     public static <T> int lastIndexOf(Collection<T> collection, Matcher<T> matcher) {
         int matchIndex = -1;
@@ -1110,7 +1074,6 @@ public class CollectionUtils {
      * @param collection 集合
      * @param matcher    匹配器，为空则全部匹配
      * @return 位置数组
-     *
      */
     public static <T> List<Integer> indexOfAll(Collection<T> collection, Matcher<T> matcher) {
         final List<Integer> indexList = new ArrayList<>();
@@ -1134,7 +1097,6 @@ public class CollectionUtils {
      * @return sole member of collection
      * @throws NullPointerException     if collection is null
      * @throws IllegalArgumentException if collection is empty or contains more than one element
-     *
      */
     public static <E> E extractSingleton(final Collection<E> collection) {
         Objects.requireNonNull(collection, "collection");
@@ -1143,4 +1105,51 @@ public class CollectionUtils {
         }
         return collection.iterator().next();
     }
+
+    // region
+
+    /**
+     * 去重集合
+     *
+     * @param <T>        集合元素类型
+     * @param collection 集合
+     * @return {@link ArrayList}
+     */
+    public static <T> ArrayList<T> distinct(final Collection<T> collection) {
+        if (isEmpty(collection)) {
+            return new ArrayList<>();
+        } else if (collection instanceof Set) {
+            return new ArrayList<>(collection);
+        } else {
+            return new ArrayList<>(new LinkedHashSet<>(collection));
+        }
+    }
+
+    /**
+     * 根据函数生成的KEY去重集合，如根据Bean的某个或者某些字段完成去重。<br>
+     * 去重可选是保留最先加入的值还是后加入的值
+     *
+     * @param <T>             集合元素类型
+     * @param <K>             唯一键类型
+     * @param collection      集合
+     * @param uniqueGenerator 唯一键生成器
+     * @param override        是否覆盖模式，如果为{@code true}，加入的新值会覆盖相同key的旧值，否则会忽略新加值
+     * @return {@link ArrayList}
+     * @since 5.8.0
+     */
+    public static <T, K> List<T> distinct(final Collection<T> collection, final Function<T, K> uniqueGenerator, final boolean override) {
+        if (isEmpty(collection)) {
+            return new ArrayList<>();
+        }
+
+        final UniqueKeySet<K, T> set = new UniqueKeySet<>(true, uniqueGenerator);
+        if (override) {
+            set.addAll(collection);
+        } else {
+            set.addAllIfAbsent(collection);
+        }
+        return new ArrayList<>(set);
+    }
+
+    // endregion
 }

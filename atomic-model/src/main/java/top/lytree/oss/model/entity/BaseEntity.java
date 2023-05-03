@@ -1,5 +1,6 @@
 package top.lytree.oss.model.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -19,6 +20,7 @@ import lombok.ToString;
 @MappedSuperclass
 public class BaseEntity implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
 //    @Column(name = "create_by")

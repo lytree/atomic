@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.array.ArrayUtils;
 
 public class AnnotationUtils extends org.apache.commons.lang3.AnnotationUtils {
 

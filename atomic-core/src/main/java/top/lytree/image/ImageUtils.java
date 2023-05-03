@@ -48,7 +48,7 @@ import javax.swing.ImageIcon;
 import top.lytree.bean.ObjectUtils;
 import top.lytree.codec.binary.Base64;
 import top.lytree.codec.net.UrlUtils;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.array.ArrayUtils;
 import top.lytree.io.FileUtils;
 import top.lytree.io.FilenameUtils;
 import top.lytree.io.IOUtils;
@@ -56,7 +56,6 @@ import top.lytree.base.Assert;
 import top.lytree.lang.RandomUtils;
 import top.lytree.lang.StringUtils;
 import top.lytree.math.MathUtils;
-import top.lytree.math.NumberUtils;
 
 public class ImageUtils {
 

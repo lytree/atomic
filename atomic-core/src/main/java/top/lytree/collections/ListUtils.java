@@ -33,6 +33,8 @@ import java.util.Objects;
 import java.util.RandomAccess;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
+
+import top.lytree.array.ArrayUtils;
 import top.lytree.collections.Lists.RandomAccessReverseList;
 import top.lytree.collections.Lists.ReverseList;
 

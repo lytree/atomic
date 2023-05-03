@@ -5,7 +5,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class EnvironmentUtils implements EnvironmentAware {
 
   private static Environment environment;

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.array.ArrayUtils;
 import top.lytree.lang.RandomUtils;
 import top.lytree.lang.StringUtils;
 

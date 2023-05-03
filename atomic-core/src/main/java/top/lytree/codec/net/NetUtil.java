@@ -174,7 +174,7 @@ public class NetUtil {
         final int maxPortExclude = maxPort + 1;
         int randomPort;
         for (int i = minPort; i < maxPortExclude; i++) {
-            randomPort = RandomUtils.nextIntThreadLocal(minPort, maxPortExclude);
+            randomPort = RandomUtils.randomInt(minPort, maxPortExclude);
             if (isUsableLocalPort(randomPort)) {
                 return randomPort;
             }

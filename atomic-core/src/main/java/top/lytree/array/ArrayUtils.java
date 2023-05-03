@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package top.lytree.collections;
+package top.lytree.array;
 
 
 import java.lang.reflect.Array;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import top.lytree.base.Filter;
 import top.lytree.bean.ObjectUtils;
+import top.lytree.collections.Editor;
 import top.lytree.lang.StringUtils;
 
 

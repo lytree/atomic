@@ -1,6 +1,7 @@
 package top.lytree.oss.model.response.support;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -8,6 +9,7 @@ import java.io.Serializable;
  */
 public abstract class BaseResponse implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     String SUCCESS_CODE = "0000";

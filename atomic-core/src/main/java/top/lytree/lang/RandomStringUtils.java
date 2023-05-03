@@ -58,7 +58,7 @@ public class RandomStringUtils {
      * @return the random string
      */
     public static String randomAsciiThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomAsciiThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
+        return randomAsciiThreadLocal(RandomUtils.randomInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
@@ -83,7 +83,7 @@ public class RandomStringUtils {
      * @return the random string
      */
     public static String randomAlphabeticThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomAlphabeticThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
+        return randomAlphabeticThreadLocal(RandomUtils.randomInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
@@ -158,7 +158,7 @@ public class RandomStringUtils {
      * @return 随机字符串
      */
     public static String randomNumericThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomNumericThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
+        return randomNumericThreadLocal(RandomUtils.randomInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**
@@ -183,7 +183,7 @@ public class RandomStringUtils {
      * @return the random string
      */
     public static String randomPrintThreadLocal(final int minLengthInclusive, final int maxLengthExclusive) {
-        return randomPrintThreadLocal(RandomUtils.nextIntThreadLocal(minLengthInclusive, maxLengthExclusive));
+        return randomPrintThreadLocal(RandomUtils.randomInt(minLengthInclusive, maxLengthExclusive));
     }
 
     /**

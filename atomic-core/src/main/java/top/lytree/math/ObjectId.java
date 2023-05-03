@@ -29,7 +29,7 @@ public class ObjectId {
     /**
      * 线程安全的下一个随机数,每次生成自增+1
      */
-    private static final AtomicInteger NEXT_INC = new AtomicInteger(RandomUtils.nextIntThreadLocal());
+    private static final AtomicInteger NEXT_INC = new AtomicInteger(RandomUtils.randomInt());
     /**
      * 机器信息   生成机器信息 = 取机器码的后2位和进程码的前2位
      */
@@ -141,7 +141,7 @@ public class ObjectId {
             machinePiece = netSb.toString().hashCode() << 16;
         } catch (Throwable e) {
             // 出问题随机生成,保留后两位
-            machinePiece = (RandomUtils.nextIntThreadLocal()) << 16;
+            machinePiece = (RandomUtils.randomInt()) << 16;
         }
         return machinePiece;
     }

@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import top.lytree.collections.ArrayUtils;
+import top.lytree.array.ArrayUtils;
 import top.lytree.lang.StringUtils;
 
 /**
