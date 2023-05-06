@@ -3,11 +3,13 @@ package top.lytree.configuration;
 import java.util.Collection;
 import java.util.List;
 import javax.sql.DataSource;
+
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 public class CustomJdbcTemplate extends JdbcTemplate {
 
@@ -30,12 +32,11 @@ public class CustomJdbcTemplate extends JdbcTemplate {
         return queryForObject(sql, getSingleColumnRowMapper(requiredType));
     }
 
+    @Override
     public <T> T queryForObject(@NonNull String sql, @NonNull RowMapper<T> rowMapper) throws DataAccessException {
         List<T> results = query(sql, rowMapper);
         return requiredSingleResult(results);
     }
-
-
     private static <T> T requiredSingleResult(Collection<T> results) throws IncorrectResultSizeDataAccessException {
         int size = (results != null ? results.size() : 0);
         if (size == 0) {
