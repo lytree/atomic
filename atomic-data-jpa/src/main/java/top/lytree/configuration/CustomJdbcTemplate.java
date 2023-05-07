@@ -32,11 +32,26 @@ public class CustomJdbcTemplate extends JdbcTemplate {
         return queryForObject(sql, getSingleColumnRowMapper(requiredType));
     }
 
+    /**
+     * 重写JdbcTemplate里面的queryForObject方法源码调用的requiredSingleResult，当查询到的结果为空时返回null(原来是抛出异常)
+     */
+    @Override
+    public <T> T queryForObject(@NonNull String sql, @NonNull Class<T> requiredType, @Nullable Object... args) throws DataAccessException {
+        return queryForObject(sql, getSingleColumnRowMapper(requiredType), args);
+    }
+
+    @Override
+    public <T> T queryForObject(@NonNull String sql, @NonNull RowMapper<T> rowMapper, @Nullable Object... args) throws DataAccessException {
+        List<T> results = query(sql, rowMapper, args);
+        return requiredSingleResult(results);
+    }
+
     @Override
     public <T> T queryForObject(@NonNull String sql, @NonNull RowMapper<T> rowMapper) throws DataAccessException {
         List<T> results = query(sql, rowMapper);
         return requiredSingleResult(results);
     }
+
     private static <T> T requiredSingleResult(Collection<T> results) throws IncorrectResultSizeDataAccessException {
         int size = (results != null ? results.size() : 0);
         if (size == 0) {
