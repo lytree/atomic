@@ -20,7 +20,7 @@ package top.lytree.lang;
 /**
  * @author pride
  */
-public class CharUtils extends org.apache.commons.lang3.CharUtils {
+public class CharUtils  {
 
     /**
      * 字符常量：空格符 {@code ' '}

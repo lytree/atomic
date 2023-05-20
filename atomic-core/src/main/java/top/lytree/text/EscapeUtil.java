@@ -109,7 +109,7 @@ public class EscapeUtil {
      */
     public static String escape(CharSequence content, Filter<Character> filter) {
         if (StringUtils.isEmpty(content)) {
-            return StringUtils.toString(content);
+            return content.toString();
         }
 
         final StringBuilder tmp = new StringBuilder(content.length() * 6);

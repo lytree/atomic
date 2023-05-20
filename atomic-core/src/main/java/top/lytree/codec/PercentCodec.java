@@ -6,6 +6,7 @@ import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.BitSet;
+
 import top.lytree.math.HexUtils;
 import top.lytree.lang.CharUtils;
 import top.lytree.lang.StringUtils;
@@ -25,7 +26,6 @@ import top.lytree.lang.StringUtils;
  * </ul>
  *
  * @author looly
- *
  */
 public class PercentCodec implements Serializable {
 
@@ -143,9 +143,9 @@ public class PercentCodec implements Serializable {
      * @param charset 编码, {@code null}返回原字符串，表示不编码
      * @return 编码后的字符串
      */
-    public String encode(CharSequence path, Charset charset) {
+    public String encode(String path, Charset charset) {
         if (null == charset || StringUtils.isEmpty(path)) {
-            return StringUtils.toString(path);
+            return path;
         }
 
         final StringBuilder rewrittenPath = new StringBuilder(path.length());

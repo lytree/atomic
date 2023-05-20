@@ -27,7 +27,7 @@ import java.util.TimeZone;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
-public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
+public class DateUtils  {
 
     /**
      * {@link Date}类型时间转为{@link DateTime}<br>

@@ -19,7 +19,6 @@ package top.lytree.lang;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
-import org.apache.commons.lang3.CharSetUtils;
 
 /**
  * CharsetUtils required of every implementation of the Java platform.
@@ -57,7 +56,7 @@ import org.apache.commons.lang3.CharSetUtils;
  *
  * @see <a href="http://docs.oracle.com/javase/6/docs/api/java/nio/charset/Charset.html">Standard charsets</a>
  */
-public class CharsetUtils extends CharSetUtils {
+public class CharsetUtils {
 
     /**
      * ISO-8859-1

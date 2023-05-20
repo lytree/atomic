@@ -14,14 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package top.lytree.time;
-
-
 /**
- * @author pride
+ * Provides typed mutable wrappers to primitive values and Object.
+ * These wrappers are similar to the wrappers provided by the Java API, but allow the wrapped value to be changed without needing to create a separate wrapper object.
+ * These classes are not thread-safe.
  *
+ * @since 2.1
  */
-public class DurationFormatUtils extends org.apache.commons.lang3.time.DurationFormatUtils {
-
-
-}
+package top.lytree.mutable;

@@ -17,10 +17,6 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-    </dependency>
-    <dependency>
       <groupId>jakarta.validation</groupId>
       <artifactId>jakarta.validation-api</artifactId>
     </dependency>
@@ -50,9 +46,5 @@
       <version>${lombok.version}</version>
       <scope>test</scope>
     </dependency>
-      <dependency>
-          <groupId>org.hibernate.orm</groupId>
-          <artifactId>hibernate-core</artifactId>
-      </dependency>
   </dependencies>
 </project>

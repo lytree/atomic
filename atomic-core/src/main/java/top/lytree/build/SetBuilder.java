@@ -133,40 +133,4 @@ public record SetBuilder<E>(Set<E> set) implements Builder<Set<E>>, Serializable
     public Set<E> build() {
         return set();
     }
-
-    /**
-     * 将map转成字符串
-     *
-     * @param separator         entry之间的连接符
-     * @param keyValueSeparator kv之间的连接符
-     * @return 连接字符串
-     */
-    public String join(String separator, final String keyValueSeparator) {
-        return StringUtils.join(this.set, separator, keyValueSeparator);
-    }
-
-    /**
-     * 将map转成字符串
-     *
-     * @param separator         entry之间的连接符
-     * @param keyValueSeparator kv之间的连接符
-     * @return 连接后的字符串
-     */
-    public String joinIgnoreNull(String separator) {
-        return join(separator, true);
-    }
-
-    /**
-     * 将map转成字符串
-     *
-     * @param separator         entry之间的连接符
-     * @param keyValueSeparator kv之间的连接符
-     * @param isIgnoreNull      是否忽略null的键和值
-     * @return 连接后的字符串
-     */
-    public String join(String separator, boolean isIgnoreNull) {
-        return SetUtils.join(this.set, separator, isIgnoreNull);
-    }
-
-
 }

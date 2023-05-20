@@ -37,7 +37,7 @@ import top.lytree.lang.StringUtils;
 /**
  *
  */
-public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
+public class NumberUtils  {
 
     /**
      * 在int 范围内 2的最大次幂
@@ -1320,4 +1320,69 @@ public class NumberUtils extends org.apache.commons.lang3.math.NumberUtils {
         return values;
     }
     // endregion
+
+    /**
+     * Compares two {@code int} values numerically. This is the same functionality as provided in Java 7.
+     *
+     * @param x the first {@code int} to compare
+     * @param y the second {@code int} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
+     */
+    public static int compare(final int x, final int y) {
+        if (x == y) {
+            return 0;
+        }
+        return x < y ? -1 : 1;
+    }
+
+    /**
+     * Compares to {@code long} values numerically. This is the same functionality as provided in Java 7.
+     *
+     * @param x the first {@code long} to compare
+     * @param y the second {@code long} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
+     */
+    public static int compare(final long x, final long y) {
+        if (x == y) {
+            return 0;
+        }
+        return x < y ? -1 : 1;
+    }
+
+    /**
+     * Compares to {@code short} values numerically. This is the same functionality as provided in Java 7.
+     *
+     * @param x the first {@code short} to compare
+     * @param y the second {@code short} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
+     */
+    public static int compare(final short x, final short y) {
+        if (x == y) {
+            return 0;
+        }
+        return x < y ? -1 : 1;
+    }
+
+    /**
+     * Compares two {@code byte} values numerically. This is the same functionality as provided in Java 7.
+     *
+     * @param x the first {@code byte} to compare
+     * @param y the second {@code byte} to compare
+     * @return the value {@code 0} if {@code x == y};
+     *         a value less than {@code 0} if {@code x < y}; and
+     *         a value greater than {@code 0} if {@code x > y}
+     * @since 3.4
+     */
+    public static int compare(final byte x, final byte y) {
+        return x - y;
+    }
 }

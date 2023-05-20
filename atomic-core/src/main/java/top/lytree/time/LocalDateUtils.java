@@ -125,7 +125,7 @@ public class LocalDateUtils {
             return null;
         }
 
-        return of(instant, ObjectUtils.getIfNull(timeZone, TimeZone::getDefault).toZoneId());
+        return of(instant, ObjectUtils.defaultIfNull(timeZone, TimeZone::getDefault).toZoneId());
     }
 
     /**

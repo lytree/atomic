@@ -4,13 +4,16 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Objects;
+
 import top.lytree.array.ArrayUtils;
+import top.lytree.base.Assert;
 import top.lytree.lang.StringUtils;
 
 /**
  * @author pride
  */
-public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
+public class FieldUtils  {
 
     /**
      * 修饰符枚举
@@ -87,7 +90,90 @@ public class FieldUtils extends org.apache.commons.lang3.reflect.FieldUtils {
             return this.value;
         }
     }
+    /**
+     * Gets an accessible {@link Field} by name respecting scope. Superclasses/interfaces will be considered.
+     *
+     * @param cls
+     *            the {@link Class} to reflect, must not be {@code null}
+     * @param fieldName
+     *            the field name to obtain
+     * @return the Field object
+     * @throws NullPointerException
+     *             if the class is {@code null}
+     * @throws IllegalArgumentException
+     *             if the field name is {@code null}, blank, or empty
+     */
+    public static Field getField(final Class<?> cls, final String fieldName) {
+        return MemberUtils.setAccessibleWorkaround(getField(cls, fieldName, false));
+    }
 
+    /**
+     * Gets an accessible {@link Field} by name, breaking scope if requested. Superclasses/interfaces will be
+     * considered.
+     *
+     * @param cls
+     *            the {@link Class} to reflect, must not be {@code null}
+     * @param fieldName
+     *            the field name to obtain
+     * @param forceAccess
+     *            whether to break scope restrictions using the
+     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *            match {@code public} fields.
+     * @return the Field object
+     * @throws NullPointerException if the class is {@code null}
+     * @throws IllegalArgumentException if the field name is blank or empty or is matched at multiple places
+     * in the inheritance hierarchy
+     */
+    public static Field getField(final Class<?> cls, final String fieldName, final boolean forceAccess) {
+        Objects.requireNonNull(cls, "cls");
+        Assert.isTrue(StringUtils.isNotBlank(fieldName), "The field name must not be blank/empty");
+        // FIXME is this workaround still needed? lang requires Java 6
+        // Sun Java 1.3 has a bugged implementation of getField hence we write the
+        // code ourselves
+
+        // getField() will return the Field object with the declaring class
+        // set correctly to the class that declares the field. Thus requesting the
+        // field on a subclass will return the field from the superclass.
+        //
+        // priority order for lookup:
+        // searchclass private/protected/package/public
+        // superclass protected/package/public
+        // private/different package blocks access to further superclasses
+        // implementedinterface public
+
+        // check up the superclass hierarchy
+        for (Class<?> acls = cls; acls != null; acls = acls.getSuperclass()) {
+            try {
+                final Field field = acls.getDeclaredField(fieldName);
+                // getDeclaredField checks for non-public scopes as well
+                // and it returns accurate results
+                if (!MemberUtils.isPublic(field)) {
+                    if (!forceAccess) {
+                        continue;
+                    }
+                    field.setAccessible(true);
+                }
+                return field;
+            } catch (final NoSuchFieldException ignored) {
+                // ignore
+            }
+        }
+        // check the public interface case. This must be manually searched for
+        // incase there is a public supersuperclass field hidden by a private/package
+        // superclass field.
+        Field match = null;
+        for (final Class<?> class1 : ClassUtils.getAllInterfaces(cls)) {
+            try {
+                final Field test = class1.getField(fieldName);
+                Assert.isTrue(match == null, "Reference to field {} is ambiguous relative to {}"
+                        + "; a matching field exists on two or more implemented interfaces.", fieldName, cls);
+                match = test;
+            } catch (final NoSuchFieldException ignored) {
+                // ignore
+            }
+        }
+        return match;
+    }
     /**
      * 是否同时存在一个或多个修饰符（可能有多个修饰符，如果有指定的修饰符则返回true）
      *

@@ -148,38 +148,4 @@ public record MapBuilder<K, V>(Map<K, V> map) implements Builder<Map<K, V>>, Ser
         return map();
     }
 
-    /**
-     * 将map转成字符串
-     *
-     * @param separator         entry之间的连接符
-     * @param keyValueSeparator kv之间的连接符
-     * @return 连接字符串
-     */
-    public String join(String separator, final String keyValueSeparator) {
-        return StringUtils.join(this.map, separator, keyValueSeparator);
-    }
-
-    /**
-     * 将map转成字符串
-     *
-     * @param separator         entry之间的连接符
-     * @param keyValueSeparator kv之间的连接符
-     * @return 连接后的字符串
-     */
-    public String joinIgnoreNull(String separator, final String keyValueSeparator) {
-        return MapUtils.joinIgnoreNull(this.map, separator, keyValueSeparator);
-    }
-
-    /**
-     * 将map转成字符串
-     *
-     * @param separator         entry之间的连接符
-     * @param keyValueSeparator kv之间的连接符
-     * @param isIgnoreNull      是否忽略null的键和值
-     * @return 连接后的字符串
-     */
-    public String join(String separator, final String keyValueSeparator, boolean isIgnoreNull) {
-        return MapUtils.join(this.map, separator, keyValueSeparator, isIgnoreNull);
-    }
-
 }

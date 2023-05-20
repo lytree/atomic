@@ -6,7 +6,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLStreamHandler;
 import java.nio.charset.Charset;
-import org.apache.commons.lang3.builder.Builder;
+
+import top.lytree.build.Builder;
 import top.lytree.codec.RFC3986;
 import top.lytree.base.Assert;
 import top.lytree.codec.net.UrlUtils;
