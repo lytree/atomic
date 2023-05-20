@@ -1,5 +1,6 @@
 package top.lytree.repository.impl;
 
+import java.io.Serial;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -45,7 +46,7 @@ import top.lytree.repository.BaseJpaRepository;
 public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAIN, ID>
         implements BaseJpaRepository<DOMAIN, ID> {
 
-    private final Logger logger = LoggerFactory.getLogger(BaseJpaRepositoryImpl.class);
+
     private final JpaEntityInformation<DOMAIN, ID> entityInformation;
 
     private final EntityManager entityManager;
@@ -71,9 +72,7 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
      * @return count
      */
     private static long executeCountQuery(TypedQuery<Long> query) {
-
         Assert.notNull(query, "TypedQuery must not be null!");
-
         List<Long> totals = query.getResultList();
         long total = 0L;
 
@@ -169,7 +168,6 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
         BeanUtils.copyProperties(queryParams, query);
 
         Example<DOMAIN> example = Example.of(queryParams);
-
         return super.findAll(example, pageable);
     }
 
@@ -298,6 +296,7 @@ public class BaseJpaRepositoryImpl<DOMAIN, ID> extends SimpleJpaRepository<DOMAI
 
     private static final class ByIdsSpecification<DOMAIN> implements Specification<DOMAIN> {
 
+        @Serial
         private static final long serialVersionUID = 1L;
         private final JpaEntityInformation<DOMAIN, ?> entityInformation;
 
