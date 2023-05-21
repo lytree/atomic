@@ -2,10 +2,7 @@ package top.lytree.build;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -120,7 +117,7 @@ public record ListBuilder<T>(List<T> list) implements Builder<List<T>>, Serializ
      */
     @Override
     public List<T> list() {
-        return this.list;
+        return Collections.unmodifiableList(list);
     }
 
     /**

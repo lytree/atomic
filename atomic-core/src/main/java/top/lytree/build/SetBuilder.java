@@ -2,10 +2,12 @@ package top.lytree.build;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.function.Supplier;
+
 import top.lytree.collections.SetUtils;
 import top.lytree.lang.StringUtils;
 
@@ -121,7 +123,7 @@ public record SetBuilder<E>(Set<E> set) implements Builder<Set<E>>, Serializable
      */
     @Override
     public Set<E> set() {
-        return set;
+        return Collections.unmodifiableSet(set);
     }
 
     /**

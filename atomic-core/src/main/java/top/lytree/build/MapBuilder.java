@@ -3,6 +3,7 @@ package top.lytree.build;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -64,6 +65,7 @@ public record MapBuilder<K, V>(Map<K, V> map) implements Builder<Map<K, V>>, Ser
      */
     public MapBuilder {
     }
+
 
     /**
      * 链式Map创建
@@ -135,7 +137,7 @@ public record MapBuilder<K, V>(Map<K, V> map) implements Builder<Map<K, V>>, Ser
      */
     @Override
     public Map<K, V> map() {
-        return map;
+        return Collections.unmodifiableMap(map);
     }
 
     /**

@@ -1,7 +1,7 @@
 package top.lytree.web.aspect;
 
-import com.google.common.collect.ImmutableMap;
 import java.net.BindException;
+import java.util.Map;
 
 import jakarta.validation.ValidationException;
 import org.slf4j.Logger;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import top.lytree.build.MapBuilder;
 import top.lytree.oss.model.constants.Globals;
 import top.lytree.oss.model.exception.exception.ServerException;
 import top.lytree.oss.model.exception.result.ResultCode;
@@ -28,9 +29,9 @@ public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
     //定义map，配置异常类型所对应的错误代码
-    protected static ImmutableMap<Class<? extends Throwable>, ResultCode> EXCEPTIONS;
+    protected static Map<Class<? extends Throwable>, ResultCode> EXCEPTIONS;
     //定义map的builder对象，去构建ImmutableMap
-    protected static ImmutableMap.Builder<Class<? extends Throwable>, ResultCode> builder = ImmutableMap.builder();
+    protected static MapBuilder<Class<? extends Throwable>, ResultCode> builder = MapBuilder.create();
 
 
     //捕获ValidationException此类异常
