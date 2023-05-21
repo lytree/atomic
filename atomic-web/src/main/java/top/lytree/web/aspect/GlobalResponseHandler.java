@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-import top.lytree.oss.model.constants.Globals;
-import top.lytree.oss.model.exception.result.ServerCode;
-import top.lytree.oss.model.response.support.ResponseResult;
+import top.lytree.model.constants.Globals;
+import top.lytree.model.exception.result.ServerCode;
+import top.lytree.model.response.support.ResponseResult;
 
 /**
  * @date 2021/8/30 11:28

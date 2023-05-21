@@ -16,14 +16,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.util.Streamable;
-import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
-import top.lytree.oss.model.exception.exception.DataException;
-import top.lytree.oss.model.request.support.BaseQuery;
-import top.lytree.oss.model.request.support.PageQuery;
-import top.lytree.repository.impl.BaseJpaRepositoryImpl;
+import top.lytree.model.exception.exception.DataException;
+import top.lytree.model.request.support.BaseQuery;
+import top.lytree.model.request.support.PageQuery;
 
 /**
  * @author Y

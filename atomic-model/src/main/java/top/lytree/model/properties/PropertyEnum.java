@@ -1,11 +1,12 @@
-package top.lytree.oss.model.properties;
+package top.lytree.model.properties;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
-import top.lytree.oss.model.enums.ValueEnum;
+
+import top.lytree.model.enums.ValueEnum;
 
 /**
  * Property enum.

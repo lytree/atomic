@@ -2,7 +2,7 @@ package top.lytree.configuration;
 
 import net.bytebuddy.implementation.bind.annotation.FieldValue;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
-import top.lytree.oss.model.enums.ValueEnum;
+import top.lytree.model.enums.ValueEnum;
 
 
 public class AttributeConverterInterceptor {

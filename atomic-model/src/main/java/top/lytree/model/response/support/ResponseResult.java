@@ -1,8 +1,8 @@
-package top.lytree.oss.model.response.support;
+package top.lytree.model.response.support;
 
 
-import top.lytree.oss.model.exception.result.ResultCode;
-import top.lytree.oss.model.exception.result.ServerCode;
+import top.lytree.model.exception.result.ResultCode;
+import top.lytree.model.exception.result.ServerCode;
 
 
 /**

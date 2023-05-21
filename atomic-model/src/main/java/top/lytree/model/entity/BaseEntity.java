@@ -1,4 +1,4 @@
-package top.lytree.oss.model.entity;
+package top.lytree.model.entity;
 
 import java.io.Serial;
 import java.io.Serializable;

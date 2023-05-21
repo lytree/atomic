@@ -13,8 +13,6 @@ import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.data.domain.Example;
@@ -37,9 +35,9 @@ import top.lytree.annotations.OrderBy;
 import top.lytree.annotations.OrderGroup;
 import top.lytree.exceptions.UnknownComplexConditionClassException;
 import top.lytree.bean.FieldUtils;
-import top.lytree.oss.model.exception.exception.ServerException;
-import top.lytree.oss.model.exception.result.ServerCode;
-import top.lytree.oss.model.request.support.BaseQuery;
+import top.lytree.model.exception.exception.ServerException;
+import top.lytree.model.exception.result.ServerCode;
+import top.lytree.model.request.support.BaseQuery;
 import top.lytree.repository.BaseJpaRepository;
 
 

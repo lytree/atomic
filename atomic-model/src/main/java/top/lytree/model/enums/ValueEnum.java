@@ -1,4 +1,4 @@
-package top.lytree.oss.model.enums;
+package top.lytree.model.enums;
 
 import java.util.stream.Stream;
 

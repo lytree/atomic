@@ -1,4 +1,4 @@
-package top.lytree.oss.model.exception.result;
+package top.lytree.model.exception.result;
 
 /**
  * @author Y

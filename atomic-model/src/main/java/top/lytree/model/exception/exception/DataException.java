@@ -1,4 +1,4 @@
-package top.lytree.oss.model.exception.exception;
+package top.lytree.model.exception.exception;
 
 public class DataException extends Exception {
 

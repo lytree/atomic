@@ -1,4 +1,4 @@
-package top.lytree.oss.model.response.support;
+package top.lytree.model.response.support;
 
 
 import java.io.Serial;

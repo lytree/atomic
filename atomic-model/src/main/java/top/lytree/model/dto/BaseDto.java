@@ -1,4 +1,4 @@
-package top.lytree.oss.model.dto;
+package top.lytree.model.dto;
 
 import java.io.Serial;
 import java.io.Serializable;

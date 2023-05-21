@@ -1,7 +1,7 @@
-package top.lytree.oss.model.exception.exception;
+package top.lytree.model.exception.exception;
 
 
-import top.lytree.oss.model.exception.result.ResultCode;
+import top.lytree.model.exception.result.ResultCode;
 
 /**
  * @author Pride_Yang
