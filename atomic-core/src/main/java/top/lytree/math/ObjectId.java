@@ -3,7 +3,6 @@ package top.lytree.math;
 
 import top.lytree.lang.RandomUtils;
 import top.lytree.pattern.RegExUtils;
-import top.lytree.time.DateUtils;
 
 import java.net.NetworkInterface;
 import java.nio.ByteBuffer;
@@ -39,7 +38,6 @@ public class ObjectId {
      * 给定的字符串是否为有效的ObjectId
      *
      * @param s 字符串
-     *
      * @return 是否为有效的ObjectId
      */
     public static boolean isValid(String s) {
@@ -76,7 +74,7 @@ public class ObjectId {
      */
     public static byte[] nextBytes() {
         final ByteBuffer bb = ByteBuffer.wrap(new byte[12]);
-        bb.putInt((int) DateUtils.currentSeconds());// 4位
+        bb.putInt((int) (System.currentTimeMillis() / 1000));// 4位
         bb.putInt(MACHINE);// 4位
         bb.putInt(NEXT_INC.getAndIncrement());// 4位
 
@@ -96,7 +94,6 @@ public class ObjectId {
      * 获取一个objectId
      *
      * @param withHyphen 是否包含分隔符
-     *
      * @return objectId
      */
     public static String next(boolean withHyphen) {
@@ -169,8 +166,7 @@ public class ObjectId {
 
         // 进程ID + 对象加载ID
         // 保留前2位
-        String processSb = Integer.toHexString(processId) +
-                Integer.toHexString(loaderId);
+        String processSb = Integer.toHexString(processId) + Integer.toHexString(loaderId);
         processPiece = processSb.hashCode() & 0xFFFF;
         return processPiece;
     }

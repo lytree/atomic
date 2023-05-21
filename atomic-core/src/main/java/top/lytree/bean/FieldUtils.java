@@ -4,6 +4,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import top.lytree.array.ArrayUtils;
@@ -13,7 +16,7 @@ import top.lytree.lang.StringUtils;
 /**
  * @author pride
  */
-public class FieldUtils  {
+public class FieldUtils {
 
     /**
      * 修饰符枚举
@@ -90,18 +93,15 @@ public class FieldUtils  {
             return this.value;
         }
     }
+
     /**
      * Gets an accessible {@link Field} by name respecting scope. Superclasses/interfaces will be considered.
      *
-     * @param cls
-     *            the {@link Class} to reflect, must not be {@code null}
-     * @param fieldName
-     *            the field name to obtain
+     * @param cls       the {@link Class} to reflect, must not be {@code null}
+     * @param fieldName the field name to obtain
      * @return the Field object
-     * @throws NullPointerException
-     *             if the class is {@code null}
-     * @throws IllegalArgumentException
-     *             if the field name is {@code null}, blank, or empty
+     * @throws NullPointerException     if the class is {@code null}
+     * @throws IllegalArgumentException if the field name is {@code null}, blank, or empty
      */
     public static Field getField(final Class<?> cls, final String fieldName) {
         return MemberUtils.setAccessibleWorkaround(getField(cls, fieldName, false));
@@ -111,18 +111,15 @@ public class FieldUtils  {
      * Gets an accessible {@link Field} by name, breaking scope if requested. Superclasses/interfaces will be
      * considered.
      *
-     * @param cls
-     *            the {@link Class} to reflect, must not be {@code null}
-     * @param fieldName
-     *            the field name to obtain
-     * @param forceAccess
-     *            whether to break scope restrictions using the
-     *            {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
-     *            match {@code public} fields.
+     * @param cls         the {@link Class} to reflect, must not be {@code null}
+     * @param fieldName   the field name to obtain
+     * @param forceAccess whether to break scope restrictions using the
+     *                    {@link java.lang.reflect.AccessibleObject#setAccessible(boolean)} method. {@code false} will only
+     *                    match {@code public} fields.
      * @return the Field object
-     * @throws NullPointerException if the class is {@code null}
+     * @throws NullPointerException     if the class is {@code null}
      * @throws IllegalArgumentException if the field name is blank or empty or is matched at multiple places
-     * in the inheritance hierarchy
+     *                                  in the inheritance hierarchy
      */
     public static Field getField(final Class<?> cls, final String fieldName, final boolean forceAccess) {
         Objects.requireNonNull(cls, "cls");
@@ -174,12 +171,12 @@ public class FieldUtils  {
         }
         return match;
     }
+
     /**
      * 是否同时存在一个或多个修饰符（可能有多个修饰符，如果有指定的修饰符则返回true）
      *
      * @param clazz         类
      * @param modifierTypes 修饰符枚举
-     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Class<?> clazz, ModifierType... modifierTypes) {
@@ -194,7 +191,6 @@ public class FieldUtils  {
      *
      * @param constructor   构造方法
      * @param modifierTypes 修饰符枚举
-     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Constructor<?> constructor, ModifierType... modifierTypes) {
@@ -209,7 +205,6 @@ public class FieldUtils  {
      *
      * @param method        方法
      * @param modifierTypes 修饰符枚举
-     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Method method, ModifierType... modifierTypes) {
@@ -224,7 +219,6 @@ public class FieldUtils  {
      *
      * @param field         字段
      * @param modifierTypes 修饰符枚举
-     *
      * @return 是否有指定修饰符，如果有返回true，否则false，如果提供参数为null返回false
      */
     public static boolean hasModifier(Field field, ModifierType... modifierTypes) {
@@ -238,7 +232,6 @@ public class FieldUtils  {
      * 是否是Public字段
      *
      * @param field 字段
-     *
      * @return 是否是Public
      */
     public static boolean isPublic(Field field) {
@@ -249,7 +242,6 @@ public class FieldUtils  {
      * 是否是Public方法
      *
      * @param method 方法
-     *
      * @return 是否是Public
      */
     public static boolean isPublic(Method method) {
@@ -260,7 +252,6 @@ public class FieldUtils  {
      * 是否是Public类
      *
      * @param clazz 类
-     *
      * @return 是否是Public
      */
     public static boolean isPublic(Class<?> clazz) {
@@ -271,7 +262,6 @@ public class FieldUtils  {
      * 是否是Public构造
      *
      * @param constructor 构造
-     *
      * @return 是否是Public
      */
     public static boolean isPublic(Constructor<?> constructor) {
@@ -282,7 +272,6 @@ public class FieldUtils  {
      * 是否是static字段
      *
      * @param field 字段
-     *
      * @return 是否是static
      */
     public static boolean isStatic(Field field) {
@@ -293,7 +282,6 @@ public class FieldUtils  {
      * 是否是static方法
      *
      * @param method 方法
-     *
      * @return 是否是static
      */
     public static boolean isStatic(Method method) {
@@ -304,7 +292,6 @@ public class FieldUtils  {
      * 是否是static类
      *
      * @param clazz 类
-     *
      * @return 是否是static
      */
     public static boolean isStatic(Class<?> clazz) {
@@ -315,7 +302,6 @@ public class FieldUtils  {
      * 是否是合成字段（由java编译器生成的）
      *
      * @param field 字段
-     *
      * @return 是否是合成字段
      */
     public static boolean isSynthetic(Field field) {
@@ -326,7 +312,6 @@ public class FieldUtils  {
      * 是否是合成方法（由java编译器生成的）
      *
      * @param method 方法
-     *
      * @return 是否是合成方法
      */
     public static boolean isSynthetic(Method method) {
@@ -337,7 +322,6 @@ public class FieldUtils  {
      * 是否是合成类（由java编译器生成的）
      *
      * @param clazz 类
-     *
      * @return 是否是合成
      */
     public static boolean isSynthetic(Class<?> clazz) {
@@ -348,7 +332,6 @@ public class FieldUtils  {
      * 是否抽象方法
      *
      * @param method 方法
-     *
      * @return 是否抽象方法
      */
     public static boolean isAbstract(Method method) {
@@ -360,9 +343,7 @@ public class FieldUtils  {
      *
      * @param obj       对象，如果static字段，此处为类
      * @param fieldName 字段名
-     *
      * @return 字段值
-     *
      * @throws IllegalAccessException 包装IllegalAccessException异常
      */
     public static Object getFieldValue(final Object obj, final String fieldName) throws IllegalAccessException {
@@ -376,9 +357,7 @@ public class FieldUtils  {
      * 获取静态字段值
      *
      * @param field 字段
-     *
      * @return 字段值
-     *
      * @throws IllegalAccessException 包装IllegalAccessException异常
      * @since 5.1.0
      */
@@ -391,9 +370,7 @@ public class FieldUtils  {
      *
      * @param obj   对象，static字段则此字段为null
      * @param field 字段
-     *
      * @return 字段值
-     *
      * @throws IllegalAccessException 包装IllegalAccessException异常
      */
     public static Object getFieldValue(Object obj, final Field field) throws IllegalAccessException {
@@ -408,13 +385,43 @@ public class FieldUtils  {
     }
 
     /**
+     * Gets all fields of the given class and its parents (if any).
+     *
+     * @param cls the {@link Class} to query
+     * @return an array of Fields (possibly empty).
+     * @throws NullPointerException if the class is {@code null}
+     * @since 3.2
+     */
+    public static Field[] getAllFields(final Class<?> cls) {
+        return getAllFieldsList(cls).toArray(ArrayUtils.EMPTY_FIELD_ARRAY);
+    }
+
+    /**
+     * Gets all fields of the given class and its parents (if any).
+     *
+     * @param cls the {@link Class} to query
+     * @return a list of Fields (possibly empty).
+     * @throws NullPointerException if the class is {@code null}
+     * @since 3.2
+     */
+    public static List<Field> getAllFieldsList(final Class<?> cls) {
+        Objects.requireNonNull(cls, "cls");
+        final List<Field> allFields = new ArrayList<>();
+        Class<?> currentClass = cls;
+        while (currentClass != null) {
+            final Field[] declaredFields = currentClass.getDeclaredFields();
+            Collections.addAll(allFields, declaredFields);
+            currentClass = currentClass.getSuperclass();
+        }
+        return allFields;
+    }
+
+    /**
      * 是否为父类引用字段<br>
      * 当字段所在类是对象子类时（对象中定义的非static的class），会自动生成一个以"this$0"为名称的字段，指向父类对象
      *
      * @param field 字段
-     *
      * @return 是否为父类引用字段
-     *
      * @since 5.7.20
      */
     public static boolean isOuterClassField(final Field field) {
@@ -426,7 +433,6 @@ public class FieldUtils  {
      * 多个修饰符做“与”操作，表示同时存在多个修饰符
      *
      * @param modifierTypes 修饰符列表，元素不能为空
-     *
      * @return “与”之后的修饰符
      */
     private static int modifiersToInt(ModifierType... modifierTypes) {

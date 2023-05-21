@@ -320,39 +320,6 @@ public class RandomUtils {
     }
 
     /**
-     * 获得指定范围内的随机数[0, 1)
-     *
-     * @return 随机数
-     * @since 4.0.9
-     */
-    public static BigDecimal randomBigDecimal() {
-        return NumberUtils.toBigDecimal(getRandom().nextDouble());
-    }
-
-    /**
-     * 获得指定范围内的随机数 [0,limit)
-     *
-     * @param limit 最大数（不包含）
-     * @return 随机数
-     * @since 4.0.9
-     */
-    public static BigDecimal randomBigDecimal(final BigDecimal limit) {
-        return NumberUtils.toBigDecimal(getRandom().nextDouble(limit.doubleValue()));
-    }
-
-    /**
-     * 获得指定范围内的随机数
-     *
-     * @param min 最小数（包含）
-     * @param max 最大数（不包含）
-     * @return 随机数
-     * @since 4.0.9
-     */
-    public static BigDecimal randomBigDecimal(final BigDecimal min, final BigDecimal max) {
-        return NumberUtils.toBigDecimal(getRandom().nextDouble(min.doubleValue(), max.doubleValue()));
-    }
-
-    /**
      * 随机bytes
      *
      * @param length 长度

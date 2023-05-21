@@ -3,6 +3,8 @@ package top.lytree.time;
 
 import java.time.DayOfWeek;
 import java.util.Calendar;
+import java.util.Locale;
+
 import top.lytree.base.Assert;
 import top.lytree.array.ArrayUtils;
 
@@ -181,7 +183,7 @@ public enum Week {
      */
     public static Week of(final String name) throws IllegalArgumentException {
         Assert.notBlank(name);
-        Week of = of(ArrayUtils.indexOfIgnoreCase(ALIASES, name) + 1);
+        Week of = of(ArrayUtils.indexOf(ALIASES, name.toLowerCase(Locale.ROOT)) + 1);
         if (null == of) {
             of = Week.valueOf(name.toUpperCase());
         }

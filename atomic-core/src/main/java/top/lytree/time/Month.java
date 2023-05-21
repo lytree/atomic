@@ -4,8 +4,10 @@ package top.lytree.time;
 import java.time.format.TextStyle;
 import java.util.Calendar;
 import java.util.Locale;
+
 import top.lytree.base.Assert;
 import top.lytree.array.ArrayUtils;
+import top.lytree.lang.StringUtils;
 
 /**
  * 月份枚举<br>
@@ -116,7 +118,6 @@ public enum Month {
      * 此值从1开始，即1表示一月
      *
      * @return 月份值，对应{@link java.time.Month}，从1开始计数
-     *
      * @since 5.7.21
      */
     public int getValueBaseOne() {
@@ -128,7 +129,6 @@ public enum Month {
      * 获取此月份最后一天的值，不支持的月份（例如UNDECIMBER）返回-1
      *
      * @param isLeapYear 是否闰年
-     *
      * @return 此月份最后一天的值
      */
     public int getLastDay(final boolean isLeapYear) {
@@ -150,9 +150,7 @@ public enum Month {
      * 未找到返回{@code null}
      *
      * @param calendarMonthIntValue Calendar中关于Month的int值，从0开始
-     *
      * @return Month
-     *
      * @see Calendar#JANUARY
      * @see Calendar#FEBRUARY
      * @see Calendar#MARCH
@@ -178,15 +176,13 @@ public enum Month {
      * 解析别名为Month对象，别名如：jan或者JANUARY，不区分大小写
      *
      * @param name 别名值
-     *
      * @return 月份枚举Month，非空
-     *
      * @throws IllegalArgumentException 如果别名无对应的枚举，抛出此异常
      * @since 5.8.0
      */
     public static Month of(final String name) throws IllegalArgumentException {
         Assert.notBlank(name);
-        Month of = of(ArrayUtils.indexOfIgnoreCase(ALIASES, name));
+        Month of = of(ArrayUtils.indexOf(ALIASES, name.toLowerCase(Locale.ROOT)));
         if (null == of) {
             of = Month.valueOf(name.toUpperCase());
         }
@@ -197,9 +193,7 @@ public enum Month {
      * {@link java.time.Month}转换为Month对象
      *
      * @param month {@link java.time.Month}
-     *
      * @return Month
-     *
      * @since 5.8.0
      */
     public static Month of(final java.time.Month month) {
@@ -211,9 +205,7 @@ public enum Month {
      *
      * @param month      月份，从0开始
      * @param isLeapYear 是否为闰年，闰年只对二月有影响
-     *
      * @return 最后一天，可能为28,29,30,31
-     *
      * @since 5.4.7
      */
     public static int getLastDay(final int month, final boolean isLeapYear) {
@@ -226,7 +218,6 @@ public enum Month {
      * 转换为{@link java.time.Month}
      *
      * @return {@link java.time.Month}
-     *
      * @since 5.7.21
      */
     public java.time.Month toJdkMonth() {
@@ -237,9 +228,7 @@ public enum Month {
      * 获取显示名称
      *
      * @param style 名称风格
-     *
      * @return 显示名称
-     *
      * @since 5.8.0
      */
     public String getDisplayName(final TextStyle style) {
@@ -251,9 +240,7 @@ public enum Month {
      *
      * @param style  名称风格
      * @param locale {@link Locale}
-     *
      * @return 显示名称
-     *
      * @since 5.8.0
      */
     public String getDisplayName(final TextStyle style, final Locale locale) {

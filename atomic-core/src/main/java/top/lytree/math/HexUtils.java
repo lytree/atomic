@@ -156,7 +156,7 @@ public class HexUtils {
      * @return 字符串
      */
     public static String decodeHexString(char[] hexData, Charset charset) {
-        return StringUtils.toEncodedString(decodeHex(hexData), charset);
+        return StringUtils.toString(decodeHex(hexData), charset);
     }
 
     /**

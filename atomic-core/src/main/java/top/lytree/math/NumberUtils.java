@@ -37,7 +37,7 @@ import top.lytree.lang.StringUtils;
 /**
  *
  */
-public class NumberUtils  {
+public class NumberUtils {
 
     /**
      * 在int 范围内 2的最大次幂
@@ -890,342 +890,6 @@ public class NumberUtils  {
     }
     // endregion
 
-    /**
-     * 数字转{@link BigDecimal}<br>
-     * Float、Double等有精度问题，转换为字符串后再转换<br>
-     * null转换为0
-     *
-     * @param number 数字
-     * @return {@link BigDecimal}
-     * @since 4.0.9
-     */
-    public static BigDecimal toBigDecimal(final Number number) {
-        if (null == number) {
-            return BigDecimal.ZERO;
-        }
-
-        if (number instanceof BigDecimal) {
-            return (BigDecimal) number;
-        } else if (number instanceof Long) {
-            return new BigDecimal((Long) number);
-        } else if (number instanceof Integer) {
-            return new BigDecimal((Integer) number);
-        } else if (number instanceof BigInteger) {
-            return new BigDecimal((BigInteger) number);
-        }
-
-        // Float、Double等有精度问题，转换为字符串后再转换
-        return toBigDecimal(number.toString());
-    }
-
-    /**
-     * 数字转{@link BigDecimal}<br>
-     * null或""或空白符转换为0
-     *
-     * @param numberStr 数字字符串
-     * @return {@link BigDecimal}
-     * @since 4.0.9
-     */
-    public static BigDecimal toBigDecimal(final String numberStr) {
-        if (StringUtils.isBlank(numberStr)) {
-            return BigDecimal.ZERO;
-        }
-
-        try {
-            // 支持类似于 1,234.55 格式的数字
-            final Number number = parseNumber(numberStr);
-            if (number instanceof BigDecimal) {
-                return (BigDecimal) number;
-            } else {
-                return new BigDecimal(number.toString());
-            }
-        } catch (final Exception ignore) {
-            // 忽略解析错误
-        }
-
-        return new BigDecimal(numberStr);
-    }
-
-    /**
-     * 数字转{@link BigInteger}<br>
-     * null转换为0
-     *
-     * @param number 数字
-     * @return {@link BigInteger}
-     * @since 5.4.5
-     */
-    public static BigInteger toBigInteger(final Number number) {
-        if (null == number) {
-            return BigInteger.ZERO;
-        }
-
-        if (number instanceof BigInteger) {
-            return (BigInteger) number;
-        } else if (number instanceof Long) {
-            return BigInteger.valueOf((Long) number);
-        }
-
-        return toBigInteger(number.longValue());
-    }
-
-    /**
-     * 数字转{@link BigInteger}<br>
-     * null或""或空白符转换为0
-     *
-     * @param number 数字字符串
-     * @return {@link BigInteger}
-     * @since 5.4.5
-     */
-    public static BigInteger toBigInteger(final String number) {
-        return StringUtils.isBlank(number) ? BigInteger.ZERO : new BigInteger(number);
-    }
-
-    // region ----- parse
-
-    /**
-     * 解析转换数字字符串为 {@link java.lang.Integer } 规则如下：
-     *
-     * <pre>
-     * 1、0x开头的视为16进制数字
-     * 2、0开头的忽略开头的0
-     * 3、其它情况按照10进制转换
-     * 4、空串返回0
-     * 5、.123形式返回0（按照小于0的小数对待）
-     * 6、123.56截取小数点之前的数字，忽略小数部分
-     * 7、解析失败返回默认值
-     * </pre>
-     *
-     * @param numberStr    数字字符串，支持0x开头、0开头和普通十进制
-     * @param defaultValue 如果解析失败, 将返回defaultValue, 允许null
-     * @return Integer
-     */
-    public static Integer parseInt(final String numberStr, final Integer defaultValue) {
-        if (StringUtils.isNotBlank(numberStr)) {
-            try {
-                return parseInt(numberStr);
-            } catch (final NumberFormatException ignore) {
-                // ignore
-            }
-        }
-        return defaultValue;
-    }
-
-    /**
-     * 解析转换数字字符串为int型数字，规则如下：
-     *
-     * <pre>
-     * 1、0x开头的视为16进制数字
-     * 2、0开头的忽略开头的0
-     * 3、其它情况按照10进制转换
-     * 4、空串返回0
-     * 5、.123形式返回0（按照小于0的小数对待）
-     * 6、123.56截取小数点之前的数字，忽略小数部分
-     * 7、科学计数法抛出NumberFormatException异常
-     * </pre>
-     *
-     * @param numberStr 数字，支持0x开头、0开头和普通十进制
-     * @return int
-     * @throws NumberFormatException 数字格式异常
-     * @since 4.1.4
-     */
-    public static int parseInt(final String numberStr) throws NumberFormatException {
-        return NumberParser.INSTANCE.parseInt(numberStr);
-    }
-
-    /**
-     * 解析转换数字字符串为 {@link java.lang.Long } 规则如下：
-     *
-     * <pre>
-     * 1、0x开头的视为16进制数字
-     * 2、0开头的忽略开头的0
-     * 3、其它情况按照10进制转换
-     * 4、空串返回0
-     * 5、.123形式返回0（按照小于0的小数对待）
-     * 6、123.56截取小数点之前的数字，忽略小数部分
-     * 7、解析失败返回默认值
-     * </pre>
-     *
-     * @param numberStr    数字字符串，支持0x开头、0开头和普通十进制
-     * @param defaultValue 如果解析失败, 将返回defaultValue, 允许null
-     * @return Long
-     */
-    public static Long parseLong(final String numberStr, final Long defaultValue) {
-        if (StringUtils.isNotBlank(numberStr)) {
-            try {
-                return parseLong(numberStr);
-            } catch (final NumberFormatException ignore) {
-                // ignore
-            }
-        }
-
-        return defaultValue;
-    }
-
-    /**
-     * 解析转换数字字符串为long型数字，规则如下：
-     *
-     * <pre>
-     * 1、0x开头的视为16进制数字
-     * 2、0开头的忽略开头的0
-     * 3、空串返回0
-     * 4、其它情况按照10进制转换
-     * 5、.123形式返回0（按照小于0的小数对待）
-     * 6、123.56截取小数点之前的数字，忽略小数部分
-     * </pre>
-     *
-     * @param numberStr 数字，支持0x开头、0开头和普通十进制
-     * @return long
-     * @since 4.1.4
-     */
-    public static long parseLong(final String numberStr) {
-        return NumberParser.INSTANCE.parseLong(numberStr);
-    }
-
-    /**
-     * 解析转换数字字符串为 {@link java.lang.Float } 规则如下：
-     *
-     * <pre>
-     * 1、0开头的忽略开头的0
-     * 2、空串返回0
-     * 3、其它情况按照10进制转换
-     * 4、.123形式返回0.123（按照小于0的小数对待）
-     * </pre>
-     *
-     * @param numberStr    数字字符串，支持0x开头、0开头和普通十进制
-     * @param defaultValue 如果解析失败, 将返回defaultValue, 允许null
-     * @return Float
-     */
-    public static Float parseFloat(final String numberStr, final Float defaultValue) {
-        if (StringUtils.isNotBlank(numberStr)) {
-            try {
-                return parseFloat(numberStr);
-            } catch (final NumberFormatException ignore) {
-                // ignore
-            }
-        }
-
-        return defaultValue;
-    }
-
-    /**
-     * 解析转换数字字符串为long型数字，规则如下：
-     *
-     * <pre>
-     * 1、0开头的忽略开头的0
-     * 2、空串返回0
-     * 3、其它情况按照10进制转换
-     * 4、.123形式返回0.123（按照小于0的小数对待）
-     * </pre>
-     *
-     * @param numberStr 数字，支持0x开头、0开头和普通十进制
-     * @return long
-     * @since 5.5.5
-     */
-    public static float parseFloat(final String numberStr) {
-        return NumberParser.INSTANCE.parseFloat(numberStr);
-    }
-
-    /**
-     * 解析转换数字字符串为 {@link java.lang.Double } 规则如下：
-     *
-     * <pre>
-     * 1、0开头的忽略开头的0
-     * 2、空串返回0
-     * 3、其它情况按照10进制转换
-     * 4、.123形式返回0.123（按照小于0的小数对待）
-     * </pre>
-     *
-     * @param numberStr    数字字符串，支持0x开头、0开头和普通十进制
-     * @param defaultValue 如果解析失败, 将返回defaultValue, 允许null
-     * @return Double
-     */
-    public static Double parseDouble(final String numberStr, final Double defaultValue) {
-        if (StringUtils.isNotBlank(numberStr)) {
-            try {
-                return parseDouble(numberStr);
-            } catch (final NumberFormatException ignore) {
-                // ignore
-            }
-        }
-        return defaultValue;
-    }
-
-    /**
-     * 解析转换数字字符串为long型数字，规则如下：
-     *
-     * <pre>
-     * 1、0开头的忽略开头的0
-     * 2、空串返回0
-     * 3、其它情况按照10进制转换
-     * 4、.123形式返回0.123（按照小于0的小数对待）
-     * 5、NaN返回0
-     * </pre>
-     *
-     * @param numberStr 数字，支持0x开头、0开头和普通十进制
-     * @return double
-     * @since 5.5.5
-     */
-    public static double parseDouble(final String numberStr) {
-        return NumberParser.INSTANCE.parseDouble(numberStr);
-    }
-
-    /**
-     * 将指定字符串转换为{@link Number }
-     * 此方法不支持科学计数法
-     *
-     * @param numberStr    Number字符串
-     * @param defaultValue 如果解析失败, 将返回defaultValue, 允许null
-     * @return Number对象
-     */
-    public static Number parseNumber(final String numberStr, final Number defaultValue) {
-        if (StringUtils.isNotBlank(numberStr)) {
-            try {
-                return parseNumber(numberStr);
-            } catch (final NumberFormatException ignore) {
-                // ignore
-            }
-        }
-        return defaultValue;
-    }
-
-    /**
-     * 将指定字符串转换为{@link Number} 对象<br>
-     * 此方法不支持科学计数法
-     *
-     * <p>
-     * 需要注意的是，在不同Locale下，数字的表示形式也是不同的，例如：<br>
-     * 德国、荷兰、比利时、丹麦、意大利、罗马尼亚和欧洲大多地区使用`,`区分小数<br>
-     * 也就是说，在这些国家地区，1.20表示120，而非1.2。
-     * </p>
-     *
-     * @param numberStr Number字符串
-     * @return Number对象
-     * @throws NumberFormatException 包装了{@link ParseException}，当给定的数字字符串无法解析时抛出
-     * @since 4.1.15
-     */
-    public static Number parseNumber(final String numberStr) throws NumberFormatException {
-        return NumberParser.INSTANCE.parseNumber(numberStr);
-    }
-
-    /**
-     * 将指定字符串转换为{@link Number} 对象<br>
-     * 此方法不支持科学计数法
-     *
-     * <p>
-     * 需要注意的是，在不同Locale下，数字的表示形式也是不同的，例如：<br>
-     * 德国、荷兰、比利时、丹麦、意大利、罗马尼亚和欧洲大多地区使用`,`区分小数<br>
-     * 也就是说，在这些国家地区，1.20表示120，而非1.2。
-     * </p>
-     *
-     * @param numberStr Number字符串
-     * @param locale    地区，不同地区数字表示方式不同
-     * @return Number对象
-     * @throws NumberFormatException 包装了{@link ParseException}，当给定的数字字符串无法解析时抛出
-     */
-    public static Number parseNumber(final String numberStr, final Locale locale) throws NumberFormatException {
-        return NumberParser.of(locale).parseNumber(numberStr);
-    }
-    // endregion
     // region ----- range
 
     /**
@@ -1327,8 +991,8 @@ public class NumberUtils  {
      * @param x the first {@code int} to compare
      * @param y the second {@code int} to compare
      * @return the value {@code 0} if {@code x == y};
-     *         a value less than {@code 0} if {@code x < y}; and
-     *         a value greater than {@code 0} if {@code x > y}
+     * a value less than {@code 0} if {@code x < y}; and
+     * a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      */
     public static int compare(final int x, final int y) {
@@ -1344,8 +1008,8 @@ public class NumberUtils  {
      * @param x the first {@code long} to compare
      * @param y the second {@code long} to compare
      * @return the value {@code 0} if {@code x == y};
-     *         a value less than {@code 0} if {@code x < y}; and
-     *         a value greater than {@code 0} if {@code x > y}
+     * a value less than {@code 0} if {@code x < y}; and
+     * a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      */
     public static int compare(final long x, final long y) {
@@ -1361,8 +1025,8 @@ public class NumberUtils  {
      * @param x the first {@code short} to compare
      * @param y the second {@code short} to compare
      * @return the value {@code 0} if {@code x == y};
-     *         a value less than {@code 0} if {@code x < y}; and
-     *         a value greater than {@code 0} if {@code x > y}
+     * a value less than {@code 0} if {@code x < y}; and
+     * a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      */
     public static int compare(final short x, final short y) {
@@ -1378,8 +1042,8 @@ public class NumberUtils  {
      * @param x the first {@code byte} to compare
      * @param y the second {@code byte} to compare
      * @return the value {@code 0} if {@code x == y};
-     *         a value less than {@code 0} if {@code x < y}; and
-     *         a value greater than {@code 0} if {@code x > y}
+     * a value less than {@code 0} if {@code x < y}; and
+     * a value greater than {@code 0} if {@code x > y}
      * @since 3.4
      */
     public static int compare(final byte x, final byte y) {

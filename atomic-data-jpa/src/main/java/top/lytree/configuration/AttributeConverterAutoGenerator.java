@@ -7,7 +7,7 @@ import net.bytebuddy.NamingStrategy;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.MethodCall;
-import org.apache.commons.lang3.StringUtils;
+import top.lytree.lang.StringUtils;
 
 import java.lang.reflect.Modifier;
 

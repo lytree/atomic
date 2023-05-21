@@ -22,12 +22,14 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 import top.lytree.base.Filter;
 import top.lytree.bean.ObjectUtils;
 import top.lytree.array.ArrayUtils;
+import top.lytree.function.ToBooleanBiFunction;
 import top.lytree.text.StringFormatter;
 
 
@@ -208,7 +210,11 @@ public class StringUtils {
      */
     private static final int INDEX_NOT_FOUND = -1;
 
-    static final int TO_STRING_LIMIT = 16;
+    private static final int TO_STRING_LIMIT = 16;
+    /**
+     * The maximum size to which the padding constant(s) can expand.
+     */
+    private static final int PAD_LIMIT = 8192;
 
     /**
      * Gets a CharSequence length or {@code 0} if the CharSequence is
@@ -222,6 +228,115 @@ public class StringUtils {
      */
     public static int length(final CharSequence cs) {
         return cs == null ? 0 : cs.length();
+    }
+    /**
+     * Check if a CharSequence ends with a specified suffix.
+     *
+     * <p>{@code null}s are handled without exceptions. Two {@code null}
+     * references are considered to be equal. The comparison is case-sensitive.</p>
+     *
+     * <pre>
+     * StringUtils.endsWith(null, null)      = true
+     * StringUtils.endsWith(null, "def")     = false
+     * StringUtils.endsWith("abcdef", null)  = false
+     * StringUtils.endsWith("abcdef", "def") = true
+     * StringUtils.endsWith("ABCDEF", "def") = false
+     * StringUtils.endsWith("ABCDEF", "cde") = false
+     * StringUtils.endsWith("ABCDEF", "")    = true
+     * </pre>
+     *
+     * @see String#endsWith(String)
+     * @param str  the CharSequence to check, may be null
+     * @param suffix the suffix to find, may be null
+     * @return {@code true} if the CharSequence ends with the suffix, case-sensitive, or
+     *  both {@code null}
+     * @since 2.4
+     * @since 3.0 Changed signature from endsWith(String, String) to endsWith(CharSequence, CharSequence)
+     */
+    public static boolean endsWith(final CharSequence str, final CharSequence suffix) {
+        return endsWith(str, suffix, false);
+    }
+
+    /**
+     * Check if a CharSequence ends with a specified suffix (optionally case insensitive).
+     *
+     * @see String#endsWith(String)
+     * @param str  the CharSequence to check, may be null
+     * @param suffix the suffix to find, may be null
+     * @param ignoreCase indicates whether the compare should ignore case
+     *  (case-insensitive) or not.
+     * @return {@code true} if the CharSequence starts with the prefix or
+     *  both {@code null}
+     */
+    private static boolean endsWith(final CharSequence str, final CharSequence suffix, final boolean ignoreCase) {
+        if (str == null || suffix == null) {
+            return str == suffix;
+        }
+        if (suffix.length() > str.length()) {
+            return false;
+        }
+        final int strOffset = str.length() - suffix.length();
+        return CharSequenceUtils.regionMatches(str, ignoreCase, strOffset, suffix, 0, suffix.length());
+    }
+
+    /**
+     * Check if a CharSequence ends with any of the provided case-sensitive suffixes.
+     *
+     * <pre>
+     * StringUtils.endsWithAny(null, null)      = false
+     * StringUtils.endsWithAny(null, new String[] {"abc"})  = false
+     * StringUtils.endsWithAny("abcxyz", null)     = false
+     * StringUtils.endsWithAny("abcxyz", new String[] {""}) = true
+     * StringUtils.endsWithAny("abcxyz", new String[] {"xyz"}) = true
+     * StringUtils.endsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
+     * StringUtils.endsWithAny("abcXYZ", "def", "XYZ") = true
+     * StringUtils.endsWithAny("abcXYZ", "def", "xyz") = false
+     * </pre>
+     *
+     * @param sequence  the CharSequence to check, may be null
+     * @param searchStrings the case-sensitive CharSequences to find, may be empty or contain {@code null}
+     * @see StringUtils#endsWith(CharSequence, CharSequence)
+     * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or
+     *   the input {@code sequence} ends in any of the provided case-sensitive {@code searchStrings}.
+     * @since 3.0
+     */
+    public static boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
+        if (isEmpty(sequence) || ArrayUtils.isEmpty(searchStrings)) {
+            return false;
+        }
+        for (final CharSequence searchString : searchStrings) {
+            if (endsWith(sequence, searchString)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Case insensitive check if a CharSequence ends with a specified suffix.
+     *
+     * <p>{@code null}s are handled without exceptions. Two {@code null}
+     * references are considered to be equal. The comparison is case insensitive.</p>
+     *
+     * <pre>
+     * StringUtils.endsWithIgnoreCase(null, null)      = true
+     * StringUtils.endsWithIgnoreCase(null, "def")     = false
+     * StringUtils.endsWithIgnoreCase("abcdef", null)  = false
+     * StringUtils.endsWithIgnoreCase("abcdef", "def") = true
+     * StringUtils.endsWithIgnoreCase("ABCDEF", "def") = true
+     * StringUtils.endsWithIgnoreCase("ABCDEF", "cde") = false
+     * </pre>
+     *
+     * @see String#endsWith(String)
+     * @param str  the CharSequence to check, may be null
+     * @param suffix the suffix to find, may be null
+     * @return {@code true} if the CharSequence ends with the suffix, case-insensitive, or
+     *  both {@code null}
+     * @since 2.4
+     * @since 3.0 Changed signature from endsWithIgnoreCase(String, String) to endsWithIgnoreCase(CharSequence, CharSequence)
+     */
+    public static boolean endsWithIgnoreCase(final CharSequence str, final CharSequence suffix) {
+        return endsWith(str, suffix, true);
     }
 
     /**
@@ -330,7 +445,7 @@ public class StringUtils {
         if (cs1.length() != cs2.length()) {
             return false;
         }
-        return CharSequenceUtils.regionMatches(cs1, true, 0, cs2, 0, cs1.length());
+        return regionMatches(cs1, true, 0, cs2, 0, cs1.length());
     }
 
     /**
@@ -1301,6 +1416,7 @@ public class StringUtils {
         }
         return INDEX_NOT_FOUND;
     }
+
     /**
      * Case in-sensitive find of the first index within a CharSequence.
      *
@@ -1320,10 +1436,10 @@ public class StringUtils {
      * StringUtils.indexOfIgnoreCase("aabaabaa", "ab") = 1
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStr  the CharSequence to find, may be null
+     * @param str       the CharSequence to check, may be null
+     * @param searchStr the CharSequence to find, may be null
      * @return the first index of the search CharSequence,
-     *  -1 if no match or {@code null} string input
+     * -1 if no match or {@code null} string input
      * @since 2.5
      * @since 3.0 Changed signature from indexOfIgnoreCase(String, String) to indexOfIgnoreCase(CharSequence, CharSequence)
      */
@@ -1355,11 +1471,11 @@ public class StringUtils {
      * StringUtils.indexOfIgnoreCase("abc", "", 9)        = -1
      * </pre>
      *
-     * @param str  the CharSequence to check, may be null
-     * @param searchStr  the CharSequence to find, may be null
+     * @param str       the CharSequence to check, may be null
+     * @param searchStr the CharSequence to find, may be null
      * @param startPos  the start position, negative treated as zero
      * @return the first index of the search CharSequence (always &ge; startPos),
-     *  -1 if no match or {@code null} string input
+     * -1 if no match or {@code null} string input
      * @since 2.5
      * @since 3.0 Changed signature from indexOfIgnoreCase(String, String, int) to indexOfIgnoreCase(CharSequence, CharSequence, int)
      */
@@ -1618,6 +1734,547 @@ public class StringUtils {
             found++;
         } while (found < ordinal);
         return index;
+    }
+    /**
+     * Searches a CharSequence to find the first index of any
+     * character not in the given set of characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code -1}.
+     * A {@code null} or zero length search array will return {@code -1}.</p>
+     *
+     * <pre>
+     * StringUtils.indexOfAnyBut(null, *)                              = -1
+     * StringUtils.indexOfAnyBut("", *)                                = -1
+     * StringUtils.indexOfAnyBut(*, null)                              = -1
+     * StringUtils.indexOfAnyBut(*, [])                                = -1
+     * StringUtils.indexOfAnyBut("zzabyycdxx", new char[] {'z', 'a'} ) = 3
+     * StringUtils.indexOfAnyBut("aba", new char[] {'z'} )             = 0
+     * StringUtils.indexOfAnyBut("aba", new char[] {'a', 'b'} )        = -1
+
+     * </pre>
+     *
+     * @param cs  the CharSequence to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the index of any of the chars, -1 if no match or null input
+     * @since 2.0
+     * @since 3.0 Changed signature from indexOfAnyBut(String, char[]) to indexOfAnyBut(CharSequence, char...)
+     */
+    public static int indexOfAnyBut(final CharSequence cs, final char... searchChars) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
+            return INDEX_NOT_FOUND;
+        }
+        final int csLen = cs.length();
+        final int csLast = csLen - 1;
+        final int searchLen = searchChars.length;
+        final int searchLast = searchLen - 1;
+        outer:
+        for (int i = 0; i < csLen; i++) {
+            final char ch = cs.charAt(i);
+            for (int j = 0; j < searchLen; j++) {
+                if (searchChars[j] == ch) {
+                    if (i >= csLast || j >= searchLast || !Character.isHighSurrogate(ch)) {
+                        continue outer;
+                    }
+                    if (searchChars[j + 1] == cs.charAt(i + 1)) {
+                        continue outer;
+                    }
+                }
+            }
+            return i;
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Search a CharSequence to find the first index of any
+     * character not in the given set of characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code -1}.
+     * A {@code null} or empty search string will return {@code -1}.</p>
+     *
+     * <pre>
+     * StringUtils.indexOfAnyBut(null, *)            = -1
+     * StringUtils.indexOfAnyBut("", *)              = -1
+     * StringUtils.indexOfAnyBut(*, null)            = -1
+     * StringUtils.indexOfAnyBut(*, "")              = -1
+     * StringUtils.indexOfAnyBut("zzabyycdxx", "za") = 3
+     * StringUtils.indexOfAnyBut("zzabyycdxx", "")   = -1
+     * StringUtils.indexOfAnyBut("aba", "ab")        = -1
+     * </pre>
+     *
+     * @param seq  the CharSequence to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the index of any of the chars, -1 if no match or null input
+     * @since 2.0
+     * @since 3.0 Changed signature from indexOfAnyBut(String, String) to indexOfAnyBut(CharSequence, CharSequence)
+     */
+    public static int indexOfAnyBut(final CharSequence seq, final CharSequence searchChars) {
+        if (isEmpty(seq) || isEmpty(searchChars)) {
+            return INDEX_NOT_FOUND;
+        }
+        final int strLen = seq.length();
+        for (int i = 0; i < strLen; i++) {
+            final char ch = seq.charAt(i);
+            final boolean chFound = CharSequenceUtils.indexOf(searchChars, ch, 0) >= 0;
+            if (i + 1 < strLen && Character.isHighSurrogate(ch)) {
+                final char ch2 = seq.charAt(i + 1);
+                if (chFound && CharSequenceUtils.indexOf(searchChars, ch2, 0) < 0) {
+                    return i;
+                }
+            } else if (!chFound) {
+                return i;
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if CharSequence contains a search CharSequence, handling {@code null}.
+     * This method uses {@link String#indexOf(String)} if possible.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.</p>
+     *
+     * <pre>
+     * StringUtils.contains(null, *)     = false
+     * StringUtils.contains(*, null)     = false
+     * StringUtils.contains("", "")      = true
+     * StringUtils.contains("abc", "")   = true
+     * StringUtils.contains("abc", "a")  = true
+     * StringUtils.contains("abc", "z")  = false
+     * </pre>
+     *
+     * @param seq       the CharSequence to check, may be null
+     * @param searchSeq the CharSequence to find, may be null
+     * @return true if the CharSequence contains the search CharSequence,
+     * false if not or {@code null} string input
+     * @since 2.0
+     * @since 3.0 Changed signature from contains(String, String) to contains(CharSequence, CharSequence)
+     */
+    public static boolean contains(final CharSequence seq, final CharSequence searchSeq) {
+        if (seq == null || searchSeq == null) {
+            return false;
+        }
+        return indexOf(seq, searchSeq, 0) >= 0;
+    }
+
+    /**
+     * Checks if CharSequence contains a search character, handling {@code null}.
+     * This method uses {@link String#indexOf(int)} if possible.
+     *
+     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.</p>
+     *
+     * <pre>
+     * StringUtils.contains(null, *)    = false
+     * StringUtils.contains("", *)      = false
+     * StringUtils.contains("abc", 'a') = true
+     * StringUtils.contains("abc", 'z') = false
+     * </pre>
+     *
+     * @param seq        the CharSequence to check, may be null
+     * @param searchChar the character to find
+     * @return true if the CharSequence contains the search character,
+     * false if not or {@code null} string input
+     * @since 2.0
+     * @since 3.0 Changed signature from contains(String, int) to contains(CharSequence, int)
+     */
+    public static boolean contains(final CharSequence seq, final int searchChar) {
+        if (isEmpty(seq)) {
+            return false;
+        }
+        return indexOf(seq, searchChar, 0) >= 0;
+    }
+
+    /**
+     * Checks if the CharSequence contains any character in the given
+     * set of characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.</p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)                  = false
+     * StringUtils.containsAny("", *)                    = false
+     * StringUtils.containsAny(*, null)                  = false
+     * StringUtils.containsAny(*, [])                    = false
+     * StringUtils.containsAny("zzabyycdxx", ['z', 'a']) = true
+     * StringUtils.containsAny("zzabyycdxx", ['b', 'y']) = true
+     * StringUtils.containsAny("zzabyycdxx", ['z', 'y']) = true
+     * StringUtils.containsAny("aba", ['z'])             = false
+     * </pre>
+     *
+     * @param cs          the CharSequence to check, may be null
+     * @param searchChars the chars to search for, may be null
+     * @return the {@code true} if any of the chars are found,
+     * {@code false} if no match or null input
+     * @since 2.4
+     * @since 3.0 Changed signature from containsAny(String, char[]) to containsAny(CharSequence, char...)
+     */
+    public static boolean containsAny(final CharSequence cs, final char... searchChars) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchChars)) {
+            return false;
+        }
+        final int csLength = cs.length();
+        final int searchLength = searchChars.length;
+        final int csLast = csLength - 1;
+        final int searchLast = searchLength - 1;
+        for (int i = 0; i < csLength; i++) {
+            final char ch = cs.charAt(i);
+            for (int j = 0; j < searchLength; j++) {
+                if (searchChars[j] == ch) {
+                    if (!Character.isHighSurrogate(ch)) {
+                        // ch is in the Basic Multilingual Plane
+                        return true;
+                    }
+                    if (j == searchLast) {
+                        // missing low surrogate, fine, like String.indexOf(String)
+                        return true;
+                    }
+                    if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any character in the given set of characters.
+     *
+     * <p>
+     * A {@code null} CharSequence will return {@code false}. A {@code null} search CharSequence will return
+     * {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)               = false
+     * StringUtils.containsAny("", *)                 = false
+     * StringUtils.containsAny(*, null)               = false
+     * StringUtils.containsAny(*, "")                 = false
+     * StringUtils.containsAny("zzabyycdxx", "za")    = true
+     * StringUtils.containsAny("zzabyycdxx", "by")    = true
+     * StringUtils.containsAny("zzabyycdxx", "zy")    = true
+     * StringUtils.containsAny("zzabyycdxx", "\tx")   = true
+     * StringUtils.containsAny("zzabyycdxx", "$.#yF") = true
+     * StringUtils.containsAny("aba", "z")            = false
+     * </pre>
+     *
+     * @param cs          the CharSequence to check, may be null
+     * @param searchChars the chars to search for, may be null
+     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
+     * @since 2.4
+     * @since 3.0 Changed signature from containsAny(String, String) to containsAny(CharSequence, CharSequence)
+     */
+    public static boolean containsAny(final CharSequence cs, final CharSequence searchChars) {
+        if (searchChars == null) {
+            return false;
+        }
+        return containsAny(cs, CharSequenceUtils.toCharArray(searchChars));
+    }
+
+    /**
+     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)            = false
+     * StringUtils.containsAny("", *)              = false
+     * StringUtils.containsAny(*, null)            = false
+     * StringUtils.containsAny(*, [])              = false
+     * StringUtils.containsAny("abcd", "ab", null) = true
+     * StringUtils.containsAny("abcd", "ab", "cd") = true
+     * StringUtils.containsAny("abc", "d", "abc")  = true
+     * </pre>
+     *
+     * @param cs                  The CharSequence to check, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *                            null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.4
+     */
+    public static boolean containsAny(final CharSequence cs, final CharSequence... searchCharSequences) {
+        return containsAny(StringUtils::contains, cs, searchCharSequences);
+    }
+
+    /**
+     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * @param cs                  The CharSequence to check, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *                            null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.12.0
+     */
+    private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test,
+                                       final CharSequence cs, final CharSequence... searchCharSequences) {
+        if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
+            return false;
+        }
+        for (final CharSequence searchCharSequence : searchCharSequences) {
+            if (test.applyAsBoolean(cs, searchCharSequence)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)            = false
+     * StringUtils.containsAny("", *)              = false
+     * StringUtils.containsAny(*, null)            = false
+     * StringUtils.containsAny(*, [])              = false
+     * StringUtils.containsAny("abcd", "ab", null) = true
+     * StringUtils.containsAny("abcd", "ab", "cd") = true
+     * StringUtils.containsAny("abc", "d", "abc")  = true
+     * StringUtils.containsAny("abc", "D", "ABC")  = true
+     * StringUtils.containsAny("ABC", "d", "abc")  = true
+     * </pre>
+     *
+     * @param cs                  The CharSequence to check, may be null
+     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *                            null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.12.0
+     */
+    public static boolean containsAnyIgnoreCase(final CharSequence cs, final CharSequence... searchCharSequences) {
+        return containsAny(StringUtils::containsIgnoreCase, cs, searchCharSequences);
+    }
+
+    /**
+     * Checks if CharSequence contains a search CharSequence irrespective of case,
+     * handling {@code null}. Case-insensitivity is defined as by
+     * {@link String#equalsIgnoreCase(String)}.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     *
+     * <pre>
+     * StringUtils.containsIgnoreCase(null, *) = false
+     * StringUtils.containsIgnoreCase(*, null) = false
+     * StringUtils.containsIgnoreCase("", "") = true
+     * StringUtils.containsIgnoreCase("abc", "") = true
+     * StringUtils.containsIgnoreCase("abc", "a") = true
+     * StringUtils.containsIgnoreCase("abc", "z") = false
+     * StringUtils.containsIgnoreCase("abc", "A") = true
+     * StringUtils.containsIgnoreCase("abc", "Z") = false
+     * </pre>
+     *
+     * @param str       the CharSequence to check, may be null
+     * @param searchStr the CharSequence to find, may be null
+     * @return true if the CharSequence contains the search CharSequence irrespective of
+     * case or false if not or {@code null} string input
+     * @since 3.0 Changed signature from containsIgnoreCase(String, String) to containsIgnoreCase(CharSequence, CharSequence)
+     */
+    public static boolean containsIgnoreCase(final CharSequence str, final CharSequence searchStr) {
+        if (str == null || searchStr == null) {
+            return false;
+        }
+        final int len = searchStr.length();
+        final int max = str.length() - len;
+        for (int i = 0; i <= max; i++) {
+            if (CharSequenceUtils.regionMatches(str, true, i, searchStr, 0, len)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} invalid character array will return {@code true}.
+     * An empty CharSequence (length()=0) always returns true.</p>
+     *
+     * <pre>
+     * StringUtils.containsNone(null, *)       = true
+     * StringUtils.containsNone(*, null)       = true
+     * StringUtils.containsNone("", *)         = true
+     * StringUtils.containsNone("ab", '')      = true
+     * StringUtils.containsNone("abab", 'xyz') = true
+     * StringUtils.containsNone("ab1", 'xyz')  = true
+     * StringUtils.containsNone("abz", 'xyz')  = false
+     * </pre>
+     *
+     * @param cs          the CharSequence to check, may be null
+     * @param searchChars an array of invalid chars, may be null
+     * @return true if it contains none of the invalid chars, or is null
+     * @since 2.0
+     * @since 3.0 Changed signature from containsNone(String, char[]) to containsNone(CharSequence, char...)
+     */
+    public static boolean containsNone(final CharSequence cs, final char... searchChars) {
+        if (cs == null || searchChars == null) {
+            return true;
+        }
+        final int csLen = cs.length();
+        final int csLast = csLen - 1;
+        final int searchLen = searchChars.length;
+        final int searchLast = searchLen - 1;
+        for (int i = 0; i < csLen; i++) {
+            final char ch = cs.charAt(i);
+            for (int j = 0; j < searchLen; j++) {
+                if (searchChars[j] == ch) {
+                    if (!Character.isHighSurrogate(ch)) {
+                        // ch is in the Basic Multilingual Plane
+                        return false;
+                    }
+                    if (j == searchLast) {
+                        // missing low surrogate, fine, like String.indexOf(String)
+                        return false;
+                    }
+                    if (i < csLast && searchChars[j + 1] == cs.charAt(i + 1)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} invalid character array will return {@code true}.
+     * An empty String ("") always returns true.</p>
+     *
+     * <pre>
+     * StringUtils.containsNone(null, *)       = true
+     * StringUtils.containsNone(*, null)       = true
+     * StringUtils.containsNone("", *)         = true
+     * StringUtils.containsNone("ab", "")      = true
+     * StringUtils.containsNone("abab", "xyz") = true
+     * StringUtils.containsNone("ab1", "xyz")  = true
+     * StringUtils.containsNone("abz", "xyz")  = false
+     * </pre>
+     *
+     * @param cs           the CharSequence to check, may be null
+     * @param invalidChars a String of invalid chars, may be null
+     * @return true if it contains none of the invalid chars, or is null
+     * @since 2.0
+     * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
+     */
+    public static boolean containsNone(final CharSequence cs, final String invalidChars) {
+        if (invalidChars == null) {
+            return true;
+        }
+        return containsNone(cs, invalidChars.toCharArray());
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character array will return {@code false}.
+     * An empty CharSequence (length()=0) always returns {@code true}.</p>
+     *
+     * <pre>
+     * StringUtils.containsOnly(null, *)       = false
+     * StringUtils.containsOnly(*, null)       = false
+     * StringUtils.containsOnly("", *)         = true
+     * StringUtils.containsOnly("ab", '')      = false
+     * StringUtils.containsOnly("abab", 'abc') = true
+     * StringUtils.containsOnly("ab1", 'abc')  = false
+     * StringUtils.containsOnly("abz", 'abc')  = false
+     * </pre>
+     *
+     * @param cs    the String to check, may be null
+     * @param valid an array of valid chars, may be null
+     * @return true if it only contains valid chars and is non-null
+     * @since 3.0 Changed signature from containsOnly(String, char[]) to containsOnly(CharSequence, char...)
+     */
+    public static boolean containsOnly(final CharSequence cs, final char... valid) {
+        // All these pre-checks are to maintain API with an older version
+        if (valid == null || cs == null) {
+            return false;
+        }
+        if (cs.length() == 0) {
+            return true;
+        }
+        if (valid.length == 0) {
+            return false;
+        }
+        return indexOfAnyBut(cs, valid) == INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character String will return {@code false}.
+     * An empty String (length()=0) always returns {@code true}.</p>
+     *
+     * <pre>
+     * StringUtils.containsOnly(null, *)       = false
+     * StringUtils.containsOnly(*, null)       = false
+     * StringUtils.containsOnly("", *)         = true
+     * StringUtils.containsOnly("ab", "")      = false
+     * StringUtils.containsOnly("abab", "abc") = true
+     * StringUtils.containsOnly("ab1", "abc")  = false
+     * StringUtils.containsOnly("abz", "abc")  = false
+     * </pre>
+     *
+     * @param cs         the CharSequence to check, may be null
+     * @param validChars a String of valid chars, may be null
+     * @return true if it only contains valid chars and is non-null
+     * @since 2.0
+     * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, String)
+     */
+    public static boolean containsOnly(final CharSequence cs, final String validChars) {
+        if (cs == null || validChars == null) {
+            return false;
+        }
+        return containsOnly(cs, validChars.toCharArray());
+    }
+
+    /**
+     * Check whether the given CharSequence contains any whitespace characters.
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * @param seq the CharSequence to check (may be {@code null})
+     * @return {@code true} if the CharSequence is not empty and
+     * contains at least 1 (breaking) whitespace character
+     * @since 3.0
+     */
+    // From org.springframework.util.StringUtils, under Apache License 2.0
+    public static boolean containsWhitespace(final CharSequence seq) {
+        if (isEmpty(seq)) {
+            return false;
+        }
+        final int strLen = seq.length();
+        for (int i = 0; i < strLen; i++) {
+            if (Character.isWhitespace(seq.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static void convertRemainingAccentCharacters(final StringBuilder decomposed) {
+        for (int i = 0; i < decomposed.length(); i++) {
+            if (decomposed.charAt(i) == '\u0141') {
+                decomposed.setCharAt(i, 'L');
+            } else if (decomposed.charAt(i) == '\u0142') {
+                decomposed.setCharAt(i, 'l');
+            }
+        }
     }
 
     /**
@@ -2929,6 +3586,227 @@ public class StringUtils {
         }
         return str;
     }
+
+    /**
+     * Removes a substring only if it is at the end of a source string,
+     * otherwise returns the source string.
+     *
+     * <p>A {@code null} source string will return {@code null}.
+     * An empty ("") source string will return the empty string.
+     * A {@code null} search string will return the source string.</p>
+     *
+     * <pre>
+     * StringUtils.removeEnd(null, *)      = null
+     * StringUtils.removeEnd("", *)        = ""
+     * StringUtils.removeEnd(*, null)      = *
+     * StringUtils.removeEnd("www.domain.com", ".com.")  = "www.domain.com"
+     * StringUtils.removeEnd("www.domain.com", ".com")   = "www.domain"
+     * StringUtils.removeEnd("www.domain.com", "domain") = "www.domain.com"
+     * StringUtils.removeEnd("abc", "")    = "abc"
+     * </pre>
+     *
+     * @param str    the source String to search, may be null
+     * @param remove the String to search for and remove, may be null
+     * @return the substring with the string removed if found,
+     * {@code null} if null String input
+     * @since 2.1
+     */
+    public static String removeEnd(final String str, final String remove) {
+        if (isEmpty(str) || isEmpty(remove)) {
+            return str;
+        }
+        if (str.endsWith(remove)) {
+            return str.substring(0, str.length() - remove.length());
+        }
+        return str;
+    }
+
+    /**
+     * Case insensitive removal of a substring if it is at the end of a source string,
+     * otherwise returns the source string.
+     *
+     * <p>A {@code null} source string will return {@code null}.
+     * An empty ("") source string will return the empty string.
+     * A {@code null} search string will return the source string.</p>
+     *
+     * <pre>
+     * StringUtils.removeEndIgnoreCase(null, *)      = null
+     * StringUtils.removeEndIgnoreCase("", *)        = ""
+     * StringUtils.removeEndIgnoreCase(*, null)      = *
+     * StringUtils.removeEndIgnoreCase("www.domain.com", ".com.")  = "www.domain.com"
+     * StringUtils.removeEndIgnoreCase("www.domain.com", ".com")   = "www.domain"
+     * StringUtils.removeEndIgnoreCase("www.domain.com", "domain") = "www.domain.com"
+     * StringUtils.removeEndIgnoreCase("abc", "")    = "abc"
+     * StringUtils.removeEndIgnoreCase("www.domain.com", ".COM") = "www.domain")
+     * StringUtils.removeEndIgnoreCase("www.domain.COM", ".com") = "www.domain")
+     * </pre>
+     *
+     * @param str    the source String to search, may be null
+     * @param remove the String to search for (case-insensitive) and remove, may be null
+     * @return the substring with the string removed if found,
+     * {@code null} if null String input
+     * @since 2.4
+     */
+    public static String removeEndIgnoreCase(final String str, final String remove) {
+        if (isEmpty(str) || isEmpty(remove)) {
+            return str;
+        }
+        if (endsWithIgnoreCase(str, remove)) {
+            return str.substring(0, str.length() - remove.length());
+        }
+        return str;
+    }
+
+    /**
+     * Case insensitive removal of all occurrences of a substring from within
+     * the source string.
+     *
+     * <p>
+     * A {@code null} source string will return {@code null}. An empty ("")
+     * source string will return the empty string. A {@code null} remove string
+     * will return the source string. An empty ("") remove string will return
+     * the source string.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.removeIgnoreCase(null, *)        = null
+     * StringUtils.removeIgnoreCase("", *)          = ""
+     * StringUtils.removeIgnoreCase(*, null)        = *
+     * StringUtils.removeIgnoreCase(*, "")          = *
+     * StringUtils.removeIgnoreCase("queued", "ue") = "qd"
+     * StringUtils.removeIgnoreCase("queued", "zz") = "queued"
+     * StringUtils.removeIgnoreCase("quEUed", "UE") = "qd"
+     * StringUtils.removeIgnoreCase("queued", "zZ") = "queued"
+     * </pre>
+     *
+     * @param str    the source String to search, may be null
+     * @param remove the String to search for (case-insensitive) and remove, may be
+     *               null
+     * @return the substring with the string removed if found, {@code null} if
+     * null String input
+     * @since 3.5
+     */
+    public static String removeIgnoreCase(final String str, final String remove) {
+        return replaceIgnoreCase(str, remove, EMPTY, -1);
+    }
+
+    /**
+     * Case insensitively replaces all occurrences of a String within another String.
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.replaceIgnoreCase(null, *, *)        = null
+     * StringUtils.replaceIgnoreCase("", *, *)          = ""
+     * StringUtils.replaceIgnoreCase("any", null, *)    = "any"
+     * StringUtils.replaceIgnoreCase("any", *, null)    = "any"
+     * StringUtils.replaceIgnoreCase("any", "", *)      = "any"
+     * StringUtils.replaceIgnoreCase("aba", "a", null)  = "aba"
+     * StringUtils.replaceIgnoreCase("abA", "A", "")    = "b"
+     * StringUtils.replaceIgnoreCase("aba", "A", "z")   = "zbz"
+     * </pre>
+     *
+     * @param text         text to search and replace in, may be null
+     * @param searchString the String to search for (case-insensitive), may be null
+     * @param replacement  the String to replace it with, may be null
+     * @return the text with any replacements processed,
+     * {@code null} if null String input
+     * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
+     * @since 3.5
+     */
+    public static String replaceIgnoreCase(final String text, final String searchString, final String replacement) {
+        return replaceIgnoreCase(text, searchString, replacement, -1);
+    }
+
+    /**
+     * Case insensitively replaces a String with another String inside a larger String,
+     * for the first {@code max} values of the search String.
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.replaceIgnoreCase(null, *, *, *)         = null
+     * StringUtils.replaceIgnoreCase("", *, *, *)           = ""
+     * StringUtils.replaceIgnoreCase("any", null, *, *)     = "any"
+     * StringUtils.replaceIgnoreCase("any", *, null, *)     = "any"
+     * StringUtils.replaceIgnoreCase("any", "", *, *)       = "any"
+     * StringUtils.replaceIgnoreCase("any", *, *, 0)        = "any"
+     * StringUtils.replaceIgnoreCase("abaa", "a", null, -1) = "abaa"
+     * StringUtils.replaceIgnoreCase("abaa", "a", "", -1)   = "b"
+     * StringUtils.replaceIgnoreCase("abaa", "a", "z", 0)   = "abaa"
+     * StringUtils.replaceIgnoreCase("abaa", "A", "z", 1)   = "zbaa"
+     * StringUtils.replaceIgnoreCase("abAa", "a", "z", 2)   = "zbza"
+     * StringUtils.replaceIgnoreCase("abAa", "a", "z", -1)  = "zbzz"
+     * </pre>
+     *
+     * @param text         text to search and replace in, may be null
+     * @param searchString the String to search for (case-insensitive), may be null
+     * @param replacement  the String to replace it with, may be null
+     * @param max          maximum number of values to replace, or {@code -1} if no maximum
+     * @return the text with any replacements processed,
+     * {@code null} if null String input
+     * @since 3.5
+     */
+    public static String replaceIgnoreCase(final String text, final String searchString, final String replacement, final int max) {
+        return replace(text, searchString, replacement, max, true);
+    }
+
+    /**
+     * Replaces a String with another String inside a larger String, once.
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.replaceOnce(null, *, *)        = null
+     * StringUtils.replaceOnce("", *, *)          = ""
+     * StringUtils.replaceOnce("any", null, *)    = "any"
+     * StringUtils.replaceOnce("any", *, null)    = "any"
+     * StringUtils.replaceOnce("any", "", *)      = "any"
+     * StringUtils.replaceOnce("aba", "a", null)  = "aba"
+     * StringUtils.replaceOnce("aba", "a", "")    = "ba"
+     * StringUtils.replaceOnce("aba", "a", "z")   = "zba"
+     * </pre>
+     *
+     * @param text         text to search and replace in, may be null
+     * @param searchString the String to search for, may be null
+     * @param replacement  the String to replace with, may be null
+     * @return the text with any replacements processed,
+     * {@code null} if null String input
+     * @see #replace(String text, String searchString, String replacement, int max)
+     */
+    public static String replaceOnce(final String text, final String searchString, final String replacement) {
+        return replace(text, searchString, replacement, 1);
+    }
+
+    /**
+     * Case insensitively replaces a String with another String inside a larger String, once.
+     *
+     * <p>A {@code null} reference passed to this method is a no-op.</p>
+     *
+     * <pre>
+     * StringUtils.replaceOnceIgnoreCase(null, *, *)        = null
+     * StringUtils.replaceOnceIgnoreCase("", *, *)          = ""
+     * StringUtils.replaceOnceIgnoreCase("any", null, *)    = "any"
+     * StringUtils.replaceOnceIgnoreCase("any", *, null)    = "any"
+     * StringUtils.replaceOnceIgnoreCase("any", "", *)      = "any"
+     * StringUtils.replaceOnceIgnoreCase("aba", "a", null)  = "aba"
+     * StringUtils.replaceOnceIgnoreCase("aba", "a", "")    = "ba"
+     * StringUtils.replaceOnceIgnoreCase("aba", "a", "z")   = "zba"
+     * StringUtils.replaceOnceIgnoreCase("FoOFoofoo", "foo", "") = "Foofoo"
+     * </pre>
+     *
+     * @param text         text to search and replace in, may be null
+     * @param searchString the String to search for (case-insensitive), may be null
+     * @param replacement  the String to replace with, may be null
+     * @return the text with any replacements processed,
+     * {@code null} if null String input
+     * @see #replaceIgnoreCase(String text, String searchString, String replacement, int max)
+     * @since 3.5
+     */
+    public static String replaceOnceIgnoreCase(final String text, final String searchString, final String replacement) {
+        return replaceIgnoreCase(text, searchString, replacement, 1);
+    }
+
     /**
      * Returns padding using the specified delimiter repeated
      * to a given length.
@@ -2946,8 +3824,8 @@ public class StringUtils {
      * consider using {@link #repeat(String, int)} instead.
      * </p>
      *
-     * @param ch  character to repeat
-     * @param repeat  number of times to repeat char, negative treated as zero
+     * @param ch     character to repeat
+     * @param repeat number of times to repeat char, negative treated as zero
      * @return String with repeated character
      * @see #repeat(String, int)
      */
@@ -2973,10 +3851,10 @@ public class StringUtils {
      * StringUtils.repeat("a", -2) = ""
      * </pre>
      *
-     * @param str  the String to repeat, may be null
-     * @param repeat  number of times to repeat str, negative treated as zero
+     * @param str    the String to repeat, may be null
+     * @param repeat number of times to repeat str, negative treated as zero
      * @return a new String consisting of the original String repeated,
-     *  {@code null} if null String input
+     * {@code null} if null String input
      */
     public static String repeat(final String str, final int repeat) {
         // Performance tuned for 2.0 (JDK1.4)
@@ -2996,9 +3874,9 @@ public class StringUtils {
 
         final int outputLength = inputLength * repeat;
         switch (inputLength) {
-            case 1 :
+            case 1:
                 return repeat(str.charAt(0), repeat);
-            case 2 :
+            case 2:
                 final char ch0 = str.charAt(0);
                 final char ch1 = str.charAt(1);
                 final char[] output2 = new char[outputLength];
@@ -3007,7 +3885,7 @@ public class StringUtils {
                     output2[i + 1] = ch1;
                 }
                 return new String(output2);
-            default :
+            default:
                 final StringBuilder buf = new StringBuilder(outputLength);
                 for (int i = 0; i < repeat; i++) {
                     buf.append(str);
@@ -3029,11 +3907,11 @@ public class StringUtils {
      * StringUtils.repeat("?", ", ", 3)  = "?, ?, ?"
      * </pre>
      *
-     * @param str        the String to repeat, may be null
-     * @param separator  the String to inject, may be null
-     * @param repeat     number of times to repeat str, negative treated as zero
+     * @param str       the String to repeat, may be null
+     * @param separator the String to inject, may be null
+     * @param repeat    number of times to repeat str, negative treated as zero
      * @return a new String consisting of the original String repeated,
-     *  {@code null} if null String input
+     * {@code null} if null String input
      * @since 2.5
      */
     public static String repeat(final String str, final String separator, final int repeat) {
@@ -3061,12 +3939,12 @@ public class StringUtils {
      * StringUtils.replace("aba", "a", "z")   = "zbz"
      * </pre>
      *
-     * @see #replace(String text, String searchString, String replacement, int max)
-     * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for, may be null
+     * @param text         text to search and replace in, may be null
+     * @param searchString the String to search for, may be null
      * @param replacement  the String to replace it with, may be null
      * @return the text with any replacements processed,
-     *  {@code null} if null String input
+     * {@code null} if null String input
+     * @see #replace(String text, String searchString, String replacement, int max)
      */
     public static String replace(final String text, final String searchString, final String replacement) {
         return replace(text, searchString, replacement, -1);
@@ -3093,12 +3971,12 @@ public class StringUtils {
      * StringUtils.replace("abaa", "a", "z", -1)  = "zbzz"
      * </pre>
      *
-     * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for, may be null
+     * @param text         text to search and replace in, may be null
+     * @param searchString the String to search for, may be null
      * @param replacement  the String to replace it with, may be null
-     * @param max  maximum number of values to replace, or {@code -1} if no maximum
+     * @param max          maximum number of values to replace, or {@code -1} if no maximum
      * @return the text with any replacements processed,
-     *  {@code null} if null String input
+     * {@code null} if null String input
      */
     public static String replace(final String text, final String searchString, final String replacement, final int max) {
         return replace(text, searchString, replacement, max, false);
@@ -3127,13 +4005,13 @@ public class StringUtils {
      * StringUtils.replace("abAa", "a", "z", -1, true)  = "zbzz"
      * </pre>
      *
-     * @param text  text to search and replace in, may be null
-     * @param searchString  the String to search for (case-insensitive), may be null
+     * @param text         text to search and replace in, may be null
+     * @param searchString the String to search for (case-insensitive), may be null
      * @param replacement  the String to replace it with, may be null
-     * @param max  maximum number of values to replace, or {@code -1} if no maximum
-     * @param ignoreCase if true replace is case-insensitive, otherwise case-sensitive
+     * @param max          maximum number of values to replace, or {@code -1} if no maximum
+     * @param ignoreCase   if true replace is case-insensitive, otherwise case-sensitive
      * @return the text with any replacements processed,
-     *  {@code null} if null String input
+     * {@code null} if null String input
      */
     private static String replace(final String text, String searchString, final String replacement, int max, final boolean ignoreCase) {
         if (isEmpty(text) || isEmpty(searchString) || replacement == null || max == 0) {
@@ -3162,6 +4040,64 @@ public class StringUtils {
         buf.append(text, start, text.length());
         return buf.toString();
     }
+
+    /**
+     * regionMatches的绿色实现。
+     *
+     * @param cs         要处理的{@code CharSequence}
+     * @param ignoreCase 是否不区分大小写
+     * @param thisStart  在{@code cs} CharSequence上启动的索引
+     * @param substring  要查找的{@code CharSequence}
+     * @param start      从索引开始{@code substring} 字符序列
+     * @param length     区域的字符长度
+     * @return 区域是否匹配
+     */
+    private static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
+                                         final CharSequence substring, final int start, final int length) {
+        if (cs instanceof String && substring instanceof String) {
+            return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
+        }
+        int index1 = thisStart;
+        int index2 = start;
+        int tmpLen = length;
+
+        // Extract these first so we detect NPEs the same as the java.lang.String version
+        final int srcLen = cs.length() - thisStart;
+        final int otherLen = substring.length() - start;
+
+        // Check for invalid parameters
+        if (thisStart < 0 || start < 0 || length < 0) {
+            return false;
+        }
+
+        // Check that the regions are long enough
+        if (srcLen < length || otherLen < length) {
+            return false;
+        }
+
+        while (tmpLen-- > 0) {
+            final char c1 = cs.charAt(index1++);
+            final char c2 = substring.charAt(index2++);
+
+            if (c1 == c2) {
+                continue;
+            }
+
+            if (!ignoreCase) {
+                return false;
+            }
+
+            // The real same check as in String.regionMatches():
+            final char u1 = Character.toUpperCase(c1);
+            final char u2 = Character.toUpperCase(c2);
+            if (u1 != u2 && Character.toLowerCase(u1) != Character.toLowerCase(u2)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private static boolean checkLaterThan1(final CharSequence cs, final CharSequence searchChar, final int len2, final int start1) {
         for (int i = 1, j = len2 - 1; i <= j; i++, j--) {
             if (cs.charAt(start1 + i) != searchChar.charAt(i) || cs.charAt(start1 + j) != searchChar.charAt(j)) {

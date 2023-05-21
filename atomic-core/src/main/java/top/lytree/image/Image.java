@@ -211,7 +211,7 @@ public class Image implements Serializable {
         // PNG图片特殊处理
         if (ImageUtils.IMAGE_TYPE_PNG.equals(this.targetImageType)) {
             // 修正float转double导致的精度丢失
-            final double scaleDouble = NumberUtils.toDouble(BigDecimal.valueOf(scale));
+            final double scaleDouble = BigDecimal.valueOf(scale).doubleValue();
             this.targetImage = ImageUtils.transform(AffineTransform.getScaleInstance(scaleDouble, scaleDouble),
                     ImageUtils.toBufferedImage(srcImage, this.targetImageType));
         } else {

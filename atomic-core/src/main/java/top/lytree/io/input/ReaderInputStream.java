@@ -28,9 +28,9 @@ import java.nio.charset.CharsetEncoder;
 import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
 import java.util.Objects;
+
 import top.lytree.lang.CharsetUtils;
 import top.lytree.io.output.WriterOutputStream;
-import top.lytree.codec.CharsetEncoders;
 
 /**
  * {@link InputStream} implementation that reads a character stream from a {@link Reader} and transforms it to a byte stream using a specified charset encoding. The stream is
@@ -70,7 +70,6 @@ import top.lytree.codec.CharsetEncoders;
  * </p>
  *
  * @see WriterOutputStream
- * 
  */
 public class ReaderInputStream extends InputStream {
 
@@ -151,7 +150,6 @@ public class ReaderInputStream extends InputStream {
      *
      * @param reader         the target {@link Reader}
      * @param charsetEncoder the charset encoder
-     * 
      */
     public ReaderInputStream(final Reader reader, final CharsetEncoder charsetEncoder) {
         this(reader, charsetEncoder, DEFAULT_BUFFER_SIZE);
@@ -168,11 +166,10 @@ public class ReaderInputStream extends InputStream {
      * @param reader         the target {@link Reader}
      * @param charsetEncoder the charset encoder, null defauls to the default Charset encoder.
      * @param bufferSize     the size of the input buffer in number of characters
-     * 
      */
     public ReaderInputStream(final Reader reader, final CharsetEncoder charsetEncoder, final int bufferSize) {
         this.reader = reader;
-        this.charsetEncoder = CharsetEncoders.toCharsetEncoder(charsetEncoder);
+        this.charsetEncoder = toCharsetEncoder(charsetEncoder);
         this.encoderIn = CharBuffer.allocate(checkMinBufferSize(this.charsetEncoder, bufferSize));
         this.encoderIn.flip();
         this.encoderOut = ByteBuffer.allocate(128);
@@ -322,5 +319,16 @@ public class ReaderInputStream extends InputStream {
             }
         }
         return read == 0 && endOfInput ? EOF : read;
+    }
+
+
+    /**
+     * 返回给定的非空CharsetEncoder或新的默认CharsetEncoder。
+     *
+     * @param charsetEncoder The CharsetEncoder to test.
+     * @return 给定的非空CharsetEncoder或新的默认CharsetEncoder
+     */
+    private static CharsetEncoder toCharsetEncoder(final CharsetEncoder charsetEncoder) {
+        return charsetEncoder != null ? charsetEncoder : Charset.defaultCharset().newEncoder();
     }
 }

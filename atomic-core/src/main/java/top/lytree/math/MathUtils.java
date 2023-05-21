@@ -32,7 +32,6 @@ public class MathUtils {
      * 金额元转换为分
      *
      * @param yuan 金额，单位元
-     *
      * @return 金额，单位分
      */
     public static long yuanToCent(double yuan) {
@@ -43,7 +42,6 @@ public class MathUtils {
      * 金额分转换为元
      *
      * @param cent 金额，单位分
-     *
      * @return 金额，单位元
      */
     public static double centToYuan(long cent) {
@@ -57,7 +55,6 @@ public class MathUtils {
      *
      * @param v1 被加数
      * @param v2 加数
-     *
      * @return 和
      */
     public static double add(float v1, float v2) {
@@ -69,7 +66,6 @@ public class MathUtils {
      *
      * @param v1 被加数
      * @param v2 加数
-     *
      * @return 和
      */
     public static double add(float v1, double v2) {
@@ -81,7 +77,6 @@ public class MathUtils {
      *
      * @param v1 被加数
      * @param v2 加数
-     *
      * @return 和
      */
     public static double add(double v1, float v2) {
@@ -93,7 +88,6 @@ public class MathUtils {
      *
      * @param v1 被加数
      * @param v2 加数
-     *
      * @return 和
      */
     public static double add(double v1, double v2) {
@@ -105,7 +99,6 @@ public class MathUtils {
      *
      * @param v1 被加数
      * @param v2 加数
-     *
      * @return 和
      */
     public static double add(Double v1, Double v2) {
@@ -118,7 +111,6 @@ public class MathUtils {
      *
      * @param v1 被加数
      * @param v2 加数
-     *
      * @return 和
      */
     public static BigDecimal add(Number v1, Number v2) {
@@ -129,7 +121,6 @@ public class MathUtils {
      * 提供精确的加法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被加值
-     *
      * @return 和
      */
     public static BigDecimal add(Number... values) {
@@ -152,7 +143,6 @@ public class MathUtils {
      * 提供精确的加法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被加值
-     *
      * @return 和
      */
     public static BigDecimal add(String... values) {
@@ -175,7 +165,6 @@ public class MathUtils {
      * 提供精确的加法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被加值
-     *
      * @return 和
      */
     public static BigDecimal add(BigDecimal... values) {
@@ -199,7 +188,6 @@ public class MathUtils {
      *
      * @param v1 被减数
      * @param v2 减数
-     *
      * @return 差
      */
     public static double sub(float v1, float v2) {
@@ -211,7 +199,6 @@ public class MathUtils {
      *
      * @param v1 被减数
      * @param v2 减数
-     *
      * @return 差
      */
     public static double sub(float v1, double v2) {
@@ -223,7 +210,6 @@ public class MathUtils {
      *
      * @param v1 被减数
      * @param v2 减数
-     *
      * @return 差
      */
     public static double sub(double v1, float v2) {
@@ -235,7 +221,6 @@ public class MathUtils {
      *
      * @param v1 被减数
      * @param v2 减数
-     *
      * @return 差
      */
     public static double sub(double v1, double v2) {
@@ -247,7 +232,6 @@ public class MathUtils {
      *
      * @param v1 被减数
      * @param v2 减数
-     *
      * @return 差
      */
     public static double sub(Double v1, Double v2) {
@@ -260,7 +244,6 @@ public class MathUtils {
      *
      * @param v1 被减数
      * @param v2 减数
-     *
      * @return 差
      */
     public static BigDecimal sub(Number v1, Number v2) {
@@ -271,7 +254,6 @@ public class MathUtils {
      * 提供精确的减法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被减值
-     *
      * @return 差
      */
     public static BigDecimal sub(Number... values) {
@@ -294,7 +276,6 @@ public class MathUtils {
      * 提供精确的减法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被减值
-     *
      * @return 差
      */
     public static BigDecimal sub(String... values) {
@@ -317,7 +298,6 @@ public class MathUtils {
      * 提供精确的减法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被减值
-     *
      * @return 差
      */
     public static BigDecimal sub(BigDecimal... values) {
@@ -341,7 +321,6 @@ public class MathUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
-     *
      * @return 积
      */
     public static double mul(float v1, float v2) {
@@ -353,7 +332,6 @@ public class MathUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
-     *
      * @return 积
      */
     public static double mul(float v1, double v2) {
@@ -365,7 +343,6 @@ public class MathUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
-     *
      * @return 积
      */
     public static double mul(double v1, float v2) {
@@ -377,7 +354,6 @@ public class MathUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
-     *
      * @return 积
      */
     public static double mul(double v1, double v2) {
@@ -389,7 +365,6 @@ public class MathUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
-     *
      * @return 积
      */
     public static double mul(Double v1, Double v2) {
@@ -402,7 +377,6 @@ public class MathUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
-     *
      * @return 积
      */
     public static BigDecimal mul(Number v1, Number v2) {
@@ -413,7 +387,6 @@ public class MathUtils {
      * 提供精确的乘法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被乘值
-     *
      * @return 积
      */
     public static BigDecimal mul(Number... values) {
@@ -435,7 +408,6 @@ public class MathUtils {
      *
      * @param v1 被乘数
      * @param v2 乘数
-     *
      * @return 积
      */
     public static BigDecimal mul(String v1, String v2) {
@@ -446,11 +418,10 @@ public class MathUtils {
      * 提供精确的乘法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被乘值
-     *
      * @return 积
      */
     public static BigDecimal mul(String... values) {
-        if (ArrayUtils.isEmpty(values) || ArrayUtils.hasNull(values)) {
+        if (StringUtils.hasBlank(values)) {
             return BigDecimal.ZERO;
         }
 
@@ -466,7 +437,6 @@ public class MathUtils {
      * 提供精确的乘法运算<br> 如果传入多个值为null或者空，则返回0
      *
      * @param values 多个被乘值
-     *
      * @return 积
      */
     public static BigDecimal mul(BigDecimal... values) {
@@ -486,7 +456,6 @@ public class MathUtils {
      *
      * @param v1 被除数
      * @param v2 除数
-     *
      * @return 两个参数的商
      */
     public static double div(float v1, float v2) {
@@ -498,7 +467,6 @@ public class MathUtils {
      *
      * @param v1 被除数
      * @param v2 除数
-     *
      * @return 两个参数的商
      */
     public static double div(float v1, double v2) {
@@ -510,7 +478,6 @@ public class MathUtils {
      *
      * @param v1 被除数
      * @param v2 除数
-     *
      * @return 两个参数的商
      */
     public static double div(double v1, float v2) {
@@ -522,7 +489,6 @@ public class MathUtils {
      *
      * @param v1 被除数
      * @param v2 除数
-     *
      * @return 两个参数的商
      */
     public static double div(double v1, double v2) {
@@ -534,7 +500,6 @@ public class MathUtils {
      *
      * @param v1 被除数
      * @param v2 除数
-     *
      * @return 两个参数的商
      */
     public static double div(Double v1, Double v2) {
@@ -546,7 +511,6 @@ public class MathUtils {
      *
      * @param v1 被除数
      * @param v2 除数
-     *
      * @return 两个参数的商
      */
     public static BigDecimal div(Number v1, Number v2) {
@@ -558,7 +522,6 @@ public class MathUtils {
      *
      * @param v1 被除数
      * @param v2 除数
-     *
      * @return 两个参数的商
      */
     public static BigDecimal div(String v1, String v2) {
@@ -571,7 +534,6 @@ public class MathUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
-     *
      * @return 两个参数的商
      */
     public static double div(float v1, float v2, int scale) {
@@ -584,7 +546,6 @@ public class MathUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
-     *
      * @return 两个参数的商
      */
     public static double div(float v1, double v2, int scale) {
@@ -597,7 +558,6 @@ public class MathUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
-     *
      * @return 两个参数的商
      */
     public static double div(double v1, float v2, int scale) {
@@ -610,7 +570,6 @@ public class MathUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
-     *
      * @return 两个参数的商
      */
     public static double div(double v1, double v2, int scale) {
@@ -623,7 +582,6 @@ public class MathUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
-     *
      * @return 两个参数的商
      */
     public static double div(Double v1, Double v2, int scale) {
@@ -636,7 +594,6 @@ public class MathUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
-     *
      * @return 两个参数的商
      */
     public static BigDecimal div(Number v1, Number v2, int scale) {
@@ -649,7 +606,6 @@ public class MathUtils {
      * @param v1    被除数
      * @param v2    除数
      * @param scale 精确度，如果为负值，取绝对值
-     *
      * @return 两个参数的商
      */
     public static BigDecimal div(String v1, String v2, int scale) {
@@ -663,7 +619,6 @@ public class MathUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     *
      * @return 两个参数的商
      */
     public static double div(float v1, float v2, int scale, RoundingMode roundingMode) {
@@ -677,7 +632,6 @@ public class MathUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     *
      * @return 两个参数的商
      */
     public static double div(float v1, double v2, int scale, RoundingMode roundingMode) {
@@ -691,7 +645,6 @@ public class MathUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     *
      * @return 两个参数的商
      */
     public static double div(double v1, float v2, int scale, RoundingMode roundingMode) {
@@ -705,7 +658,6 @@ public class MathUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     *
      * @return 两个参数的商
      */
     public static double div(double v1, double v2, int scale, RoundingMode roundingMode) {
@@ -719,7 +671,6 @@ public class MathUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     *
      * @return 两个参数的商
      */
     public static double div(Double v1, Double v2, int scale, RoundingMode roundingMode) {
@@ -734,7 +685,6 @@ public class MathUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     *
      * @return 两个参数的商
      */
     public static BigDecimal div(Number v1, Number v2, int scale, RoundingMode roundingMode) {
@@ -751,7 +701,6 @@ public class MathUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     *
      * @return 两个参数的商
      */
     public static BigDecimal div(String v1, String v2, int scale, RoundingMode roundingMode) {
@@ -765,7 +714,6 @@ public class MathUtils {
      * @param v2           除数
      * @param scale        精确度，如果为负值，取绝对值
      * @param roundingMode 保留小数的模式 {@link RoundingMode}
-     *
      * @return 两个参数的商
      */
     public static BigDecimal div(BigDecimal v1, BigDecimal v2, int scale, RoundingMode roundingMode) {
@@ -784,7 +732,6 @@ public class MathUtils {
      *
      * @param v1 被除数
      * @param v2 除数
-     *
      * @return 两个参数的商
      */
     public static int ceilDiv(int v1, int v2) {
@@ -798,7 +745,6 @@ public class MathUtils {
      * </p>
      *
      * @param n 阶乘起始
-     *
      * @return 结果
      */
     public static BigInteger factorial(BigInteger n) {
@@ -816,7 +762,6 @@ public class MathUtils {
      *
      * @param start 阶乘起始（包含）
      * @param end   阶乘结束，必须小于起始（不包括）
-     *
      * @return 结果
      */
     public static BigInteger factorial(BigInteger start, BigInteger end) {
@@ -851,7 +796,6 @@ public class MathUtils {
      *
      * @param start 阶乘起始（包含）
      * @param end   阶乘结束，必须小于起始（不包括）
-     *
      * @return 结果
      */
     public static long factorial(long start, long end) {
@@ -873,7 +817,6 @@ public class MathUtils {
      *
      * @param a 乘数
      * @param b 被乘数
-     *
      * @return 如果 a * b的结果没有溢出直接返回，否则抛出异常
      */
     private static long factorialMultiplyAndCheck(long a, long b) {
@@ -890,7 +833,6 @@ public class MathUtils {
      * </p>
      *
      * @param n 阶乘起始
-     *
      * @return 结果
      */
     public static long factorial(long n) {
@@ -905,7 +847,6 @@ public class MathUtils {
      *
      * @param total     总数
      * @param partCount 份数
-     *
      * @return 每份的个数
      */
     public static int partValue(int total, int partCount) {
@@ -918,7 +859,6 @@ public class MathUtils {
      * @param total               总数
      * @param partCount           份数
      * @param isPlusOneWhenHasRem 在有余数时是否每份+1
-     *
      * @return 每份的个数
      */
     public static int partValue(int total, int partCount, boolean isPlusOneWhenHasRem) {

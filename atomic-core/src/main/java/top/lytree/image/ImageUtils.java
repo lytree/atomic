@@ -46,8 +46,6 @@ import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.ImageIcon;
 import top.lytree.bean.ObjectUtils;
-import top.lytree.codec.binary.Base64;
-import top.lytree.codec.net.UrlUtils;
 import top.lytree.array.ArrayUtils;
 import top.lytree.io.FileUtils;
 import top.lytree.io.FilenameUtils;
@@ -1219,18 +1217,6 @@ public class ImageUtils {
         return gc.createCompatibleImage(width, height, transparency);
     }
 
-    /**
-     * 将Base64编码的图像信息转为 {@link BufferedImage}
-     *
-     * @param base64 图像的Base64表示
-     *
-     * @return {@link BufferedImage}
-     *
-     * @throws IOException IO异常
-     */
-    public static BufferedImage toImage(String base64) throws IOException {
-        return toImage(new Base64().decode(base64));
-    }
 
     /**
      * 将的图像bytes转为 {@link BufferedImage}
@@ -1256,33 +1242,6 @@ public class ImageUtils {
     public static ByteArrayInputStream toStream(Image image, String imageType) throws IOException {
         return IOUtils.toStream(toBytes(image, imageType));
     }
-
-    /**
-     * 将图片对象转换为Base64的Data URI形式，格式为：data:image/[imageType];base64,[data]
-     *
-     * @param image     图片对象
-     * @param imageType 图片类型
-     *
-     * @return Base64的字符串表现形式
-     */
-    public static String toBase64DataUri(Image image, String imageType) throws IOException {
-        return UrlUtils.getDataUri(
-                "image/" + imageType, "base64",
-                toBase64(image, imageType));
-    }
-
-    /**
-     * 将图片对象转换为Base64形式
-     *
-     * @param image     图片对象
-     * @param imageType 图片类型
-     *
-     * @return Base64的字符串表现形式
-     */
-    public static String toBase64(Image image, String imageType) throws IOException {
-        return new Base64().encodeAsString(toBytes(image, imageType));
-    }
-
     /**
      * 将图片对象转换为bytes形式
      *

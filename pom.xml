@@ -54,7 +54,6 @@
     <module>atomic-data-jpa</module>
     <module>atomic-data-mongo</module>
     <module>atomic-data-redis</module>
-    <module>atomic-system</module>
     <module>atomic-model</module>
     <module>atomic-http</module>
     <module>atomic-ftp</module>

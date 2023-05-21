@@ -1390,6 +1390,25 @@ public class ArrayUtils {
         return array != null ? Array.getLength(array) : 0;
     }
 
+    /**
+     * 是否包含{@code null}元素
+     *
+     * @param <T>   数组元素类型
+     * @param array 被检查的数组
+     * @return 是否包含{@code null}元素
+     * @since 3.0.7
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> boolean hasNull(T... array) {
+        if (isNotEmpty(array)) {
+            for (T element : array) {
+                if (ObjectUtils.isNull(element)) {
+                    return true;
+                }
+            }
+        }
+        return array == null;
+    }
 
     /**
      * Finds the indices of the given value in the array.
