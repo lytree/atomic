@@ -10,15 +10,14 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.0.6</version>
+    <version>3.1.0</version>
   </parent>
   <properties>
     <skipTests>true</skipTests>
     <mysql-connector-java.version>8.0.33</mysql-connector-java.version>
-    <rocketmq.version>5.0.5</rocketmq.version>
+    <rocketmq.version>5.1.1</rocketmq.version>
     <mybatis.version>3.0.1</mybatis.version>
     <elasticsearch.version>7.17.9</elasticsearch.version>
-    <druid.version>1.2.16</druid.version>
     <okhttp.version>4.11.0</okhttp.version>
     <kotlin-stdlib.version>1.8.20</kotlin-stdlib.version>
     <okio.version>3.3.0</okio.version>
@@ -38,7 +37,7 @@
     <xxl-job.version>2.4.0</xxl-job.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <jjwt.version>0.11.5</jjwt.version>
-    <dubbo.version>3.2.0</dubbo.version>
+    <dubbo.version>3.2.2</dubbo.version>
     <lombok.version>1.18.26</lombok.version>
     <guava.version>31.1-jre</guava.version>
     <redisson.version>3.20.1</redisson.version>
@@ -63,14 +62,14 @@
       <dependency>
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-dependencies</artifactId>
-        <version>2022.0.2</version>
+        <version>2022.0.3</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.springframework.data</groupId>
         <artifactId>spring-data-bom</artifactId>
-        <version>2022.0.5</version>
+        <version>2023.0.0</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
