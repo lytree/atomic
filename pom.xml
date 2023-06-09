@@ -52,11 +52,9 @@
     <module>atomic-email</module>
     <module>atomic-spring</module>
     <module>atomic-web</module>
-    <module>atomic-dubbo</module>
     <module>atomic-data-jpa</module>
     <module>atomic-data-mongo</module>
     <module>atomic-data-redis</module>
-    <module>atomic-system</module>
     <module>atomic-model</module>
     <module>atomic-http</module>
     <module>atomic-ftp</module>
@@ -76,17 +74,6 @@
         <version>2021.2.11</version>
         <scope>import</scope>
         <type>pom</type>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.dubbo</groupId>
-        <artifactId>dubbo-spring-boot-starter</artifactId>
-        <version>${dubbo.version}</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.dubbo/dubbo-spring-boot-actuator -->
-      <dependency>
-        <groupId>org.apache.dubbo</groupId>
-        <artifactId>dubbo-spring-boot-actuator</artifactId>
-        <version>${dubbo.version}</version>
       </dependency>
       <dependency>
         <groupId>org.projectlombok</groupId>
