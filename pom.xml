@@ -51,7 +51,6 @@
     <module>atomic-spring</module>
     <module>atomic-web</module>
     <module>atomic-data-jpa</module>
-    <module>atomic-data-mongo</module>
     <module>atomic-data-redis</module>
     <module>atomic-model</module>
     <module>atomic-http</module>
