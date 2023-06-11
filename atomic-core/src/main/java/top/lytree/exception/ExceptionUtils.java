@@ -1,6 +1,6 @@
 package top.lytree.exception;
 
-import top.lytree.array.ArrayUtils;
+import top.lytree.collections.ArrayUtils;
 import top.lytree.bean.ClassUtils;
 import top.lytree.lang.StringUtils;
 

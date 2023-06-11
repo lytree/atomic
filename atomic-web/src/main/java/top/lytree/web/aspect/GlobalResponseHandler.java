@@ -2,9 +2,11 @@ package top.lytree.web.aspect;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -40,7 +42,7 @@ public class GlobalResponseHandler implements ResponseBodyAdvice {
 
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request,
-            ServerHttpResponse response) {
+                                  ServerHttpResponse response) {
         String requestId = MDC.get(Globals.TRACE_ID);
         if (body instanceof ResponseResult) {
             return body;
@@ -65,6 +67,9 @@ public class GlobalResponseHandler implements ResponseBodyAdvice {
             return null;
         } else if (body instanceof String) {
             try {
+                response
+                        .getHeaders()
+                        .add("Content-Type", "application/json");
                 return objectMapper.writeValueAsString(new ResponseResult(ServerCode.SUCCESS, body, requestId));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();

@@ -21,7 +21,6 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import top.lytree.array.ArrayUtils;
 import top.lytree.base.Filter;
 import top.lytree.pattern.Matcher;
 

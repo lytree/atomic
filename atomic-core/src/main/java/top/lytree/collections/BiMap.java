@@ -27,7 +27,6 @@ import java.util.Set;
  * "https://github.com/google/guava/wiki/NewCollectionTypesExplained#bimap">{@code BiMap}</a>.
  *
  * @author Kevin Bourrillion
- * 
  */
 
 public interface BiMap<K extends Object, V extends Object> extends Map<K, V> {
@@ -42,6 +41,47 @@ public interface BiMap<K extends Object, V extends Object> extends Map<K, V> {
 
     @Override
     V put(K key, V value);
+
+    /**
+     * Gets the key that is currently mapped to the specified value.
+     * <p>
+     * If the value is not contained in the map, {@code null} is returned.
+     * </p>
+     * <p>
+     * Implementations should seek to make this method perform equally as well
+     * as {@code get(Object)}.
+     * </p>
+     *
+     * @param value the value to find the key for
+     * @return the mapped key, or {@code null} if not found
+     * @throws ClassCastException   (optional) if the map limits the type of the
+     *                              value and the specified value is inappropriate
+     * @throws NullPointerException (optional) if the map limits the values to
+     *                              non-null and null was specified
+     */
+    K getKey(Object value);
+
+    /**
+     * Removes the key-value pair that is currently mapped to the specified
+     * value (optional operation).
+     * <p>
+     * If the value is not contained in the map, {@code null} is returned.
+     * </p>
+     * <p>
+     * Implementations should seek to make this method perform equally as well
+     * as {@code remove(Object)}.
+     * </p>
+     *
+     * @param value the value to find the key-value pair for
+     * @return the key that was removed, {@code null} if nothing removed
+     * @throws ClassCastException            (optional) if the map limits the type of the
+     *                                       value and the specified value is inappropriate
+     * @throws NullPointerException          (optional) if the map limits the values to
+     *                                       non-null and null was specified
+     * @throws UnsupportedOperationException if this method is not supported
+     *                                       by the implementation
+     */
+    K removeValue(Object value);
 
     /**
      * An alternate form of {@code put} that silently removes any existing entry with the value {@code value} before proceeding with the {@link #put} operation. If the bimap

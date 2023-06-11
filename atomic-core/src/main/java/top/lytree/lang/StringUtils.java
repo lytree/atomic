@@ -28,7 +28,7 @@ import java.util.Objects;
 
 import top.lytree.base.Filter;
 import top.lytree.bean.ObjectUtils;
-import top.lytree.array.ArrayUtils;
+import top.lytree.collections.ArrayUtils;
 import top.lytree.function.ToBooleanBiFunction;
 import top.lytree.text.StringFormatter;
 

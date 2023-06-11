@@ -5,7 +5,7 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 
 import top.lytree.base.Assert;
-import top.lytree.array.ArrayUtils;
+import top.lytree.collections.ArrayUtils;
 import top.lytree.lang.StringUtils;
 
 /**
