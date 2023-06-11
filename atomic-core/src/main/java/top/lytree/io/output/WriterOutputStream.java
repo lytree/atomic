@@ -25,9 +25,9 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
+
 import top.lytree.lang.CharsetUtils;
 import top.lytree.io.input.ReaderInputStream;
-import top.lytree.codec.CharsetDecoders;
 
 /**
  * {@link OutputStream} implementation that transforms a byte stream to a character stream using a specified charset encoding and writes the resulting stream to a {@link Writer}.
@@ -59,7 +59,6 @@ import top.lytree.codec.CharsetDecoders;
  * </p>
  *
  * @see ReaderInputStream
- *
  */
 public class WriterOutputStream extends OutputStream {
 
@@ -87,15 +86,13 @@ public class WriterOutputStream extends OutputStream {
             try {
                 charsetDecoder2.decode(bb2, cb2, i == len - 1);
             } catch (final IllegalArgumentException e) {
-                throw new UnsupportedOperationException("UTF-16 requested when running on an IBM JDK with broken UTF-16 support. " +
-                        "Please find a JDK that supports UTF-16 if you intend to use UF-16 with WriterOutputStream");
+                throw new UnsupportedOperationException("UTF-16 requested when running on an IBM JDK with broken UTF-16 support. " + "Please find a JDK that supports UTF-16 if you intend to use UF-16 with WriterOutputStream");
             }
             bb2.compact();
         }
         cb2.rewind();
         if (!TEST_STRING_2.equals(cb2.toString())) {
-            throw new UnsupportedOperationException("UTF-16 requested when running on an IBM JDK with broken UTF-16 support. " +
-                    "Please find a JDK that supports UTF-16 if you intend to use UF-16 with WriterOutputStream");
+            throw new UnsupportedOperationException("UTF-16 requested when running on an IBM JDK with broken UTF-16 support. " + "Please find a JDK that supports UTF-16 if you intend to use UF-16 with WriterOutputStream");
         }
 
     }
@@ -154,7 +151,6 @@ public class WriterOutputStream extends OutputStream {
      *
      * @param writer  the target {@link Writer}
      * @param decoder the charset decoder
-     *
      */
     public WriterOutputStream(final Writer writer, final CharsetDecoder decoder) {
         this(writer, decoder, BUFFER_SIZE, false);
@@ -169,12 +165,11 @@ public class WriterOutputStream extends OutputStream {
      * @param writeImmediately If {@code true} the output buffer will be flushed after each write operation, i.e. all available data will be written to the underlying {@link
      *                         Writer} immediately. If {@code false}, the output buffer will only be flushed when it overflows or when {@link #flush()} or {@link #close()} is
      *                         called.
-     *
      */
     public WriterOutputStream(final Writer writer, final CharsetDecoder decoder, final int bufferSize, final boolean writeImmediately) {
-        checkIbmJdkWithBrokenUTF16(CharsetDecoders.toCharsetDecoder(decoder).charset());
+        checkIbmJdkWithBrokenUTF16(toCharsetDecoder(decoder).charset());
         this.writer = writer;
-        this.decoder = CharsetDecoders.toCharsetDecoder(decoder);
+        this.decoder = toCharsetDecoder(decoder);
         this.writeImmediately = writeImmediately;
         decoderOut = CharBuffer.allocate(bufferSize);
     }
@@ -200,8 +195,7 @@ public class WriterOutputStream extends OutputStream {
      *                         Writer} immediately. If {@code false}, the output buffer will only be flushed when it overflows or when {@link #flush()} or {@link #close()} is
      *                         called.
      */
-    public WriterOutputStream(final Writer writer, final String charsetName, final int bufferSize,
-            final boolean writeImmediately) {
+    public WriterOutputStream(final Writer writer, final String charsetName, final int bufferSize, final boolean writeImmediately) {
         this(writer, CharsetUtils.toCharset(charsetName), bufferSize, writeImmediately);
     }
 
@@ -308,5 +302,15 @@ public class WriterOutputStream extends OutputStream {
     @Override
     public void write(final int b) throws IOException {
         write(new byte[]{(byte) b}, 0, 1);
+    }
+
+    /**
+     * 返回给定的非空CharsetDecoder或新的默认CharsetDecoder。
+     *
+     * @param charsetDecoder The CharsetDecoder to test.
+     * @return 定的非空CharsetDecoder或新的默认CharsetDecoder
+     */
+    static CharsetDecoder toCharsetDecoder(final CharsetDecoder charsetDecoder) {
+        return charsetDecoder != null ? charsetDecoder : Charset.defaultCharset().newDecoder();
     }
 }
