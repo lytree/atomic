@@ -27,7 +27,7 @@ import top.lytree.model.response.support.ResponseResult;
 /**
  * @date 2021/8/30 11:28
  */
-@ControllerAdvice(basePackages = "top.yang")
+@ControllerAdvice(basePackages = "top.lytree")
 public class GlobalResponseHandler implements ResponseBodyAdvice {
 
     private final static Logger logger = LoggerFactory.getLogger(GlobalResponseHandler.class);

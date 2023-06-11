@@ -24,7 +24,7 @@ import top.lytree.model.response.support.ResponseResult;
  * @author pride
  * @date 2021/8/30 10:16
  */
-@ControllerAdvice("top.yang")
+@ControllerAdvice("top.lytree")
 public class GlobalExceptionHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);

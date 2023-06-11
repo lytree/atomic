@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
  * @author Y
  * 请求参数处理
  */
-@ControllerAdvice(basePackages = "top.yang")
+@ControllerAdvice(basePackages = "top.lytree")
 public class GlobalRequestHandler implements RequestBodyAdvice {
 
     @Override
