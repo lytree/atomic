@@ -3,6 +3,7 @@ package top.lytree.bean;
 import top.lytree.lang.StringUtils;
 
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -79,6 +80,7 @@ public class ClassUtils {
             }
         });
     }
+
     /**
      * Maps a primitive class name to its corresponding abbreviation used in array class names.
      */
@@ -103,6 +105,7 @@ public class ClassUtils {
         abbreviationMap = Collections.unmodifiableMap(map);
         reverseAbbreviationMap = Collections.unmodifiableMap(map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getValue, Map.Entry::getKey)));
     }
+
     /**
      * 是否为抽象类
      *
@@ -323,6 +326,7 @@ public class ClassUtils {
             cls = cls.getSuperclass();
         }
     }
+
     /**
      * Gets the class name minus the package name from a {@link Class}.
      *
@@ -333,7 +337,7 @@ public class ClassUtils {
      *
      * @param cls the class to get the short name for.
      * @return the class name without the package name or an empty string. If the class is an inner class then the returned
-     *         value will contain the outer class or classes separated with {@code .} (dot) character.
+     * value will contain the outer class or classes separated with {@code .} (dot) character.
      */
     public static String getShortClassName(final Class<?> cls) {
         if (cls == null) {
@@ -350,10 +354,10 @@ public class ClassUtils {
      * {@link #getShortClassName(Class)} (see relevant notes there).
      * </p>
      *
-     * @param object the class to get the short name for, may be {@code null}
+     * @param object      the class to get the short name for, may be {@code null}
      * @param valueIfNull the value to return if the object is {@code null}
      * @return the class name of the object without the package name, or {@code valueIfNull} if the argument {@code object}
-     *         is {@code null}
+     * is {@code null}
      */
     public static String getShortClassName(final Object object, final String valueIfNull) {
         if (object == null) {
@@ -389,9 +393,9 @@ public class ClassUtils {
      * </p>
      *
      * @param className the className to get the short name for. It has to be formatted as returned by
-     *        {@code Class.getName()} and not {@code Class.getCanonicalName()}
+     *                  {@code Class.getName()} and not {@code Class.getCanonicalName()}
      * @return the class name of the class without the package name or an empty string. If the class is an inner class then
-     *         value contains the outer class or classes and the separator is replaced to be {@code .} (dot) character.
+     * value contains the outer class or classes and the separator is replaced to be {@code .} (dot) character.
      */
     public static String getShortClassName(String className) {
         if (StringUtils.isEmpty(className)) {
@@ -423,6 +427,35 @@ public class ClassUtils {
             out = out.replace(INNER_CLASS_SEPARATOR_CHAR, PACKAGE_SEPARATOR_CHAR);
         }
         return out + arrayPrefix;
+    }
+    /**
+     * 获得给定类的泛型参数
+     *
+     * @param clazz 被检查的类，必须是已经确定泛型类型的类
+     * @param index 泛型类型的索引号，即第几个泛型类型
+     * @return {@link Class}
+     */
+    public static Class<?> getTypeArgument(Class<?> clazz, int index) {
+        final Type argumentType = TypeUtils.getTypeArgument(clazz, index);
+        return argumentType.getClass();
+    }
+
+    /**
+     * 获取当前线程的类加载器
+     * @return
+     */
+    public static ClassLoader getDefaultClassLoader() {
+        ClassLoader cl = null;
+        try {
+            cl = Thread.currentThread().getContextClassLoader();
+        } catch (Throwable ex) {
+            // Cannot access thread context ClassLoader - falling back to system class loader...
+        }
+        if (cl == null) {
+            // No thread context class loader -> use class loader of this class.
+            cl = ClassUtils.class.getClassLoader();
+        }
+        return cl;
     }
 
     /**

@@ -30,26 +30,14 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
-import top.lytree.base.Predicate;
-import top.lytree.collections.iterators.ArrayIterator;
-import top.lytree.collections.iterators.ArrayListIterator;
-import top.lytree.collections.iterators.EmptyIterator;
-import top.lytree.collections.iterators.EmptyListIterator;
-import top.lytree.collections.iterators.EmptyMapIterator;
-import top.lytree.collections.iterators.EnumerationIterator;
-import top.lytree.collections.iterators.FilterIterator;
-import top.lytree.collections.iterators.IteratorChain;
-import top.lytree.collections.iterators.IteratorEnumeration;
-import top.lytree.collections.iterators.IteratorIterable;
-import top.lytree.collections.iterators.ListIteratorWrapper;
-import top.lytree.collections.iterators.MapIterator;
-import top.lytree.collections.iterators.ObjectArrayIterator;
-import top.lytree.collections.iterators.ObjectArrayListIterator;
-import top.lytree.collections.iterators.ResettableIterator;
-import top.lytree.collections.iterators.ResettableListIterator;
-import top.lytree.collections.iterators.SingletonIterator;
-import top.lytree.collections.iterators.SingletonListIterator;
-import top.lytree.base.Assert;
+
+
+import org.apache.commons.collections4.MapIterator;
+import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections4.ResettableIterator;
+import org.apache.commons.collections4.ResettableListIterator;
+import org.apache.commons.collections4.iterators.*;
+import top.lytree.utils.Assert;
 import top.lytree.math.NumberUtils;
 
 
@@ -57,38 +45,7 @@ import top.lytree.math.NumberUtils;
  * 为{@link Iterator}实例提供静态实用程序方法和装饰器。实现在iterators子包中提供。
  */
 public class IteratorUtils {
-    // validation is done in this class in certain cases because the
-    // public classes allow invalid states
 
-    /**
-     * 没有元素的迭代器。
-     */
-    @SuppressWarnings("rawtypes")
-    public static final ResettableIterator EMPTY_ITERATOR = EmptyIterator.RESETTABLE_INSTANCE;
-
-    /**
-     * 不包含任何元素的列表迭代器。
-     */
-    @SuppressWarnings("rawtypes")
-    public static final ResettableListIterator EMPTY_LIST_ITERATOR = EmptyListIterator.RESETTABLE_INSTANCE;
-
-
-    /**
-     * 没有元素的映射迭代器。
-     */
-    @SuppressWarnings("rawtypes")
-    public static final MapIterator EMPTY_MAP_ITERATOR = EmptyMapIterator.INSTANCE;
-
-    /**
-     * 在将迭代器转换为其字符串表示形式时，用于分隔元素的默认分隔符。
-     */
-    private static final String DEFAULT_TOSTRING_DELIMITER = ", ";
-
-    /**
-     * Don't allow instances.
-     */
-    private IteratorUtils() {
-    }
 
     // Empty
     //-----------------------------------------------------------------------
@@ -102,7 +59,7 @@ public class IteratorUtils {
      * @return an iterator over nothing
      */
     public static <E> ResettableIterator<E> emptyIterator() {
-        return EmptyIterator.<E>resettableEmptyIterator();
+        return org.apache.commons.collections4.IteratorUtils.emptyIterator();
     }
 
     /**
@@ -114,7 +71,7 @@ public class IteratorUtils {
      * @return a list iterator over nothing
      */
     public static <E> ResettableListIterator<E> emptyListIterator() {
-        return EmptyListIterator.<E>resettableEmptyListIterator();
+        return org.apache.commons.collections4.IteratorUtils.emptyListIterator();
     }
 
 
@@ -128,14 +85,14 @@ public class IteratorUtils {
      * @return a map iterator over nothing
      */
     public static <K, V> MapIterator<K, V> emptyMapIterator() {
-        return EmptyMapIterator.<K, V>emptyMapIterator();
+        return org.apache.commons.collections4.IteratorUtils.emptyMapIterator();
     }
 
     // Singleton
     //-----------------------------------------------------------------------
 
     /**
-     *获取一个单例迭代器。
+     * 获取一个单例迭代器。
      * <p>
      * This iterator is a valid iterator object that will iterate over the specified object.
      *
@@ -144,7 +101,7 @@ public class IteratorUtils {
      * @return a singleton iterator over the object
      */
     public static <E> ResettableIterator<E> singletonIterator(final E object) {
-        return new SingletonIterator<>(object);
+        return org.apache.commons.collections4.IteratorUtils.singletonIterator(object);
     }
 
     /**
@@ -157,14 +114,14 @@ public class IteratorUtils {
      * @return a singleton list iterator over the object
      */
     public static <E> ListIterator<E> singletonListIterator(final E object) {
-        return new SingletonListIterator<>(object);
+        return org.apache.commons.collections4.IteratorUtils.singletonListIterator(object);
     }
 
     // Arrays
     //-----------------------------------------------------------------------
 
     /**
-     *获取对象数组上的迭代器。
+     * 获取对象数组上的迭代器。
      *
      * @param <E>   the element type
      * @param array the array over which to iterate
@@ -242,6 +199,7 @@ public class IteratorUtils {
      * 获取对象或基元数组部分上的迭代器。
      * <p>
      * 此方法将处理基本数组和对象数组。原语将被包装在适当的包装器类中。
+     *
      * @param <E>   the element type
      * @param array the array over which to iterate
      * @param start the index to start iterating at
@@ -374,7 +332,7 @@ public class IteratorUtils {
      * @throws NullPointerException if enumeration or removeCollection is null
      */
     public static <E> Iterator<E> asIterator(final Enumeration<? extends E> enumeration,
-            final Collection<? super E> removeCollection) {
+                                             final Collection<? super E> removeCollection) {
         return new EnumerationIterator<>(Objects.requireNonNull(enumeration, "enumeration"),
                 Objects.requireNonNull(removeCollection, "removeCollection"));
     }
@@ -547,7 +505,7 @@ public class IteratorUtils {
                 }
             }
         } catch (final RuntimeException | NoSuchMethodException | IllegalAccessException |
-                InvocationTargetException e) { // NOPMD
+                       InvocationTargetException e) { // NOPMD
             // ignore
         }
         return singletonIterator(obj);
@@ -699,14 +657,7 @@ public class IteratorUtils {
      */
     public static <T> boolean all(
             Iterator<T> iterator, Predicate<? super T> predicate) {
-        Assert.notNull(predicate);
-        while (iterator.hasNext()) {
-            T element = iterator.next();
-            if (!predicate.apply(element)) {
-                return false;
-            }
-        }
-        return true;
+        return org.apache.commons.collections4.IteratorUtils.matchesAll(iterator, predicate);
     }
 
     /**
@@ -719,38 +670,21 @@ public class IteratorUtils {
 
     public static <T> T find(
             Iterator<T> iterator, Predicate<? super T> predicate) {
-        Assert.notNull(iterator);
-        Assert.notNull(predicate);
-        while (iterator.hasNext()) {
-            T t = iterator.next();
-            if (predicate.apply(t)) {
-                return t;
-            }
-        }
-        throw new NoSuchElementException();
+        return org.apache.commons.collections4.IteratorUtils.find(iterator, predicate);
     }
 
     /**
      * Returns the first element in {@code iterator} that satisfies the given predicate. If no such element is found, {@code defaultValue} will be returned from this method and the
      * iterator will be left exhausted: its {@code hasNext()} method will return {@code false}. Note that this can usually be handled more naturally using {@code tryFind(iterator,
      * predicate).or(defaultValue)}.
-     *
-     * 
      */
     // For discussion of this signature, see the corresponding overload of *Iterables*.find.
     public static <T> T find(
             Iterator<? extends T> iterator,
             Predicate<? super T> predicate,
             T defaultValue) {
-        Assert.notNull(iterator);
-        Assert.notNull(predicate);
-        while (iterator.hasNext()) {
-            T t = iterator.next();
-            if (predicate.apply(t)) {
-                return t;
-            }
-        }
-        return defaultValue;
+        T t = org.apache.commons.collections4.IteratorUtils.find(iterator, predicate);
+        return null == t ? defaultValue : t;
     }
 
     /**
@@ -759,19 +693,9 @@ public class IteratorUtils {
      *
      * <p><b>Warning:</b> avoid using a {@code predicate} that matches {@code null}. If {@code null}
      * is matched in {@code iterator}, a NullPointerException will be thrown.
-     *
-     * 
      */
     public static <T> Optional<T> tryFind(Iterator<T> iterator, Predicate<? super T> predicate) {
-        Assert.notNull(iterator);
-        Assert.notNull(predicate);
-        while (iterator.hasNext()) {
-            T t = iterator.next();
-            if (predicate.apply(t)) {
-                return Optional.of(t);
-            }
-        }
-        return Optional.empty();
+        return Optional.of(find(iterator, predicate));
     }
 
     /**
@@ -782,19 +706,10 @@ public class IteratorUtils {
      *
      * <p>If -1 is returned, the iterator will be left exhausted: its {@code hasNext()} method will
      * return {@code false}. Otherwise, the iterator will be set to the element which satisfies the {@code predicate}.
-     *
-     * 
      */
     public static <T> int indexOf(
             Iterator<T> iterator, Predicate<? super T> predicate) {
-        Assert.notNull(predicate, "predicate");
-        for (int i = 0; iterator.hasNext(); i++) {
-            T current = iterator.next();
-            if (predicate.apply(current)) {
-                return i;
-            }
-        }
-        return -1;
+        return org.apache.commons.collections4.IteratorUtils.indexOf(iterator, predicate);
     }
 
     public static <T> boolean addAll(
@@ -820,7 +735,7 @@ public class IteratorUtils {
      * @throws NullPointerException if either parameter is null
      */
     public static <E> Iterator<E> filteredIterator(final Iterator<? extends E> iterator,
-            final Predicate<? super E> predicate) {
+                                                   final Predicate<? super E> predicate) {
         Objects.requireNonNull(iterator, "iterator");
         Objects.requireNonNull(predicate, "predicate");
         return new FilterIterator<>(iterator, predicate);
@@ -836,7 +751,7 @@ public class IteratorUtils {
      * @throws NullPointerException if either iterator is null
      */
     public static <E> Iterator<E> chainedIterator(final Iterator<? extends E> iterator1,
-            final Iterator<? extends E> iterator2) {
+                                                  final Iterator<? extends E> iterator2) {
         // keep a version with two iterators to avoid the following warning in client code (Java 5 & 6)
         // "A generic array of E is created for a varargs parameter"
         return new IteratorChain<>(iterator1, iterator2);

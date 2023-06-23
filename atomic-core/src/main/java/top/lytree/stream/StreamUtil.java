@@ -3,7 +3,7 @@ package top.lytree.stream;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-import top.lytree.base.Assert;
+import top.lytree.utils.Assert;
 
 public class StreamUtil {
 

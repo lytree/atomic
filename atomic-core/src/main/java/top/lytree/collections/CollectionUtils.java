@@ -21,7 +21,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import top.lytree.base.Filter;
+import top.lytree.Filter;
 import top.lytree.pattern.Matcher;
 
 
@@ -51,142 +51,6 @@ public class CollectionUtils {
      */
     public static final String COMMA = ",";
 
-    /**
-     * Helper class to easily access cardinality properties of two collections.
-     *
-     * @param <O> the element type
-     */
-    private static class CardinalityHelper<O> {
-
-        /**
-         * Contains the cardinality for each object in collection A.
-         */
-        final Map<O, Integer> cardinalityA;
-
-        /**
-         * Contains the cardinality for each object in collection B.
-         */
-        final Map<O, Integer> cardinalityB;
-
-        /**
-         * Create a new CardinalityHelper for two collections.
-         *
-         * @param a the first collection
-         * @param b the second collection
-         */
-        CardinalityHelper(final Iterable<? extends O> a, final Iterable<? extends O> b) {
-            cardinalityA = CollectionUtils.<O>getCardinalityMap(a);
-            cardinalityB = CollectionUtils.<O>getCardinalityMap(b);
-        }
-
-        /**
-         * Returns the maximum frequency of an object.
-         *
-         * @param obj the object
-         * @return the maximum frequency of the object
-         */
-        public final int max(final Object obj) {
-            return Math.max(freqA(obj), freqB(obj));
-        }
-
-        /**
-         * Returns the minimum frequency of an object.
-         *
-         * @param obj the object
-         * @return the minimum frequency of the object
-         */
-        public final int min(final Object obj) {
-            return Math.min(freqA(obj), freqB(obj));
-        }
-
-        /**
-         * Returns the frequency of this object in collection A.
-         *
-         * @param obj the object
-         * @return the frequency of the object in collection A
-         */
-        public int freqA(final Object obj) {
-            return getFreq(obj, cardinalityA);
-        }
-
-        /**
-         * Returns the frequency of this object in collection B.
-         *
-         * @param obj the object
-         * @return the frequency of the object in collection B
-         */
-        public int freqB(final Object obj) {
-            return getFreq(obj, cardinalityB);
-        }
-
-        private int getFreq(final Object obj, final Map<?, Integer> freqMap) {
-            final Integer count = freqMap.get(obj);
-            if (count != null) {
-                return count.intValue();
-            }
-            return 0;
-        }
-    }
-
-    /**
-     * Helper class for set-related operations, e.g. union, subtract, intersection.
-     *
-     * @param <O> the element type
-     */
-    private static class SetOperationCardinalityHelper<O> extends CardinalityHelper<O> implements Iterable<O> {
-
-        /**
-         * Contains the unique elements of the two collections.
-         */
-        private final Set<O> elements;
-
-        /**
-         * Output collection.
-         */
-        private final List<O> newList;
-
-        /**
-         * Create a new set operation helper from the two collections.
-         *
-         * @param a the first collection
-         * @param b the second collection
-         */
-        SetOperationCardinalityHelper(final Iterable<? extends O> a, final Iterable<? extends O> b) {
-            super(a, b);
-            elements = new HashSet<>();
-            addAll(elements, a);
-            addAll(elements, b);
-            // the resulting list must contain at least each unique element, but may grow
-            newList = new ArrayList<>(elements.size());
-        }
-
-        @Override
-        public Iterator<O> iterator() {
-            return elements.iterator();
-        }
-
-        /**
-         * Add the object {@code count} times to the result collection.
-         *
-         * @param obj   the object to add
-         * @param count the count
-         */
-        public void setCardinality(final O obj, final int count) {
-            for (int i = 0; i < count; i++) {
-                newList.add(obj);
-            }
-        }
-
-        /**
-         * Returns the resulting collection.
-         *
-         * @return the result
-         */
-        public Collection<O> list() {
-            return newList;
-        }
-
-    }
 
     /**
      * An empty unmodifiable collection. The JDK provides empty Set and List implementations which could be used for this purpose. However they could be cast to Set or List which
@@ -194,12 +58,6 @@ public class CollectionUtils {
      */
     @SuppressWarnings("rawtypes") // we deliberately use the raw type here
     public static final Collection EMPTY_COLLECTION = Collections.emptyList();
-
-    /**
-     * Don't allow instances.
-     */
-    private CollectionUtils() {
-    }
 
     /**
      * Returns the immutable EMPTY_COLLECTION with generic type safety.
@@ -230,55 +88,14 @@ public class CollectionUtils {
      * <p>
      */
     public static boolean containsAll(final Collection<?> coll1, final Collection<?> coll2) {
-        Objects.requireNonNull(coll1, "coll1");
-        Objects.requireNonNull(coll2, "coll2");
-        if (coll2.isEmpty()) {
-            return true;
-        }
-        final Iterator<?> it = coll1.iterator();
-        final Set<Object> elementsAlreadySeen = new HashSet<>();
-        for (final Object nextElement : coll2) {
-            if (elementsAlreadySeen.contains(nextElement)) {
-                continue;
-            }
-
-            boolean foundCurrentElement = false;
-            while (it.hasNext()) {
-                final Object p = it.next();
-                elementsAlreadySeen.add(p);
-                if (nextElement == null ? p == null : nextElement.equals(p)) {
-                    foundCurrentElement = true;
-                    break;
-                }
-            }
-
-            if (!foundCurrentElement) {
-                return false;
-            }
-        }
-        return true;
+        return org.apache.commons.collections4.CollectionUtils.containsAll(coll1, coll2);
     }
 
     /**
      * Returns {@code true} iff at least one element is in both collections.
      */
     public static <T> boolean containsAny(final Collection<?> coll1, @SuppressWarnings("unchecked") final T... coll2) {
-        Objects.requireNonNull(coll1, "coll1");
-        Objects.requireNonNull(coll2, "coll2");
-        if (coll1.size() < coll2.length) {
-            for (final Object aColl1 : coll1) {
-                if (ArrayUtils.contains(coll2, aColl1)) {
-                    return true;
-                }
-            }
-        } else {
-            for (final Object aColl2 : coll2) {
-                if (coll1.contains(aColl2)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return org.apache.commons.collections4.CollectionUtils.containsAny(coll1, coll2);
     }
 
     /**
@@ -286,22 +103,7 @@ public class CollectionUtils {
      * <p>
      */
     public static boolean containsAny(final Collection<?> coll1, final Collection<?> coll2) {
-        Objects.requireNonNull(coll1, "coll1");
-        Objects.requireNonNull(coll2, "coll2");
-        if (coll1.size() < coll2.size()) {
-            for (final Object aColl1 : coll1) {
-                if (coll2.contains(aColl1)) {
-                    return true;
-                }
-            }
-        } else {
-            for (final Object aColl2 : coll2) {
-                if (coll1.contains(aColl2)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return org.apache.commons.collections4.CollectionUtils.containsAll(coll1, coll2);
     }
 
     /**
@@ -317,17 +119,7 @@ public class CollectionUtils {
      * @throws NullPointerException if coll is null
      */
     public static <O> Map<O, Integer> getCardinalityMap(final Iterable<? extends O> coll) {
-        Objects.requireNonNull(coll, "coll");
-        final Map<O, Integer> count = new HashMap<>();
-        for (final O obj : coll) {
-            final Integer c = count.get(obj);
-            if (c == null) {
-                count.put(obj, Integer.valueOf(1));
-            } else {
-                count.put(obj, Integer.valueOf(c.intValue() + 1));
-            }
-        }
-        return count;
+        return org.apache.commons.collections4.CollectionUtils.getCardinalityMap(coll);
     }
 
     /**
@@ -342,15 +134,7 @@ public class CollectionUtils {
      * @see Collection#containsAll
      */
     public static boolean isSubCollection(final Collection<?> a, final Collection<?> b) {
-        Objects.requireNonNull(a, "a");
-        Objects.requireNonNull(b, "b");
-        final CardinalityHelper<Object> helper = new CardinalityHelper<>(a, b);
-        for (final Object obj : a) {
-            if (helper.freqA(obj) > helper.freqB(obj)) {
-                return false;
-            }
-        }
-        return true;
+        return org.apache.commons.collections4.CollectionUtils.containsAll(a, b);
     }
 
     /**
@@ -391,21 +175,7 @@ public class CollectionUtils {
      * @throws NullPointerException if either collection is null
      */
     public static boolean isEqualCollection(final Collection<?> a, final Collection<?> b) {
-        Objects.requireNonNull(a, "a");
-        Objects.requireNonNull(b, "b");
-        if (a.size() != b.size()) {
-            return false;
-        }
-        final CardinalityHelper<Object> helper = new CardinalityHelper<>(a, b);
-        if (helper.cardinalityA.size() != helper.cardinalityB.size()) {
-            return false;
-        }
-        for (final Object obj : helper.cardinalityA.keySet()) {
-            if (helper.freqA(obj) != helper.freqB(obj)) {
-                return false;
-            }
-        }
-        return true;
+        return org.apache.commons.collections4.CollectionUtils.isEqualCollection(a, b);
     }
 
     /**
@@ -434,42 +204,6 @@ public class CollectionUtils {
         return hashCode;
     }
 
-    /**
-     * Wraps another object and uses the provided Equator to implement {@link #equals(Object)} and {@link #hashCode()}.
-     * <p>
-     * This class can be used to store objects into a Map.
-     * </p>
-     *
-     * @param <O> the element type
-     */
-    private static class EquatorWrapper<O> {
-
-        private final Equator<? super O> equator;
-        private final O object;
-
-        EquatorWrapper(final Equator<? super O> equator, final O object) {
-            this.equator = equator;
-            this.object = object;
-        }
-
-        public O getObject() {
-            return object;
-        }
-
-        @Override
-        public boolean equals(final Object obj) {
-            if (!(obj instanceof EquatorWrapper)) {
-                return false;
-            }
-            @SuppressWarnings("unchecked") final EquatorWrapper<O> otherObj = (EquatorWrapper<O>) obj;
-            return equator.equate(object, otherObj.getObject());
-        }
-
-        @Override
-        public int hashCode() {
-            return equator.hash(object);
-        }
-    }
     //-----------------------------------------------------------------------
 
     /**

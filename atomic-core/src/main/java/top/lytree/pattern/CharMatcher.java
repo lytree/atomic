@@ -17,8 +17,8 @@ package top.lytree.pattern;
 
 import java.util.Arrays;
 import java.util.BitSet;
-import top.lytree.base.Assert;
-import top.lytree.base.Predicate;
+import top.lytree.utils.Assert;
+import top.lytree.Predicate;
 
 
 /**

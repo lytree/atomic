@@ -106,7 +106,6 @@ public class MapUtils {
         return value == null ? defaultValue : value;
     }
 
-
     /**
      * 如果参数是{@code null}，返回一个不可变的空映射，否则返回参数本身。
      *

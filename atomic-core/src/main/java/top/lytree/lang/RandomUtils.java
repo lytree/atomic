@@ -16,7 +16,7 @@
  */
 package top.lytree.lang;
 
-import top.lytree.base.Assert;
+import top.lytree.utils.Assert;
 import top.lytree.collections.ArrayUtils;
 import top.lytree.collections.CollectionUtils;
 import top.lytree.exception.ToolException;

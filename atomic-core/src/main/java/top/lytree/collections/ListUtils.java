@@ -17,8 +17,6 @@
 package top.lytree.collections;
 
 
-import static top.lytree.collections.Lists.computeArrayListCapacity;
-
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,9 +31,6 @@ import java.util.Objects;
 import java.util.RandomAccess;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
-
-import top.lytree.collections.Lists.RandomAccessReverseList;
-import top.lytree.collections.Lists.ReverseList;
 
 
 /**
@@ -56,7 +51,6 @@ public class ListUtils {
      *
      * @param <T>  the element type
      * @param list the list, possibly {@code null}
-     *
      * @return an empty list if the argument is {@code null}
      */
     public static <T> List<T> emptyIfNull(final List<T> list) {
@@ -69,7 +63,6 @@ public class ListUtils {
      * @param <T>         元素类型
      * @param list        列表,可能为{@code null}
      * @param defaultList the returned values if list is {@code null}
-     *
      * @return an empty list if the argument is {@code null}
      */
     public static <T> List<T> defaultIfNull(final List<T> list, final List<T> defaultList) {
@@ -82,9 +75,7 @@ public class ListUtils {
      * @param <E>   the element type
      * @param list1 the first list
      * @param list2 the second list
-     *
      * @return the intersection of those two lists
-     *
      * @throws NullPointerException if either list is null
      */
     public static <E> List<E> intersection(final List<? extends E> list1, final List<? extends E> list2) {
@@ -114,9 +105,7 @@ public class ListUtils {
      * @param <E>   the element type
      * @param list1 the first list
      * @param list2 the second list
-     *
      * @return a new list containing the union of those lists
-     *
      * @throws NullPointerException if either list is null
      */
     public static <E> List<E> union(final List<? extends E> list1, final List<? extends E> list2) {
@@ -146,9 +135,7 @@ public class ListUtils {
      *
      * @param list1 the first list, may be null
      * @param list2 the second list, may be null
-     *
      * @return whether the lists are equal by value comparison
-     *
      * @see List
      */
     public static boolean isEqualList(final Collection<?> list1, final Collection<?> list2) {
@@ -183,9 +170,7 @@ public class ListUtils {
      * List implementation algorithm.
      *
      * @param list the list to generate the hashCode for, may be null
-     *
      * @return the hash code
-     *
      * @see List#hashCode()
      */
     public static int hashCodeForList(final Collection<?> list) {
@@ -215,9 +200,7 @@ public class ListUtils {
      * @param <E>        the element type
      * @param collection the collection whose contents are the target of the #retailAll operation
      * @param retain     the collection containing the elements to be retained in the returned collection
-     *
      * @return a {@code List} containing all the elements of {@code c} that occur at least once in {@code retain}.
-     *
      * @throws NullPointerException if either parameter is null
      */
     public static <E> List<E> retainAll(final Collection<E> collection, final Collection<?> retain) {
@@ -244,9 +227,7 @@ public class ListUtils {
      * @param <E>        the element type
      * @param collection the collection from which items are removed (in the returned collection)
      * @param remove     the items to be removed from the returned {@code collection}
-     *
      * @return a {@code List} containing all the elements of {@code c} except any elements that also occur in {@code remove}.
-     *
      * @throws NullPointerException if either parameter is null
      */
     public static <E> List<E> removeAll(final Collection<E> collection, final Collection<?> remove) {
@@ -267,7 +248,6 @@ public class ListUtils {
      * @param collection 原集合
      * @param func       编辑函数
      * @param ignoreNull 是否忽略空值，这里的空值包括函数处理前和处理后的null值
-     *
      * @return 抽取后的新列表
      */
     public static <T, R> List<R> map(Iterable<T> collection, Function<? super T, ? extends R> func, boolean ignoreNull) {
@@ -327,9 +307,7 @@ public class ListUtils {
      * @param <T>  the element type
      * @param list the list to return consecutive sublists of
      * @param size the desired size of each sublist (the last may be smaller)
-     *
      * @return a list of consecutive sublists
-     *
      * @throws NullPointerException     if list is null
      * @throws IllegalArgumentException if size is not strictly positive
      */
@@ -385,7 +363,6 @@ public class ListUtils {
      *
      * @param <T>    集合元素类型
      * @param values 数组
-     *
      * @return ArrayList对象
      */
     @SafeVarargs
@@ -398,7 +375,6 @@ public class ListUtils {
      *
      * @param ts  对象
      * @param <T> 对象类型
-     *
      * @return 不可修改List
      */
     @SafeVarargs
@@ -414,7 +390,6 @@ public class ListUtils {
      *
      * @param <T>        集合元素类型
      * @param collection 集合
-     *
      * @return {@link CopyOnWriteArrayList}
      */
     public static <T> CopyOnWriteArrayList<T> toCopyOnWriteArrayList(Collection<T> collection) {
@@ -425,7 +400,6 @@ public class ListUtils {
      * 新建一个空List
      *
      * @param <T> 集合元素类型
-     *
      * @return List对象
      */
     public static <T> List<T> newArrayList() {
@@ -437,7 +411,6 @@ public class ListUtils {
      *
      * @param <T>    集合元素类型
      * @param values 数组
-     *
      * @return List对象
      */
     @SafeVarargs
@@ -445,8 +418,7 @@ public class ListUtils {
         if (ArrayUtils.isEmpty(values)) {
             return newArrayList();
         }
-        int capacity = computeArrayListCapacity(values.length);
-        final List<T> arrayList = new ArrayList<>(capacity);
+        final List<T> arrayList = new ArrayList<>(values.length);
         Collections.addAll(arrayList, values);
         return arrayList;
     }
@@ -456,7 +428,6 @@ public class ListUtils {
      *
      * @param <T>        集合元素类型
      * @param collection 集合
-     *
      * @return List对象
      */
     public static <T> List<T> newArrayList(Collection<T> collection) {
@@ -471,7 +442,6 @@ public class ListUtils {
      *
      * @param <T>      集合元素类型
      * @param iterable {@link Iterable}
-     *
      * @return List对象
      */
     public static <T> List<T> newArrayList(Iterable<T> iterable) {
@@ -486,7 +456,6 @@ public class ListUtils {
      *
      * @param <T>  集合元素类型
      * @param iter {@link Iterator}
-     *
      * @return ArrayList对象
      */
     public static <T> List<T> newArrayList(Iterator<T> iter) {
@@ -504,7 +473,6 @@ public class ListUtils {
      *
      * @param <T>        集合元素类型
      * @param enumration {@link Enumeration}
-     *
      * @return ArrayList对象
      */
     public static <T> List<T> newArrayList(Enumeration<T> enumration) {
@@ -523,9 +491,7 @@ public class ListUtils {
      * @param <T>  元素类型
      * @param list 被排序的List
      * @param c    {@link Comparator}
-     *
      * @return 原list
-     *
      * @see Collections#sort(List, Comparator)
      */
     public static <T> List<T> sort(List<T> list, Comparator<? super T> c) {
@@ -555,13 +521,9 @@ public class ListUtils {
      * <p>The returned list is random-access if the specified list is random access.
      */
     public static <T> List<T> reverse(List<T> list) {
-        if (list instanceof ReverseList) {
-            return ((ReverseList<T>) list).getForwardList();
-        } else if (list instanceof RandomAccess) {
-            return new RandomAccessReverseList<>(list);
-        } else {
-            return new ReverseList<>(list);
-        }
+        List<T> temp = new ArrayList<>(list);
+        Collections.reverse(temp);
+        return temp;
     }
 
 

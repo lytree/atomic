@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import top.lytree.base.Filter;
+import top.lytree.Filter;
 import top.lytree.bean.ObjectUtils;
 import top.lytree.collections.ArrayUtils;
 import top.lytree.function.ToBooleanBiFunction;

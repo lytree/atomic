@@ -3,6 +3,8 @@ package top.lytree.bean;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+
 import top.lytree.collections.ArrayUtils;
 
 /**
@@ -188,5 +190,15 @@ public class TypeUtils  {
     public static Class<?>[] getParamClasses(final Method method) {
         return null == method ? null : method.getParameterTypes();
     }
-
+    /**
+     * 是否未知类型<br>
+     * type为null或者{@link TypeVariable} 都视为未知类型
+     *
+     * @param type Type类型
+     * @return 是否未知类型
+     * @since 4.5.2
+     */
+    public static boolean isUnknown(final Type type) {
+        return null == type || type instanceof TypeVariable;
+    }
 }

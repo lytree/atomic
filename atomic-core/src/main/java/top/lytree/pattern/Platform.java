@@ -15,11 +15,7 @@
 package top.lytree.pattern;
 
 import java.util.regex.Pattern;
-import top.lytree.base.Assert;
-import top.lytree.pattern.CharMatcher;
-import top.lytree.pattern.CommonPattern;
-import top.lytree.pattern.JdkPattern;
-import top.lytree.pattern.PatternCompiler;
+import top.lytree.utils.Assert;
 
 
 /**

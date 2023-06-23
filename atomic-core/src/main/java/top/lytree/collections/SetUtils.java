@@ -29,7 +29,7 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
-import top.lytree.base.Predicate;
+import top.lytree.Predicate;
 
 
 /**
@@ -39,54 +39,6 @@ import top.lytree.base.Predicate;
  */
 public class SetUtils {
 
-
-    /**
-     * 一个不可修改的<b>视图<b>的集合，该集合可能被其他集合支持。
-     * <p>
-     * 如果被装饰的设置发生变化，这个视图也会发生变化. 此视图的内容可以通过 {@link #copyInto(Set)} and {@link #toSet()} methods.
-     *
-     * @param <E> 元素类型
-     */
-    public abstract static class SetView<E> extends AbstractSet<E> {
-
-        /**
-         * Copies the contents of this view into the provided set.
-         *
-         * @param <S> the set type
-         * @param set the set for copying the contents
-         */
-        public <S extends Set<E>> void copyInto(final S set) {
-            CollectionUtils.addAll(set, this);
-        }
-
-        /**
-         * Return an iterator for this view; the returned iterator is not required to be unmodifiable.
-         *
-         * @return a new iterator for this view
-         */
-        protected abstract Iterator<E> createIterator();
-
-        @Override
-        public Iterator<E> iterator() {
-            return createIterator();
-        }
-
-        @Override
-        public int size() {
-            return IteratorUtils.size(iterator());
-        }
-
-        /**
-         * Returns a new set containing the contents of this view.
-         *
-         * @return a new set containing all elements of this view
-         */
-        public Set<E> toSet() {
-            final Set<E> set = new HashSet<>(size());
-            copyInto(set);
-            return set;
-        }
-    }
 
     /**
      * Returns an immutable empty set if the argument is {@code null}, or the argument itself otherwise.
@@ -210,25 +162,9 @@ public class SetUtils {
      * @param setA the set to subtract from, must not be null
      * @param setB the set to subtract, must not be null
      * @return a view of the relative complement of  of the two sets
-     * 
      */
-    public static <E> SetView<E> difference(final Set<? extends E> setA, final Set<? extends E> setB) {
-        Objects.requireNonNull(setA, "setA");
-        Objects.requireNonNull(setB, "setB");
-
-        final Predicate<E> notContainedInB = object -> !setB.contains(object);
-
-        return new SetView<E>() {
-            @Override
-            public boolean contains(final Object o) {
-                return setA.contains(o) && !setB.contains(o);
-            }
-
-            @Override
-            public Iterator<E> createIterator() {
-                return IteratorUtils.filteredIterator(setA.iterator(), notContainedInB);
-            }
-        };
+    public static <E> org.apache.commons.collections4.SetUtils.SetView<E> difference(final Set<? extends E> setA, final Set<? extends E> setB) {
+        return org.apache.commons.collections4.SetUtils.difference(setA, setB);
     }
 
     /**
@@ -241,15 +177,14 @@ public class SetUtils {
      * @param setB the second set, must not be null
      * @return a view of the union of the two set
      * @throws NullPointerException if either input set is null
-     * 
      */
-    public static <E> SetView<E> union(final Set<? extends E> setA, final Set<? extends E> setB) {
+    public static <E> org.apache.commons.collections4.SetUtils.SetView<E> union(final Set<? extends E> setA, final Set<? extends E> setB) {
         Objects.requireNonNull(setA, "setA");
         Objects.requireNonNull(setB, "setB");
 
-        final SetView<E> bMinusA = difference(setB, setA);
+        final org.apache.commons.collections4.SetUtils.SetView<E> bMinusA = difference(setB, setA);
 
-        return new SetView<E>() {
+        return new org.apache.commons.collections4.SetUtils.SetView<E>() {
             @Override
             public boolean contains(final Object o) {
                 return setA.contains(o) || setB.contains(o);

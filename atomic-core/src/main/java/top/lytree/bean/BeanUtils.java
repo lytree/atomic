@@ -1,7 +1,12 @@
 package top.lytree.bean;
 
+import top.lytree.collections.ArrayUtils;
+import top.lytree.collections.ListUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author PrideYang
@@ -24,7 +29,25 @@ public class BeanUtils {
     public static boolean isBean(Class<?> clazz) {
         return hasSetter(clazz) || hasPublicField(clazz);
     }
-
+    /**
+     * 判断是否为可写Bean对象，判定方法是：
+     *
+     * <pre>
+     *     1、是否存在只有一个参数的setXXX方法
+     *     2、是否存在public类型的字段
+     * </pre>
+     *
+     * @param clazz 待测试类
+     * @return 是否为Bean对象
+     * @see #hasSetter(Class)
+     * @see #hasPublicField(Class)
+     */
+    public static boolean isWritableBean(final Class<?> clazz) {
+        if(null == clazz){
+            return false;
+        }
+        return hasSetter(clazz) || hasPublicField(clazz);
+    }
     /**
      * 判断是否有Setter方法<br> 判定方法是否存在只有一个参数的setXXX方法
      *
@@ -78,6 +101,37 @@ public class BeanUtils {
             }
         }
         return false;
+    }
+
+    /**
+     * 设置字段值，通过反射设置字段值，并不调用setXXX方法<br>
+     * 对象同样支持Map类型，fieldNameOrIndex即为key，支持：
+     * <ul>
+     *     <li>Map</li>
+     *     <li>List</li>
+     *     <li>Bean</li>
+     * </ul>
+     *
+     * @param bean             Bean
+     * @param fieldNameOrIndex 字段名或序号，序号支持负数
+     * @param value            值
+     * @return bean，当为数组时，返回一个新的数组
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static Object setFieldValue(Object bean, String fieldNameOrIndex, Object value) {
+        //todo 暂时不支持Map和list
+//        if (bean instanceof Map<?,?>) {
+//            ((Map) bean).put(fieldNameOrIndex, value);
+//        } else if (bean instanceof List) {
+//            ListUtils.((List) bean, Integer.valueOf(fieldNameOrIndex), value);
+//        } else if (ArrayUtils.(bean)) {
+//            // issue#3008，追加产生新数组，此处返回新数组
+//            return ArrayUtils.insert(bean, Integer.valueOf(fieldNameOrIndex), value);
+//        } else {
+            // 普通Bean对象
+            ReflectUtils.setFieldValue(bean, fieldNameOrIndex, value);
+//        }
+        return bean;
     }
 
 }
