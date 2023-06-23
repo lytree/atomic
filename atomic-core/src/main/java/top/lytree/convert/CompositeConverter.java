@@ -138,7 +138,7 @@ public class CompositeConverter extends RegisterConverter {
 			return converter.convert(type, value, defaultValue);
 		}
 
-		Class<T> rowType = (Class<T>) type.getClass();
+		Class<T> rowType = (Class<T>) TypeUtils.getClass(type);
 		if (null == rowType) {
 			if (null != defaultValue) {
 				rowType = (Class<T>) defaultValue.getClass();
