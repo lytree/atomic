@@ -17,19 +17,9 @@
 package top.lytree.collections;
 
 
+import java.util.*;
+
 import static top.lytree.collections.CollectionUtils.isNotEmpty;
-
-import java.util.AbstractSet;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.IdentityHashMap;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Set;
-
-import top.lytree.Predicate;
 
 
 /**

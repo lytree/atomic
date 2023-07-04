@@ -1,4 +1,4 @@
-package top.lytree.math;
+package top.lytree.lang;
 
 import top.lytree.time.SystemClock;
 

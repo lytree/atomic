@@ -1,7 +1,6 @@
-package top.lytree.math;
+package top.lytree.lang;
 
 
-import top.lytree.lang.RandomUtils;
 import top.lytree.pattern.RegExUtils;
 
 import java.net.NetworkInterface;
