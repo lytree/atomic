@@ -2,7 +2,7 @@ package top.lytree.bean;
 
 
 import top.lytree.exception.CloneFailedException;
-import top.lytree.stream.StreamUtil;
+import top.lytree.lang.StreamUtil;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;

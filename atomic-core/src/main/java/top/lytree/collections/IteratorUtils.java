@@ -32,6 +32,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 
+
 import org.apache.commons.collections4.MapIterator;
 import org.apache.commons.collections4.Predicate;
 import org.apache.commons.collections4.ResettableIterator;
@@ -44,7 +45,7 @@ import top.lytree.math.NumberUtils;
 /**
  * 为{@link Iterator}实例提供静态实用程序方法和装饰器。实现在iterators子包中提供。
  */
-public class IteratorUtils {
+public class IteratorUtils  {
 
 
     // Empty

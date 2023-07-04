@@ -1,4 +1,4 @@
-package top.lytree.stream;
+package top.lytree.lang;
 
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;

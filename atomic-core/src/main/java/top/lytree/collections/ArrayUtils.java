@@ -19,7 +19,7 @@ package top.lytree.collections;
 
 import top.lytree.bean.ClassUtils;
 import top.lytree.bean.ObjectUtils;
-import top.lytree.stream.StreamUtil;
+import top.lytree.lang.StreamUtil;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
