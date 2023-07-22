@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import io.lettuce.core.RedisClient;
+
 import java.time.Duration;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -30,13 +32,11 @@ public class RedisCachingConfig extends CachingConfigurerSupport {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
 
-        Jackson2JsonRedisSerializer serializer = getRedisSerializer();
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         mapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-        serializer.setObjectMapper(mapper);
-
+        Jackson2JsonRedisSerializer serializer = getRedisSerializer(mapper);
         // 使用StringRedisSerializer来序列化和反序列化redis的key值
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(serializer);
@@ -64,9 +64,12 @@ public class RedisCachingConfig extends CachingConfigurerSupport {
                 .cacheDefaults(redisCacheConfiguration).build();
     }
 
+    private Jackson2JsonRedisSerializer<Object> getRedisSerializer(ObjectMapper mapper) {
+        return new Jackson2JsonRedisSerializer<>(mapper, Object.class);
+    }
+
     private Jackson2JsonRedisSerializer<Object> getRedisSerializer() {
         return new Jackson2JsonRedisSerializer<>(Object.class);
     }
-
 
 }

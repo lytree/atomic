@@ -8,7 +8,7 @@ package top.lytree.time;
  * @see #Q3
  * @see #Q4
  *
- * @author zhfish(https://github.com/zhfish)
+ * @author zhfish(< a href = " https : / / github.com / zhfish " > ... < / a >)
  *
  */
 public enum Quarter {
