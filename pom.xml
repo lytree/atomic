@@ -88,9 +88,7 @@
       <dependency>
         <groupId>org.mapstruct</groupId>
         <artifactId>mapstruct</artifactId>
-        <version>
-          ${mapstruct.version}
-        </version>
+        <version>${mapstruct.version}</version>
       </dependency>
       <dependency>
         <groupId>mysql</groupId>
@@ -216,6 +214,11 @@
       <groupId>org.slf4j</groupId>
       <artifactId>jul-to-slf4j</artifactId>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>
