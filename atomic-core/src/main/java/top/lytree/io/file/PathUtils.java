@@ -772,6 +772,31 @@ public final class PathUtils {
     public static Path getTempDirectory() {
         return Paths.get(FileUtils.getTempDirectoryPath());
     }
+    /**
+     * 判断给定的目录是否为给定文件或文件夹的子目录
+     *
+     * @param parent 父目录
+     * @param sub    子目录
+     * @return 子目录是否为父目录的子目录
+     * @since 5.5.5
+     */
+    public static boolean isSub(final Path parent, final Path sub) {
+        return toAbsNormal(sub).startsWith(toAbsNormal(parent));
+    }
+
+    /**
+     * 将Path路径转换为标准的绝对路径
+     *
+     * @param path 文件或目录Path
+     * @return 转换后的Path
+     * @since 5.5.5
+     */
+    public static Path toAbsNormal(final Path path) {
+        if (null == path) {
+            return null;
+        }
+        return path.toAbsolutePath().normalize();
+    }
 
     /**
      * Tests whether the given {@code Path} is a directory or not. Implemented as a null-safe delegate to {@code Files.isDirectory(Path path, LinkOption... options)}.

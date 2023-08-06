@@ -48,6 +48,9 @@ import java.util.stream.Stream;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedInputStream;
 import java.util.zip.Checksum;
+
+import top.lytree.collections.ArrayUtils;
+import top.lytree.lang.CharUtils;
 import top.lytree.lang.CharsetUtils;
 import top.lytree.exception.FileExistsException;
 import top.lytree.io.file.AccumulatorPathVisitor;
@@ -63,7 +66,10 @@ import top.lytree.io.filefilter.NameFileFilter;
 import top.lytree.io.filefilter.SuffixFileFilter;
 import top.lytree.io.filefilter.TrueFileFilter;
 import top.lytree.io.function.IOConsumer;
+import top.lytree.lang.StringUtils;
 import top.lytree.thread.ThreadUtil;
+import top.lytree.utils.Assert;
+import top.lytree.utils.SystemUtils;
 
 public class FileUtils {
 
@@ -278,6 +284,26 @@ public class FileUtils {
     }
 
     /**
+     * 检查父完整路径是否为自路径的前半部分，如果不是说明不是子路径，可能存在slip注入。
+     * <p>
+     * 见http://blog.nsfocus.net/zip-slip-2/
+     *
+     * @param parentFile 父文件或目录
+     * @param file       子文件或目录
+     * @return 子文件或目录
+     * @throws IllegalArgumentException 检查创建的子文件不在父目录中抛出此异常
+     */
+    public static File checkSlip(final File parentFile, final File file) throws IllegalArgumentException {
+        if (null != parentFile && null != file) {
+            if (!isS(parentFile, file)) {
+                throw new IllegalArgumentException(StringUtils.format(
+                        "New file [{}] is outside of the parent dir: [{}]", file, parentFile));
+            }
+        }
+        return file;
+    }
+
+    /**
      * 清除目录而不删除目录。
      *
      * @param directory directory to clean
@@ -397,7 +423,7 @@ public class FileUtils {
 
         final Charset charset = CharsetUtils.toCharset(charsetName);
         try (Reader input1 = new InputStreamReader(Files.newInputStream(file1.toPath()), charset);
-                Reader input2 = new InputStreamReader(Files.newInputStream(file2.toPath()), charset)) {
+             Reader input2 = new InputStreamReader(Files.newInputStream(file2.toPath()), charset)) {
             return IOUtils.contentEqualsIgnoreEOL(input1, input2);
         }
     }
@@ -607,7 +633,7 @@ public class FileUtils {
      * @throws IOException              if an error occurs or setting the last-modified time didn't succeeded.
      */
     public static void copyDirectory(final File srcDir, final File destDir, final FileFilter fileFilter, final boolean preserveFileDate,
-            final CopyOption... copyOptions) throws IOException {
+                                     final CopyOption... copyOptions) throws IOException {
         requireFileCopy(srcDir, destDir);
         requireDirectory(srcDir, "srcDir");
         requireCanonicalPathsNotEquals(srcDir, destDir);
@@ -1135,7 +1161,7 @@ public class FileUtils {
      * @throws IOException if the given file object is not a directory.
      */
     private static void doCopyDirectory(final File srcDir, final File destDir, final FileFilter fileFilter, final List<String> exclusionList,
-            final boolean preserveDirDate, final CopyOption... copyOptions) throws IOException {
+                                        final boolean preserveDirDate, final CopyOption... copyOptions) throws IOException {
         // recurse dirs, copy files.
         final File[] srcFiles = listFiles(srcDir, fileFilter);
         requireDirectoryIfExists(destDir, "destDir");
@@ -1155,6 +1181,96 @@ public class FileUtils {
         if (preserveDirDate) {
             setLastModified(srcDir, destDir);
         }
+    }
+
+    /**
+     * 创建File对象
+     *
+     * @param path
+     * @return File
+     */
+    public static File file(final String path) {
+        if (null == path) {
+            return null;
+        }
+        return new File(path);
+    }
+
+    /**
+     * 创建File对象<br>
+     * 此方法会检查slip漏洞，漏洞说明见http://blog.nsfocus.net/zip-slip-2/
+     *
+     * @param parent 父目录
+     * @param path   文件路径
+     * @return File
+     */
+    public static File file(final String parent, final String path) {
+        return file(new File(parent), path);
+    }
+
+    /**
+     * 创建File对象<br>
+     * 根据的路径构建文件，在Win下直接构建，在Linux下拆分路径单独构建
+     * 此方法会检查slip漏洞，漏洞说明见http://blog.nsfocus.net/zip-slip-2/
+     *
+     * @param parent 父文件对象
+     * @param path   文件路径
+     * @return File
+     */
+    public static File file(final File parent, final String path) {
+        if (StringUtils.isBlank(path)) {
+            throw new NullPointerException("File path is blank!");
+        }
+        return checkSlip(parent, buildFile(parent, path));
+    }
+
+    /**
+     * 通过多层目录参数创建文件<br>
+     * 此方法会检查slip漏洞，漏洞说明见http://blog.nsfocus.net/zip-slip-2/
+     *
+     * @param directory 父目录
+     * @param names     元素名（多层目录名），由外到内依次传入
+     * @return the file 文件
+     * @since 4.0.6
+     */
+    public static File file(final File directory, final String... names) {
+        Assert.notNull(directory, "directory must not be null");
+        if (ArrayUtils.isEmpty(names)) {
+            return directory;
+        }
+
+        File file = directory;
+        for (final String name : names) {
+            if (null != name) {
+                file = file(file, name);
+            }
+        }
+        return file;
+    }
+
+    /**
+     * 通过多层目录创建文件
+     * <p>
+     * 元素名（多层目录名）
+     *
+     * @param names 多层文件的文件名，由外到内依次传入
+     * @return the file 文件
+     * @since 4.0.6
+     */
+    public static File file(final String... names) {
+        if (ArrayUtils.isEmpty(names)) {
+            return null;
+        }
+
+        File file = null;
+        for (final String name : names) {
+            if (file == null) {
+                file = file(name);
+            } else {
+                file = file(file, name);
+            }
+        }
+        return file;
     }
 
     /**
@@ -1308,6 +1424,20 @@ public class FileUtils {
      */
     public static String getUserDirectoryPath() {
         return System.getProperty("user.home");
+    }
+
+    /**
+     * 判断给定的目录是否为给定文件或文件夹的子目录
+     *
+     * @param parent 父目录，非空
+     * @param sub    子目录，非空
+     * @return 子目录是否为父目录的子目录
+     * @since 4.5.4
+     */
+    public static boolean isSub(final File parent, final File sub) {
+        Assert.notNull(parent);
+        Assert.notNull(sub);
+        return PathUtils.isSub(parent.toPath(), sub.toPath());
     }
 
     /**
@@ -1843,7 +1973,7 @@ public class FileUtils {
     }
 
     private static AccumulatorPathVisitor listAccumulate(final File directory, final IOFileFilter fileFilter, final IOFileFilter dirFilter,
-            final FileVisitOption... options) throws IOException {
+                                                         final FileVisitOption... options) throws IOException {
         final boolean isDirFilterSet = dirFilter != null;
         final FileEqualsFileFilter rootDirFilter = new FileEqualsFileFilter(directory);
         final PathFilter dirPathFilter = isDirFilterSet ? rootDirFilter.or(dirFilter) : rootDirFilter;
@@ -2226,10 +2356,10 @@ public class FileUtils {
      * @param file        the file to read, must not be {@code null}
      * @param charsetName the name of the requested charset, {@code null} means platform default
      * @return the file contents, never {@code null}
-     * @throws NullPointerException                         if file is {@code null}.
-     * @throws FileNotFoundException                        if the file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for
-     *                                                      reading.
-     * @throws IOException                                  if an I/O error occurs.
+     * @throws NullPointerException        if file is {@code null}.
+     * @throws FileNotFoundException       if the file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for
+     *                                     reading.
+     * @throws IOException                 if an I/O error occurs.
      * @throws UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the named charset is unavailable.
      */
     public static String readFileToString(final File file, final String charsetName) throws IOException {
@@ -2258,10 +2388,10 @@ public class FileUtils {
      * @param file        the file to read, must not be {@code null}
      * @param charsetName the name of the requested charset, {@code null} means platform default
      * @return the list of Strings representing each line in the file, never {@code null}
-     * @throws NullPointerException                         if file is {@code null}.
-     * @throws FileNotFoundException                        if the file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for
-     *                                                      reading.
-     * @throws IOException                                  if an I/O error occurs.
+     * @throws NullPointerException        if file is {@code null}.
+     * @throws FileNotFoundException       if the file does not exist, is a directory rather than a regular file, or for some other reason cannot be opened for
+     *                                     reading.
+     * @throws IOException                 if an I/O error occurs.
      * @throws UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the named charset is unavailable.
      */
     public static List<String> readLines(final File file, final String charsetName) throws IOException {
@@ -2743,7 +2873,7 @@ public class FileUtils {
     }
 
     /**
-     *写入一个CharSequence到一个文件，如果该文件不存在则创建该文件。
+     * 写入一个CharSequence到一个文件，如果该文件不存在则创建该文件。
      *
      * @param file        the file to write
      * @param data        the content to write to the file
@@ -2764,9 +2894,9 @@ public class FileUtils {
      * @param data        the content to write to the file
      * @param charsetName the name of the requested charset, {@code null} means platform default
      * @param append      if {@code true}, then the data will be added to the end of the file rather than overwriting
-     * @throws IOException                                  in case of an I/O error
+     * @throws IOException                 in case of an I/O error
      * @throws UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported by the
-     *                                                      VM
+     *                                     VM
      */
     public static void write(final File file, final CharSequence data, final String charsetName, final boolean append) throws IOException {
         write(file, data, CharsetUtils.toCharset(charsetName), append);
@@ -2828,7 +2958,7 @@ public class FileUtils {
     }
 
     /**
-     *将集合中每个项的{@code toString()}值逐行写入指定的{@code File}。将使用默认的VM编码和默认行结束。
+     * 将集合中每个项的{@code toString()}值逐行写入指定的{@code File}。将使用默认的VM编码和默认行结束。
      *
      * @param file  the file to write to
      * @param lines the lines to write, {@code null} entries produce blank lines
@@ -2840,7 +2970,7 @@ public class FileUtils {
 
 
     /**
-     *将集合中每个项的{@code toString()}值逐行写入指定的{@code File}。将使用默认的VM编码和默认行结束。
+     * 将集合中每个项的{@code toString()}值逐行写入指定的{@code File}。将使用默认的VM编码和默认行结束。
      *
      * @param file   the file to write to
      * @param lines  the lines to write, {@code null} entries produce blank lines
@@ -2989,15 +3119,15 @@ public class FileUtils {
     }
 
     /**
-     *将字符串写入文件，如果文件不存在则创建该文件。
+     * 将字符串写入文件，如果文件不存在则创建该文件。
      *
      * @param file        the file to write
      * @param data        the content to write to the file
      * @param charsetName the name of the requested charset, {@code null} means platform default
      * @param append      if {@code true}, then the String will be added to the end of the file rather than overwriting
-     * @throws IOException                                  in case of an I/O error
+     * @throws IOException                 in case of an I/O error
      * @throws UnsupportedCharsetException thrown instead of {@link java.io .UnsupportedEncodingException} in version 2.2 if the encoding is not supported by the
-     *                                                      VM
+     *                                     VM
      */
     public static void writeStringToFile(final File file, final String data, final String charsetName, final boolean append) throws IOException {
         writeStringToFile(file, data, CharsetUtils.toCharset(charsetName), append);
@@ -3068,6 +3198,36 @@ public class FileUtils {
             ThreadUtil.sleep(sleepMillis);
         }
         return dir.exists();
+    }
+
+    /**
+     * 根据压缩包中的路径构建目录结构，在Win下直接构建，在Linux下拆分路径单独构建
+     *
+     * @param outFile  最外部路径
+     * @param fileName 文件名，可以包含路径
+     * @return 文件或目录
+     * @since 5.0.5
+     */
+    private static File buildFile(File outFile, String fileName) {
+        // 替换Windows路径分隔符为Linux路径分隔符，便于统一处理
+        fileName = fileName.replace(CharUtils.BACKSLASH, CharUtils.SLASH);
+        if (!FilenameUtils.isSystemWindows()
+                // 检查文件名中是否包含"/"，不考虑以"/"结尾的情况
+                && fileName.lastIndexOf(CharUtils.SLASH, fileName.length() - 2) > 0) {
+            // 在Linux下多层目录创建存在问题，/会被当成文件名的一部分，此处做处理
+            // 使用/拆分路径（zip中无\），级联创建父目录
+            final String[] pathParts = StringUtils.split(fileName, StringUtils.SLASH);
+            final int lastPartIndex = pathParts.length - 1;//目录个数
+            for (int i = 0; i < lastPartIndex; i++) {
+                //由于路径拆分，slip不检查，在最后一步检查
+                outFile = new File(outFile, pathParts[i]);
+            }
+            //noinspection ResultOfMethodCallIgnored
+            outFile.mkdirs();
+            // 最后一个部分如果非空，作为文件名
+            fileName = pathParts[lastPartIndex];
+        }
+        return new File(outFile, fileName);
     }
 
 }

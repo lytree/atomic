@@ -17,10 +17,12 @@
 package top.lytree.lang;
 
 
+import java.io.File;
+
 /**
  * @author pride
  */
-public class CharUtils  {
+public class CharUtils {
 
     /**
      * 字符常量：空格符 {@code ' '}
@@ -168,7 +170,6 @@ public class CharUtils  {
      *
      * @param c 字符
      * @return 是否为16进制规范的字符
-     * 
      */
     public static boolean isHexChar(char c) {
         return isNumber(c) || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
@@ -189,5 +190,9 @@ public class CharUtils  {
                 ((c >= 0x20) && (c <= 0xD7FF)) || //
                 ((c >= 0xE000) && (c <= 0xFFFD)) || //
                 ((c >= 0x100000) && (c <= 0x10FFFF)));
+    }
+
+    public static boolean isFileSeparator(char separator) {
+        return File.separatorChar == separator;
     }
 }

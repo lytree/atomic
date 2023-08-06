@@ -26,10 +26,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import org.apache.commons.lang3.function.ToBooleanBiFunction;
 import top.lytree.Filter;
 import top.lytree.bean.ObjectUtils;
 import top.lytree.collections.ArrayUtils;
-import top.lytree.function.ToBooleanBiFunction;
 import top.lytree.text.StringFormatter;
 
 
@@ -229,6 +229,7 @@ public class StringUtils {
     public static int length(final CharSequence cs) {
         return cs == null ? 0 : cs.length();
     }
+
     /**
      * Check if a CharSequence ends with a specified suffix.
      *
@@ -245,11 +246,11 @@ public class StringUtils {
      * StringUtils.endsWith("ABCDEF", "")    = true
      * </pre>
      *
-     * @see String#endsWith(String)
-     * @param str  the CharSequence to check, may be null
+     * @param str    the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
      * @return {@code true} if the CharSequence ends with the suffix, case-sensitive, or
-     *  both {@code null}
+     * both {@code null}
+     * @see String#endsWith(String)
      * @since 2.4
      * @since 3.0 Changed signature from endsWith(String, String) to endsWith(CharSequence, CharSequence)
      */
@@ -260,13 +261,13 @@ public class StringUtils {
     /**
      * Check if a CharSequence ends with a specified suffix (optionally case insensitive).
      *
-     * @see String#endsWith(String)
-     * @param str  the CharSequence to check, may be null
-     * @param suffix the suffix to find, may be null
+     * @param str        the CharSequence to check, may be null
+     * @param suffix     the suffix to find, may be null
      * @param ignoreCase indicates whether the compare should ignore case
-     *  (case-insensitive) or not.
+     *                   (case-insensitive) or not.
      * @return {@code true} if the CharSequence starts with the prefix or
-     *  both {@code null}
+     * both {@code null}
+     * @see String#endsWith(String)
      */
     private static boolean endsWith(final CharSequence str, final CharSequence suffix, final boolean ignoreCase) {
         if (str == null || suffix == null) {
@@ -293,11 +294,11 @@ public class StringUtils {
      * StringUtils.endsWithAny("abcXYZ", "def", "xyz") = false
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
+     * @param sequence      the CharSequence to check, may be null
      * @param searchStrings the case-sensitive CharSequences to find, may be empty or contain {@code null}
-     * @see StringUtils#endsWith(CharSequence, CharSequence)
      * @return {@code true} if the input {@code sequence} is {@code null} AND no {@code searchStrings} are provided, or
-     *   the input {@code sequence} ends in any of the provided case-sensitive {@code searchStrings}.
+     * the input {@code sequence} ends in any of the provided case-sensitive {@code searchStrings}.
+     * @see StringUtils#endsWith(CharSequence, CharSequence)
      * @since 3.0
      */
     public static boolean endsWithAny(final CharSequence sequence, final CharSequence... searchStrings) {
@@ -327,11 +328,11 @@ public class StringUtils {
      * StringUtils.endsWithIgnoreCase("ABCDEF", "cde") = false
      * </pre>
      *
-     * @see String#endsWith(String)
-     * @param str  the CharSequence to check, may be null
+     * @param str    the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
      * @return {@code true} if the CharSequence ends with the suffix, case-insensitive, or
-     *  both {@code null}
+     * both {@code null}
+     * @see String#endsWith(String)
      * @since 2.4
      * @since 3.0 Changed signature from endsWithIgnoreCase(String, String) to endsWithIgnoreCase(CharSequence, CharSequence)
      */
@@ -1735,6 +1736,7 @@ public class StringUtils {
         } while (found < ordinal);
         return index;
     }
+
     /**
      * Searches a CharSequence to find the first index of any
      * character not in the given set of characters.
@@ -1750,11 +1752,11 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut("zzabyycdxx", new char[] {'z', 'a'} ) = 3
      * StringUtils.indexOfAnyBut("aba", new char[] {'z'} )             = 0
      * StringUtils.indexOfAnyBut("aba", new char[] {'a', 'b'} )        = -1
-
+     *
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
+     * @param cs          the CharSequence to check, may be null
+     * @param searchChars the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAnyBut(String, char[]) to indexOfAnyBut(CharSequence, char...)
@@ -1802,8 +1804,8 @@ public class StringUtils {
      * StringUtils.indexOfAnyBut("aba", "ab")        = -1
      * </pre>
      *
-     * @param seq  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
+     * @param seq         the CharSequence to check, may be null
+     * @param searchChars the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      * @since 2.0
      * @since 3.0 Changed signature from indexOfAnyBut(String, String) to indexOfAnyBut(CharSequence, CharSequence)
@@ -1997,35 +1999,9 @@ public class StringUtils {
      * @since 3.4
      */
     public static boolean containsAny(final CharSequence cs, final CharSequence... searchCharSequences) {
-        return containsAny(StringUtils::contains, cs, searchCharSequences);
+        return org.apache.commons.lang3.StringUtils.containsAny(cs, searchCharSequences);
     }
 
-    /**
-     * Checks if the CharSequence contains any of the CharSequences in the given array.
-     *
-     * <p>
-     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
-     * return {@code false}.
-     * </p>
-     *
-     * @param cs                  The CharSequence to check, may be null
-     * @param searchCharSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
-     *                            null as well.
-     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
-     * @since 3.12.0
-     */
-    private static boolean containsAny(final ToBooleanBiFunction<CharSequence, CharSequence> test,
-                                       final CharSequence cs, final CharSequence... searchCharSequences) {
-        if (isEmpty(cs) || ArrayUtils.isEmpty(searchCharSequences)) {
-            return false;
-        }
-        for (final CharSequence searchCharSequence : searchCharSequences) {
-            if (test.applyAsBoolean(cs, searchCharSequence)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.
@@ -2054,7 +2030,7 @@ public class StringUtils {
      * @since 3.12.0
      */
     public static boolean containsAnyIgnoreCase(final CharSequence cs, final CharSequence... searchCharSequences) {
-        return containsAny(StringUtils::containsIgnoreCase, cs, searchCharSequences);
+        return org.apache.commons.lang3.StringUtils.containsAnyIgnoreCase(cs, searchCharSequences);
     }
 
     /**
@@ -4107,4 +4083,7 @@ public class StringUtils {
         return true;
     }
 
+    public static String appendIfMissing(final String str, final CharSequence suffix, final CharSequence... suffixes) {
+        return org.apache.commons.lang3.StringUtils.appendIfMissing(str, suffix, suffixes);
+    }
 }
