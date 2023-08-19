@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
@@ -22,7 +23,6 @@ import top.lytree.lang.StringUtils;
  * @author PrideYang
  */
 public class JSONObject extends JSON {
-
 
 
     public static Object parseObject(String value) {
@@ -48,12 +48,16 @@ public class JSONObject extends JSON {
         }
     }
 
-    public static <T> T parseObject(byte[] value, Class<T> tClass, Supplier<T> defaultSupplier){
+    public static <T> T parseObject(byte[] value, Class<T> tClass) {
+        return value != null ? parseObject(value, tClass, () -> null) : null;
+    }
+
+    public static <T> T parseObject(byte[] value, Class<T> tClass, Supplier<T> defaultSupplier) {
         try {
             if (ArrayUtils.isEmpty(value)) {
                 return defaultSupplier.get();
             }
-            return getObjectMapper().readValue(value,tClass);
+            return getObjectMapper().readValue(value, tClass);
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
