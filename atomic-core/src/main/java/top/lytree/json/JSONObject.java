@@ -13,6 +13,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+
+import top.lytree.bean.ObjectUtils;
+import top.lytree.collections.ArrayUtils;
 import top.lytree.lang.StringUtils;
 
 /**
@@ -30,8 +33,8 @@ public class JSONObject extends JSON {
         return StringUtils.isNotBlank(value) ? parseObject(value, tClass, () -> null) : null;
     }
 
-    public static <T> T parseObject(Object obj, Class<T> tClass) {
-        return obj != null ? parseObject(toJSONString(obj), tClass, () -> null) : null;
+    public static <T> T parseObject(Object value, Class<T> tClass) {
+        return value != null ? parseObject(toJSONString(value), tClass, () -> null) : null;
     }
 
     private static <T> T parseObject(String value, Class<T> tClass, Supplier<T> defaultSupplier) {
@@ -45,6 +48,16 @@ public class JSONObject extends JSON {
         }
     }
 
+    public static <T> T parseObject(byte[] value, Class<T> tClass, Supplier<T> defaultSupplier){
+        try {
+            if (ArrayUtils.isEmpty(value)) {
+                return defaultSupplier.get();
+            }
+            return getObjectMapper().readValue(value,tClass);
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 
     // 简单地直接用json复制或者转换(Cloneable)
     public static <T> T jsonCopy(Object obj, Class<T> tClass) {

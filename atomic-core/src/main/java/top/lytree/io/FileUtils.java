@@ -295,7 +295,7 @@ public class FileUtils {
      */
     public static File checkSlip(final File parentFile, final File file) throws IllegalArgumentException {
         if (null != parentFile && null != file) {
-            if (!isS(parentFile, file)) {
+            if (!isSub(parentFile, file)) {
                 throw new IllegalArgumentException(StringUtils.format(
                         "New file [{}] is outside of the parent dir: [{}]", file, parentFile));
             }
