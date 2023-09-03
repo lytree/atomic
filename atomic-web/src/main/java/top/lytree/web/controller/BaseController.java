@@ -11,7 +11,7 @@ import org.slf4j.MDC;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import top.lytree.model.constants.Globals;
 
-public class BaseController {
+public abstract class BaseController {
 
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 

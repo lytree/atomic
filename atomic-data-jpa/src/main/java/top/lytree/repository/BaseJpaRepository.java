@@ -19,7 +19,7 @@ import org.springframework.data.util.Streamable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
-import top.lytree.model.exception.exception.DataException;
+import top.lytree.exceptions.DataException;
 import top.lytree.model.request.support.BaseQuery;
 import top.lytree.model.request.support.PageQuery;
 

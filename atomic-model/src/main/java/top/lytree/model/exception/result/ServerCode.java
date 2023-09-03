@@ -37,11 +37,11 @@ public enum ServerCode implements ResultCode {
      * 操作代码
      */
 
-    String code;
+    final String code;
     /**
      * 提示信息
      */
-    String message;
+    final String message;
 
     ServerCode(String code, String message) {
 

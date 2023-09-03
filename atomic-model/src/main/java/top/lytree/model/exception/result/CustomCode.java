@@ -4,7 +4,7 @@ package top.lytree.model.exception.result;
 /**
  * @date 2021/8/30 11:06
  */
-public class CustomCode implements ResultCode {
+public final class CustomCode implements ResultCode {
 
     String code;
     String message;

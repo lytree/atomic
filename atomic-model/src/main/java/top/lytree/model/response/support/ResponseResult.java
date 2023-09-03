@@ -4,18 +4,19 @@ package top.lytree.model.response.support;
 import top.lytree.model.exception.result.ResultCode;
 import top.lytree.model.exception.result.ServerCode;
 
+import java.io.Serializable;
+
 
 /**
  * @author yltree
  */
-public class ResponseResult<T> extends BaseResponse {
+public class ResponseResult<T> implements Serializable {
 
     private String requestId;
-    //
     /**
      * 操作代码
      */
-    private String code = SUCCESS_CODE;
+    private String code = "0000";
 
     //
     /**
@@ -28,14 +29,12 @@ public class ResponseResult<T> extends BaseResponse {
     private T data;
 
     public ResponseResult(ResultCode resultCode, String requestId) {
-        super(requestId);
         this.code = resultCode.getCode();
         this.message = resultCode.getMessage();
         this.requestId = requestId;
     }
 
     public ResponseResult(ResultCode resultCode, T data, String requestId) {
-        super(requestId);
         this.code = resultCode.getCode();
         this.message = resultCode.getMessage();
         this.data = data;

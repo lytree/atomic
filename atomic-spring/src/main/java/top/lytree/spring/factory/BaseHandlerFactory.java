@@ -23,7 +23,7 @@ public abstract class BaseHandlerFactory<T> {
         if (handlers.containsKey(key)) {
             return handlers.get(key);
         } else {
-            return getDefaultHandler(key);
+            return getDefaultHandler();
         }
     }
 
@@ -31,9 +31,6 @@ public abstract class BaseHandlerFactory<T> {
         this.handlers.remove(key);
     }
 
-    protected T getDefaultHandler(String key) {
-        return null;
-    }
 
     public Set<String> keys() {
         return this.handlers.keySet();
