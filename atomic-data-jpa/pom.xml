@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>atomic-data-jpa</artifactId>
-  <version>2.0</version>
+  <version>${project.parent.version}</version>
   <parent>
     <groupId>top.lytree</groupId>
     <artifactId>atomic</artifactId>
@@ -19,17 +19,17 @@
     <dependency>
       <groupId>top.lytree</groupId>
       <artifactId>atomic-core</artifactId>
-      <version>2.0</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>top.lytree</groupId>
       <artifactId>atomic-spring</artifactId>
-      <version>2.0</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>top.lytree</groupId>
       <artifactId>atomic-model</artifactId>
-      <version>2.0</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <dependency>
       <groupId>net.bytebuddy</groupId>

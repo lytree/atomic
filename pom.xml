@@ -53,6 +53,7 @@
     <module>atomic-model</module>
     <module>atomic-http</module>
     <module>atomic-ftp</module>
+      <module>atomic-crypto</module>
   </modules>
   <dependencyManagement>
     <dependencies>
